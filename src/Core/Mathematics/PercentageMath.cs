@@ -34,4 +34,3 @@ namespace StardustSandbox.Core.Mathematics
         }
     }
 }
-

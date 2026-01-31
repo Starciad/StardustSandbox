@@ -114,4 +114,3 @@ namespace StardustSandbox.Core.Enums.Elements
         EnergyTransmitter = 90,
     }
 }
-

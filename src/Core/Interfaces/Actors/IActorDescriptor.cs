@@ -28,4 +28,3 @@ namespace StardustSandbox.Core.Interfaces.Actors
         void Enqueue(Actor actor);
     }
 }
-

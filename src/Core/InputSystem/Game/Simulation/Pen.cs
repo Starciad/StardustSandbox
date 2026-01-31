@@ -60,4 +60,3 @@ namespace StardustSandbox.Core.InputSystem.Game.Simulation
         }
     }
 }
-

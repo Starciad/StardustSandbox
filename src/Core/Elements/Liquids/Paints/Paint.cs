@@ -49,4 +49,3 @@ namespace StardustSandbox.Core.Elements.Liquids.Paints
         }
     }
 }
-

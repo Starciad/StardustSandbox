@@ -25,4 +25,3 @@ namespace StardustSandbox.Core.Enums.Backgrounds
         Credits
     }
 }
-

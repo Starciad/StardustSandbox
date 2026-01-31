@@ -73,4 +73,3 @@ namespace StardustSandbox.Core.Backgrounds.Clouds
         }
     }
 }
-

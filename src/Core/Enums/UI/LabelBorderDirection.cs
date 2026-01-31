@@ -34,4 +34,3 @@ namespace StardustSandbox.Core.Enums.UI
         All = North | NorthEast | East | SouthEast | South | SouthWest | West | NorthWest
     }
 }
-

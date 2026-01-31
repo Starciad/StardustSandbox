@@ -31,4 +31,3 @@ namespace StardustSandbox.Core.Constants
 #endif
     }
 }
-

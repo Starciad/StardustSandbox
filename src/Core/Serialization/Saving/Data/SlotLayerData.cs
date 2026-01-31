@@ -33,14 +33,14 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
         [IgnoreMember]
         public Color ColorModifier
         {
-            get => new(ColorModifierR, ColorModifierG, ColorModifierB, ColorModifierA);
+            get => new(this.ColorModifierR, this.ColorModifierG, this.ColorModifierB, this.ColorModifierA);
 
             set
             {
-                ColorModifierR = value.R;
-                ColorModifierG = value.G;
-                ColorModifierB = value.B;
-                ColorModifierA = value.A;
+                this.ColorModifierR = value.R;
+                this.ColorModifierG = value.G;
+                this.ColorModifierB = value.B;
+                this.ColorModifierA = value.A;
             }
         }
 
@@ -78,12 +78,12 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
 
         public SlotLayerData(SlotLayer slotLayer)
         {
-            ColorModifier = slotLayer.ColorModifier;
-            ElementIndex = slotLayer.ElementIndex;
-            States = slotLayer.States;
-            StepCycleFlag = slotLayer.StepCycleFlag;
-            StoredElementIndex = slotLayer.StoredElementIndex;
-            Temperature = slotLayer.Temperature;
+            this.ColorModifier = slotLayer.ColorModifier;
+            this.ElementIndex = slotLayer.ElementIndex;
+            this.States = slotLayer.States;
+            this.StepCycleFlag = slotLayer.StepCycleFlag;
+            this.StoredElementIndex = slotLayer.StoredElementIndex;
+            this.Temperature = slotLayer.Temperature;
         }
     }
 }

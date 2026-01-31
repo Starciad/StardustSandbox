@@ -637,7 +637,7 @@
     <value>Elektrizität</value>
   </data>
   <data name="Energy.Electricity.Description" xml:space="preserve">
-    <value>Ein elektrischer Fluss, der sich unregelmäßig durch leitfähige Materialien bewegt. Wenn er einen Leiter erreicht, reist er unendlich entlang, bis er auf eine Sackgasse trifft oder sich auflöst.</value>
+    <value>Energiefluss, der sich durch Leiter ausbreitet.</value>
   </data>
   <data name="Solid.Immovable.Battery.Name" xml:space="preserve">
     <value>Batterie</value>

@@ -30,6 +30,9 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
 
         [Key("IsFrozen")]
         public bool IsFrozen { get; set; }
+
+        [Key("Temperatures")]
+        public TemperatureData[] Temperatures { get; set; }
     }
 }
 

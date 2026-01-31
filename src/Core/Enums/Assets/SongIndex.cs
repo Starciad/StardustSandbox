@@ -30,4 +30,3 @@ namespace StardustSandbox.Core.Enums.Assets
         Volume_01_Track_06
     }
 }
-

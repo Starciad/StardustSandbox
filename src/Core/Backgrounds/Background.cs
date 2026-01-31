@@ -54,4 +54,3 @@ namespace StardustSandbox.Core.Backgrounds
         }
     }
 }
-

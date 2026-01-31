@@ -56,4 +56,3 @@ namespace StardustSandbox.Core.InputSystem.Actions
         }
     }
 }
-

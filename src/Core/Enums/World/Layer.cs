@@ -23,4 +23,3 @@ namespace StardustSandbox.Core.Enums.World
         Background = 1,
     }
 }
-

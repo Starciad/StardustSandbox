@@ -26,4 +26,3 @@ namespace StardustSandbox.Core.Enums.Generators
         Ocean
     }
 }
-

@@ -24,4 +24,3 @@ namespace StardustSandbox.Core.Enums.Simulation
         VeryFast = 2
     }
 }
-

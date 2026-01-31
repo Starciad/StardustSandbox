@@ -58,4 +58,3 @@ namespace StardustSandbox.Core.Actors
         internal abstract void Deserialize(ActorData data);
     }
 }
-

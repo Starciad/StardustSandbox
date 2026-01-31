@@ -41,4 +41,3 @@ namespace StardustSandbox.Core.Elements.Gases
         }
     }
 }
-

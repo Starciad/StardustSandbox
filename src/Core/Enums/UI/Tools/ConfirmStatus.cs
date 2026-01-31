@@ -23,4 +23,3 @@ namespace StardustSandbox.Core.Enums.UI.Tools
         Confirmed = 1
     }
 }
-

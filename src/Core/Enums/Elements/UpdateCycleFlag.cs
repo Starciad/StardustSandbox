@@ -24,4 +24,3 @@ namespace StardustSandbox.Core.Enums.Elements
         Secondary = 2
     }
 }
-

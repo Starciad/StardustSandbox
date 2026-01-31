@@ -49,4 +49,3 @@ namespace StardustSandbox.Core.Enums.UI
         WorldExplorerMenu,
     }
 }
-

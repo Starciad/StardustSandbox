@@ -637,7 +637,7 @@
     <value>Électricité</value>
   </data>
   <data name="Energy.Electricity.Description" xml:space="preserve">
-    <value>Un flux électrique qui se déplace de manière irrégulière à travers des matériaux conducteurs. Lorsqu'il atteint un conducteur, il voyage le long de celui-ci indéfiniment jusqu'à ce qu'il atteigne une impasse ou se dissipe.</value>
+    <value>Flux d'énergie qui se propage à travers les conducteurs.</value>
   </data>
   <data name="Solid.Immovable.Battery.Name" xml:space="preserve">
     <value>Batterie</value>

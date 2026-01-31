@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,27 +15,41 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
+using MessagePack;
 
-using StardustSandbox.Core.Enums.Inputs;
-using StardustSandbox.Core.Enums.Inputs.Game;
-using StardustSandbox.Core.Enums.Items;
-using StardustSandbox.Core.InputSystem.Game.Simulation;
-using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem;
 
-namespace StardustSandbox.Core.InputSystem.Game.Handlers.Gizmos
+using System;
+
+namespace StardustSandbox.Core.Serialization.Saving.Data
 {
-    internal sealed class VisualizationGizmo : Gizmo
+    [Serializable]
+    [MessagePackObject]
+    public sealed class TemperatureData
     {
-        internal VisualizationGizmo(ActorManager actorManager, Pen pen, World world, WorldHandler worldHandler) : base(actorManager, pen, world, worldHandler)
+        [Key("StartTime")]
+        public TimeSpan StartTime { get; set; }
+
+        [Key("EndTime")]
+        public TimeSpan EndTime { get; set; }
+
+        [Key("CanApplyTemperature")]
+        public bool CanApplyTemperature { get; set; }
+
+        [Key("Temperature")]
+        public float Temperature { get; set; }
+
+        public TemperatureData()
         {
 
         }
 
-        internal override void Execute(in WorldModificationType worldModificationType, in InputState inputState, in ItemContentType contentType, in int contentIndex, in Point position)
+        internal TemperatureData(TemperatureRange temperatureRange)
         {
-            return;
+            this.StartTime = temperatureRange.StartTime;
+            this.EndTime = temperatureRange.EndTime;
+            this.CanApplyTemperature = temperatureRange.CanApplyTemperature;
+            this.Temperature = temperatureRange.Temperature;
         }
     }
 }

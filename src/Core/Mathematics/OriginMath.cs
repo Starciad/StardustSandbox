@@ -67,4 +67,3 @@ namespace StardustSandbox.Core.Mathematics
         }
     }
 }
-

@@ -72,4 +72,3 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         }
     }
 }
-

@@ -82,4 +82,3 @@ namespace StardustSandbox.Core.Extensions
         }
     }
 }
-

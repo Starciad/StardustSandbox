@@ -76,37 +76,37 @@ namespace StardustSandbox.Core.UI.Common.HUD
                     new(TextureIndex.IconUI, new(224, 192, 32, 32), Localization_GUIs.TemperatureSettings_Temperature_None_Name, Localization_GUIs.TemperatureSettings_Temperature_None_Description, () =>
                     {
                         this.Index = TemperatureIndex.None;
-                        world.Temperature.SetTemperatureValue(this.StartTime, 0.0f, false);
+                        world.Temperature.SetTemperatureValue(this.StartTime, WorldConstants.NONE_TEMPERATURE, false);
                     }),
 
                     new(TextureIndex.IconUI, new(0, 224, 32, 32), Localization_GUIs.TemperatureSettings_Temperature_VeryCold_Name, Localization_GUIs.TemperatureSettings_Temperature_VeryCold_Description, () =>
                     {
                         this.Index = TemperatureIndex.VeryCold;
-                        world.Temperature.SetTemperatureValue(this.StartTime, -60.0f, true);
+                        world.Temperature.SetTemperatureValue(this.StartTime, WorldConstants.VERY_COLD_TEMPERATURE, true);
                     }),
 
                     new(TextureIndex.IconUI, new(32, 224, 32, 32), Localization_GUIs.TemperatureSettings_Temperature_Cold_Name, Localization_GUIs.TemperatureSettings_Temperature_Cold_Description, () =>
                     {
                         this.Index = TemperatureIndex.Cold;
-                        world.Temperature.SetTemperatureValue(this.StartTime, -20.0f, true);
+                        world.Temperature.SetTemperatureValue(this.StartTime, WorldConstants.COLD_TEMPERATURE, true);
                     }),
 
                     new(TextureIndex.IconUI, new(64, 224, 32, 32), Localization_GUIs.TemperatureSettings_Temperature_Normal_Name, Localization_GUIs.TemperatureSettings_Temperature_Normal_Description, () =>
                     {
                         this.Index = TemperatureIndex.Normal;
-                        world.Temperature.SetTemperatureValue(this.StartTime, 25.0f, true);
+                        world.Temperature.SetTemperatureValue(this.StartTime, WorldConstants.NORMAL_TEMPERATURE, true);
                     }),
 
                     new(TextureIndex.IconUI, new(96, 224, 32, 32), Localization_GUIs.TemperatureSettings_Temperature_Hot_Name, Localization_GUIs.TemperatureSettings_Temperature_Hot_Description, () =>
                     {
                         this.Index = TemperatureIndex.Hot;
-                        world.Temperature.SetTemperatureValue(this.StartTime, 60.0f, true);
+                        world.Temperature.SetTemperatureValue(this.StartTime, WorldConstants.HOT_TEMPERATURE, true);
                     }),
 
                     new(TextureIndex.IconUI, new(128, 224, 32, 32), Localization_GUIs.TemperatureSettings_Temperature_VeryHot_Name, Localization_GUIs.TemperatureSettings_Temperature_VeryHot_Description, () =>
                     {
                         this.Index = TemperatureIndex.VeryHot;
-                        world.Temperature.SetTemperatureValue(this.StartTime, 90.0f, true);
+                        world.Temperature.SetTemperatureValue(this.StartTime, WorldConstants.VERY_HOT_TEMPERATURE, true);
                     }),
                 ];
 
@@ -139,6 +139,8 @@ namespace StardustSandbox.Core.UI.Common.HUD
         private readonly ButtonInfo exitButtonInfo;
         private readonly Section[] sections;
 
+        private readonly World world;
+
         internal TemperatureSettingsUI(
             TooltipBox tooltipBox,
             UIManager uiManager,
@@ -146,6 +148,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
         ) : base()
         {
             this.tooltipBox = tooltipBox;
+            this.world = world;
 
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI);
 
@@ -342,8 +345,33 @@ namespace StardustSandbox.Core.UI.Common.HUD
             }
         }
 
+        private void SyncSectionsWithWorldTemperature()
+        {
+            for (int i = 0; i < this.sections.Length; i++)
+            {
+                Section section = this.sections[i];
+                TemperatureRange range = this.world.Temperature.GetTemperatureRangeByTime(section.StartTime);
+
+                section.Index = range.Temperature switch
+                {
+                    WorldConstants.VERY_COLD_TEMPERATURE => TemperatureIndex.VeryCold,
+                    WorldConstants.COLD_TEMPERATURE => TemperatureIndex.Cold,
+                    WorldConstants.NORMAL_TEMPERATURE => TemperatureIndex.Normal,
+                    WorldConstants.HOT_TEMPERATURE => TemperatureIndex.Hot,
+                    WorldConstants.VERY_HOT_TEMPERATURE => TemperatureIndex.VeryHot,
+                    _ => TemperatureIndex.None,
+                };
+
+                if (!range.CanApplyTemperature)
+                {
+                    section.Index = TemperatureIndex.None;
+                }
+            }
+        }
+
         protected override void OnOpened()
         {
+            SyncSectionsWithWorldTemperature();
             GameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 

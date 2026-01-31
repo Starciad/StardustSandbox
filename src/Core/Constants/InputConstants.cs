@@ -23,4 +23,3 @@ namespace StardustSandbox.Core.Constants
         internal const sbyte PEN_MAX_SIZE = 09;
     }
 }
-

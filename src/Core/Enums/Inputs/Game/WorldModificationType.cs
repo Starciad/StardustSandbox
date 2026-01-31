@@ -23,4 +23,3 @@ namespace StardustSandbox.Core.Enums.Inputs.Game
         Removing = 1
     }
 }
-

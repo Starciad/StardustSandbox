@@ -44,4 +44,3 @@ namespace StardustSandbox.Core.InputSystem.Game.Handlers.Gizmos
         internal abstract void Execute(in WorldModificationType worldModificationType, in InputState inputState, in ItemContentType contentType, in int contentIndex, in Point position);
     }
 }
-

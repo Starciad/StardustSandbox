@@ -25,4 +25,3 @@ namespace StardustSandbox.Core.Colors
         public readonly Color End => end;
     }
 }
-

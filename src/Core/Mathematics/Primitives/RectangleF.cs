@@ -222,4 +222,3 @@ namespace StardustSandbox.Core.Mathematics.Primitives
         }
     }
 }
-

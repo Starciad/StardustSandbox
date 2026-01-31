@@ -68,4 +68,3 @@ namespace StardustSandbox.Core.Scenario
         }
     }
 }
-
