@@ -38,12 +38,12 @@ namespace StardustSandbox.Core.WorldSystem
             set => this.canApplyTemperature = value;
         }
 
-        private float temperature = WorldConstants.NONE_TEMPERATURE;
+        private float temperature = TemperatureConstants.WORLD_NONE_TEMPERATURE;
         private bool canApplyTemperature = false;
 
         public void Reset()
         {
-            this.temperature = WorldConstants.NONE_TEMPERATURE;
+            this.temperature = TemperatureConstants.WORLD_NONE_TEMPERATURE;
             this.canApplyTemperature = false;
         }
     }

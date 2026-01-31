@@ -36,6 +36,13 @@ namespace StardustSandbox.Core.Constants
         internal const float EQUILIBRIUM_THRESHOLD = 1.0f;
         internal const float COLOR_HEAT_FACTOR = 0.45f;
 
+        internal const float WORLD_NONE_TEMPERATURE = 0.0f;
+        internal const float WORLD_VERY_COLD_TEMPERATURE = -60.0f;
+        internal const float WORLD_COLD_TEMPERATURE = -20.0f;
+        internal const float WORLD_NORMAL_TEMPERATURE = 25.0f;
+        internal const float WORLD_HOT_TEMPERATURE = 60.0f;
+        internal const float WORLD_VERY_HOT_TEMPERATURE = 90.0f;
+
         internal static readonly TemperatureColorRange[] TEMPERATURE_COLOR_RANGES =
         [
             new(-275.0f, -200.0f, AAP64ColorPalette.DarkTeal),
