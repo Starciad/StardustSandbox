@@ -44,7 +44,7 @@ namespace StardustSandbox.Core.WorldSystem
         {
             SlotLayer slotLayer = slot.GetLayer(layer);
 
-            this.elementUpdateContext.Initialize(position, layer, slot);
+            this.elementUpdateContext.Initialize(position, layer);
             slotLayer.Element.SetContext(this.elementUpdateContext);
 
             if (slotLayer.StepCycleFlag == this.stepCycleFlag)

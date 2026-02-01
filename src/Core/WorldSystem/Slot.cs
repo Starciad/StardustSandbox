@@ -30,12 +30,10 @@ namespace StardustSandbox.Core.WorldSystem
         internal bool IsForegroundEmpty => this.Foreground.IsEmpty;
         internal bool IsBackgroundEmpty => this.Background.IsEmpty;
 
-        internal Point Position => this.position;
+        internal Point Position { get; set; }
 
         internal SlotLayer Foreground => this.foreground;
         internal SlotLayer Background => this.background;
-
-        private Point position;
 
         private readonly SlotLayer foreground = new();
         private readonly SlotLayer background = new();
@@ -48,11 +46,6 @@ namespace StardustSandbox.Core.WorldSystem
                 Layer.Background => this.background,
                 _ => null,
             };
-        }
-
-        internal void SetPosition(in Point position)
-        {
-            this.position = position;
         }
 
         internal void Instantiate(in Layer layer, in ElementIndex index)

@@ -66,25 +66,25 @@ namespace StardustSandbox.Core.WorldSystem
                         spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.GRID_SIZE, new(32, 0, 32, 32), new(AAP64ColorPalette.White, gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                     }
 
-                    if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot value))
+                    if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot slot))
                     {
-                        if (this.DrawBackgroundElements && !value.Background.IsEmpty)
+                        if (this.DrawBackgroundElements && !slot.Background.IsEmpty)
                         {
-                            DrawSlotLayer(spriteBatch, value.Position, Layer.Background, value, value.GetLayer(Layer.Background).Element, gameplaySettings);
+                            DrawSlotLayer(spriteBatch, slot.Position, Layer.Background, slot.GetLayer(Layer.Background).Element, gameplaySettings);
                         }
 
-                        if (this.DrawForegroundElements && !value.Foreground.IsEmpty)
+                        if (this.DrawForegroundElements && !slot.Foreground.IsEmpty)
                         {
-                            DrawSlotLayer(spriteBatch, value.Position, Layer.Foreground, value, value.GetLayer(Layer.Foreground).Element, gameplaySettings);
+                            DrawSlotLayer(spriteBatch, slot.Position, Layer.Foreground, slot.GetLayer(Layer.Foreground).Element, gameplaySettings);
                         }
                     }
                 }
             }
         }
 
-        private void DrawSlotLayer(SpriteBatch spriteBatch, in Point position, in Layer layer, Slot slot, Element element, in GameplaySettings gameplaySettings)
+        private void DrawSlotLayer(SpriteBatch spriteBatch, in Point position, in Layer layer, Element element, in GameplaySettings gameplaySettings)
         {
-            this.elementRenderingContext.Initialize(position, layer, slot);
+            this.elementRenderingContext.Initialize(position, layer);
 
             ElementRenderer.Draw(this.elementRenderingContext, element, spriteBatch, element.TextureOriginOffset, gameplaySettings);
         }

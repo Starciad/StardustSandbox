@@ -30,16 +30,20 @@ namespace StardustSandbox.Core.Elements
         internal Temperature WorldTemperature => world.Temperature;
 
         internal Layer Layer { get; private set; }
-        internal Point Position => this.Slot.Position;
+        internal Point Position { get; private set; }
         internal Slot Slot { get; private set; }
         internal SlotLayer SlotLayer => this.Slot.GetLayer(this.Layer);
 
-        internal void Initialize(in Point position, in Layer layer, Slot slot)
+        internal void Initialize(in Point position, in Layer layer)
         {
-            slot.SetPosition(position);
-
             this.Layer = layer;
-            this.Slot = slot;
+            this.Position = position;
+
+            if (world.IsWithinBounds(position))
+            {
+                this.Slot = world[position.X, position.Y];
+                this.Slot.Position = position;
+            }
         }
 
         #region ELEMENTS
