@@ -54,7 +54,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
         private readonly ButtonInfo[] headerButtonInfos, footerButtonInfos;
 
         private readonly Label[] footerButtonLabels = new Label[2];
-        private readonly SlotInfo[] itemButtonSlotInfos = new SlotInfo[UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE];
+        private readonly SlotInfo[] itemButtonSlotInfos = new SlotInfo[UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE];
 
         private readonly WorldDetailsUI worldDetailsMenuUI;
 
@@ -260,8 +260,8 @@ namespace StardustSandbox.Core.UI.Common.Menus
         {
             Vector2 margin = new(32.0f, 118.0f);
 
-            int rows = UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_ROW;
-            int columns = UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_COLUMN;
+            int rows = UIConstants.WORLD_EXPLORER_ITEMS_PER_ROW;
+            int columns = UIConstants.WORLD_EXPLORER_ITEMS_PER_COLUMN;
 
             int index = 0;
 
@@ -364,7 +364,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
                 if (Interaction.OnMouseLeftClick(slotInfoElement.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                    this.worldDetailsMenuUI.SetSaveFile(this.graphicsDevice, this.loadedSaveFiles[(this.currentPage * UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE) + i].Metadata.Name);
+                    this.worldDetailsMenuUI.SetSaveFile(this.graphicsDevice, this.loadedSaveFiles[(this.currentPage * UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE) + i].Metadata.Name);
                     this.uiManager.OpenUI(UIIndex.WorldDetailsMenu);
                     break;
                 }
@@ -397,7 +397,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
         private void UpdatePagination()
         {
-            this.totalPages = Math.Max(1, (int)Math.Ceiling(Convert.ToSingle(this.loadedSaveFiles?.Count ?? 0) / UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE));
+            this.totalPages = Math.Max(1, (int)Math.Ceiling(Convert.ToSingle(this.loadedSaveFiles?.Count ?? 0) / UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE));
             this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
 
             _ = this.pageIndexLabel?.TextContent = string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1));
@@ -405,7 +405,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
         private void ChangeWorldsCatalog()
         {
-            int startIndex = this.currentPage * UIConstants.HUD_WORLD_EXPLORER_ITEMS_PER_PAGE;
+            int startIndex = this.currentPage * UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE;
 
             for (int i = 0; i < this.itemButtonSlotInfos.Length; i++)
             {

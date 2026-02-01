@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Serialization.Settings
+namespace StardustSandbox.Core.Interfaces.Serialization
 {
     public interface ISettingsModule
     {

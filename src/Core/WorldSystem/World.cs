@@ -77,7 +77,7 @@ namespace StardustSandbox.Core.WorldSystem
 
         private readonly ElementNeighbors elementNeighbors;
 
-        private Slot this[int x, int y]
+        internal Slot this[int x, int y]
         {
             get => this.slots[x, y];
             set => this.slots[x, y] = value;
@@ -125,10 +125,10 @@ namespace StardustSandbox.Core.WorldSystem
 
             Slot slot = this[position.X, position.Y];
 
-            slot.SetPosition(position);
+            slot.Position = position;
             slot.Instantiate(layer, index);
 
-            this.worldElementContext.Initialize(position, layer, slot);
+            this.worldElementContext.Initialize(position, layer);
 
             Element element = ElementDatabase.GetElement(index);
 
@@ -155,7 +155,7 @@ namespace StardustSandbox.Core.WorldSystem
             NotifyChunk(newPosition);
 
             this[newPosition.X, newPosition.Y].Copy(layer, this[oldPosition.X, oldPosition.Y].GetLayer(layer));
-            this[newPosition.X, newPosition.Y].SetPosition(newPosition);
+            this[newPosition.X, newPosition.Y].Position = newPosition;
             this[oldPosition.X, oldPosition.Y].Destroy(layer);
 
             return true;
@@ -182,8 +182,8 @@ namespace StardustSandbox.Core.WorldSystem
             this[element1Position.X, element1Position.Y].Copy(layer, this[element2Position.X, element2Position.Y].GetLayer(layer));
             this[element2Position.X, element2Position.Y].Copy(layer, tempSlot.GetLayer(layer));
 
-            this[element1Position.X, element1Position.Y].SetPosition(element1Position);
-            this[element2Position.X, element2Position.Y].SetPosition(element2Position);
+            this[element1Position.X, element1Position.Y].Position = element1Position;
+            this[element2Position.X, element2Position.Y].Position = element2Position;
 
             this.worldSlotsPool.Enqueue(tempSlot);
 
@@ -202,7 +202,7 @@ namespace StardustSandbox.Core.WorldSystem
             Slot slot = this[position.X, position.Y];
             SlotLayer slotLayer = slot.GetLayer(layer);
 
-            this.worldElementContext.Initialize(position, layer, slot);
+            this.worldElementContext.Initialize(position, layer);
             slotLayer.Element.SetContext(this.worldElementContext);
             slotLayer.Element.Destroy();
             slotLayer.Destroy();

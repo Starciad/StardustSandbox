@@ -110,9 +110,9 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 }),
             ];
 
-            this.itemButtonSlotInfos = new SlotInfo[UIConstants.HUD_ITEM_EXPLORER_ITEMS_PER_PAGE];
+            this.itemButtonSlotInfos = new SlotInfo[UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE];
             this.categoryButtonSlotInfos = new SlotInfo[CatalogDatabase.CategoryLength];
-            this.subcategoryButtonSlotInfos = new SlotInfo[UIConstants.HUD_ITEM_EXPLORER_SUB_CATEGORY_BUTTONS_LENGTH];
+            this.subcategoryButtonSlotInfos = new SlotInfo[UIConstants.ITEM_EXPLORER_SUBCATEGORY_BUTTONS_LENGTH];
             this.paginationButtonSlotInfos = new SlotInfo[this.paginationButtonInfos.Length];
         }
 
@@ -232,7 +232,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
         private void BuildSubcategoryButtons()
         {
             int index = 0;
-            int sideCounts = UIConstants.HUD_ITEM_EXPLORER_SUB_CATEGORY_BUTTONS_LENGTH / 2;
+            int sideCounts = UIConstants.ITEM_EXPLORER_SUBCATEGORY_BUTTONS_LENGTH / 2;
             Vector2 margin;
 
             margin = new(-80.0f, 32.0f);
@@ -284,9 +284,9 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
             int index = 0;
 
-            for (byte col = 0; col < UIConstants.HUD_ITEM_EXPLORER_ITEMS_PER_COLUMN; col++)
+            for (byte col = 0; col < UIConstants.ITEM_EXPLORER_ITEMS_PER_COLUMN; col++)
             {
-                for (byte row = 0; row < UIConstants.HUD_ITEM_EXPLORER_ITEMS_PER_ROW; row++)
+                for (byte row = 0; row < UIConstants.ITEM_EXPLORER_ITEMS_PER_ROW; row++)
                 {
                     SlotInfo slot = new(
                         new()
@@ -578,7 +578,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             this.selectedCategory = category;
             this.selectedSubcategory = subcategory;
             this.currentPage = pageIndex;
-            this.totalPages = subcategory.Items.Length / UIConstants.HUD_ITEM_EXPLORER_ITEMS_PER_PAGE;
+            this.totalPages = subcategory.Items.Length / UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE;
 
             ChangeSubcategorCatalog();
             ChangeItemCatalog();
@@ -620,8 +620,8 @@ namespace StardustSandbox.Core.UI.Common.HUD
         {
             this.pageIndexLabel.TextContent = string.Concat(this.currentPage + 1, " / ", this.totalPages + 1);
 
-            int startIndex = this.currentPage * UIConstants.HUD_ITEM_EXPLORER_ITEMS_PER_PAGE;
-            int endIndex = Math.Min(startIndex + UIConstants.HUD_ITEM_EXPLORER_ITEMS_PER_PAGE, this.selectedSubcategory.ItemLength);
+            int startIndex = this.currentPage * UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE;
+            int endIndex = Math.Min(startIndex + UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE, this.selectedSubcategory.ItemLength);
 
             this.selectedItems = this.selectedSubcategory.GetItems(startIndex, endIndex);
             this.selectedItemsLength = this.selectedItems.Length;

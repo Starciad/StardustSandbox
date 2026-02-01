@@ -335,7 +335,7 @@ namespace StardustSandbox.Core.Generators
                     int trunkThickness = 1;
                     int crownRadius = Randomness.Random.Range(2, 4);
 
-                    context.Initialize(origin, layer, world.GetSlot(origin));
+                    context.Initialize(origin, layer);
 
                     TreeGenerator.Start(context, trunkHeight, trunkThickness, crownRadius);
                 }

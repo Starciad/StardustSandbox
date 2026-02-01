@@ -54,11 +54,6 @@ namespace StardustSandbox.Core.UI.Common.Menus
         private readonly UIManager uiManager;
         private readonly World world;
 
-        private const float animationSpeed = 2.0f;
-        private const float animationAmplitude = 10.0f;
-        private const float buttonAnimationSpeed = 1.5f;
-        private const float buttonAnimationAmplitude = 5.0f;
-
         internal MainUI(
             ActorManager actorManager,
             AmbientManager ambientManager,
@@ -212,20 +207,20 @@ namespace StardustSandbox.Core.UI.Common.Menus
         {
             float elapsedTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
-            this.animationTime += elapsedTime * animationSpeed;
+            this.animationTime += elapsedTime * UIConstants.MAIN_ANIMATION_SPEED;
             this.gameTitle.Margin = new(
                 0.0f,
-                32.0f + (MathF.Sin(this.animationTime) * animationAmplitude)
+                32.0f + (MathF.Sin(this.animationTime) * UIConstants.MAIN_ANIMATION_AMPLITUDE)
             );
 
             for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
                 Label button = this.menuButtonLabels[i];
-                this.buttonAnimationOffsets[i] += elapsedTime * buttonAnimationSpeed;
+                this.buttonAnimationOffsets[i] += elapsedTime * UIConstants.MAIN_BUTTON_ANIMATION_SPEED;
 
                 button.Margin = new(
                     0.0f,
-                    (i * 75.0f) + (MathF.Sin(this.buttonAnimationOffsets[i]) * buttonAnimationAmplitude)
+                    (i * 75.0f) + (MathF.Sin(this.buttonAnimationOffsets[i]) * UIConstants.MAIN_BUTTON_ANIMATION_AMPLITUDE)
                 );
             }
         }

@@ -58,12 +58,8 @@ namespace StardustSandbox.Core.UI.Elements
         private float stateTimerSeconds;
 
         // Visual / timing configuration
-        private const float DisplayDurationSeconds = 5.0f;
-        private const float HideDurationSeconds = 0.5f;
-        private const float MarginLerpFactor = 0.2f;
-
-        private static readonly Vector2 HiddenMargin = new(0.0f, 96.0f);
-        private static readonly Vector2 VisibleMargin = new(0.0f, -48.0f);
+        private static readonly Vector2 HIDDEN_MARGIN = new(0.0f, 96.0f);
+        private static readonly Vector2 VISIBLE_MARGIN = new(0.0f, -48.0f);
 
         internal NotificationBox()
         {
@@ -108,7 +104,7 @@ namespace StardustSandbox.Core.UI.Elements
         protected override void OnUpdate(GameTime gameTime)
         {
             // Smoothly animate visibility margin
-            this.Margin = Vector2.Lerp(this.Margin, (this.state == DisplayState.Showing) ? VisibleMargin : HiddenMargin, MarginLerpFactor);
+            this.Margin = Vector2.Lerp(this.Margin, (this.state == DisplayState.Showing) ? VISIBLE_MARGIN : HIDDEN_MARGIN, UIConstants.NOTIFICATION_MARGIN_LERP_FACTOR);
 
             float deltaSeconds = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
@@ -136,7 +132,7 @@ namespace StardustSandbox.Core.UI.Elements
                     {
                         // Begin hiding
                         this.state = DisplayState.Hiding;
-                        this.stateTimerSeconds = HideDurationSeconds;
+                        this.stateTimerSeconds = UIConstants.NOTIFICATION_HIDE_DURATION_SECONDS;
                         // Toggle visibility; margin lerp above will animate it out
                         // keep currentNotification until hiding finishes
                     }
@@ -193,7 +189,7 @@ namespace StardustSandbox.Core.UI.Elements
 
             // Set state to showing and start timer
             this.state = DisplayState.Showing;
-            this.stateTimerSeconds = DisplayDurationSeconds;
+            this.stateTimerSeconds = UIConstants.NOTIFICATION_DISPLAY_DURATION_SECONDS;
         }
     }
 }

@@ -76,9 +76,6 @@ namespace StardustSandbox.Core.UI.Common.Menus
         private readonly AmbientManager ambientManager;
         private readonly UIManager uiManager;
 
-        private const float SPEED = 0.05f;
-        private const float VERTICAL_SPACING = 64.0f;
-
         internal CreditsUI(
             AmbientManager ambientManager,
             UIManager uiManager,
@@ -235,7 +232,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
         private void BuildElements(Container root)
         {
-            Vector2 margin = new(0.0f, VERTICAL_SPACING * 2.0f);
+            Vector2 margin = new(0.0f, UIConstants.CREDITS_VERTICAL_SPACING * 2.0f);
 
             for (int i = 0; i < this.creditSections.Length; i++)
             {
@@ -254,7 +251,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
                     root.AddChild(sectionTitleElement);
 
-                    margin.Y += sectionTitleElement.Size.Y + VERTICAL_SPACING;
+                    margin.Y += sectionTitleElement.Size.Y + UIConstants.CREDITS_VERTICAL_SPACING;
                 }
 
                 for (int j = 0; j < creditSection.Contents.Length; j++)
@@ -274,7 +271,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
                         root.AddChild(contentTitleElement);
 
-                        margin.Y += contentTitleElement.Size.Y + VERTICAL_SPACING;
+                        margin.Y += contentTitleElement.Size.Y + UIConstants.CREDITS_VERTICAL_SPACING;
 
                         continue;
                     }
@@ -293,7 +290,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
                         contentText.Margin = margin + content.Margin;
                         root.AddChild(contentText);
 
-                        margin.Y += contentText.Size.Y + VERTICAL_SPACING;
+                        margin.Y += contentText.Size.Y + UIConstants.CREDITS_VERTICAL_SPACING;
 
                         continue;
                     }
@@ -311,13 +308,13 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
                         root.AddChild(contentImage);
 
-                        margin.Y += contentImage.Size.Y + VERTICAL_SPACING;
+                        margin.Y += contentImage.Size.Y + UIConstants.CREDITS_VERTICAL_SPACING;
 
                         continue;
                     }
                 }
 
-                margin.Y += VERTICAL_SPACING;
+                margin.Y += UIConstants.CREDITS_VERTICAL_SPACING;
             }
         }
 
@@ -328,7 +325,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
             this.rootContainer.Margin = new(
                 this.rootContainer.Margin.X,
-                this.rootContainer.Margin.Y - (SPEED * Convert.ToSingle(gameTime.ElapsedGameTime.TotalMilliseconds))
+                this.rootContainer.Margin.Y - (UIConstants.CREDITS_SPEED * Convert.ToSingle(gameTime.ElapsedGameTime.TotalMilliseconds))
             );
         }
 

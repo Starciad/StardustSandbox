@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.Elements.Gases
                     context.SetElementState(ElementStates.IsDissipating);
                 }
             }
-
+            
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (!neighbors.HasNeighbor(i))
@@ -63,11 +63,9 @@ namespace StardustSandbox.Core.Elements.Gases
 
         protected override void OnStep(ElementContext context)
         {
-            base.OnStep(context);
-
-            if (Random.Chance(15))
+            if (!context.HasStoredElement())
             {
-                context.DestroyElement();
+                base.OnStep(context);
             }
         }
     }

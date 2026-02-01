@@ -28,7 +28,7 @@ namespace StardustSandbox.Core.Constants
         internal const int SCREEN_WIDTH = 1280;
         internal const int SCREEN_HEIGHT = 720;
 
-        internal static Point SCREEN_DIMENSIONS => new(SCREEN_WIDTH, SCREEN_HEIGHT);
+        internal static readonly Point SCREEN_DIMENSIONS = new(SCREEN_WIDTH, SCREEN_HEIGHT);
 
         // 16:9 Aspect Ratio
         internal static Resolution[] RESOLUTIONS =>
