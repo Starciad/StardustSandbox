@@ -21,16 +21,16 @@ namespace StardustSandbox.Core.Localization
 {
     public sealed class GameCulture
     {
-        public CultureInfo CultureInfo => this.cultureInfo;
-        public string Name => string.Concat(this.Language, '-', this.Region);
-        public string Language => this.language;
-        public string Region => this.region;
+        internal CultureInfo CultureInfo => this.cultureInfo;
+        internal string Name => string.Concat(this.Language, '-', this.Region);
+        internal string Language => this.language;
+        internal string Region => this.region;
 
         private readonly CultureInfo cultureInfo;
         private readonly string language;
         private readonly string region;
 
-        public GameCulture(string language, string region)
+        internal GameCulture(string language, string region)
         {
             this.language = language;
             this.region = region;

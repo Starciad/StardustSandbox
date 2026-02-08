@@ -24,7 +24,7 @@ using StardustSandbox.Core.Mathematics;
 
 namespace StardustSandbox.Core.WorldSystem
 {
-    public sealed class SlotLayer
+    internal sealed class SlotLayer
     {
         internal bool IsEmpty => this.ElementIndex is ElementIndex.None;
         internal bool HasStoredElement => this.StoredElementIndex is not Enums.Elements.ElementIndex.None;
@@ -77,7 +77,7 @@ namespace StardustSandbox.Core.WorldSystem
             this.Temperature = valueToCopy.Temperature;
         }
 
-        public void Reset()
+        internal void Reset()
         {
             Destroy();
         }

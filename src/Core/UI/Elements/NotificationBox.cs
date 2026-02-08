@@ -32,9 +32,9 @@ namespace StardustSandbox.Core.UI.Elements
     {
         private readonly struct NotificationEntry(TextureIndex iconTextureIndex, Rectangle? iconSourceRectangle, string message)
         {
-            public TextureIndex IconTextureIndex => iconTextureIndex;
-            public Rectangle? IconSourceRectangle => iconSourceRectangle;
-            public string Message => message;
+            internal TextureIndex IconTextureIndex => iconTextureIndex;
+            internal Rectangle? IconSourceRectangle => iconSourceRectangle;
+            internal string Message => message;
         }
 
         private enum DisplayState : byte

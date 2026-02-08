@@ -23,7 +23,7 @@ using StardustSandbox.Core.Interfaces.Collections;
 
 namespace StardustSandbox.Core.WorldSystem
 {
-    public sealed class Slot : IPoolableObject
+    internal sealed class Slot : IPoolableObject
     {
         internal bool IsEmpty => this.IsBackgroundEmpty && this.IsForegroundEmpty;
 

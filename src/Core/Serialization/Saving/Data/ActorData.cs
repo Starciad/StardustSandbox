@@ -19,10 +19,12 @@ using MessagePack;
 
 using StardustSandbox.Core.Enums.Actors;
 
+using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Serialization.Saving.Data
 {
+    [Serializable]
     [MessagePackObject]
     public sealed class ActorData
     {

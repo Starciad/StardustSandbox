@@ -76,7 +76,7 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
 
         }
 
-        public SlotLayerData(SlotLayer slotLayer)
+        internal SlotLayerData(SlotLayer slotLayer)
         {
             this.ColorModifier = slotLayer.ColorModifier;
             this.ElementIndex = slotLayer.ElementIndex;

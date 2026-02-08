@@ -34,8 +34,8 @@ namespace StardustSandbox.Core.Elements
     {
         private readonly struct BlobInfo(Point position, byte blobValue)
         {
-            public readonly Point Position => position;
-            public readonly byte BlobValue => blobValue;
+            internal readonly Point Position => position;
+            internal readonly byte BlobValue => blobValue;
         }
 
         private static readonly BlobInfo[] blobInfos = new BlobInfo[3];

@@ -17,7 +17,7 @@
 
 namespace StardustSandbox.Core.Interfaces.Serialization
 {
-    public interface ISettingsModule
+    internal interface ISettingsModule
     {
 
     }
