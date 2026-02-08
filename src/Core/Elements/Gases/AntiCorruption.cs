@@ -17,7 +17,6 @@
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
-using StardustSandbox.Core.Randomness;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.Elements.Gases
@@ -38,7 +37,7 @@ namespace StardustSandbox.Core.Elements.Gases
                     context.SetElementState(ElementStates.IsDissipating);
                 }
             }
-            
+
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (!neighbors.HasNeighbor(i))

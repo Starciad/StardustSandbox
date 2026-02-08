@@ -17,8 +17,9 @@
 
 namespace StardustSandbox.Core.Interfaces.Notifiers
 {
-    public interface IGameUpdateNotifier
+    public interface IGameNotifier
     {
+        void OnBeginRun();
         void OnUpdate();
     }
 }

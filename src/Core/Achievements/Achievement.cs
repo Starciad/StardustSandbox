@@ -17,11 +17,14 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Enums.Achievements;
+
 namespace StardustSandbox.Core.Achievements
 {
-    public sealed class Achievement(string id, Rectangle? achievedIconSourceRectangle, Rectangle? notAchievedIconSourceRectangle, string title, string description)
+    public sealed class Achievement(string id, AchievementIndex index, Rectangle? achievedIconSourceRectangle, Rectangle? notAchievedIconSourceRectangle, string title, string description)
     {
         public string Id => id;
+        public AchievementIndex Index => index;
         public string Title => title;
         public string Description => description;
         public Rectangle? AchievedIconSourceRectangle => achievedIconSourceRectangle;

@@ -27,7 +27,7 @@ using System.Xml.Serialization;
 
 namespace StardustSandbox.Core.Serialization
 {
-    internal static class SettingsSerializer
+    public static class SettingsSerializer
     {
         private interface ISettingsDescriptor
         {
@@ -38,14 +38,14 @@ namespace StardustSandbox.Core.Serialization
         private sealed class SettingsDescriptor<T> : ISettingsDescriptor where T : ISettingsModule, new()
         {
             public Type SettingsType => typeof(T);
-            internal T Value => this.cache;
+            public T Value => this.cache;
 
             private T cache;
 
             private readonly string fileName;
             private readonly XmlSerializer serializer;
 
-            internal SettingsDescriptor(string fileName)
+            public SettingsDescriptor(string fileName)
             {
                 this.fileName = fileName;
                 this.serializer = new(typeof(T));
@@ -73,7 +73,7 @@ namespace StardustSandbox.Core.Serialization
                 }
             }
 
-            internal void Save(T value)
+            public void Save(T value)
             {
                 using FileStream stream = new(Path.Combine(IO.Directory.Settings, this.fileName), FileMode.Create, FileAccess.Write);
 
@@ -103,7 +103,7 @@ namespace StardustSandbox.Core.Serialization
             [typeof(VolumeSettings)] = new SettingsDescriptor<VolumeSettings>(IOConstants.VOLUME_SETTINGS_FILE),
         };
 
-        internal static void Initialize()
+        public static void Initialize()
         {
             _ = Directory.CreateDirectory(IO.Directory.Settings);
 
@@ -115,12 +115,12 @@ namespace StardustSandbox.Core.Serialization
             CreateWarningFile();
         }
 
-        internal static T Load<T>() where T : ISettingsModule, new()
+        public static T Load<T>() where T : ISettingsModule, new()
         {
             return GetDescriptor<T>().Value;
         }
 
-        internal static void Save<T>(T value) where T : ISettingsModule, new()
+        public static void Save<T>(T value) where T : ISettingsModule, new()
         {
             GetDescriptor<T>().Save(value);
         }

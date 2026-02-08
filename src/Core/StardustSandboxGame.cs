@@ -41,7 +41,7 @@ namespace StardustSandbox.Core
     public sealed class StardustSandboxGame : Game
     {
         private IAchievementNotifier achievementNotifier;
-        private IGameUpdateNotifier gameUpdateNotifier;
+        private IGameNotifier gameNotifier;
 
         private SpriteBatch spriteBatch;
 
@@ -118,7 +118,7 @@ namespace StardustSandbox.Core
         protected override void Initialize()
         {
             this.achievementNotifier = this.Services.GetService<IAchievementNotifier>();
-            this.gameUpdateNotifier = this.Services.GetService<IGameUpdateNotifier>();
+            this.gameNotifier = this.Services.GetService<IGameNotifier>();
 
             Camera.Initialize(this.world);
 
@@ -177,11 +177,13 @@ namespace StardustSandbox.Core
             {
                 this.uiManager.OpenUI(UIIndex.MainMenu);
             }
+
+            this.gameNotifier?.OnBeginRun();
         }
 
         protected override void Update(GameTime gameTime)
         {
-            this.gameUpdateNotifier?.OnUpdate();
+            this.gameNotifier?.OnUpdate();
 
             if (!GameHandler.HasState(GameStates.IsFocused) || GameHandler.HasState(GameStates.IsPaused))
             {
