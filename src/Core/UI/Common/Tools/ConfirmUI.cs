@@ -80,7 +80,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
             Image shadow = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = ScreenConstants.SCREEN_DIMENSIONS.ToVector2(),
+                Scale = GameScreen.GetViewport(),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };

@@ -245,7 +245,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         private void RepositionRelativeToScreen()
         {
-            RepositionRelativeToElement(new RectangleF(Vector2.Zero, new(ScreenConstants.SCREEN_DIMENSIONS.X, ScreenConstants.SCREEN_DIMENSIONS.Y)));
+            RepositionRelativeToElement(new RectangleF(Vector2.Zero, GameScreen.GetViewport()));
         }
 
         protected void RepositionRelativeToParent()

@@ -64,8 +64,8 @@ namespace StardustSandbox.Core
             {
                 GraphicsProfile = GraphicsProfile.Reach,
                 PreferredBackBufferFormat = SurfaceFormat.Color,
-                PreferredBackBufferWidth = ScreenConstants.SCREEN_WIDTH,
-                PreferredBackBufferHeight = ScreenConstants.SCREEN_HEIGHT,
+                PreferredBackBufferWidth = 1280,
+                PreferredBackBufferHeight = 720,
                 SynchronizeWithVerticalRetrace = true,
                 HardwareModeSwitch = true,
                 IsFullScreen = false,
@@ -83,7 +83,7 @@ namespace StardustSandbox.Core
                 videoSettings = videoSettings.UpdateResolution(this.videoManager.GraphicsDevice);
                 SettingsSerializer.Save(videoSettings);
             }
-
+            
             // Initialize Content
             this.Content.RootDirectory = IOConstants.ASSETS_DIRECTORY;
 
@@ -120,6 +120,7 @@ namespace StardustSandbox.Core
             this.achievementNotifier = this.Services.GetService<IAchievementNotifier>();
             this.gameNotifier = this.Services.GetService<IGameNotifier>();
 
+            GameScreen.Initialize(this.GraphicsDevice);
             Camera.Initialize(this.world);
 
             AchievementEngine.Initialize(this.achievementNotifier);
@@ -133,9 +134,6 @@ namespace StardustSandbox.Core
 
         protected override void LoadContent()
         {
-            // Input
-            Input.Initialize(this.videoManager);
-
             // Databases
             AchievementDatabase.Load();
             AssetDatabase.Load(this.Content, this.GraphicsDevice);
@@ -231,7 +229,6 @@ namespace StardustSandbox.Core
         protected override void UnloadContent()
         {
             AssetDatabase.Unload();
-            GameRenderer.Unload();
 
             base.UnloadContent();
         }

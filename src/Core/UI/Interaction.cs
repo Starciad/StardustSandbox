@@ -33,7 +33,7 @@ namespace StardustSandbox.Core.UI
         /// </summary>
         internal static bool OnMouseClick(in MouseButton button, in Vector2 targetPosition, in Vector2 areaSize)
         {
-            Vector2 mousePosition = Input.GetScaledMousePosition();
+            Vector2 mousePosition = Input.GetMousePosition();
 
             return GetButtonState(button, Input.MouseState) == ButtonState.Released &&
                    GetButtonState(button, Input.PreviousMouseState) == ButtonState.Pressed &&
@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.UI
         /// </summary>
         internal static bool OnMouseDown(in MouseButton button, in Vector2 targetPosition, in Vector2 areaSize)
         {
-            Vector2 mousePosition = Input.GetScaledMousePosition();
+            Vector2 mousePosition = Input.GetMousePosition();
 
             return GetButtonState(button, Input.MouseState) == ButtonState.Pressed &&
                    IsMouseWithinArea(mousePosition, targetPosition, areaSize);
@@ -72,7 +72,7 @@ namespace StardustSandbox.Core.UI
         /// </summary>
         internal static bool OnMouseUp(in MouseButton button, in Vector2 targetPosition, in Vector2 areaSize)
         {
-            Vector2 mousePosition = Input.GetScaledMousePosition();
+            Vector2 mousePosition = Input.GetMousePosition();
 
             return GetButtonState(button, Input.MouseState) == ButtonState.Released &&
                    GetButtonState(button, Input.PreviousMouseState) == ButtonState.Pressed &&
@@ -92,8 +92,8 @@ namespace StardustSandbox.Core.UI
         /// </summary>
         internal static bool OnMouseEnter(in Vector2 targetPosition, in Vector2 areaSize)
         {
-            Vector2 mousePosition = Input.GetScaledMousePosition();
-            Vector2 previousMousePosition = Input.GetScaledPreviousMousePosition();
+            Vector2 mousePosition = Input.GetMousePosition();
+            Vector2 previousMousePosition = Input.GetPreviousMousePosition();
 
             bool mouseWasOutside = !IsMouseWithinArea(previousMousePosition, targetPosition, areaSize);
             bool mouseIsInside = IsMouseWithinArea(mousePosition, targetPosition, areaSize);
@@ -114,7 +114,7 @@ namespace StardustSandbox.Core.UI
         /// </summary>
         internal static bool OnMouseOver(in Vector2 targetPosition, in Vector2 areaSize)
         {
-            Vector2 mousePosition = Input.GetScaledMousePosition();
+            Vector2 mousePosition = Input.GetMousePosition();
 
             return IsMouseWithinArea(mousePosition, targetPosition, areaSize);
         }
@@ -132,8 +132,8 @@ namespace StardustSandbox.Core.UI
         /// </summary>
         internal static bool OnMouseLeave(in Vector2 targetPosition, in Vector2 areaSize)
         {
-            Vector2 mousePosition = Input.GetScaledMousePosition();
-            Vector2 previousMousePosition = Input.GetScaledPreviousMousePosition();
+            Vector2 mousePosition = Input.GetMousePosition();
+            Vector2 previousMousePosition = Input.GetPreviousMousePosition();
 
             bool mouseWasInside = IsMouseWithinArea(previousMousePosition, targetPosition, areaSize);
             bool mouseIsOutside = !IsMouseWithinArea(mousePosition, targetPosition, areaSize);

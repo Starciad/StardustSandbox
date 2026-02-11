@@ -15,8 +15,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
 using StardustSandbox.Core.Mathematics.Primitives;
 
 namespace StardustSandbox.Core.Constants
@@ -24,11 +22,6 @@ namespace StardustSandbox.Core.Constants
     internal static class ScreenConstants
     {
         internal const float FRAMERATE = 60.0f;
-
-        internal const int SCREEN_WIDTH = 1280;
-        internal const int SCREEN_HEIGHT = 720;
-
-        internal static readonly Point SCREEN_DIMENSIONS = new(SCREEN_WIDTH, SCREEN_HEIGHT);
 
         // 16:9 Aspect Ratio
         internal static Resolution[] RESOLUTIONS =>

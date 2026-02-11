@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.UI
             {
                 CanDraw = false,
                 CanUpdate = false,
-                Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2()
+                Size = GameScreen.GetViewport()
             };
         }
 

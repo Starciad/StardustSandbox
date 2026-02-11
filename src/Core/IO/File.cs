@@ -15,6 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
@@ -40,18 +41,17 @@ namespace StardustSandbox.Core.IO
             return string.Concat(GameConstants.ID, "_", prefix, "_", DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss"), extension).ToLowerInvariant();
         }
 
-        internal static string WriteRenderTarget2D(RenderTarget2D value)
+        internal static void WriteColorBuffer(GraphicsDevice graphicsDevice, int width, int height, Color[] data)
         {
             _ = System.IO.Directory.CreateDirectory(Directory.Screenshots);
 
             string screenshotFilePath = Path.Combine(Directory.Screenshots, GetFileName("screenshot", ".png"));
+            
+            using Texture2D texture = new(graphicsDevice, width, height);
+            using FileStream fileStream = new(screenshotFilePath, FileMode.Create, FileAccess.Write);
 
-            value.FlattenAlpha();
-
-            using FileStream fs = new(screenshotFilePath, FileMode.Create, FileAccess.Write);
-            value.SaveAsPng(fs, value.Width, value.Height);
-
-            return screenshotFilePath;
+            texture.SetData(data);
+            texture.SaveAsPng(fileStream, width, height);
         }
 
         internal static string WriteException(Exception value)

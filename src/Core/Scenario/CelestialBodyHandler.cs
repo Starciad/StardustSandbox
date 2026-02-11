@@ -44,8 +44,8 @@ namespace StardustSandbox.Core.Scenario
             this.angle = (BackgroundConstants.CELESTIAL_BODY_MAX_ARC_ANGLE * this.timeHandler.IntervalProgress) + BackgroundConstants.CELESTIAL_BODY_ARC_OFFSET;
 
             // Update position based on angle
-            this.positionX = Convert.ToSingle(BackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.X - (BackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * Math.Cos(this.angle)));
-            this.positionY = Convert.ToSingle(BackgroundConstants.CELESTIAL_BODY_CENTER_PIVOT.Y - (BackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * Math.Sin(this.angle)));
+            this.positionX = Convert.ToSingle(GameScreen.GetViewportCenter().X - (BackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * Math.Cos(this.angle)));
+            this.positionY = Convert.ToSingle(GameScreen.GetViewport().Y - (BackgroundConstants.CELESTIAL_BODY_ARC_RADIUS * Math.Sin(this.angle)));
 
             // Update rotation for alignment
             this.rotation = this.angle - (MathF.PI / 2);

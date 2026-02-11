@@ -145,7 +145,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
                 TextureIndex = TextureIndex.Pixel,
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Size = Vector2.One,
-                Scale = new(ScreenConstants.SCREEN_WIDTH, 96.0f),
+                Scale = new(GameScreen.GetViewport().X, 96.0f),
             };
 
             root.AddChild(this.headerBackground);
@@ -184,7 +184,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
                 TextureIndex = TextureIndex.Pixel,
                 Color = new(AAP64ColorPalette.DarkGray, 196),
                 Size = Vector2.One,
-                Scale = new(ScreenConstants.SCREEN_WIDTH, 96.0f),
+                Scale = new(GameScreen.GetViewport().X, 96.0f),
                 Alignment = UIDirection.Southwest,
             };
 

@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 
@@ -46,8 +45,8 @@ namespace StardustSandbox.Core.Managers
 
             if (videoSettings.Width == 0 || videoSettings.Height == 0)
             {
-                this.graphicsDeviceManager.PreferredBackBufferWidth = ScreenConstants.SCREEN_WIDTH;
-                this.graphicsDeviceManager.PreferredBackBufferHeight = ScreenConstants.SCREEN_HEIGHT;
+                this.graphicsDeviceManager.PreferredBackBufferWidth = 1280;
+                this.graphicsDeviceManager.PreferredBackBufferHeight = 720;
             }
             else
             {

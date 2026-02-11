@@ -98,10 +98,7 @@ namespace StardustSandbox.Core.UI.Elements
             AddChild(this.background);
 
             this.MinimumSize = new(48f, 48f);
-            this.MaximumSize = new(
-                ScreenConstants.SCREEN_WIDTH,
-                ScreenConstants.SCREEN_HEIGHT
-            );
+            this.MaximumSize = GameScreen.GetViewport();
         }
 
         protected override void OnInitialize()
@@ -163,16 +160,18 @@ namespace StardustSandbox.Core.UI.Elements
 
         private void UpdatePosition()
         {
-            Vector2 mousePosition = Input.GetScaledMousePosition();
+            Vector2 mousePosition = Input.GetMousePosition();
             Vector2 spacing = this.cursorManager.Scale * 16f;
             Vector2 position = mousePosition + this.Margin + spacing;
 
-            if (position.X + this.background.Size.X > ScreenConstants.SCREEN_WIDTH)
+            Vector2 viewport = GameScreen.GetViewport();
+
+            if (position.X + this.background.Size.X > viewport.X)
             {
                 position.X = mousePosition.X - this.background.Size.X - this.Margin.X - spacing.X;
             }
 
-            if (position.Y + this.background.Size.Y > ScreenConstants.SCREEN_HEIGHT)
+            if (position.Y + this.background.Size.Y > viewport.Y)
             {
                 position.Y = mousePosition.Y - this.background.Size.Y - this.Margin.Y - spacing.Y;
             }
@@ -180,13 +179,13 @@ namespace StardustSandbox.Core.UI.Elements
             position.X = Math.Clamp(
                 position.X,
                 32f,
-                ScreenConstants.SCREEN_WIDTH - this.background.Size.X - 32f
+                viewport.X - this.background.Size.X - 32f
             );
 
             position.Y = Math.Clamp(
                 position.Y,
                 32f,
-                ScreenConstants.SCREEN_HEIGHT - this.background.Size.Y - 32f
+                viewport.Y - this.background.Size.Y - 32f
             );
 
             this.background.Position = position;

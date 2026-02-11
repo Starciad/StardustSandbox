@@ -87,7 +87,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
             root.AddChild(new Image()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
+                Scale = GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             });
@@ -201,7 +201,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
         {
             if (Interaction.OnMouseLeftDown(this.sliderBackground) || Interaction.OnMouseLeftDown(this.sliderButton))
             {
-                Vector2 mousePosition = Input.GetScaledMousePosition();
+                Vector2 mousePosition = Input.GetMousePosition();
                 Vector2 sliderPosition = this.sliderBackground.Position;
 
                 float relativeX = MathHelper.Clamp(mousePosition.X - sliderPosition.X, 0.0f, this.sliderBackground.Size.X);

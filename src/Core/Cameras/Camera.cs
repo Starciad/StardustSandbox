@@ -54,31 +54,11 @@ namespace StardustSandbox.Core.Cameras
             isInitialized = true;
         }
 
-        private static void ClampInTheWorld()
-        {
-            Vector2 worldSize = new(world.Information.Size.X * WorldConstants.GRID_SIZE, world.Information.Size.Y * WorldConstants.GRID_SIZE);
-            Vector2 screenSize = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT);
-            RectangleF limit = new(0f, 0f, worldSize.X - screenSize.X, screenSize.Y - worldSize.Y);
-
-            Clamp(ref position);
-            Clamp(ref targetPosition);
-
-            void Clamp(ref Vector2 value)
-            {
-                value = new(
-                    MathHelper.Clamp(value.X, limit.Left, limit.Right),
-                    MathHelper.Clamp(value.Y, limit.Bottom, limit.Top)
-                );
-            }
-        }
-
         internal static void Update(GameTime gameTime)
         {
             float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
             position = Vector2.Lerp(Position, targetPosition, CameraConstants.MOVEMENT_LERP_SPEED * deltaTime);
-
-            ClampInTheWorld();
         }
 
         internal static void SetPosition(Vector2 newPosition)
@@ -158,12 +138,12 @@ namespace StardustSandbox.Core.Cameras
             // Screen rectangle bounds
             float screenLeft = 0f;
             float screenTop = 0f;
-            float screenRight = ScreenConstants.SCREEN_WIDTH;
-            float screenBottom = ScreenConstants.SCREEN_HEIGHT;
 
             // Check overlap (any intersection with the screen area)
-            bool intersectsHorizontally = screenRect.X + screenRect.Width >= screenLeft && screenRect.X < screenRight;
-            bool intersectsVertically = screenRect.Y + screenRect.Height >= screenTop && screenRect.Y < screenBottom;
+            Vector2 viewport = GameScreen.GetViewport();
+
+            bool intersectsHorizontally = screenRect.X + screenRect.Width >= screenLeft && screenRect.X < viewport.X;
+            bool intersectsVertically = screenRect.Y + screenRect.Height >= screenTop && screenRect.Y < viewport.Y;
 
             return intersectsHorizontally && intersectsVertically;
         }

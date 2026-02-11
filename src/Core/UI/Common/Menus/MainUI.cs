@@ -100,7 +100,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
             this.background = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = new(487.0f, ScreenConstants.SCREEN_HEIGHT),
+                Scale = new(487.0f, GameScreen.GetViewport().Y),
                 Color = new(AAP64ColorPalette.DarkGray, 180),
                 Size = Vector2.One,
             };

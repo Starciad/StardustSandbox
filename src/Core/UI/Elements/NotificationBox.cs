@@ -63,7 +63,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         internal NotificationBox()
         {
-            this.Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2();
+            this.Size = GameScreen.GetViewport();
 
             this.background = new()
             {

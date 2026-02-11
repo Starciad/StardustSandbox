@@ -154,7 +154,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
             Image background = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = new(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT),
+                Scale = GameScreen.GetViewport(),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
