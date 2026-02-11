@@ -29,7 +29,7 @@ namespace StardustSandbox.Core.UI
         internal bool IsActive { get; private set; }
         internal bool IsInitialized { get; private set; }
 
-        internal Container Root { get; }
+        protected Container Root { get; }
 
         protected UIBase()
         {
@@ -105,6 +105,11 @@ namespace StardustSandbox.Core.UI
             }
 
             this.Root.Draw(spriteBatch);
+        }
+
+        internal void Resize(Vector2 size)
+        {
+            this.Root.Size = size;
         }
 
         protected abstract void OnBuild(Container root);

@@ -51,7 +51,7 @@ namespace StardustSandbox.Core.Managers
         {
             foreach (UIBase ui in this.uiStack)
             {
-                ui.Root.Size = GameScreen.GetViewport();
+                ui.Resize(GameScreen.GetViewport());
             }
         }
 
