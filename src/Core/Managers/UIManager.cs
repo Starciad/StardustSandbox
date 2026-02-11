@@ -47,6 +47,14 @@ namespace StardustSandbox.Core.Managers
             // CurrentUI property will reflect empty stack.
         }
 
+        internal void ResizeGUIs()
+        {
+            foreach (UIBase ui in this.uiStack)
+            {
+                ui.Root.Size = GameScreen.GetViewport();
+            }
+        }
+
         internal void Update(GameTime gameTime)
         {
             UIBase current = this.CurrentUI;

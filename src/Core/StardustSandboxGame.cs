@@ -60,7 +60,7 @@ namespace StardustSandbox.Core
             GameParameters.Start(args);
 
             // Graphics
-            this.videoManager = new(new GraphicsDeviceManager(this)
+            GraphicsDeviceManager gdm = new(this)
             {
                 GraphicsProfile = GraphicsProfile.Reach,
                 PreferredBackBufferFormat = SurfaceFormat.Color,
@@ -73,7 +73,9 @@ namespace StardustSandbox.Core
                 PreferMultiSampling = false,
                 PreferredDepthStencilFormat = DepthFormat.None,
                 SupportedOrientations = DisplayOrientation.Default
-            });
+            };
+
+            this.videoManager = new(gdm);
 
             // Load Settings
             VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
@@ -83,7 +85,7 @@ namespace StardustSandbox.Core
                 videoSettings = videoSettings.UpdateResolution(this.videoManager.GraphicsDevice);
                 SettingsSerializer.Save(videoSettings);
             }
-            
+
             // Initialize Content
             this.Content.RootDirectory = IOConstants.ASSETS_DIRECTORY;
 
@@ -128,6 +130,8 @@ namespace StardustSandbox.Core
             SoundEngine.Initialize();
 
             GameHandler.Initialize(this.Window);
+
+            this.Window.ClientSizeChanged += OnClientSizeChanged;
 
             base.Initialize();
         }
@@ -233,7 +237,6 @@ namespace StardustSandbox.Core
             base.UnloadContent();
         }
 
-        // Event occurs when the game window returns to focus.
         protected override void OnActivated(object sender, EventArgs args)
         {
             base.OnActivated(sender, args);
@@ -241,7 +244,6 @@ namespace StardustSandbox.Core
             MediaPlayer.Resume();
         }
 
-        // Event occurs when the game window stops having focus.
         protected override void OnDeactivated(object sender, EventArgs args)
         {
             base.OnDeactivated(sender, args);
@@ -249,10 +251,16 @@ namespace StardustSandbox.Core
             MediaPlayer.Pause();
         }
 
-        // Event occurs when the game process is finished.
         protected override void OnExiting(object sender, ExitingEventArgs args)
         {
+            this.Window.ClientSizeChanged -= OnClientSizeChanged;
+
             base.OnExiting(sender, args);
+        }
+
+        private void OnClientSizeChanged(object sender, EventArgs args)
+        {
+            this.uiManager.ResizeGUIs();
         }
 
         internal void Quit()

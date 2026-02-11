@@ -19,7 +19,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Extensions;
 
 using System;
 using System.Diagnostics;
@@ -46,7 +45,7 @@ namespace StardustSandbox.Core.IO
             _ = System.IO.Directory.CreateDirectory(Directory.Screenshots);
 
             string screenshotFilePath = Path.Combine(Directory.Screenshots, GetFileName("screenshot", ".png"));
-            
+
             using Texture2D texture = new(graphicsDevice, width, height);
             using FileStream fileStream = new(screenshotFilePath, FileMode.Create, FileAccess.Write);
 

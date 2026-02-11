@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.UI.Elements;
 
 using System;
@@ -30,7 +29,7 @@ namespace StardustSandbox.Core.UI
         internal bool IsActive { get; private set; }
         internal bool IsInitialized { get; private set; }
 
-        protected Container Root { get; }
+        internal Container Root { get; }
 
         protected UIBase()
         {

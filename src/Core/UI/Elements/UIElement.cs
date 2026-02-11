@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Mathematics.Primitives;
 
