@@ -29,11 +29,11 @@ namespace StardustSandbox.Core.Managers
 {
     internal sealed class UIManager : IResettable
     {
-        // Stack represents navigation/history. Top = currently active UI.
-        private readonly Stack<UIBase> uiStack = new();
-
         // Expose current UI for callers (read-only).
         internal UIBase CurrentUI => this.uiStack.Count > 0 ? this.uiStack.Peek() : null;
+
+        // Stack represents navigation/history. Top = currently active UI.
+        private readonly Stack<UIBase> uiStack = new();
 
         public void Reset()
         {
