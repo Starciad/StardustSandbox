@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
 {
     internal sealed class MainUI : UIBase
     {
-        private Image shadowBackground, gameTitle;
+        private Image shadowBackground, theatricalCurtains, gameTitle;
         private SlotInfo[] topButtonSlotInfos;
 
         private float animationTime;
@@ -87,34 +87,47 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
         protected override void OnBuild(Container root)
         {
-            BuildMainPanel(root);
-            BuildDecorations();
-            BuildGameTitle();
+            BuildBackground(root);
             BuildMenuButtons();
             BuildTopButtons(root);
             BuildInfos(root);
         }
 
-        private void BuildMainPanel(Container root)
+        private void BuildBackground(Container root)
         {
+            Vector2 viewport = GameScreen.GetViewport();
+
             this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = new(487.0f, GameScreen.GetViewport().Y),
-                Color = new(AAP64ColorPalette.DarkGray, 180),
+                Scale = new(487.0f, viewport.Y),
+                Color = new(AAP64ColorPalette.DarkGray, 80),
                 Size = Vector2.One,
             };
 
-            root.AddChild(this.shadowBackground);
-        }
-
-        private void BuildDecorations()
-        {
-            this.shadowBackground.AddChild(new Image
+            this.theatricalCurtains = new()
             {
                 TextureIndex = TextureIndex.MiscellaneousTheatricalCurtains,
-                Scale = new(2.0f)
-            });
+                Size = new(640.0f, 360.0f),
+                Scale = new(
+                    viewport.X / 640.0f,
+                    viewport.Y / 360.0f
+                ),
+            };
+
+            this.gameTitle = new()
+            {
+                TextureIndex = TextureIndex.GameTitle,
+                Scale = new(1.5f),
+                Size = new(292.0f, 112.0f),
+                Margin = new(0.0f, 32.0f),
+                Alignment = UIDirection.North,
+            };
+
+            root.AddChild(this.theatricalCurtains);
+            root.AddChild(this.shadowBackground);
+
+            this.shadowBackground.AddChild(this.gameTitle);
         }
 
         private static void BuildInfos(Container root)
@@ -141,20 +154,6 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
             root.AddChild(versionLabel);
             root.AddChild(copyrightLabel);
-        }
-
-        private void BuildGameTitle()
-        {
-            this.gameTitle = new()
-            {
-                TextureIndex = TextureIndex.GameTitle,
-                Scale = new(1.5f),
-                Size = new(292.0f, 112.0f),
-                Margin = new(0.0f, 32.0f),
-                Alignment = UIDirection.North,
-            };
-
-            this.shadowBackground.AddChild(this.gameTitle);
         }
 
         private void BuildMenuButtons()
@@ -200,6 +199,10 @@ namespace StardustSandbox.Core.UI.Common.Menus
         protected override void OnResize(Vector2 size)
         {
             this.shadowBackground.Scale = new(487.0f, size.Y);
+            this.theatricalCurtains.Scale = new(
+                (size.X / 640.0f),
+                (size.Y / 360.0f)
+            );
         }
 
         protected override void OnUpdate(GameTime gameTime)

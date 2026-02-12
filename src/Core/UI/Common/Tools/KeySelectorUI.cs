@@ -33,6 +33,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
     {
         private KeySelectorSettings settings;
 
+        private Image shadowBackground;
         private Text message;
 
         private readonly GameWindow gameWindow;
@@ -62,9 +63,9 @@ namespace StardustSandbox.Core.UI.Common.Tools
             BuildMessage(root);
         }
 
-        private static void BuildBackground(Container root)
+        private void BuildBackground(Container root)
         {
-            Image background = new()
+            this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
                 Scale = GameScreen.GetViewport(),
@@ -72,7 +73,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
                 Size = Vector2.One,
             };
 
-            root.AddChild(background);
+            root.AddChild(this.shadowBackground);
         }
 
         private void BuildMessage(Container root)
@@ -88,6 +89,11 @@ namespace StardustSandbox.Core.UI.Common.Tools
             };
 
             root.AddChild(this.message);
+        }
+
+        protected override void OnResize(Vector2 size)
+        {
+            this.shadowBackground.Scale = size;
         }
 
         protected override void OnOpened()

@@ -47,7 +47,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
 
         private TextInputSettings settings;
 
-        private Image userInputBackground;
+        private Image shadowBackground, userInputBackground;
 
         private Label characterCount;
         private Text synopsis, userInput;
@@ -133,13 +133,15 @@ namespace StardustSandbox.Core.UI.Common.Tools
         protected override void OnBuild(Container root)
         {
             // Shadow
-            root.AddChild(new Image()
+            this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
                 Scale = GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
-            });
+            };
+
+            root.AddChild(this.shadowBackground);
 
             BuildSynopsis(root);
             BuildUserInput(root);
@@ -227,6 +229,11 @@ namespace StardustSandbox.Core.UI.Common.Tools
 
                 this.menuButtonLabels[i] = label;
             }
+        }
+
+        protected override void OnResize(Vector2 size)
+        {
+            this.shadowBackground.Scale = size;
         }
 
         protected override void OnUpdate(GameTime gameTime)

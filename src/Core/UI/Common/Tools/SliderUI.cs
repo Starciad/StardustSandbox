@@ -36,7 +36,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
     {
         private Text synopsis;
         private Label valueLabel;
-        private Image sliderBackground, sliderButton;
+        private Image shadowBackground, sliderBackground, sliderButton;
 
         private int currentValue, maximumValue, minimumValue;
 
@@ -83,13 +83,15 @@ namespace StardustSandbox.Core.UI.Common.Tools
         protected override void OnBuild(Container root)
         {
             // Shadow
-            root.AddChild(new Image()
+            this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
                 Scale = GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
-            });
+            };
+
+            root.AddChild(this.shadowBackground);
 
             BuildSynopsis(root);
             BuildSlider(root);
@@ -171,6 +173,11 @@ namespace StardustSandbox.Core.UI.Common.Tools
 
                 this.menuButtonLabels[i] = label;
             }
+        }
+
+        protected override void OnResize(Vector2 size)
+        {
+            this.shadowBackground.Scale = GameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)

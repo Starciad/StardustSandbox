@@ -36,6 +36,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
     {
         private ConfirmSettings confirmSettings;
 
+        private Image shadowBackground;
         private Label caption;
         private Text message;
 
@@ -76,7 +77,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
 
         protected override void OnBuild(Container root)
         {
-            Image shadow = new()
+            this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
                 Scale = GameScreen.GetViewport(),
@@ -107,7 +108,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
                 Alignment = UIDirection.Center,
             };
 
-            root.AddChild(shadow);
+            root.AddChild(this.shadowBackground);
             root.AddChild(this.caption);
             root.AddChild(this.message);
 
@@ -142,6 +143,11 @@ namespace StardustSandbox.Core.UI.Common.Tools
 
                 this.buttonLabels[i] = label;
             }
+        }
+
+        protected override void OnResize(Vector2 size)
+        {
+            this.shadowBackground.Scale = size;
         }
 
         protected override void OnUpdate(GameTime gameTime)

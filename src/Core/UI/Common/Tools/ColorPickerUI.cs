@@ -35,6 +35,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
     {
         private ColorPickerSettings colorPickerSettings;
 
+        private Image shadowBackground;
         private Text captionElement;
         private Label exitButtonLabel;
 
@@ -148,9 +149,9 @@ namespace StardustSandbox.Core.UI.Common.Tools
             root.AddChild(this.tooltipBox);
         }
 
-        private static void BuildBackground(Container root)
+        private void BuildBackground(Container root)
         {
-            Image background = new()
+            this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
                 Scale = GameScreen.GetViewport(),
@@ -158,7 +159,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
-            root.AddChild(background);
+            root.AddChild(this.shadowBackground);
         }
 
         private void BuildCaption(Container root)
@@ -252,6 +253,11 @@ namespace StardustSandbox.Core.UI.Common.Tools
             };
 
             root.AddChild(this.exitButtonLabel);
+        }
+
+        protected override void OnResize(Vector2 size)
+        {
+            this.shadowBackground.Scale = size;
         }
 
         protected override void OnUpdate(GameTime gameTime)

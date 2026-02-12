@@ -30,6 +30,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
 {
     internal sealed class MessageUI : UIBase
     {
+        private Image shadowBackground;
         private Text message;
         private Label continueButtonLabel;
 
@@ -49,9 +50,9 @@ namespace StardustSandbox.Core.UI.Common.Tools
             BuildButton(root);
         }
 
-        private static void BuildBackground(Container root)
+        private void BuildBackground(Container root)
         {
-            Image background = new()
+            this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
                 Scale = GameScreen.GetViewport(),
@@ -59,7 +60,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
                 Size = Vector2.One,
             };
 
-            root.AddChild(background);
+            root.AddChild(this.shadowBackground);
         }
 
         private void BuildMessage(Container root)
@@ -94,6 +95,11 @@ namespace StardustSandbox.Core.UI.Common.Tools
             };
 
             root.AddChild(this.continueButtonLabel);
+        }
+
+        protected override void OnResize(Vector2 size)
+        {
+            this.shadowBackground.Scale = size;
         }
 
         protected override void OnUpdate(GameTime gameTime)

@@ -21,7 +21,6 @@ using StardustSandbox.Core.Actors;
 using StardustSandbox.Core.Enums.Inputs;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.Items;
-using StardustSandbox.Core.InputSystem.Handlers;
 using StardustSandbox.Core.InputSystem.Simulation;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem;
