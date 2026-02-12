@@ -34,7 +34,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
 {
     internal sealed class PauseUI : UIBase
     {
-        private Image background;
+        private Image panelBackground;
         private Label menuTitle;
 
         private readonly ButtonInfo[] menuButtonInfos;
@@ -99,7 +99,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Size = Vector2.One,
             };
 
-            this.background = new()
+            this.panelBackground = new()
             {
                 TextureIndex = TextureIndex.UIBackgroundPause,
                 Size = new(542.0f, 540.0f),
@@ -107,7 +107,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             };
 
             root.AddChild(shadow);
-            root.AddChild(this.background);
+            root.AddChild(this.panelBackground);
         }
 
         private void BuildTitle()
@@ -127,7 +127,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 BorderThickness = 3.0f
             };
 
-            this.background.AddChild(this.menuTitle);
+            this.panelBackground.AddChild(this.menuTitle);
         }
 
         private void BuildMenuButtons()
@@ -162,7 +162,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                     BorderThickness = 2.0f,
                 };
 
-                this.background.AddChild(background);
+                this.panelBackground.AddChild(background);
                 background.AddChild(label);
 
                 this.menuButtonSlotInfos[i] = new(background, null, label);

@@ -40,7 +40,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
     {
         private Point worldTargetSize;
 
-        private Image background;
+        private Image panelBackground;
         private Label menuTitle, sizeSectionTitle;
 
         private readonly TooltipBox tooltipBox;
@@ -149,7 +149,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Size = Vector2.One,
             };
 
-            this.background = new()
+            this.panelBackground = new()
             {
                 Alignment = UIDirection.Center,
                 TextureIndex = TextureIndex.UIBackgroundWorldSettings,
@@ -157,7 +157,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             };
 
             root.AddChild(shadow);
-            root.AddChild(this.background);
+            root.AddChild(this.panelBackground);
         }
 
         private void BuildTitle()
@@ -175,7 +175,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 BorderThickness = 3.0f,
             };
 
-            this.background.AddChild(this.menuTitle);
+            this.panelBackground.AddChild(this.menuTitle);
         }
 
         private void BuildMenuButtons()
@@ -191,7 +191,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
-                this.background.AddChild(slot.Background);
+                this.panelBackground.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
                 // Save
@@ -212,7 +212,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 TextContent = Localization_GUIs.WorldSettings_Size_Title
             };
 
-            this.background.AddChild(this.sizeSectionTitle);
+            this.panelBackground.AddChild(this.sizeSectionTitle);
 
             // Buttons
             float marginX = 0.0f;

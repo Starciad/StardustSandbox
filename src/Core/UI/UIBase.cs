@@ -110,12 +110,14 @@ namespace StardustSandbox.Core.UI
         internal void Resize(Vector2 size)
         {
             this.Root.Size = size;
+            OnResize(size);
         }
 
         protected abstract void OnBuild(Container root);
         protected virtual void OnOpened() { }
         protected virtual void OnClosed() { }
         protected virtual void OnUpdate(GameTime gameTime) { }
+        protected virtual void OnResize(Vector2 size) { }
 
         private void EnsureInitialized()
         {

@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
 {
     internal sealed class MainUI : UIBase
     {
-        private Image background, gameTitle;
+        private Image shadowBackground, gameTitle;
         private SlotInfo[] topButtonSlotInfos;
 
         private float animationTime;
@@ -97,19 +97,20 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
         private void BuildMainPanel(Container root)
         {
-            this.background = new()
+            this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
                 Scale = new(487.0f, GameScreen.GetViewport().Y),
                 Color = new(AAP64ColorPalette.DarkGray, 180),
                 Size = Vector2.One,
             };
-            root.AddChild(this.background);
+
+            root.AddChild(this.shadowBackground);
         }
 
         private void BuildDecorations()
         {
-            this.background.AddChild(new Image
+            this.shadowBackground.AddChild(new Image
             {
                 TextureIndex = TextureIndex.MiscellaneousTheatricalCurtains,
                 Scale = new(2.0f)
@@ -153,7 +154,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
                 Alignment = UIDirection.North,
             };
 
-            this.background.AddChild(this.gameTitle);
+            this.shadowBackground.AddChild(this.gameTitle);
         }
 
         private void BuildMenuButtons()
@@ -179,7 +180,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
                     BorderThickness = 4.0f,
                 };
 
-                this.background.AddChild(label);
+                this.shadowBackground.AddChild(label);
                 this.menuButtonLabels[i] = label;
                 marginY += 75.0f;
             }
@@ -194,6 +195,11 @@ namespace StardustSandbox.Core.UI.Common.Menus
                 -80.0f,
                 UIDirection.Northeast
             );
+        }
+
+        protected override void OnResize(Vector2 size)
+        {
+            this.shadowBackground.Scale = new(487.0f, size.Y);
         }
 
         protected override void OnUpdate(GameTime gameTime)

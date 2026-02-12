@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
         private WorldGenerationSettings selectedSettings = WorldGenerationSettings.GenerateForeground;
         private WorldGenerationContents selectedContents = WorldGenerationContents.None;
 
-        private Image background;
+        private Image panelBackground;
         private Label menuTitle, themeSectionTitle, settingsSectionTitle, contentsSectionTitle;
 
         private SlotInfo exitButtonSlotInfo, generateButtonSlotInfo;
@@ -196,7 +196,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Size = Vector2.One,
             };
 
-            this.background = new()
+            this.panelBackground = new()
             {
                 Alignment = UIDirection.Center,
                 TextureIndex = TextureIndex.UIBackgroundGeneratorSettings,
@@ -204,7 +204,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             };
 
             root.AddChild(shadow);
-            root.AddChild(this.background);
+            root.AddChild(this.panelBackground);
         }
 
         private void BuildTitle()
@@ -223,7 +223,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 BorderThickness = 3.0f,
             };
 
-            this.background.AddChild(this.menuTitle);
+            this.panelBackground.AddChild(this.menuTitle);
         }
 
         private void BuildExitButton()
@@ -233,7 +233,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             slot.Background.Alignment = UIDirection.Northeast;
             slot.Icon.Alignment = UIDirection.Center;
 
-            this.background.AddChild(slot.Background);
+            this.panelBackground.AddChild(slot.Background);
             slot.Background.AddChild(slot.Icon);
 
             this.exitButtonSlotInfo = slot;
@@ -268,7 +268,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 }
             );
 
-            this.background.AddChild(this.generateButtonSlotInfo.Background);
+            this.panelBackground.AddChild(this.generateButtonSlotInfo.Background);
             this.generateButtonSlotInfo.Background.AddChild(this.generateButtonSlotInfo.Label);
         }
 
@@ -289,7 +289,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 TextContent = Localization_GUIs.GeneratorSettings_Theme_Title
             };
 
-            this.background.AddChild(this.themeSectionTitle);
+            this.panelBackground.AddChild(this.themeSectionTitle);
 
             this.themeButtonSlotInfos = UIBuilderUtility.BuildGridButtons(
                 this.themeSectionTitle,
@@ -313,7 +313,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 TextContent = Localization_GUIs.GeneratorSettings_Settings_Title
             };
 
-            this.background.AddChild(this.settingsSectionTitle);
+            this.panelBackground.AddChild(this.settingsSectionTitle);
 
             this.settingsButtonSlotInfos = UIBuilderUtility.BuildGridButtons(
                 this.settingsSectionTitle,
@@ -337,7 +337,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 TextContent = Localization_GUIs.GeneratorSettings_Contents_Title
             };
 
-            this.background.AddChild(this.contentsSectionTitle);
+            this.panelBackground.AddChild(this.contentsSectionTitle);
 
             this.contentsButtonSlotInfos = UIBuilderUtility.BuildGridButtons(
                 this.contentsSectionTitle,

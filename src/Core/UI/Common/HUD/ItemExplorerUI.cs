@@ -46,7 +46,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
         private Item[] selectedItems;
 
-        private Image background;
+        private Image panelBackground;
         private Label menuTitle, pageIndexLabel;
         private SlotInfo[] menuButtonSlotInfos;
 
@@ -139,7 +139,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Size = Vector2.One,
             };
 
-            this.background = new()
+            this.panelBackground = new()
             {
                 TextureIndex = TextureIndex.UIBackgroundItemExplorer,
                 Size = new(1084.0f, 607.0f),
@@ -148,7 +148,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             };
 
             root.AddChild(shadow);
-            root.AddChild(this.background);
+            root.AddChild(this.panelBackground);
         }
 
         private void BuildTitle()
@@ -167,13 +167,13 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 BorderThickness = 3.0f,
             };
 
-            this.background.AddChild(this.menuTitle);
+            this.panelBackground.AddChild(this.menuTitle);
         }
 
         private void BuildMenuButtons()
         {
             this.menuButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
-                this.background,
+                this.panelBackground,
                 this.buttonInfos,
                 new(-32.0f, -72.0f),
                 -80.0f,
@@ -218,7 +218,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 }
 
                 // Position
-                this.background.AddChild(slot.Background);
+                this.panelBackground.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
                 // Spacing
@@ -267,7 +267,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                     );
 
                     // Position
-                    this.background.AddChild(slot.Background);
+                    this.panelBackground.AddChild(slot.Background);
                     slot.Background.AddChild(slot.Icon);
 
                     // Spacing
@@ -310,7 +310,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                     );
 
                     // Position
-                    this.background.AddChild(slot.Background);
+                    this.panelBackground.AddChild(slot.Background);
                     slot.Background.AddChild(slot.Icon);
 
                     // Spacing
@@ -341,7 +341,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 BorderThickness = 2.0f,
             };
 
-            this.background.AddChild(this.pageIndexLabel);
+            this.panelBackground.AddChild(this.pageIndexLabel);
 
             for (int i = 0; i < this.paginationButtonInfos.Length; i++)
             {
@@ -383,7 +383,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
             foreach (SlotInfo slot in this.paginationButtonSlotInfos)
             {
-                this.background.AddChild(slot.Background);
+                this.panelBackground.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
             }
         }

@@ -34,7 +34,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
 {
     internal sealed class InformationUI : UIBase
     {
-        private Image background;
+        private Image panelBackground;
         private Label menuTitle;
 
         private readonly Label[] infoLabels;
@@ -86,7 +86,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Size = Vector2.One,
             };
 
-            this.background = new()
+            this.panelBackground = new()
             {
                 Alignment = UIDirection.Center,
                 TextureIndex = TextureIndex.UIBackgroundInformation,
@@ -94,7 +94,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             };
 
             root.AddChild(shadow);
-            root.AddChild(this.background);
+            root.AddChild(this.panelBackground);
         }
 
         private void BuildTitle()
@@ -113,7 +113,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 BorderThickness = 3.0f,
             };
 
-            this.background.AddChild(this.menuTitle);
+            this.panelBackground.AddChild(this.menuTitle);
         }
 
         private void BuildMenuButtons()
@@ -129,7 +129,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 slot.Icon.Alignment = UIDirection.Center;
 
                 // Update
-                this.background.AddChild(slot.Background);
+                this.panelBackground.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
                 // Save
@@ -161,7 +161,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                     BorderThickness = 2.0f,
                 };
 
-                this.background.AddChild(label);
+                this.panelBackground.AddChild(label);
 
                 // Save
                 this.infoLabels[i] = label;

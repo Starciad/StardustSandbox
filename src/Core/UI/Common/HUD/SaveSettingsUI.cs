@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
         private Texture2D worldThumbnailTexture;
 
         private Label menuTitle, nameSectionTitle, descriptionSectionTitle, thumbnailSectionTitle, titleTextualContent, descriptionTextualContent;
-        private Image background, titleInputField, descriptionInputField, thumbnailPreviewElement;
+        private Image panelBackground, titleInputField, descriptionInputField, thumbnailPreviewElement;
         private SlotInfo[] menuButtonSlotInfos;
 
         private readonly TooltipBox tooltipBox;
@@ -174,7 +174,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Size = Vector2.One,
             };
 
-            this.background = new()
+            this.panelBackground = new()
             {
                 Alignment = UIDirection.Center,
                 TextureIndex = TextureIndex.UIBackgroundSave,
@@ -182,7 +182,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             };
 
             root.AddChild(shadow);
-            root.AddChild(this.background);
+            root.AddChild(this.panelBackground);
         }
 
         private void BuildTitle()
@@ -200,13 +200,13 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 BorderThickness = 3.0f,
             };
 
-            this.background.AddChild(this.menuTitle);
+            this.panelBackground.AddChild(this.menuTitle);
         }
 
         private void BuildMenuButtons()
         {
             this.menuButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
-                this.background,
+                this.panelBackground,
                 this.menuButtonInfos,
                 new(-32.0f, -72.0f),
                 80.0f,
@@ -242,7 +242,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Alignment = UIDirection.West,
             };
 
-            this.background.AddChild(this.nameSectionTitle);
+            this.panelBackground.AddChild(this.nameSectionTitle);
             this.nameSectionTitle.AddChild(this.titleInputField);
             this.titleInputField.AddChild(this.titleTextualContent);
 
@@ -302,7 +302,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Margin = new(0.0f, 8.0f),
             };
 
-            this.background.AddChild(this.thumbnailSectionTitle);
+            this.panelBackground.AddChild(this.thumbnailSectionTitle);
             this.thumbnailSectionTitle.AddChild(this.thumbnailPreviewElement);
         }
 
@@ -338,7 +338,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                     BorderThickness = 2.0f,
                 };
 
-                this.background.AddChild(background);
+                this.panelBackground.AddChild(background);
                 background.AddChild(label);
 
                 this.footerButtonSlotInfos[i] = new(background, null, label);

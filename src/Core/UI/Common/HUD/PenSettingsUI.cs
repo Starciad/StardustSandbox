@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
     {
         private int toolButtonSelectedIndex, layerButtonSelectedIndex, shapeButtonSelectedIndex;
 
-        private Image background, brushSizeSlider;
+        private Image panelBackground, brushSizeSlider;
         private Label menuTitle, brushSectionTitle, toolsSectionTitle, layerSectionTitle, shapeSectionTitle;
         private SlotInfo[] menuButtonSlotInfos, toolButtonSlotInfos, layerButtonSlotInfos, layerVisibilitySlotInfos, shapeButtonSlotInfos;
 
@@ -155,7 +155,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Size = Vector2.One,
             };
 
-            this.background = new()
+            this.panelBackground = new()
             {
                 Alignment = UIDirection.Center,
                 TextureIndex = TextureIndex.UIBackgroundPenSettings,
@@ -163,7 +163,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             };
 
             root.AddChild(shadow);
-            root.AddChild(this.background);
+            root.AddChild(this.panelBackground);
         }
 
         private void BuildTitle()
@@ -181,13 +181,13 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 BorderThickness = 3.0f,
             };
 
-            this.background.AddChild(this.menuTitle);
+            this.panelBackground.AddChild(this.menuTitle);
         }
 
         private void BuildMenuButtons()
         {
             this.menuButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
-                this.background,
+                this.panelBackground,
                 this.menuButtonInfos,
                 new(-32.0f, -72.0f),
                 -80.0f,
@@ -215,7 +215,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Alignment = UIDirection.Southwest,
             };
 
-            this.background.AddChild(this.brushSectionTitle);
+            this.panelBackground.AddChild(this.brushSectionTitle);
             this.brushSectionTitle.AddChild(this.brushSizeSlider);
         }
 

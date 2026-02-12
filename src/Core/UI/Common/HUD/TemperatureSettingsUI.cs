@@ -129,7 +129,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             }
         }
 
-        private Image background;
+        private Image panelBackground;
         private Label menuTitle;
 
         private SlotInfo exitButtonSlotInfo;
@@ -185,7 +185,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Size = Vector2.One,
             };
 
-            this.background = new()
+            this.panelBackground = new()
             {
                 Alignment = UIDirection.Center,
                 TextureIndex = TextureIndex.UIBackgroundTemperatureSettings,
@@ -193,7 +193,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             };
 
             root.AddChild(shadow);
-            root.AddChild(this.background);
+            root.AddChild(this.panelBackground);
         }
 
         private void BuildTitle()
@@ -211,7 +211,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 BorderThickness = 3.0f,
             };
 
-            this.background.AddChild(this.menuTitle);
+            this.panelBackground.AddChild(this.menuTitle);
         }
 
         private void BuildExitButton()
@@ -221,7 +221,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             slot.Background.Alignment = UIDirection.Northeast;
             slot.Icon.Alignment = UIDirection.Center;
 
-            this.background.AddChild(slot.Background);
+            this.panelBackground.AddChild(slot.Background);
             slot.Background.AddChild(slot.Icon);
 
             this.exitButtonSlotInfo = slot;
@@ -265,7 +265,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                     sectionTitle.AddChild(buttonSlot.Background);
                 }
 
-                this.background.AddChild(sectionTitle);
+                this.panelBackground.AddChild(sectionTitle);
             }
         }
 
