@@ -61,7 +61,6 @@ namespace StardustSandbox.Core
             InputController inputController,
             SpriteBatch spriteBatch,
             UIManager uiManager,
-            VideoManager videoManager,
             World world
         )
         {

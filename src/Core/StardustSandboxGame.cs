@@ -222,7 +222,6 @@ namespace StardustSandbox.Core
                 this.inputController,
                 this.spriteBatch,
                 this.uiManager,
-                this.videoManager,
                 this.world
             );
 
