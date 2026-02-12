@@ -75,7 +75,7 @@ namespace StardustSandbox.Core
                 SupportedOrientations = DisplayOrientation.Default
             };
 
-            this.videoManager = new(gdm);
+            this.videoManager = new(gdm, this.Window);
 
             // Load Settings
             VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
@@ -93,7 +93,6 @@ namespace StardustSandbox.Core
             this.Window.IsBorderless = videoSettings.Borderless;
             this.Window.Title = GameConstants.GetTitleAndVersionString();
             this.Window.AllowUserResizing = true;
-            this.videoManager.SetGameWindow(this.Window);
 
             // Configure game settings
             this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / videoSettings.Framerate);

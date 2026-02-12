@@ -29,19 +29,21 @@ namespace StardustSandbox.Core.Managers
     {
         internal GraphicsDeviceManager GraphicsDeviceManager => this.graphicsDeviceManager;
         internal GraphicsDevice GraphicsDevice => this.graphicsDeviceManager.GraphicsDevice;
-        internal GameWindow GameWindow { get; private set; }
 
         private readonly GraphicsDeviceManager graphicsDeviceManager;
+        private readonly GameWindow gameWindow;
 
-        internal VideoManager(GraphicsDeviceManager graphicsDeviceManager)
+        internal VideoManager(GraphicsDeviceManager graphicsDeviceManager, GameWindow gameWindow)
         {
             this.graphicsDeviceManager = graphicsDeviceManager;
+            this.gameWindow = gameWindow;
+
             ApplySettings(SettingsSerializer.Load<VideoSettings>());
         }
 
         internal void ApplySettings(in VideoSettings videoSettings)
         {
-            this.GameWindow.IsBorderless = videoSettings.Borderless;
+            this.gameWindow.IsBorderless = videoSettings.Borderless;
 
             if (videoSettings.Width == 0 || videoSettings.Height == 0)
             {
@@ -57,11 +59,6 @@ namespace StardustSandbox.Core.Managers
             this.graphicsDeviceManager.IsFullScreen = videoSettings.FullScreen;
             this.graphicsDeviceManager.SynchronizeWithVerticalRetrace = videoSettings.VSync;
             this.graphicsDeviceManager.ApplyChanges();
-        }
-
-        internal void SetGameWindow(GameWindow gameWindow)
-        {
-            this.GameWindow = gameWindow;
         }
 
         internal Rectangle AdjustRenderTargetOnScreen(RenderTarget2D renderTarget)

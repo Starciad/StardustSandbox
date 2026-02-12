@@ -108,8 +108,6 @@ namespace StardustSandbox.Core.UI.Common.Menus
                     ChangeWorldsCatalog();
                 }),
             ];
-
-            UpdatePagination();
         }
 
         private void LoadAllSaveFiles()
@@ -135,6 +133,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
             BuildHeader(root);
             BuildFooter(root);
             BuildWorldDisplaySlots();
+            UpdatePagination();
         }
 
         private void BuildHeader(Container root)
