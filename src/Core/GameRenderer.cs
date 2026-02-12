@@ -165,15 +165,14 @@ namespace StardustSandbox.Core
         private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, PlayerInputController inputController)
         {
             GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
-            PenTool penTool = inputController.Pen.Tool;
 
-            if (!gameplaySettings.ShowPreviewArea || penTool is PenTool.Visualization or PenTool.Fill)
+            if (!gameplaySettings.ShowPreviewArea || inputController.Pen.Tool is PenTool.Visualization or PenTool.Fill)
             {
                 return;
             }
 
-            Vector2 mousePosition = InputEngine.GetMousePosition();
-            Vector2 worldMousePosition = Camera.ScreenToWorld(mousePosition);
+            Vector2 screenMousePosition = InputEngine.GetMousePosition();
+            Vector2 worldMousePosition = Camera.ScreenToWorld(screenMousePosition);
 
             Point alignedPosition = new(
                 (int)Math.Floor(worldMousePosition.X / WorldConstants.GRID_SIZE),
@@ -183,7 +182,8 @@ namespace StardustSandbox.Core
             spriteBatch.Begin(
                 SpriteSortMode.Deferred,
                 BlendState.NonPremultiplied,
-                SamplerState.PointClamp
+                SamplerState.PointClamp,
+                transformMatrix: Camera.GetViewMatrix()
             );
 
             foreach (Point point in inputController.Pen.GetShapePoints(alignedPosition))
@@ -193,11 +193,9 @@ namespace StardustSandbox.Core
                     point.Y * WorldConstants.GRID_SIZE
                 );
 
-                Vector2 screenPosition = Camera.WorldToScreen(worldPosition);
-
                 spriteBatch.Draw(
                     AssetDatabase.GetTexture(TextureIndex.ShapeSquares),
-                    screenPosition,
+                    worldPosition,
                     new Rectangle(110, 0, 32, 32),
                     gameplaySettings.PreviewAreaColor
                 );
