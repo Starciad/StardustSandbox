@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
     {
         private int toolButtonSelectedIndex, layerButtonSelectedIndex, shapeButtonSelectedIndex;
 
-        private Image panelBackground, brushSizeSlider;
+        private Image panelBackground, shadowBackground, brushSizeSlider;
         private Label menuTitle, brushSectionTitle, toolsSectionTitle, layerSectionTitle, shapeSectionTitle;
         private SlotInfo[] menuButtonSlotInfos, toolButtonSlotInfos, layerButtonSlotInfos, layerVisibilitySlotInfos, shapeButtonSlotInfos;
 
@@ -147,7 +147,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
         private void BuildBackground(Container root)
         {
-            Image shadow = new()
+            this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
                 Scale = GameScreen.GetViewport(),
@@ -162,7 +162,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Size = new(1084.0f, 540.0f),
             };
 
-            root.AddChild(shadow);
+            root.AddChild(this.shadowBackground);
             root.AddChild(this.panelBackground);
         }
 
@@ -291,6 +291,11 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 80.0f,
                 UIDirection.Southwest
             );
+        }
+
+        protected override void OnResize(Vector2 size)
+        {
+            this.shadowBackground.Scale = size;
         }
 
         protected override void OnUpdate(GameTime gameTime)

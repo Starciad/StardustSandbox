@@ -153,6 +153,11 @@ namespace StardustSandbox.Core.UI.Common.Menus
             }
         }
 
+        protected override void OnResize(Vector2 size)
+        {
+            this.headerBackground.Scale = new(size.X, this.headerBackground.Scale.Y);
+        }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;

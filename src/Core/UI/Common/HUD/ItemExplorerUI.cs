@@ -46,7 +46,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
         private Item[] selectedItems;
 
-        private Image panelBackground;
+        private Image panelBackground, shadowBackground;
         private Label menuTitle, pageIndexLabel;
         private SlotInfo[] menuButtonSlotInfos;
 
@@ -131,7 +131,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
         private void BuildBackground(Container root)
         {
-            Image shadow = new()
+            this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
                 Scale = GameScreen.GetViewport(),
@@ -147,7 +147,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Alignment = UIDirection.Center,
             };
 
-            root.AddChild(shadow);
+            root.AddChild(this.shadowBackground);
             root.AddChild(this.panelBackground);
         }
 
@@ -386,6 +386,11 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 this.panelBackground.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
             }
+        }
+
+        protected override void OnResize(Vector2 size)
+        {
+            this.shadowBackground.Scale = size;
         }
 
         protected override void OnUpdate(GameTime gameTime)

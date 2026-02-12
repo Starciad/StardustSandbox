@@ -34,7 +34,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
 {
     internal sealed class PauseUI : UIBase
     {
-        private Image panelBackground;
+        private Image panelBackground, shadowBackground;
         private Label menuTitle;
 
         private readonly ButtonInfo[] menuButtonInfos;
@@ -91,7 +91,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
         private void BuildBackground(Container root)
         {
-            Image shadow = new()
+            this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
                 Scale = GameScreen.GetViewport(),
@@ -106,7 +106,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Alignment = UIDirection.Center,
             };
 
-            root.AddChild(shadow);
+            root.AddChild(this.shadowBackground);
             root.AddChild(this.panelBackground);
         }
 
@@ -169,6 +169,11 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
                 marginY += background.Size.Y + 32.0f;
             }
+        }
+
+        protected override void OnResize(Vector2 size)
+        {
+            this.shadowBackground.Scale = size;
         }
 
         protected override void OnUpdate(GameTime gameTime)

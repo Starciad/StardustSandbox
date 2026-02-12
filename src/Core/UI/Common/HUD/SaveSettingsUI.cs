@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
         private Texture2D worldThumbnailTexture;
 
         private Label menuTitle, nameSectionTitle, descriptionSectionTitle, thumbnailSectionTitle, titleTextualContent, descriptionTextualContent;
-        private Image panelBackground, titleInputField, descriptionInputField, thumbnailPreviewElement;
+        private Image panelBackground, shadowBackground, titleInputField, descriptionInputField, thumbnailPreviewElement;
         private SlotInfo[] menuButtonSlotInfos;
 
         private readonly TooltipBox tooltipBox;
@@ -166,7 +166,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
         private void BuildBackground(Container root)
         {
-            Image shadow = new()
+            this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
                 Scale = GameScreen.GetViewport(),
@@ -181,7 +181,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Size = new(1084.0f, 540.0f),
             };
 
-            root.AddChild(shadow);
+            root.AddChild(this.shadowBackground);
             root.AddChild(this.panelBackground);
         }
 
@@ -347,28 +347,9 @@ namespace StardustSandbox.Core.UI.Common.HUD
             }
         }
 
-        // =============================================================== //
-
-        private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
+        protected override void OnResize(Vector2 size)
         {
-            Image background = new()
-            {
-                TextureIndex = TextureIndex.UIButtons,
-                SourceRectangle = new(320, 140, 32, 32),
-                Scale = new(2.0f),
-                Size = new(32.0f),
-                Margin = margin,
-            };
-
-            Image icon = new()
-            {
-                TextureIndex = button.TextureIndex,
-                SourceRectangle = button.TextureSourceRectangle,
-                Scale = new(1.5f),
-                Size = new(32.0f)
-            };
-
-            return new(background, icon);
+            this.shadowBackground.Scale = size;
         }
 
         protected override void OnUpdate(GameTime gameTime)

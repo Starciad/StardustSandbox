@@ -129,7 +129,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             }
         }
 
-        private Image panelBackground;
+        private Image panelBackground, shadowBackground;
         private Label menuTitle;
 
         private SlotInfo exitButtonSlotInfo;
@@ -177,7 +177,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
         private void BuildBackground(Container root)
         {
-            Image shadow = new()
+            this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
                 Scale = GameScreen.GetViewport(),
@@ -192,7 +192,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 Size = new(1084.0f, 540.0f),
             };
 
-            root.AddChild(shadow);
+            root.AddChild(this.shadowBackground);
             root.AddChild(this.panelBackground);
         }
 
@@ -267,6 +267,11 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
                 this.panelBackground.AddChild(sectionTitle);
             }
+        }
+
+        protected override void OnResize(Vector2 size)
+        {
+            this.shadowBackground.Scale = size;
         }
 
         protected override void OnUpdate(GameTime gameTime)
