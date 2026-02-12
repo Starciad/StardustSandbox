@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.Managers
 
         internal void ApplySettings(in VideoSettings videoSettings)
         {
-            _ = this.GameWindow?.IsBorderless = videoSettings.Borderless;
+            this.GameWindow.IsBorderless = videoSettings.Borderless;
 
             if (videoSettings.Width == 0 || videoSettings.Height == 0)
             {
