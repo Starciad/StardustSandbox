@@ -70,7 +70,7 @@ namespace StardustSandbox.Core
 
             SetSpeed(SimulationSpeed.Normal, actorManager, world);
 
-            Camera.SetPosition(new(0f, -(world.Information.Size.Y * WorldConstants.GRID_SIZE)));
+            Camera.SetPosition(Camera.WorldToScreen(Vector2.Zero));
 
             inputController.Pen.Tool = PenTool.Pencil;
             inputController.Enable();
