@@ -25,7 +25,7 @@ using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Serialization;
 using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
@@ -54,7 +54,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
         internal WorldDetailsUI(
             ActorManager actorManager,
             AmbientManager ambientManager,
-            InputController inputController,
+            PlayerInputController inputController,
             UIManager uiManager,
             World world
         ) : base()

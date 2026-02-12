@@ -23,16 +23,16 @@ using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.InputSystem.Actions;
-using StardustSandbox.Core.InputSystem.Game.Handlers;
-using StardustSandbox.Core.InputSystem.Game.Simulation;
+using StardustSandbox.Core.InputSystem.Handlers;
+using StardustSandbox.Core.InputSystem.Simulation;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.WorldSystem;
 
-namespace StardustSandbox.Core.InputSystem.Game
+namespace StardustSandbox.Core.InputSystem
 {
-    internal sealed class InputController
+    internal sealed class PlayerInputController
     {
         internal Pen Pen => this.pen;
         internal Player Player => this.player;
@@ -45,7 +45,7 @@ namespace StardustSandbox.Core.InputSystem.Game
         private readonly Pen pen;
         private readonly Player player;
 
-        internal InputController()
+        internal PlayerInputController()
         {
             this.pen = new();
             this.player = new();
@@ -79,25 +79,36 @@ namespace StardustSandbox.Core.InputSystem.Game
 
                 // Camera
                 new([
-                    // Movement
+                    // Moving
                     new(controlSettings.MoveCameraUp)
                     {
-                        OnPerformed = _ => Camera.Move(new(0, this.player.MovementSpeed)),
+                        OnPerformed = _ => Camera.MoveUp(this.player.MovementSpeed),
                     },
 
                     new(controlSettings.MoveCameraRight)
                     {
-                        OnPerformed = _ => Camera.Move(new(this.player.MovementSpeed, 0)),
+                        OnPerformed = _ => Camera.MoveRight(this.player.MovementSpeed),
                     },
 
                     new(controlSettings.MoveCameraDown)
                     {
-                        OnPerformed = _ => Camera.Move(new(0, -this.player.MovementSpeed)),
+                        OnPerformed = _ => Camera.MoveDown(this.player.MovementSpeed),
                     },
 
                     new(controlSettings.MoveCameraLeft)
                     {
-                        OnPerformed = _ => Camera.Move(new(-this.player.MovementSpeed, 0)),
+                        OnPerformed = _ => Camera.MoveLeft(this.player.MovementSpeed),
+                    },
+
+                    // Zooming
+                    new(controlSettings.ZoomCameraIn)
+                    {
+                        OnPerformed = _ => Camera.FadeIn(this.player.ZoomingSpeed),
+                    },
+
+                    new(controlSettings.ZoomCameraOut)
+                    {
+                        OnPerformed = _ => Camera.FadeOut(this.player.ZoomingSpeed),
                     },
 
                     // Running
@@ -166,11 +177,11 @@ namespace StardustSandbox.Core.InputSystem.Game
                 return;
             }
 
-            if (Input.GetDeltaScrollWheel() > 0)
+            if (InputEngine.GetDeltaScrollWheel() > 0)
             {
                 this.pen.Size--;
             }
-            else if (Input.GetDeltaScrollWheel() < 0)
+            else if (InputEngine.GetDeltaScrollWheel() < 0)
             {
                 this.pen.Size++;
             }

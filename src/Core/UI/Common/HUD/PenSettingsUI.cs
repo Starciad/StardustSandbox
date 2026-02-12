@@ -25,7 +25,7 @@ using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Enums.World;
-using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Elements;
@@ -50,11 +50,11 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
         private readonly HudUI hudUI;
 
-        private readonly InputController inputController;
+        private readonly PlayerInputController inputController;
         private readonly World world;
 
         internal PenSettingsUI(
-            InputController inputController,
+            PlayerInputController inputController,
             HudUI hudUI,
             TooltipBox tooltipBox,
             UIManager uiManager,

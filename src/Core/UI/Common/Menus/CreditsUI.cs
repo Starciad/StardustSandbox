@@ -331,8 +331,8 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
         private void UpdateUserInput()
         {
-            if (Input.MouseState.LeftButton == ButtonState.Pressed ||
-                Input.KeyboardState.GetPressedKeyCount() > 0)
+            if (InputEngine.MouseState.LeftButton == ButtonState.Pressed ||
+                InputEngine.KeyboardState.GetPressedKeyCount() > 0)
             {
                 this.uiManager.CloseUI();
             }

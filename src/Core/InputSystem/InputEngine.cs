@@ -20,7 +20,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace StardustSandbox.Core.InputSystem
 {
-    internal static class Input
+    internal static class InputEngine
     {
         internal static MouseState MouseState => mouseState;
         internal static MouseState PreviousMouseState => previousMouseState;

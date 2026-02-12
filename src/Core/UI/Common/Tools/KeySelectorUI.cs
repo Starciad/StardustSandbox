@@ -22,7 +22,7 @@ using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
-using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Settings;
@@ -36,12 +36,12 @@ namespace StardustSandbox.Core.UI.Common.Tools
         private Text message;
 
         private readonly GameWindow gameWindow;
-        private readonly InputController inputController;
+        private readonly PlayerInputController inputController;
         private readonly UIManager uiManager;
 
         internal KeySelectorUI(
             GameWindow gameWindow,
-            InputController inputController,
+            PlayerInputController inputController,
             UIManager uiManager
         ) : base()
         {

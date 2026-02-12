@@ -25,7 +25,6 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.InputSystem;
-using StardustSandbox.Core.InputSystem.Game;
 using StardustSandbox.Core.IO;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
@@ -58,7 +57,7 @@ namespace StardustSandbox.Core
             ActorManager actorManager,
             AmbientManager ambientManager,
             CursorManager cursorManager,
-            InputController inputController,
+            PlayerInputController inputController,
             SpriteBatch spriteBatch,
             UIManager uiManager,
             World world
@@ -163,7 +162,7 @@ namespace StardustSandbox.Core
             spriteBatch.End();
         }
 
-        private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, InputController inputController)
+        private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, PlayerInputController inputController)
         {
             GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
             PenTool penTool = inputController.Pen.Tool;
@@ -173,7 +172,7 @@ namespace StardustSandbox.Core
                 return;
             }
 
-            Vector2 mousePosition = Input.GetMousePosition();
+            Vector2 mousePosition = InputEngine.GetMousePosition();
             Vector2 worldMousePosition = Camera.ScreenToWorld(mousePosition);
 
             Point alignedPosition = new(

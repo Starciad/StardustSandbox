@@ -45,6 +45,12 @@ namespace StardustSandbox.Core.Serialization.Settings
         [XmlElement("MoveCameraFast", typeof(Keys))]
         public Keys MoveCameraFast { get; set; }
 
+        [XmlElement("ZoomCameraIn", typeof(Keys))]
+        public Keys ZoomCameraIn { get; set; }
+
+        [XmlElement("ZoomCameraOut", typeof(Keys))]
+        public Keys ZoomCameraOut { get; set; }
+
         #endregion
 
         #region World Controls
@@ -74,6 +80,8 @@ namespace StardustSandbox.Core.Serialization.Settings
             this.MoveCameraDown = Keys.S;
             this.MoveCameraRight = Keys.D;
             this.MoveCameraFast = Keys.LeftShift;
+            this.ZoomCameraIn = Keys.OemPlus;
+            this.ZoomCameraOut = Keys.OemMinus;
 
             this.TogglePause = Keys.Space;
             this.ClearWorld = Keys.R;

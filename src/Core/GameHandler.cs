@@ -26,7 +26,7 @@ using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem;
 
@@ -49,7 +49,7 @@ namespace StardustSandbox.Core
             GameHandler.gameWindow = gameWindow;
         }
 
-        internal static void StartGame(ActorManager actorManager, AmbientManager ambientManager, InputController inputController, UIManager uiManager, World world)
+        internal static void StartGame(ActorManager actorManager, AmbientManager ambientManager, PlayerInputController inputController, UIManager uiManager, World world)
         {
             Camera.Reset();
             MediaPlayer.Stop();
@@ -76,7 +76,7 @@ namespace StardustSandbox.Core
             inputController.Enable();
         }
 
-        internal static void StopGame(ActorManager actorManager, InputController inputController, World world)
+        internal static void StopGame(ActorManager actorManager, PlayerInputController inputController, World world)
         {
             UnloadSaveFile();
             SongEngine.StopGameplayMusicCycle();

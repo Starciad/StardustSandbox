@@ -25,7 +25,7 @@ using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Enums.UI.Tools;
-using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Elements;
@@ -59,11 +59,11 @@ namespace StardustSandbox.Core.UI.Common.Tools
         private readonly StringBuilder userInputPasswordMaskedStringBuilder = new();
 
         private readonly GameWindow gameWindow;
-        private readonly InputController inputController;
+        private readonly PlayerInputController inputController;
 
         internal TextInputUI(
             GameWindow gameWindow,
-            InputController inputController,
+            PlayerInputController inputController,
             MessageUI messageUI,
             UIManager uiManager
         ) : base()

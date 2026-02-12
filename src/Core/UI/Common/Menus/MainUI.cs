@@ -25,7 +25,7 @@ using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Backgrounds;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Elements;
@@ -49,7 +49,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
         private readonly ButtonInfo[] menuButtonInfos, topButtonInfos;
 
         private readonly ActorManager actorManager;
-        private readonly InputController inputController;
+        private readonly PlayerInputController inputController;
         private readonly AmbientManager ambientManager;
         private readonly UIManager uiManager;
         private readonly World world;
@@ -57,7 +57,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
         internal MainUI(
             ActorManager actorManager,
             AmbientManager ambientManager,
-            InputController inputController,
+            PlayerInputController inputController,
             StardustSandboxGame stardustSandboxGame,
             UIManager uiManager,
             World world

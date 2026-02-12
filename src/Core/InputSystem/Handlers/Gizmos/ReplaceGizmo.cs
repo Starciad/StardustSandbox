@@ -17,39 +17,61 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Actors;
+using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Inputs;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.Items;
-using StardustSandbox.Core.InputSystem.Game.Simulation;
+using StardustSandbox.Core.InputSystem.Handlers;
+using StardustSandbox.Core.InputSystem.Simulation;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.InputSystem.Game.Handlers.Gizmos
+namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
 {
-    internal sealed class EraserGizmo : Gizmo
+    internal sealed class ReplaceGizmo : Gizmo
     {
-        internal EraserGizmo(ActorManager actorManager, Pen pen, World world, WorldHandler worldHandler) : base(actorManager, pen, world, worldHandler)
+        internal ReplaceGizmo(ActorManager actorManager, Pen pen, World world, WorldHandler worldHandler) : base(actorManager, pen, world, worldHandler)
         {
 
         }
 
         internal override void Execute(in WorldModificationType worldModificationType, in InputState inputState, in ItemContentType contentType, in int contentIndex, in Point position)
         {
+            IEnumerable<Point> targetPoints = this.pen.GetShapePoints(position);
+
             switch (contentType)
             {
                 case ItemContentType.Element:
-                    EraseElements(this.pen.GetShapePoints(position));
-                    break;
+                    switch (worldModificationType)
+                    {
+                        case WorldModificationType.Adding:
+                            ReplaceElements((ElementIndex)contentIndex, targetPoints);
+                            break;
 
-                case ItemContentType.Actor:
-                    EraseActors(this.pen.GetShapePoints(position));
+                        case WorldModificationType.Removing:
+                            EraseElements(targetPoints);
+                            break;
+
+                        default:
+                            break;
+                    }
+
                     break;
 
                 default:
                     break;
+            }
+        }
+
+        // Elements
+
+        private void ReplaceElements(ElementIndex elementIndex, IEnumerable<Point> positions)
+        {
+            foreach (Point position in positions)
+            {
+                this.world.ReplaceElement(position, this.pen.Layer, elementIndex);
             }
         }
 
@@ -58,20 +80,6 @@ namespace StardustSandbox.Core.InputSystem.Game.Handlers.Gizmos
             foreach (Point position in positions)
             {
                 this.world.RemoveElement(position, this.pen.Layer);
-            }
-        }
-
-        private void EraseActors(IEnumerable<Point> positions)
-        {
-            foreach (Point position in positions)
-            {
-                foreach (Actor actor in this.actorManager.GetActors())
-                {
-                    if (actor.Position == position)
-                    {
-                        this.actorManager.Destroy(actor);
-                    }
-                }
             }
         }
     }

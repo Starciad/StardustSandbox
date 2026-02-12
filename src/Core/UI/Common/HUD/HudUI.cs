@@ -33,7 +33,6 @@ using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Enums.UI.Tools;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.InputSystem;
-using StardustSandbox.Core.InputSystem.Game;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Common.Tools;
@@ -63,7 +62,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
         private readonly SlotInfo[] toolbarSlots = new SlotInfo[UIConstants.ELEMENT_BUTTONS_LENGTH];
         private readonly ButtonInfo[] leftPanelTopButtonInfos, leftPanelBottomButtonInfos, rightPanelTopButtonInfos, rightPanelBottomButtonInfos;
 
-        private readonly InputController inputController;
+        private readonly PlayerInputController inputController;
         private readonly ConfirmUI guiConfirm;
         private readonly UIManager uiManager;
 
@@ -81,7 +80,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
         internal HudUI(
             ActorManager actorManager,
             ConfirmUI confirmUI,
-            InputController inputController,
+            PlayerInputController inputController,
             NotificationBox notificationBox,
             TooltipBox tooltipBox,
             UIManager uiManager,
@@ -348,7 +347,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             this.tooltipBox.CanDraw = false;
 
             // Toggle HUD visibility with D1 key
-            if (GameParameters.CanHideHud && Input.KeyboardState.IsKeyDown(Keys.D1) && !Input.PreviousKeyboardState.IsKeyDown(Keys.D1))
+            if (GameParameters.CanHideHud && InputEngine.KeyboardState.IsKeyDown(Keys.D1) && !InputEngine.PreviousKeyboardState.IsKeyDown(Keys.D1))
             {
                 this.topToolbarContainer.CanDraw = !this.topToolbarContainer.CanDraw;
                 this.leftToolbarContainer.CanDraw = !this.leftToolbarContainer.CanDraw;

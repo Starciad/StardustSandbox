@@ -671,7 +671,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
                 this.scrollableContainer.Margin = new(this.scrollableContainer.Margin.X, float.Clamp(marginY, bottomLimit, 0.0f));
             }
 
-            int mouseY = Input.MouseState.Y;
+            int mouseY = InputEngine.MouseState.Y;
 
             float scrollableHeight = this.scrollableContainer.ChildCount * UIConstants.OPTIONS_ITEM_SPACING;
             float backgroundHeight = this.background.Size.Y;
@@ -681,7 +681,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
             float sliderMaxY = backgroundHeight - this.scrollbarSliderButton.Size.Y - this.scrollbarDownButton.Size.Y;
 
             // Start dragging by pressing the left mouse button over the slider
-            if (Input.MouseState.LeftButton == ButtonState.Pressed)
+            if (InputEngine.MouseState.LeftButton == ButtonState.Pressed)
             {
                 if (!this.isDraggingScrollbar && Interaction.OnMouseOver(this.scrollbarSliderButton))
                 {

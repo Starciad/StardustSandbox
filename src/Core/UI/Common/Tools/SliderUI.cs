@@ -200,7 +200,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
         {
             if (Interaction.OnMouseLeftDown(this.sliderBackground) || Interaction.OnMouseLeftDown(this.sliderButton))
             {
-                Vector2 mousePosition = Input.GetMousePosition();
+                Vector2 mousePosition = InputEngine.GetMousePosition();
                 Vector2 sliderPosition = this.sliderBackground.Position;
 
                 float relativeX = MathHelper.Clamp(mousePosition.X - sliderPosition.X, 0.0f, this.sliderBackground.Size.X);

@@ -25,7 +25,7 @@ using StardustSandbox.Core.Mathematics;
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.InputSystem.Game.Simulation
+namespace StardustSandbox.Core.InputSystem.Simulation
 {
     internal sealed class Pen
     {

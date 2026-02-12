@@ -31,7 +31,7 @@ using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Explosions;
 using StardustSandbox.Core.Extensions;
-using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Mathematics;
@@ -83,7 +83,7 @@ namespace StardustSandbox.Core.WorldSystem
             set => this.slots[x, y] = value;
         }
 
-        internal World(InputController inputController)
+        internal World(PlayerInputController inputController)
         {
             this.information = new();
             this.simulation = new();

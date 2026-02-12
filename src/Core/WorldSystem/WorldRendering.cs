@@ -26,7 +26,7 @@ using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.World;
-using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 
@@ -34,13 +34,13 @@ using System;
 
 namespace StardustSandbox.Core.WorldSystem
 {
-    internal sealed class WorldRendering(InputController inputController, World world)
+    internal sealed class WorldRendering(PlayerInputController inputController, World world)
     {
         internal bool DrawForegroundElements { get; set; } = true;
         internal bool DrawBackgroundElements { get; set; } = true;
 
         private readonly ElementContext elementRenderingContext = new(world);
-        private readonly InputController inputController = inputController;
+        private readonly PlayerInputController inputController = inputController;
         private readonly World world = world;
 
         internal void Draw(SpriteBatch spriteBatch)

@@ -32,22 +32,23 @@ namespace StardustSandbox.Core.Cameras
         private static Vector2 position;
         private static Vector2 targetPosition;
 
-        private static World world;
+        private static float zoom;
+        private static float targetZoom;
+
         private static bool isInitialized = false;
 
         internal static void Reset()
         {
             SetPosition(Vector2.Zero);
+            SetZoom(1.0f);
         }
 
-        internal static void Initialize(World world)
+        internal static void Initialize()
         {
             if (isInitialized)
             {
                 throw new InvalidOperationException($"{nameof(Camera)} is already initialized");
             }
-
-            Camera.world = world;
 
             Reset();
 
@@ -59,6 +60,7 @@ namespace StardustSandbox.Core.Cameras
             float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
             position = Vector2.Lerp(Position, targetPosition, CameraConstants.MOVEMENT_LERP_SPEED * deltaTime);
+            zoom = MathHelper.Lerp(zoom, targetZoom, CameraConstants.ZOOM_LERP_SPEED * deltaTime);
         }
 
         internal static void SetPosition(Vector2 newPosition)
@@ -67,14 +69,52 @@ namespace StardustSandbox.Core.Cameras
             targetPosition = newPosition;
         }
 
-        internal static void Move(Vector2 direction)
+        internal static void SetZoom(float newZoom)
         {
-            targetPosition += direction;
+            zoom = newZoom;
+            targetZoom = newZoom;
+        }
+
+        internal static void MoveUp(float amount)
+        {
+            targetPosition += new Vector2(0.0f, -amount);
+        }
+
+        internal static void MoveDown(float amount)
+        {
+            targetPosition += new Vector2(0.0f, amount);
+        }
+
+        internal static void MoveLeft(float amount)
+        {
+            targetPosition += new Vector2(-amount, 0.0f);
+        }
+
+        internal static void MoveRight(float amount)
+        {
+            targetPosition += new Vector2(amount, 0.0f);
+        }
+
+        internal static void FadeIn(float amount)
+        {
+            targetZoom += amount;
+            targetZoom = Math.Min(targetZoom, 1.5f);
+        }
+
+        internal static void FadeOut(float amount)
+        {
+            targetZoom -= amount;
+            targetZoom = Math.Max(targetZoom, 0.1f);
         }
 
         private static Matrix GetVirtualViewMatrix()
         {
-            return Matrix.CreateTranslation(new(-Position.X, Position.Y, 0.0f));
+            Vector2 viewportCenter = GameScreen.GetViewportCenter();
+
+            return
+                Matrix.CreateTranslation(-Position.X, -Position.Y, 0f) *
+                Matrix.CreateScale(zoom, zoom, 1f) *
+                Matrix.CreateTranslation(viewportCenter.X, viewportCenter.Y, 0f);
         }
 
         internal static Matrix GetViewMatrix()

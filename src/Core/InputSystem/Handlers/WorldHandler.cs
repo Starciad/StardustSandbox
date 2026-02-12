@@ -20,14 +20,14 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Enums.Inputs;
 using StardustSandbox.Core.Enums.Inputs.Game;
-using StardustSandbox.Core.InputSystem.Game.Handlers.Gizmos;
-using StardustSandbox.Core.InputSystem.Game.Simulation;
+using StardustSandbox.Core.InputSystem.Handlers.Gizmos;
+using StardustSandbox.Core.InputSystem.Simulation;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Tools;
 using StardustSandbox.Core.WorldSystem;
 
-namespace StardustSandbox.Core.InputSystem.Game.Handlers
+namespace StardustSandbox.Core.InputSystem.Handlers
 {
     internal sealed class WorldHandler
     {
@@ -103,7 +103,7 @@ namespace StardustSandbox.Core.InputSystem.Game.Handlers
 
         private static Vector2 GetWorldGridPositionFromMouse()
         {
-            return WorldMath.ToWorldPosition(ConvertScreenToWorld(Input.GetMousePosition()));
+            return WorldMath.ToWorldPosition(ConvertScreenToWorld(InputEngine.GetMousePosition()));
         }
 
         private static Vector2 ConvertScreenToWorld(Vector2 screenPosition)

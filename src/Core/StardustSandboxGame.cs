@@ -27,7 +27,6 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.InputSystem;
-using StardustSandbox.Core.InputSystem.Game;
 using StardustSandbox.Core.Interfaces.Notifiers;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
@@ -46,7 +45,7 @@ namespace StardustSandbox.Core
         private SpriteBatch spriteBatch;
 
         private readonly World world;
-        private readonly InputController inputController;
+        private readonly PlayerInputController inputController;
 
         private readonly ActorManager actorManager;
         private readonly AmbientManager ambientManager;
@@ -122,7 +121,7 @@ namespace StardustSandbox.Core
             this.gameNotifier = this.Services.GetService<IGameNotifier>();
 
             GameScreen.Initialize(this.GraphicsDevice);
-            Camera.Initialize(this.world);
+            Camera.Initialize();
 
             AchievementEngine.Initialize(this.achievementNotifier);
             SongEngine.Initialize();
@@ -191,7 +190,7 @@ namespace StardustSandbox.Core
                 return;
             }
 
-            Input.Update();
+            InputEngine.Update();
 
             // Controllers
             this.inputController.Update();

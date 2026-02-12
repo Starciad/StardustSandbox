@@ -122,22 +122,22 @@ namespace StardustSandbox.Core.InputSystem.Actions
         // Keyboard State
         private bool GetKeyboardStartedState(Keys key)
         {
-            return !Input.PreviousKeyboardState.IsKeyDown(key) &&
-                    Input.KeyboardState.IsKeyDown(key) &&
+            return !InputEngine.PreviousKeyboardState.IsKeyDown(key) &&
+                    InputEngine.KeyboardState.IsKeyDown(key) &&
                    !this.started && !this.performed && this.canceled;
         }
 
         private bool GetKeyboardPerformedState(Keys key)
         {
-            return Input.PreviousKeyboardState.IsKeyDown(key) &&
-                   Input.KeyboardState.IsKeyDown(key) &&
+            return InputEngine.PreviousKeyboardState.IsKeyDown(key) &&
+                   InputEngine.KeyboardState.IsKeyDown(key) &&
                    this.started && !this.canceled;
         }
 
         private bool GetKeyboardCanceledState(Keys key)
         {
-            return Input.PreviousKeyboardState.IsKeyDown(key) &&
-                  !Input.KeyboardState.IsKeyDown(key) &&
+            return InputEngine.PreviousKeyboardState.IsKeyDown(key) &&
+                  !InputEngine.KeyboardState.IsKeyDown(key) &&
                    this.started && this.performed && !this.canceled;
         }
 
@@ -164,18 +164,18 @@ namespace StardustSandbox.Core.InputSystem.Actions
             switch (mouseButton)
             {
                 case MouseButton.Left:
-                    previousState = Input.PreviousMouseState.LeftButton;
-                    currentState = Input.MouseState.LeftButton;
+                    previousState = InputEngine.PreviousMouseState.LeftButton;
+                    currentState = InputEngine.MouseState.LeftButton;
                     break;
 
                 case MouseButton.Middle:
-                    previousState = Input.PreviousMouseState.MiddleButton;
-                    currentState = Input.MouseState.MiddleButton;
+                    previousState = InputEngine.PreviousMouseState.MiddleButton;
+                    currentState = InputEngine.MouseState.MiddleButton;
                     break;
 
                 case MouseButton.Right:
-                    previousState = Input.PreviousMouseState.RightButton;
-                    currentState = Input.MouseState.RightButton;
+                    previousState = InputEngine.PreviousMouseState.RightButton;
+                    currentState = InputEngine.MouseState.RightButton;
                     break;
 
                 default:

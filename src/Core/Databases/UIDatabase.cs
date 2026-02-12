@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Common.HUD;
@@ -43,7 +43,7 @@ namespace StardustSandbox.Core.Databases
             CursorManager cursorManager,
             GameWindow gameWindow,
             GraphicsDevice graphicsDevice,
-            InputController inputController,
+            PlayerInputController inputController,
             StardustSandboxGame stardustSandboxGame,
             UIManager uiManager,
             VideoManager videoManager,
