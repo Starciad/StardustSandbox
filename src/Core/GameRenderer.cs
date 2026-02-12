@@ -212,6 +212,12 @@ namespace StardustSandbox.Core
             Color[] data = new Color[width * height];
             graphicsDevice.GetBackBufferData(data);
 
+            // Flatten Alpha
+            for (int i = 0; i < data.Length; i++)
+            {
+                data[i] = new(data[i].R, data[i].G, data[i].B, (byte)255);
+            }
+
             File.WriteColorBuffer(graphicsDevice, width, height, data);
         }
 
