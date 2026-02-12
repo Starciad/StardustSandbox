@@ -269,5 +269,13 @@ namespace StardustSandbox.Core.Databases
         {
             return uis[(int)index];
         }
+
+        internal static void ResizeUIs(Vector2 size)
+        {
+            foreach (UIBase ui in uis)
+            {
+                ui.Resize(size);
+            }
+        }
     }
 }

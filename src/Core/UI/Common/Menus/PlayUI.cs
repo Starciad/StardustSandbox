@@ -31,6 +31,8 @@ namespace StardustSandbox.Core.UI.Common.Menus
 {
     internal class PlayUI : UIBase
     {
+        private Image shadowBackground;
+
         private readonly Label[] menuButtonLabels;
         private readonly ButtonInfo[] menuButtonInfos;
 
@@ -56,9 +58,9 @@ namespace StardustSandbox.Core.UI.Common.Menus
             BuildMenuButtons(root);
         }
 
-        private static void BuildTitle(Container root)
+        private void BuildTitle(Container root)
         {
-            Image background = new()
+            this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
                 Color = new(AAP64ColorPalette.DarkGray, 196),
@@ -79,8 +81,8 @@ namespace StardustSandbox.Core.UI.Common.Menus
                 BorderThickness = 2.0f,
             };
 
-            background.AddChild(title);
-            root.AddChild(background);
+            this.shadowBackground.AddChild(title);
+            root.AddChild(this.shadowBackground);
         }
 
         private void BuildMenuButtons(Container root)
@@ -120,6 +122,11 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
                 this.menuButtonLabels[i] = label;
             }
+        }
+
+        protected override void OnResize(Vector2 size)
+        {
+            this.shadowBackground.Scale = new(size.X, this.shadowBackground.Scale.Y);
         }
 
         protected override void OnUpdate(GameTime gameTime)

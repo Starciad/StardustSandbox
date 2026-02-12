@@ -259,7 +259,7 @@ namespace StardustSandbox.Core
 
         private void OnClientSizeChanged(object sender, EventArgs args)
         {
-            this.uiManager.ResizeGUIs();
+            UIDatabase.ResizeUIs(GameScreen.GetViewport());
         }
 
         internal void Quit()

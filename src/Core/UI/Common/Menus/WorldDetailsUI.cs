@@ -42,7 +42,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
     {
         private SaveFile saveFile;
 
-        private Image headerBackground;
+        private Image headerBackground, shadowBackground;
 
         private Image worldThumbnail;
         private Label worldTitle, worldVersion, worldCreationTimestamp;
@@ -97,9 +97,9 @@ namespace StardustSandbox.Core.UI.Common.Menus
             BuildWorldButtons(root);
         }
 
-        private static void BuildBackground(Container root)
+        private void BuildBackground(Container root)
         {
-            Image background = new()
+            this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
                 Scale = GameScreen.GetViewport(),
@@ -107,7 +107,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
                 Size = Vector2.One,
             };
 
-            root.AddChild(background);
+            root.AddChild(this.shadowBackground);
         }
 
         private void BuildHeader(Container root)
@@ -220,6 +220,12 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
                 this.worldButtonLabels[i] = buttonLabel;
             }
+        }
+
+        protected override void OnResize(Vector2 size)
+        {
+            this.shadowBackground.Scale = size;
+            this.headerBackground.Scale = new(size.X, this.headerBackground.Scale.Y);
         }
 
         protected override void OnUpdate(GameTime gameTime)

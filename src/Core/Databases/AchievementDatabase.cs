@@ -26,8 +26,6 @@ namespace StardustSandbox.Core.Databases
 {
     public static class AchievementDatabase
     {
-        public static IEnumerable<Achievement> Achievements => achievements;
-
         private static Achievement[] achievements;
 
         private static bool isLoaded = false;
@@ -74,6 +72,11 @@ namespace StardustSandbox.Core.Databases
         internal static Achievement GetAchievement(AchievementIndex index)
         {
             return achievements[(int)index];
+        }
+
+        public static IEnumerable<Achievement> GetAchievements()
+        {
+            return achievements;
         }
     }
 }
