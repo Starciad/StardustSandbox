@@ -24,14 +24,48 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Saving.Data;
 using StardustSandbox.Core.WorldSystem;
 
+using System;
+
 namespace StardustSandbox.Core.Actors
 {
     internal abstract class Actor : IPoolableObject
     {
         internal ActorIndex Index { get; }
 
-        internal Point Position { get; set; }
-        internal Point Size { get; set; }
+        internal Rectangle SelfRectangle => new(this.PositionX, this.PositionY, this.Width, this.Height);
+
+        internal Point Position
+        {
+            get
+            {
+                return new(this.PositionX, this.PositionY);
+            }
+
+            set
+            {
+                this.PositionX = value.X;
+                this.PositionY = value.Y;
+            }
+        }
+
+        internal Point Size
+        {
+            get
+            {
+                return new(this.Width, this.Height);
+            }
+
+            set
+            {
+                this.Width = value.X;
+                this.Height = value.Y;
+            }
+        }
+
+        internal int PositionX { get; set; }
+        internal int PositionY { get; set; }
+        internal int Width { get; set; }
+        internal int Height { get; set; }
 
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }

@@ -55,91 +55,7 @@ namespace StardustSandbox.Core.Actors.Common
         private Point positionElementPlaced;
         private uint elementsPlacedCount;
 
-        private static readonly HashSet<ElementIndex> grabbableElements =
-        [
-            ElementIndex.Dirt,
-            ElementIndex.Mud,
-            ElementIndex.Stone,
-            ElementIndex.Grass,
-            ElementIndex.Ice,
-            ElementIndex.Sand,
-            ElementIndex.Snow,
-            ElementIndex.Glass,
-            ElementIndex.Iron,
-            ElementIndex.Wood,
-            ElementIndex.RedBrick,
-            ElementIndex.TreeLeaf,
-            ElementIndex.MountingBlock,
-            ElementIndex.LampOn,
-            ElementIndex.Salt,
-            ElementIndex.Bomb,
-            ElementIndex.Dynamite,
-            ElementIndex.Tnt,
-            ElementIndex.DrySponge,
-            ElementIndex.WetSponge,
-            ElementIndex.Gold,
-            ElementIndex.Ash,
-            ElementIndex.AntiCorruption,
-            ElementIndex.DryBlackWool,
-            ElementIndex.DryWhiteWool,
-            ElementIndex.DryRedWool,
-            ElementIndex.DryOrangeWool,
-            ElementIndex.DryYellowWool,
-            ElementIndex.DryGreenWool,
-            ElementIndex.DryGrayWool,
-            ElementIndex.DryBlueWool,
-            ElementIndex.DryVioletWool,
-            ElementIndex.DryBrownWool,
-            ElementIndex.WetBlackWool,
-            ElementIndex.WetWhiteWool,
-            ElementIndex.WetRedWool,
-            ElementIndex.WetOrangeWool,
-            ElementIndex.WetYellowWool,
-            ElementIndex.WetGreenWool,
-            ElementIndex.WetGrayWool,
-            ElementIndex.WetBlueWool,
-            ElementIndex.WetVioletWool,
-            ElementIndex.WetBrownWool,
-            ElementIndex.FertileSoil,
-            ElementIndex.Seed,
-            ElementIndex.Sapling,
-            ElementIndex.Moss,
-            ElementIndex.Gunpowder,
-            ElementIndex.Obsidian,
-        ];
-
-        private static readonly HashSet<ElementIndex> mortalElements =
-        [
-            ElementIndex.Water,
-            ElementIndex.MovableCorruption,
-            ElementIndex.Lava,
-            ElementIndex.Acid,
-            ElementIndex.GasCorruption,
-            ElementIndex.LiquidCorruption,
-            ElementIndex.ImmovableCorruption,
-            ElementIndex.Smoke,
-            ElementIndex.Fire,
-            ElementIndex.Void,
-            ElementIndex.Oil,
-            ElementIndex.Salt,
-            ElementIndex.Saltwater,
-            ElementIndex.Devourer,
-            ElementIndex.LiquefiedPetroleumGas,
-            ElementIndex.BlackPaint,
-            ElementIndex.WhitePaint,
-            ElementIndex.RedPaint,
-            ElementIndex.OrangePaint,
-            ElementIndex.YellowPaint,
-            ElementIndex.GreenPaint,
-            ElementIndex.BluePaint,
-            ElementIndex.GrayPaint,
-            ElementIndex.VioletPaint,
-            ElementIndex.BrownPaint,
-            ElementIndex.Mercury,
-            ElementIndex.Electricity,
-        ];
-
-        private static readonly HashSet<Point> possiblePositions = [];
+        private static readonly List<Point> possiblePositions = [];
 
         internal GulActor(ActorIndex index, ActorManager actorManager, World world) : base(index, actorManager, world)
         {
@@ -153,6 +69,100 @@ namespace StardustSandbox.Core.Actors.Common
             this.positionElementPlaced = new(-1);
         }
 
+        private static bool IsGrabbableElement(ElementIndex elementIndex)
+        {
+            return elementIndex switch
+            {
+                ElementIndex.Dirt or
+                ElementIndex.Mud or
+                ElementIndex.Stone or
+                ElementIndex.Grass or
+                ElementIndex.Ice or
+                ElementIndex.Sand or
+                ElementIndex.Snow or
+                ElementIndex.Glass or
+                ElementIndex.Iron or
+                ElementIndex.Wood or
+                ElementIndex.RedBrick or
+                ElementIndex.TreeLeaf or
+                ElementIndex.MountingBlock or
+                ElementIndex.LampOn or
+                ElementIndex.Salt or
+                ElementIndex.Bomb or
+                ElementIndex.Dynamite or
+                ElementIndex.Tnt or
+                ElementIndex.DrySponge or
+                ElementIndex.WetSponge or
+                ElementIndex.Gold or
+                ElementIndex.Ash or
+                ElementIndex.AntiCorruption or
+                ElementIndex.DryBlackWool or
+                ElementIndex.DryWhiteWool or
+                ElementIndex.DryRedWool or
+                ElementIndex.DryOrangeWool or
+                ElementIndex.DryYellowWool or
+                ElementIndex.DryGreenWool or
+                ElementIndex.DryGrayWool or
+                ElementIndex.DryBlueWool or
+                ElementIndex.DryVioletWool or
+                ElementIndex.DryBrownWool or
+                ElementIndex.WetBlackWool or
+                ElementIndex.WetWhiteWool or
+                ElementIndex.WetRedWool or
+                ElementIndex.WetOrangeWool or
+                ElementIndex.WetYellowWool or
+                ElementIndex.WetGreenWool or
+                ElementIndex.WetGrayWool or
+                ElementIndex.WetBlueWool or
+                ElementIndex.WetVioletWool or
+                ElementIndex.WetBrownWool or
+                ElementIndex.FertileSoil or
+                ElementIndex.Seed or
+                ElementIndex.Sapling or
+                ElementIndex.Moss or
+                ElementIndex.Gunpowder or
+                ElementIndex.Obsidian
+                  => true,
+                _ => false,
+            };
+        }
+
+        private static bool IsMortalElement(ElementIndex elementIndex)
+        {
+            return elementIndex switch
+            {
+                ElementIndex.Water or
+                ElementIndex.MovableCorruption or
+                ElementIndex.Lava or
+                ElementIndex.Acid or
+                ElementIndex.GasCorruption or
+                ElementIndex.LiquidCorruption or
+                ElementIndex.ImmovableCorruption or
+                ElementIndex.Smoke or
+                ElementIndex.Fire or
+                ElementIndex.Void or
+                ElementIndex.Oil or
+                ElementIndex.Salt or
+                ElementIndex.Saltwater or
+                ElementIndex.Devourer or
+                ElementIndex.LiquefiedPetroleumGas or
+                ElementIndex.BlackPaint or
+                ElementIndex.WhitePaint or
+                ElementIndex.RedPaint or
+                ElementIndex.OrangePaint or
+                ElementIndex.YellowPaint or
+                ElementIndex.GreenPaint or
+                ElementIndex.BluePaint or
+                ElementIndex.GrayPaint or
+                ElementIndex.VioletPaint or
+                ElementIndex.BrownPaint or
+                ElementIndex.Mercury or
+                ElementIndex.Electricity
+                  => true,
+                _ => false,
+            };
+        }
+
         private bool IsBeingSuffocated(Point position)
         {
             return !this.world.IsEmptySlotLayer(position, Layer.Foreground);
@@ -161,7 +171,7 @@ namespace StardustSandbox.Core.Actors.Common
         private bool IsOnTopMortalElement(Point position)
         {
             return this.world.TryGetSlotLayer(new(position.X, position.Y + 1), Layer.Foreground, out SlotLayer slotLayer) && !slotLayer.IsEmpty &&
-                   (mortalElements.Contains(slotLayer.ElementIndex) || slotLayer.Temperature < -15.0f || slotLayer.Temperature > 48.0f);
+                   (IsMortalElement(slotLayer.ElementIndex) || slotLayer.Temperature < -15.0f || slotLayer.Temperature > 48.0f);
         }
 
         private void TurnAround()
@@ -182,10 +192,10 @@ namespace StardustSandbox.Core.Actors.Common
         private void SetFrontPositions(Predicate<Point> removeMatch)
         {
             possiblePositions.Clear();
-            _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y - 1));
-            _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y));
-            _ = possiblePositions.Add(new(this.Position.X + (sbyte)this.direction, this.Position.Y + 1));
-            _ = possiblePositions.RemoveWhere(removeMatch);
+            possiblePositions.Add(new(this.PositionX + (sbyte)this.direction, this.PositionY - 1));
+            possiblePositions.Add(new(this.PositionX + (sbyte)this.direction, this.PositionY));
+            possiblePositions.Add(new(this.PositionX + (sbyte)this.direction, this.PositionY + 1));
+            _ = possiblePositions.RemoveAll(removeMatch);
         }
 
         private bool CanWalkTo(Point position)
@@ -220,7 +230,7 @@ namespace StardustSandbox.Core.Actors.Common
         {
             SetFrontPositions(point =>
                 this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
-                !grabbableElements.Contains(this.world.GetElement(point, Layer.Foreground)) ||
+                !IsGrabbableElement(this.world.GetElement(point, Layer.Foreground)) ||
                 HasEntityAbove(point)
             );
 
@@ -298,7 +308,7 @@ namespace StardustSandbox.Core.Actors.Common
             if (this.IsFalling)
             {
                 // Apply gravity
-                this.Position = new(this.Position.X, this.Position.Y + 1);
+                this.Position = new(this.PositionX, this.PositionY + 1);
             }
             else
             {
@@ -344,7 +354,7 @@ namespace StardustSandbox.Core.Actors.Common
         {
             spriteBatch.Draw(
                 AssetDatabase.GetTexture(TextureIndex.Actors),
-                new(this.Position.X * SpriteConstants.SPRITE_SCALE, this.Position.Y * SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE),
+                new(this.PositionX * SpriteConstants.SPRITE_SCALE, this.PositionY * SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE),
                 new(0, this.direction == Direction.Right ? 0 : 32, 32, 32),
                 Color.White,
                 0.0f,
@@ -358,8 +368,8 @@ namespace StardustSandbox.Core.Actors.Common
                 spriteBatch.Draw(
                     AssetDatabase.GetTexture(TextureIndex.Elements),
                     new(
-                        (this.Position.X * SpriteConstants.SPRITE_SCALE) + (this.direction is Direction.Right ? 12.0f * (float)this.direction : 4.0f),
-                        (this.Position.Y * SpriteConstants.SPRITE_SCALE) + 16.0f
+                        (this.PositionX * SpriteConstants.SPRITE_SCALE) + (this.direction is Direction.Right ? 12.0f * (float)this.direction : 4.0f),
+                        (this.PositionY * SpriteConstants.SPRITE_SCALE) + 16.0f
                     ),
                     new(this.GrabbedElement.RenderingType switch
                     {
@@ -386,8 +396,8 @@ namespace StardustSandbox.Core.Actors.Common
                 {
                     ["Direction"] = this.direction,
                     ["GrabbedElementIndex"] = this.grabbedElementIndex,
-                    ["Position.X"] = this.Position.X,
-                    ["Position.Y"] = this.Position.Y,
+                    ["PositionX"] = this.PositionX,
+                    ["PositionY"] = this.PositionY,
                     ["PositionElementPlaced.X"] = this.positionElementPlaced.X,
                     ["PositionElementPlaced.Y"] = this.positionElementPlaced.Y,
                 },
@@ -411,12 +421,12 @@ namespace StardustSandbox.Core.Actors.Common
                 tempGrabbedElementIndex = (ElementIndex)value;
             }
 
-            if (data.Content.TryGetValue("Position.X", out value))
+            if (data.Content.TryGetValue("PositionX", out value))
             {
                 tempPosition.X = (int)value;
             }
 
-            if (data.Content.TryGetValue("Position.Y", out value))
+            if (data.Content.TryGetValue("PositionY", out value))
             {
                 tempPosition.Y = (int)value;
             }
