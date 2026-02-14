@@ -200,8 +200,8 @@ namespace StardustSandbox.Core.UI.Common.Menus
         {
             this.shadowBackground.Scale = new(487.0f, size.Y);
             this.theatricalCurtains.Scale = new(
-                (size.X / 640.0f),
-                (size.Y / 360.0f)
+                size.X / 640.0f,
+                size.Y / 360.0f
             );
         }
 

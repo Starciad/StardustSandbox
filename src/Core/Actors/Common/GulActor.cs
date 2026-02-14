@@ -47,8 +47,6 @@ namespace StardustSandbox.Core.Actors.Common
 
         private Element GrabbedElement => ElementDatabase.GetElement(this.grabbedElementIndex);
         private bool IsGrabbingElement => this.grabbedElementIndex is not ElementIndex.None;
-        private bool IsFalling => !this.IsGrounded;
-        private bool IsGrounded => HasGroundBelow(this.Position);
 
         private Direction direction;
         private ElementIndex grabbedElementIndex;
@@ -184,11 +182,6 @@ namespace StardustSandbox.Core.Actors.Common
             return this.actorManager.HasEntityAtPosition(new(position.X, position.Y - 1));
         }
 
-        private bool HasGroundBelow(Point position)
-        {
-            return this.world.TryGetElement(new(position.X, position.Y + 1), Layer.Foreground, out ElementIndex index) && ElementDatabase.GetElement(index).Category is ElementCategory.MovableSolid or ElementCategory.ImmovableSolid;
-        }
-
         private void SetFrontPositions(Predicate<Point> removeMatch)
         {
             possiblePositions.Clear();
@@ -201,13 +194,14 @@ namespace StardustSandbox.Core.Actors.Common
         private bool CanWalkTo(Point position)
         {
             return this.world.IsEmptySlotLayer(position, Layer.Foreground) &&
-                   HasGroundBelow(position) &&
+                   IsInsideWorldBounds(position) &&
+                   IsGrounded(position) &&
                    !IsOnTopMortalElement(position);
         }
 
         private bool TryWalk()
         {
-            SetFrontPositions(point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !HasGroundBelow(point));
+            SetFrontPositions(point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !IsGrounded(point));
 
             while (possiblePositions.Count > 0)
             {
@@ -219,7 +213,7 @@ namespace StardustSandbox.Core.Actors.Common
                     continue;
                 }
 
-                this.Position = position;
+                SetPosition(position);
                 return true;
             }
 
@@ -305,10 +299,10 @@ namespace StardustSandbox.Core.Actors.Common
             }
 
             // Falling behavior
-            if (this.IsFalling)
+            if (!IsGrounded())
             {
                 // Apply gravity
-                this.Position = new(this.PositionX, this.PositionY + 1);
+                MoveBy(0, 1);
             }
             else
             {
@@ -443,7 +437,7 @@ namespace StardustSandbox.Core.Actors.Common
 
             this.direction = tempDirection;
             this.grabbedElementIndex = tempGrabbedElementIndex;
-            this.Position = tempPosition;
+            SetPosition(tempPosition);
             this.positionElementPlaced = tempPositionElementPlaced;
         }
     }

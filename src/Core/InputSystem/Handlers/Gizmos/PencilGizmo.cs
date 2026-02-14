@@ -144,7 +144,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
             {
                 if (this.actorManager.TryCreate(actorIndex, out Actor actor))
                 {
-                    actor.Position = position;
+                    actor.SetPosition(position);
                 }
             }
         }

@@ -84,6 +84,7 @@ namespace StardustSandbox.Core.Managers
             }
 
             actor = ActorDatabase.GetDescriptor(index).Dequeue();
+
             this.actorsToAdd.Enqueue(actor);
             this.totalActorCount++;
 
@@ -152,36 +153,6 @@ namespace StardustSandbox.Core.Managers
             this.totalActorCount = 0;
         }
 
-        private bool IsActorWithinWorldBounds(Actor actor)
-        {
-            int left = actor.Position.X;
-            int right = actor.Position.X + actor.Size.X;
-            int top = actor.Position.Y;
-            int bottom = actor.Position.Y + actor.Size.Y;
-
-            if (right < -ActorConstants.WORLD_BOUNDS_TOLERANCE)
-            {
-                return false; // West
-            }
-
-            if (left > this.world.Information.Size.X + ActorConstants.WORLD_BOUNDS_TOLERANCE)
-            {
-                return false; // East
-            }
-
-            if (bottom < -ActorConstants.WORLD_BOUNDS_TOLERANCE)
-            {
-                return false; // North
-            }
-
-            if (top > this.world.Information.Size.Y + ActorConstants.WORLD_BOUNDS_TOLERANCE)
-            {
-                return false; // South
-            }
-
-            return true;
-        }
-
         internal bool HasEntityAtPosition(Point position)
         {
             Rectangle queryRect = new(position, new(1, 1));
@@ -193,9 +164,7 @@ namespace StardustSandbox.Core.Managers
                     continue;
                 }
 
-                Rectangle actorRect = new(actor.Position, actor.Size);
-
-                if (actorRect.Intersects(queryRect))
+                if (actor.SelfRectangle.Intersects(queryRect))
                 {
                     return true;
                 }
@@ -217,12 +186,6 @@ namespace StardustSandbox.Core.Managers
 
                 // Update the actor
                 currentActor.Update(gameTime);
-
-                // Destroy actor if it leaves world bounds
-                if (!IsActorWithinWorldBounds(currentActor))
-                {
-                    Destroy(currentActor);
-                }
             }
         }
 
