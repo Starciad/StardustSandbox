@@ -40,19 +40,56 @@ namespace StardustSandbox.Core.Databases
 
             backgrounds = [
                 // [0] Main Menu
-                new([
-                    new(new(2.0f, 0.0f), new(-16.0f, 0.0f), false, true),
-                ], true, AssetDatabase.GetTexture(TextureIndex.BackgroundOcean)),
+                new()
+                {
+                    Layers = [
+                        new()
+                        {
+                            Anchoring = BackgroundAnchoring.South,
+                            AnchoringOffset = new(0.0f, -184.0f),
+                            AutoMovementSpeed = new(-16.0f, 0.0f),
+                            IsAffectedByLighting = true,
+                            IsFixedVertically = true,
+                            RepeatHorizontally = true,
+                            Texture = AssetDatabase.GetTexture(TextureIndex.BackgroundOcean),
+                            TextureSourceRectangle = new(0, 0, 1280, 216),
+                        },
+                    ],
+                },
 
                 // [1] Ocean
-                new([
-                    new(new(2.0f, 0.0f), Vector2.Zero, false, true),
-                ], true, AssetDatabase.GetTexture(TextureIndex.BackgroundOcean)),
+                new()
+                {
+                    Layers = [
+                        new()
+                        {
+                            Anchoring = BackgroundAnchoring.South,
+                            AnchoringOffset = new(0.0f, -184.0f),
+                            IsAffectedByLighting = true,
+                            IsFixedVertically = true,
+                            ParallaxSpeed = new(0.05f, 0.0f),
+                            RepeatHorizontally = true,
+                            Texture = AssetDatabase.GetTexture(TextureIndex.BackgroundOcean),
+                            TextureSourceRectangle = new(0, 0, 1280, 216),
+                        },
+                    ],
+                },
 
                 // [2] Credits
-                new([
-                    new(new(0.0f, 0.0f), new(-32.0f), false, false),
-                ], false, AssetDatabase.GetTexture(TextureIndex.PatternDiamonds)),
+                new()
+                {
+                    Layers = [
+                        new()
+                        {
+                            Anchoring = BackgroundAnchoring.Northwest,
+                            AutoMovementSpeed = new(-32.0f),
+                            RepeatHorizontally = true,
+                            RepeatVertically = true,
+                            Texture = AssetDatabase.GetTexture(TextureIndex.PatternDiamonds),
+                            TextureSourceRectangle = new(0, 0, 80, 80),
+                        }
+                    ],
+                },
             ];
 
             isLoaded = true;

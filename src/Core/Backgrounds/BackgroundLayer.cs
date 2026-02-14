@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Cameras;
+using StardustSandbox.Core.Enums.Backgrounds;
 
 using System;
 
@@ -26,91 +27,122 @@ namespace StardustSandbox.Core.Backgrounds
 {
     internal sealed class BackgroundLayer
     {
+        internal BackgroundAnchoring Anchoring { get; init; }
+        internal Vector2 AnchoringOffset { get; init; }
+        internal Vector2 AutoMovementSpeed { get; init; }
+        internal bool IsAffectedByLighting { get; init; }
+        internal bool IsFixedHorizontally { get; init; }
+        internal bool IsFixedVertically { get; init; }
+        internal Vector2 ParallaxSpeed { get; init; }
+        internal bool RepeatHorizontally { get; init; }
+        internal bool RepeatVertically { get; init; }
+        internal Texture2D Texture { get; init; }
+        internal Rectangle TextureSourceRectangle { get; init; }
+
         private Vector2 layerPosition = Vector2.Zero;
-        private Vector2 movementOffsetPosition = Vector2.Zero;
 
-        private Vector2 horizontalLayerPosition = Vector2.Zero;
-        private Vector2 verticalLayerPosition = Vector2.Zero;
-        private Vector2 diagonalLayerPosition = Vector2.Zero;
-
-        private readonly Vector2 parallaxFactor;
-        private readonly Vector2 movementSpeed;
-
-        private readonly bool lockX;
-        private readonly bool lockY;
-
-        internal BackgroundLayer(Vector2 parallaxFactor, Vector2 movementSpeed, bool lockX = false, bool lockY = false)
+        private static Vector2 GetAnchorNormalized(BackgroundAnchoring anchoring)
         {
-            this.parallaxFactor = parallaxFactor;
-            this.movementSpeed = movementSpeed;
-            this.lockX = lockX;
-            this.lockY = lockY;
+            return anchoring switch
+            {
+                BackgroundAnchoring.Northwest => new(0f, 0f),
+                BackgroundAnchoring.North => new(0.5f, 0f),
+                BackgroundAnchoring.Northeast => new(1f, 0f),
+                BackgroundAnchoring.West => new(0f, 0.5f),
+                BackgroundAnchoring.Center => new(0.5f, 0.5f),
+                BackgroundAnchoring.East => new(1f, 0.5f),
+                BackgroundAnchoring.Southwest => new(0f, 1f),
+                BackgroundAnchoring.South => new(0.5f, 1f),
+                BackgroundAnchoring.Southeast => new(1f, 1f),
+                _ => new(0.5f, 0.5f),
+            };
         }
 
-        internal void Update(GameTime gameTime, in int textureWidth, in int textureHeight)
+        internal void Update(GameTime gameTime)
         {
-            float elapsedSeconds = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
-            Vector2 cameraPosition = Camera.Position;
+            float elapsedSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (!this.lockX)
-            {
-                if (this.movementSpeed.X != 0)
-                {
-                    this.movementOffsetPosition.X += this.movementSpeed.X * elapsedSeconds;
-                }
-
-                this.layerPosition.X = this.movementOffsetPosition.X + (this.parallaxFactor.X * cameraPosition.X * elapsedSeconds * -1);
-                this.layerPosition.X %= textureWidth;
-            }
-
-            if (!this.lockY)
-            {
-                if (this.movementSpeed.Y != 0)
-                {
-                    this.movementOffsetPosition.Y += this.movementSpeed.Y * elapsedSeconds;
-                }
-
-                this.layerPosition.Y = this.movementOffsetPosition.Y + (this.parallaxFactor.Y * cameraPosition.Y * elapsedSeconds);
-                this.layerPosition.Y %= textureHeight;
-            }
-
-            this.horizontalLayerPosition.X = this.layerPosition.X >= 0
-                ? this.layerPosition.X - textureWidth
-                : this.layerPosition.X + textureWidth;
-
-            this.verticalLayerPosition.Y = this.layerPosition.Y >= 0
-                ? this.layerPosition.Y - textureHeight
-                : this.layerPosition.Y + textureHeight;
-
-            this.horizontalLayerPosition.Y = this.layerPosition.Y;
-            this.verticalLayerPosition.X = this.layerPosition.X;
-
-            this.diagonalLayerPosition.X = this.horizontalLayerPosition.X;
-            this.diagonalLayerPosition.Y = this.verticalLayerPosition.Y;
+            this.layerPosition += this.AutoMovementSpeed * elapsedSeconds;
         }
 
-        internal void Draw(SpriteBatch spriteBatch, in Texture2D texture)
+        internal void Draw(SpriteBatch spriteBatch)
         {
-            void DrawLayer(SpriteBatch spriteBatch, in Texture2D texture, in Vector2 position)
+            if (this.Texture == null)
             {
-                spriteBatch.Draw(texture, position, null, Color.White, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                return;
             }
 
-            DrawLayer(spriteBatch, texture, this.layerPosition);
+            int width = this.TextureSourceRectangle.Width;
+            int height = this.TextureSourceRectangle.Height;
 
-            if (!this.lockX)
+            if (width <= 0 || height <= 0)
             {
-                DrawLayer(spriteBatch, texture, this.horizontalLayerPosition);
+                return;
             }
 
-            if (!this.lockY)
+            Vector2 viewport = GameScreen.GetViewport();
+            Vector2 cameraEffect = Camera.Position * this.ParallaxSpeed;
+
+            if (this.IsFixedHorizontally)
             {
-                DrawLayer(spriteBatch, texture, this.verticalLayerPosition);
+                cameraEffect.X = 0f;
             }
 
-            if (!this.lockX && !this.lockY)
+            if (this.IsFixedVertically)
             {
-                DrawLayer(spriteBatch, texture, this.diagonalLayerPosition);
+                cameraEffect.Y = 0f;
+            }
+
+            Vector2 anchorNormalized = GetAnchorNormalized(this.Anchoring);
+            Vector2 anchorScreen = new(
+                anchorNormalized.X * viewport.X,
+                anchorNormalized.Y * viewport.Y
+            );
+
+            Vector2 basePosition = anchorScreen + this.AnchoringOffset + this.layerPosition - cameraEffect;
+
+            int columns = 1;
+            int rows = 1;
+
+            if (this.RepeatHorizontally)
+            {
+                columns = (int)MathF.Ceiling(viewport.X / width) + 2;
+            }
+
+            if (this.RepeatVertically)
+            {
+                rows = (int)MathF.Ceiling(viewport.Y / height) + 2;
+            }
+
+            float startX = basePosition.X;
+            float startY = basePosition.Y;
+
+            if (this.RepeatHorizontally)
+            {
+                startX = (((basePosition.X % width) + width) % width) - width;
+            }
+
+            if (this.RepeatVertically)
+            {
+                startY = (((basePosition.Y % height) + height) % height) - height;
+            }
+
+            for (int y = 0; y < rows; y++)
+            {
+                for (int x = 0; x < columns; x++)
+                {
+                    Vector2 position = new(
+                        startX + (x * width),
+                        startY + (y * height)
+                    );
+
+                    spriteBatch.Draw(
+                        this.Texture,
+                        position,
+                        this.TextureSourceRectangle,
+                        Color.White
+                    );
+                }
             }
         }
     }

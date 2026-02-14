@@ -26,23 +26,26 @@ namespace StardustSandbox.Core.Scenario
 {
     internal sealed class BackgroundHandler
     {
-        internal bool IsAffectedByLighting => this.selectedBackground.IsAffectedByLighting;
+        private Background currentBackground;
 
-        private Background selectedBackground;
+        internal void SetBackground(BackgroundIndex backgroundIndex)
+        {
+            this.currentBackground = BackgroundDatabase.GetBackground(backgroundIndex);
+        }
+
+        internal Background GetCurrentBackground()
+        {
+            return this.currentBackground;
+        }
 
         internal void Update(GameTime gameTime)
         {
-            this.selectedBackground.Update(gameTime);
+            this.currentBackground?.Update(gameTime);
         }
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            this.selectedBackground.Draw(spriteBatch);
-        }
-
-        internal void SetBackground(BackgroundIndex backgroundIndex)
-        {
-            this.selectedBackground = BackgroundDatabase.GetBackground(backgroundIndex);
+            this.currentBackground?.Draw(spriteBatch);
         }
     }
 }

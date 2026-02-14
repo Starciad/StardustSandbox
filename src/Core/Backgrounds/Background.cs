@@ -22,34 +22,21 @@ namespace StardustSandbox.Core.Backgrounds
 {
     internal sealed class Background
     {
-        internal bool IsAffectedByLighting => this.isAffectedByLighting;
-
-        private readonly BackgroundLayer[] backgroundLayers;
-        private readonly bool isAffectedByLighting;
-        private readonly int layerCount;
-        private readonly Texture2D texture;
-
-        internal Background(BackgroundLayer[] backgroundLayers, bool isAffectedByLighting, Texture2D texture)
-        {
-            this.backgroundLayers = backgroundLayers;
-            this.isAffectedByLighting = isAffectedByLighting;
-            this.layerCount = backgroundLayers.Length;
-            this.texture = texture;
-        }
+        internal required BackgroundLayer[] Layers { get; init; }
 
         internal void Update(GameTime gameTime)
         {
-            for (int i = 0; i < this.layerCount; i++)
+            for (int i = 0; i < this.Layers.Length; i++)
             {
-                this.backgroundLayers[i].Update(gameTime, this.texture.Width, this.texture.Height);
+                this.Layers[i].Update(gameTime);
             }
         }
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < this.layerCount; i++)
+            for (int i = 0; i < this.Layers.Length; i++)
             {
-                this.backgroundLayers[i].Draw(spriteBatch, this.texture);
+                this.Layers[i].Draw(spriteBatch);
             }
         }
     }
