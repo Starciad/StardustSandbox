@@ -119,8 +119,7 @@ namespace StardustSandbox.Core.Actors.Common
                 ElementIndex.Sapling or
                 ElementIndex.Moss or
                 ElementIndex.Gunpowder or
-                ElementIndex.Obsidian
-                  => true,
+                ElementIndex.Obsidian => true,
                 _ => false,
             };
         }
@@ -155,8 +154,7 @@ namespace StardustSandbox.Core.Actors.Common
                 ElementIndex.VioletPaint or
                 ElementIndex.BrownPaint or
                 ElementIndex.Mercury or
-                ElementIndex.Electricity
-                  => true,
+                ElementIndex.Electricity => true,
                 _ => false,
             };
         }
