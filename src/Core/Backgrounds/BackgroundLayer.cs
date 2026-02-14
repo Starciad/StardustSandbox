@@ -30,7 +30,6 @@ namespace StardustSandbox.Core.Backgrounds
         internal BackgroundAnchoring Anchoring { get; init; }
         internal Vector2 AnchoringOffset { get; init; }
         internal Vector2 AutoMovementSpeed { get; init; }
-        internal bool IsAffectedByLighting { get; init; }
         internal bool IsFixedHorizontally { get; init; }
         internal bool IsFixedVertically { get; init; }
         internal Vector2 ParallaxSpeed { get; init; }

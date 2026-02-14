@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Backgrounds;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
@@ -86,6 +87,8 @@ namespace StardustSandbox.Core
 
         private static void DrawAmbient(SpriteBatch spriteBatch, AmbientManager ambientManager)
         {
+            Effect gradientTransitionEffect = AssetDatabase.GetEffect(EffectIndex.GradientTransition);
+
             // Sky (gradient)
             spriteBatch.Begin(
                 SpriteSortMode.Deferred,
@@ -93,28 +96,35 @@ namespace StardustSandbox.Core
                 null,
                 null,
                 null,
-                AssetDatabase.GetEffect(EffectIndex.GradientTransition)
+                gradientTransitionEffect
             );
-
             spriteBatch.Draw(
                 AssetDatabase.GetTexture(TextureIndex.Pixel),
                 new Rectangle(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height),
                 AAP64ColorPalette.White
             );
-
             spriteBatch.End();
 
-            // Celestial bodies + background
+            // Celestial bodies
             spriteBatch.Begin(
                 SpriteSortMode.Deferred,
                 BlendState.NonPremultiplied,
                 SamplerState.PointClamp
             );
-
             ambientManager.CelestialBodyHandler.Draw(spriteBatch);
-            ambientManager.CloudHandler.Draw(spriteBatch);
-            ambientManager.BackgroundHandler.Draw(spriteBatch);
+            spriteBatch.End();
 
+            // Background
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.NonPremultiplied,
+                SamplerState.PointClamp,
+                DepthStencilState.Default,
+                RasterizerState.CullNone,
+                ambientManager.BackgroundHandler.GetCurrentBackground().IsAffectedByLighting ? gradientTransitionEffect : null,
+                null
+            );
+            ambientManager.BackgroundHandler.Draw(spriteBatch);
             spriteBatch.End();
         }
 

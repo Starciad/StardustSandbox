@@ -187,6 +187,7 @@ namespace StardustSandbox.Core
 
             if (!GameHandler.HasState(GameStates.IsFocused) || GameHandler.HasState(GameStates.IsPaused))
             {
+                base.Update(gameTime);
                 return;
             }
 

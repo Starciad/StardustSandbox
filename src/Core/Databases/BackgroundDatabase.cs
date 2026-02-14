@@ -42,13 +42,13 @@ namespace StardustSandbox.Core.Databases
                 // [0] Main Menu
                 new()
                 {
+                    IsAffectedByLighting = true,
                     Layers = [
                         new()
                         {
                             Anchoring = BackgroundAnchoring.South,
                             AnchoringOffset = new(0.0f, -184.0f),
                             AutoMovementSpeed = new(-16.0f, 0.0f),
-                            IsAffectedByLighting = true,
                             IsFixedVertically = true,
                             RepeatHorizontally = true,
                             Texture = AssetDatabase.GetTexture(TextureIndex.BackgroundOcean),
@@ -60,12 +60,12 @@ namespace StardustSandbox.Core.Databases
                 // [1] Ocean
                 new()
                 {
+                    IsAffectedByLighting = true,
                     Layers = [
                         new()
                         {
                             Anchoring = BackgroundAnchoring.South,
                             AnchoringOffset = new(0.0f, -184.0f),
-                            IsAffectedByLighting = true,
                             IsFixedVertically = true,
                             ParallaxSpeed = new(0.05f, 0.0f),
                             RepeatHorizontally = true,

@@ -18,25 +18,29 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using System;
+using System.Collections.Generic;
+
 namespace StardustSandbox.Core.Backgrounds
 {
     internal sealed class Background
     {
-        internal required BackgroundLayer[] Layers { get; init; }
+        internal bool IsAffectedByLighting { get; init; }
+        internal required IEnumerable<BackgroundLayer> Layers { get; init; }
 
         internal void Update(GameTime gameTime)
         {
-            for (int i = 0; i < this.Layers.Length; i++)
+            foreach (BackgroundLayer layer in this.Layers)
             {
-                this.Layers[i].Update(gameTime);
+                layer.Update(gameTime);
             }
         }
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < this.Layers.Length; i++)
+            foreach (BackgroundLayer layer in this.Layers)
             {
-                this.Layers[i].Draw(spriteBatch);
+                layer.Draw(spriteBatch);
             }
         }
     }

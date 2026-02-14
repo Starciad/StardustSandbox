@@ -17,32 +17,23 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Scenario;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.Managers
 {
-    internal sealed class AmbientManager : IResettable
+    internal sealed class AmbientManager
     {
         internal BackgroundHandler BackgroundHandler => this.backgroundHandler;
         internal CelestialBodyHandler CelestialBodyHandler => this.celestialBodyHandler;
-        internal CloudHandler CloudHandler => this.cloudHandler;
 
         private BackgroundHandler backgroundHandler;
         private CelestialBodyHandler celestialBodyHandler;
-        private CloudHandler cloudHandler;
         private TimeHandler timeHandler;
-
-        public void Reset()
-        {
-            this.cloudHandler.Reset();
-        }
 
         internal void Initialize(World world)
         {
             this.backgroundHandler = new();
-            this.cloudHandler = new();
             this.timeHandler = new(world.Time);
             this.celestialBodyHandler = new(this.timeHandler, world);
         }
@@ -52,7 +43,6 @@ namespace StardustSandbox.Core.Managers
             this.timeHandler.Update();
             this.backgroundHandler.Update(gameTime);
             this.celestialBodyHandler.Update();
-            this.cloudHandler.Update(gameTime);
         }
     }
 }
