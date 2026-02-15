@@ -42,12 +42,14 @@ namespace StardustSandbox.Core.Scenario
             UpdateIntervalProgres();
         }
 
+        // Determine if it's currently day or night based on the current time and the defined time constants
         private void UpdateDayState()
         {
             // Determine if it's day or night
             this.isDay = this.currentSeconds >= TimeConstants.DAY_START_IN_SECONDS && this.currentSeconds < TimeConstants.NIGHT_START_IN_SECONDS;
         }
 
+        // Calculate the duration of the current interval (day or night) based on the time constants
         private void UpdateIntervalDuration()
         {
             // Calculate normalized time for the active interval
@@ -56,6 +58,7 @@ namespace StardustSandbox.Core.Scenario
                 : TimeConstants.SECONDS_IN_A_DAY - (TimeConstants.NIGHT_START_IN_SECONDS - TimeConstants.DAY_START_IN_SECONDS); // Night duration
         }
 
+        // Calculate the progress of the current interval (day or night) as a value between 0 and 1
         private void UpdateIntervalProgres()
         {
             this.intervalProgress = this.isDay

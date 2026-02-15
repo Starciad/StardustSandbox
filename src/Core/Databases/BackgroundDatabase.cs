@@ -44,6 +44,19 @@ namespace StardustSandbox.Core.Databases
                 {
                     IsAffectedByLighting = true,
                     Layers = [
+                        // Clouds
+                        new()
+                        {
+                            Anchoring = BackgroundAnchoring.South,
+                            AnchoringOffset = new(0.0f, -338.0f),
+                            AutoMovementSpeed = new(-6.0f, 0.0f),
+                            IsFixedVertically = true,
+                            RepeatHorizontally = true,
+                            Texture = AssetDatabase.GetTexture(TextureIndex.BackgroundClouds),
+                            TextureSourceRectangle = new(0, 0, 1280, 240),
+                        },
+
+                        // Ocean
                         new()
                         {
                             Anchoring = BackgroundAnchoring.South,
@@ -62,12 +75,26 @@ namespace StardustSandbox.Core.Databases
                 {
                     IsAffectedByLighting = true,
                     Layers = [
+                        // Clouds
+                        new()
+                        {
+                            Anchoring = BackgroundAnchoring.South,
+                            AnchoringOffset = new(0.0f, -338.0f),
+                            AutoMovementSpeed = new(-3.0f, 0.0f),
+                            IsFixedVertically = true,
+                            ParallaxSpeed = new(0.008f, 0.0f),
+                            RepeatHorizontally = true,
+                            Texture = AssetDatabase.GetTexture(TextureIndex.BackgroundClouds),
+                            TextureSourceRectangle = new(0, 0, 1280, 240),
+                        },
+
+                        // Ocean
                         new()
                         {
                             Anchoring = BackgroundAnchoring.South,
                             AnchoringOffset = new(0.0f, -184.0f),
                             IsFixedVertically = true,
-                            ParallaxSpeed = new(0.05f, 0.0f),
+                            ParallaxSpeed = new(0.01f, 0.0f),
                             RepeatHorizontally = true,
                             Texture = AssetDatabase.GetTexture(TextureIndex.BackgroundOcean),
                             TextureSourceRectangle = new(0, 0, 1280, 216),

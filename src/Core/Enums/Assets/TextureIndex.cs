@@ -33,6 +33,7 @@ namespace StardustSandbox.Core.Enums.Assets
 
         #region Backgrounds
 
+        BackgroundClouds,
         BackgroundOcean,
 
         #endregion
