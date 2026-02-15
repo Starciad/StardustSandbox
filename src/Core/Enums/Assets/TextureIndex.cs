@@ -28,6 +28,7 @@ namespace StardustSandbox.Core.Enums.Assets
         Actors,
         Cursors,
         Elements,
+        Frames,
 
         #endregion
 

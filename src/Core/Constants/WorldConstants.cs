@@ -25,6 +25,7 @@ namespace StardustSandbox.Core.Constants
         internal const byte CHUNK_SCALE = 6;
         internal const byte CHUNK_DEFAULT_COOLDOWN = 3;
         internal const float BACKGROUND_COLOR_DARKENING_FACTOR = 0.5f;
+        internal const int FRAME_PART_SIZE = 32;
 
         internal static readonly Point WORLD_THUMBNAIL_SIZE = new(23);
 
@@ -47,6 +48,21 @@ namespace StardustSandbox.Core.Constants
 
             // (5) 320x184 (58,880 elements)
             new(320, 184), // Very Large
+        ];
+
+        internal static readonly Rectangle[] FRAME_SLICES =
+        [
+            new(0, 0, FRAME_PART_SIZE, FRAME_PART_SIZE),                   // NW
+            new(FRAME_PART_SIZE, 0, FRAME_PART_SIZE, FRAME_PART_SIZE),     // N
+            new(FRAME_PART_SIZE * 2, 0, FRAME_PART_SIZE, FRAME_PART_SIZE), // NE
+        
+            new(0, FRAME_PART_SIZE, FRAME_PART_SIZE, FRAME_PART_SIZE),                   // W
+            new(FRAME_PART_SIZE, FRAME_PART_SIZE, FRAME_PART_SIZE, FRAME_PART_SIZE),     // C
+            new(FRAME_PART_SIZE * 2, FRAME_PART_SIZE, FRAME_PART_SIZE, FRAME_PART_SIZE), // E
+        
+            new(0, FRAME_PART_SIZE * 2, FRAME_PART_SIZE, FRAME_PART_SIZE),                  // SW
+            new(FRAME_PART_SIZE, FRAME_PART_SIZE * 2, FRAME_PART_SIZE, FRAME_PART_SIZE),    // S
+            new(FRAME_PART_SIZE * 2, FRAME_PART_SIZE * 2, FRAME_PART_SIZE, FRAME_PART_SIZE) // SE
         ];
     }
 }

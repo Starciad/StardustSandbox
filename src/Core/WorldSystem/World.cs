@@ -24,6 +24,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Achievements;
+using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Serialization;
 using StardustSandbox.Core.Enums.Simulation;
@@ -726,12 +727,81 @@ namespace StardustSandbox.Core.WorldSystem
             HandleExplosions();
         }
 
+        private void DrawWorldBorder(SpriteBatch spriteBatch)
+        {
+            int left = -1;
+            int top = -1;
+            int right = this.information.Size.X;
+            int bottom = this.information.Size.Y;
+
+            Texture2D texture = AssetDatabase.GetTexture(TextureIndex.Frames);
+            int gridSize = WorldConstants.GRID_SIZE;
+
+            // Top line
+            for (int x = left; x <= right; x++)
+            {
+                FrameSlice slice =
+                    x == left ? FrameSlice.Northwest :
+                    x == right ? FrameSlice.Northeast :
+                    FrameSlice.North;
+
+                spriteBatch.Draw(
+                    texture,
+                    new Rectangle(x * gridSize, top * gridSize, gridSize, gridSize),
+                    WorldConstants.FRAME_SLICES[(byte)slice],
+                    Color.White
+                );
+            }
+
+            // Bottom line
+            if (bottom != top)
+            {
+                for (int x = left; x <= right; x++)
+                {
+                    FrameSlice slice =
+                        x == left ? FrameSlice.Southwest :
+                        x == right ? FrameSlice.Southeast :
+                        FrameSlice.South;
+
+                    spriteBatch.Draw(
+                        texture,
+                        new Rectangle(x * gridSize, bottom * gridSize, gridSize, gridSize),
+                        WorldConstants.FRAME_SLICES[(byte)slice],
+                        Color.White
+                    );
+                }
+            }
+
+            // Sides (excluding corners)
+            for (int y = top + 1; y <= bottom - 1; y++)
+            {
+                spriteBatch.Draw(
+                    texture,
+                    new Rectangle(left * gridSize, y * gridSize, gridSize, gridSize),
+                    WorldConstants.FRAME_SLICES[(byte)FrameSlice.West],
+                    Color.White
+                );
+
+                if (right != left)
+                {
+                    spriteBatch.Draw(
+                        texture,
+                        new Rectangle(right * gridSize, y * gridSize, gridSize, gridSize),
+                        WorldConstants.FRAME_SLICES[(byte)FrameSlice.East],
+                        Color.White
+                    );
+                }
+            }
+        }
+
         internal void Draw(SpriteBatch spriteBatch)
         {
             if (!this.CanDraw)
             {
                 return;
             }
+
+            DrawWorldBorder(spriteBatch);
 
             if (GameParameters.ShowChunks)
             {
