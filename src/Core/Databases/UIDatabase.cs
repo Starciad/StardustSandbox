@@ -43,7 +43,7 @@ namespace StardustSandbox.Core.Databases
             CursorManager cursorManager,
             GameWindow gameWindow,
             GraphicsDevice graphicsDevice,
-            PlayerInputController inputController,
+            PlayerInputController playerInputController,
             StardustSandboxGame stardustSandboxGame,
             UIManager uiManager,
             VideoManager videoManager,
@@ -83,7 +83,7 @@ namespace StardustSandbox.Core.Databases
 
             TextInputUI textInputUI = new(
                 gameWindow,
-                inputController,
+                playerInputController,
                 messageUI,
                 uiManager
             );
@@ -94,7 +94,7 @@ namespace StardustSandbox.Core.Databases
 
             KeySelectorUI keySelectorUI = new(
                 gameWindow,
-                inputController,
+                playerInputController,
                 uiManager
             );
 
@@ -117,7 +117,7 @@ namespace StardustSandbox.Core.Databases
             HudUI hudUI = new(
                 actorManager,
                 confirmUI,
-                inputController,
+                playerInputController,
                 notificationBox,
                 tooltipBox,
                 uiManager,
@@ -146,7 +146,7 @@ namespace StardustSandbox.Core.Databases
             MainUI mainUI = new(
                 actorManager,
                 ambientManager,
-                inputController,
+                playerInputController,
                 stardustSandboxGame,
                 uiManager,
                 world
@@ -169,7 +169,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             PenSettingsUI penSettingsUI = new(
-                inputController,
+                playerInputController,
                 hudUI,
                 tooltipBox,
                 uiManager,
@@ -192,7 +192,7 @@ namespace StardustSandbox.Core.Databases
             WorldDetailsUI worldDetailsUI = new(
                 actorManager,
                 ambientManager,
-                inputController,
+                playerInputController,
                 uiManager,
                 world
             );
@@ -226,6 +226,14 @@ namespace StardustSandbox.Core.Databases
                 uiManager
             );
 
+            ItemSearchUI itemSearchUI = new(
+                gameWindow,
+                hudUI,
+                playerInputController,
+                tooltipBox,
+                uiManager
+            );
+
             uis = [
                 messageUI,
                 confirmUI,
@@ -243,6 +251,7 @@ namespace StardustSandbox.Core.Databases
                 hudUI,
                 pauseUI,
                 itemExplorerUI,
+                itemSearchUI,
                 penSettingsUI,
                 environmentSettingsUI,
                 saveSettingsUI,

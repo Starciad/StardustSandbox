@@ -77,7 +77,8 @@ namespace StardustSandbox.Core.UI.Common.HUD
             this.tooltipBox = tooltipBox;
 
             this.buttonInfos = [
-                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseUI),
+                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI),
+                new(TextureIndex.IconUI, new(0, 0, 32, 32), "Search", "", () => uiManager.OpenUI(UIIndex.ItemSearch)),
             ];
 
             this.paginationButtonInfos = [
@@ -92,7 +93,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                         this.currentPage = this.totalPages;
                     }
 
-                    ChangeItemCatalog();
+                    RefreshItemCatalog();
                 }),
 
                 new(TextureIndex.IconUI, new(64, 160, 32, 32), "Right", string.Empty, () =>
@@ -106,7 +107,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                         this.currentPage = 0;
                     }
 
-                    ChangeItemCatalog();
+                    RefreshItemCatalog();
                 }),
             ];
 
@@ -585,11 +586,11 @@ namespace StardustSandbox.Core.UI.Common.HUD
             this.currentPage = pageIndex;
             this.totalPages = subcategory.Items.Length / UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE;
 
-            ChangeSubcategorCatalog();
-            ChangeItemCatalog();
+            RefreshSubcategoryButtons();
+            RefreshItemCatalog();
         }
 
-        private void ChangeSubcategorCatalog()
+        private void RefreshSubcategoryButtons()
         {
             for (int i = 0; i < this.subcategoryButtonSlotInfos.Length; i++)
             {
@@ -621,7 +622,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
             }
         }
 
-        private void ChangeItemCatalog()
+        private void RefreshItemCatalog()
         {
             this.pageIndexLabel.TextContent = string.Concat(this.currentPage + 1, " / ", this.totalPages + 1);
 
@@ -648,16 +649,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
 
                     itemSlot.Icon.TextureIndex = item.TextureIndex;
                     itemSlot.Icon.SourceRectangle = item.SourceRectangle;
-
-                    // Add or Update Data
-                    if (!itemSlot.Background.ContainsData(UIConstants.DATA_ITEM))
-                    {
-                        itemSlot.Background.SetData(UIConstants.DATA_ITEM, item);
-                    }
-                    else
-                    {
-                        itemSlot.Background.SetData(UIConstants.DATA_ITEM, item);
-                    }
+                    itemSlot.Background.SetData(UIConstants.DATA_ITEM, item);
                 }
                 else
                 {

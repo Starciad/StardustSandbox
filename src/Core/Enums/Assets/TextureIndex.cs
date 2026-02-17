@@ -66,6 +66,7 @@ namespace StardustSandbox.Core.Enums.Assets
         UIBackgroundHudVerticalToolbar,
         UIBackgroundInformation,
         UIBackgroundItemExplorer,
+        UIBackgroundItemSearch,
         UIBackgroundOptions,
         UIBackgroundPause,
         UIBackgroundPenSettings,

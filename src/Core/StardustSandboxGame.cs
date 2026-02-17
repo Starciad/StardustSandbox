@@ -137,14 +137,14 @@ namespace StardustSandbox.Core
         protected override void LoadContent()
         {
             // Databases
-            AchievementDatabase.Load();
             AssetDatabase.Load(this.Content, this.GraphicsDevice);
+            AchievementDatabase.Load();
             ElementDatabase.Load();
             CatalogDatabase.Load();
-            UIDatabase.Load(this.actorManager, this.ambientManager, this.cursorManager, this.Window, this.GraphicsDevice, this.inputController, this, this.uiManager, this.videoManager, this.world);
             BackgroundDatabase.Load();
             ToolDatabase.Load();
             ActorDatabase.Load(this.actorManager, this.world);
+            UIDatabase.Load(this.actorManager, this.ambientManager, this.cursorManager, this.Window, this.GraphicsDevice, this.inputController, this, this.uiManager, this.videoManager, this.world);
 
             // Managers
             this.effectsManager.Initialize();

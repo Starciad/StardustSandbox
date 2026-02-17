@@ -24,6 +24,7 @@ using StardustSandbox.Core.Enums.Tools;
 using StardustSandbox.Core.Localization;
 
 using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Databases
 {
@@ -1271,7 +1272,7 @@ namespace StardustSandbox.Core.Databases
             return categories[categoryIndex].GetSubcategory(subcategoryIndex).GetItem(itemIndex);
         }
 
-        internal static Item[] GetItems(uint amount)
+        internal static Item[] GetItems(int amount)
         {
             if (amount < 1)
             {
@@ -1280,17 +1281,17 @@ namespace StardustSandbox.Core.Databases
 
             Item[] items = new Item[amount];
 
-            uint currentIndex = 0;
+            int currentIndex = 0;
 
-            for (uint i = 0; i < categories.Length; i++)
+            for (int i = 0; i < categories.Length; i++)
             {
                 Category category = categories[i];
 
-                for (uint j = 0; j < category.Subcategories.Length; j++)
+                for (int j = 0; j < category.Subcategories.Length; j++)
                 {
                     Subcategory subcategory = category.Subcategories[j];
 
-                    for (uint k = 0; k < subcategory.Items.Length; k++)
+                    for (int k = 0; k < subcategory.Items.Length; k++)
                     {
                         Item item = subcategory.Items[k];
 
@@ -1307,6 +1308,24 @@ namespace StardustSandbox.Core.Databases
             }
 
             return items;
+        }
+
+        internal static IEnumerable<Item> GetAllItems()
+        {
+            for (int i = 0; i < categories.Length; i++)
+            {
+                Category category = categories[i];
+
+                for (int j = 0; j < category.Subcategories.Length; j++)
+                {
+                    Subcategory subcategory = category.Subcategories[j];
+
+                    for (int k = 0; k < subcategory.Items.Length; k++)
+                    {
+                        yield return subcategory.Items[k];
+                    }
+                }
+            }
         }
     }
 }

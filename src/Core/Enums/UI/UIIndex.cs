@@ -37,6 +37,7 @@ namespace StardustSandbox.Core.Enums.UI
         Hud,
         Pause,
         ItemExplorer,
+        ItemSearch,
         PenSettings,
         EnvironmentSettings,
         Save,
