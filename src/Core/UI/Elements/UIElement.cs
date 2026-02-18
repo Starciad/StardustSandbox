@@ -19,7 +19,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Enums.Directions;
+using StardustSandbox.Core.Enums.Inputs;
+using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.Core.UI.EventArgs;
 
 using System;
 using System.Collections.Generic;
@@ -108,6 +111,13 @@ namespace StardustSandbox.Core.UI.Elements
             }
         }
 
+        internal event EventHandler<MouseClickedEventArgs> OnMouseClicked;
+        internal event EventHandler<MouseEnteredEventArgs> OnMouseEntered;
+        internal event EventHandler<MouseHoveredEventArgs> OnMouseHovered;
+        internal event EventHandler<MouseLeftEventArgs> OnMouseLeft;
+        internal event EventHandler<MousePressedEventArgs> OnMousePressed;
+        internal event EventHandler<MouseReleasedEventArgs> OnMouseReleased;
+
         private UIElement parent;
 
         private Vector2 position;
@@ -149,11 +159,99 @@ namespace StardustSandbox.Core.UI.Elements
                 return;
             }
 
+            HandleMouseEvents();
             OnUpdate(gameTime);
 
             foreach (UIElement childElement in this.children)
             {
                 childElement.Update(gameTime);
+            }
+        }
+
+        private void HandleMouseEvents()
+        {
+            // OnMouseClicked
+            if (this.OnMouseClicked is not null)
+            {
+                if (Interaction.OnMouseClick(MouseButton.Left, this))
+                {
+                    this.OnMouseClicked.Invoke(this, new(this, MouseButton.Left));
+                }
+
+                if (Interaction.OnMouseClick(MouseButton.Right, this))
+                {
+                    this.OnMouseClicked.Invoke(this, new(this, MouseButton.Right));
+                }
+
+                if (Interaction.OnMouseClick(MouseButton.Middle, this))
+                {
+                    this.OnMouseClicked.Invoke(this, new(this, MouseButton.Middle));
+                }
+            }
+
+            // OnMouseEntered
+            if (this.OnMouseEntered is not null)
+            {
+                if (Interaction.OnMouseEnter(this))
+                {
+                    this.OnMouseEntered.Invoke(this, new(this));
+                }
+            }
+
+            // OnMouseHovered
+            if (this.OnMouseHovered is not null)
+            {
+                if (Interaction.OnMouseOver(this))
+                {
+                    this.OnMouseHovered.Invoke(this, new(this));
+                }
+            }
+
+            // OnMouseLeft
+            if (this.OnMouseLeft is not null)
+            {
+                if (Interaction.OnMouseLeave(this))
+                {
+                    this.OnMouseLeft.Invoke(this, new(this));
+                }
+            }
+
+            // OnMousePressed
+            if (this.OnMousePressed is not null)
+            {
+                if (Interaction.OnMouseDown(MouseButton.Left, this))
+                {
+                    this.OnMousePressed.Invoke(this, new(this, MouseButton.Left));
+                }
+
+                if (Interaction.OnMouseDown(MouseButton.Right, this))
+                {
+                    this.OnMousePressed.Invoke(this, new(this, MouseButton.Right));
+                }
+
+                if (Interaction.OnMouseDown(MouseButton.Middle, this))
+                {
+                    this.OnMousePressed.Invoke(this, new(this, MouseButton.Middle));
+                }
+            }
+
+            // OnMouseReleased
+            if (this.OnMouseReleased is not null)
+            {
+                if (Interaction.OnMouseUp(MouseButton.Left, this))
+                {
+                    this.OnMouseReleased.Invoke(this, new(this, MouseButton.Left));
+                }
+
+                if (Interaction.OnMouseUp(MouseButton.Right, this))
+                {
+                    this.OnMouseReleased.Invoke(this, new(this, MouseButton.Right));
+                }
+
+                if (Interaction.OnMouseUp(MouseButton.Middle, this))
+                {
+                    this.OnMouseReleased.Invoke(this, new(this, MouseButton.Middle));
+                }
             }
         }
 
