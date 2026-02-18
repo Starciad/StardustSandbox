@@ -27,7 +27,7 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Settings;
 
-namespace StardustSandbox.Core.UI.Common.Tools
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class KeySelectorUI : UIBase
     {
@@ -91,9 +91,9 @@ namespace StardustSandbox.Core.UI.Common.Tools
             root.AddChild(this.message);
         }
 
-        protected override void OnResize(Vector2 size)
+        protected override void OnResize(Vector2 newSize)
         {
-            this.shadowBackground.Scale = size;
+            this.shadowBackground.Scale = newSize;
         }
 
         protected override void OnOpened()

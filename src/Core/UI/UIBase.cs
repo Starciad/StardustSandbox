@@ -107,17 +107,17 @@ namespace StardustSandbox.Core.UI
             this.Root.Draw(spriteBatch);
         }
 
-        internal void Resize(Vector2 size)
+        internal void Resize(Vector2 newSize)
         {
-            this.Root.Size = size;
-            OnResize(size);
+            this.Root.Size = newSize;
+            OnResize(newSize);
         }
 
         protected abstract void OnBuild(Container root);
         protected virtual void OnOpened() { }
         protected virtual void OnClosed() { }
         protected virtual void OnUpdate(GameTime gameTime) { }
-        protected virtual void OnResize(Vector2 size) { }
+        protected virtual void OnResize(Vector2 newSize) { }
 
         private void EnsureInitialized()
         {

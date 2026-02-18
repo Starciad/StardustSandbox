@@ -36,7 +36,7 @@ using StardustSandbox.Core.WorldSystem;
 
 using System;
 
-namespace StardustSandbox.Core.UI.Common.Menus
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class WorldDetailsUI : UIBase
     {
@@ -74,7 +74,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
                 new(TextureIndex.None, null, Localization_Statements.Play, string.Empty, () =>
                 {
                     uiManager.Reset();
-                    uiManager.OpenUI(UIIndex.MainMenu);
+                    uiManager.OpenUI(UIIndex.Main);
                     uiManager.OpenUI(UIIndex.Hud);
 
                     GameHandler.StartGame(actorManager, ambientManager, inputController, uiManager, world);
@@ -222,10 +222,10 @@ namespace StardustSandbox.Core.UI.Common.Menus
             }
         }
 
-        protected override void OnResize(Vector2 size)
+        protected override void OnResize(Vector2 newSize)
         {
-            this.shadowBackground.Scale = size;
-            this.headerBackground.Scale = new(size.X, this.headerBackground.Scale.Y);
+            this.shadowBackground.Scale = newSize;
+            this.headerBackground.Scale = new(newSize.X, this.headerBackground.Scale.Y);
         }
 
         protected override void OnUpdate(GameTime gameTime)

@@ -175,7 +175,7 @@ namespace StardustSandbox.Core
             }
             else
             {
-                this.uiManager.OpenUI(UIIndex.MainMenu);
+                this.uiManager.OpenUI(UIIndex.Main);
             }
 
             this.gameNotifier?.OnBeginRun();

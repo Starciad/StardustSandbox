@@ -35,14 +35,13 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.UI.Common.Tools;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
 
-namespace StardustSandbox.Core.UI.Common.HUD
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class HudUI : UIBase
     {

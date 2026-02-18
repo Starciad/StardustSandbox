@@ -22,9 +22,7 @@ using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI;
-using StardustSandbox.Core.UI.Common.HUD;
-using StardustSandbox.Core.UI.Common.Menus;
-using StardustSandbox.Core.UI.Common.Tools;
+using StardustSandbox.Core.UI.Common;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.WorldSystem;
 
@@ -234,33 +232,32 @@ namespace StardustSandbox.Core.Databases
                 uiManager
             );
 
+            #endregion
+
             uis = [
-                messageUI,
-                confirmUI,
-                colorPickerUI,
-                textInputUI,
-                sliderUI,
-                keySelectorUI,
-
-                mainUI,
-                playUI,
-                optionsUI,
-                creditsUI,
                 achievementsUI,
-
+                colorPickerUI,
+                confirmUI,
+                creditsUI,
+                environmentSettingsUI,
+                generatorSettingsUI,
                 hudUI,
-                pauseUI,
+                informationUI,
                 itemExplorerUI,
                 itemSearchUI,
+                keySelectorUI,
+                mainUI,
+                messageUI,
+                optionsUI,
+                pauseUI,
                 penSettingsUI,
-                environmentSettingsUI,
+                playUI,
                 saveSettingsUI,
-                worldSettingsUI,
-                informationUI,
+                sliderUI,
                 temperatureSettingsUI,
-                generatorSettingsUI,
-
+                textInputUI,
                 worldDetailsUI,
+                worldSettingsUI,
                 worldsExplorerUI,
             ];
 
@@ -268,8 +265,6 @@ namespace StardustSandbox.Core.Databases
             {
                 uis[i].Initialize();
             }
-
-            #endregion
 
             isLoaded = true;
         }
@@ -279,11 +274,11 @@ namespace StardustSandbox.Core.Databases
             return uis[(int)index];
         }
 
-        internal static void ResizeUIs(Vector2 size)
+        internal static void ResizeUIs(Vector2 newSize)
         {
             foreach (UIBase ui in uis)
             {
-                ui.Resize(size);
+                ui.Resize(newSize);
             }
         }
     }

@@ -34,7 +34,7 @@ using StardustSandbox.Core.WorldSystem;
 
 using System;
 
-namespace StardustSandbox.Core.UI.Common.Menus
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class CreditsUI : UIBase
     {

@@ -30,7 +30,7 @@ using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.WorldSystem;
 
-namespace StardustSandbox.Core.UI.Common.HUD
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class InformationUI : UIBase
     {
@@ -193,9 +193,9 @@ namespace StardustSandbox.Core.UI.Common.HUD
             return new(background, icon);
         }
 
-        protected override void OnResize(Vector2 size)
+        protected override void OnResize(Vector2 newSize)
         {
-            this.shadowBackground.Scale = size;
+            this.shadowBackground.Scale = newSize;
         }
 
         protected override void OnUpdate(GameTime gameTime)

@@ -26,7 +26,7 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Elements;
 
-namespace StardustSandbox.Core.UI.Common.Tools
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class MessageUI : UIBase
     {
@@ -97,9 +97,9 @@ namespace StardustSandbox.Core.UI.Common.Tools
             root.AddChild(this.continueButtonLabel);
         }
 
-        protected override void OnResize(Vector2 size)
+        protected override void OnResize(Vector2 newSize)
         {
-            this.shadowBackground.Scale = size;
+            this.shadowBackground.Scale = newSize;
         }
 
         protected override void OnUpdate(GameTime gameTime)

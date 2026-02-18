@@ -30,7 +30,7 @@ using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Settings;
 
-namespace StardustSandbox.Core.UI.Common.Tools
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class SliderUI : UIBase
     {
@@ -175,7 +175,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
             }
         }
 
-        protected override void OnResize(Vector2 size)
+        protected override void OnResize(Vector2 newSize)
         {
             this.shadowBackground.Scale = GameScreen.GetViewport();
         }
@@ -226,7 +226,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
         {
             float percentage = (this.currentValue - this.minimumValue) / (float)(this.maximumValue - this.minimumValue);
             float buttonX = percentage * this.sliderBackground.Size.X;
-            this.sliderButton.Margin = new(buttonX - (this.sliderButton.Size.X / 2), 0.0f);
+            this.sliderButton.Margin = new(buttonX - this.sliderButton.Size.X / 2, 0.0f);
         }
 
         protected override void OnOpened()

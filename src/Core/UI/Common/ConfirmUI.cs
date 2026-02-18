@@ -30,7 +30,7 @@ using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Settings;
 
-namespace StardustSandbox.Core.UI.Common.Tools
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class ConfirmUI : UIBase
     {
@@ -145,9 +145,9 @@ namespace StardustSandbox.Core.UI.Common.Tools
             }
         }
 
-        protected override void OnResize(Vector2 size)
+        protected override void OnResize(Vector2 newSize)
         {
-            this.shadowBackground.Scale = size;
+            this.shadowBackground.Scale = newSize;
         }
 
         protected override void OnUpdate(GameTime gameTime)

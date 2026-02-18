@@ -34,7 +34,7 @@ using StardustSandbox.Core.WorldSystem;
 
 using System;
 
-namespace StardustSandbox.Core.UI.Common.Menus
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class MainUI : UIBase
     {
@@ -71,14 +71,14 @@ namespace StardustSandbox.Core.UI.Common.Menus
 
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, () => GameHandler.StartGame(actorManager, ambientManager, inputController, uiManager, world)),
-                new(TextureIndex.None, null, Localization_GUIs.Main_Play, string.Empty, () => this.uiManager.OpenUI(UIIndex.PlayMenu)),
-                new(TextureIndex.None, null, Localization_GUIs.Main_Options, string.Empty, () => this.uiManager.OpenUI(UIIndex.OptionsMenu)),
-                new(TextureIndex.None, null, Localization_GUIs.Main_Credits, string.Empty, () => this.uiManager.OpenUI(UIIndex.CreditsMenu)),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Play, string.Empty, () => this.uiManager.OpenUI(UIIndex.Play)),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Options, string.Empty, () => this.uiManager.OpenUI(UIIndex.Options)),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Credits, string.Empty, () => this.uiManager.OpenUI(UIIndex.Credits)),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Quit, string.Empty, stardustSandboxGame.Quit)
             ];
 
             this.topButtonInfos = [
-                new(TextureIndex.IconUI, new(320, 160, 32, 32), "Achievements", string.Empty, () => this.uiManager.OpenUI(UIIndex.AchievementsMenu))
+                new(TextureIndex.IconUI, new(320, 160, 32, 32), "Achievements", string.Empty, () => this.uiManager.OpenUI(UIIndex.Achievements))
             ];
 
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
@@ -196,12 +196,12 @@ namespace StardustSandbox.Core.UI.Common.Menus
             );
         }
 
-        protected override void OnResize(Vector2 size)
+        protected override void OnResize(Vector2 newSize)
         {
-            this.shadowBackground.Scale = new(487.0f, size.Y);
+            this.shadowBackground.Scale = new(487.0f, newSize.Y);
             this.theatricalCurtains.Scale = new(
-                size.X / 640.0f,
-                size.Y / 360.0f
+                newSize.X / 640.0f,
+                newSize.Y / 360.0f
             );
         }
 

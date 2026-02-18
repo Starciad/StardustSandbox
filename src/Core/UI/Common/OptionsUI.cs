@@ -31,7 +31,6 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
-using StardustSandbox.Core.UI.Common.Tools;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Options;
@@ -39,7 +38,7 @@ using StardustSandbox.Core.UI.Options;
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.UI.Common.Menus
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class OptionsUI : UIBase
     {

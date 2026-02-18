@@ -29,7 +29,7 @@ using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.WorldSystem;
 
-namespace StardustSandbox.Core.UI.Common.HUD
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class EnvironmentSettingsUI : UIBase
     {
@@ -161,9 +161,9 @@ namespace StardustSandbox.Core.UI.Common.HUD
             this.timeButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(this.timeSectionTitle, this.timeButtonInfos, new(0.0f, 52.0f), 80.0f, UIDirection.Southwest);
         }
 
-        protected override void OnResize(Vector2 size)
+        protected override void OnResize(Vector2 newSize)
         {
-            this.shadowBackground.Scale = size;
+            this.shadowBackground.Scale = newSize;
         }
 
         protected override void OnUpdate(GameTime gameTime)

@@ -35,7 +35,7 @@ using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 
-namespace StardustSandbox.Core.UI.Common.Menus
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class AchievementsUI : UIBase
     {
@@ -153,9 +153,9 @@ namespace StardustSandbox.Core.UI.Common.Menus
             }
         }
 
-        protected override void OnResize(Vector2 size)
+        protected override void OnResize(Vector2 newSize)
         {
-            this.headerBackground.Scale = new(size.X, this.headerBackground.Scale.Y);
+            this.headerBackground.Scale = new(newSize.X, this.headerBackground.Scale.Y);
         }
 
         protected override void OnUpdate(GameTime gameTime)

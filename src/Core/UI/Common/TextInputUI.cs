@@ -36,7 +36,7 @@ using StardustSandbox.Core.UI.States;
 using System;
 using System.Text;
 
-namespace StardustSandbox.Core.UI.Common.Tools
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class TextInputUI : UIBase
     {
@@ -231,9 +231,9 @@ namespace StardustSandbox.Core.UI.Common.Tools
             }
         }
 
-        protected override void OnResize(Vector2 size)
+        protected override void OnResize(Vector2 newSize)
         {
-            this.shadowBackground.Scale = size;
+            this.shadowBackground.Scale = newSize;
         }
 
         protected override void OnUpdate(GameTime gameTime)
@@ -260,7 +260,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
 
         private void UpdateElementPositionAccordingToUserInput()
         {
-            float screenCenterYPosition = GameScreen.GetViewportCenter().Y + (this.userInput.Size.Y / 2.0f);
+            float screenCenterYPosition = GameScreen.GetViewportCenter().Y + this.userInput.Size.Y / 2.0f;
 
             // Background
             this.userInputBackgroundElementPosition.X = this.userInputBackground.Position.X;

@@ -29,7 +29,7 @@ using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Settings;
 
-namespace StardustSandbox.Core.UI.Common.Tools
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class ColorPickerUI : UIBase
     {
@@ -232,7 +232,7 @@ namespace StardustSandbox.Core.UI.Common.Tools
                 }
 
                 margin.X = baseMargin.X;
-                margin.Y += (textureSize.Y * 2.0f) + 16.0f;
+                margin.Y += textureSize.Y * 2.0f + 16.0f;
             }
         }
 
@@ -255,9 +255,9 @@ namespace StardustSandbox.Core.UI.Common.Tools
             root.AddChild(this.exitButtonLabel);
         }
 
-        protected override void OnResize(Vector2 size)
+        protected override void OnResize(Vector2 newSize)
         {
-            this.shadowBackground.Scale = size;
+            this.shadowBackground.Scale = newSize;
         }
 
         protected override void OnUpdate(GameTime gameTime)

@@ -37,7 +37,7 @@ using StardustSandbox.Core.UI.Information;
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.UI.Common.Menus
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class WorldExplorerUI : UIBase
     {
@@ -315,10 +315,10 @@ namespace StardustSandbox.Core.UI.Common.Menus
             }
         }
 
-        protected override void OnResize(Vector2 size)
+        protected override void OnResize(Vector2 newSize)
         {
-            this.headerBackground.Scale = new(size.X, this.headerBackground.Scale.Y);
-            this.footerBackground.Scale = new(size.X, this.headerBackground.Scale.Y);
+            this.headerBackground.Scale = new(newSize.X, this.headerBackground.Scale.Y);
+            this.footerBackground.Scale = new(newSize.X, this.headerBackground.Scale.Y);
         }
 
         protected override void OnUpdate(GameTime gameTime)
@@ -370,7 +370,7 @@ namespace StardustSandbox.Core.UI.Common.Menus
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.worldDetailsMenuUI.SetSaveFile(this.graphicsDevice, this.loadedSaveFiles[(this.currentPage * UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE) + i].Metadata.Name);
-                    this.uiManager.OpenUI(UIIndex.WorldDetailsMenu);
+                    this.uiManager.OpenUI(UIIndex.WorldDetails);
                     break;
                 }
 

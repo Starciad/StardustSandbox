@@ -26,11 +26,10 @@ using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Enums.UI.Tools;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.UI.Common.Tools;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 
-namespace StardustSandbox.Core.UI.Common.HUD
+namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class PauseUI : UIBase
     {
@@ -56,7 +55,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                 new(TextureIndex.None, null, Localization_Statements.Resume, string.Empty, this.uiManager.CloseUI),
                 new(TextureIndex.None, null, Localization_Statements.Options, string.Empty, () =>
                 {
-                    this.uiManager.OpenUI(UIIndex.OptionsMenu);
+                    this.uiManager.OpenUI(UIIndex.Options);
                     GameHandler.SetState(GameStates.IsCriticalMenuOpen);
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Exit, string.Empty, () =>
@@ -70,7 +69,7 @@ namespace StardustSandbox.Core.UI.Common.HUD
                             if (status == ConfirmStatus.Confirmed)
                             {
                                 uiManager.Reset();
-                                uiManager.OpenUI(UIIndex.MainMenu);
+                                uiManager.OpenUI(UIIndex.Main);
                             }
                         }
                     });
@@ -171,9 +170,9 @@ namespace StardustSandbox.Core.UI.Common.HUD
             }
         }
 
-        protected override void OnResize(Vector2 size)
+        protected override void OnResize(Vector2 newSize)
         {
-            this.shadowBackground.Scale = size;
+            this.shadowBackground.Scale = newSize;
         }
 
         protected override void OnUpdate(GameTime gameTime)
