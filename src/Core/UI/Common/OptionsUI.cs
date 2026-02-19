@@ -19,14 +19,12 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 
@@ -38,10 +36,10 @@ namespace StardustSandbox.Core.UI.Common
         private Label title;
 
         private SlotInfo exitButtonSlotInfo;
+        private SlotInfo[] categoryButtonSlotInfos;
 
         private readonly ButtonInfo exitButtonInfo;
         private readonly ButtonInfo[] categoryButtonInfos;
-        // private readonly SlotInfo[] categoryButtonSlotInfos, optionButtonSlotInfos, paginationButtonSlotInfos;
 
         private readonly TooltipBox tooltipBox;
 
@@ -50,16 +48,16 @@ namespace StardustSandbox.Core.UI.Common
             new(
                 Localization_GUIs.Options_General_Name,
                 Localization_GUIs.Options_General_Description,
-                TextureIndex.None,
-                Rectangle.Empty,
+                TextureIndex.IconUI,
+                new(0, 0, 32, 32),
                 new Option(Localization_GUIs.Options_General_Language_Name, Localization_GUIs.Options_General_Language_Description, OptionType.Selector)
             ),
 
             new(
                 Localization_GUIs.Options_Gameplay_Name,
                 Localization_GUIs.Options_Gameplay_Description,
-                TextureIndex.None,
-                Rectangle.Empty,
+                TextureIndex.IconUI,
+                new(0, 0, 32, 32),
                 new Option(Localization_GUIs.Options_Gameplay_ShowPreviewArea_Name, Localization_GUIs.Options_Gameplay_ShowPreviewArea_Description, OptionType.Toggle),
                 new Option(Localization_GUIs.Options_Gameplay_PreviewAreaColor_Name, Localization_GUIs.Options_Gameplay_PreviewAreaColor_Description, OptionType.ColorSelector),
                 new Option(Localization_GUIs.Options_Gameplay_PreviewAreaOpacity_Name, Localization_GUIs.Options_Gameplay_PreviewAreaOpacity_Description, OptionType.Slider),
@@ -71,8 +69,8 @@ namespace StardustSandbox.Core.UI.Common
             new(
                 Localization_GUIs.Options_Volume_Name,
                 Localization_GUIs.Options_Volume_Description,
-                TextureIndex.None,
-                Rectangle.Empty,
+                TextureIndex.IconUI,
+                new(0, 0, 32, 32),
                 new Option(Localization_GUIs.Options_Volume_MasterVolume_Name, Localization_GUIs.Options_Volume_MasterVolume_Description, OptionType.Slider),
                 new Option(Localization_GUIs.Options_Volume_MusicVolume_Name, Localization_GUIs.Options_Volume_MusicVolume_Description, OptionType.Slider),
                 new Option(Localization_GUIs.Options_Volume_SFXVolume_Name, Localization_GUIs.Options_Volume_SFXVolume_Description, OptionType.Slider)
@@ -81,8 +79,8 @@ namespace StardustSandbox.Core.UI.Common
             new(
                 Localization_GUIs.Options_Video_Name,
                 Localization_GUIs.Options_Video_Description,
-                TextureIndex.None,
-                Rectangle.Empty,
+                TextureIndex.IconUI,
+                new(0, 0, 32, 32),
                 new Option(Localization_GUIs.Options_Video_Framerate_Name, Localization_GUIs.Options_Video_Framerate_Description, OptionType.Selector),
                 new Option(Localization_GUIs.Options_Video_Resolution_Name, Localization_GUIs.Options_Video_Resolution_Description, OptionType.Selector),
                 new Option(Localization_GUIs.Options_Video_Fullscreen_Name, Localization_GUIs.Options_Video_Fullscreen_Description, OptionType.Toggle),
@@ -93,8 +91,8 @@ namespace StardustSandbox.Core.UI.Common
             new(
                 Localization_GUIs.Options_Controls_Name,
                 Localization_GUIs.Options_Controls_Description,
-                TextureIndex.None,
-                Rectangle.Empty,
+                TextureIndex.IconUI,
+                new(0, 0, 32, 32),
                 new Option(Localization_GUIs.Options_Controls_MoveCameraUp_Name, Localization_GUIs.Options_Controls_MoveCameraUp_Description, OptionType.KeySelector),
                 new Option(Localization_GUIs.Options_Controls_MoveCameraRight_Name, Localization_GUIs.Options_Controls_MoveCameraRight_Description, OptionType.KeySelector),
                 new Option(Localization_GUIs.Options_Controls_MoveCameraDown_Name, Localization_GUIs.Options_Controls_MoveCameraDown_Description, OptionType.KeySelector),
@@ -109,8 +107,8 @@ namespace StardustSandbox.Core.UI.Common
             new(
                 Localization_GUIs.Options_Cursor_Name,
                 Localization_GUIs.Options_Cursor_Description,
-                TextureIndex.None,
-                Rectangle.Empty,
+                TextureIndex.IconUI,
+                new(0, 0, 32, 32),
                 new Option(Localization_GUIs.Options_Cursor_Color_Name, Localization_GUIs.Options_Cursor_Color_Description, OptionType.ColorSelector),
                 new Option(Localization_GUIs.Options_Cursor_BackgroundColor_Name, Localization_GUIs.Options_Cursor_BackgroundColor_Description, OptionType.ColorSelector),
                 new Option(Localization_GUIs.Options_Cursor_Scale_Name, Localization_GUIs.Options_Cursor_Scale_Description, OptionType.Selector),
@@ -132,6 +130,12 @@ namespace StardustSandbox.Core.UI.Common
             this.tooltipBox = tooltipBox;
 
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI);
+            this.categoryButtonInfos = new ButtonInfo[this.categories.Length];
+
+            for (int i = 0; i < this.categories.Length; i++)
+            {
+                this.categoryButtonInfos[i] = new(this.categories[i].TextureIndex, this.categories[i].TextureSourceRectangle, this.categories[i].Name, this.categories[i].Description, null);
+            }
         }
 
         protected override void OnBuild(Container root)
@@ -200,7 +204,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildCategoryButtons()
         {
-
+            this.categoryButtonSlotInfos = UIBuilderUtility.BuildVerticalButtonLine(this.panelBackground, this.categoryButtonInfos, new(32.0f, 80.0f), 8.0f, UIDirection.West);
         }
 
         private void BuildOptionButtons()
