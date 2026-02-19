@@ -56,7 +56,7 @@ namespace StardustSandbox.Core.Constants
         internal const byte ACHIEVEMENTS_PER_PAGE = ACHIEVEMENTS_PER_ROW * ACHIEVEMENTS_PER_COLUMN;
 
         // Credits
-        internal const float CREDITS_SPEED = 0.05f;
+        internal const float CREDITS_SPEED = 65.0f;
         internal const float CREDITS_VERTICAL_SPACING = 64.0f;
 
         // Main Menu
@@ -64,10 +64,6 @@ namespace StardustSandbox.Core.Constants
         internal const float MAIN_ANIMATION_AMPLITUDE = 10.0f;
         internal const float MAIN_BUTTON_ANIMATION_SPEED = 1.5f;
         internal const float MAIN_BUTTON_ANIMATION_AMPLITUDE = 5.0f;
-
-        // Options
-        internal const float OPTIONS_SCROLL_STEP = 52.0f;
-        internal const float OPTIONS_ITEM_SPACING = 58.0f;
 
         // Notification Box
         internal const float NOTIFICATION_DISPLAY_DURATION_SECONDS = 5.0f;

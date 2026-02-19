@@ -17,6 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -27,7 +28,7 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class OptionsUI : UIBase
     {
-        private Image panelBackground;
+        private Image panelBackground, shadowBackground;
 
         private readonly TooltipBox tooltipBox;
 
@@ -47,6 +48,21 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnBuild(Container root)
         {
+            BuildBackground(root);
+
+            root.AddChild(this.tooltipBox);
+        }
+
+        private void BuildBackground(Container root)
+        {
+            this.shadowBackground = new()
+            {
+                TextureIndex = TextureIndex.Pixel,
+                Scale = GameScreen.GetViewport(),
+                Size = Vector2.One,
+                Color = new(AAP64ColorPalette.DarkGray, 160)
+            };
+
             this.panelBackground = new()
             {
                 Alignment = UIDirection.Center,
@@ -54,8 +70,13 @@ namespace StardustSandbox.Core.UI.Common
                 Size = new(1084.0f, 607.0f),
             };
 
+            root.AddChild(this.shadowBackground);
             root.AddChild(this.panelBackground);
-            root.AddChild(this.tooltipBox);
+        }
+
+        protected override void OnResize(Vector2 newSize)
+        {
+            this.shadowBackground.Scale = newSize;
         }
 
         protected override void OnUpdate(GameTime gameTime)

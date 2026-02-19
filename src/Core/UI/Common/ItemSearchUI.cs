@@ -39,34 +39,8 @@ using System.Text;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class ItemSearchUI : UIBase
+    internal sealed partial class ItemSearchUI : UIBase
     {
-        private sealed class SearchIndexEntry
-        {
-            internal Item Item { get; }
-            internal string NormalizedName { get; }
-            internal string NormalizedDescription { get; }
-
-            internal SearchIndexEntry(Item item)
-            {
-                this.Item = item;
-                this.NormalizedName = Normalize(item.Name ?? string.Empty);
-                this.NormalizedDescription = Normalize(item.Description ?? string.Empty);
-            }
-        }
-
-        private readonly struct SearchMatch
-        {
-            internal readonly SearchIndexEntry Entry { get; }
-            internal readonly int Score { get; }
-
-            internal SearchMatch(SearchIndexEntry entry, int score)
-            {
-                this.Entry = entry;
-                this.Score = score;
-            }
-        }
-
         private Label placeholderLabel, searchQueryLabel;
         private Image panelBackground, shadowBackground;
 

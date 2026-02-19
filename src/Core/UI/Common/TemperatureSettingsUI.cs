@@ -30,105 +30,10 @@ using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.WorldSystem;
 
-using System;
-
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class TemperatureSettingsUI : UIBase
+    internal sealed partial class TemperatureSettingsUI : UIBase
     {
-        private enum TemperatureIndex : byte
-        {
-            None = 0,
-            VeryCold = 1,
-            Cold = 2,
-            Normal = 3,
-            Hot = 4,
-            VeryHot = 5,
-        }
-
-        private sealed class Section
-        {
-            internal string Title => this.title;
-            internal TimeSpan StartTime => this.startTime;
-            internal TimeSpan EndTime => this.endTime;
-            internal TemperatureIndex Index { get => this.index; set => this.index = value; }
-
-            internal SlotInfo[] ButtonSlotInfos => this.buttonSlotInfos;
-            internal ButtonInfo[] ButtonInfos => this.buttonInfos;
-
-            private TemperatureIndex index;
-
-            private readonly SlotInfo[] buttonSlotInfos;
-            private readonly ButtonInfo[] buttonInfos;
-
-            private readonly string title;
-            private readonly TimeSpan startTime;
-            private readonly TimeSpan endTime;
-
-            internal Section(string title, TimeSpan startTime, TimeSpan endTime, World world)
-            {
-                this.title = title;
-                this.startTime = startTime;
-                this.endTime = endTime;
-
-                this.buttonInfos =
-                [
-                    new(TextureIndex.IconUI, new(224, 192, 32, 32), Localization_GUIs.TemperatureSettings_Temperature_None_Name, Localization_GUIs.TemperatureSettings_Temperature_None_Description, () =>
-                    {
-                        this.Index = TemperatureIndex.None;
-                        world.Temperature.SetTemperatureValue(this.StartTime, TemperatureConstants.WORLD_NONE_TEMPERATURE, false);
-                    }),
-
-                    new(TextureIndex.IconUI, new(0, 224, 32, 32), Localization_GUIs.TemperatureSettings_Temperature_VeryCold_Name, Localization_GUIs.TemperatureSettings_Temperature_VeryCold_Description, () =>
-                    {
-                        this.Index = TemperatureIndex.VeryCold;
-                        world.Temperature.SetTemperatureValue(this.StartTime, TemperatureConstants.WORLD_VERY_COLD_TEMPERATURE, true);
-                    }),
-
-                    new(TextureIndex.IconUI, new(32, 224, 32, 32), Localization_GUIs.TemperatureSettings_Temperature_Cold_Name, Localization_GUIs.TemperatureSettings_Temperature_Cold_Description, () =>
-                    {
-                        this.Index = TemperatureIndex.Cold;
-                        world.Temperature.SetTemperatureValue(this.StartTime, TemperatureConstants.WORLD_COLD_TEMPERATURE, true);
-                    }),
-
-                    new(TextureIndex.IconUI, new(64, 224, 32, 32), Localization_GUIs.TemperatureSettings_Temperature_Normal_Name, Localization_GUIs.TemperatureSettings_Temperature_Normal_Description, () =>
-                    {
-                        this.Index = TemperatureIndex.Normal;
-                        world.Temperature.SetTemperatureValue(this.StartTime, TemperatureConstants.WORLD_NORMAL_TEMPERATURE, true);
-                    }),
-
-                    new(TextureIndex.IconUI, new(96, 224, 32, 32), Localization_GUIs.TemperatureSettings_Temperature_Hot_Name, Localization_GUIs.TemperatureSettings_Temperature_Hot_Description, () =>
-                    {
-                        this.Index = TemperatureIndex.Hot;
-                        world.Temperature.SetTemperatureValue(this.StartTime, TemperatureConstants.WORLD_HOT_TEMPERATURE, true);
-                    }),
-
-                    new(TextureIndex.IconUI, new(128, 224, 32, 32), Localization_GUIs.TemperatureSettings_Temperature_VeryHot_Name, Localization_GUIs.TemperatureSettings_Temperature_VeryHot_Description, () =>
-                    {
-                        this.Index = TemperatureIndex.VeryHot;
-                        world.Temperature.SetTemperatureValue(this.StartTime, TemperatureConstants.WORLD_VERY_HOT_TEMPERATURE, true);
-                    }),
-                ];
-
-                this.buttonSlotInfos = new SlotInfo[this.buttonInfos.Length];
-
-                for (int i = 0; i < this.buttonInfos.Length; i++)
-                {
-                    SlotInfo buttonSlotInfo = UIBuilderUtility.BuildButtonSlot(new(0, 0), this.buttonInfos[i]);
-
-                    buttonSlotInfo.Background.Alignment = UIDirection.Southwest;
-                    buttonSlotInfo.Icon.Alignment = UIDirection.Center;
-
-                    buttonSlotInfo.Icon.TextureIndex = this.buttonInfos[i].TextureIndex;
-                    buttonSlotInfo.Icon.SourceRectangle = this.buttonInfos[i].TextureSourceRectangle;
-
-                    buttonSlotInfo.Background.AddChild(buttonSlotInfo.Icon);
-
-                    this.buttonSlotInfos[i] = buttonSlotInfo;
-                }
-            }
-        }
-
         private Image panelBackground, shadowBackground;
         private Label menuTitle;
 

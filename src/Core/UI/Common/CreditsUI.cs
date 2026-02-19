@@ -36,36 +36,8 @@ using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class CreditsUI : UIBase
+    internal sealed partial class CreditsUI : UIBase
     {
-        private enum CreditContentType : byte
-        {
-            Text,
-            Title,
-            Image
-        }
-
-        private readonly struct CreditContent
-        {
-            internal readonly CreditContentType ContentType { get; init; }
-            internal readonly string Text { get; init; }
-            internal readonly Texture2D Texture { get; init; }
-            internal readonly Vector2 TextureScale { get; init; }
-            internal readonly Vector2 Margin { get; init; }
-
-            public CreditContent()
-            {
-                this.ContentType = CreditContentType.Text;
-                this.TextureScale = Vector2.One;
-            }
-        }
-
-        private readonly struct CreditSection(string title, CreditContent[] contents)
-        {
-            internal readonly string Title => title;
-            internal readonly CreditContent[] Contents => contents;
-        }
-
         private Container rootContainer;
         private UIElement lastElement;
 
@@ -226,11 +198,10 @@ namespace StardustSandbox.Core.UI.Common
         protected override void OnBuild(Container root)
         {
             this.rootContainer = root;
-
-            BuildElements(root);
+            BuildCreditElements();
         }
 
-        private void BuildElements(Container root)
+        private void BuildCreditElements()
         {
             Vector2 margin = new(0.0f, UIConstants.CREDITS_VERTICAL_SPACING * 2.0f);
 
@@ -240,77 +211,29 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (!string.IsNullOrWhiteSpace(creditSection.Title))
                 {
-                    Label sectionTitleElement = new()
-                    {
-                        Scale = new(0.25f),
-                        SpriteFontIndex = SpriteFontIndex.DigitalDisco,
-                        Margin = margin,
-                        Alignment = UIDirection.South,
-                        TextContent = creditSection.Title
-                    };
-
-                    root.AddChild(sectionTitleElement);
-
-                    margin.Y += sectionTitleElement.Size.Y + UIConstants.CREDITS_VERTICAL_SPACING;
+                    BuildSectionTitleElement(creditSection, ref margin);
                 }
 
                 for (int j = 0; j < creditSection.Contents.Length; j++)
                 {
                     CreditContent content = creditSection.Contents[j];
 
-                    if (content.ContentType == CreditContentType.Title)
+                    switch (content.ContentType)
                     {
-                        Label contentTitleElement = new()
-                        {
-                            Scale = new(0.2f),
-                            SpriteFontIndex = SpriteFontIndex.DigitalDisco,
-                            Margin = margin + content.Margin,
-                            Alignment = UIDirection.South,
-                            TextContent = content.Text
-                        };
+                        case CreditContentType.Text:
+                            BuildTextContentElement(content, ref margin);
+                            break;
 
-                        root.AddChild(contentTitleElement);
+                        case CreditContentType.Title:
+                            BuildTitleContentElement(content, ref margin);
+                            break;
 
-                        margin.Y += contentTitleElement.Size.Y + UIConstants.CREDITS_VERTICAL_SPACING;
+                        case CreditContentType.Image:
+                            BuildImageContentElement(content, ref margin);
+                            break;
 
-                        continue;
-                    }
-
-                    if (content.ContentType == CreditContentType.Text)
-                    {
-                        Label contentText = new()
-                        {
-                            Scale = new(0.15f),
-                            SpriteFontIndex = SpriteFontIndex.DigitalDisco,
-                            Margin = margin + content.Margin,
-                            Alignment = UIDirection.South,
-                            TextContent = content.Text
-                        };
-
-                        contentText.Margin = margin + content.Margin;
-                        root.AddChild(contentText);
-
-                        margin.Y += contentText.Size.Y + UIConstants.CREDITS_VERTICAL_SPACING;
-
-                        continue;
-                    }
-
-                    if (content.ContentType == CreditContentType.Image)
-                    {
-                        Image contentImage = new()
-                        {
-                            Scale = content.TextureScale,
-                            Size = content.Texture.GetSize().ToVector2(),
-                            Texture = content.Texture,
-                            Alignment = UIDirection.South,
-                            Margin = margin + content.Margin
-                        };
-
-                        root.AddChild(contentImage);
-
-                        margin.Y += contentImage.Size.Y + UIConstants.CREDITS_VERTICAL_SPACING;
-
-                        continue;
+                        default:
+                            break;
                     }
                 }
 
@@ -318,32 +241,101 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        protected override void OnUpdate(GameTime gameTime)
+        private void BuildSectionTitleElement(CreditSection section, ref Vector2 margin)
         {
-            UpdateUserInput();
-            CheckIfTheCreditsHaveFinished();
+            Label sectionTitleElement = new()
+            {
+                Scale = new(0.25f),
+                SpriteFontIndex = SpriteFontIndex.DigitalDisco,
+                Margin = margin,
+                Alignment = UIDirection.South,
+                TextContent = section.Title
+            };
 
-            this.rootContainer.Margin = new(
-                this.rootContainer.Margin.X,
-                this.rootContainer.Margin.Y - (UIConstants.CREDITS_SPEED * Convert.ToSingle(gameTime.ElapsedGameTime.TotalMilliseconds))
-            );
+            this.rootContainer.AddChild(sectionTitleElement);
+
+            margin.Y += sectionTitleElement.Size.Y + UIConstants.CREDITS_VERTICAL_SPACING;
         }
 
-        private void UpdateUserInput()
+        private void BuildTextContentElement(CreditContent content, ref Vector2 margin)
         {
-            if (InputEngine.MouseState.LeftButton == ButtonState.Pressed ||
+            Label contentTitleElement = new()
+            {
+                Scale = new(0.2f),
+                SpriteFontIndex = SpriteFontIndex.DigitalDisco,
+                Margin = margin + content.Margin,
+                Alignment = UIDirection.South,
+                TextContent = content.Text
+            };
+
+            this.rootContainer.AddChild(contentTitleElement);
+
+            margin.Y += contentTitleElement.Size.Y + UIConstants.CREDITS_VERTICAL_SPACING;
+        }
+
+        private void BuildTitleContentElement(CreditContent content, ref Vector2 margin)
+        {
+            Label contentText = new()
+            {
+                Scale = new(0.15f),
+                SpriteFontIndex = SpriteFontIndex.DigitalDisco,
+                Margin = margin + content.Margin,
+                Alignment = UIDirection.South,
+                TextContent = content.Text
+            };
+
+            contentText.Margin = margin + content.Margin;
+            this.rootContainer.AddChild(contentText);
+
+            margin.Y += contentText.Size.Y + UIConstants.CREDITS_VERTICAL_SPACING;
+        }
+
+        private void BuildImageContentElement(CreditContent content, ref Vector2 margin)
+        {
+            Image contentImage = new()
+            {
+                Scale = content.TextureScale,
+                Size = content.Texture.GetSize().ToVector2(),
+                Texture = content.Texture,
+                Alignment = UIDirection.South,
+                Margin = margin + content.Margin
+            };
+
+            this.rootContainer.AddChild(contentImage);
+
+            margin.Y += contentImage.Size.Y + UIConstants.CREDITS_VERTICAL_SPACING;
+        }
+
+        protected override void OnUpdate(GameTime gameTime)
+        {
+            CheckUserSkipInput();
+            CheckIfCreditsHaveFinished();
+            UpdateCreditsScroll(Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds));
+        }
+
+        private void CheckUserSkipInput()
+        {
+            if (InputEngine.MouseState.LeftButton is ButtonState.Pressed ||
                 InputEngine.KeyboardState.GetPressedKeyCount() > 0)
             {
                 this.uiManager.CloseUI();
             }
         }
 
-        private void CheckIfTheCreditsHaveFinished()
+        private void CheckIfCreditsHaveFinished()
         {
             if (((this.lastElement.Position.Y + this.lastElement.Size.Y) * this.lastElement.Scale.Y) + 16.0f < 0.0f)
             {
                 this.uiManager.CloseUI();
             }
+        }
+
+        private void UpdateCreditsScroll(float deltaTime)
+        {
+            this.rootContainer.Margin = new(
+                this.rootContainer.Margin.X,
+                this.rootContainer.Margin.Y - (UIConstants.CREDITS_SPEED * deltaTime)
+            );
         }
 
         protected override void OnOpened()
@@ -355,7 +347,7 @@ namespace StardustSandbox.Core.UI.Common
 
             SongEngine.Play(SongIndex.Volume_01_Track_02);
 
-            this.rootContainer.Margin = new(0.0f, GameScreen.GetViewportCenter().Y);
+            this.rootContainer.Margin = new(0.0f, GameScreen.GetViewportCenter().Y / 2.0f);
 
             this.lastElement ??= this.rootContainer.LastChild;
         }
