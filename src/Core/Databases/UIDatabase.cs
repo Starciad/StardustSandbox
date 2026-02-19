@@ -195,7 +195,7 @@ namespace StardustSandbox.Core.Databases
                 world
             );
 
-            WorldExplorerUI worldsExplorerUI = new(
+            WorldExplorerUI worldExplorerUI = new(
                 graphicsDevice,
                 uiManager,
                 worldDetailsUI
@@ -257,8 +257,8 @@ namespace StardustSandbox.Core.Databases
                 temperatureSettingsUI,
                 textInputUI,
                 worldDetailsUI,
+                worldExplorerUI,
                 worldSettingsUI,
-                worldsExplorerUI,
             ];
 
             for (int i = 0; i < uis.Length; i++)
