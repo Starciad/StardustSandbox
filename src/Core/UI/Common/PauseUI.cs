@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -55,6 +56,7 @@ namespace StardustSandbox.Core.UI.Common
                 new(TextureIndex.None, null, Localization_Statements.Resume, string.Empty, this.uiManager.CloseUI),
                 new(TextureIndex.None, null, Localization_Statements.Options, string.Empty, () =>
                 {
+                    ((OptionsUI)UIDatabase.GetUI(UIIndex.Options)).Setup();
                     this.uiManager.OpenUI(UIIndex.Options);
                     GameHandler.SetState(GameStates.IsCriticalMenuOpen);
                 }),

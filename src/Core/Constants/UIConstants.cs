@@ -58,5 +58,10 @@ namespace StardustSandbox.Core.Constants
         internal const float NOTIFICATION_DISPLAY_DURATION_SECONDS = 5.0f;
         internal const float NOTIFICATION_HIDE_DURATION_SECONDS = 0.5f;
         internal const float NOTIFICATION_MARGIN_LERP_FACTOR = 0.2f;
+
+        // Options
+        internal const byte OPTIONS_PER_ROW = 6;
+        internal const byte OPTIONS_PER_COLUMN = 2;
+        internal const byte OPTIONS_PER_PAGE = OPTIONS_PER_ROW * OPTIONS_PER_COLUMN;
     }
 }

@@ -19,24 +19,30 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 
+using System.Collections.Generic;
+
 namespace StardustSandbox.Core.UI.Common
 {
     internal sealed partial class OptionsUI : UIBase
     {
+        private int selectedCategoryIndex = 0;
+
         private Image panelBackground, shadowBackground;
         private Label title;
 
         private SlotInfo exitButtonSlotInfo;
-        private SlotInfo[] categoryButtonSlotInfos;
+        private SlotInfo[] categoryButtonSlotInfos, optionButtonSlotInfos;
 
         private readonly ButtonInfo exitButtonInfo;
         private readonly ButtonInfo[] categoryButtonInfos;
@@ -131,11 +137,45 @@ namespace StardustSandbox.Core.UI.Common
 
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI);
             this.categoryButtonInfos = new ButtonInfo[this.categories.Length];
+            this.optionButtonSlotInfos = new SlotInfo[UIConstants.OPTIONS_PER_PAGE];
 
             for (int i = 0; i < this.categories.Length; i++)
             {
                 this.categoryButtonInfos[i] = new(this.categories[i].TextureIndex, this.categories[i].TextureSourceRectangle, this.categories[i].Name, this.categories[i].Description, null);
             }
+        }
+
+        private void SelectCategory(int index)
+        {
+            if (index < 0 || index >= this.categories.Length)
+            {
+                return;
+            }
+
+            this.selectedCategoryIndex = index;
+            Category category = this.categories[this.selectedCategoryIndex];
+
+            this.title.TextContent = category.Name;
+
+            for (int i = 0; i < this.optionButtonSlotInfos.Length; i++)
+            {
+                SlotInfo slotInfo = this.optionButtonSlotInfos[i];
+
+                if (i < category.Options.Length)
+                {
+                    slotInfo.Background.CanDraw = true;
+                    slotInfo.Label.TextContent = category.Options[i].Name.Truncate(32);
+                }
+                else
+                {
+                    slotInfo.Background.CanDraw = false;
+                }
+            }
+        }
+
+        internal void Setup()
+        {
+            SelectCategory(0);
         }
 
         protected override void OnBuild(Container root)
@@ -204,18 +244,68 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildCategoryButtons()
         {
-            this.categoryButtonSlotInfos = UIBuilderUtility.BuildVerticalButtonLine(this.panelBackground, this.categoryButtonInfos, new(32.0f, 80.0f), 8.0f, UIDirection.West);
+            this.categoryButtonSlotInfos = UIBuilderUtility.BuildVerticalButtonLine(
+                this.panelBackground,
+                this.categoryButtonInfos,
+                new(8.0f, 8.0f),
+                74.0f,
+                UIDirection.Northwest
+            );
         }
 
         private void BuildOptionButtons()
         {
+            Vector2 firstColumnMargin = new(96.0f, 92.0f);
+            Vector2 secondColumnMargin = new(589.0f, 92.0f);
+            Vector2 spacing = new(12.0f);
+            Vector2 size = new(477.0f, 61.0f);
 
+            int index = 0;
+
+            for (int row = 0; row < UIConstants.OPTIONS_PER_ROW; row++)
+            {
+                for (int column = 0; column < UIConstants.OPTIONS_PER_COLUMN; column++)
+                {
+                    Vector2 margin = column % 2 == 0 ? firstColumnMargin : secondColumnMargin;
+                    margin.Y += row * (size.Y + spacing.Y);
+
+                    Image background = new()
+                    {
+                        TextureIndex = TextureIndex.UIButtons,
+                        SourceRectangle = new(0, 300, 477, 61),
+                        Size = size,
+                        Alignment = UIDirection.Northwest,
+                        Margin = margin,
+                    };
+
+                    Label label = new()
+                    {
+                        SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                        Scale = new(0.065f),
+                        Margin = new(16.0f, 0.0f),
+                        TextContent = "Title",
+                        Alignment = UIDirection.West,
+
+                        BorderColor = AAP64ColorPalette.DarkGray,
+                        BorderDirections = LabelBorderDirection.All,
+                        BorderOffset = 2.0f,
+                        BorderThickness = 2.0f,
+                    };
+
+                    this.panelBackground.AddChild(background);
+                    background.AddChild(label);
+
+                    this.optionButtonSlotInfos[index] = new(background, null, label);
+                    index++;
+                }
+            }
         }
 
         private void BuildPagination()
         {
 
         }
+
         protected override void OnResize(Vector2 newSize)
         {
             this.shadowBackground.Scale = newSize;
@@ -226,6 +316,8 @@ namespace StardustSandbox.Core.UI.Common
             this.tooltipBox.CanDraw = false;
 
             UpdateExitButton();
+            UpdateCategoryButtons();
+            UpdateOptionButtons();
         }
 
         private void UpdateExitButton()
@@ -253,6 +345,71 @@ namespace StardustSandbox.Core.UI.Common
             else
             {
                 this.exitButtonSlotInfo.Background.Color = AAP64ColorPalette.White;
+            }
+        }
+
+        private void UpdateCategoryButtons()
+        {
+            for (int i = 0; i < this.categoryButtonSlotInfos.Length; i++)
+            {
+                SlotInfo slotInfo = this.categoryButtonSlotInfos[i];
+                ButtonInfo buttonInfo = this.categoryButtonInfos[i];
+
+                if (Interaction.OnMouseEnter(slotInfo.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
+                if (Interaction.OnMouseLeftClick(slotInfo.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    SelectCategory(i);
+                    break;
+                }
+
+                if (Interaction.OnMouseOver(slotInfo.Background))
+                {
+                    this.tooltipBox.CanDraw = true;
+                    TooltipBoxContent.SetTitle(buttonInfo.Name);
+                    TooltipBoxContent.SetDescription(buttonInfo.Description);
+                    slotInfo.Background.Color = AAP64ColorPalette.HoverColor;
+                }
+                else
+                {
+                    slotInfo.Background.Color = AAP64ColorPalette.White;
+                }
+            }
+        }
+
+        private void UpdateOptionButtons()
+        {
+            Category category = this.categories[this.selectedCategoryIndex];
+
+            for (int i = 0; i < category.Options.Length; i++)
+            {
+                SlotInfo slotInfo = this.optionButtonSlotInfos[i];
+
+                if (slotInfo.Background == null)
+                {
+                    continue;
+                }
+
+                if (Interaction.OnMouseEnter(slotInfo.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
+                if (Interaction.OnMouseOver(slotInfo.Background))
+                {
+                    this.tooltipBox.CanDraw = true;
+                    TooltipBoxContent.SetTitle(category.Options[i].Name);
+                    TooltipBoxContent.SetDescription(category.Options[i].Description);
+                    slotInfo.Background.Color = AAP64ColorPalette.HoverColor;
+                }
+                else
+                {
+                    slotInfo.Background.Color = AAP64ColorPalette.White;
+                }
             }
         }
 

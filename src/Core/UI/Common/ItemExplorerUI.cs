@@ -40,9 +40,7 @@ namespace StardustSandbox.Core.UI.Common
         private Category selectedCategory;
         private Subcategory selectedSubcategory;
 
-        private int currentPage;
-        private int totalPages;
-        private int selectedItemsLength;
+        private int currentPageIndex = 0, totalPages = 0, selectedItemsLength = 0;
 
         private Item[] selectedItems;
 
@@ -89,13 +87,13 @@ namespace StardustSandbox.Core.UI.Common
             this.paginationButtonInfos = [
                 new(TextureIndex.IconUI, new(128, 160, 32, 32), "Left", string.Empty, () =>
                 {
-                    if (this.currentPage > 0)
+                    if (this.currentPageIndex > 0)
                     {
-                        this.currentPage--;
+                        this.currentPageIndex--;
                     }
                     else
                     {
-                        this.currentPage = this.totalPages;
+                        this.currentPageIndex = this.totalPages;
                     }
 
                     RefreshItemCatalog();
@@ -103,13 +101,13 @@ namespace StardustSandbox.Core.UI.Common
 
                 new(TextureIndex.IconUI, new(64, 160, 32, 32), "Right", string.Empty, () =>
                 {
-                    if (this.currentPage < this.totalPages)
+                    if (this.currentPageIndex < this.totalPages)
                     {
-                        this.currentPage++;
+                        this.currentPageIndex++;
                     }
                     else
                     {
-                        this.currentPage = 0;
+                        this.currentPageIndex = 0;
                     }
 
                     RefreshItemCatalog();
@@ -127,7 +125,7 @@ namespace StardustSandbox.Core.UI.Common
             this.selectedCategory = CatalogDatabase.GetCategory(0);
             this.selectedSubcategory = this.selectedCategory.GetSubcategory(0);
 
-            this.currentPage = 0;
+            this.currentPageIndex = 0;
             this.totalPages = 0;
         }
 
@@ -591,7 +589,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.selectedCategory = category;
             this.selectedSubcategory = subcategory;
-            this.currentPage = pageIndex;
+            this.currentPageIndex = pageIndex;
             this.totalPages = subcategory.ItemsLength / UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE;
 
             RefreshSubcategoryButtons();
@@ -622,9 +620,9 @@ namespace StardustSandbox.Core.UI.Common
 
         private void RefreshItemCatalog()
         {
-            this.pageIndexLabel.TextContent = string.Concat(this.currentPage + 1, " / ", this.totalPages + 1);
+            this.pageIndexLabel.TextContent = string.Concat(this.currentPageIndex + 1, " / ", this.totalPages + 1);
 
-            int startIndex = this.currentPage * UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE;
+            int startIndex = this.currentPageIndex * UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE;
             int endIndex = Math.Min(startIndex + UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE, this.selectedSubcategory.ItemsLength);
 
             this.selectedItems = this.selectedSubcategory.GetItems(startIndex, endIndex);
@@ -658,7 +656,7 @@ namespace StardustSandbox.Core.UI.Common
         protected override void OnOpened()
         {
             GameHandler.SetState(GameStates.IsCriticalMenuOpen);
-            SelectItemCatalog(this.selectedCategory, this.selectedSubcategory, this.currentPage);
+            SelectItemCatalog(this.selectedCategory, this.selectedSubcategory, this.currentPageIndex);
         }
 
         protected override void OnClosed()

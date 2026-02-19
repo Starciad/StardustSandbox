@@ -41,11 +41,9 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class WorldExplorerUI : UIBase
     {
-        private int currentPage = 0;
-        private int totalPages = 1;
+        private int currentPage = 0, totalPages = 1;
 
-        private Image headerBackground;
-        private Image footerBackground;
+        private Image headerBackground, footerBackground;
 
         private Label pageIndexLabel;
         private SlotInfo[] headerButtonSlotInfos;
