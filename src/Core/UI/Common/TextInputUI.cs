@@ -269,7 +269,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void UpdateElementPositionAccordingToUserInput()
         {
-            float screenCenterYPosition = GameScreen.GetViewportCenter().Y + this.userInput.Size.Y / 2.0f;
+            float screenCenterYPosition = GameScreen.GetViewportCenter().Y + (this.userInput.Size.Y / 2.0f);
 
             // Background
             this.userInputBackgroundElementPosition.X = this.userInputBackground.Position.X;

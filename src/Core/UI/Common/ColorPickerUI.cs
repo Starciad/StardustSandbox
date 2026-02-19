@@ -233,7 +233,7 @@ namespace StardustSandbox.Core.UI.Common
                 }
 
                 margin.X = baseMargin.X;
-                margin.Y += textureSize.Y * 2.0f + 16.0f;
+                margin.Y += (textureSize.Y * 2.0f) + 16.0f;
             }
         }
 

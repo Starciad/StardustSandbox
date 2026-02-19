@@ -227,7 +227,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             float percentage = (this.value - this.range.Start.Value) / (float)(this.range.End.Value - this.range.Start.Value);
             float buttonX = percentage * this.sliderBackground.Size.X;
-            this.sliderButton.Margin = new(buttonX - this.sliderButton.Size.X / 2, 0.0f);
+            this.sliderButton.Margin = new(buttonX - (this.sliderButton.Size.X / 2), 0.0f);
         }
 
         protected override void OnOpened()
