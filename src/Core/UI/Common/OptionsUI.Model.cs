@@ -15,10 +15,37 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
+
+using StardustSandbox.Core.Enums.Assets;
+
 namespace StardustSandbox.Core.UI.Common
 {
     internal sealed partial class OptionsUI
     {
+        private enum OptionType
+        {
+            ColorSelector,
+            KeySelector,
+            Selector,
+            Slider,
+            Toggle
+        }
 
+        private sealed class Category(string name, string description, TextureIndex textureIndex, Rectangle textureSourceRectangle, params Option[] options)
+        {
+            internal string Name => name;
+            internal string Description => description;
+            internal TextureIndex TextureIndex => textureIndex;
+            internal Rectangle TextureSourceRectangle => textureSourceRectangle;
+            internal Option[] Options => options;
+        }
+
+        private sealed class Option(string name, string description, OptionType type)
+        {
+            internal string Name => name;
+            internal string Description => description;
+            internal OptionType Type => type;
+        }
     }
 }
