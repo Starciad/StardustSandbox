@@ -16,6 +16,7 @@
 */
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
@@ -25,13 +26,14 @@ using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Elements;
-using StardustSandbox.Core.UI.Settings;
+
+using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class KeySelectorUI : UIBase
     {
-        private KeySelectorSettings settings;
+        private Action<Keys> keySelectionCallback;
 
         private Image shadowBackground;
         private Text message;
@@ -51,10 +53,10 @@ namespace StardustSandbox.Core.UI.Common
             this.uiManager = uiManager;
         }
 
-        internal void Configure(in KeySelectorSettings settings)
+        internal void Setup(string synopsis, Action<Keys> keySelectionCallback)
         {
-            this.settings = settings;
-            this.message.TextContent = settings.Synopsis;
+            this.message.TextContent = synopsis;
+            this.keySelectionCallback = keySelectionCallback;
         }
 
         protected override void OnBuild(Container root)
@@ -117,7 +119,7 @@ namespace StardustSandbox.Core.UI.Common
             SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
 
             this.uiManager.CloseUI();
-            this.settings.OnSelectedKey?.Invoke(inputKeyEventArgs.Key);
+            this.keySelectionCallback?.Invoke(inputKeyEventArgs.Key);
         }
     }
 }

@@ -30,7 +30,6 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
-using StardustSandbox.Core.UI.Settings;
 using StardustSandbox.Core.UI.States;
 
 using System;
@@ -40,12 +39,17 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class TextInputUI : UIBase
     {
+        private bool allowSpaces;
+        private uint maxCharacters;
+        private InputMode inputMode;
+        private InputRestriction inputRestriction;
+        private Func<string, TextValidationState> validateCallback;
+        private Action<string> sendCallback;
+
         private int cursorPosition = 0;
 
         private Vector2 userInputBackgroundElementPosition = Vector2.Zero;
         private Vector2 characterCountElementPosition = Vector2.Zero;
-
-        private TextInputSettings settings;
 
         private Image shadowBackground, userInputBackground;
 
@@ -80,14 +84,13 @@ namespace StardustSandbox.Core.UI.Common
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
                 {
                     string content = this.userInputStringBuilder.ToString();
+                    this.sendCallback?.Invoke(content);
 
-                    this.settings.OnSendCallback?.Invoke(new(content));
-
-                    if (this.settings.OnValidationCallback != null)
+                    if (this.validateCallback != null)
                     {
-                        TextValidationState validationState = this.settings.OnValidationCallback.Invoke(content);
+                        TextValidationState validationState = this.validateCallback.Invoke(content);
 
-                        if (validationState.Status == ValidationStatus.Failure)
+                        if (validationState.Status is ValidationStatus.Failure)
                         {
                             SoundEngine.Play(SoundEffectIndex.GUI_Error);
                             messageUI.SetContent(validationState.Message);
@@ -97,8 +100,6 @@ namespace StardustSandbox.Core.UI.Common
                     }
 
                     SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
-                    this.settings.OnSendCallback?.Invoke(content);
-
                     uiManager.CloseUI();
                 }),
             ];
@@ -106,28 +107,36 @@ namespace StardustSandbox.Core.UI.Common
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
         }
 
-        internal void Configure(TextInputSettings settings)
+        internal void Setup(string synopsis, string content, bool allowSpaces, InputMode inputMode, InputRestriction inputRestriction, uint maxCharacters, Func<string, TextValidationState> validateCallback, Action<string> sendCallback)
         {
-            this.settings = settings;
-
             // Setting Synopsis
-            this.synopsis.TextContent = settings.Synopsis;
+            this.synopsis.TextContent = synopsis;
 
             // Setting Content
             _ = this.userInputStringBuilder.Clear();
 
-            if (string.IsNullOrWhiteSpace(settings.Content))
+            if (string.IsNullOrWhiteSpace(content))
             {
                 this.cursorPosition = 0;
             }
             else
             {
-                _ = this.userInputStringBuilder.Append(settings.Content);
-                this.cursorPosition = settings.Content.Length;
+                _ = this.userInputStringBuilder.Append(content);
+                this.cursorPosition = content.Length;
             }
 
             // Count
-            this.characterCount.CanDraw = settings.MaxCharacters != 0;
+            this.characterCount.CanDraw = maxCharacters != 0;
+
+            // Settings
+            this.allowSpaces = allowSpaces;
+            this.maxCharacters = maxCharacters;
+            this.inputMode = inputMode;
+            this.inputRestriction = inputRestriction;
+
+            // Callbacks
+            this.validateCallback = validateCallback;
+            this.sendCallback = sendCallback;
         }
 
         protected override void OnBuild(Container root)
@@ -404,7 +413,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void HandleSpaceKey()
         {
-            if (this.userInputStringBuilder.Length >= this.settings.MaxCharacters || !this.settings.AllowSpaces)
+            if (this.userInputStringBuilder.Length >= this.maxCharacters || !this.allowSpaces)
             {
                 return;
             }
@@ -419,7 +428,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void AddCharacter(char character)
         {
-            if (this.userInputStringBuilder.Length >= this.settings.MaxCharacters)
+            if (this.userInputStringBuilder.Length >= this.maxCharacters)
             {
                 return;
             }
@@ -429,7 +438,7 @@ namespace StardustSandbox.Core.UI.Common
                 return;
             }
 
-            switch (this.settings.InputRestriction)
+            switch (this.inputRestriction)
             {
                 case InputRestriction.None:
                     break;
@@ -476,7 +485,7 @@ namespace StardustSandbox.Core.UI.Common
 
             if (this.characterCount.CanDraw)
             {
-                this.characterCount.TextContent = string.Concat(this.userInputStringBuilder.Length, '/', this.settings.MaxCharacters);
+                this.characterCount.TextContent = string.Concat(this.userInputStringBuilder.Length, '/', this.maxCharacters);
             }
 
             UpdateCursorPosition();
@@ -486,7 +495,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             _ = this.userInputStringBuilder.Insert(this.cursorPosition, '|');
 
-            switch (this.settings.InputMode)
+            switch (this.inputMode)
             {
                 case InputMode.Normal:
                     this.userInput.TextContent = this.userInputStringBuilder.ToString();

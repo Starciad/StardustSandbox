@@ -93,13 +93,12 @@ namespace StardustSandbox.Core.UI.Common
             GameHandler.SetState(GameStates.IsCriticalMenuOpen);
             this.worldTargetSize = size;
 
-            this.confirmUI.Configure(new()
-            {
-                Caption = Localization_Messages.Confirm_World_Resize_Title,
-                Message = Localization_Messages.Confirm_World_Resize_Description,
-                OnConfirmCallback = status =>
+            this.confirmUI.Setup(
+                Localization_Messages.Confirm_World_Resize_Title,
+                Localization_Messages.Confirm_World_Resize_Description,
+                status =>
                 {
-                    if (status == ConfirmStatus.Confirmed)
+                    if (status is ConfirmStatus.Confirmed)
                     {
                         GameHandler.Reset(this.actorManager, this.world);
                         this.world.StartNew(this.worldTargetSize);
@@ -122,8 +121,8 @@ namespace StardustSandbox.Core.UI.Common
                     }
 
                     GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
-                },
-            });
+                }
+            );
 
             this.uiManager.OpenUI(UIIndex.Confirm);
         }

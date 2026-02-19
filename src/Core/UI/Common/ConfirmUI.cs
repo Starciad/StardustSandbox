@@ -28,13 +28,14 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
-using StardustSandbox.Core.UI.Settings;
+
+using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class ConfirmUI : UIBase
     {
-        private ConfirmSettings confirmSettings;
+        private Action<ConfirmStatus> confirmCallback;
 
         private Image shadowBackground;
         private Label caption;
@@ -55,24 +56,23 @@ namespace StardustSandbox.Core.UI.Common
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {
                     this.uiManager.CloseUI();
-                    this.confirmSettings.OnConfirmCallback?.Invoke(ConfirmStatus.Cancelled);
+                    this.confirmCallback?.Invoke(ConfirmStatus.Cancelled);
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Confirm, string.Empty, () =>
                 {
                     this.uiManager.CloseUI();
-                    this.confirmSettings.OnConfirmCallback?.Invoke(ConfirmStatus.Confirmed);
+                    this.confirmCallback?.Invoke(ConfirmStatus.Confirmed);
                 }),
             ];
 
             this.buttonLabels = new Label[this.buttonInfos.Length];
         }
 
-        internal void Configure(in ConfirmSettings settings)
+        internal void Setup(string caption, string message, Action<ConfirmStatus> confirmCallback)
         {
-            this.confirmSettings = settings;
-
-            this.caption.TextContent = settings.Caption;
-            this.message.TextContent = settings.Message;
+            this.caption.TextContent = caption;
+            this.message.TextContent = message;
+            this.confirmCallback = confirmCallback;
         }
 
         protected override void OnBuild(Container root)

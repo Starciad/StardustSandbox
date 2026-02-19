@@ -60,19 +60,18 @@ namespace StardustSandbox.Core.UI.Common
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Exit, string.Empty, () =>
                 {
-                    this.confirmUI.Configure(new()
-                    {
-                        Caption = Localization_Messages.Confirm_Simulation_Exit_Title,
-                        Message = Localization_Messages.Confirm_Simulation_Exit_Description,
-                        OnConfirmCallback = status =>
+                    this.confirmUI.Setup(
+                        Localization_Messages.Confirm_Simulation_Exit_Title,
+                        Localization_Messages.Confirm_Simulation_Exit_Description,
+                        status =>
                         {
-                            if (status == ConfirmStatus.Confirmed)
+                            if (status is ConfirmStatus.Confirmed)
                             {
                                 uiManager.Reset();
                                 uiManager.OpenUI(UIIndex.Main);
                             }
                         }
-                    });
+                    );
                     this.uiManager.OpenUI(UIIndex.Confirm);
                     GameHandler.SetState(GameStates.IsCriticalMenuOpen);
                 }),

@@ -28,19 +28,21 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
-using StardustSandbox.Core.UI.Settings;
+
+using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class SliderUI : UIBase
     {
+        private Action<int> sendCallback;
+
         private Text synopsis;
         private Label valueLabel;
         private Image shadowBackground, sliderBackground, sliderButton;
 
-        private int currentValue, maximumValue, minimumValue;
-
-        private SliderSettings settings;
+        private Range range;
+        private int value;
 
         private readonly Label[] menuButtonLabels;
         private readonly ButtonInfo[] menuButtonInfos;
@@ -59,23 +61,22 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                     uiManager.CloseUI();
-                    this.settings.OnSendCallback?.Invoke(this.currentValue);
+                    this.sendCallback?.Invoke(this.value);
                 }),
             ];
 
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
         }
 
-        internal void Configure(in SliderSettings settings)
+        internal void Setup(string synopsis, Range range, int value, Action<int> sendCallback)
         {
-            this.settings = settings;
+            this.synopsis.TextContent = synopsis;
+            this.valueLabel.TextContent = value.ToString();
 
-            this.synopsis.TextContent = settings.Synopsis;
-            this.valueLabel.TextContent = settings.CurrentValue.ToString();
+            this.range = range;
+            this.value = value;
 
-            this.currentValue = settings.CurrentValue;
-            this.minimumValue = settings.MinimumValue;
-            this.maximumValue = settings.MaximumValue;
+            this.sendCallback = sendCallback;
 
             UpdateSliderButtonPosition();
         }
@@ -136,7 +137,7 @@ namespace StardustSandbox.Core.UI.Common
                 Scale = new(0.125f),
                 Margin = new(0.0f, 48.0f),
                 Alignment = UIDirection.Center,
-                TextContent = this.currentValue.ToString(),
+                TextContent = this.value.ToString(),
             };
 
             root.AddChild(this.valueLabel);
@@ -212,19 +213,19 @@ namespace StardustSandbox.Core.UI.Common
 
                 float relativeX = MathHelper.Clamp(mousePosition.X - sliderPosition.X, 0.0f, this.sliderBackground.Size.X);
                 float percentage = relativeX / this.sliderBackground.Size.X;
-                int newValue = this.minimumValue + (int)((this.maximumValue - this.minimumValue) * percentage);
+                int newValue = this.range.Start.Value + (int)((this.range.End.Value - this.range.Start.Value) * percentage);
 
-                if (newValue != this.currentValue)
+                if (newValue != this.value)
                 {
-                    this.currentValue = newValue;
-                    this.valueLabel.TextContent = this.currentValue.ToString();
+                    this.value = newValue;
+                    this.valueLabel.TextContent = this.value.ToString();
                 }
             }
         }
 
         private void UpdateSliderButtonPosition()
         {
-            float percentage = (this.currentValue - this.minimumValue) / (float)(this.maximumValue - this.minimumValue);
+            float percentage = (this.value - this.range.Start.Value) / (float)(this.range.End.Value - this.range.Start.Value);
             float buttonX = percentage * this.sliderBackground.Size.X;
             this.sliderButton.Margin = new(buttonX - this.sliderButton.Size.X / 2, 0.0f);
         }

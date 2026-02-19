@@ -27,13 +27,14 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
-using StardustSandbox.Core.UI.Settings;
+
+using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class ColorPickerUI : UIBase
     {
-        private ColorPickerSettings colorPickerSettings;
+        private Action<Color> colorSelectionCallback;
 
         private Image shadowBackground;
         private Text captionElement;
@@ -128,15 +129,15 @@ namespace StardustSandbox.Core.UI.Common
             this.colorButtonSlotInfos = new ColorSlotInfo[this.colorButtonInfos.Length];
         }
 
-        internal void Configure(in ColorPickerSettings settings)
+        internal void Setup(Action<Color> colorSelectionCallback)
         {
-            this.colorPickerSettings = settings;
+            this.colorSelectionCallback = colorSelectionCallback;
         }
 
         private void SelectColorButtonAction(in Color color)
         {
             this.uiManager.CloseUI();
-            this.colorPickerSettings.OnSelectCallback?.Invoke(color);
+            this.colorSelectionCallback?.Invoke(color);
         }
 
         protected override void OnBuild(Container root)

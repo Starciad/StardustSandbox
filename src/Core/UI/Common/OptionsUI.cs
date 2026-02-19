@@ -172,22 +172,13 @@ namespace StardustSandbox.Core.UI.Common
 
                 [typeof(ColorOption)] = option =>
                 {
-                    this.colorPicker.Configure(new()
-                    {
-                        OnSelectCallback = result => option.SetValue(result),
-                    });
-
+                    this.colorPicker.Setup(result => option.SetValue(result));
                     this.uiManager.OpenUI(UIIndex.ColorPicker);
                 },
 
                 [typeof(KeyOption)] = option =>
                 {
-                    this.keySelector.Configure(new()
-                    {
-                        Synopsis = option.Description,
-                        OnSelectedKey = result => option.SetValue(result),
-                    });
-
+                    this.keySelector.Setup(option.Description, result => option.SetValue(result));
                     this.uiManager.OpenUI(UIIndex.KeySelector);
                 },
 
@@ -198,14 +189,14 @@ namespace StardustSandbox.Core.UI.Common
 
                 [typeof(SliderOption)] = option =>
                 {
-                    this.sliderUI.Configure(new()
-                    {
-                        MinimumValue = ((SliderOption)option).MinimumValue,
-                        MaximumValue = ((SliderOption)option).MaximumValue,
-                        CurrentValue = Convert.ToInt32(option.GetValue()),
-                        Synopsis = option.Description,
-                        OnSendCallback = result => option.SetValue(result),
-                    });
+                    SliderOption sp = (SliderOption)option;
+
+                    this.sliderUI.Setup(
+                        option.Description,
+                        new(sp.MinimumValue, sp.MaximumValue),
+                        Convert.ToInt32(option.GetValue()),
+                        result => option.SetValue(result)
+                    );
 
                     this.uiManager.OpenUI(UIIndex.Slider);
                 },

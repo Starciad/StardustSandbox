@@ -78,14 +78,12 @@ namespace StardustSandbox.Core.UI.Common
                 Localization_GUIs.GeneratorSettings_Generate_Description,
                 () =>
                 {
-                    confirmUI.Configure(new()
-                    {
-                        Caption = Localization_Messages.GeneratorSettings_Confirm_Title,
-                        Message = Localization_Messages.GeneratorSettings_Confirm_Message,
-
-                        OnConfirmCallback = status =>
+                    confirmUI.Setup(
+                        Localization_Messages.GeneratorSettings_Confirm_Title,
+                        Localization_Messages.GeneratorSettings_Confirm_Message,
+                        status =>
                         {
-                            if (status == ConfirmStatus.Confirmed)
+                            if (status is ConfirmStatus.Confirmed)
                             {
                                 WorldGenerator.Start(
                                     actorManager,
@@ -97,8 +95,8 @@ namespace StardustSandbox.Core.UI.Common
                             }
 
                             GameHandler.SetState(GameStates.IsCriticalMenuOpen);
-                        },
-                    });
+                        }
+                    );
 
                     this.uiManager.OpenUI(UIIndex.Confirm);
                 }

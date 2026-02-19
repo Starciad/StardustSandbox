@@ -123,39 +123,37 @@ namespace StardustSandbox.Core.UI.Common
                 new(TextureIndex.IconUI, new(224, 96, 32, 32), Localization_GUIs.HUD_EraseEverything_Name, Localization_GUIs.HUD_EraseEverything_Description, () =>
                 {
                     GameHandler.SetState(GameStates.IsCriticalMenuOpen);
-                    this.guiConfirm.Configure(new()
-                    {
-                        Caption = Localization_Messages.Confirm_Simulation_EraseEverything_Title,
-                        Message = Localization_Messages.Confirm_Simulation_EraseEverything_Description,
-                        OnConfirmCallback = status =>
+                    this.guiConfirm.Setup(
+                        Localization_Messages.Confirm_Simulation_EraseEverything_Title,
+                        Localization_Messages.Confirm_Simulation_EraseEverything_Description,
+                        status =>
                         {
-                            if (status == ConfirmStatus.Confirmed)
+                            if (status is ConfirmStatus.Confirmed)
                             {
                                 GameHandler.Reset(actorManager, world);
                             }
 
                             GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
-                        },
-                    });
+                        }
+                    );
                     this.uiManager.OpenUI(UIIndex.Confirm);
                 }),
                 new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_GUIs.HUD_ReloadSimulation_Name, Localization_GUIs.HUD_ReloadSimulation_Description, () =>
                 {
                     GameHandler.SetState(GameStates.IsCriticalMenuOpen);
-                    this.guiConfirm.Configure(new()
-                    {
-                        Caption = Localization_Messages.Confirm_Simulation_Reload_Title,
-                        Message = Localization_Messages.Confirm_Simulation_Reload_Description,
-                        OnConfirmCallback = status =>
+                    this.guiConfirm.Setup(
+                        Localization_Messages.Confirm_Simulation_Reload_Title,
+                        Localization_Messages.Confirm_Simulation_Reload_Description,
+                        status =>
                         {
-                            if (status == ConfirmStatus.Confirmed)
+                            if (status is ConfirmStatus.Confirmed)
                             {
                                 GameHandler.ReloadSaveFile(actorManager, world);
                             }
 
                             GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
-                        },
-                    });
+                        }
+                    );
                     this.uiManager.OpenUI(UIIndex.Confirm);
                 }),
             ];

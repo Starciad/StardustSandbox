@@ -80,26 +80,24 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
 
-                    this.textInputUI.Configure(new()
-                    {
-                        Synopsis = Localization_Messages.Input_World_Name,
-                        InputMode = InputMode.Normal,
-                        InputRestriction = InputRestriction.Alphanumeric,
-                        MaxCharacters = 50,
-
-                        Content = world.Information.Name,
-
-                        OnValidationCallback = (result) =>
+                    this.textInputUI.Setup(
+                        Localization_Messages.Input_World_Name,
+                        world.Information.Name,
+                        true,
+                        InputMode.Normal,
+                        InputRestriction.Alphanumeric,
+                        50,
+                        result =>
                         {
                             return string.IsNullOrWhiteSpace(result)
                                 ? new(ValidationStatus.Failure, Localization_Messages.Input_World_Name_Validation_Empty)
-                                : new(ValidationStatus.Success); },
-
-                        OnSendCallback = result =>
+                                : new(ValidationStatus.Success);
+                        },
+                        result =>
                         {
                             world.Information.Name = result;
-                        },
-                    });
+                        }
+                    );
 
                     this.uiManager.OpenUI(UIIndex.TextInput);
                 }),
@@ -109,25 +107,24 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
 
-                    this.textInputUI.Configure(new()
-                    {
-                        Synopsis = Localization_Messages.Input_World_Description,
-                        InputMode = InputMode.Normal,
-                        MaxCharacters = 500,
-                        Content = world.Information.Description,
-
-                        OnValidationCallback = (result) =>
+                    this.textInputUI.Setup(
+                        Localization_Messages.Input_World_Description,
+                        world.Information.Description,
+                        true,
+                        InputMode.Normal,
+                        InputRestriction.None,
+                        500,
+                        (result) =>
                         {
                             return string.IsNullOrWhiteSpace(result)
                                 ? new(ValidationStatus.Failure, Localization_Messages.Input_World_Description_Validation_Empty)
                                 : new(ValidationStatus.Success);
                         },
-
-                        OnSendCallback = (result) =>
+                        (result) =>
                         {
                             world.Information.Description = result;
-                        },
-                    });
+                        }
+                    );
 
                     this.uiManager.OpenUI(UIIndex.TextInput);
                 })
