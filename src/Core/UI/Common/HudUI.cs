@@ -61,7 +61,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SlotInfo[] toolbarSlots = new SlotInfo[UIConstants.ELEMENT_BUTTONS_LENGTH];
         private readonly ButtonInfo[] leftPanelTopButtonInfos, leftPanelBottomButtonInfos, rightPanelTopButtonInfos, rightPanelBottomButtonInfos;
 
-        private readonly PlayerInputController inputController;
+        private readonly PlayerInputController playerInputController;
         private readonly ConfirmUI guiConfirm;
         private readonly UIManager uiManager;
 
@@ -79,14 +79,14 @@ namespace StardustSandbox.Core.UI.Common
         internal HudUI(
             ActorManager actorManager,
             ConfirmUI confirmUI,
-            PlayerInputController inputController,
             NotificationBox notificationBox,
+            PlayerInputController playerInputController,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
         ) : base()
         {
-            this.inputController = inputController;
+            this.playerInputController = playerInputController;
             this.guiConfirm = confirmUI;
             this.uiManager = uiManager;
             this.notificationBox = notificationBox;
@@ -400,7 +400,7 @@ namespace StardustSandbox.Core.UI.Common
                 Interaction.OnMouseOver(this.leftToolbarContainer) ||
                 Interaction.OnMouseOver(this.rightToolbarContainer);
 
-            this.inputController.Player.CanModifyEnvironment = !isMouseOverDrawerButtons && !isMouseOverToolbars;
+            this.playerInputController.Player.CanModifyEnvironment = !isMouseOverDrawerButtons && !isMouseOverToolbars;
         }
 
         private void UpdateSimulationControlIcons()
@@ -416,7 +416,7 @@ namespace StardustSandbox.Core.UI.Common
                 _ => this.speedIconRectangles[0],
             };
 
-            this.toolbarCurrentlySelectedToolIcon.SourceRectangle = this.inputController.Pen.Tool switch
+            this.toolbarCurrentlySelectedToolIcon.SourceRectangle = this.playerInputController.Pen.Tool switch
             {
                 PenTool.Visualization => new(96, 64, 32, 32),
                 PenTool.Pencil => new(64, 32, 32, 32),
@@ -452,7 +452,7 @@ namespace StardustSandbox.Core.UI.Common
             {
                 this.tooltipBox.CanDraw = true;
 
-                switch (this.inputController.Pen.Tool)
+                switch (this.playerInputController.Pen.Tool)
                 {
                     case PenTool.Visualization:
                         TooltipBoxContent.SetTitle(Localization_WorldGizmos.Visualization_Name);
@@ -497,13 +497,13 @@ namespace StardustSandbox.Core.UI.Common
             if (Interaction.OnMouseLeftClick(this.toolbarCurrentlySelectedToolIcon))
             {
                 SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                this.inputController.Pen.Tool = this.inputController.Pen.Tool.Next();
+                this.playerInputController.Pen.Tool = this.playerInputController.Pen.Tool.Next();
             }
 
             if (Interaction.OnMouseRightClick(this.toolbarCurrentlySelectedToolIcon))
             {
                 SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                this.inputController.Pen.Tool = this.inputController.Pen.Tool.Previous();
+                this.playerInputController.Pen.Tool = this.playerInputController.Pen.Tool.Previous();
             }
         }
 
@@ -727,7 +727,7 @@ namespace StardustSandbox.Core.UI.Common
         private void SelectItemSlot(int slotIndex, Item item)
         {
             this.slotSelectedIndex = slotIndex;
-            this.inputController.Player.SelectItem(item);
+            this.playerInputController.Player.SelectItem(item);
         }
 
         private void SelectItemSlot(int slotIndex, byte categoryIndex, byte subcategoryIndex, byte itemIndex)

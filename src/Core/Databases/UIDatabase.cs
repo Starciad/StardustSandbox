@@ -53,18 +53,11 @@ namespace StardustSandbox.Core.Databases
                 throw new InvalidOperationException($"{nameof(UIDatabase)} has already been loaded.");
             }
 
-            #region Elements
-
             NotificationBox notificationBox = new();
-
             TooltipBox tooltipBox = new(cursorManager)
             {
                 MinimumSize = new(500f, 0f),
             };
-
-            #endregion
-
-            #region Tools
 
             ColorPickerUI colorPickerUI = new(
                 tooltipBox,
@@ -74,31 +67,6 @@ namespace StardustSandbox.Core.Databases
             ConfirmUI confirmUI = new(
                 uiManager
             );
-
-            MessageUI messageUI = new(
-                uiManager
-            );
-
-            TextInputUI textInputUI = new(
-                gameWindow,
-                playerInputController,
-                messageUI,
-                uiManager
-            );
-
-            SliderUI sliderUI = new(
-                uiManager
-            );
-
-            KeySelectorUI keySelectorUI = new(
-                gameWindow,
-                playerInputController,
-                uiManager
-            );
-
-            #endregion
-
-            #region UIs
 
             CreditsUI creditsUI = new(
                 ambientManager,
@@ -112,11 +80,19 @@ namespace StardustSandbox.Core.Databases
                 world
             );
 
+            GeneratorSettingsUI generatorSettingsUI = new(
+                actorManager,
+                confirmUI,
+                tooltipBox,
+                uiManager,
+                world
+            );
+
             HudUI hudUI = new(
                 actorManager,
                 confirmUI,
-                playerInputController,
                 notificationBox,
+                playerInputController,
                 tooltipBox,
                 uiManager,
                 world
@@ -129,15 +105,23 @@ namespace StardustSandbox.Core.Databases
                 world
             );
 
-            TemperatureSettingsUI temperatureSettingsUI = new(
-                tooltipBox,
-                uiManager,
-                world
-            );
-
             ItemExplorerUI itemExplorerUI = new(
                 hudUI,
                 tooltipBox,
+                uiManager
+            );
+
+            ItemSearchUI itemSearchUI = new(
+                gameWindow,
+                hudUI,
+                playerInputController,
+                tooltipBox,
+                uiManager
+            );
+
+            KeySelectorUI keySelectorUI = new(
+                gameWindow,
+                playerInputController,
                 uiManager
             );
 
@@ -148,6 +132,14 @@ namespace StardustSandbox.Core.Databases
                 stardustSandboxGame,
                 uiManager,
                 world
+            );
+
+            MessageUI messageUI = new(
+                uiManager
+            );
+
+            SliderUI sliderUI = new(
+                uiManager
             );
 
             OptionsUI optionsUI = new(
@@ -167,8 +159,8 @@ namespace StardustSandbox.Core.Databases
             );
 
             PenSettingsUI penSettingsUI = new(
-                playerInputController,
                 hudUI,
+                playerInputController,
                 tooltipBox,
                 uiManager,
                 world
@@ -178,10 +170,23 @@ namespace StardustSandbox.Core.Databases
                 uiManager
             );
 
+            TextInputUI textInputUI = new(
+                gameWindow,
+                messageUI,
+                playerInputController,
+                uiManager
+            );
+
             SaveUI saveSettingsUI = new(
                 actorManager,
                 graphicsDevice,
                 textInputUI,
+                tooltipBox,
+                uiManager,
+                world
+            );
+
+            TemperatureSettingsUI temperatureSettingsUI = new(
                 tooltipBox,
                 uiManager,
                 world
@@ -210,29 +215,11 @@ namespace StardustSandbox.Core.Databases
                 world
             );
 
-            GeneratorSettingsUI generatorSettingsUI = new(
-                actorManager,
-                confirmUI,
-                tooltipBox,
-                uiManager,
-                world
-            );
-
             AchievementsUI achievementsUI = new(
                 ambientManager,
                 tooltipBox,
                 uiManager
             );
-
-            ItemSearchUI itemSearchUI = new(
-                gameWindow,
-                hudUI,
-                playerInputController,
-                tooltipBox,
-                uiManager
-            );
-
-            #endregion
 
             uis = [
                 achievementsUI,

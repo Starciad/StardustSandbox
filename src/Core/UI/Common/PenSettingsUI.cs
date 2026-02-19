@@ -50,18 +50,18 @@ namespace StardustSandbox.Core.UI.Common
 
         private readonly HudUI hudUI;
 
-        private readonly PlayerInputController inputController;
+        private readonly PlayerInputController playerInputController;
         private readonly World world;
 
         internal PenSettingsUI(
-            PlayerInputController inputController,
             HudUI hudUI,
+            PlayerInputController playerInputController,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
         ) : base()
         {
-            this.inputController = inputController;
+            this.playerInputController = playerInputController;
             this.hudUI = hudUI;
             this.tooltipBox = tooltipBox;
             this.world = world;
@@ -76,35 +76,35 @@ namespace StardustSandbox.Core.UI.Common
             this.toolButtonInfos = [
                 new(TextureIndex.IconUI, new(96, 64, 32, 32), Localization_WorldGizmos.Visualization_Name, Localization_WorldGizmos.Visualization_Description, () =>
                 {
-                    this.inputController.Pen.Tool = PenTool.Visualization;
+                    this.playerInputController.Pen.Tool = PenTool.Visualization;
                     this.hudUI.SetToolIcon(new(96, 64, 32, 32));
                 }),
 
                 new(TextureIndex.IconUI, new(64, 32, 32, 32), Localization_WorldGizmos.Pencil_Name, Localization_WorldGizmos.Pencil_Description, () =>
                 {
-                    this.inputController.Pen.Tool = PenTool.Pencil;
+                    this.playerInputController.Pen.Tool = PenTool.Pencil;
                     this.hudUI.SetToolIcon(new(64, 32, 32, 32));
                 }),
                 new(TextureIndex.IconUI, new(96, 32, 32, 32), Localization_WorldGizmos.Eraser_Name, Localization_WorldGizmos.Eraser_Description, () =>
                 {
-                    this.inputController.Pen.Tool = PenTool.Eraser;
+                    this.playerInputController.Pen.Tool = PenTool.Eraser;
                     this.hudUI.SetToolIcon(new(96, 32, 32, 32));
                 }),
                 new(TextureIndex.IconUI, new(128, 32, 32, 32), Localization_WorldGizmos.Fill_Name, Localization_WorldGizmos.Fill_Description, () =>
                 {
-                    this.inputController.Pen.Tool = PenTool.Fill;
+                    this.playerInputController.Pen.Tool = PenTool.Fill;
                     this.hudUI.SetToolIcon(new(128, 32, 32, 32));
                 }),
                 new(TextureIndex.IconUI, new(160, 32, 32, 32), Localization_WorldGizmos.Replace_Name, Localization_WorldGizmos.Replace_Description, () =>
                 {
-                    this.inputController.Pen.Tool = PenTool.Replace;
+                    this.playerInputController.Pen.Tool = PenTool.Replace;
                     this.hudUI.SetToolIcon(new(160, 32, 32, 32));
                 }),
             ];
 
             this.layerButtonInfos = [
-                new(TextureIndex.IconUI, new(192, 32, 32, 32), Localization_GUIs.PenSettings_Layer_Front_Name, Localization_GUIs.PenSettings_Layer_Front_Description, () => this.inputController.Pen.Layer = Layer.Foreground),
-                new(TextureIndex.IconUI, new(224, 32, 32, 32), Localization_GUIs.PenSettings_Layer_Back_Name, Localization_GUIs.PenSettings_Layer_Back_Description, () => this.inputController.Pen.Layer = Layer.Background),
+                new(TextureIndex.IconUI, new(192, 32, 32, 32), Localization_GUIs.PenSettings_Layer_Front_Name, Localization_GUIs.PenSettings_Layer_Front_Description, () => this.playerInputController.Pen.Layer = Layer.Foreground),
+                new(TextureIndex.IconUI, new(224, 32, 32, 32), Localization_GUIs.PenSettings_Layer_Back_Name, Localization_GUIs.PenSettings_Layer_Back_Description, () => this.playerInputController.Pen.Layer = Layer.Background),
             ];
 
             this.layerVisibility = [
@@ -113,9 +113,9 @@ namespace StardustSandbox.Core.UI.Common
             ];
 
             this.shapeButtonInfos = [
-                new(TextureIndex.IconUI, new(32, 64, 32, 32), Localization_GUIs.PenSettings_Shape_Circle_Name, Localization_GUIs.PenSettings_Shape_Circle_Description, () => this.inputController.Pen.Shape = PenShape.Circle),
-                new(TextureIndex.IconUI, new(00, 64, 32, 32), Localization_GUIs.PenSettings_Shape_Square_Name, Localization_GUIs.PenSettings_Shape_Square_Description, () => this.inputController.Pen.Shape = PenShape.Square),
-                new(TextureIndex.IconUI, new(64, 64, 32, 32), Localization_GUIs.PenSettings_Shape_Triangle_Name, Localization_GUIs.PenSettings_Shape_Triangle_Description, () => this.inputController.Pen.Shape = PenShape.Triangle),
+                new(TextureIndex.IconUI, new(32, 64, 32, 32), Localization_GUIs.PenSettings_Shape_Circle_Name, Localization_GUIs.PenSettings_Shape_Circle_Description, () => this.playerInputController.Pen.Shape = PenShape.Circle),
+                new(TextureIndex.IconUI, new(00, 64, 32, 32), Localization_GUIs.PenSettings_Shape_Square_Name, Localization_GUIs.PenSettings_Shape_Square_Description, () => this.playerInputController.Pen.Shape = PenShape.Square),
+                new(TextureIndex.IconUI, new(64, 64, 32, 32), Localization_GUIs.PenSettings_Shape_Triangle_Name, Localization_GUIs.PenSettings_Shape_Triangle_Description, () => this.playerInputController.Pen.Shape = PenShape.Triangle),
             ];
 
             this.brushSizeSliderSourceRectangles = [
@@ -360,7 +360,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseLeftDown(position, new(64.0f)))
                 {
-                    this.inputController.Pen.Size = (sbyte)i;
+                    this.playerInputController.Pen.Size = (sbyte)i;
                     break;
                 }
 
@@ -513,16 +513,16 @@ namespace StardustSandbox.Core.UI.Common
         private void SyncGUIElements()
         {
             // Brush Size Slider
-            this.brushSizeSlider.SourceRectangle = this.brushSizeSliderSourceRectangles[this.inputController.Pen.Size];
+            this.brushSizeSlider.SourceRectangle = this.brushSizeSliderSourceRectangles[this.playerInputController.Pen.Size];
 
             // Tool
-            this.toolButtonSelectedIndex = (byte)this.inputController.Pen.Tool;
+            this.toolButtonSelectedIndex = (byte)this.playerInputController.Pen.Tool;
 
             // Layer
-            this.layerButtonSelectedIndex = (byte)this.inputController.Pen.Layer;
+            this.layerButtonSelectedIndex = (byte)this.playerInputController.Pen.Layer;
 
             // Shape
-            this.shapeButtonSelectedIndex = (byte)this.inputController.Pen.Shape;
+            this.shapeButtonSelectedIndex = (byte)this.playerInputController.Pen.Shape;
         }
 
         protected override void OnOpened()

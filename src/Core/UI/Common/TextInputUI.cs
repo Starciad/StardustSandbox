@@ -59,17 +59,17 @@ namespace StardustSandbox.Core.UI.Common
         private readonly StringBuilder userInputPasswordMaskedStringBuilder = new();
 
         private readonly GameWindow gameWindow;
-        private readonly PlayerInputController inputController;
+        private readonly PlayerInputController playerInputController;
 
         internal TextInputUI(
             GameWindow gameWindow,
-            PlayerInputController inputController,
             MessageUI messageUI,
+            PlayerInputController playerInputController,
             UIManager uiManager
         ) : base()
         {
             this.gameWindow = gameWindow;
-            this.inputController = inputController;
+            this.playerInputController = playerInputController;
 
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
@@ -282,7 +282,7 @@ namespace StardustSandbox.Core.UI.Common
             UpdateDisplayedText();
 
             GameHandler.SetState(GameStates.IsCriticalMenuOpen);
-            this.inputController.Disable();
+            this.playerInputController.Disable();
 
             this.gameWindow.KeyDown += OnKeyDown;
             this.gameWindow.TextInput += OnTextInput;
@@ -291,7 +291,7 @@ namespace StardustSandbox.Core.UI.Common
         protected override void OnClosed()
         {
             GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
-            this.inputController.Enable();
+            this.playerInputController.Enable();
 
             this.gameWindow.KeyDown -= OnKeyDown;
             this.gameWindow.TextInput -= OnTextInput;
