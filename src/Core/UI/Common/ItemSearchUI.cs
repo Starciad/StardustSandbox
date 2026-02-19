@@ -41,6 +41,8 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed partial class ItemSearchUI : UIBase
     {
+        private Action<Item> itemSelectionCallback;
+
         private Label placeholderLabel, searchQueryLabel;
         private Image panelBackground, shadowBackground;
 
@@ -56,7 +58,6 @@ namespace StardustSandbox.Core.UI.Common
         private readonly List<SearchMatch> matchesBuffer;
 
         private readonly GameWindow gameWindow;
-        private readonly HudUI hudUI;
         private readonly TooltipBox tooltipBox;
         private readonly PlayerInputController playerInputController;
         private readonly UIManager uiManager;
@@ -65,14 +66,12 @@ namespace StardustSandbox.Core.UI.Common
 
         internal ItemSearchUI(
             GameWindow gameWindow,
-            HudUI hudUI,
             PlayerInputController playerInputController,
             TooltipBox tooltipBox,
             UIManager uiManager
         ) : base()
         {
             this.gameWindow = gameWindow;
-            this.hudUI = hudUI;
             this.tooltipBox = tooltipBox;
             this.playerInputController = playerInputController;
             this.uiManager = uiManager;
@@ -96,6 +95,11 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
+        internal void Setup(Action<Item> itemSelectionCallback)
+        {
+            this.itemSelectionCallback = itemSelectionCallback;
+        }
+
         private static void PlayTypingSound()
         {
             SoundEngine.Play((SoundEffectIndex)Randomness.Random.Range((int)SoundEffectIndex.GUI_Typing_1, (int)SoundEffectIndex.GUI_Typing_5));
@@ -105,7 +109,7 @@ namespace StardustSandbox.Core.UI.Common
         // Uses a shared StringBuilder to reduce GC
         private static string Normalize(string value)
         {
-            if (string.IsNullOrEmpty(value))
+            if (string.IsNullOrWhiteSpace(value))
             {
                 return string.Empty;
             }
@@ -127,124 +131,6 @@ namespace StardustSandbox.Core.UI.Common
                 .ToString()
                 .Normalize(NormalizationForm.FormC)
                 .ToLowerInvariant();
-        }
-
-        protected override void OnBuild(Container root)
-        {
-            BuildBackground(root);
-            BuildItemSlots();
-            BuildLabels();
-            BuildExitButton();
-
-            root.AddChild(this.tooltipBox);
-        }
-
-        private void BuildBackground(Container root)
-        {
-            this.shadowBackground = new()
-            {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = GameScreen.GetViewport(),
-                Color = new(AAP64ColorPalette.DarkGray, 160),
-                Size = Vector2.One,
-            };
-
-            this.panelBackground = new()
-            {
-                TextureIndex = TextureIndex.UIBackgroundItemSearch,
-                Size = new(542.0f, 540.0f),
-                Alignment = UIDirection.Center,
-            };
-
-            root.AddChild(this.shadowBackground);
-            root.AddChild(this.panelBackground);
-        }
-
-        private void BuildItemSlots()
-        {
-            Vector2 margin = new(38.0f, 114.0f);
-
-            int index = 0;
-
-            for (byte row = 0; row < UIConstants.ITEM_SEARCH_ITEMS_PER_ROW; row++)
-            {
-                for (byte col = 0; col < UIConstants.ITEM_SEARCH_ITEMS_PER_COLUMN; col++)
-                {
-                    SlotInfo slot = new(
-                        new()
-                        {
-                            TextureIndex = TextureIndex.UIButtons,
-                            SourceRectangle = new(320, 140, 32, 32),
-                            Alignment = UIDirection.Northwest,
-                            Scale = new(2.0f),
-                            Size = new(32.0f),
-                            Margin = margin
-                        },
-
-                        new()
-                        {
-                            Alignment = UIDirection.Center,
-                            TextureIndex = TextureIndex.IconElements,
-                            SourceRectangle = new(0, 0, 32, 32),
-                            Scale = new(1.5f),
-                            Size = new(32.0f)
-                        }
-                    );
-
-                    // Position
-                    this.panelBackground.AddChild(slot.Background);
-                    slot.Background.AddChild(slot.Icon);
-
-                    // Spacing
-                    margin.X += 80.0f;
-
-                    this.itemButtonSlotInfos[index] = slot;
-                    index++;
-                }
-
-                margin.X = 32.0f;
-                margin.Y += 80.0f;
-            }
-        }
-
-        private void BuildLabels()
-        {
-            Vector2 margin = new(96.0f, 16.0f);
-
-            this.placeholderLabel = new()
-            {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Scale = new(0.1f),
-                TextContent = "Search for an item...",
-                Color = AAP64ColorPalette.White,
-                Alignment = UIDirection.Northwest,
-                Margin = margin,
-            };
-
-            this.searchQueryLabel = new()
-            {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Scale = new(0.1f),
-                Color = AAP64ColorPalette.White,
-                Alignment = UIDirection.Northwest,
-                Margin = margin,
-            };
-
-            this.panelBackground.AddChild(this.placeholderLabel);
-            this.panelBackground.AddChild(this.searchQueryLabel);
-        }
-
-        private void BuildExitButton()
-        {
-            SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(-32.0f, -72.0f), this.exitButtonInfo);
-
-            slot.Background.Alignment = UIDirection.Northeast;
-            slot.Icon.Alignment = UIDirection.Center;
-
-            this.panelBackground.AddChild(slot.Background);
-            slot.Background.AddChild(slot.Icon);
-
-            this.exitButtonSlotInfo = slot;
         }
 
         // Main search routine with tokenization and scoring
@@ -350,7 +236,6 @@ namespace StardustSandbox.Core.UI.Common
             // If there are no search results (empty query), show first page of items as default.
             if (this.searchResults.Count == 0)
             {
-                this.searchResults.Clear();
                 int count = Math.Min(UIConstants.ITEM_SEARCH_ITEMS_PER_PAGE, this.searchIndex.Count);
                 for (int i = 0; i < count; i++)
                 {
@@ -375,14 +260,130 @@ namespace StardustSandbox.Core.UI.Common
 
                     itemSlot.Icon.TextureIndex = item.TextureIndex;
                     itemSlot.Icon.SourceRectangle = item.SourceRectangle;
-
-                    itemSlot.Background.SetData(UIConstants.DATA_ITEM, item);
                 }
                 else
                 {
                     itemSlot.Background.CanDraw = false;
                 }
             }
+        }
+
+        protected override void OnBuild(Container root)
+        {
+            BuildBackground(root);
+            BuildItemSlots();
+            BuildLabels();
+            BuildExitButton();
+
+            root.AddChild(this.tooltipBox);
+        }
+
+        private void BuildBackground(Container root)
+        {
+            this.shadowBackground = new()
+            {
+                TextureIndex = TextureIndex.Pixel,
+                Scale = GameScreen.GetViewport(),
+                Color = new(AAP64ColorPalette.DarkGray, 160),
+                Size = Vector2.One,
+            };
+
+            this.panelBackground = new()
+            {
+                TextureIndex = TextureIndex.UIBackgroundItemSearch,
+                Size = new(542.0f, 540.0f),
+                Alignment = UIDirection.Center,
+            };
+
+            root.AddChild(this.shadowBackground);
+            root.AddChild(this.panelBackground);
+        }
+
+        private void BuildItemSlots()
+        {
+            Vector2 margin = new(38.0f, 114.0f);
+
+            int index = 0;
+
+            for (byte row = 0; row < UIConstants.ITEM_SEARCH_ITEMS_PER_ROW; row++)
+            {
+                for (byte col = 0; col < UIConstants.ITEM_SEARCH_ITEMS_PER_COLUMN; col++)
+                {
+                    SlotInfo slot = new(
+                        new()
+                        {
+                            TextureIndex = TextureIndex.UIButtons,
+                            SourceRectangle = new(320, 140, 32, 32),
+                            Alignment = UIDirection.Northwest,
+                            Scale = new(2.0f),
+                            Size = new(32.0f),
+                            Margin = margin
+                        },
+
+                        new()
+                        {
+                            Alignment = UIDirection.Center,
+                            TextureIndex = TextureIndex.IconElements,
+                            SourceRectangle = new(0, 0, 32, 32),
+                            Scale = new(1.5f),
+                            Size = new(32.0f)
+                        }
+                    );
+
+                    // Position
+                    this.panelBackground.AddChild(slot.Background);
+                    slot.Background.AddChild(slot.Icon);
+
+                    // Spacing
+                    margin.X += 80.0f;
+
+                    this.itemButtonSlotInfos[index] = slot;
+                    index++;
+                }
+
+                margin.X = 38.0f;
+                margin.Y += 80.0f;
+            }
+        }
+
+        private void BuildLabels()
+        {
+            Vector2 margin = new(96.0f, 16.0f);
+
+            this.placeholderLabel = new()
+            {
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                Scale = new(0.1f),
+                TextContent = "Search for an item...",
+                Color = AAP64ColorPalette.White,
+                Alignment = UIDirection.Northwest,
+                Margin = margin,
+            };
+
+            this.searchQueryLabel = new()
+            {
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                Scale = new(0.1f),
+                Color = AAP64ColorPalette.White,
+                Alignment = UIDirection.Northwest,
+                Margin = margin,
+            };
+
+            this.panelBackground.AddChild(this.placeholderLabel);
+            this.panelBackground.AddChild(this.searchQueryLabel);
+        }
+
+        private void BuildExitButton()
+        {
+            SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(-32.0f, -72.0f), this.exitButtonInfo);
+
+            slot.Background.Alignment = UIDirection.Northeast;
+            slot.Icon.Alignment = UIDirection.Center;
+
+            this.panelBackground.AddChild(slot.Background);
+            slot.Background.AddChild(slot.Icon);
+
+            this.exitButtonSlotInfo = slot;
         }
 
         protected override void OnResize(Vector2 newSize)
@@ -437,7 +438,7 @@ namespace StardustSandbox.Core.UI.Common
                     break;
                 }
 
-                Item item = (Item)slot.Background.GetData(UIConstants.DATA_ITEM);
+                Item item = this.searchResults[i].Item;
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
@@ -446,9 +447,8 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
-                    this.hudUI.AddItemToToolbar(item);
                     this.uiManager.CloseUI();
+                    this.itemSelectionCallback?.Invoke(item);
                     break;
                 }
 
@@ -463,7 +463,7 @@ namespace StardustSandbox.Core.UI.Common
                 }
                 else
                 {
-                    slot.Background.Color = this.hudUI.ItemIsEquipped(item) ? AAP64ColorPalette.TealGray : AAP64ColorPalette.White;
+                    slot.Background.Color = AAP64ColorPalette.White;
                 }
             }
         }
@@ -472,11 +472,16 @@ namespace StardustSandbox.Core.UI.Common
         {
             GameHandler.SetState(GameStates.IsCriticalMenuOpen);
 
+            this.searchResults.Clear();
+            this.searchQueryStringBuilder.Clear();
+            this.searchQueryLabel.TextContent = string.Empty;
+
             this.playerInputController.Disable();
 
             this.gameWindow.KeyDown += OnKeyDown;
             this.gameWindow.TextInput += OnTextInput;
 
+            UpdateDisplayedText();
             RefreshItemCatalog();
         }
 
@@ -501,6 +506,8 @@ namespace StardustSandbox.Core.UI.Common
             specialKeyAction?.Invoke();
 
             UpdateDisplayedText();
+            SearchItems();
+            RefreshItemCatalog();
         }
 
         private void OnTextInput(object sender, TextInputEventArgs textInputEventArgs)
@@ -514,6 +521,8 @@ namespace StardustSandbox.Core.UI.Common
             AddCharacter(textInputEventArgs.Character);
 
             UpdateDisplayedText();
+            SearchItems();
+            RefreshItemCatalog();
         }
 
         private bool IsSpecialKey(Keys key, out Action action)
@@ -567,9 +576,6 @@ namespace StardustSandbox.Core.UI.Common
                 this.placeholderLabel.CanDraw = false;
                 this.searchQueryLabel.CanDraw = true;
             }
-
-            SearchItems();
-            RefreshItemCatalog();
         }
     }
 }

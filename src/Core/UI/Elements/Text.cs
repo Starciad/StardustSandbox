@@ -67,7 +67,7 @@ namespace StardustSandbox.Core.UI.Elements
             get => this.textContent;
             set
             {
-                if (!string.IsNullOrWhiteSpace(value) && !this.textContent.Equals(value))
+                if (value is not null && !this.textContent.Equals(value))
                 {
                     WrapContent(value);
 
@@ -142,7 +142,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         protected override void OnDraw(SpriteBatch spriteBatch)
         {
-            if (!string.IsNullOrEmpty(this.textContent))
+            if (!string.IsNullOrWhiteSpace(this.textContent))
             {
                 Vector2 position = new(0f, this.Position.Y);
 
@@ -160,7 +160,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         private void WrapContent(string value)
         {
-            if (string.IsNullOrEmpty(value))
+            if (string.IsNullOrWhiteSpace(value))
             {
                 return;
             }
@@ -192,7 +192,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         private Vector2 MeasureText()
         {
-            if (this.wrappedLines.Count == 0)
+            if (this.wrappedLines.Count == 0 || string.IsNullOrWhiteSpace(this.textContent))
             {
                 return Vector2.Zero;
             }

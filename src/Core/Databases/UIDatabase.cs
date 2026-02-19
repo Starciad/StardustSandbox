@@ -105,16 +105,16 @@ namespace StardustSandbox.Core.Databases
                 world
             );
 
-            ItemExplorerUI itemExplorerUI = new(
-                hudUI,
+            ItemSearchUI itemSearchUI = new(
+                gameWindow,
+                playerInputController,
                 tooltipBox,
                 uiManager
             );
 
-            ItemSearchUI itemSearchUI = new(
-                gameWindow,
+            ItemExplorerUI itemExplorerUI = new(
                 hudUI,
-                playerInputController,
+                itemSearchUI,
                 tooltipBox,
                 uiManager
             );

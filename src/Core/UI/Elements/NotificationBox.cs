@@ -164,7 +164,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         internal void EnqueueNotification(TextureIndex iconTextureIndex, Rectangle? sourceRectangle, string message)
         {
-            if (string.IsNullOrEmpty(message))
+            if (string.IsNullOrWhiteSpace(message))
             {
                 return;
             }

@@ -56,29 +56,34 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SlotInfo[] itemButtonSlotInfos, categoryButtonSlotInfos, subcategoryButtonSlotInfos, paginationButtonSlotInfos;
 
         private readonly HudUI hudUI;
+        private readonly ItemSearchUI itemSearchUI;
 
         private readonly UIManager uiManager;
 
         internal ItemExplorerUI(
             HudUI hudUI,
+            ItemSearchUI itemSearchUI,
             TooltipBox tooltipBox,
             UIManager uiManager
         ) : base()
         {
             this.uiManager = uiManager;
-
-            this.selectedCategory = CatalogDatabase.GetCategory(0);
-            this.selectedSubcategory = this.selectedCategory.GetSubcategory(0);
-
-            this.currentPage = 0;
-            this.totalPages = 0;
-
             this.hudUI = hudUI;
+            this.itemSearchUI = itemSearchUI;
             this.tooltipBox = tooltipBox;
 
             this.buttonInfos = [
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI),
-                new(TextureIndex.IconUI, new(0, 0, 32, 32), "Search", "", () => uiManager.OpenUI(UIIndex.ItemSearch)),
+                new(TextureIndex.IconUI, new(0, 0, 32, 32), "Search", "", () =>
+                {
+                    this.itemSearchUI.Setup(result => {
+                        SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
+                        hudUI.AddItemToToolbar(result);
+                        uiManager.CloseUI();
+                    });
+
+                    uiManager.OpenUI(UIIndex.ItemSearch);
+                }),
             ];
 
             this.paginationButtonInfos = [
@@ -115,6 +120,15 @@ namespace StardustSandbox.Core.UI.Common
             this.categoryButtonSlotInfos = new SlotInfo[CatalogDatabase.CategoryLength];
             this.subcategoryButtonSlotInfos = new SlotInfo[UIConstants.ITEM_EXPLORER_SUBCATEGORY_BUTTONS_LENGTH];
             this.paginationButtonSlotInfos = new SlotInfo[this.paginationButtonInfos.Length];
+        }
+
+        internal void Setup()
+        {
+            this.selectedCategory = CatalogDatabase.GetCategory(0);
+            this.selectedSubcategory = this.selectedCategory.GetSubcategory(0);
+
+            this.currentPage = 0;
+            this.totalPages = 0;
         }
 
         protected override void OnBuild(Container root)
@@ -211,12 +225,6 @@ namespace StardustSandbox.Core.UI.Common
                         Size = new(32.0f)
                     }
                 );
-
-                // Data
-                if (!slot.Background.ContainsData(UIConstants.DATA_CATEGORY))
-                {
-                    slot.Background.SetData(UIConstants.DATA_CATEGORY, category);
-                }
 
                 // Position
                 this.panelBackground.AddChild(slot.Background);
@@ -450,7 +458,7 @@ namespace StardustSandbox.Core.UI.Common
                     continue;
                 }
 
-                Category category = (Category)categorySlot.Background.GetData(UIConstants.DATA_CATEGORY);
+                Category category = CatalogDatabase.GetCategory(i);
 
                 if (Interaction.OnMouseEnter(categorySlot.Background))
                 {
@@ -460,7 +468,7 @@ namespace StardustSandbox.Core.UI.Common
                 if (Interaction.OnMouseLeftClick(categorySlot.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                    SelectItemCatalog(category, category.Subcategories[0], 0);
+                    SelectItemCatalog(category, category.GetSubcategory(0), 0);
                     break;
                 }
 
@@ -487,7 +495,7 @@ namespace StardustSandbox.Core.UI.Common
                     continue;
                 }
 
-                Subcategory subcategory = (Subcategory)subcategorySlot.Background.GetData(UIConstants.DATA_SUBCATEGORY);
+                Subcategory subcategory = this.selectedCategory.GetSubcategory(i);
 
                 if (Interaction.OnMouseEnter(subcategorySlot.Background))
                 {
@@ -509,7 +517,7 @@ namespace StardustSandbox.Core.UI.Common
                     TooltipBoxContent.SetDescription(subcategory.Description);
                 }
 
-                subcategorySlot.Background.Color = this.selectedSubcategory == this.selectedCategory.Subcategories[i] ? AAP64ColorPalette.TealGray : AAP64ColorPalette.White;
+                subcategorySlot.Background.Color = this.selectedSubcategory == this.selectedCategory.GetSubcategory(i) ? AAP64ColorPalette.TealGray : AAP64ColorPalette.White;
             }
         }
 
@@ -524,7 +532,7 @@ namespace StardustSandbox.Core.UI.Common
                     break;
                 }
 
-                Item item = (Item)slot.Background.GetData(UIConstants.DATA_ITEM);
+                Item item = this.selectedSubcategory.GetItem(i);
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
@@ -584,7 +592,7 @@ namespace StardustSandbox.Core.UI.Common
             this.selectedCategory = category;
             this.selectedSubcategory = subcategory;
             this.currentPage = pageIndex;
-            this.totalPages = subcategory.Items.Length / UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE;
+            this.totalPages = subcategory.ItemsLength / UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE;
 
             RefreshSubcategoryButtons();
             RefreshItemCatalog();
@@ -600,20 +608,10 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     subcategorySlot.Background.CanDraw = true;
 
-                    Subcategory subcategory = this.selectedCategory.Subcategories[i];
+                    Subcategory subcategory = this.selectedCategory.GetSubcategory(i);
 
                     subcategorySlot.Icon.Texture = subcategory.Texture;
                     subcategorySlot.Icon.SourceRectangle = subcategory.SourceRectangle;
-
-                    // Add or Update Data
-                    if (!subcategorySlot.Background.ContainsData(UIConstants.DATA_SUBCATEGORY))
-                    {
-                        subcategorySlot.Background.SetData(UIConstants.DATA_SUBCATEGORY, subcategory);
-                    }
-                    else
-                    {
-                        subcategorySlot.Background.SetData(UIConstants.DATA_SUBCATEGORY, subcategory);
-                    }
                 }
                 else
                 {
@@ -627,7 +625,7 @@ namespace StardustSandbox.Core.UI.Common
             this.pageIndexLabel.TextContent = string.Concat(this.currentPage + 1, " / ", this.totalPages + 1);
 
             int startIndex = this.currentPage * UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE;
-            int endIndex = Math.Min(startIndex + UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE, this.selectedSubcategory.ItemLength);
+            int endIndex = Math.Min(startIndex + UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE, this.selectedSubcategory.ItemsLength);
 
             this.selectedItems = this.selectedSubcategory.GetItems(startIndex, endIndex);
             this.selectedItemsLength = this.selectedItems.Length;
@@ -649,7 +647,6 @@ namespace StardustSandbox.Core.UI.Common
 
                     itemSlot.Icon.TextureIndex = item.TextureIndex;
                     itemSlot.Icon.SourceRectangle = item.SourceRectangle;
-                    itemSlot.Background.SetData(UIConstants.DATA_ITEM, item);
                 }
                 else
                 {

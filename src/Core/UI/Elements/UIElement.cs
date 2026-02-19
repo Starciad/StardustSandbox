@@ -117,7 +117,6 @@ namespace StardustSandbox.Core.UI.Elements
         private UIDirection alignment;
 
         private readonly List<UIElement> children = [];
-        private readonly Dictionary<string, object> data = [];
 
         internal UIElement()
         {
@@ -314,25 +313,6 @@ namespace StardustSandbox.Core.UI.Elements
             element.parent = this;
             element.RepositionRelativeToParent();
             this.children.Add(element);
-        }
-
-        #endregion
-
-        #region Data
-
-        internal bool ContainsData(string name)
-        {
-            return this.data.ContainsKey(name);
-        }
-
-        internal void SetData(string name, object value)
-        {
-            this.data[name] = value;
-        }
-
-        internal object GetData(string name)
-        {
-            return this.data[name];
         }
 
         #endregion

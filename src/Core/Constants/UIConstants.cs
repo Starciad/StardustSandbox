@@ -19,19 +19,8 @@ namespace StardustSandbox.Core.Constants
 {
     internal static class UIConstants
     {
-        #region Data
-
-        internal const string DATA_ITEM = "item";
-        internal const string DATA_CATEGORY = "category";
-        internal const string DATA_SUBCATEGORY = "subcategory";
-        internal const string DATA_LANGUAGE_CODE = "language_code";
-
-        #endregion
-
-        #region GUIs
-
-        // Buttons
-        internal const byte ELEMENT_BUTTONS_LENGTH = 13;
+        // HUD
+        internal const byte HUD_ELEMENT_BUTTONS_LENGTH = 13;
 
         // Item Explorer
         internal const byte ITEM_EXPLORER_ITEMS_PER_ROW = 12;
@@ -69,7 +58,5 @@ namespace StardustSandbox.Core.Constants
         internal const float NOTIFICATION_DISPLAY_DURATION_SECONDS = 5.0f;
         internal const float NOTIFICATION_HIDE_DURATION_SECONDS = 0.5f;
         internal const float NOTIFICATION_MARGIN_LERP_FACTOR = 0.2f;
-
-        #endregion
     }
 }

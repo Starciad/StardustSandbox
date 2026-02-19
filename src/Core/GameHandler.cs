@@ -21,6 +21,7 @@ using Microsoft.Xna.Framework.Media;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Backgrounds;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.Simulation;
@@ -28,6 +29,7 @@ using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Common;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
@@ -54,6 +56,9 @@ namespace StardustSandbox.Core
             Camera.Reset();
             MediaPlayer.Stop();
             SongEngine.StartGameplayMusicCycle();
+
+            ((HudUI)UIDatabase.GetUI(UIIndex.Hud)).Setup();
+            ((ItemExplorerUI)UIDatabase.GetUI(UIIndex.ItemExplorer)).Setup();
 
             uiManager.OpenUI(UIIndex.Hud);
 

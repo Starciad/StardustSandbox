@@ -243,7 +243,7 @@ namespace StardustSandbox.Core.IO
                         string fileVer = "<n/a>";
                         string infoVer = "<n/a>";
 
-                        if (!string.IsNullOrEmpty(location) && System.IO.File.Exists(location))
+                        if (!string.IsNullOrWhiteSpace(location) && System.IO.File.Exists(location))
                         {
                             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(location);
                             fileVer = fvi?.FileVersion ?? "<n/a>";
@@ -321,7 +321,7 @@ namespace StardustSandbox.Core.IO
                             int line = f.GetFileLineNumber();
                             int col = f.GetFileColumnNumber();
 
-                            if (!string.IsNullOrEmpty(file))
+                            if (!string.IsNullOrWhiteSpace(file))
                             {
                                 sw.WriteLine($"{indent}  at {methodStr} in {file}:line {line},col {col}");
                             }

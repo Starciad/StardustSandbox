@@ -78,7 +78,7 @@ namespace StardustSandbox.Core.UI.Common
             ];
 
             this.topButtonInfos = [
-                new(TextureIndex.IconUI, new(320, 160, 32, 32), "Achievements", string.Empty, () => this.uiManager.OpenUI(UIIndex.Achievements))
+                new(TextureIndex.IconUI, new(320, 160, 32, 32), string.Empty, string.Empty, () => this.uiManager.OpenUI(UIIndex.Achievements))
             ];
 
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];

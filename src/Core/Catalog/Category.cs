@@ -29,12 +29,11 @@ namespace StardustSandbox.Core.Catalog
         internal string Description => description;
         internal Texture2D Texture => AssetDatabase.GetTexture(textureIndex);
         internal Rectangle? SourceRectangle => sourceRectangle;
-        internal Subcategory[] Subcategories => this.subcategories;
         internal int SubcategoriesLength => this.subcategories.Length;
 
         private readonly Subcategory[] subcategories = subcategories;
 
-        internal Subcategory GetSubcategory(byte index)
+        internal Subcategory GetSubcategory(int index)
         {
             return this.subcategories[index];
         }

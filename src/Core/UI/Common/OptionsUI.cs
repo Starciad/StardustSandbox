@@ -26,7 +26,7 @@ using StardustSandbox.Core.UI.Elements;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class OptionsUI : UIBase
+    internal sealed partial class OptionsUI : UIBase
     {
         private Image panelBackground, shadowBackground;
 

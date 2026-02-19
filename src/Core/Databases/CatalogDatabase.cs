@@ -1231,14 +1231,14 @@ namespace StardustSandbox.Core.Databases
             {
                 Category category = categories[i];
 
-                for (int j = 0; j < category.Subcategories.Length; j++)
+                for (int j = 0; j < category.SubcategoriesLength; j++)
                 {
-                    Subcategory subcategory = category.Subcategories[j];
+                    Subcategory subcategory = category.GetSubcategory(j);
                     subcategory.SetParentCategory(category);
 
-                    for (int k = 0; k < subcategory.Items.Length; k++)
+                    for (int k = 0; k < subcategory.ItemsLength; k++)
                     {
-                        Item item = subcategory.Items[k];
+                        Item item = subcategory.GetItem(k);
                         item.SetParentSubcategory(subcategory);
                     }
                 }
@@ -1254,20 +1254,20 @@ namespace StardustSandbox.Core.Databases
             {
                 Category category = categories[i];
 
-                for (int j = 0; j < category.Subcategories.Length; j++)
+                for (int j = 0; j < category.SubcategoriesLength; j++)
                 {
-                    Subcategory subcategory = category.Subcategories[j];
-                    itemLength += subcategory.Items.Length;
+                    Subcategory subcategory = category.GetSubcategory(j);
+                    itemLength += subcategory.ItemsLength;
                 }
             }
         }
 
-        internal static Category GetCategory(byte index)
+        internal static Category GetCategory(int index)
         {
             return categories[index];
         }
 
-        internal static Item GetItem(byte categoryIndex, byte subcategoryIndex, byte itemIndex)
+        internal static Item GetItem(int categoryIndex, int subcategoryIndex, int itemIndex)
         {
             return categories[categoryIndex].GetSubcategory(subcategoryIndex).GetItem(itemIndex);
         }
@@ -1287,13 +1287,13 @@ namespace StardustSandbox.Core.Databases
             {
                 Category category = categories[i];
 
-                for (int j = 0; j < category.Subcategories.Length; j++)
+                for (int j = 0; j < category.SubcategoriesLength; j++)
                 {
-                    Subcategory subcategory = category.Subcategories[j];
+                    Subcategory subcategory = category.GetSubcategory(j);
 
-                    for (int k = 0; k < subcategory.Items.Length; k++)
+                    for (int k = 0; k < subcategory.ItemsLength; k++)
                     {
-                        Item item = subcategory.Items[k];
+                        Item item = subcategory.GetItem(k);
 
                         if (currentIndex >= amount)
                         {
@@ -1316,13 +1316,13 @@ namespace StardustSandbox.Core.Databases
             {
                 Category category = categories[i];
 
-                for (int j = 0; j < category.Subcategories.Length; j++)
+                for (int j = 0; j < category.SubcategoriesLength; j++)
                 {
-                    Subcategory subcategory = category.Subcategories[j];
+                    Subcategory subcategory = category.GetSubcategory(j);
 
-                    for (int k = 0; k < subcategory.Items.Length; k++)
+                    for (int k = 0; k < subcategory.ItemsLength; k++)
                     {
-                        yield return subcategory.Items[k];
+                        yield return subcategory.GetItem(k);
                     }
                 }
             }
