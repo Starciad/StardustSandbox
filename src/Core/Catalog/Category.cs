@@ -23,7 +23,7 @@ using StardustSandbox.Core.Enums.Assets;
 
 namespace StardustSandbox.Core.Catalog
 {
-    internal sealed class Category(string name, string description, TextureIndex textureIndex, Rectangle? sourceRectangle, Subcategory[] subcategories)
+    internal sealed class Category(string name, string description, TextureIndex textureIndex, Rectangle? sourceRectangle, params Subcategory[] subcategories)
     {
         internal string Name => name;
         internal string Description => description;

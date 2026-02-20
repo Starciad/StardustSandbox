@@ -23,7 +23,7 @@ namespace StardustSandbox.Core.InputSystem.Actions
 
         private readonly InputAction[] actions;
 
-        internal InputActionMap(InputAction[] actions)
+        internal InputActionMap(params InputAction[] actions)
         {
             this.IsActivated = true;
             this.actions = actions;

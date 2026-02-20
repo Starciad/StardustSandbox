@@ -25,7 +25,7 @@ using System;
 
 namespace StardustSandbox.Core.Catalog
 {
-    internal sealed class Subcategory(string name, string description, TextureIndex textureIndex, Rectangle? sourceRectangle, Item[] items)
+    internal sealed class Subcategory(string name, string description, TextureIndex textureIndex, Rectangle? sourceRectangle, params Item[] items)
     {
         internal string Name => name;
         internal string Description => description;

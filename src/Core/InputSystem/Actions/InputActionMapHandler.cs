@@ -21,7 +21,7 @@ namespace StardustSandbox.Core.InputSystem.Actions
     {
         private readonly InputActionMap[] maps;
 
-        internal InputActionMapHandler(InputActionMap[] maps)
+        internal InputActionMapHandler(params InputActionMap[] maps)
         {
             this.maps = maps;
         }
