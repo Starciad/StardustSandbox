@@ -30,10 +30,12 @@ namespace StardustSandbox.Core.UI.Elements
     {
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
+        internal bool IsFocusable { get; set; }
 
         internal int ChildCount => this.children.Count;
         internal UIElement FirstChild => this.children.Count > 0 ? this.children[0] : null;
         internal UIElement LastChild => this.children.Count > 0 ? this.children[^1] : null;
+        internal IEnumerable<UIElement> Children => this.children;
         internal RectangleF Bounds => new(this.Position, this.Size);
         internal UIElement Parent
         {
@@ -108,6 +110,10 @@ namespace StardustSandbox.Core.UI.Elements
             }
         }
 
+        internal Action OnSelected { get; set; }
+        internal Action<UIElement> OnFocusGained { get; set; }
+        internal Action<UIElement> OnFocusLost { get; set; }
+
         private UIElement parent;
 
         private Vector2 position;
@@ -130,50 +136,6 @@ namespace StardustSandbox.Core.UI.Elements
             this.CanDraw = true;
             this.CanUpdate = true;
         }
-
-        internal virtual void Initialize()
-        {
-            OnInitialize();
-
-            foreach (UIElement childElement in this.children)
-            {
-                childElement.Initialize();
-            }
-        }
-
-        internal void Update(GameTime gameTime)
-        {
-            if (!this.CanUpdate)
-            {
-                return;
-            }
-
-            OnUpdate(gameTime);
-
-            foreach (UIElement childElement in this.children)
-            {
-                childElement.Update(gameTime);
-            }
-        }
-
-        internal void Draw(SpriteBatch spriteBatch)
-        {
-            if (!this.CanDraw)
-            {
-                return;
-            }
-
-            OnDraw(spriteBatch);
-
-            foreach (UIElement childElement in this.children)
-            {
-                childElement.Draw(spriteBatch);
-            }
-        }
-
-        protected abstract void OnInitialize();
-        protected abstract void OnUpdate(GameTime gameTime);
-        protected abstract void OnDraw(SpriteBatch spriteBatch);
 
         #region Positioning
 
@@ -301,8 +263,6 @@ namespace StardustSandbox.Core.UI.Elements
 
         #endregion
 
-        #region Hierarchy Management
-
         internal void AddChild(UIElement element)
         {
             if (element == null)
@@ -315,7 +275,49 @@ namespace StardustSandbox.Core.UI.Elements
             this.children.Add(element);
         }
 
-        #endregion
+        internal virtual void Initialize()
+        {
+            OnInitialize();
+
+            foreach (UIElement childElement in this.children)
+            {
+                childElement.Initialize();
+            }
+        }
+
+        internal void Update(GameTime gameTime)
+        {
+            if (!this.CanUpdate)
+            {
+                return;
+            }
+
+            OnUpdate(gameTime);
+
+            foreach (UIElement childElement in this.children)
+            {
+                childElement.Update(gameTime);
+            }
+        }
+
+        internal void Draw(SpriteBatch spriteBatch)
+        {
+            if (!this.CanDraw)
+            {
+                return;
+            }
+
+            OnDraw(spriteBatch);
+
+            foreach (UIElement childElement in this.children)
+            {
+                childElement.Draw(spriteBatch);
+            }
+        }
+
+        protected abstract void OnInitialize();
+        protected abstract void OnUpdate(GameTime gameTime);
+        protected abstract void OnDraw(SpriteBatch spriteBatch);
     }
 }
 

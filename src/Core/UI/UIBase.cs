@@ -28,17 +28,33 @@ namespace StardustSandbox.Core.UI
     {
         internal bool IsActive { get; private set; }
         internal bool IsInitialized { get; private set; }
+        internal UIFocusHandler FocusHandler => this.focusHandler;
 
         protected Container Root { get; }
 
+        private readonly UIFocusHandler focusHandler = new();
+
         protected UIBase()
         {
-            this.Root = new Container
+            this.Root = new()
             {
                 CanDraw = false,
                 CanUpdate = false,
                 Size = GameScreen.GetViewport()
             };
+        }
+
+        private void GetFocusableElements(UIElement element)
+        {
+            if (element.IsFocusable)
+            {
+                this.focusHandler.AddFocusableElement(element);
+            }
+
+            foreach (UIElement childElement in element.Children)
+            {
+                GetFocusableElements(childElement);
+            }
         }
 
         internal void Initialize()
@@ -49,6 +65,8 @@ namespace StardustSandbox.Core.UI
             }
 
             OnBuild(this.Root);
+            GetFocusableElements(this.Root);
+
             this.Root.Initialize();
 
             this.IsInitialized = true;
@@ -68,6 +86,7 @@ namespace StardustSandbox.Core.UI
             this.Root.CanUpdate = true;
             this.Root.CanDraw = true;
 
+            this.focusHandler.Initialize();
             OnOpened();
         }
 
@@ -93,7 +112,9 @@ namespace StardustSandbox.Core.UI
                 return;
             }
 
+            this.focusHandler.Update();
             this.Root.Update(gameTime);
+
             OnUpdate(gameTime);
         }
 

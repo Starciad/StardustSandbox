@@ -18,6 +18,7 @@
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Enums.Assets;
+using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Inputs;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.States;
@@ -40,6 +41,7 @@ namespace StardustSandbox.Core.InputSystem
         private WorldHandler worldHandler;
 
         private InputActionMapHandler systemInputHandler;
+        private InputActionMapHandler uiInputHandler;
         private InputActionMapHandler gameplayInputHandler;
 
         private readonly Pen pen;
@@ -51,7 +53,7 @@ namespace StardustSandbox.Core.InputSystem
             this.player = new();
         }
 
-        internal void Initialize(ActorManager actorManager, World world)
+        internal void Initialize(ActorManager actorManager, UIManager uiManager, World world)
         {
             this.worldHandler = new(actorManager, this.pen, this.player, world);
 
@@ -75,11 +77,51 @@ namespace StardustSandbox.Core.InputSystem
                 #endregion
             ]);
 
-            this.gameplayInputHandler = new([
-                #region Keyboard
+            this.uiInputHandler = new(
+                // UI
+                new InputActionMap(
+                    // Moving
+                    new InputAction()
+                    {
+                        KeyboardBinding = controlSettings.UINavigateUpKeyboardBinding,
+                        ControllerBinding = controlSettings.UINavigateUpControllerBinding,
+                        OnStarted = _ => uiManager.CurrentUI.FocusHandler.Move(Direction.Up),
+                    },
 
+                    new InputAction()
+                    {
+                        KeyboardBinding = controlSettings.UINavigateRightKeyboardBinding,
+                        ControllerBinding = controlSettings.UINavigateRightControllerBinding,
+                        OnStarted = _ => uiManager.CurrentUI.FocusHandler.Move(Direction.Right),
+                    },
+
+                    new InputAction()
+                    {
+                        KeyboardBinding = controlSettings.UINavigateDownKeyboardBinding,
+                        ControllerBinding = controlSettings.UINavigateDownControllerBinding,
+                        OnStarted = _ => uiManager.CurrentUI.FocusHandler.Move(Direction.Down),
+                    },
+
+                    new InputAction()
+                    {
+                        KeyboardBinding = controlSettings.UINavigateLeftKeyboardBinding,
+                        ControllerBinding = controlSettings.UINavigateLeftControllerBinding,
+                        OnStarted = _ => uiManager.CurrentUI.FocusHandler.Move(Direction.Left),
+                    },
+
+                    // Select
+                    new InputAction()
+                    {
+                        KeyboardBinding = controlSettings.UISelectKeyboardBinding,
+                        ControllerBinding = controlSettings.UISelectControllerBinding,
+                        OnStarted = _ => uiManager.CurrentUI.FocusHandler.Select(),
+                    }
+                )
+            );
+
+            this.gameplayInputHandler = new(
                 // Camera
-                new(
+                new InputActionMap(
                     // Moving
                     new InputAction()
                     {
@@ -158,10 +200,7 @@ namespace StardustSandbox.Core.InputSystem
                     }
                 ),
 
-                #endregion
-
-                #region Mouse
-
+                // Mouse
                 new(
                     new InputAction()
                     {
@@ -176,10 +215,8 @@ namespace StardustSandbox.Core.InputSystem
                         OnStarted = _ => this.worldHandler.Modify(WorldModificationType.Removing, InputState.Started),
                         OnPerformed = _ => this.worldHandler.Modify(WorldModificationType.Removing, InputState.Performed),
                     }
-                ),
-
-                #endregion
-            ]);
+                )
+            );
         }
 
         internal void Update()
@@ -187,6 +224,7 @@ namespace StardustSandbox.Core.InputSystem
             UpdatePlaceAreaSize();
 
             this.systemInputHandler.Update();
+            this.uiInputHandler.Update();
             this.gameplayInputHandler.Update();
         }
 

@@ -158,7 +158,7 @@ namespace StardustSandbox.Core
             this.ambientManager.Initialize(this.world);
 
             // Controllers
-            this.inputController.Initialize(this.actorManager, this.world);
+            this.inputController.Initialize(this.actorManager, this.uiManager, this.world);
 
             // Renderer
             GameRenderer.Initialize(this.videoManager);

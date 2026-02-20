@@ -36,6 +36,7 @@ namespace StardustSandbox.Core.UI
                     Scale = new(2.0f),
                     Size = new(32.0f),
                     Margin = margin,
+                    IsFocusable = true,
                 },
 
                 icon: new()
