@@ -20,7 +20,6 @@ using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Catalog;
-using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
@@ -474,7 +473,7 @@ namespace StardustSandbox.Core.UI.Common
             GameHandler.SetState(GameStates.IsCriticalMenuOpen);
 
             this.searchResults.Clear();
-            this.searchQueryStringBuilder.Clear();
+            _ = this.searchQueryStringBuilder.Clear();
             this.searchQueryLabel.TextContent = string.Empty;
 
             this.playerInputController.Disable();

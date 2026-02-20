@@ -197,7 +197,7 @@ namespace StardustSandbox.Core.UI.Common
                             gameplaySettings.ShowGrid = !gameplaySettings.ShowGrid;
                             SettingsSerializer.Save(gameplaySettings);
 
-                            optionSlotInfo.Value.TextContent = option.GetValueString(); 
+                            optionSlotInfo.Value.TextContent = option.GetValueString();
                         }
                     ),
                     new Option<float>(
@@ -278,7 +278,7 @@ namespace StardustSandbox.Core.UI.Common
                                     SettingsSerializer.Save(volumeSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
-                                    
+
                                     SongEngine.ApplyVolumeSettings(volumeSettings);
                                     SoundEngine.ApplyVolumeSettings(volumeSettings);
                                 }
