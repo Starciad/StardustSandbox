@@ -486,7 +486,7 @@ namespace StardustSandbox.Core.UI.Common
                 }
                 else
                 {
-                    slotInfo.Background.Color = AAP64ColorPalette.White;
+                    slotInfo.Background.Color = this.selectedCategory == this.categories[i] ? AAP64ColorPalette.TealGray : AAP64ColorPalette.White;
                 }
             }
         }
