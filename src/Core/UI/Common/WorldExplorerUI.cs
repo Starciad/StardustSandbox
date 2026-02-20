@@ -158,7 +158,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             LoadAllSaveFiles();
             this.currentPage = 0;
-            
+
             RefreshWorldsCatalog();
             RecalculatePagination();
         }
@@ -168,7 +168,7 @@ namespace StardustSandbox.Core.UI.Common
             BuildHeader(root);
             BuildFooter(root);
             BuildWorldDisplaySlots();
-            
+
             RefreshWorldsCatalog();
             RecalculatePagination();
         }
