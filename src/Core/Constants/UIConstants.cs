@@ -33,6 +33,7 @@ namespace StardustSandbox.Core.Constants
         internal const byte ITEM_SEARCH_ITEMS_PER_COLUMN = 6;
         internal const byte ITEM_SEARCH_ITEMS_PER_PAGE = ITEM_SEARCH_ITEMS_PER_ROW * ITEM_SEARCH_ITEMS_PER_COLUMN;
         internal const byte ITEM_SERACH_EXPECTED_ITEMS = 128;
+        internal const byte ITEM_SEARCH_MAX_CHARACTERS = 21;
 
         // World Explorer
         internal const byte WORLD_EXPLORER_ITEMS_PER_ROW = 3;

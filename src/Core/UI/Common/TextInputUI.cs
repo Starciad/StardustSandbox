@@ -428,12 +428,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void AddCharacter(char character)
         {
-            if (this.userInputStringBuilder.Length >= this.maxCharacters)
-            {
-                return;
-            }
-
-            if (char.IsControl(character))
+            if (char.IsControl(character) || this.userInputStringBuilder.Length >= this.maxCharacters)
             {
                 return;
             }

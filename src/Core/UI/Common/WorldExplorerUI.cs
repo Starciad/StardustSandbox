@@ -90,7 +90,8 @@ namespace StardustSandbox.Core.UI.Common
                         this.currentPage = this.totalPages - 1;
                     }
 
-                    ChangeWorldsCatalog();
+                    RefreshWorldsCatalog();
+                    RecalculatePagination();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Next, string.Empty, () =>
                 {
@@ -103,9 +104,44 @@ namespace StardustSandbox.Core.UI.Common
                         this.currentPage = 0;
                     }
 
-                    ChangeWorldsCatalog();
+                    RefreshWorldsCatalog();
+                    RecalculatePagination();
                 }),
             ];
+        }
+
+        private void RecalculatePagination()
+        {
+            this.totalPages = (int)MathF.Max(1.0f, MathF.Ceiling(this.loadedSaveFiles.Count / (float)UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE));
+            this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
+
+            this.pageIndexLabel.TextContent = string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1));
+        }
+
+        private void RefreshWorldsCatalog()
+        {
+            int startIndex = this.currentPage * UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE;
+
+            for (int i = 0; i < this.itemButtonSlotInfos.Length; i++)
+            {
+                SlotInfo slotInfoElement = this.itemButtonSlotInfos[i];
+                int worldIndex = startIndex + i;
+
+                if (worldIndex < this.loadedSaveFiles?.Count)
+                {
+                    SaveFile saveFile = this.loadedSaveFiles[worldIndex];
+
+                    slotInfoElement.Background.CanDraw = true;
+
+                    slotInfoElement.Icon.DisposeTexture();
+                    slotInfoElement.Icon.Texture = saveFile.ThumbnailTextureData.ToTexture2D(this.graphicsDevice);
+                    slotInfoElement.Label.TextContent = saveFile.Metadata.Name.Truncate(10);
+                }
+                else
+                {
+                    slotInfoElement.Background.CanDraw = false;
+                }
+            }
         }
 
         private void LoadAllSaveFiles()
@@ -122,8 +158,9 @@ namespace StardustSandbox.Core.UI.Common
         {
             LoadAllSaveFiles();
             this.currentPage = 0;
-            UpdatePagination();
-            ChangeWorldsCatalog();
+            
+            RefreshWorldsCatalog();
+            RecalculatePagination();
         }
 
         protected override void OnBuild(Container root)
@@ -131,7 +168,9 @@ namespace StardustSandbox.Core.UI.Common
             BuildHeader(root);
             BuildFooter(root);
             BuildWorldDisplaySlots();
-            UpdatePagination();
+            
+            RefreshWorldsCatalog();
+            RecalculatePagination();
         }
 
         private void BuildHeader(Container root)
@@ -185,27 +224,12 @@ namespace StardustSandbox.Core.UI.Common
                 Alignment = UIDirection.Southwest,
             };
 
-            Label pageIndexTitleLabel = new()
-            {
-                Scale = new(0.1f),
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = UIDirection.Center,
-                TextContent = Localization_GUIs.WorldExplorer_CurrentPage,
-                Margin = new(0.0f, -18.0f),
-
-                BorderColor = AAP64ColorPalette.DarkGray,
-                BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 2.0f,
-                BorderThickness = 2.0f,
-            };
-
             this.pageIndexLabel = new()
             {
-                Scale = new(0.1f),
+                Scale = new(0.15f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = UIDirection.Center,
                 TextContent = "1 / 1",
-                Margin = new(0.0f, pageIndexTitleLabel.Size.Y),
 
                 BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
@@ -244,11 +268,9 @@ namespace StardustSandbox.Core.UI.Common
             this.footerButtonLabels[0] = previousButtonLabel;
             this.footerButtonLabels[1] = nextButtonLabel;
 
-            this.footerBackground.AddChild(pageIndexTitleLabel);
+            this.footerBackground.AddChild(this.pageIndexLabel);
             this.footerBackground.AddChild(previousButtonLabel);
             this.footerBackground.AddChild(nextButtonLabel);
-
-            pageIndexTitleLabel.AddChild(this.pageIndexLabel);
 
             root.AddChild(this.footerBackground);
         }
@@ -396,42 +418,6 @@ namespace StardustSandbox.Core.UI.Common
 
                 label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
-        }
-
-        private void UpdatePagination()
-        {
-            this.totalPages = Math.Max(1, (int)Math.Ceiling(Convert.ToSingle(this.loadedSaveFiles?.Count ?? 0) / UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE));
-            this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
-
-            this.pageIndexLabel.TextContent = string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1));
-        }
-
-        private void ChangeWorldsCatalog()
-        {
-            int startIndex = this.currentPage * UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE;
-
-            for (int i = 0; i < this.itemButtonSlotInfos.Length; i++)
-            {
-                SlotInfo slotInfoElement = this.itemButtonSlotInfos[i];
-                int worldIndex = startIndex + i;
-
-                if (worldIndex < this.loadedSaveFiles?.Count)
-                {
-                    SaveFile saveFile = this.loadedSaveFiles[worldIndex];
-
-                    slotInfoElement.Background.CanDraw = true;
-
-                    slotInfoElement.Icon.DisposeTexture();
-                    slotInfoElement.Icon.Texture = saveFile.ThumbnailTextureData.ToTexture2D(this.graphicsDevice);
-                    slotInfoElement.Label.TextContent = saveFile.Metadata.Name.Truncate(10);
-                }
-                else
-                {
-                    slotInfoElement.Background.CanDraw = false;
-                }
-            }
-
-            UpdatePagination();
         }
 
         protected override void OnOpened()

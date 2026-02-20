@@ -180,7 +180,7 @@ namespace StardustSandbox.Core.Databases
                                     contentType: ItemContentType.Element,
                                     textureIndex: TextureIndex.IconElements,
                                     sourceRectangle: new(96, 128, 32, 32)
-                                )
+                                ),
                             ]
                         ),
 

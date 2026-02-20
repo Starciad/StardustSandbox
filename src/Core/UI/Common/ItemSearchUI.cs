@@ -549,12 +549,17 @@ namespace StardustSandbox.Core.UI.Common
 
         private void HandleSpaceKey()
         {
+            if (this.searchQueryStringBuilder.Length >= UIConstants.ITEM_SEARCH_MAX_CHARACTERS)
+            {
+                return;
+            }
+
             _ = this.searchQueryStringBuilder.Append(' ');
         }
 
         private void AddCharacter(char character)
         {
-            if (char.IsControl(character))
+            if (char.IsControl(character) || this.searchQueryStringBuilder.Length >= UIConstants.ITEM_SEARCH_MAX_CHARACTERS)
             {
                 return;
             }

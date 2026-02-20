@@ -30,22 +30,24 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 
-using System.Collections.Generic;
+using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
     internal sealed partial class OptionsUI : UIBase
     {
-        private int selectedCategoryIndex = 0;
+        private Category selectedCategory;
+        private int currentPageIndex = 0, totalPages = 0, selectedOptionsLength = 0;
+        private Option[] selectedOptions;
 
         private Image panelBackground, shadowBackground;
-        private Label title;
+        private Label title, pageIndexLabel;
 
         private SlotInfo exitButtonSlotInfo;
-        private SlotInfo[] categoryButtonSlotInfos, optionButtonSlotInfos;
+        private SlotInfo[] categoryButtonSlotInfos, optionButtonSlotInfos, paginationButtonSlotInfos;
 
         private readonly ButtonInfo exitButtonInfo;
-        private readonly ButtonInfo[] categoryButtonInfos;
+        private readonly ButtonInfo[] categoryButtonInfos, paginationButtonInfos;
 
         private readonly TooltipBox tooltipBox;
 
@@ -139,9 +141,70 @@ namespace StardustSandbox.Core.UI.Common
             this.categoryButtonInfos = new ButtonInfo[this.categories.Length];
             this.optionButtonSlotInfos = new SlotInfo[UIConstants.OPTIONS_PER_PAGE];
 
+            this.paginationButtonInfos =
+            [
+                new(TextureIndex.IconUI, new(128, 160, 32, 32), Localization_Statements.Previous, string.Empty, () =>
+                {
+                    if (this.currentPageIndex > 0)
+                    {
+                        this.currentPageIndex--;
+                    }
+                    else
+                    {
+                        this.currentPageIndex = this.totalPages - 1;
+                    }
+
+                    RefreshContent();
+                }),
+                new(TextureIndex.IconUI, new(64, 160, 32, 32), Localization_Statements.Next, string.Empty, () =>
+                {
+                    if (this.currentPageIndex < this.totalPages - 1)
+                    {
+                        this.currentPageIndex++;
+                    }
+                    else
+                    {
+                        this.currentPageIndex = 0;
+                    }
+
+                    RefreshContent();
+                }),
+            ];
+
             for (int i = 0; i < this.categories.Length; i++)
             {
                 this.categoryButtonInfos[i] = new(this.categories[i].TextureIndex, this.categories[i].TextureSourceRectangle, this.categories[i].Name, this.categories[i].Description, null);
+            }
+
+            this.paginationButtonSlotInfos = new SlotInfo[this.paginationButtonInfos.Length];
+        }
+
+        private void RefreshContent()
+        {
+            this.pageIndexLabel.TextContent = string.Concat(this.currentPageIndex + 1, " / ", this.totalPages);
+
+            int startIndex = this.currentPageIndex * UIConstants.OPTIONS_PER_PAGE;
+            int endIndex = Math.Min(startIndex + UIConstants.OPTIONS_PER_PAGE, this.selectedCategory.Options.Length);
+            int length = endIndex - startIndex;
+
+            this.selectedOptions = new Option[length];
+            this.selectedOptionsLength = length;
+
+            Array.Copy(this.selectedCategory.Options, startIndex, this.selectedOptions, 0, length);
+
+            for (int i = 0; i < this.optionButtonSlotInfos.Length; i++)
+            {
+                SlotInfo slotInfo = this.optionButtonSlotInfos[i];
+
+                if (i < length)
+                {
+                    slotInfo.Background.CanDraw = true;
+                    slotInfo.Label.TextContent = this.selectedOptions[i].Name.Truncate(32);
+                }
+                else
+                {
+                    slotInfo.Background.CanDraw = false;
+                }
             }
         }
 
@@ -152,25 +215,13 @@ namespace StardustSandbox.Core.UI.Common
                 return;
             }
 
-            this.selectedCategoryIndex = index;
-            Category category = this.categories[this.selectedCategoryIndex];
+            this.selectedCategory = this.categories[index];
+            this.title.TextContent = this.selectedCategory.Name;
 
-            this.title.TextContent = category.Name;
+            this.currentPageIndex = 0;
+            this.totalPages = (int)MathF.Max(1.0f, MathF.Ceiling(this.selectedCategory.Options.Length / (float)UIConstants.OPTIONS_PER_PAGE));
 
-            for (int i = 0; i < this.optionButtonSlotInfos.Length; i++)
-            {
-                SlotInfo slotInfo = this.optionButtonSlotInfos[i];
-
-                if (i < category.Options.Length)
-                {
-                    slotInfo.Background.CanDraw = true;
-                    slotInfo.Label.TextContent = category.Options[i].Name.Truncate(32);
-                }
-                else
-                {
-                    slotInfo.Background.CanDraw = false;
-                }
-            }
+            RefreshContent();
         }
 
         internal void Setup()
@@ -303,7 +354,65 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildPagination()
         {
+            this.pageIndexLabel = new()
+            {
+                Scale = new(0.1f),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                Alignment = UIDirection.South,
+                Margin = new(0.0f, -12.0f),
+                TextContent = "1 / 1",
 
+                BorderDirections = LabelBorderDirection.All,
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderOffset = 2.0f,
+                BorderThickness = 2.0f,
+            };
+
+            this.panelBackground.AddChild(this.pageIndexLabel);
+
+            for (int i = 0; i < this.paginationButtonInfos.Length; i++)
+            {
+                SlotInfo slot = new(
+                    new()
+                    {
+                        TextureIndex = TextureIndex.UIButtons,
+                        SourceRectangle = new(320, 140, 32, 32),
+                        Scale = new(1.6f),
+                        Size = new(32.0f),
+                    },
+
+                    new()
+                    {
+                        TextureIndex = this.paginationButtonInfos[i].TextureIndex,
+                        SourceRectangle = this.paginationButtonInfos[i].TextureSourceRectangle,
+                        Alignment = UIDirection.Center,
+                        Size = new(32.0f)
+                    }
+                );
+
+                // Spacing
+                this.paginationButtonSlotInfos[i] = slot;
+
+                // Adding
+                this.panelBackground.AddChild(slot.Background);
+                slot.Background.AddChild(slot.Icon);
+            }
+
+            SlotInfo left = this.paginationButtonSlotInfos[0];
+            left.Background.Alignment = UIDirection.Southwest;
+            left.Background.Margin = new(86.0f, -9.0f);
+
+            SlotInfo right = this.paginationButtonSlotInfos[1];
+            right.Background.Alignment = UIDirection.Southeast;
+            right.Background.Margin = new(-9.0f);
+
+            for (int i = 0; i < this.paginationButtonSlotInfos.Length; i++)
+            {
+                SlotInfo slot = this.paginationButtonSlotInfos[i];
+
+                this.panelBackground.AddChild(slot.Background);
+                slot.Background.AddChild(slot.Icon);
+            }
         }
 
         protected override void OnResize(Vector2 newSize)
@@ -318,6 +427,7 @@ namespace StardustSandbox.Core.UI.Common
             UpdateExitButton();
             UpdateCategoryButtons();
             UpdateOptionButtons();
+            UpdatePagination();
         }
 
         private void UpdateExitButton()
@@ -383,16 +493,10 @@ namespace StardustSandbox.Core.UI.Common
 
         private void UpdateOptionButtons()
         {
-            Category category = this.categories[this.selectedCategoryIndex];
-
-            for (int i = 0; i < category.Options.Length; i++)
+            for (int i = 0; i < this.selectedOptionsLength; i++)
             {
                 SlotInfo slotInfo = this.optionButtonSlotInfos[i];
-
-                if (slotInfo.Background == null)
-                {
-                    continue;
-                }
+                Option option = this.selectedOptions[i];
 
                 if (Interaction.OnMouseEnter(slotInfo.Background))
                 {
@@ -402,14 +506,36 @@ namespace StardustSandbox.Core.UI.Common
                 if (Interaction.OnMouseOver(slotInfo.Background))
                 {
                     this.tooltipBox.CanDraw = true;
-                    TooltipBoxContent.SetTitle(category.Options[i].Name);
-                    TooltipBoxContent.SetDescription(category.Options[i].Description);
+                    TooltipBoxContent.SetTitle(option.Name);
+                    TooltipBoxContent.SetDescription(option.Description);
                     slotInfo.Background.Color = AAP64ColorPalette.HoverColor;
                 }
                 else
                 {
                     slotInfo.Background.Color = AAP64ColorPalette.White;
                 }
+            }
+        }
+
+        private void UpdatePagination()
+        {
+            for (int i = 0; i < this.paginationButtonInfos.Length; i++)
+            {
+                SlotInfo slot = this.paginationButtonSlotInfos[i];
+
+                if (Interaction.OnMouseEnter(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
+                if (Interaction.OnMouseLeftClick(slot.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    this.paginationButtonInfos[i].ClickAction?.Invoke();
+                    break;
+                }
+
+                slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 

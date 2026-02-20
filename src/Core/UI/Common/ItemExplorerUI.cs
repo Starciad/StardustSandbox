@@ -40,8 +40,9 @@ namespace StardustSandbox.Core.UI.Common
         private Category selectedCategory;
         private Subcategory selectedSubcategory;
 
-        private int currentPageIndex = 0, totalPages = 0, selectedItemsLength = 0;
+        private int currentPageIndex = 0, totalPages = 0, selectedSubcategoriesLength = 0, selectedItemsLength = 0;
 
+        private Subcategory[] selectedSubcategories;
         private Item[] selectedItems;
 
         private Image panelBackground, shadowBackground;
@@ -72,7 +73,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.buttonInfos = [
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI),
-                new(TextureIndex.IconUI, new(0, 0, 32, 32), "Search", "", () =>
+                new(TextureIndex.IconUI, new(0, 0, 32, 32), "Search", string.Empty, () =>
                 {
                     this.itemSearchUI.Setup(result => {
                         SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
@@ -85,7 +86,8 @@ namespace StardustSandbox.Core.UI.Common
             ];
 
             this.paginationButtonInfos = [
-                new(TextureIndex.IconUI, new(128, 160, 32, 32), "Left", string.Empty, () =>
+                // Left
+                new(TextureIndex.IconUI, new(128, 160, 32, 32), string.Empty, string.Empty, () =>
                 {
                     if (this.currentPageIndex > 0)
                     {
@@ -93,15 +95,16 @@ namespace StardustSandbox.Core.UI.Common
                     }
                     else
                     {
-                        this.currentPageIndex = this.totalPages;
+                        this.currentPageIndex = this.totalPages - 1;
                     }
 
                     RefreshItemCatalog();
                 }),
 
-                new(TextureIndex.IconUI, new(64, 160, 32, 32), "Right", string.Empty, () =>
+                // Right
+                new(TextureIndex.IconUI, new(64, 160, 32, 32), string.Empty, string.Empty, () =>
                 {
-                    if (this.currentPageIndex < this.totalPages)
+                    if (this.currentPageIndex < this.totalPages - 1)
                     {
                         this.currentPageIndex++;
                     }
@@ -120,13 +123,93 @@ namespace StardustSandbox.Core.UI.Common
             this.paginationButtonSlotInfos = new SlotInfo[this.paginationButtonInfos.Length];
         }
 
+        private void SelectItemCatalog(Category category, Subcategory subcategory, int pageIndex)
+        {
+            this.menuTitle.TextContent = subcategory.Name;
+
+            this.selectedCategory = category;
+            this.selectedSubcategory = subcategory;
+            this.currentPageIndex = pageIndex;
+            this.totalPages = (int)MathF.Max(1.0f, MathF.Ceiling(subcategory.ItemsLength / (float)UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE));
+
+            RefreshContent();
+        }
+
+        private void SelectItemCatalog(int categoryIndex, int subcategoryIndex, int pageIndex)
+        {
+            Category category = CatalogDatabase.GetCategory(categoryIndex);
+            Subcategory subcategory = category.GetSubcategory(subcategoryIndex);
+
+            SelectItemCatalog(category, subcategory, pageIndex);
+        }
+
+        private void RefreshContent()
+        {
+            RefreshSubcategoryButtons();
+            RefreshItemCatalog();
+        }
+
+        private void RefreshSubcategoryButtons()
+        {
+            int subcategoriesCount = this.selectedCategory.SubcategoriesLength;
+
+            this.selectedSubcategories = new Subcategory[subcategoriesCount];
+            this.selectedSubcategoriesLength = subcategoriesCount;
+
+            for (int i = 0; i < this.subcategoryButtonSlotInfos.Length; i++)
+            {
+                SlotInfo subcategorySlot = this.subcategoryButtonSlotInfos[i];
+
+                if (i < subcategoriesCount)
+                {
+                    subcategorySlot.Background.CanDraw = true;
+
+                    Subcategory subcategory = this.selectedCategory.GetSubcategory(i);
+                    this.selectedSubcategories[i] = subcategory;
+
+                    subcategorySlot.Icon.Texture = subcategory.Texture;
+                    subcategorySlot.Icon.SourceRectangle = subcategory.SourceRectangle;
+                }
+                else
+                {
+                    subcategorySlot.Background.CanDraw = false;
+                }
+            }
+        }
+
+        private void RefreshItemCatalog()
+        {
+            this.pageIndexLabel.TextContent = string.Concat(this.currentPageIndex + 1, " / ", this.totalPages);
+
+            int startIndex = this.currentPageIndex * UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE;
+            int endIndex = Math.Min(startIndex + UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE, this.selectedSubcategory.ItemsLength);
+            int length = endIndex - startIndex;
+
+            this.selectedItems = this.selectedSubcategory.GetItems(startIndex, endIndex);
+            this.selectedItemsLength = length;
+
+            for (int i = 0; i < this.itemButtonSlotInfos.Length; i++)
+            {
+                SlotInfo itemSlot = this.itemButtonSlotInfos[i];
+
+                if (i < length)
+                {
+                    itemSlot.Background.CanDraw = true;
+                    Item item = this.selectedItems[i];
+
+                    itemSlot.Icon.TextureIndex = item.TextureIndex;
+                    itemSlot.Icon.SourceRectangle = item.SourceRectangle;
+                }
+                else
+                {
+                    itemSlot.Background.CanDraw = false;
+                }
+            }
+        }
+
         internal void Setup()
         {
-            this.selectedCategory = CatalogDatabase.GetCategory(0);
-            this.selectedSubcategory = this.selectedCategory.GetSubcategory(0);
-
-            this.currentPageIndex = 0;
-            this.totalPages = 0;
+            SelectItemCatalog(0, 0, 0);
         }
 
         protected override void OnBuild(Container root)
@@ -137,7 +220,7 @@ namespace StardustSandbox.Core.UI.Common
             BuildCategoryButtons();
             BuildSubcategoryButtons();
             BuildItemSlots();
-            BuildPagination(root);
+            BuildPagination();
 
             root.AddChild(this.tooltipBox);
         }
@@ -332,7 +415,7 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        private void BuildPagination(Container root)
+        private void BuildPagination()
         {
             this.pageIndexLabel = new()
             {
@@ -370,14 +453,12 @@ namespace StardustSandbox.Core.UI.Common
                     }
                 );
 
-                slot.Background.AddChild(slot.Icon);
-
                 // Spacing
                 this.paginationButtonSlotInfos[i] = slot;
 
                 // Adding
-                root.AddChild(slot.Background);
-                root.AddChild(slot.Icon);
+                this.panelBackground.AddChild(slot.Background);
+                slot.Background.AddChild(slot.Icon);
             }
 
             SlotInfo left = this.paginationButtonSlotInfos[0];
@@ -388,8 +469,10 @@ namespace StardustSandbox.Core.UI.Common
             right.Background.Alignment = UIDirection.Southeast;
             right.Background.Margin = new(-9.0f);
 
-            foreach (SlotInfo slot in this.paginationButtonSlotInfos)
+            for (int i = 0; i < this.paginationButtonSlotInfos.Length; i++)
             {
+                SlotInfo slot = this.paginationButtonSlotInfos[i];
+
                 this.panelBackground.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
             }
@@ -450,12 +533,6 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = 0; i < this.categoryButtonSlotInfos.Length; i++)
             {
                 SlotInfo categorySlot = this.categoryButtonSlotInfos[i];
-
-                if (!categorySlot.Background.CanDraw)
-                {
-                    continue;
-                }
-
                 Category category = CatalogDatabase.GetCategory(i);
 
                 if (Interaction.OnMouseEnter(categorySlot.Background))
@@ -484,16 +561,10 @@ namespace StardustSandbox.Core.UI.Common
 
         private void UpdateSubcategoryButtons()
         {
-            for (int i = 0; i < this.subcategoryButtonSlotInfos.Length; i++)
+            for (int i = 0; i < this.selectedSubcategoriesLength; i++)
             {
                 SlotInfo subcategorySlot = this.subcategoryButtonSlotInfos[i];
-
-                if (!subcategorySlot.Background.CanDraw)
-                {
-                    continue;
-                }
-
-                Subcategory subcategory = this.selectedCategory.GetSubcategory(i);
+                Subcategory subcategory = this.selectedSubcategories[i];
 
                 if (Interaction.OnMouseEnter(subcategorySlot.Background))
                 {
@@ -521,16 +592,10 @@ namespace StardustSandbox.Core.UI.Common
 
         private void UpdateItemCatalog()
         {
-            for (int i = 0; i < this.itemButtonSlotInfos.Length; i++)
+            for (int i = 0; i < this.selectedItemsLength; i++)
             {
                 SlotInfo slot = this.itemButtonSlotInfos[i];
-
-                if (!slot.Background.CanDraw)
-                {
-                    break;
-                }
-
-                Item item = this.selectedSubcategory.GetItem(i);
+                Item item = this.selectedItems[i];
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
@@ -583,80 +648,9 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        private void SelectItemCatalog(Category category, Subcategory subcategory, int pageIndex)
-        {
-            this.menuTitle.TextContent = subcategory.Name;
-
-            this.selectedCategory = category;
-            this.selectedSubcategory = subcategory;
-            this.currentPageIndex = pageIndex;
-            this.totalPages = subcategory.ItemsLength / UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE;
-
-            RefreshSubcategoryButtons();
-            RefreshItemCatalog();
-        }
-
-        private void RefreshSubcategoryButtons()
-        {
-            for (int i = 0; i < this.subcategoryButtonSlotInfos.Length; i++)
-            {
-                SlotInfo subcategorySlot = this.subcategoryButtonSlotInfos[i];
-
-                if (i < this.selectedCategory.SubcategoriesLength)
-                {
-                    subcategorySlot.Background.CanDraw = true;
-
-                    Subcategory subcategory = this.selectedCategory.GetSubcategory(i);
-
-                    subcategorySlot.Icon.Texture = subcategory.Texture;
-                    subcategorySlot.Icon.SourceRectangle = subcategory.SourceRectangle;
-                }
-                else
-                {
-                    subcategorySlot.Background.CanDraw = false;
-                }
-            }
-        }
-
-        private void RefreshItemCatalog()
-        {
-            this.pageIndexLabel.TextContent = string.Concat(this.currentPageIndex + 1, " / ", this.totalPages + 1);
-
-            int startIndex = this.currentPageIndex * UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE;
-            int endIndex = Math.Min(startIndex + UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE, this.selectedSubcategory.ItemsLength);
-
-            this.selectedItems = this.selectedSubcategory.GetItems(startIndex, endIndex);
-            this.selectedItemsLength = this.selectedItems.Length;
-
-            for (int i = 0; i < this.itemButtonSlotInfos.Length; i++)
-            {
-                SlotInfo itemSlot = this.itemButtonSlotInfos[i];
-
-                if (i < this.selectedItemsLength)
-                {
-                    itemSlot.Background.CanDraw = true;
-
-                    Item item = this.selectedItems[i];
-
-                    if (item == null)
-                    {
-                        continue;
-                    }
-
-                    itemSlot.Icon.TextureIndex = item.TextureIndex;
-                    itemSlot.Icon.SourceRectangle = item.SourceRectangle;
-                }
-                else
-                {
-                    itemSlot.Background.CanDraw = false;
-                }
-            }
-        }
-
         protected override void OnOpened()
         {
             GameHandler.SetState(GameStates.IsCriticalMenuOpen);
-            SelectItemCatalog(this.selectedCategory, this.selectedSubcategory, this.currentPageIndex);
         }
 
         protected override void OnClosed()
