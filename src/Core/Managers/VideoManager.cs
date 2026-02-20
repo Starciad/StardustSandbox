@@ -37,56 +37,38 @@ namespace StardustSandbox.Core.Managers
         {
             this.graphicsDeviceManager = graphicsDeviceManager;
             this.gameWindow = gameWindow;
-
-            ApplySettings(SettingsSerializer.Load<VideoSettings>());
         }
 
-        internal void ApplySettings(in VideoSettings videoSettings)
+        internal void ApplySettings(VideoSettings videoSettings)
         {
-            this.gameWindow.IsBorderless = videoSettings.Borderless;
+            SetResolution(videoSettings.Width, videoSettings.Height);
+            SetFullScreen(videoSettings.FullScreen);
+            SetVSync(videoSettings.VSync);
+            SetBorderless(videoSettings.Borderless);
+        }
 
-            if (videoSettings.Width == 0 || videoSettings.Height == 0)
-            {
-                this.graphicsDeviceManager.PreferredBackBufferWidth = 1280;
-                this.graphicsDeviceManager.PreferredBackBufferHeight = 720;
-            }
-            else
-            {
-                this.graphicsDeviceManager.PreferredBackBufferWidth = videoSettings.Width;
-                this.graphicsDeviceManager.PreferredBackBufferHeight = videoSettings.Height;
-            }
-
-            this.graphicsDeviceManager.IsFullScreen = videoSettings.FullScreen;
-            this.graphicsDeviceManager.SynchronizeWithVerticalRetrace = videoSettings.VSync;
+        internal void SetResolution(int width, int height)
+        {
+            this.graphicsDeviceManager.PreferredBackBufferWidth = width;
+            this.graphicsDeviceManager.PreferredBackBufferHeight = height;
             this.graphicsDeviceManager.ApplyChanges();
         }
 
-        internal Rectangle AdjustRenderTargetOnScreen(RenderTarget2D renderTarget)
+        internal void SetFullScreen(bool value)
         {
-            Rectangle screenDimensions, adjustedScreen;
-            float scale, newWidth, newHeight, posX, posY;
+            this.graphicsDeviceManager.IsFullScreen = value;
+            this.graphicsDeviceManager.ApplyChanges();
+        }
 
-            screenDimensions = this.GraphicsDevice.PresentationParameters.Bounds;
+        internal void SetVSync(bool value)
+        {
+            this.graphicsDeviceManager.SynchronizeWithVerticalRetrace = value;
+            this.graphicsDeviceManager.ApplyChanges();
+        }
 
-            scale = MathF.Min(
-                screenDimensions.Width / (float)renderTarget.Width,
-                screenDimensions.Height / (float)renderTarget.Height
-            );
-
-            newWidth = renderTarget.Width * scale;
-            newHeight = renderTarget.Height * scale;
-
-            posX = (screenDimensions.Width - newWidth) / 2.0f;
-            posY = (screenDimensions.Height - newHeight) / 2.0f;
-
-            adjustedScreen = new(
-                (int)posX,
-                (int)posY,
-                (int)newWidth,
-                (int)newHeight
-            );
-
-            return adjustedScreen;
+        internal void SetBorderless(bool value)
+        {
+            this.gameWindow.IsBorderless = value;
         }
     }
 }

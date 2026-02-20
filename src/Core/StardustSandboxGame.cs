@@ -94,7 +94,8 @@ namespace StardustSandbox.Core
             this.Window.AllowUserResizing = true;
 
             // Configure game settings
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / videoSettings.Framerate);
+            SetFrameRate(videoSettings.Framerate);
+
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
 
@@ -113,6 +114,11 @@ namespace StardustSandbox.Core
 
             // Apply video settings
             this.videoManager.ApplySettings(videoSettings);
+        }
+
+        internal void SetFrameRate(float framerate)
+        {
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / framerate);
         }
 
         protected override void Initialize()
@@ -259,11 +265,6 @@ namespace StardustSandbox.Core
         private void OnClientSizeChanged(object sender, EventArgs args)
         {
             UIDatabase.ResizeUIs(GameScreen.GetViewport());
-        }
-
-        internal void Quit()
-        {
-            Exit();
         }
     }
 }

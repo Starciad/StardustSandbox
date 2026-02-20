@@ -63,6 +63,7 @@ namespace StardustSandbox.Core.UI.Common
             KeySelectorUI keySelectorUI,
             MessageUI messageUI,
             SliderUI sliderUI,
+            StardustSandboxGame stardustSandboxGame,
             TooltipBox tooltipBox,
             UIManager uiManager,
             VideoManager videoManager
@@ -70,12 +71,10 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.tooltipBox = tooltipBox;
 
-            AchievementSettings achievementSettings = SettingsSerializer.Load<AchievementSettings>();
             ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
             CursorSettings cursorSettings = SettingsSerializer.Load<CursorSettings>();
             GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
             GeneralSettings generalSettings = SettingsSerializer.Load<GeneralSettings>();
-            StatusSettings statusSettings = SettingsSerializer.Load<StatusSettings>();
             VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
             VolumeSettings volumeSettings = SettingsSerializer.Load<VolumeSettings>();
 
@@ -90,13 +89,14 @@ namespace StardustSandbox.Core.UI.Common
                         Localization_GUIs.Options_General_Language_Name,
                         Localization_GUIs.Options_General_Language_Description,
                         OptionType.Selector,
-                        () =>
-                        {
-                            return generalSettings.GetGameCulture();
-                        },
+                        generalSettings.GetGameCulture,
                         (value) =>
                         {
                             return value.CultureInfo.NativeName;
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+
                         }
                     )
                 ),
@@ -117,6 +117,13 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            gameplaySettings.ShowPreviewArea = !gameplaySettings.ShowPreviewArea;
+                            SettingsSerializer.Save(gameplaySettings);
+
+                            optionSlotInfo.Value.TextContent = option.GetValueString();
                         }
                     ),
                     new Option<Color>(
@@ -130,6 +137,18 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value.ToHexString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            colorPickerUI.Setup((newColor) =>
+                            {
+                                gameplaySettings.PreviewAreaColor = newColor;
+                                SettingsSerializer.Save(gameplaySettings);
+
+                                optionSlotInfo.Value.TextContent = option.GetValueString();
+                            });
+
+                            uiManager.OpenUI(UIIndex.ColorPicker);
                         }
                     ),
                     new Option<float>(
@@ -142,7 +161,23 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return string.Concat(value, '%');
+                            return string.Concat(MathF.Ceiling(value), '%');
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            sliderUI.Setup(
+                                Localization_GUIs.Options_Gameplay_PreviewAreaOpacity_Description,
+                                new(0, 100),
+                                Convert.ToInt32(option.GetValue()),
+                                (newValue) => {
+                                    gameplaySettings.PreviewAreaColorOpacity = newValue / 100.0f;
+                                    SettingsSerializer.Save(gameplaySettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                }
+                            );
+
+                            uiManager.OpenUI(UIIndex.Slider);
                         }
                     ),
                     new Option<bool>(
@@ -156,6 +191,13 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            gameplaySettings.ShowGrid = !gameplaySettings.ShowGrid;
+                            SettingsSerializer.Save(gameplaySettings);
+
+                            optionSlotInfo.Value.TextContent = option.GetValueString(); 
                         }
                     ),
                     new Option<float>(
@@ -168,7 +210,22 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return string.Concat(value, '%');
+                            return string.Concat(MathF.Ceiling(value), '%');
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            sliderUI.Setup(
+                                Localization_GUIs.Options_Gameplay_GridOpacity_Description,
+                                new(0, 100),
+                                Convert.ToInt32(option.GetValue()),
+                                (newValue) => {
+                                    gameplaySettings.GridOpacity = newValue / 100.0f;
+                                    SettingsSerializer.Save(gameplaySettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                }
+                            );
+                            uiManager.OpenUI(UIIndex.Slider);
                         }
                     ),
                     new Option<bool>(
@@ -182,6 +239,13 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            gameplaySettings.ShowTemperatureColorVariations = !gameplaySettings.ShowTemperatureColorVariations;
+                            SettingsSerializer.Save(gameplaySettings);
+
+                            optionSlotInfo.Value.TextContent = option.GetValueString();
                         }
                     )
                 ),
@@ -201,7 +265,26 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return string.Concat(value, '%');
+                            return string.Concat(MathF.Ceiling(value), '%');
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            sliderUI.Setup(
+                                Localization_GUIs.Options_Volume_MasterVolume_Description,
+                                new(0, 100),
+                                Convert.ToInt32(option.GetValue()),
+                                (newValue) => {
+                                    volumeSettings.MasterVolume = newValue / 100.0f;
+                                    SettingsSerializer.Save(volumeSettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                    
+                                    SongEngine.ApplyVolumeSettings(volumeSettings);
+                                    SoundEngine.ApplyVolumeSettings(volumeSettings);
+                                }
+                            );
+
+                            uiManager.OpenUI(UIIndex.Slider);
                         }
                     ),
                     new Option<float>(
@@ -214,7 +297,25 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return string.Concat(value, '%');
+                            return string.Concat(MathF.Ceiling(value), '%');
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            sliderUI.Setup(
+                                Localization_GUIs.Options_Volume_MusicVolume_Description,
+                                new(0, 100),
+                                Convert.ToInt32(option.GetValue()),
+                                (newValue) => {
+                                    volumeSettings.MusicVolume = newValue / 100.0f;
+                                    SettingsSerializer.Save(volumeSettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                    SongEngine.ApplyVolumeSettings(volumeSettings);
+                                }
+                            );
+
+                            uiManager.OpenUI(UIIndex.Slider);
                         }
                     ),
                     new Option<float>(
@@ -227,7 +328,25 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return string.Concat(value, '%');
+                            return string.Concat(MathF.Ceiling(value), '%');
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            sliderUI.Setup(
+                                Localization_GUIs.Options_Volume_SFXVolume_Description,
+                                new(0, 100),
+                                Convert.ToInt32(option.GetValue()),
+                                (newValue) => {
+                                    volumeSettings.SFXVolume = newValue / 100.0f;
+                                    SettingsSerializer.Save(volumeSettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                    SoundEngine.ApplyVolumeSettings(volumeSettings);
+                                }
+                            );
+
+                            uiManager.OpenUI(UIIndex.Slider);
                         }
                     )
                 ),
@@ -240,14 +359,31 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<float>(
                         Localization_GUIs.Options_Video_Framerate_Name,
                         Localization_GUIs.Options_Video_Framerate_Description,
-                        OptionType.Selector,
+                        OptionType.Slider,
                         () =>
                         {
                             return videoSettings.Framerate;
                         },
                         (value) =>
                         {
-                            return string.Concat(value, " FPS");
+                            return string.Concat(MathF.Ceiling(value), " FPS");
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            sliderUI.Setup(
+                                Localization_GUIs.Options_Video_Framerate_Description,
+                                new(30, 240),
+                                Convert.ToInt32(option.GetValue()),
+                                (newValue) => {
+                                    videoSettings.Framerate = newValue;
+                                    SettingsSerializer.Save(videoSettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                    stardustSandboxGame.SetFrameRate(videoSettings.Framerate);
+                                }
+                            );
+                            uiManager.OpenUI(UIIndex.Slider);
                         }
                     ),
                     new Option<Point>(
@@ -261,6 +397,10 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return string.Concat(value.X, " x ", value.Y);
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+
                         }
                     ),
                     new Option<bool>(
@@ -274,6 +414,15 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            videoSettings.FullScreen = !videoSettings.FullScreen;
+                            SettingsSerializer.Save(gameplaySettings);
+
+                            optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                            videoManager.SetFullScreen(videoSettings.FullScreen);
                         }
                     ),
                     new Option<bool>(
@@ -287,6 +436,15 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            videoSettings.VSync = !videoSettings.VSync;
+                            SettingsSerializer.Save(gameplaySettings);
+
+                            optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                            videoManager.SetVSync(videoSettings.VSync);
                         }
                     ),
                     new Option<bool>(
@@ -300,6 +458,15 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            videoSettings.Borderless = !videoSettings.Borderless;
+                            SettingsSerializer.Save(gameplaySettings);
+
+                            optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                            videoManager.SetBorderless(videoSettings.Borderless);
                         }
                     )
                 ),
@@ -320,6 +487,18 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_MoveCameraUp_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.MoveCameraUp = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                }
+                            );
                         }
                     ),
                     new Option<Keys>(
@@ -333,6 +512,18 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_MoveCameraRight_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.MoveCameraRight = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                }
+                            );
                         }
                     ),
                     new Option<Keys>(
@@ -346,6 +537,18 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_MoveCameraDown_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.MoveCameraDown = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                }
+                            );
                         }
                     ),
                     new Option<Keys>(
@@ -359,6 +562,18 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_MoveCameraLeft_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.MoveCameraLeft = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                }
+                            );
                         }
                     ),
                     new Option<Keys>(
@@ -372,6 +587,18 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_MoveCameraFast_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.MoveCameraFast = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                }
+                            );
                         }
                     ),
                     new Option<Keys>(
@@ -385,6 +612,18 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_TogglePause_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.TogglePause = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                }
+                            );
                         }
                     ),
                     new Option<Keys>(
@@ -398,6 +637,18 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_ClearWorld_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.ClearWorld = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                }
+                            );
                         }
                     ),
                     new Option<Keys>(
@@ -411,6 +662,18 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_NextShape_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.NextShape = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                }
+                            );
                         }
                     ),
                     new Option<Keys>(
@@ -424,6 +687,18 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_Screenshot_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.Screenshot = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                }
+                            );
                         }
                     )
                 ),
@@ -444,6 +719,20 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value.ToHexString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            colorPickerUI.Setup((newColor) =>
+                            {
+                                cursorSettings.Color = newColor;
+                                SettingsSerializer.Save(cursorSettings);
+
+                                optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                cursorManager.Color = newColor;
+                            });
+
+                            uiManager.OpenUI(UIIndex.ColorPicker);
                         }
                     ),
                     new Option<Color>(
@@ -457,6 +746,20 @@ namespace StardustSandbox.Core.UI.Common
                         (value) =>
                         {
                             return value.ToHexString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            colorPickerUI.Setup((newColor) =>
+                            {
+                                cursorSettings.BackgroundColor = newColor;
+                                SettingsSerializer.Save(cursorSettings);
+
+                                optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                cursorManager.BackgroundColor = newColor;
+                            });
+
+                            uiManager.OpenUI(UIIndex.ColorPicker);
                         }
                     ),
                     new Option<float>(
@@ -465,11 +768,29 @@ namespace StardustSandbox.Core.UI.Common
                         OptionType.Slider,
                         () =>
                         {
-                            return cursorSettings.Scale;
+                            return cursorSettings.Scale * 100.0f;
                         },
                         (value) =>
                         {
-                            return string.Concat(value, "%");
+                            return string.Concat(MathF.Ceiling(value), "%");
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            sliderUI.Setup(
+                                Localization_GUIs.Options_Cursor_Scale_Description,
+                                new(50, 500),
+                                Convert.ToInt32(option.GetValue()),
+                                (newValue) => {
+                                    cursorSettings.Scale = newValue / 100.0f;
+                                    SettingsSerializer.Save(cursorSettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                    cursorManager.Scale = cursorSettings.Scale;
+                                }
+                            );
+
+                            uiManager.OpenUI(UIIndex.Slider);
                         }
                     ),
                     new Option<float>(
@@ -482,7 +803,25 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return string.Concat(value, '%');
+                            return string.Concat(MathF.Ceiling(value), '%');
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            sliderUI.Setup(
+                                Localization_GUIs.Options_Cursor_Opacity_Description,
+                                new(0, 100),
+                                Convert.ToInt32(option.GetValue()),
+                                (newValue) => {
+                                    cursorSettings.Opacity = newValue / 100.0f;
+                                    SettingsSerializer.Save(cursorSettings);
+
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                    cursorManager.Opacity = cursorSettings.Opacity;
+                                }
+                            );
+
+                            uiManager.OpenUI(UIIndex.Slider);
                         }
                     )
                 ),
@@ -858,11 +1197,6 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        private void HandleOptionClick(IOption option, OptionSlotInfo optionSlotInfo)
-        {
-
-        }
-
         private void UpdateOptionButtons()
         {
             for (int i = 0; i < this.selectedOptionsLength; i++)
@@ -878,7 +1212,7 @@ namespace StardustSandbox.Core.UI.Common
                 if (Interaction.OnMouseLeftClick(optionSlotInfo.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                    HandleOptionClick(option, optionSlotInfo);
+                    option.SetValue(optionSlotInfo);
                     break;
                 }
 
@@ -929,4 +1263,3 @@ namespace StardustSandbox.Core.UI.Common
         }
     }
 }
-

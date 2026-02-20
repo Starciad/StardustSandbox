@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.Assets;
+using StardustSandbox.Core.UI.Information;
 
 using System;
 
@@ -40,17 +41,27 @@ namespace StardustSandbox.Core.UI.Common
             string Description { get; }
             OptionType Type { get; }
 
+            void SetValue(OptionSlotInfo optionSlotInfo);
+
+            object GetValue();
             string GetValueString();
         }
 
-        private sealed class Option<T>(string name, string description, OptionType type, Func<T> getValueFunc, Func<T, string> getValueStringFunc) : IOption
+        private sealed class Option<T>(string name, string description, OptionType type, Func<T> getValueFunc, Func<T, string> getValueStringFunc, Action<IOption, OptionSlotInfo> setValueAction) : IOption
         {
             public string Name => name;
             public string Description => description;
             public OptionType Type => type;
-            internal T Value => getValueFunc();
 
-            internal bool IsRestartRequired { get; init; }
+            public void SetValue(OptionSlotInfo optionSlotInfo)
+            {
+                setValueAction(this, optionSlotInfo);
+            }
+
+            public object GetValue()
+            {
+                return getValueFunc();
+            }
 
             public string GetValueString()
             {

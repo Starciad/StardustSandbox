@@ -80,7 +80,7 @@ namespace StardustSandbox.Core.UI.Common
                     this.uiManager.OpenUI(UIIndex.Options);
                 }),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Credits, string.Empty, () => this.uiManager.OpenUI(UIIndex.Credits)),
-                new(TextureIndex.None, null, Localization_GUIs.Main_Quit, string.Empty, stardustSandboxGame.Quit)
+                new(TextureIndex.None, null, Localization_GUIs.Main_Quit, string.Empty, stardustSandboxGame.Exit)
             ];
 
             this.topButtonInfos = [
