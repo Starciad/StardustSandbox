@@ -15,16 +15,15 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Mathematics.Primitives
-{
-    public readonly struct Resolution(int width, int height)
-    {
-        public readonly int Width => width;
-        public readonly int Height => height;
+using StardustSandbox.Core.UI.Elements;
 
-        public override string ToString()
-        {
-            return string.Concat(this.Width, 'x', this.Height);
-        }
+namespace StardustSandbox.Core.UI.Information
+{
+    internal sealed class OptionSlotInfo(Image background, Label title, Label value)
+    {
+        internal Image Background => background;
+        internal Label Title => title;
+        internal Label Value => value;
     }
 }
+

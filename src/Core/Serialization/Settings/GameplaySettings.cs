@@ -17,6 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Interfaces.Serialization;
 
@@ -41,14 +42,14 @@ namespace StardustSandbox.Core.Serialization.Settings
         [XmlElement("PreviewAreaColorB", typeof(byte))]
         public byte PreviewAreaColorB { get; set; }
 
-        [XmlElement("PreviewAreaColorA", typeof(byte))]
-        public byte PreviewAreaColorA { get; set; }
+        [XmlElement("PreviewAreaColorOpacity", typeof(float))]
+        public float PreviewAreaColorOpacity { get; set; }
 
         [XmlElement("ShowGrid", typeof(bool))]
         public bool ShowGrid { get; set; }
 
-        [XmlElement("GridOpacity", typeof(byte))]
-        public byte GridOpacity { get; set; }
+        [XmlElement("GridOpacity", typeof(float))]
+        public float GridOpacity { get; set; }
 
         [XmlElement("ShowTemperatureColorVariations", typeof(bool))]
         public bool ShowTemperatureColorVariations { get; set; }
@@ -56,14 +57,13 @@ namespace StardustSandbox.Core.Serialization.Settings
         [XmlIgnore]
         public Color PreviewAreaColor
         {
-            get => new(this.PreviewAreaColorR, this.PreviewAreaColorG, this.PreviewAreaColorB, this.PreviewAreaColorA);
+            get => new(this.PreviewAreaColorR, this.PreviewAreaColorG, this.PreviewAreaColorB, (byte)MathF.Ceiling(this.PreviewAreaColorOpacity * 255.0f));
 
             set
             {
                 this.PreviewAreaColorR = value.R;
                 this.PreviewAreaColorG = value.G;
                 this.PreviewAreaColorB = value.B;
-                this.PreviewAreaColorA = value.A;
             }
         }
 
@@ -71,9 +71,9 @@ namespace StardustSandbox.Core.Serialization.Settings
         {
             this.ShowPreviewArea = true;
             this.PreviewAreaColor = AAP64ColorPalette.White;
-            this.PreviewAreaColorA = 80;
+            this.PreviewAreaColorOpacity = 0.8f;
             this.ShowGrid = true;
-            this.GridOpacity = 96;
+            this.GridOpacity = 0.96f;
             this.ShowTemperatureColorVariations = true;
         }
     }

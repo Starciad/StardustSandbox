@@ -19,19 +19,10 @@ using StardustSandbox.Core.UI.Elements;
 
 namespace StardustSandbox.Core.UI.Information
 {
-    internal sealed class ColorSlotInfo
+    internal sealed class ColorSlotInfo(Image background, Image border)
     {
-        internal Image Background => this.background;
-        internal Image Border => this.border;
-
-        private readonly Image background;
-        private readonly Image border;
-
-        internal ColorSlotInfo(Image background, Image border)
-        {
-            this.background = background;
-            this.border = border;
-        }
+        internal Image Background => background;
+        internal Image Border => border;
     }
 }
 

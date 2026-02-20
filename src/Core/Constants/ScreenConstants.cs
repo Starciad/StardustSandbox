@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Mathematics.Primitives;
+using Microsoft.Xna.Framework;
 
 namespace StardustSandbox.Core.Constants
 {
@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.Constants
         internal const float FRAMERATE = 60.0f;
 
         // 16:9 Aspect Ratio
-        internal static Resolution[] RESOLUTIONS =>
+        internal static Point[] RESOLUTIONS =>
         [
             new(640, 360), // [00] - nHD
             new(854, 480), // [01] - FWVGA

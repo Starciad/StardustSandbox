@@ -15,11 +15,11 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.Serialization;
-using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 using System.Xml.Serialization;
@@ -49,14 +49,14 @@ namespace StardustSandbox.Core.Serialization.Settings
         public bool Borderless { get; set; }
 
         [XmlIgnore]
-        public Resolution Resolution
+        public Point Resolution
         {
             get => new(this.Width, this.Height);
 
             set
             {
-                this.Width = value.Width;
-                this.Height = value.Height;
+                this.Width = value.X;
+                this.Height = value.Y;
             }
         }
 
@@ -72,31 +72,31 @@ namespace StardustSandbox.Core.Serialization.Settings
 
         public VideoSettings UpdateResolution(GraphicsDevice graphicsDevice)
         {
-            Resolution monitorResolution = new(
+            Point monitorResolution = new(
                 graphicsDevice.Adapter.CurrentDisplayMode.Width,
                 graphicsDevice.Adapter.CurrentDisplayMode.Height
             );
 
-            Resolution autoResolution = GetAutoResolution(monitorResolution);
+            Point autoResolution = GetAutoResolution(monitorResolution);
 
             return new()
             {
                 Framerate = this.Framerate,
-                Width = autoResolution.Width,
-                Height = autoResolution.Height,
+                Width = autoResolution.X,
+                Height = autoResolution.Y,
                 FullScreen = this.FullScreen,
                 VSync = this.VSync,
                 Borderless = this.Borderless
             };
         }
 
-        private static Resolution GetAutoResolution(Resolution monitorResolution)
+        private static Point GetAutoResolution(Point monitorResolution)
         {
             for (int i = ScreenConstants.RESOLUTIONS.Length - 1; i >= 0; i--)
             {
-                Resolution resolution = ScreenConstants.RESOLUTIONS[i];
+                Point resolution = ScreenConstants.RESOLUTIONS[i];
 
-                if (resolution.Width <= monitorResolution.Width && resolution.Height <= monitorResolution.Height)
+                if (resolution.X <= monitorResolution.X && resolution.Y <= monitorResolution.Y)
                 {
                     return resolution;
                 }

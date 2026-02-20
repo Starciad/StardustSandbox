@@ -68,5 +68,17 @@ namespace StardustSandbox.Core.Extensions
 
             return new(r, g, b, a);
         }
+
+        internal static string ToHexString(this Color color, bool includeAlpha = false)
+        {
+            if (includeAlpha)
+            {
+                return $"#{color.R:X2}{color.G:X2}{color.B:X2}{color.A:X2}";
+            }
+            else
+            {
+                return $"#{color.R:X2}{color.G:X2}{color.B:X2}";
+            }
+        }
     }
 }

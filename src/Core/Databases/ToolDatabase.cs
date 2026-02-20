@@ -15,6 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Enums.Tools;
 using StardustSandbox.Core.Tools;

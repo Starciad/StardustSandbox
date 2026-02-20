@@ -16,6 +16,7 @@
 */
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
@@ -27,6 +28,8 @@ using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Serialization;
+using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 
@@ -38,91 +41,21 @@ namespace StardustSandbox.Core.UI.Common
     {
         private Category selectedCategory;
         private int currentPageIndex = 0, totalPages = 0, selectedOptionsLength = 0;
-        private Option[] selectedOptions;
+        private IOption[] selectedOptions;
 
         private Image panelBackground, shadowBackground;
         private Label title, pageIndexLabel;
 
         private SlotInfo exitButtonSlotInfo;
-        private SlotInfo[] categoryButtonSlotInfos, optionButtonSlotInfos, paginationButtonSlotInfos;
+        private SlotInfo[] categoryButtonSlotInfos, paginationButtonSlotInfos;
+        private OptionSlotInfo[] optionButtonSlotInfos;
 
         private readonly ButtonInfo exitButtonInfo;
         private readonly ButtonInfo[] categoryButtonInfos, paginationButtonInfos;
 
         private readonly TooltipBox tooltipBox;
 
-        private readonly Category[] categories =
-        [
-            new(
-                Localization_GUIs.Options_General_Name,
-                Localization_GUIs.Options_General_Description,
-                TextureIndex.IconUI,
-                new Rectangle(256, 160, 32, 32),
-                new Option(Localization_GUIs.Options_General_Language_Name, Localization_GUIs.Options_General_Language_Description, OptionType.Selector)
-            ),
-
-            new(
-                Localization_GUIs.Options_Gameplay_Name,
-                Localization_GUIs.Options_Gameplay_Description,
-                TextureIndex.IconUI,
-                new Rectangle(256, 128, 32, 32),
-                new Option(Localization_GUIs.Options_Gameplay_ShowPreviewArea_Name, Localization_GUIs.Options_Gameplay_ShowPreviewArea_Description, OptionType.Toggle),
-                new Option(Localization_GUIs.Options_Gameplay_PreviewAreaColor_Name, Localization_GUIs.Options_Gameplay_PreviewAreaColor_Description, OptionType.ColorSelector),
-                new Option(Localization_GUIs.Options_Gameplay_PreviewAreaOpacity_Name, Localization_GUIs.Options_Gameplay_PreviewAreaOpacity_Description, OptionType.Slider),
-                new Option(Localization_GUIs.Options_Gameplay_ShowGrid_Name, Localization_GUIs.Options_Gameplay_ShowGrid_Description, OptionType.Toggle),
-                new Option(Localization_GUIs.Options_Gameplay_GridOpacity_Name, Localization_GUIs.Options_Gameplay_GridOpacity_Description, OptionType.Slider),
-                new Option(Localization_GUIs.Options_Gameplay_ShowTemperatureColorVariations_Name, Localization_GUIs.Options_Gameplay_ShowTemperatureColorVariations_Description, OptionType.Toggle)
-            ),
-
-            new(
-                Localization_GUIs.Options_Volume_Name,
-                Localization_GUIs.Options_Volume_Description,
-                TextureIndex.IconUI,
-                new Rectangle(320, 256, 32, 32),
-                new Option(Localization_GUIs.Options_Volume_MasterVolume_Name, Localization_GUIs.Options_Volume_MasterVolume_Description, OptionType.Slider),
-                new Option(Localization_GUIs.Options_Volume_MusicVolume_Name, Localization_GUIs.Options_Volume_MusicVolume_Description, OptionType.Slider),
-                new Option(Localization_GUIs.Options_Volume_SFXVolume_Name, Localization_GUIs.Options_Volume_SFXVolume_Description, OptionType.Slider)
-            ),
-
-            new(
-                Localization_GUIs.Options_Video_Name,
-                Localization_GUIs.Options_Video_Description,
-                TextureIndex.IconUI,
-                new Rectangle(320, 192, 32, 32),
-                new Option(Localization_GUIs.Options_Video_Framerate_Name, Localization_GUIs.Options_Video_Framerate_Description, OptionType.Selector),
-                new Option(Localization_GUIs.Options_Video_Resolution_Name, Localization_GUIs.Options_Video_Resolution_Description, OptionType.Selector),
-                new Option(Localization_GUIs.Options_Video_Fullscreen_Name, Localization_GUIs.Options_Video_Fullscreen_Description, OptionType.Toggle),
-                new Option(Localization_GUIs.Options_Video_VSync_Name, Localization_GUIs.Options_Video_VSync_Description, OptionType.Toggle),
-                new Option(Localization_GUIs.Options_Video_Borderless_Name, Localization_GUIs.Options_Video_Borderless_Description, OptionType.Toggle)
-            ),
-
-            new(
-                Localization_GUIs.Options_Controls_Name,
-                Localization_GUIs.Options_Controls_Description,
-                TextureIndex.IconUI,
-                new Rectangle(192, 256, 32, 32),
-                new Option(Localization_GUIs.Options_Controls_MoveCameraUp_Name, Localization_GUIs.Options_Controls_MoveCameraUp_Description, OptionType.KeySelector),
-                new Option(Localization_GUIs.Options_Controls_MoveCameraRight_Name, Localization_GUIs.Options_Controls_MoveCameraRight_Description, OptionType.KeySelector),
-                new Option(Localization_GUIs.Options_Controls_MoveCameraDown_Name, Localization_GUIs.Options_Controls_MoveCameraDown_Description, OptionType.KeySelector),
-                new Option(Localization_GUIs.Options_Controls_MoveCameraLeft_Name, Localization_GUIs.Options_Controls_MoveCameraLeft_Description, OptionType.KeySelector),
-                new Option(Localization_GUIs.Options_Controls_MoveCameraFast_Name, Localization_GUIs.Options_Controls_MoveCameraFast_Description, OptionType.KeySelector),
-                new Option(Localization_GUIs.Options_Controls_TogglePause_Name, Localization_GUIs.Options_Controls_TogglePause_Description, OptionType.KeySelector),
-                new Option(Localization_GUIs.Options_Controls_ClearWorld_Name, Localization_GUIs.Options_Controls_ClearWorld_Description, OptionType.KeySelector),
-                new Option(Localization_GUIs.Options_Controls_NextShape_Name, Localization_GUIs.Options_Controls_NextShape_Description, OptionType.KeySelector),
-                new Option(Localization_GUIs.Options_Controls_Screenshot_Name, Localization_GUIs.Options_Controls_Screenshot_Description, OptionType.KeySelector)
-            ),
-
-            new(
-                Localization_GUIs.Options_Cursor_Name,
-                Localization_GUIs.Options_Cursor_Description,
-                TextureIndex.IconUI,
-                new Rectangle(320, 224, 32, 32),
-                new Option(Localization_GUIs.Options_Cursor_Color_Name, Localization_GUIs.Options_Cursor_Color_Description, OptionType.ColorSelector),
-                new Option(Localization_GUIs.Options_Cursor_BackgroundColor_Name, Localization_GUIs.Options_Cursor_BackgroundColor_Description, OptionType.ColorSelector),
-                new Option(Localization_GUIs.Options_Cursor_Scale_Name, Localization_GUIs.Options_Cursor_Scale_Description, OptionType.Selector),
-                new Option(Localization_GUIs.Options_Cursor_Opacity_Name, Localization_GUIs.Options_Cursor_Opacity_Description, OptionType.Slider)
-            ),
-        ];
+        private readonly Category[] categories;
 
         internal OptionsUI(
             ColorPickerUI colorPickerUI,
@@ -137,9 +70,427 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.tooltipBox = tooltipBox;
 
+            AchievementSettings achievementSettings = SettingsSerializer.Load<AchievementSettings>();
+            ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
+            CursorSettings cursorSettings = SettingsSerializer.Load<CursorSettings>();
+            GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
+            GeneralSettings generalSettings = SettingsSerializer.Load<GeneralSettings>();
+            StatusSettings statusSettings = SettingsSerializer.Load<StatusSettings>();
+            VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
+            VolumeSettings volumeSettings = SettingsSerializer.Load<VolumeSettings>();
+
+            this.categories =
+            [
+                new(
+                    Localization_GUIs.Options_General_Name,
+                    Localization_GUIs.Options_General_Description,
+                    TextureIndex.IconUI,
+                    new Rectangle(256, 160, 32, 32),
+                    new Option<GameCulture>(
+                        Localization_GUIs.Options_General_Language_Name,
+                        Localization_GUIs.Options_General_Language_Description,
+                        OptionType.Selector,
+                        () =>
+                        {
+                            return generalSettings.GetGameCulture();
+                        },
+                        (value) =>
+                        {
+                            return value.CultureInfo.NativeName;
+                        }
+                    )
+                ),
+
+                new(
+                    Localization_GUIs.Options_Gameplay_Name,
+                    Localization_GUIs.Options_Gameplay_Description,
+                    TextureIndex.IconUI,
+                    new Rectangle(256, 128, 32, 32),
+                    new Option<bool>(
+                        Localization_GUIs.Options_Gameplay_ShowPreviewArea_Name,
+                        Localization_GUIs.Options_Gameplay_ShowPreviewArea_Description,
+                        OptionType.Toggle,
+                        () =>
+                        {
+                            return gameplaySettings.ShowPreviewArea;
+                        },
+                        (value) =>
+                        {
+                            return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                        }
+                    ),
+                    new Option<Color>(
+                        Localization_GUIs.Options_Gameplay_PreviewAreaColor_Name,
+                        Localization_GUIs.Options_Gameplay_PreviewAreaColor_Description,
+                        OptionType.ColorSelector,
+                        () =>
+                        {
+                            return gameplaySettings.PreviewAreaColor;
+                        },
+                        (value) =>
+                        {
+                            return value.ToHexString();
+                        }
+                    ),
+                    new Option<float>(
+                        Localization_GUIs.Options_Gameplay_PreviewAreaOpacity_Name,
+                        Localization_GUIs.Options_Gameplay_PreviewAreaOpacity_Description,
+                        OptionType.Slider,
+                        () =>
+                        {
+                            return gameplaySettings.PreviewAreaColorOpacity * 100.0f;
+                        },
+                        (value) =>
+                        {
+                            return string.Concat(value, '%');
+                        }
+                    ),
+                    new Option<bool>(
+                        Localization_GUIs.Options_Gameplay_ShowGrid_Name,
+                        Localization_GUIs.Options_Gameplay_ShowGrid_Description,
+                        OptionType.Toggle,
+                        () =>
+                        {
+                            return gameplaySettings.ShowGrid;
+                        },
+                        (value) =>
+                        {
+                            return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                        }
+                    ),
+                    new Option<float>(
+                        Localization_GUIs.Options_Gameplay_GridOpacity_Name,
+                        Localization_GUIs.Options_Gameplay_GridOpacity_Description,
+                        OptionType.Slider,
+                        () =>
+                        {
+                            return gameplaySettings.GridOpacity * 100.0f;
+                        },
+                        (value) =>
+                        {
+                            return string.Concat(value, '%');
+                        }
+                    ),
+                    new Option<bool>(
+                        Localization_GUIs.Options_Gameplay_ShowTemperatureColorVariations_Name,
+                        Localization_GUIs.Options_Gameplay_ShowTemperatureColorVariations_Description,
+                        OptionType.Toggle,
+                        () =>
+                        {
+                            return gameplaySettings.ShowTemperatureColorVariations;
+                        },
+                        (value) =>
+                        {
+                            return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                        }
+                    )
+                ),
+
+                new(
+                    Localization_GUIs.Options_Volume_Name,
+                    Localization_GUIs.Options_Volume_Description,
+                    TextureIndex.IconUI,
+                    new Rectangle(320, 256, 32, 32),
+                    new Option<float>(
+                        Localization_GUIs.Options_Volume_MasterVolume_Name,
+                        Localization_GUIs.Options_Volume_MasterVolume_Description,
+                        OptionType.Slider,
+                        () =>
+                        {
+                            return volumeSettings.MasterVolume * 100.0f;
+                        },
+                        (value) =>
+                        {
+                            return string.Concat(value, '%');
+                        }
+                    ),
+                    new Option<float>(
+                        Localization_GUIs.Options_Volume_MusicVolume_Name,
+                        Localization_GUIs.Options_Volume_MusicVolume_Description,
+                        OptionType.Slider,
+                        () =>
+                        {
+                            return volumeSettings.MusicVolume * 100.0f;
+                        },
+                        (value) =>
+                        {
+                            return string.Concat(value, '%');
+                        }
+                    ),
+                    new Option<float>(
+                        Localization_GUIs.Options_Volume_SFXVolume_Name,
+                        Localization_GUIs.Options_Volume_SFXVolume_Description,
+                        OptionType.Slider,
+                        () =>
+                        {
+                            return volumeSettings.SFXVolume * 100.0f;
+                        },
+                        (value) =>
+                        {
+                            return string.Concat(value, '%');
+                        }
+                    )
+                ),
+
+                new(
+                    Localization_GUIs.Options_Video_Name,
+                    Localization_GUIs.Options_Video_Description,
+                    TextureIndex.IconUI,
+                    new Rectangle(320, 192, 32, 32),
+                    new Option<float>(
+                        Localization_GUIs.Options_Video_Framerate_Name,
+                        Localization_GUIs.Options_Video_Framerate_Description,
+                        OptionType.Selector,
+                        () =>
+                        {
+                            return videoSettings.Framerate;
+                        },
+                        (value) =>
+                        {
+                            return string.Concat(value, " FPS");
+                        }
+                    ),
+                    new Option<Point>(
+                        Localization_GUIs.Options_Video_Resolution_Name,
+                        Localization_GUIs.Options_Video_Resolution_Description,
+                        OptionType.Selector,
+                        () =>
+                        {
+                            return videoSettings.Resolution;
+                        },
+                        (value) =>
+                        {
+                            return string.Concat(value.X, " x ", value.Y);
+                        }
+                    ),
+                    new Option<bool>(
+                        Localization_GUIs.Options_Video_Fullscreen_Name,
+                        Localization_GUIs.Options_Video_Fullscreen_Description,
+                        OptionType.Toggle,
+                        () =>
+                        {
+                            return videoSettings.FullScreen;
+                        },
+                        (value) =>
+                        {
+                            return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                        }
+                    ),
+                    new Option<bool>(
+                        Localization_GUIs.Options_Video_VSync_Name,
+                        Localization_GUIs.Options_Video_VSync_Description,
+                        OptionType.Toggle,
+                        () =>
+                        {
+                            return videoSettings.VSync;
+                        },
+                        (value) =>
+                        {
+                            return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                        }
+                    ),
+                    new Option<bool>(
+                        Localization_GUIs.Options_Video_Borderless_Name,
+                        Localization_GUIs.Options_Video_Borderless_Description,
+                        OptionType.Toggle,
+                        () =>
+                        {
+                            return videoSettings.Borderless;
+                        },
+                        (value) =>
+                        {
+                            return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                        }
+                    )
+                ),
+
+                new(
+                    Localization_GUIs.Options_Controls_Name,
+                    Localization_GUIs.Options_Controls_Description,
+                    TextureIndex.IconUI,
+                    new Rectangle(192, 256, 32, 32),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_MoveCameraUp_Name,
+                        Localization_GUIs.Options_Controls_MoveCameraUp_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.MoveCameraUp;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_MoveCameraRight_Name,
+                        Localization_GUIs.Options_Controls_MoveCameraRight_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.MoveCameraRight;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_MoveCameraDown_Name,
+                        Localization_GUIs.Options_Controls_MoveCameraDown_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.MoveCameraDown;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_MoveCameraLeft_Name,
+                        Localization_GUIs.Options_Controls_MoveCameraLeft_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.MoveCameraLeft;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_MoveCameraFast_Name,
+                        Localization_GUIs.Options_Controls_MoveCameraFast_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.MoveCameraFast;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_TogglePause_Name,
+                        Localization_GUIs.Options_Controls_TogglePause_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.TogglePause;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_ClearWorld_Name,
+                        Localization_GUIs.Options_Controls_ClearWorld_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.ClearWorld;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_NextShape_Name,
+                        Localization_GUIs.Options_Controls_NextShape_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.NextShape;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_Screenshot_Name,
+                        Localization_GUIs.Options_Controls_Screenshot_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.Screenshot;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        }
+                    )
+                ),
+
+                new(
+                    Localization_GUIs.Options_Cursor_Name,
+                    Localization_GUIs.Options_Cursor_Description,
+                    TextureIndex.IconUI,
+                    new Rectangle(320, 224, 32, 32),
+                    new Option<Color>(
+                        Localization_GUIs.Options_Cursor_Color_Name,
+                        Localization_GUIs.Options_Cursor_Color_Description,
+                        OptionType.ColorSelector,
+                        () =>
+                        {
+                            return cursorSettings.Color;
+                        },
+                        (value) =>
+                        {
+                            return value.ToHexString();
+                        }
+                    ),
+                    new Option<Color>(
+                        Localization_GUIs.Options_Cursor_BackgroundColor_Name,
+                        Localization_GUIs.Options_Cursor_BackgroundColor_Description,
+                        OptionType.ColorSelector,
+                        () =>
+                        {
+                            return cursorSettings.BackgroundColor;
+                        },
+                        (value) =>
+                        {
+                            return value.ToHexString();
+                        }
+                    ),
+                    new Option<float>(
+                        Localization_GUIs.Options_Cursor_Scale_Name,
+                        Localization_GUIs.Options_Cursor_Scale_Description,
+                        OptionType.Slider,
+                        () =>
+                        {
+                            return cursorSettings.Scale;
+                        },
+                        (value) =>
+                        {
+                            return string.Concat(value, "%");
+                        }
+                    ),
+                    new Option<float>(
+                        Localization_GUIs.Options_Cursor_Opacity_Name,
+                        Localization_GUIs.Options_Cursor_Opacity_Description,
+                        OptionType.Slider,
+                        () =>
+                        {
+                            return cursorSettings.Opacity * 100.0f;
+                        },
+                        (value) =>
+                        {
+                            return string.Concat(value, '%');
+                        }
+                    )
+                ),
+            ];
+
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI);
             this.categoryButtonInfos = new ButtonInfo[this.categories.Length];
-            this.optionButtonSlotInfos = new SlotInfo[UIConstants.OPTIONS_PER_PAGE];
+            this.optionButtonSlotInfos = new OptionSlotInfo[UIConstants.OPTIONS_PER_PAGE];
 
             this.paginationButtonInfos =
             [
@@ -187,23 +538,24 @@ namespace StardustSandbox.Core.UI.Common
             int endIndex = Math.Min(startIndex + UIConstants.OPTIONS_PER_PAGE, this.selectedCategory.Options.Length);
             int length = endIndex - startIndex;
 
-            this.selectedOptions = new Option[length];
+            this.selectedOptions = new IOption[length];
             this.selectedOptionsLength = length;
 
             Array.Copy(this.selectedCategory.Options, startIndex, this.selectedOptions, 0, length);
 
             for (int i = 0; i < this.optionButtonSlotInfos.Length; i++)
             {
-                SlotInfo slotInfo = this.optionButtonSlotInfos[i];
+                OptionSlotInfo optionSlotInfo = this.optionButtonSlotInfos[i];
 
                 if (i < length)
                 {
-                    slotInfo.Background.CanDraw = true;
-                    slotInfo.Label.TextContent = this.selectedOptions[i].Name.Truncate(32);
+                    optionSlotInfo.Background.CanDraw = true;
+                    optionSlotInfo.Title.TextContent = this.selectedOptions[i].Name.Truncate(32);
+                    optionSlotInfo.Value.TextContent = this.selectedOptions[i].GetValueString();
                 }
                 else
                 {
-                    slotInfo.Background.CanDraw = false;
+                    optionSlotInfo.Background.CanDraw = false;
                 }
             }
         }
@@ -329,7 +681,7 @@ namespace StardustSandbox.Core.UI.Common
                         Margin = margin,
                     };
 
-                    Label label = new()
+                    Label title = new()
                     {
                         SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                         Scale = new(0.065f),
@@ -343,10 +695,25 @@ namespace StardustSandbox.Core.UI.Common
                         BorderThickness = 2.0f,
                     };
 
-                    this.panelBackground.AddChild(background);
-                    background.AddChild(label);
+                    Label value = new()
+                    {
+                        SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                        Scale = new(0.065f),
+                        Margin = new(-16.0f, 0.0f),
+                        TextContent = "Value",
 
-                    this.optionButtonSlotInfos[index] = new(background, null, label);
+                        Alignment = UIDirection.East,
+                        BorderColor = AAP64ColorPalette.DarkGray,
+                        BorderDirections = LabelBorderDirection.All,
+                        BorderOffset = 2.0f,
+                        BorderThickness = 2.0f,
+                    };
+
+                    this.panelBackground.AddChild(background);
+                    background.AddChild(title);
+                    background.AddChild(value);
+
+                    this.optionButtonSlotInfos[index] = new(background, title, value);
                     index++;
                 }
             }
@@ -491,28 +858,40 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
+        private void HandleOptionClick(IOption option, OptionSlotInfo optionSlotInfo)
+        {
+
+        }
+
         private void UpdateOptionButtons()
         {
             for (int i = 0; i < this.selectedOptionsLength; i++)
             {
-                SlotInfo slotInfo = this.optionButtonSlotInfos[i];
-                Option option = this.selectedOptions[i];
+                OptionSlotInfo optionSlotInfo = this.optionButtonSlotInfos[i];
+                IOption option = this.selectedOptions[i];
 
-                if (Interaction.OnMouseEnter(slotInfo.Background))
+                if (Interaction.OnMouseEnter(optionSlotInfo.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Hover);
                 }
 
-                if (Interaction.OnMouseOver(slotInfo.Background))
+                if (Interaction.OnMouseLeftClick(optionSlotInfo.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    HandleOptionClick(option, optionSlotInfo);
+                    break;
+                }
+
+                if (Interaction.OnMouseOver(optionSlotInfo.Background))
                 {
                     this.tooltipBox.CanDraw = true;
                     TooltipBoxContent.SetTitle(option.Name);
                     TooltipBoxContent.SetDescription(option.Description);
-                    slotInfo.Background.Color = AAP64ColorPalette.HoverColor;
+                    optionSlotInfo.Background.Color = AAP64ColorPalette.HoverColor;
                 }
                 else
                 {
-                    slotInfo.Background.Color = AAP64ColorPalette.White;
+                    optionSlotInfo.Background.Color = AAP64ColorPalette.White;
                 }
             }
         }

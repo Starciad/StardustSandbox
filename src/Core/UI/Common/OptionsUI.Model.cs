@@ -19,6 +19,8 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.Assets;
 
+using System;
+
 namespace StardustSandbox.Core.UI.Common
 {
     internal sealed partial class OptionsUI
@@ -32,20 +34,37 @@ namespace StardustSandbox.Core.UI.Common
             Toggle
         }
 
-        private sealed class Category(string name, string description, TextureIndex textureIndex, Rectangle textureSourceRectangle, params Option[] options)
+        private interface IOption
+        {
+            string Name { get; }
+            string Description { get; }
+            OptionType Type { get; }
+
+            string GetValueString();
+        }
+
+        private sealed class Option<T>(string name, string description, OptionType type, Func<T> getValueFunc, Func<T, string> getValueStringFunc) : IOption
+        {
+            public string Name => name;
+            public string Description => description;
+            public OptionType Type => type;
+            internal T Value => getValueFunc();
+
+            internal bool IsRestartRequired { get; init; }
+
+            public string GetValueString()
+            {
+                return getValueStringFunc(getValueFunc());
+            }
+        }
+
+        private sealed class Category(string name, string description, TextureIndex textureIndex, Rectangle textureSourceRectangle, params IOption[] options)
         {
             internal string Name => name;
             internal string Description => description;
             internal TextureIndex TextureIndex => textureIndex;
             internal Rectangle TextureSourceRectangle => textureSourceRectangle;
-            internal Option[] Options => options;
-        }
-
-        private sealed class Option(string name, string description, OptionType type)
-        {
-            internal string Name => name;
-            internal string Description => description;
-            internal OptionType Type => type;
+            internal IOption[] Options => options;
         }
     }
 }

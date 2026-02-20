@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Catalog;
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;

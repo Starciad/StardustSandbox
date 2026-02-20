@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Audio;
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;

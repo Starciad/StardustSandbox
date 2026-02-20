@@ -17,6 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Colors;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Interfaces.Serialization;
 
@@ -50,13 +51,13 @@ namespace StardustSandbox.Core.Serialization.Settings
         [XmlElement("Scale", typeof(float))]
         public float Scale { get; set; }
 
-        [XmlElement("Alpha", typeof(byte))]
-        public byte Alpha { get; set; }
+        [XmlElement("Opacity", typeof(float))]
+        public float Opacity { get; set; }
 
         [XmlIgnore]
         public Color Color
         {
-            get => new(this.ColorR, this.ColorG, this.ColorB, this.Alpha);
+            get => new(this.ColorR, this.ColorG, this.ColorB, (byte)MathF.Ceiling(this.Opacity * 255.0f));
 
             set
             {
@@ -69,7 +70,7 @@ namespace StardustSandbox.Core.Serialization.Settings
         [XmlIgnore]
         public Color BackgroundColor
         {
-            get => new(this.BackgroundColorR, this.BackgroundColorG, this.BackgroundColorB, this.Alpha);
+            get => new(this.BackgroundColorR, this.BackgroundColorG, this.BackgroundColorB, (byte)MathF.Ceiling(this.Opacity * 255.0f));
 
             set
             {
@@ -84,7 +85,7 @@ namespace StardustSandbox.Core.Serialization.Settings
             this.Color = AAP64ColorPalette.White;
             this.BackgroundColor = AAP64ColorPalette.DarkRed;
             this.Scale = 1.0f;
-            this.Alpha = 255;
+            this.Opacity = 1.0f;
         }
     }
 }
