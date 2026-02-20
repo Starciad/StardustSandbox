@@ -180,7 +180,7 @@ namespace StardustSandbox.Core
                 return;
             }
 
-            Vector2 screenMousePosition = InputEngine.GetMousePosition();
+            Vector2 screenMousePosition = InputEngine.GetCurrentMousePosition();
             Vector2 worldMousePosition = Camera.ScreenToWorld(screenMousePosition);
 
             Point alignedPosition = new(

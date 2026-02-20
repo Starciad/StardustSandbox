@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,24 +15,16 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Interfaces.Serialization;
+using Microsoft.Xna.Framework.Input;
 
-using System;
-using System.Xml.Serialization;
+using StardustSandbox.Core.Enums.Inputs;
 
-namespace StardustSandbox.Core.Serialization.Settings
+namespace StardustSandbox.Core.InputSystem.Actions
 {
-    [Serializable]
-    [XmlRoot("VideoSettings")]
-    public sealed class StatusSettings : ISettingsModule
+    internal readonly struct InputCallbackContext(InputState state, MouseButton capturedMouseButton, Keys capturedKey)
     {
-        [XmlElement("TheRestartAfterSavingSettingsWarningWasDisplayed", typeof(bool))]
-        public bool TheRestartAfterSavingSettingsWarningWasDisplayed { get; set; }
-
-        public StatusSettings()
-        {
-            this.TheRestartAfterSavingSettingsWarningWasDisplayed = false;
-        }
+        internal readonly InputState State => state;
+        internal readonly MouseButton CapturedMouseButton => capturedMouseButton;
+        internal readonly Keys CapturedKey => capturedKey;
     }
 }
-

@@ -429,7 +429,7 @@ namespace StardustSandbox.Core.UI.Common
             this.tooltipBox.CanDraw = false;
 
             // Toggle HUD visibility with D1 key
-            if (GameParameters.CanHideHud && InputEngine.KeyboardState.IsKeyDown(Keys.D1) && !InputEngine.PreviousKeyboardState.IsKeyDown(Keys.D1))
+            if (GameParameters.CanHideHud && InputEngine.CurrentKeyboardState.IsKeyDown(Keys.D1) && !InputEngine.PreviousKeyboardState.IsKeyDown(Keys.D1))
             {
                 this.topToolbarContainer.CanDraw = !this.topToolbarContainer.CanDraw;
                 this.leftToolbarContainer.CanDraw = !this.leftToolbarContainer.CanDraw;

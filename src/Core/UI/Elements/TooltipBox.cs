@@ -159,7 +159,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         private void UpdatePosition()
         {
-            Vector2 mousePosition = InputEngine.GetMousePosition();
+            Vector2 mousePosition = InputEngine.GetCurrentMousePosition();
             Vector2 spacing = new(this.cursorManager.Scale * 16f);
             Vector2 position = mousePosition + this.Margin + spacing;
 

@@ -22,38 +22,37 @@ namespace StardustSandbox.Core.InputSystem
 {
     internal static class InputEngine
     {
-        internal static MouseState MouseState => mouseState;
-        internal static MouseState PreviousMouseState => previousMouseState;
-        internal static KeyboardState KeyboardState => keyboardState;
-        internal static KeyboardState PreviousKeyboardState => previousKeyboardState;
-
-        private static MouseState mouseState;
-        private static MouseState previousMouseState;
-        private static KeyboardState keyboardState;
-        private static KeyboardState previousKeyboardState;
+        internal static MouseState CurrentMouseState { get; private set; }
+        internal static MouseState PreviousMouseState { get; private set; }
+        internal static KeyboardState CurrentKeyboardState { get; private set; }
+        internal static KeyboardState PreviousKeyboardState { get; private set; }
+        internal static GamePadState CurrentGamePadState { get; private set; }
+        internal static GamePadState PreviousGamePadState { get; private set; }
 
         internal static void Update()
         {
-            previousMouseState = mouseState;
-            previousKeyboardState = keyboardState;
+            PreviousMouseState = CurrentMouseState;
+            PreviousKeyboardState = CurrentKeyboardState;
+            PreviousGamePadState = CurrentGamePadState;
 
-            mouseState = Mouse.GetState();
-            keyboardState = Keyboard.GetState();
+            CurrentMouseState = Mouse.GetState();
+            CurrentKeyboardState = Keyboard.GetState();
+            CurrentGamePadState = GamePad.GetState(PlayerIndex.One);
         }
 
         internal static int GetDeltaScrollWheel()
         {
-            return previousMouseState.ScrollWheelValue - mouseState.ScrollWheelValue;
+            return PreviousMouseState.ScrollWheelValue - CurrentMouseState.ScrollWheelValue;
         }
 
-        internal static Vector2 GetMousePosition()
+        internal static Vector2 GetCurrentMousePosition()
         {
-            return new(mouseState.X, mouseState.Y);
+            return new(CurrentMouseState.X, CurrentMouseState.Y);
         }
 
         internal static Vector2 GetPreviousMousePosition()
         {
-            return new(previousMouseState.X, previousMouseState.Y);
+            return new(PreviousMouseState.X, PreviousMouseState.Y);
         }
     }
 }

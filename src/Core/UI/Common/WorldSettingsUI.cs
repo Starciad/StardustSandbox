@@ -102,22 +102,6 @@ namespace StardustSandbox.Core.UI.Common
                     {
                         GameHandler.Reset(this.actorManager, this.world);
                         this.world.StartNew(this.worldTargetSize);
-
-                        StatusSettings statusSettings = SettingsSerializer.Load<StatusSettings>();
-
-                        if (!statusSettings.TheMovementTutorialWasDisplayed)
-                        {
-                            ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
-
-                            SoundEngine.Play(SoundEffectIndex.GUI_Message);
-
-                            this.messageUI.SetContent(string.Format(Localization_Messages.Tutorial_Move, controlSettings.MoveCameraUp, controlSettings.MoveCameraLeft, controlSettings.MoveCameraDown, controlSettings.MoveCameraRight));
-                            this.uiManager.OpenUI(UIIndex.Message);
-
-                            statusSettings.TheMovementTutorialWasDisplayed = true;
-
-                            SettingsSerializer.Save(statusSettings);
-                        }
                     }
 
                     GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);

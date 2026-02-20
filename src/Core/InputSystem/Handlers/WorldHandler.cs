@@ -103,7 +103,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers
 
         private static Vector2 GetWorldGridPositionFromMouse()
         {
-            return WorldMath.ToWorldPosition(ConvertScreenToWorld(InputEngine.GetMousePosition()));
+            return WorldMath.ToWorldPosition(ConvertScreenToWorld(InputEngine.GetCurrentMousePosition()));
         }
 
         private static Vector2 ConvertScreenToWorld(Vector2 screenPosition)

@@ -61,8 +61,9 @@ namespace StardustSandbox.Core.InputSystem
                 #region Keyboard
 
                 new([
-                    new(controlSettings.Screenshot)
+                    new()
                     {
+                        KeyboardBinding = controlSettings.ScreenshotKeyboardBinding,
                         OnStarted = _ =>
                         {
                             SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
@@ -80,40 +81,54 @@ namespace StardustSandbox.Core.InputSystem
                 // Camera
                 new([
                     // Moving
-                    new(controlSettings.MoveCameraUp)
+                    new()
                     {
+                        KeyboardBinding = controlSettings.MoveCameraUpKeyboardBinding,
+                        ControllerBinding = controlSettings.MoveCameraUpControllerBinding,
                         OnPerformed = _ => Camera.MoveUp(this.player.MovementSpeed),
                     },
 
-                    new(controlSettings.MoveCameraRight)
+                    new()
                     {
+                        KeyboardBinding = controlSettings.MoveCameraRightKeyboardBinding,
+                        ControllerBinding = controlSettings.MoveCameraRightControllerBinding,
                         OnPerformed = _ => Camera.MoveRight(this.player.MovementSpeed),
                     },
 
-                    new(controlSettings.MoveCameraDown)
+                    new()
                     {
+                        KeyboardBinding = controlSettings.MoveCameraDownKeyboardBinding,
+                        ControllerBinding = controlSettings.MoveCameraDownControllerBinding,
                         OnPerformed = _ => Camera.MoveDown(this.player.MovementSpeed),
                     },
 
-                    new(controlSettings.MoveCameraLeft)
+                    new()
                     {
+                        KeyboardBinding = controlSettings.MoveCameraLeftKeyboardBinding,
+                        ControllerBinding = controlSettings.MoveCameraLeftControllerBinding,
                         OnPerformed = _ => Camera.MoveLeft(this.player.MovementSpeed),
                     },
 
                     // Zooming
-                    new(controlSettings.ZoomCameraIn)
+                    new()
                     {
+                        KeyboardBinding = controlSettings.ZoomCameraInKeyboardBinding,
+                        ControllerBinding = controlSettings.ZoomCameraOutControllerBinding,
                         OnPerformed = _ => Camera.FadeIn(this.player.ZoomingSpeed),
                     },
 
-                    new(controlSettings.ZoomCameraOut)
+                    new()
                     {
+                        KeyboardBinding = controlSettings.ZoomCameraOutKeyboardBinding,
+                        ControllerBinding = controlSettings.ZoomCameraInControllerBinding,
                         OnPerformed = _ => Camera.FadeOut(this.player.ZoomingSpeed),
                     },
 
                     // Running
-                    new(controlSettings.MoveCameraFast)
+                    new()
                     {
+                        KeyboardBinding = controlSettings.MoveCameraFastKeyboardBinding,
+                        ControllerBinding = controlSettings.MoveCameraFastControllerBinding,
                         OnStarted = _ => this.player.IsRunning = true,
                         OnCanceled = _ => this.player.IsRunning = false,
                     },
@@ -121,21 +136,24 @@ namespace StardustSandbox.Core.InputSystem
 
                 // Simulation
                 new([
-                    new(controlSettings.TogglePause)
+                    new()
                     {
+                        KeyboardBinding = controlSettings.TogglePauseKeyboardBinding,
                         OnStarted = _ => GameHandler.ToggleState(GameStates.IsSimulationPaused),
                     },
 
-                    new(controlSettings.NextShape)
+                    new()
                     {
+                        KeyboardBinding = controlSettings.NextShapeKeyboardBinding,
                         OnStarted = _ => this.pen.Shape = this.pen.Shape.Next(),
                     },
                 ]),
                 
                 // World
                 new([
-                    new(controlSettings.ClearWorld)
+                    new()
                     {
+                        KeyboardBinding = controlSettings.ClearWorldKeyboardBinding,
                         OnStarted = _ => GameHandler.Reset(actorManager, world),
                     },
                 ]),
@@ -145,14 +163,16 @@ namespace StardustSandbox.Core.InputSystem
                 #region Mouse
 
                 new([
-                    new(MouseButton.Left)
+                    new()
                     {
+                        MouseBinding = MouseButton.Left,
                         OnStarted = _ => this.worldHandler.Modify(WorldModificationType.Adding, InputState.Started),
                         OnPerformed = _ => this.worldHandler.Modify(WorldModificationType.Adding, InputState.Performed),
                     },
 
-                    new(MouseButton.Right)
+                    new()
                     {
+                        MouseBinding = MouseButton.Right,
                         OnStarted = _ => this.worldHandler.Modify(WorldModificationType.Removing, InputState.Started),
                         OnPerformed = _ => this.worldHandler.Modify(WorldModificationType.Removing, InputState.Performed),
                     },

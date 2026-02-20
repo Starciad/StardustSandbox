@@ -60,10 +60,10 @@ namespace StardustSandbox.Core.Managers
 
         internal void Update()
         {
-            Vector2 position = InputEngine.MouseState.Position.ToVector2();
+            Vector2 position = InputEngine.CurrentMouseState.Position.ToVector2();
 
             // Toggle cursor visibility with D2 key
-            if (GameParameters.CanHideMouse && InputEngine.KeyboardState.IsKeyDown(Keys.D2) && !InputEngine.PreviousKeyboardState.IsKeyDown(Keys.D2))
+            if (GameParameters.CanHideMouse && InputEngine.CurrentKeyboardState.IsKeyDown(Keys.D2) && !InputEngine.PreviousKeyboardState.IsKeyDown(Keys.D2))
             {
                 this.canDraw = !this.canDraw;
             }

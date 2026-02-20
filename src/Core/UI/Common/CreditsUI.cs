@@ -315,8 +315,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void CheckUserSkipInput()
         {
-            if (InputEngine.MouseState.LeftButton is ButtonState.Pressed ||
-                InputEngine.KeyboardState.GetPressedKeyCount() > 0)
+            if (InputEngine.CurrentMouseState.LeftButton is ButtonState.Pressed ||
+                InputEngine.CurrentKeyboardState.GetPressedKeyCount() > 0)
             {
                 this.uiManager.CloseUI();
             }
