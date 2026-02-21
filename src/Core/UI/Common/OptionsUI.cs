@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.UI.Common
     internal sealed partial class OptionsUI : UIBase
     {
         private Category selectedCategory;
-        private int currentPageIndex = 0, totalPages = 0, selectedOptionsLength = 0;
+        private int currentPageIndex = 0, totalPages = 0;
         private IOption[] selectedOptions;
 
         private Image panelBackground, shadowBackground;
@@ -62,7 +62,6 @@ namespace StardustSandbox.Core.UI.Common
             ColorPickerUI colorPickerUI,
             CursorManager cursorManager,
             KeySelectorUI keySelectorUI,
-            MessageUI messageUI,
             PlayerInputController playerInputController,
             SelectorUI selectorUI,
             SliderUI sliderUI,
@@ -91,7 +90,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<GameCulture>(
                         Localization_GUIs.Options_General_Language_Name,
                         Localization_GUIs.Options_General_Language_Description,
-                        OptionType.Selector,
                         generalSettings.GetGameCulture,
                         (value) =>
                         {
@@ -116,7 +114,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<bool>(
                         Localization_GUIs.Options_Gameplay_ShowPreviewArea_Name,
                         Localization_GUIs.Options_Gameplay_ShowPreviewArea_Description,
-                        OptionType.Toggle,
                         () =>
                         {
                             return gameplaySettings.ShowPreviewArea;
@@ -136,7 +133,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<Color>(
                         Localization_GUIs.Options_Gameplay_PreviewAreaColor_Name,
                         Localization_GUIs.Options_Gameplay_PreviewAreaColor_Description,
-                        OptionType.ColorSelector,
                         () =>
                         {
                             return gameplaySettings.PreviewAreaColor;
@@ -161,7 +157,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<float>(
                         Localization_GUIs.Options_Gameplay_PreviewAreaOpacity_Name,
                         Localization_GUIs.Options_Gameplay_PreviewAreaOpacity_Description,
-                        OptionType.Slider,
                         () =>
                         {
                             return gameplaySettings.PreviewAreaColorOpacity * 100.0f;
@@ -190,7 +185,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<bool>(
                         Localization_GUIs.Options_Gameplay_ShowGrid_Name,
                         Localization_GUIs.Options_Gameplay_ShowGrid_Description,
-                        OptionType.Toggle,
                         () =>
                         {
                             return gameplaySettings.ShowGrid;
@@ -210,7 +204,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<float>(
                         Localization_GUIs.Options_Gameplay_GridOpacity_Name,
                         Localization_GUIs.Options_Gameplay_GridOpacity_Description,
-                        OptionType.Slider,
                         () =>
                         {
                             return gameplaySettings.GridOpacity * 100.0f;
@@ -238,7 +231,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<bool>(
                         Localization_GUIs.Options_Gameplay_ShowTemperatureColorVariations_Name,
                         Localization_GUIs.Options_Gameplay_ShowTemperatureColorVariations_Description,
-                        OptionType.Toggle,
                         () =>
                         {
                             return gameplaySettings.ShowTemperatureColorVariations;
@@ -265,7 +257,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<float>(
                         Localization_GUIs.Options_Volume_MasterVolume_Name,
                         Localization_GUIs.Options_Volume_MasterVolume_Description,
-                        OptionType.Slider,
                         () =>
                         {
                             return volumeSettings.MasterVolume * 100.0f;
@@ -297,7 +288,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<float>(
                         Localization_GUIs.Options_Volume_MusicVolume_Name,
                         Localization_GUIs.Options_Volume_MusicVolume_Description,
-                        OptionType.Slider,
                         () =>
                         {
                             return volumeSettings.MusicVolume * 100.0f;
@@ -328,7 +318,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<float>(
                         Localization_GUIs.Options_Volume_SFXVolume_Name,
                         Localization_GUIs.Options_Volume_SFXVolume_Description,
-                        OptionType.Slider,
                         () =>
                         {
                             return volumeSettings.SFXVolume * 100.0f;
@@ -366,7 +355,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<float>(
                         Localization_GUIs.Options_Video_Framerate_Name,
                         Localization_GUIs.Options_Video_Framerate_Description,
-                        OptionType.Slider,
                         () =>
                         {
                             return videoSettings.Framerate;
@@ -396,7 +384,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<Point>(
                         Localization_GUIs.Options_Video_Resolution_Name,
                         Localization_GUIs.Options_Video_Resolution_Description,
-                        OptionType.Selector,
                         () =>
                         {
                             return videoSettings.Resolution;
@@ -413,7 +400,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<bool>(
                         Localization_GUIs.Options_Video_Fullscreen_Name,
                         Localization_GUIs.Options_Video_Fullscreen_Description,
-                        OptionType.Toggle,
                         () =>
                         {
                             return videoSettings.FullScreen;
@@ -435,7 +421,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<bool>(
                         Localization_GUIs.Options_Video_VSync_Name,
                         Localization_GUIs.Options_Video_VSync_Description,
-                        OptionType.Toggle,
                         () =>
                         {
                             return videoSettings.VSync;
@@ -457,7 +442,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<bool>(
                         Localization_GUIs.Options_Video_Borderless_Name,
                         Localization_GUIs.Options_Video_Borderless_Description,
-                        OptionType.Toggle,
                         () =>
                         {
                             return videoSettings.Borderless;
@@ -486,7 +470,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<Keys>(
                         Localization_GUIs.Options_Controls_MoveCameraUp_Name,
                         Localization_GUIs.Options_Controls_MoveCameraUp_Description,
-                        OptionType.KeySelector,
                         () =>
                         {
                             return controlSettings.MoveCameraUpKeyboardBinding;
@@ -515,7 +498,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<Keys>(
                         Localization_GUIs.Options_Controls_MoveCameraRight_Name,
                         Localization_GUIs.Options_Controls_MoveCameraRight_Description,
-                        OptionType.KeySelector,
                         () =>
                         {
                             return controlSettings.MoveCameraRightKeyboardBinding;
@@ -544,7 +526,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<Keys>(
                         Localization_GUIs.Options_Controls_MoveCameraDown_Name,
                         Localization_GUIs.Options_Controls_MoveCameraDown_Description,
-                        OptionType.KeySelector,
                         () =>
                         {
                             return controlSettings.MoveCameraDownKeyboardBinding;
@@ -573,7 +554,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<Keys>(
                         Localization_GUIs.Options_Controls_MoveCameraLeft_Name,
                         Localization_GUIs.Options_Controls_MoveCameraLeft_Description,
-                        OptionType.KeySelector,
                         () =>
                         {
                             return controlSettings.MoveCameraLeftKeyboardBinding;
@@ -602,7 +582,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<Keys>(
                         Localization_GUIs.Options_Controls_MoveCameraFast_Name,
                         Localization_GUIs.Options_Controls_MoveCameraFast_Description,
-                        OptionType.KeySelector,
                         () =>
                         {
                             return controlSettings.MoveCameraFastKeyboardBinding;
@@ -631,7 +610,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<Keys>(
                         Localization_GUIs.Options_Controls_TogglePause_Name,
                         Localization_GUIs.Options_Controls_TogglePause_Description,
-                        OptionType.KeySelector,
                         () =>
                         {
                             return controlSettings.TogglePauseKeyboardBinding;
@@ -660,7 +638,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<Keys>(
                         Localization_GUIs.Options_Controls_ClearWorld_Name,
                         Localization_GUIs.Options_Controls_ClearWorld_Description,
-                        OptionType.KeySelector,
                         () =>
                         {
                             return controlSettings.ClearWorldKeyboardBinding;
@@ -689,7 +666,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<Keys>(
                         Localization_GUIs.Options_Controls_NextShape_Name,
                         Localization_GUIs.Options_Controls_NextShape_Description,
-                        OptionType.KeySelector,
                         () =>
                         {
                             return controlSettings.NextShapeKeyboardBinding;
@@ -718,7 +694,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<Keys>(
                         Localization_GUIs.Options_Controls_Screenshot_Name,
                         Localization_GUIs.Options_Controls_Screenshot_Description,
-                        OptionType.KeySelector,
                         () =>
                         {
                             return controlSettings.ScreenshotKeyboardBinding;
@@ -754,7 +729,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<Color>(
                         Localization_GUIs.Options_Cursor_Color_Name,
                         Localization_GUIs.Options_Cursor_Color_Description,
-                        OptionType.ColorSelector,
                         () =>
                         {
                             return cursorSettings.Color;
@@ -781,7 +755,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<Color>(
                         Localization_GUIs.Options_Cursor_BackgroundColor_Name,
                         Localization_GUIs.Options_Cursor_BackgroundColor_Description,
-                        OptionType.ColorSelector,
                         () =>
                         {
                             return cursorSettings.BackgroundColor;
@@ -808,14 +781,13 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<float>(
                         Localization_GUIs.Options_Cursor_Scale_Name,
                         Localization_GUIs.Options_Cursor_Scale_Description,
-                        OptionType.Slider,
                         () =>
                         {
                             return cursorSettings.Scale * 100.0f;
                         },
                         (value) =>
                         {
-                            return string.Concat((int)value, "%");
+                            return string.Concat((int)value, '%');
                         },
                         (option, optionSlotInfo) =>
                         {
@@ -839,7 +811,6 @@ namespace StardustSandbox.Core.UI.Common
                     new Option<float>(
                         Localization_GUIs.Options_Cursor_Opacity_Name,
                         Localization_GUIs.Options_Cursor_Opacity_Description,
-                        OptionType.Slider,
                         () =>
                         {
                             return cursorSettings.Opacity * 100.0f;
@@ -921,7 +892,6 @@ namespace StardustSandbox.Core.UI.Common
             int length = endIndex - startIndex;
 
             this.selectedOptions = new IOption[length];
-            this.selectedOptionsLength = length;
 
             Array.Copy(this.selectedCategory.Options, startIndex, this.selectedOptions, 0, length);
 
@@ -1242,7 +1212,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void UpdateOptionButtons()
         {
-            for (int i = 0; i < this.selectedOptionsLength; i++)
+            for (int i = 0; i < this.selectedOptions.Length; i++)
             {
                 OptionSlotInfo optionSlotInfo = this.optionButtonSlotInfos[i];
                 IOption option = this.selectedOptions[i];

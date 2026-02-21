@@ -26,20 +26,10 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed partial class OptionsUI
     {
-        private enum OptionType
-        {
-            ColorSelector,
-            KeySelector,
-            Selector,
-            Slider,
-            Toggle
-        }
-
         private interface IOption
         {
             string Name { get; }
             string Description { get; }
-            OptionType Type { get; }
             object[] Options { get; }
             bool RequiresApplicationRestart { get; }
 
@@ -49,11 +39,10 @@ namespace StardustSandbox.Core.UI.Common
             string GetValueString();
         }
 
-        private sealed class Option<T>(string name, string description, OptionType type, Func<T> getValueFunc, Func<T, string> getValueStringFunc, Action<IOption, OptionSlotInfo> setValueAction) : IOption
+        private sealed class Option<T>(string name, string description, Func<T> getValueFunc, Func<T, string> getValueStringFunc, Action<IOption, OptionSlotInfo> setValueAction) : IOption
         {
             public string Name => name;
             public string Description => description;
-            public OptionType Type => type;
             public object[] Options { get; init; }
             public bool RequiresApplicationRestart { get; init; }
 

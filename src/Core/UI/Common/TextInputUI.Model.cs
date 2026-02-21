@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -17,24 +17,14 @@
 
 using StardustSandbox.Core.Enums.UI.Tools;
 
-namespace StardustSandbox.Core.UI.States
+namespace StardustSandbox.Core.UI.Common
 {
-    internal struct TextValidationState
+    internal sealed partial class TextInputUI
     {
-        internal ValidationStatus Status { get; private set; }
-        internal string Message { get; private set; }
-
-        internal TextValidationState(ValidationStatus status)
+        internal readonly struct ValidationState(ValidationStatus status, string message)
         {
-            this.Status = status;
-            this.Message = string.Empty;
-        }
-
-        internal TextValidationState(ValidationStatus status, string message)
-        {
-            this.Status = status;
-            this.Message = message;
+            internal readonly ValidationStatus Status => status;
+            internal readonly string Message => message;
         }
     }
 }
-

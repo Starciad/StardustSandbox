@@ -30,20 +30,19 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
-using StardustSandbox.Core.UI.States;
 
 using System;
 using System.Text;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class TextInputUI : UIBase
+    internal sealed partial class TextInputUI : UIBase
     {
         private bool allowSpaces;
         private uint maxCharacters;
         private InputMode inputMode;
         private InputRestriction inputRestriction;
-        private Func<string, TextValidationState> validateCallback;
+        private Func<string, ValidationState> validateCallback;
         private Action<string> sendCallback;
 
         private int cursorPosition = 0;
@@ -88,7 +87,7 @@ namespace StardustSandbox.Core.UI.Common
 
                     if (this.validateCallback != null)
                     {
-                        TextValidationState validationState = this.validateCallback.Invoke(content);
+                        ValidationState validationState = this.validateCallback.Invoke(content);
 
                         if (validationState.Status is ValidationStatus.Failure)
                         {
@@ -107,7 +106,7 @@ namespace StardustSandbox.Core.UI.Common
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
         }
 
-        internal void Setup(string synopsis, string content, bool allowSpaces, InputMode inputMode, InputRestriction inputRestriction, uint maxCharacters, Func<string, TextValidationState> validateCallback, Action<string> sendCallback)
+        internal void Setup(string synopsis, string content, bool allowSpaces, InputMode inputMode, InputRestriction inputRestriction, uint maxCharacters, Func<string, ValidationState> validateCallback, Action<string> sendCallback)
         {
             // Setting Synopsis
             this.synopsis.TextContent = synopsis;

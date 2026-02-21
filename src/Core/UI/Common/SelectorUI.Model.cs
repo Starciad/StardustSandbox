@@ -15,36 +15,16 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.UI.Elements;
-
-using System;
-
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed partial class SelectorUI : UIBase
+    internal sealed partial class SelectorUI
     {
-        private int currentPageIndex = 0, totalPages = 0;
-        private IChoice[] choices;
-
-        private Action<IChoice> sendCallback;
-
-        internal SelectorUI(
-        ) : base()
+        internal interface IChoice
         {
 
         }
 
-        internal void Setup(Action<IChoice> sendCallback, params IChoice[] choices)
-        {
-            this.sendCallback = sendCallback;
-            this.choices = choices;
-
-            this.currentPageIndex = 0;
-            this.totalPages = (int)MathF.Max(1.0f, MathF.Ceiling(this.choices.Length / (float)UIConstants.SELECTOR_CHOICES_PER_PAGE));
-        }
-
-        protected override void OnBuild(Container root)
+        internal sealed class Choice<T> : IChoice
         {
 
         }
