@@ -98,13 +98,13 @@ namespace StardustSandbox.Core.Cameras
         internal static void FadeIn(float amount)
         {
             targetZoom += amount;
-            targetZoom = Math.Min(targetZoom, 1.5f);
+            targetZoom = Math.Min(targetZoom, CameraConstants.MAX_ZOOM);
         }
 
         internal static void FadeOut(float amount)
         {
             targetZoom -= amount;
-            targetZoom = Math.Max(targetZoom, 0.1f);
+            targetZoom = Math.Max(targetZoom, CameraConstants.MIN_ZOOM);
         }
 
         private static Matrix GetVirtualViewMatrix()

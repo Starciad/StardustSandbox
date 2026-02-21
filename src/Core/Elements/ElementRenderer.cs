@@ -242,23 +242,22 @@ namespace StardustSandbox.Core.Elements
             Color referenceColor = slotLayer.Element.ReferenceColor;
             Color colorModifier = slotLayer.ColorModifier;
 
-            // Combines the reference color with the color modifier
-            Color finalColor = new(
-                referenceColor.R / 255.0f * (colorModifier.R / 255.0f),
-                referenceColor.G / 255.0f * (colorModifier.G / 255.0f),
-                referenceColor.B / 255.0f * (colorModifier.B / 255.0f),
-                referenceColor.A / 255.0f * (colorModifier.A / 255.0f)
-            );
-
             if (gameplaySettings.ShowTemperatureColorVariations)
             {
-                finalColor = TemperatureConstants.ApplyHeatColor(finalColor, slotLayer.Temperature);
+                colorModifier = TemperatureConstants.ApplyHeatColor(colorModifier, slotLayer.Temperature);
             }
 
             if (context.Layer == Layer.Background)
             {
-                finalColor = finalColor.Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
+                colorModifier = colorModifier.Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
             }
+
+            Color finalColor = new(
+                (byte)(referenceColor.R * colorModifier.R / 255),
+                (byte)(referenceColor.G * colorModifier.G / 255),
+                (byte)(referenceColor.B * colorModifier.B / 255),
+                referenceColor.A
+            );
 
             spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Pixel), new Vector2(context.Slot.Position.X, context.Slot.Position.Y) * WorldConstants.GRID_SIZE, null, finalColor, 0f, Vector2.Zero, new Vector2(WorldConstants.GRID_SIZE), SpriteEffects.None, 0f);
         }
@@ -307,28 +306,28 @@ namespace StardustSandbox.Core.Elements
 
         internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, in Point textureOriginOffset, in GameplaySettings gameplaySettings)
         {
-            if (Camera.Zoom <= 0.5f)
+            // If the camera is too far away, draw only a single pixel
+            // that can represent the element to aid in performance and
+            // visibility.
+            if (Camera.Zoom <= CameraConstants.PIXEL_RENDER_ZOOM_THRESHOLD)
             {
-                // If the camera zoom is less than or equal to 0.5, we will draw all elements as single sprites,
-                // regardless of their actual rendering type. This is a performance optimization to reduce the
-                // number of draw calls and calculations needed for blob rendering when the camera is zoomed out.
                 DrawPixelElementRoutine(context, spriteBatch, gameplaySettings);
+                return;
             }
-            else
+
+            // Otherwise, draw the element normally based on its rendering type.
+            switch (element.RenderingType)
             {
-                switch (element.RenderingType)
-                {
-                    case ElementRenderingType.Single:
-                        DrawSingleElementRoutine(context, spriteBatch, textureOriginOffset, gameplaySettings);
-                        break;
+                case ElementRenderingType.Single:
+                    DrawSingleElementRoutine(context, spriteBatch, textureOriginOffset, gameplaySettings);
+                    break;
 
-                    case ElementRenderingType.Blob:
-                        DrawBlobElementRoutine(context, element.Index, spriteBatch, textureOriginOffset, gameplaySettings);
-                        break;
+                case ElementRenderingType.Blob:
+                    DrawBlobElementRoutine(context, element.Index, spriteBatch, textureOriginOffset, gameplaySettings);
+                    break;
 
-                    default:
-                        break;
-                }
+                default:
+                    break;
             }
         }
 
