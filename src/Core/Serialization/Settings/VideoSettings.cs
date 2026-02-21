@@ -66,7 +66,7 @@ namespace StardustSandbox.Core.Serialization.Settings
             this.Width = 0;
             this.Height = 0;
             this.FullScreen = false;
-            this.VSync = false;
+            this.VSync = true;
             this.Borderless = false;
         }
 

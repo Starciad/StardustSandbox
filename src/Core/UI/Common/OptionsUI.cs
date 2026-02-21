@@ -118,7 +118,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                            return value ? Localization_Statements.Enabled : Localization_Statements.Disabled;
                         },
                         (option, optionSlotInfo) =>
                         {
@@ -192,7 +192,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                            return value ? Localization_Statements.Enabled : Localization_Statements.Disabled;
                         },
                         (option, optionSlotInfo) =>
                         {
@@ -240,7 +240,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                            return value ? Localization_Statements.Enabled : Localization_Statements.Disabled;
                         },
                         (option, optionSlotInfo) =>
                         {
@@ -415,7 +415,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                            return value ? Localization_Statements.Enabled : Localization_Statements.Disabled;
                         },
                         (option, optionSlotInfo) =>
                         {
@@ -437,7 +437,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                            return value ? Localization_Statements.Enabled : Localization_Statements.Disabled;
                         },
                         (option, optionSlotInfo) =>
                         {
@@ -459,7 +459,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return value ? Localization_Statements.Enable : Localization_Statements.Disable;
+                            return value ? Localization_Statements.Enabled : Localization_Statements.Disabled;
                         },
                         (option, optionSlotInfo) =>
                         {

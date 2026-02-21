@@ -216,4 +216,10 @@
   <data name="Entities" xml:space="preserve">
     <value>Entités</value>
   </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Activé</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
 </root>
