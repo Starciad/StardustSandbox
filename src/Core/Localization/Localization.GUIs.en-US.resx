@@ -493,7 +493,7 @@
     <value>Choose the color for the preview area displayed during gameplay.</value>
   </data>
   <data name="Options.General.Language.Description" xml:space="preserve">
-    <value>Select the language for the game interface.</value>
+    <value>Select the language for the game interface. Game restart required.</value>
   </data>
   <data name="Options.Save.Description" xml:space="preserve">
     <value>Saves and applies all modified options.</value>

@@ -27,6 +27,7 @@ namespace StardustSandbox.Core.Cameras
     internal static class Camera
     {
         internal static Vector2 Position => position;
+        internal static float Zoom => zoom;
 
         private static Vector2 position;
         private static Vector2 targetPosition;

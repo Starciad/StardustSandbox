@@ -102,7 +102,8 @@ namespace StardustSandbox.Core.UI.Common
 
             this.categories =
             [
-                new(
+                // [0] General
+                new Category(
                     Localization_GUIs.Options_General_Name,
                     Localization_GUIs.Options_General_Description,
                     TextureIndex.IconUI,
@@ -138,7 +139,8 @@ namespace StardustSandbox.Core.UI.Common
                     }
                 ),
 
-                new(
+                // [1] Gameplay
+                new Category(
                     Localization_GUIs.Options_Gameplay_Name,
                     Localization_GUIs.Options_Gameplay_Description,
                     TextureIndex.IconUI,
@@ -281,7 +283,8 @@ namespace StardustSandbox.Core.UI.Common
                     )
                 ),
 
-                new(
+                // [2] Volume
+                new Category(
                     Localization_GUIs.Options_Volume_Name,
                     Localization_GUIs.Options_Volume_Description,
                     TextureIndex.IconUI,
@@ -379,7 +382,8 @@ namespace StardustSandbox.Core.UI.Common
                     )
                 ),
 
-                new(
+                // [3] Video
+                new Category(
                     Localization_GUIs.Options_Video_Name,
                     Localization_GUIs.Options_Video_Description,
                     TextureIndex.IconUI,
@@ -457,7 +461,7 @@ namespace StardustSandbox.Core.UI.Common
                         (option, optionSlotInfo) =>
                         {
                             videoSettings.FullScreen = !videoSettings.FullScreen;
-                            SettingsSerializer.Save(gameplaySettings);
+                            SettingsSerializer.Save(videoSettings);
 
                             optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -478,7 +482,7 @@ namespace StardustSandbox.Core.UI.Common
                         (option, optionSlotInfo) =>
                         {
                             videoSettings.VSync = !videoSettings.VSync;
-                            SettingsSerializer.Save(gameplaySettings);
+                            SettingsSerializer.Save(videoSettings);
 
                             optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -499,7 +503,7 @@ namespace StardustSandbox.Core.UI.Common
                         (option, optionSlotInfo) =>
                         {
                             videoSettings.Borderless = !videoSettings.Borderless;
-                            SettingsSerializer.Save(gameplaySettings);
+                            SettingsSerializer.Save(videoSettings);
 
                             optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -508,7 +512,8 @@ namespace StardustSandbox.Core.UI.Common
                     )
                 ),
 
-                new(
+                // [4] Controls
+                new Category(
                     Localization_GUIs.Options_Controls_Name,
                     Localization_GUIs.Options_Controls_Description,
                     TextureIndex.IconUI,
@@ -767,7 +772,8 @@ namespace StardustSandbox.Core.UI.Common
                     )
                 ),
 
-                new(
+                // [5] Cursor
+                new Category(
                     Localization_GUIs.Options_Cursor_Name,
                     Localization_GUIs.Options_Cursor_Description,
                     TextureIndex.IconUI,

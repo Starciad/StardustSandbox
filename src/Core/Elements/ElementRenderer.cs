@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
@@ -234,7 +235,35 @@ namespace StardustSandbox.Core.Elements
 
         #region DRAWING LOGIC
 
-        private static void DrawBlobElementRoutine(ElementContext context, in ElementIndex elementIndex, SpriteBatch spriteBatch, in Point textureOriginOffset, in GameplaySettings gameplaySettings)
+        private static void DrawPixelElementRoutine(ElementContext context, SpriteBatch spriteBatch, GameplaySettings gameplaySettings)
+        {
+            SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
+
+            Color referenceColor = slotLayer.Element.ReferenceColor;
+            Color colorModifier = slotLayer.ColorModifier;
+
+            // Combines the reference color with the color modifier
+            Color finalColor = new(
+                referenceColor.R / 255.0f * (colorModifier.R / 255.0f),
+                referenceColor.G / 255.0f * (colorModifier.G / 255.0f),
+                referenceColor.B / 255.0f * (colorModifier.B / 255.0f),
+                referenceColor.A / 255.0f * (colorModifier.A / 255.0f)
+            );
+
+            if (gameplaySettings.ShowTemperatureColorVariations)
+            {
+                finalColor = TemperatureConstants.ApplyHeatColor(finalColor, slotLayer.Temperature);
+            }
+
+            if (context.Layer == Layer.Background)
+            {
+                finalColor = finalColor.Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
+            }
+
+            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Pixel), new Vector2(context.Slot.Position.X, context.Slot.Position.Y) * WorldConstants.GRID_SIZE, null, finalColor, 0f, Vector2.Zero, new Vector2(WorldConstants.GRID_SIZE), SpriteEffects.None, 0f);
+        }
+
+        private static void DrawBlobElementRoutine(ElementContext context, in ElementIndex elementIndex, SpriteBatch spriteBatch, in Point textureOriginOffset, GameplaySettings gameplaySettings)
         {
             SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
             Color colorModifier = slotLayer.ColorModifier;
@@ -254,17 +283,7 @@ namespace StardustSandbox.Core.Elements
             for (int i = 0; i < ElementConstants.SPRITE_DIVISIONS_LENGTH; i++)
             {
                 UpdateSpriteSlice(context, elementIndex, i, context.Slot.Position);
-                spriteBatch.Draw(
-                    AssetDatabase.GetTexture(TextureIndex.Elements),
-                    spritePositions[i],
-                    new(textureOriginOffset + spriteClipAreas[i].Location, spriteClipAreas[i].Size),
-                    colorModifier,
-                    0.0f,
-                    Vector2.Zero,
-                    Vector2.One,
-                    SpriteEffects.None,
-                    0.0f
-                );
+                spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Elements), spritePositions[i], new(textureOriginOffset + spriteClipAreas[i].Location, spriteClipAreas[i].Size), colorModifier, 0.0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.0f);
             }
         }
 
@@ -283,34 +302,33 @@ namespace StardustSandbox.Core.Elements
                 colorModifier = colorModifier.Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
             }
 
-            spriteBatch.Draw(
-                AssetDatabase.GetTexture(TextureIndex.Elements),
-                new Vector2(context.Slot.Position.X, context.Slot.Position.Y) * WorldConstants.GRID_SIZE,
-                new(textureOriginOffset, new(32)),
-                colorModifier,
-                0f,
-                Vector2.Zero,
-                Vector2.One,
-                SpriteEffects.None,
-                0f
-            );
+            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Elements), new Vector2(context.Slot.Position.X, context.Slot.Position.Y) * WorldConstants.GRID_SIZE, new(textureOriginOffset, new(32)), colorModifier, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }
 
         internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, in Point textureOriginOffset, in GameplaySettings gameplaySettings)
         {
-            // Handle blob tiles separately.
-            switch (element.RenderingType)
+            if (Camera.Zoom <= 0.5f)
             {
-                case ElementRenderingType.Single:
-                    DrawSingleElementRoutine(context, spriteBatch, textureOriginOffset, gameplaySettings);
-                    break;
+                // If the camera zoom is less than or equal to 0.5, we will draw all elements as single sprites,
+                // regardless of their actual rendering type. This is a performance optimization to reduce the
+                // number of draw calls and calculations needed for blob rendering when the camera is zoomed out.
+                DrawPixelElementRoutine(context, spriteBatch, gameplaySettings);
+            }
+            else
+            {
+                switch (element.RenderingType)
+                {
+                    case ElementRenderingType.Single:
+                        DrawSingleElementRoutine(context, spriteBatch, textureOriginOffset, gameplaySettings);
+                        break;
 
-                case ElementRenderingType.Blob:
-                    DrawBlobElementRoutine(context, element.Index, spriteBatch, textureOriginOffset, gameplaySettings);
-                    break;
+                    case ElementRenderingType.Blob:
+                        DrawBlobElementRoutine(context, element.Index, spriteBatch, textureOriginOffset, gameplaySettings);
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
+                }
             }
         }
 

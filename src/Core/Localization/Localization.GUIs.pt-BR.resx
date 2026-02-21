@@ -493,7 +493,7 @@
     <value>Escolha a cor para a área de pré-visualização exibida durante o jogo.</value>
   </data>
   <data name="Options.General.Language.Description" xml:space="preserve">
-    <value>Selecione o idioma para a interface do jogo.</value>
+    <value>Selecione o idioma para a interface do jogo. A reinicialização do jogo é necessária para aplicar as alterações.</value>
   </data>
   <data name="Options.Save.Description" xml:space="preserve">
     <value>Salva e aplica todas as opções modificadas.</value>

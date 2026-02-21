@@ -128,8 +128,6 @@ namespace StardustSandbox.Core
 
             GameHandler.Initialize(this.Window);
 
-            this.Window.ClientSizeChanged += OnClientSizeChanged;
-
             if (this.videoSettings.Width == 0 || this.videoSettings.Height == 0)
             {
                 this.videoSettings.UpdateResolution(this.GraphicsDevice);
@@ -137,6 +135,7 @@ namespace StardustSandbox.Core
             }
 
             this.videoManager.ApplySettings(this.videoSettings);
+            this.Window.ClientSizeChanged += OnClientSizeChanged;
 
             base.Initialize();
         }
