@@ -19,12 +19,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Actors;
+using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Actors;
 using StardustSandbox.Core.Enums.Serialization;
 using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Saving.Data;
 using StardustSandbox.Core.WorldSystem;
@@ -214,15 +216,25 @@ namespace StardustSandbox.Core.Managers
                 return;
             }
 
+            RectangleF viewBoundsF = Camera.GetViewBounds();
+
+            // Convert the view boundaries to the world's tile system,
+            // ensuring consistency with the culling and update logic.
+            int minTileX = (int)Math.Floor(viewBoundsF.Left / WorldConstants.GRID_SIZE);
+            int minTileY = (int)Math.Floor(viewBoundsF.Top / WorldConstants.GRID_SIZE);
+            int maxTileX = (int)Math.Ceiling(viewBoundsF.Right / WorldConstants.GRID_SIZE);
+            int maxTileY = (int)Math.Ceiling(viewBoundsF.Bottom / WorldConstants.GRID_SIZE);
+
+            Rectangle viewRectangle = new(minTileX, minTileY, maxTileX - minTileX, maxTileY - minTileY);
+
             foreach (Actor actor in GetActors())
             {
-                // Skip non-drawable and destroyed actors
-                if (!actor.CanDraw || actor.State is ActorState.Destroyed)
+                // Skip non-drawable actors, destroyed actors, and actors outside the view rectangle
+                if (!actor.CanDraw || actor.State is ActorState.Destroyed || !viewRectangle.Intersects(actor.SelfRectangle))
                 {
                     continue;
                 }
 
-                // Draw the actor
                 actor.Draw(spriteBatch);
             }
         }

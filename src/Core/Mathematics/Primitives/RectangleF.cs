@@ -96,6 +96,11 @@ namespace StardustSandbox.Core.Mathematics.Primitives
             return !(a == b);
         }
 
+        public static explicit operator RectangleF(Rectangle v)
+        {
+            return new(v.X, v.Y, v.Width, v.Height);
+        }
+
         internal readonly bool Contains(float x, float y)
         {
             return this.X <= x && x < this.X + this.Width && this.Y <= y && y < this.Y + this.Height;

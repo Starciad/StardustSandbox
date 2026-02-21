@@ -132,60 +132,17 @@ namespace StardustSandbox.Core.Cameras
             return Vector2.Transform(screenPosition, Matrix.Invert(GetViewMatrix()));
         }
 
-        internal static bool IsWithinBounds(RectangleF rect, bool isWorldPosition, float toleranceFactor = 0.0f)
+        internal static RectangleF GetViewBounds()
         {
-            // Expand the rectangle by toleranceFactor (in all 4 directions)
-            if (toleranceFactor != 0f)
-            {
-                rect = new(
-                    rect.X - toleranceFactor,
-                    rect.Y - toleranceFactor,
-                    rect.Width + (2f * toleranceFactor),
-                    rect.Height + (2f * toleranceFactor)
-                );
-            }
+            Vector2 viewportSize = GameScreen.GetViewport();
+            
+            Vector2 topLeft = ScreenToWorld(Vector2.Zero);
+            Vector2 bottomRight = ScreenToWorld(viewportSize);
 
-            // Convert to screen coordinates if required
-            RectangleF screenRect;
+            float width = bottomRight.X - topLeft.X;
+            float height = bottomRight.Y - topLeft.Y;
 
-            if (isWorldPosition)
-            {
-                // Convert top-left and bottom-right corners and build a normalized rectangle
-                Vector2 worldTL = new(rect.X, rect.Y);
-                Vector2 worldBR = new(rect.X + rect.Width, rect.Y + rect.Height);
-
-                Vector2 screenTL = WorldToScreen(worldTL);
-                Vector2 screenBR = WorldToScreen(worldBR);
-
-                float left = Math.Min(screenTL.X, screenBR.X);
-                float right = Math.Max(screenTL.X, screenBR.X);
-                float top = Math.Min(screenTL.Y, screenBR.Y);
-                float bottom = Math.Max(screenTL.Y, screenBR.Y);
-
-                screenRect = new(left, top, right - left, bottom - top);
-            }
-            else
-            {
-                // Already in screen coordinates � ensure positive width/height
-                float left = Math.Min(rect.X, rect.X + rect.Width);
-                float right = Math.Max(rect.X, rect.X + rect.Width);
-                float top = Math.Min(rect.Y, rect.Y + rect.Height);
-                float bottom = Math.Max(rect.Y, rect.Y + rect.Height);
-
-                screenRect = new(left, top, right - left, bottom - top);
-            }
-
-            // Screen rectangle bounds
-            float screenLeft = 0f;
-            float screenTop = 0f;
-
-            // Check overlap (any intersection with the screen area)
-            Vector2 viewport = GameScreen.GetViewport();
-
-            bool intersectsHorizontally = screenRect.X + screenRect.Width >= screenLeft && screenRect.X < viewport.X;
-            bool intersectsVertically = screenRect.Y + screenRect.Height >= screenTop && screenRect.Y < viewport.Y;
-
-            return intersectsHorizontally && intersectsVertically;
+            return new(topLeft.X, topLeft.Y, width, height);
         }
     }
 }

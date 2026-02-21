@@ -27,6 +27,7 @@ using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.InputSystem;
+using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 
@@ -45,13 +46,13 @@ namespace StardustSandbox.Core.WorldSystem
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 topLeftWorld = Camera.ScreenToWorld(new(0, 0));
-            Vector2 bottomRightWorld = Camera.ScreenToWorld(new(GameScreen.GetViewport().X, GameScreen.GetViewport().Y));
+            RectangleF viewBounds = Camera.GetViewBounds();
 
-            int minTileX = (int)Math.Clamp(Math.Floor(topLeftWorld.X / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.X);
-            int minTileY = (int)Math.Clamp(Math.Floor(topLeftWorld.Y / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.Y);
-            int maxTileX = (int)Math.Clamp(Math.Ceiling(bottomRightWorld.X / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.X);
-            int maxTileY = (int)Math.Clamp(Math.Ceiling(bottomRightWorld.Y / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.Y);
+            // Converts the visible world area to tile indexes
+            int minTileX = (int)Math.Clamp(Math.Floor(viewBounds.Left / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.X);
+            int minTileY = (int)Math.Clamp(Math.Floor(viewBounds.Top / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.Y);
+            int maxTileX = (int)Math.Clamp(Math.Ceiling(viewBounds.Right / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.X);
+            int maxTileY = (int)Math.Clamp(Math.Ceiling(viewBounds.Bottom / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.Y);
 
             GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
 
