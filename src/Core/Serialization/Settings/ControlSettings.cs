@@ -61,57 +61,6 @@ namespace StardustSandbox.Core.Serialization.Settings
         [XmlElement("ScreenshotKeyboardBinding", typeof(Keys))]
         public Keys ScreenshotKeyboardBinding { get; set; }
 
-        [XmlElement("UINavigateUpKeyboardBinding", typeof(Keys))]
-        public Keys UINavigateUpKeyboardBinding { get; set; }
-
-        [XmlElement("UINavigateRightKeyboardBinding", typeof(Keys))]
-        public Keys UINavigateRightKeyboardBinding { get; set; }
-
-        [XmlElement("UINavigateDownKeyboardBinding", typeof(Keys))]
-        public Keys UINavigateDownKeyboardBinding { get; set; }
-
-        [XmlElement("UINavigateLeftKeyboardBinding", typeof(Keys))]
-        public Keys UINavigateLeftKeyboardBinding { get; set; }
-
-        [XmlElement("UISelectKeyboardBinding", typeof(Keys))]
-        public Keys UISelectKeyboardBinding { get; set; }
-
-        [XmlElement("MoveCameraUpControllerBinding", typeof(Buttons))]
-        public Buttons MoveCameraUpControllerBinding { get; set; }
-
-        [XmlElement("MoveCameraRightControllerBinding", typeof(Buttons))]
-        public Buttons MoveCameraRightControllerBinding { get; set; }
-
-        [XmlElement("MoveCameraDownControllerBinding", typeof(Buttons))]
-        public Buttons MoveCameraDownControllerBinding { get; set; }
-
-        [XmlElement("MoveCameraLeftControllerBinding", typeof(Buttons))]
-        public Buttons MoveCameraLeftControllerBinding { get; set; }
-
-        [XmlElement("MoveCameraFastControllerBinding", typeof(Buttons))]
-        public Buttons MoveCameraFastControllerBinding { get; set; }
-
-        [XmlElement("ZoomCameraInControllerBinding", typeof(Buttons))]
-        public Buttons ZoomCameraInControllerBinding { get; set; }
-
-        [XmlElement("ZoomCameraOutControllerBinding", typeof(Buttons))]
-        public Buttons ZoomCameraOutControllerBinding { get; set; }
-
-        [XmlElement("UINavigateUpControllerBinding", typeof(Buttons))]
-        public Buttons UINavigateUpControllerBinding { get; set; }
-
-        [XmlElement("UINavigateRightControllerBinding", typeof(Buttons))]
-        public Buttons UINavigateRightControllerBinding { get; set; }
-
-        [XmlElement("UINavigateDownControllerBinding", typeof(Buttons))]
-        public Buttons UINavigateDownControllerBinding { get; set; }
-
-        [XmlElement("UINavigateLeftControllerBinding", typeof(Buttons))]
-        public Buttons UINavigateLeftControllerBinding { get; set; }
-
-        [XmlElement("UISelectControllerBinding", typeof(Buttons))]
-        public Buttons UISelectControllerBinding { get; set; }
-
         public ControlSettings()
         {
             // Keyboard
@@ -128,27 +77,6 @@ namespace StardustSandbox.Core.Serialization.Settings
             this.NextShapeKeyboardBinding = Keys.Tab;
 
             this.ScreenshotKeyboardBinding = Keys.F9;
-
-            this.UINavigateUpKeyboardBinding = Keys.W;
-            this.UINavigateLeftKeyboardBinding = Keys.A;
-            this.UINavigateDownKeyboardBinding = Keys.S;
-            this.UINavigateRightKeyboardBinding = Keys.D;
-            this.UISelectKeyboardBinding = Keys.Enter;
-
-            // Gamepad
-            this.MoveCameraUpControllerBinding = Buttons.LeftThumbstickUp;
-            this.MoveCameraLeftControllerBinding = Buttons.LeftThumbstickLeft;
-            this.MoveCameraDownControllerBinding = Buttons.LeftThumbstickDown;
-            this.MoveCameraRightControllerBinding = Buttons.LeftThumbstickRight;
-            // this.MoveCameraFastControllerBinding = Buttons.LeftShoulder;
-            // this.ZoomCameraInControllerBinding = Buttons.RightTrigger;
-            // this.ZoomCameraOutControllerBinding = Buttons.LeftTrigger;
-
-            this.UINavigateUpControllerBinding = Buttons.LeftThumbstickUp;
-            this.UINavigateLeftControllerBinding = Buttons.LeftThumbstickLeft;
-            this.UINavigateDownControllerBinding = Buttons.LeftThumbstickDown;
-            this.UINavigateRightControllerBinding = Buttons.LeftThumbstickRight;
-            this.UISelectControllerBinding = Buttons.A;
         }
     }
 }

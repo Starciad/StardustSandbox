@@ -70,7 +70,7 @@ namespace StardustSandbox.Core.Serialization.Settings
             this.Borderless = false;
         }
 
-        public VideoSettings UpdateResolution(GraphicsDevice graphicsDevice)
+        public void UpdateResolution(GraphicsDevice graphicsDevice)
         {
             Point monitorResolution = new(
                 graphicsDevice.Adapter.CurrentDisplayMode.Width,
@@ -79,15 +79,8 @@ namespace StardustSandbox.Core.Serialization.Settings
 
             Point autoResolution = GetAutoResolution(monitorResolution);
 
-            return new()
-            {
-                Framerate = this.Framerate,
-                Width = autoResolution.X,
-                Height = autoResolution.Y,
-                FullScreen = this.FullScreen,
-                VSync = this.VSync,
-                Borderless = this.Borderless
-            };
+            this.Width = autoResolution.X;
+            this.Height = autoResolution.Y;
         }
 
         private static Point GetAutoResolution(Point monitorResolution)

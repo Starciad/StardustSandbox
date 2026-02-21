@@ -21,11 +21,12 @@ using StardustSandbox.Core.Enums.Inputs;
 
 namespace StardustSandbox.Core.InputSystem.Actions
 {
-    internal sealed class InputAction
+    internal sealed class InputAction(string name)
     {
+        internal string Name => name;
+
         internal Keys KeyboardBinding { get; set; }
         internal MouseButton MouseBinding { get; set; }
-        internal Buttons ControllerBinding { get; set; }
 
         internal Started OnStarted { get; init; }
         internal Performed OnPerformed { get; init; }
@@ -37,7 +38,6 @@ namespace StardustSandbox.Core.InputSystem.Actions
 
         private Keys capturedKeyboardBinding;
         private MouseButton capturedMouseBinding;
-        private Buttons capturedControllerBinding;
 
         internal delegate void Started(InputCallbackContext context);
         internal delegate void Performed(InputCallbackContext context);
@@ -110,27 +110,6 @@ namespace StardustSandbox.Core.InputSystem.Actions
         private static bool IsMouseCanceling(MouseButton mouseButton)
         {
             return GetMouseState(mouseButton, ButtonState.Released);
-        }
-
-        private bool IsControllerStarting(Buttons button)
-        {
-            return !InputEngine.PreviousGamePadState.IsButtonDown(button) &&
-                    InputEngine.CurrentGamePadState.IsButtonDown(button) &&
-                   !this.started && !this.performed && this.canceled;
-        }
-
-        private bool IsControllerPerforming(Buttons button)
-        {
-            return InputEngine.PreviousGamePadState.IsButtonDown(button) &&
-                   InputEngine.CurrentGamePadState.IsButtonDown(button) &&
-                   this.started && !this.canceled;
-        }
-
-        private bool IsControllerCanceling(Buttons button)
-        {
-            return InputEngine.PreviousGamePadState.IsButtonDown(button) &&
-                  !InputEngine.CurrentGamePadState.IsButtonDown(button) &&
-                   this.started && this.performed && !this.canceled;
         }
 
         private void UpdateStarting()
@@ -218,44 +197,13 @@ namespace StardustSandbox.Core.InputSystem.Actions
             }
         }
 
-        private void HandleControllerInput()
-        {
-            if (this.ControllerBinding is Buttons.None)
-            {
-                return;
-            }
-
-            // Started
-            if (IsControllerStarting(this.ControllerBinding))
-            {
-                this.capturedControllerBinding = this.ControllerBinding;
-                UpdateStarting();
-            }
-
-            // Performed
-            if (IsControllerPerforming(this.ControllerBinding))
-            {
-                this.capturedControllerBinding = this.ControllerBinding;
-                UpdatePerformed();
-            }
-
-            // Canceled
-            if (IsControllerCanceling(this.ControllerBinding))
-            {
-                this.capturedControllerBinding = this.ControllerBinding;
-                UpdateCanceled();
-            }
-        }
-
         internal void Update()
         {
             this.capturedKeyboardBinding = Keys.None;
             this.capturedMouseBinding = MouseButton.None;
-            this.capturedControllerBinding = Buttons.None;
             
             HandleKeyboardInput();
             HandleMouseInput();
-            HandleControllerInput();
         }
     }
 }

@@ -30,7 +30,6 @@ namespace StardustSandbox.Core.UI.Elements
     {
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
-        internal bool IsFocusable { get; set; }
 
         internal int ChildCount => this.children.Count;
         internal UIElement FirstChild => this.children.Count > 0 ? this.children[0] : null;
@@ -109,10 +108,6 @@ namespace StardustSandbox.Core.UI.Elements
                 }
             }
         }
-
-        internal Action OnSelected { get; set; }
-        internal Action<UIElement> OnFocusGained { get; set; }
-        internal Action<UIElement> OnFocusLost { get; set; }
 
         private UIElement parent;
 

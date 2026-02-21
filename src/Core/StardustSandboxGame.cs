@@ -54,6 +54,8 @@ namespace StardustSandbox.Core
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
 
+        private readonly VideoSettings videoSettings;
+
         public StardustSandboxGame(string[] args)
         {
             GameParameters.Start(args);
@@ -77,24 +79,18 @@ namespace StardustSandbox.Core
             this.videoManager = new(gdm, this.Window);
 
             // Load Settings
-            VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
-
-            if (videoSettings.Width == 0 || videoSettings.Height == 0)
-            {
-                videoSettings = videoSettings.UpdateResolution(this.videoManager.GraphicsDevice);
-                SettingsSerializer.Save(videoSettings);
-            }
+            this.videoSettings = SettingsSerializer.Load<VideoSettings>();
 
             // Initialize Content
             this.Content.RootDirectory = IOConstants.ASSETS_DIRECTORY;
 
             // Configure the game's window
-            this.Window.IsBorderless = videoSettings.Borderless;
+            this.Window.IsBorderless = this.videoSettings.Borderless;
             this.Window.Title = GameConstants.GetTitleAndVersionString();
             this.Window.AllowUserResizing = true;
 
             // Configure game settings
-            SetFrameRate(videoSettings.Framerate);
+            SetFrameRate(this.videoSettings.Framerate);
 
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
@@ -111,9 +107,6 @@ namespace StardustSandbox.Core
 
             // Actor Manager
             this.actorManager = new(this.world);
-
-            // Apply video settings
-            this.videoManager.ApplySettings(videoSettings);
         }
 
         internal void SetFrameRate(float framerate)
@@ -137,6 +130,14 @@ namespace StardustSandbox.Core
 
             this.Window.ClientSizeChanged += OnClientSizeChanged;
 
+            if (this.videoSettings.Width == 0 || this.videoSettings.Height == 0)
+            {
+                this.videoSettings.UpdateResolution(this.GraphicsDevice);
+                SettingsSerializer.Save(this.videoSettings);
+            }
+
+            this.videoManager.ApplySettings(this.videoSettings);
+
             base.Initialize();
         }
 
@@ -158,7 +159,7 @@ namespace StardustSandbox.Core
             this.ambientManager.Initialize(this.world);
 
             // Controllers
-            this.inputController.Initialize(this.actorManager, this.uiManager, this.world);
+            this.inputController.Initialize(this.actorManager, this.world);
 
             // Renderer
             GameRenderer.Initialize(this.videoManager);

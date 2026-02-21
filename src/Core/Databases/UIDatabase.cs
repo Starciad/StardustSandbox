@@ -147,6 +147,7 @@ namespace StardustSandbox.Core.Databases
                 cursorManager,
                 keySelectorUI,
                 messageUI,
+                playerInputController,
                 sliderUI,
                 stardustSandboxGame,
                 tooltipBox,

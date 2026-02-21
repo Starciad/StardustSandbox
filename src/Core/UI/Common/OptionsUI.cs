@@ -26,6 +26,7 @@ using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
@@ -62,6 +63,7 @@ namespace StardustSandbox.Core.UI.Common
             CursorManager cursorManager,
             KeySelectorUI keySelectorUI,
             MessageUI messageUI,
+            PlayerInputController playerInputController,
             SliderUI sliderUI,
             StardustSandboxGame stardustSandboxGame,
             TooltipBox tooltipBox,
@@ -161,7 +163,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return string.Concat(MathF.Ceiling(value), '%');
+                            return string.Concat((int)value, '%');
                         },
                         (option, optionSlotInfo) =>
                         {
@@ -210,7 +212,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return string.Concat(MathF.Ceiling(value), '%');
+                            return string.Concat((int)value, '%');
                         },
                         (option, optionSlotInfo) =>
                         {
@@ -265,7 +267,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return string.Concat(MathF.Ceiling(value), '%');
+                            return string.Concat((int)value, '%');
                         },
                         (option, optionSlotInfo) =>
                         {
@@ -297,7 +299,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return string.Concat(MathF.Ceiling(value), '%');
+                            return string.Concat((int)value, '%');
                         },
                         (option, optionSlotInfo) =>
                         {
@@ -328,7 +330,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return string.Concat(MathF.Ceiling(value), '%');
+                            return string.Concat((int)value, '%');
                         },
                         (option, optionSlotInfo) =>
                         {
@@ -366,7 +368,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return string.Concat(MathF.Ceiling(value), " FPS");
+                            return string.Concat((int)value, " FPS");
                         },
                         (option, optionSlotInfo) =>
                         {
@@ -471,237 +473,273 @@ namespace StardustSandbox.Core.UI.Common
                     )
                 ),
 
-                // new(
-                //     Localization_GUIs.Options_Controls_Name,
-                //     Localization_GUIs.Options_Controls_Description,
-                //     TextureIndex.IconUI,
-                //     new Rectangle(192, 256, 32, 32),
-                //     new Option<Keys>(
-                //         Localization_GUIs.Options_Controls_MoveCameraUp_Name,
-                //         Localization_GUIs.Options_Controls_MoveCameraUp_Description,
-                //         OptionType.KeySelector,
-                //         () =>
-                //         {
-                //             return controlSettings.MoveCameraUpKeyboardBinding;
-                //         },
-                //         (value) =>
-                //         {
-                //             return value.ToString();
-                //         },
-                //         (option, optionSlotInfo) =>
-                //         {
-                //             keySelectorUI.Setup(Localization_GUIs.Options_Controls_MoveCameraUp_Description,
-                //                 (newKey) =>
-                //                 {
-                //                     controlSettings.MoveCameraUpKeyboardBinding = newKey;
-                //                     SettingsSerializer.Save(controlSettings);
-                // 
-                //                     optionSlotInfo.Value.TextContent = option.GetValueString();
-                //                 }
-                //             );
-                //         }
-                //     ),
-                //     new Option<Keys>(
-                //         Localization_GUIs.Options_Controls_MoveCameraRight_Name,
-                //         Localization_GUIs.Options_Controls_MoveCameraRight_Description,
-                //         OptionType.KeySelector,
-                //         () =>
-                //         {
-                //             return controlSettings.MoveCameraRightKeyboardBinding;
-                //         },
-                //         (value) =>
-                //         {
-                //             return value.ToString();
-                //         },
-                //         (option, optionSlotInfo) =>
-                //         {
-                //             keySelectorUI.Setup(Localization_GUIs.Options_Controls_MoveCameraRight_Description,
-                //                 (newKey) =>
-                //                 {
-                //                     controlSettings.MoveCameraRight = newKey;
-                //                     SettingsSerializer.Save(controlSettings);
-                // 
-                //                     optionSlotInfo.Value.TextContent = option.GetValueString();
-                //                 }
-                //             );
-                //         }
-                //     ),
-                //     new Option<Keys>(
-                //         Localization_GUIs.Options_Controls_MoveCameraDown_Name,
-                //         Localization_GUIs.Options_Controls_MoveCameraDown_Description,
-                //         OptionType.KeySelector,
-                //         () =>
-                //         {
-                //             return controlSettings.MoveCameraDown;
-                //         },
-                //         (value) =>
-                //         {
-                //             return value.ToString();
-                //         },
-                //         (option, optionSlotInfo) =>
-                //         {
-                //             keySelectorUI.Setup(Localization_GUIs.Options_Controls_MoveCameraDown_Description,
-                //                 (newKey) =>
-                //                 {
-                //                     controlSettings.MoveCameraDown = newKey;
-                //                     SettingsSerializer.Save(controlSettings);
-                // 
-                //                     optionSlotInfo.Value.TextContent = option.GetValueString();
-                //                 }
-                //             );
-                //         }
-                //     ),
-                //     new Option<Keys>(
-                //         Localization_GUIs.Options_Controls_MoveCameraLeft_Name,
-                //         Localization_GUIs.Options_Controls_MoveCameraLeft_Description,
-                //         OptionType.KeySelector,
-                //         () =>
-                //         {
-                //             return controlSettings.MoveCameraLeft;
-                //         },
-                //         (value) =>
-                //         {
-                //             return value.ToString();
-                //         },
-                //         (option, optionSlotInfo) =>
-                //         {
-                //             keySelectorUI.Setup(Localization_GUIs.Options_Controls_MoveCameraLeft_Description,
-                //                 (newKey) =>
-                //                 {
-                //                     controlSettings.MoveCameraLeft = newKey;
-                //                     SettingsSerializer.Save(controlSettings);
-                // 
-                //                     optionSlotInfo.Value.TextContent = option.GetValueString();
-                //                 }
-                //             );
-                //         }
-                //     ),
-                //     new Option<Keys>(
-                //         Localization_GUIs.Options_Controls_MoveCameraFast_Name,
-                //         Localization_GUIs.Options_Controls_MoveCameraFast_Description,
-                //         OptionType.KeySelector,
-                //         () =>
-                //         {
-                //             return controlSettings.MoveCameraFast;
-                //         },
-                //         (value) =>
-                //         {
-                //             return value.ToString();
-                //         },
-                //         (option, optionSlotInfo) =>
-                //         {
-                //             keySelectorUI.Setup(Localization_GUIs.Options_Controls_MoveCameraFast_Description,
-                //                 (newKey) =>
-                //                 {
-                //                     controlSettings.MoveCameraFast = newKey;
-                //                     SettingsSerializer.Save(controlSettings);
-                // 
-                //                     optionSlotInfo.Value.TextContent = option.GetValueString();
-                //                 }
-                //             );
-                //         }
-                //     ),
-                //     new Option<Keys>(
-                //         Localization_GUIs.Options_Controls_TogglePause_Name,
-                //         Localization_GUIs.Options_Controls_TogglePause_Description,
-                //         OptionType.KeySelector,
-                //         () =>
-                //         {
-                //             return controlSettings.TogglePause;
-                //         },
-                //         (value) =>
-                //         {
-                //             return value.ToString();
-                //         },
-                //         (option, optionSlotInfo) =>
-                //         {
-                //             keySelectorUI.Setup(Localization_GUIs.Options_Controls_TogglePause_Description,
-                //                 (newKey) =>
-                //                 {
-                //                     controlSettings.TogglePause = newKey;
-                //                     SettingsSerializer.Save(controlSettings);
-                // 
-                //                     optionSlotInfo.Value.TextContent = option.GetValueString();
-                //                 }
-                //             );
-                //         }
-                //     ),
-                //     new Option<Keys>(
-                //         Localization_GUIs.Options_Controls_ClearWorld_Name,
-                //         Localization_GUIs.Options_Controls_ClearWorld_Description,
-                //         OptionType.KeySelector,
-                //         () =>
-                //         {
-                //             return controlSettings.ClearWorld;
-                //         },
-                //         (value) =>
-                //         {
-                //             return value.ToString();
-                //         },
-                //         (option, optionSlotInfo) =>
-                //         {
-                //             keySelectorUI.Setup(Localization_GUIs.Options_Controls_ClearWorld_Description,
-                //                 (newKey) =>
-                //                 {
-                //                     controlSettings.ClearWorld = newKey;
-                //                     SettingsSerializer.Save(controlSettings);
-                // 
-                //                     optionSlotInfo.Value.TextContent = option.GetValueString();
-                //                 }
-                //             );
-                //         }
-                //     ),
-                //     new Option<Keys>(
-                //         Localization_GUIs.Options_Controls_NextShape_Name,
-                //         Localization_GUIs.Options_Controls_NextShape_Description,
-                //         OptionType.KeySelector,
-                //         () =>
-                //         {
-                //             return controlSettings.NextShape;
-                //         },
-                //         (value) =>
-                //         {
-                //             return value.ToString();
-                //         },
-                //         (option, optionSlotInfo) =>
-                //         {
-                //             keySelectorUI.Setup(Localization_GUIs.Options_Controls_NextShape_Description,
-                //                 (newKey) =>
-                //                 {
-                //                     controlSettings.NextShape = newKey;
-                //                     SettingsSerializer.Save(controlSettings);
-                // 
-                //                     optionSlotInfo.Value.TextContent = option.GetValueString();
-                //                 }
-                //             );
-                //         }
-                //     ),
-                //     new Option<Keys>(
-                //         Localization_GUIs.Options_Controls_Screenshot_Name,
-                //         Localization_GUIs.Options_Controls_Screenshot_Description,
-                //         OptionType.KeySelector,
-                //         () =>
-                //         {
-                //             return controlSettings.Screenshot;
-                //         },
-                //         (value) =>
-                //         {
-                //             return value.ToString();
-                //         },
-                //         (option, optionSlotInfo) =>
-                //         {
-                //             keySelectorUI.Setup(Localization_GUIs.Options_Controls_Screenshot_Description,
-                //                 (newKey) =>
-                //                 {
-                //                     controlSettings.Screenshot = newKey;
-                //                     SettingsSerializer.Save(controlSettings);
-                // 
-                //                     optionSlotInfo.Value.TextContent = option.GetValueString();
-                //                 }
-                //             );
-                //         }
-                //     )
-                // ),
+                new(
+                    Localization_GUIs.Options_Controls_Name,
+                    Localization_GUIs.Options_Controls_Description,
+                    TextureIndex.IconUI,
+                    new Rectangle(192, 256, 32, 32),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_MoveCameraUp_Name,
+                        Localization_GUIs.Options_Controls_MoveCameraUp_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.MoveCameraUpKeyboardBinding;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_MoveCameraUp_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.MoveCameraUpKeyboardBinding = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+                
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                    playerInputController.GameplayInputHandler.GetMap("Camera").GetAction("MoveUp").KeyboardBinding = newKey;
+                                }
+                            );
+
+                            uiManager.OpenUI(UIIndex.KeySelector);
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_MoveCameraRight_Name,
+                        Localization_GUIs.Options_Controls_MoveCameraRight_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.MoveCameraRightKeyboardBinding;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_MoveCameraRight_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.MoveCameraRightKeyboardBinding = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+                
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                    playerInputController.GameplayInputHandler.GetMap("Camera").GetAction("MoveRight").KeyboardBinding = newKey;
+                                }
+                            );
+
+                            uiManager.OpenUI(UIIndex.KeySelector);
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_MoveCameraDown_Name,
+                        Localization_GUIs.Options_Controls_MoveCameraDown_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.MoveCameraDownKeyboardBinding;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_MoveCameraDown_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.MoveCameraDownKeyboardBinding = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+                
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                    playerInputController.GameplayInputHandler.GetMap("Camera").GetAction("MoveDown").KeyboardBinding = newKey;
+                                }
+                            );
+
+                            uiManager.OpenUI(UIIndex.KeySelector);
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_MoveCameraLeft_Name,
+                        Localization_GUIs.Options_Controls_MoveCameraLeft_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.MoveCameraLeftKeyboardBinding;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_MoveCameraLeft_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.MoveCameraLeftKeyboardBinding = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+                
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                    playerInputController.GameplayInputHandler.GetMap("Camera").GetAction("MoveLeft").KeyboardBinding = newKey;
+                                }
+                            );
+
+                            uiManager.OpenUI(UIIndex.KeySelector);
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_MoveCameraFast_Name,
+                        Localization_GUIs.Options_Controls_MoveCameraFast_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.MoveCameraFastKeyboardBinding;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_MoveCameraFast_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.MoveCameraFastKeyboardBinding = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+                
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                    playerInputController.GameplayInputHandler.GetMap("Camera").GetAction("MoveFast").KeyboardBinding = newKey;
+                                }
+                            );
+
+                            uiManager.OpenUI(UIIndex.KeySelector);
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_TogglePause_Name,
+                        Localization_GUIs.Options_Controls_TogglePause_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.TogglePauseKeyboardBinding;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_TogglePause_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.TogglePauseKeyboardBinding = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+                
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                    playerInputController.GameplayInputHandler.GetMap("Simulation").GetAction("TogglePause").KeyboardBinding = newKey;
+                                }
+                            );
+
+                            uiManager.OpenUI(UIIndex.KeySelector);
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_ClearWorld_Name,
+                        Localization_GUIs.Options_Controls_ClearWorld_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.ClearWorldKeyboardBinding;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_ClearWorld_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.ClearWorldKeyboardBinding = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+                
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                    playerInputController.GameplayInputHandler.GetMap("Simulation").GetAction("ClearWorld").KeyboardBinding = newKey;
+                                }
+                            );
+
+                            uiManager.OpenUI(UIIndex.KeySelector);
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_NextShape_Name,
+                        Localization_GUIs.Options_Controls_NextShape_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.NextShapeKeyboardBinding;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_NextShape_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.NextShapeKeyboardBinding = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+                
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                    playerInputController.GameplayInputHandler.GetMap("Simulation").GetAction("NextShape").KeyboardBinding = newKey;
+                                }
+                            );
+
+                            uiManager.OpenUI(UIIndex.KeySelector);
+                        }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_Screenshot_Name,
+                        Localization_GUIs.Options_Controls_Screenshot_Description,
+                        OptionType.KeySelector,
+                        () =>
+                        {
+                            return controlSettings.ScreenshotKeyboardBinding;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_Screenshot_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.ScreenshotKeyboardBinding = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+                
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                    playerInputController.SystemInputHandler.GetMap("General").GetAction("Screenshot").KeyboardBinding = newKey;
+                                }
+                            );
+
+                            uiManager.OpenUI(UIIndex.KeySelector);
+                        }
+                    )
+                ),
 
                 new(
                     Localization_GUIs.Options_Cursor_Name,
@@ -772,7 +810,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return string.Concat(MathF.Ceiling(value), "%");
+                            return string.Concat((int)value, "%");
                         },
                         (option, optionSlotInfo) =>
                         {
@@ -803,7 +841,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (value) =>
                         {
-                            return string.Concat(MathF.Ceiling(value), '%');
+                            return string.Concat((int)value, '%');
                         },
                         (option, optionSlotInfo) =>
                         {

@@ -69,10 +69,10 @@ namespace StardustSandbox.Core.Serialization.Settings
         public GameplaySettings()
         {
             this.ShowPreviewArea = true;
-            this.PreviewAreaColor = AAP64ColorPalette.White;
-            this.PreviewAreaColorOpacity = 0.8f;
+            this.PreviewAreaColor = AAP64ColorPalette.DarkGray;
+            this.PreviewAreaColorOpacity = 0.15f;
             this.ShowGrid = true;
-            this.GridOpacity = 0.96f;
+            this.GridOpacity = 0.1f;
             this.ShowTemperatureColorVariations = true;
         }
     }

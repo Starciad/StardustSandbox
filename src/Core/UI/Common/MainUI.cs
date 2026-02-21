@@ -40,14 +40,14 @@ namespace StardustSandbox.Core.UI.Common
     internal sealed class MainUI : UIBase
     {
         private Image shadowBackground, theatricalCurtains, gameTitle;
-        private SlotInfo[] headerButtonSlotInfos;
+        private SlotInfo[] topButtonSlotInfos;
 
         private float animationTime;
 
         private readonly float[] buttonAnimationOffsets;
 
-        private readonly Label[] generalButtonLabels;
-        private readonly ButtonInfo[] generalButtonInfos, headerButtonInfos;
+        private readonly Label[] menuButtonLabels;
+        private readonly ButtonInfo[] menuButtonInfos, topButtonInfos;
 
         private readonly ActorManager actorManager;
         private readonly PlayerInputController inputController;
@@ -70,7 +70,7 @@ namespace StardustSandbox.Core.UI.Common
             this.uiManager = uiManager;
             this.world = world;
 
-            this.generalButtonInfos = [
+            this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, () => GameHandler.StartGame(actorManager, ambientManager, inputController, uiManager, world)),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Play, string.Empty, () => this.uiManager.OpenUI(UIIndex.Play)),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Options, string.Empty, () =>
@@ -82,19 +82,19 @@ namespace StardustSandbox.Core.UI.Common
                 new(TextureIndex.None, null, Localization_GUIs.Main_Quit, string.Empty, stardustSandboxGame.Exit)
             ];
 
-            this.headerButtonInfos = [
+            this.topButtonInfos = [
                 new(TextureIndex.IconUI, new(320, 160, 32, 32), string.Empty, string.Empty, () => this.uiManager.OpenUI(UIIndex.Achievements))
             ];
 
-            this.generalButtonLabels = new Label[this.generalButtonInfos.Length];
-            this.buttonAnimationOffsets = new float[this.generalButtonLabels.Length];
+            this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
+            this.buttonAnimationOffsets = new float[this.menuButtonLabels.Length];
         }
 
         protected override void OnBuild(Container root)
         {
             BuildBackground(root);
-            BuildGeneralButtons();
-            BuildHeaderButtons(root);
+            BuildMenuButtons();
+            BuildTopButtons(root);
             BuildInfos(root);
         }
 
@@ -161,13 +161,13 @@ namespace StardustSandbox.Core.UI.Common
             root.AddChild(copyrightLabel);
         }
 
-        private void BuildGeneralButtons()
+        private void BuildMenuButtons()
         {
             float marginY = 0f;
 
-            for (int i = 0; i < this.generalButtonLabels.Length; i++)
+            for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
-                ButtonInfo info = this.generalButtonInfos[i];
+                ButtonInfo info = this.menuButtonInfos[i];
 
                 Label label = new()
                 {
@@ -177,42 +177,24 @@ namespace StardustSandbox.Core.UI.Common
                     Alignment = UIDirection.Center,
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     TextContent = info.Name,
-                    IsFocusable = true,
 
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderDirections = LabelBorderDirection.All,
                     BorderOffset = 4.0f,
                     BorderThickness = 4.0f,
-
-                    OnSelected = () =>
-                    {
-                        SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                        info.ClickAction?.Invoke();
-                    },
-
-                    OnFocusGained = (element) =>
-                    {
-                        SoundEngine.Play(SoundEffectIndex.GUI_Hover);
-                        ((Label)element).Color = AAP64ColorPalette.LemonYellow;
-                    },
-
-                    OnFocusLost = (element) =>
-                    {
-                        ((Label)element).Color = AAP64ColorPalette.White;
-                    }
                 };
 
                 this.shadowBackground.AddChild(label);
-                this.generalButtonLabels[i] = label;
+                this.menuButtonLabels[i] = label;
                 marginY += 75.0f;
             }
         }
 
-        private void BuildHeaderButtons(Container root)
+        private void BuildTopButtons(Container root)
         {
-            this.headerButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+            this.topButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
                 root,
-                this.headerButtonInfos,
+                this.topButtonInfos,
                 new(-16.0f, 16.0f),
                 -80.0f,
                 UIDirection.Northeast
@@ -231,7 +213,8 @@ namespace StardustSandbox.Core.UI.Common
         protected override void OnUpdate(GameTime gameTime)
         {
             UpdateAnimations(gameTime);
-            // UpdateHeaderButtons();
+            UpdateMenuButtons();
+            UpdateTopButtons();
         }
 
         private void UpdateAnimations(GameTime gameTime)
@@ -244,9 +227,9 @@ namespace StardustSandbox.Core.UI.Common
                 32.0f + (MathF.Sin(this.animationTime) * UIConstants.MAIN_ANIMATION_AMPLITUDE)
             );
 
-            for (int i = 0; i < this.generalButtonLabels.Length; i++)
+            for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
-                Label button = this.generalButtonLabels[i];
+                Label button = this.menuButtonLabels[i];
                 this.buttonAnimationOffsets[i] += elapsedTime * UIConstants.MAIN_BUTTON_ANIMATION_SPEED;
 
                 button.Margin = new(
@@ -256,27 +239,49 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        // private void UpdateHeaderButtons()
-        // {
-        //     for (int i = 0; i < this.headerButtonInfos.Length; i++)
-        //     {
-        //         SlotInfo slotInfo = this.headerButtonSlotInfos[i];
-        // 
-        //         // if (Interaction.OnMouseEnter(slotInfo.Background))
-        //         // {
-        //         //     SoundEngine.Play(SoundEffectIndex.GUI_Hover);
-        //         // }
-        // 
-        //         if (slotInfo.Background.IsSelected)
-        //         {
-        //             SoundEngine.Play(SoundEffectIndex.GUI_Click);
-        //             this.headerButtonInfos[i].ClickAction?.Invoke();
-        //             break;
-        //         }
-        // 
-        //         slotInfo.Background.Color = slotInfo.Background.IsFocused ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
-        //     }
-        // }
+        private void UpdateMenuButtons()
+        {
+            for (int i = 0; i < this.menuButtonLabels.Length; i++)
+            {
+                Label label = this.menuButtonLabels[i];
+
+                if (Interaction.OnMouseEnter(label))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
+                if (Interaction.OnMouseLeftClick(label))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    this.menuButtonInfos[i].ClickAction?.Invoke();
+                    break;
+                }
+
+                label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+            }
+        }
+
+        private void UpdateTopButtons()
+        {
+            for (int i = 0; i < this.topButtonInfos.Length; i++)
+            {
+                SlotInfo slotInfo = this.topButtonSlotInfos[i];
+
+                if (Interaction.OnMouseEnter(slotInfo.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                }
+
+                if (Interaction.OnMouseLeftClick(slotInfo.Background))
+                {
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    this.topButtonInfos[i].ClickAction?.Invoke();
+                    break;
+                }
+
+                slotInfo.Background.Color = Interaction.OnMouseOver(slotInfo.Background) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
+            }
+        }
 
         protected override void OnOpened()
         {
@@ -285,9 +290,9 @@ namespace StardustSandbox.Core.UI.Common
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.MainMenu);
             this.gameTitle.Margin = Vector2.Zero;
 
-            for (int i = 0; i < this.generalButtonLabels.Length; i++)
+            for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
-                this.generalButtonLabels[i].Margin = Vector2.Zero;
+                this.menuButtonLabels[i].Margin = Vector2.Zero;
                 this.buttonAnimationOffsets[i] = Randomness.Random.GetFloat() * MathF.PI * 2.0f;
             }
 
@@ -304,4 +309,3 @@ namespace StardustSandbox.Core.UI.Common
         }
     }
 }
-

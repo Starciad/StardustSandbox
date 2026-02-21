@@ -15,6 +15,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System;
+
 namespace StardustSandbox.Core.InputSystem.Actions
 {
     internal sealed class InputActionMapHandler
@@ -39,7 +41,7 @@ namespace StardustSandbox.Core.InputSystem.Actions
             }
         }
 
-        internal void Enable()
+        internal void EnableAll()
         {
             for (int i = 0; i < this.maps.Length; i++)
             {
@@ -47,12 +49,17 @@ namespace StardustSandbox.Core.InputSystem.Actions
             }
         }
 
-        internal void Disable()
+        internal void DisableAll()
         {
             for (int i = 0; i < this.maps.Length; i++)
             {
                 this.maps[i].IsActivated = false;
             }
+        }
+
+        internal InputActionMap GetMap(string name)
+        {
+            return Array.Find(this.maps, x => x.Name == name);
         }
     }
 }

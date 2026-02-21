@@ -38,11 +38,11 @@ namespace StardustSandbox.Core.InputSystem
         internal Pen Pen => this.pen;
         internal Player Player => this.player;
 
-        private WorldHandler worldHandler;
+        internal InputActionMapHandler GameplayInputHandler => this.gameplayInputHandler;
+        internal InputActionMapHandler SystemInputHandler => this.systemInputHandler;
 
-        private InputActionMapHandler systemInputHandler;
-        private InputActionMapHandler uiInputHandler;
-        private InputActionMapHandler gameplayInputHandler;
+        private WorldHandler worldHandler;
+        private InputActionMapHandler systemInputHandler, gameplayInputHandler;
 
         private readonly Pen pen;
         private readonly Player player;
@@ -53,17 +53,15 @@ namespace StardustSandbox.Core.InputSystem
             this.player = new();
         }
 
-        internal void Initialize(ActorManager actorManager, UIManager uiManager, World world)
+        internal void Initialize(ActorManager actorManager, World world)
         {
             this.worldHandler = new(actorManager, this.pen, this.player, world);
 
             ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
 
-            this.systemInputHandler = new([
-                #region Keyboard
-
-                new(
-                    new InputAction()
+            this.systemInputHandler = new(
+                new InputActionMap("General",
+                    new InputAction("Screenshot")
                     {
                         KeyboardBinding = controlSettings.ScreenshotKeyboardBinding,
                         OnStarted = _ =>
@@ -72,128 +70,72 @@ namespace StardustSandbox.Core.InputSystem
                             GameRenderer.RequestScreenshot();
                         },
                     }
-                ),
-
-                #endregion
-            ]);
-
-            this.uiInputHandler = new(
-                // UI
-                new InputActionMap(
-                    // Moving
-                    new InputAction()
-                    {
-                        KeyboardBinding = controlSettings.UINavigateUpKeyboardBinding,
-                        ControllerBinding = controlSettings.UINavigateUpControllerBinding,
-                        OnStarted = _ => uiManager.CurrentUI.FocusHandler.Move(Direction.Up),
-                    },
-
-                    new InputAction()
-                    {
-                        KeyboardBinding = controlSettings.UINavigateRightKeyboardBinding,
-                        ControllerBinding = controlSettings.UINavigateRightControllerBinding,
-                        OnStarted = _ => uiManager.CurrentUI.FocusHandler.Move(Direction.Right),
-                    },
-
-                    new InputAction()
-                    {
-                        KeyboardBinding = controlSettings.UINavigateDownKeyboardBinding,
-                        ControllerBinding = controlSettings.UINavigateDownControllerBinding,
-                        OnStarted = _ => uiManager.CurrentUI.FocusHandler.Move(Direction.Down),
-                    },
-
-                    new InputAction()
-                    {
-                        KeyboardBinding = controlSettings.UINavigateLeftKeyboardBinding,
-                        ControllerBinding = controlSettings.UINavigateLeftControllerBinding,
-                        OnStarted = _ => uiManager.CurrentUI.FocusHandler.Move(Direction.Left),
-                    },
-
-                    // Select
-                    new InputAction()
-                    {
-                        KeyboardBinding = controlSettings.UISelectKeyboardBinding,
-                        ControllerBinding = controlSettings.UISelectControllerBinding,
-                        OnStarted = _ => uiManager.CurrentUI.FocusHandler.Select(),
-                    }
                 )
             );
 
             this.gameplayInputHandler = new(
-                // Camera
-                new InputActionMap(
+                new InputActionMap("Camera",
                     // Moving
-                    new InputAction()
+                    new InputAction("MoveUp")
                     {
                         KeyboardBinding = controlSettings.MoveCameraUpKeyboardBinding,
-                        ControllerBinding = controlSettings.MoveCameraUpControllerBinding,
                         OnPerformed = _ => Camera.MoveUp(this.player.MovementSpeed),
                     },
 
-                    new InputAction()
+                    new InputAction("MoveRight")
                     {
                         KeyboardBinding = controlSettings.MoveCameraRightKeyboardBinding,
-                        ControllerBinding = controlSettings.MoveCameraRightControllerBinding,
                         OnPerformed = _ => Camera.MoveRight(this.player.MovementSpeed),
                     },
 
-                    new InputAction()
+                    new InputAction("MoveDown")
                     {
                         KeyboardBinding = controlSettings.MoveCameraDownKeyboardBinding,
-                        ControllerBinding = controlSettings.MoveCameraDownControllerBinding,
                         OnPerformed = _ => Camera.MoveDown(this.player.MovementSpeed),
                     },
 
-                    new InputAction()
+                    new InputAction("MoveLeft")
                     {
                         KeyboardBinding = controlSettings.MoveCameraLeftKeyboardBinding,
-                        ControllerBinding = controlSettings.MoveCameraLeftControllerBinding,
                         OnPerformed = _ => Camera.MoveLeft(this.player.MovementSpeed),
                     },
 
                     // Zooming
-                    new InputAction()
+                    new InputAction("ZoomIn")
                     {
                         KeyboardBinding = controlSettings.ZoomCameraInKeyboardBinding,
-                        ControllerBinding = controlSettings.ZoomCameraOutControllerBinding,
                         OnPerformed = _ => Camera.FadeIn(this.player.ZoomingSpeed),
                     },
 
-                    new InputAction()
+                    new InputAction("ZoomOut")
                     {
                         KeyboardBinding = controlSettings.ZoomCameraOutKeyboardBinding,
-                        ControllerBinding = controlSettings.ZoomCameraInControllerBinding,
                         OnPerformed = _ => Camera.FadeOut(this.player.ZoomingSpeed),
                     },
 
                     // Running
-                    new InputAction()
+                    new InputAction("MoveFast")
                     {
                         KeyboardBinding = controlSettings.MoveCameraFastKeyboardBinding,
-                        ControllerBinding = controlSettings.MoveCameraFastControllerBinding,
                         OnStarted = _ => this.player.IsRunning = true,
                         OnCanceled = _ => this.player.IsRunning = false,
                     }
                 ),
 
-                // Simulation
-                new(
-                    new InputAction()
+                new("Simulation",
+                    new InputAction("TooglePause")
                     {
                         KeyboardBinding = controlSettings.TogglePauseKeyboardBinding,
                         OnStarted = _ => GameHandler.ToggleState(GameStates.IsSimulationPaused),
                     },
 
-                    new InputAction()
+                    new InputAction("NextShape")
                     {
                         KeyboardBinding = controlSettings.NextShapeKeyboardBinding,
                         OnStarted = _ => this.pen.Shape = this.pen.Shape.Next(),
-                    }
-                ),
-                
-                // World
-                new(
-                    new InputAction()
+                    },
+
+                    new InputAction("ClearWorld")
                     {
                         KeyboardBinding = controlSettings.ClearWorldKeyboardBinding,
                         OnStarted = _ => GameHandler.Reset(actorManager, world),
@@ -201,15 +143,15 @@ namespace StardustSandbox.Core.InputSystem
                 ),
 
                 // Mouse
-                new(
-                    new InputAction()
+                new("Mouse",
+                    new InputAction("Adding")
                     {
                         MouseBinding = MouseButton.Left,
                         OnStarted = _ => this.worldHandler.Modify(WorldModificationType.Adding, InputState.Started),
                         OnPerformed = _ => this.worldHandler.Modify(WorldModificationType.Adding, InputState.Performed),
                     },
 
-                    new InputAction()
+                    new InputAction("Removing")
                     {
                         MouseBinding = MouseButton.Right,
                         OnStarted = _ => this.worldHandler.Modify(WorldModificationType.Removing, InputState.Started),
@@ -224,7 +166,6 @@ namespace StardustSandbox.Core.InputSystem
             UpdatePlaceAreaSize();
 
             this.systemInputHandler.Update();
-            this.uiInputHandler.Update();
             this.gameplayInputHandler.Update();
         }
 
@@ -247,12 +188,12 @@ namespace StardustSandbox.Core.InputSystem
 
         internal void Enable()
         {
-            this.gameplayInputHandler.Enable();
+            this.gameplayInputHandler.EnableAll();
         }
 
         internal void Disable()
         {
-            this.gameplayInputHandler.Disable();
+            this.gameplayInputHandler.DisableAll();
         }
     }
 }
