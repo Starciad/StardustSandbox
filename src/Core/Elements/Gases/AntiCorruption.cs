@@ -46,7 +46,7 @@ namespace StardustSandbox.Core.Elements.Gases
                 }
 
                 Slot slot = neighbors.GetSlot(i);
-                SlotLayer layer = slot.GetLayer(context.Layer);
+                SlotLayer layer = slot.GetLayer(context.CurrentLayer);
 
                 if (!layer.IsEmpty &&
                     layer.ElementIndex is not ElementIndex.AntiCorruption &&
@@ -55,7 +55,7 @@ namespace StardustSandbox.Core.Elements.Gases
                     ElementIndex originalElementIndex = layer.StoredElementIndex;
 
                     context.ReplaceElement(slot.Position, ElementIndex.AntiCorruption);
-                    context.SetStoredElement(slot.Position, context.Layer, originalElementIndex);
+                    context.SetStoredElement(slot.Position, context.CurrentLayer, originalElementIndex);
                 }
             }
         }

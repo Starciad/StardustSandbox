@@ -40,7 +40,7 @@ namespace StardustSandbox.Core.Elements.Energies
             {
                 // Adjust combustion chance based on the element's flammability resistance
                 int combustionChance = ElementConstants.CHANCE_OF_COMBUSTION;
-                bool isAbove = slot.Position.Y < context.Slot.Position.Y;
+                bool isAbove = slot.Position.Y < context.CurrentSlot.Position.Y;
 
                 // Increase chance of combustion if the element is directly above
                 if (isAbove)
@@ -113,18 +113,18 @@ namespace StardustSandbox.Core.Elements.Energies
                 return;
             }
 
-            Point targetPosition = new(context.Slot.Position.X + Random.Range(-1, 1), context.Slot.Position.Y - 1);
+            Point targetPosition = new(context.CurrentSlot.Position.X + Random.Range(-1, 1), context.CurrentSlot.Position.Y - 1);
 
             if (context.IsEmptySlot(targetPosition))
             {
-                if (context.TrySetPosition(targetPosition, context.Layer))
+                if (context.TrySetPosition(targetPosition, context.CurrentLayer))
                 {
                     return;
                 }
             }
             else
             {
-                if (!context.TryGetElement(targetPosition, context.Layer, out ElementIndex index))
+                if (!context.TryGetElement(targetPosition, context.CurrentLayer, out ElementIndex index))
                 {
                     return;
                 }

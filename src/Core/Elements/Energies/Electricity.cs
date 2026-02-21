@@ -45,7 +45,7 @@ namespace StardustSandbox.Core.Elements.Energies
                 // If electricity has no stored element, it means that it is not being conducted.
                 // Then, it will fall until it finds a conductor or disappears.
 
-                Point belowPosition = new(context.Position.X + Random.Range(-1, 1), context.Position.Y + 1);
+                Point belowPosition = new(context.CurrentPosition.X + Random.Range(-1, 1), context.CurrentPosition.Y + 1);
 
                 if (!context.TryUpdateElementPosition(belowPosition))
                 {
@@ -63,7 +63,7 @@ namespace StardustSandbox.Core.Elements.Energies
                     continue;
                 }
 
-                ElectricityUtility.Electrify(context, neighbors.GetNeighborPosition(i), context.Layer);
+                ElectricityUtility.Electrify(context, neighbors.GetNeighborPosition(i), context.CurrentLayer);
             }
         }
     }

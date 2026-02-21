@@ -27,12 +27,12 @@ namespace StardustSandbox.Core.Elements.Liquids
         {
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer))
                 {
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex)
                 {
                     case ElementIndex.Acid:
                     case ElementIndex.Wall:
@@ -50,7 +50,7 @@ namespace StardustSandbox.Core.Elements.Liquids
 
                 if (Random.GetBool())
                 {
-                    context.DestroyElement(neighbors.GetNeighborPosition(i), context.Layer);
+                    context.DestroyElement(neighbors.GetNeighborPosition(i), context.CurrentLayer);
                     context.DestroyElement();
                     GameStatistics.IncrementWorldCorrodedElements();
                 }

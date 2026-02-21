@@ -42,7 +42,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                     continue;
                 }
 
-                SlotLayer layer = neighbors.GetSlotLayer(i, context.Layer);
+                SlotLayer layer = neighbors.GetSlotLayer(i, context.CurrentLayer);
 
                 if (!layer.IsEmpty && layer.Element.HasCharacteristic(ElementCharacteristics.IsElectrified))
                 {

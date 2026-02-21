@@ -102,7 +102,7 @@ namespace StardustSandbox.Core.Elements
             for (int i = 0; i < blobInfos.Length; i++)
             {
                 // Get element from target position.
-                if (context.TryGetElement(blobInfos[i].Position, context.Layer, out ElementIndex targetElement))
+                if (context.TryGetElement(blobInfos[i].Position, context.CurrentLayer, out ElementIndex targetElement))
                 {
                     // Check conditions for addition to blob value. If you fail, just continue to the next iteration.
                     if (targetElement != elementIndex)
@@ -237,7 +237,7 @@ namespace StardustSandbox.Core.Elements
 
         private static void DrawPixelElementRoutine(ElementContext context, SpriteBatch spriteBatch, GameplaySettings gameplaySettings)
         {
-            SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
+            SlotLayer slotLayer = context.CurrentSlot.GetLayer(context.CurrentLayer);
 
             Color referenceColor = slotLayer.Element.ReferenceColor;
             Color colorModifier = slotLayer.ColorModifier;
@@ -247,7 +247,7 @@ namespace StardustSandbox.Core.Elements
                 colorModifier = TemperatureConstants.ApplyHeatColor(colorModifier, slotLayer.Temperature);
             }
 
-            if (context.Layer == Layer.Background)
+            if (context.CurrentLayer == Layer.Background)
             {
                 colorModifier = colorModifier.Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
             }
@@ -259,12 +259,12 @@ namespace StardustSandbox.Core.Elements
                 referenceColor.A
             );
 
-            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Pixel), new Vector2(context.Slot.Position.X, context.Slot.Position.Y) * WorldConstants.GRID_SIZE, null, finalColor, 0f, Vector2.Zero, new Vector2(WorldConstants.GRID_SIZE), SpriteEffects.None, 0f);
+            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Pixel), new Vector2(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y) * WorldConstants.GRID_SIZE, null, finalColor, 0f, Vector2.Zero, new Vector2(WorldConstants.GRID_SIZE), SpriteEffects.None, 0f);
         }
 
         private static void DrawBlobElementRoutine(ElementContext context, in ElementIndex elementIndex, SpriteBatch spriteBatch, in Point textureOriginOffset, GameplaySettings gameplaySettings)
         {
-            SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
+            SlotLayer slotLayer = context.CurrentSlot.GetLayer(context.CurrentLayer);
             Color colorModifier = slotLayer.ColorModifier;
 
             if (gameplaySettings.ShowTemperatureColorVariations)
@@ -272,23 +272,23 @@ namespace StardustSandbox.Core.Elements
                 colorModifier = TemperatureConstants.ApplyHeatColor(slotLayer.ColorModifier, slotLayer.Temperature);
             }
 
-            if (context.Layer == Layer.Background)
+            if (context.CurrentLayer == Layer.Background)
             {
                 colorModifier = colorModifier.Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
             }
 
-            UpdateSpritePositions(context.Slot.Position);
+            UpdateSpritePositions(context.CurrentSlot.Position);
 
             for (int i = 0; i < ElementConstants.SPRITE_DIVISIONS_LENGTH; i++)
             {
-                UpdateSpriteSlice(context, elementIndex, i, context.Slot.Position);
+                UpdateSpriteSlice(context, elementIndex, i, context.CurrentSlot.Position);
                 spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Elements), spritePositions[i], new(textureOriginOffset + spriteClipAreas[i].Location, spriteClipAreas[i].Size), colorModifier, 0.0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.0f);
             }
         }
 
         private static void DrawSingleElementRoutine(ElementContext context, SpriteBatch spriteBatch, in Point textureOriginOffset, in GameplaySettings gameplaySettings)
         {
-            SlotLayer slotLayer = context.Slot.GetLayer(context.Layer);
+            SlotLayer slotLayer = context.CurrentSlot.GetLayer(context.CurrentLayer);
             Color colorModifier = slotLayer.ColorModifier;
 
             if (gameplaySettings.ShowTemperatureColorVariations)
@@ -296,12 +296,12 @@ namespace StardustSandbox.Core.Elements
                 colorModifier = TemperatureConstants.ApplyHeatColor(slotLayer.ColorModifier, slotLayer.Temperature);
             }
 
-            if (context.Layer == Layer.Background)
+            if (context.CurrentLayer == Layer.Background)
             {
                 colorModifier = colorModifier.Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
             }
 
-            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Elements), new Vector2(context.Slot.Position.X, context.Slot.Position.Y) * WorldConstants.GRID_SIZE, new(textureOriginOffset, new(32)), colorModifier, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Elements), new Vector2(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y) * WorldConstants.GRID_SIZE, new(textureOriginOffset, new(32)), colorModifier, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }
 
         internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, in Point textureOriginOffset, in GameplaySettings gameplaySettings)

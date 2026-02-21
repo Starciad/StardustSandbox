@@ -30,8 +30,8 @@ namespace StardustSandbox.Core.Elements.Liquids.Paints
         {
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer) ||
-                    neighbors.GetSlotLayer(i, context.Layer).ElementIndex == this.Index)
+                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer) ||
+                    neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex == this.Index)
                 {
                     continue;
                 }

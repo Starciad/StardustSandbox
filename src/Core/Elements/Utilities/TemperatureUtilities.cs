@@ -29,13 +29,13 @@ namespace StardustSandbox.Core.Elements.Utilities
         {
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer) ||
-                    !neighbors.GetSlotLayer(i, context.Layer).Element.HasCharacteristic(ElementCharacteristics.HasTemperature))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer) ||
+                    !neighbors.GetSlotLayer(i, context.CurrentLayer).Element.HasCharacteristic(ElementCharacteristics.HasTemperature))
                 {
                     continue;
                 }
 
-                ApplyTemperature(context, neighbors.GetNeighborPosition(i), neighbors.GetSlotLayer(i, context.Layer), temperatureModifierMode);
+                ApplyTemperature(context, neighbors.GetNeighborPosition(i), neighbors.GetSlotLayer(i, context.CurrentLayer), temperatureModifierMode);
             }
         }
 
@@ -57,7 +57,7 @@ namespace StardustSandbox.Core.Elements.Utilities
                     break;
             }
 
-            context.SetElementTemperature(targetPosition, context.Layer, result);
+            context.SetElementTemperature(targetPosition, context.CurrentLayer, result);
         }
     }
 }

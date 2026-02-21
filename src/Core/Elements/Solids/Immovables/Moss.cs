@@ -50,12 +50,12 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer))
                 {
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex)
                 {
                     case ElementIndex.Dirt:
                     case ElementIndex.Mud:
@@ -90,7 +90,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                         // For each valid neighbor, add the two eligible positions.
                         for (int j = 0; j < 2; j++)
                         {
-                            _ = eligiblePositions.Add(context.Position + eligibleSpreadPositions[i][j]);
+                            _ = eligiblePositions.Add(context.CurrentPosition + eligibleSpreadPositions[i][j]);
                         }
 
                         break;
@@ -118,7 +118,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                 return;
             }
 
-            context.InstantiateElement(availablePositions.GetRandomItem(), context.Layer, ElementIndex.Moss);
+            context.InstantiateElement(availablePositions.GetRandomItem(), context.CurrentLayer, ElementIndex.Moss);
         }
 
         protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
