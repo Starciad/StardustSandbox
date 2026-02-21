@@ -64,6 +64,7 @@ namespace StardustSandbox.Core.UI.Common
             KeySelectorUI keySelectorUI,
             MessageUI messageUI,
             PlayerInputController playerInputController,
+            SelectorUI selectorUI,
             SliderUI sliderUI,
             StardustSandboxGame stardustSandboxGame,
             TooltipBox tooltipBox,
@@ -101,6 +102,10 @@ namespace StardustSandbox.Core.UI.Common
 
                         }
                     )
+                    {
+                        Options = LocalizationConstants.AVAILABLE_GAME_CULTURES,
+                        RequiresApplicationRestart = true
+                    }
                 ),
 
                 new(
@@ -497,7 +502,7 @@ namespace StardustSandbox.Core.UI.Common
                                 {
                                     controlSettings.MoveCameraUpKeyboardBinding = newKey;
                                     SettingsSerializer.Save(controlSettings);
-                
+
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
                                     playerInputController.GameplayInputHandler.GetMap("Camera").GetAction("MoveUp").KeyboardBinding = newKey;
@@ -526,7 +531,7 @@ namespace StardustSandbox.Core.UI.Common
                                 {
                                     controlSettings.MoveCameraRightKeyboardBinding = newKey;
                                     SettingsSerializer.Save(controlSettings);
-                
+
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
                                     playerInputController.GameplayInputHandler.GetMap("Camera").GetAction("MoveRight").KeyboardBinding = newKey;
@@ -555,7 +560,7 @@ namespace StardustSandbox.Core.UI.Common
                                 {
                                     controlSettings.MoveCameraDownKeyboardBinding = newKey;
                                     SettingsSerializer.Save(controlSettings);
-                
+
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
                                     playerInputController.GameplayInputHandler.GetMap("Camera").GetAction("MoveDown").KeyboardBinding = newKey;
@@ -584,7 +589,7 @@ namespace StardustSandbox.Core.UI.Common
                                 {
                                     controlSettings.MoveCameraLeftKeyboardBinding = newKey;
                                     SettingsSerializer.Save(controlSettings);
-                
+
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
                                     playerInputController.GameplayInputHandler.GetMap("Camera").GetAction("MoveLeft").KeyboardBinding = newKey;
@@ -613,7 +618,7 @@ namespace StardustSandbox.Core.UI.Common
                                 {
                                     controlSettings.MoveCameraFastKeyboardBinding = newKey;
                                     SettingsSerializer.Save(controlSettings);
-                
+
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
                                     playerInputController.GameplayInputHandler.GetMap("Camera").GetAction("MoveFast").KeyboardBinding = newKey;
@@ -642,7 +647,7 @@ namespace StardustSandbox.Core.UI.Common
                                 {
                                     controlSettings.TogglePauseKeyboardBinding = newKey;
                                     SettingsSerializer.Save(controlSettings);
-                
+
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
                                     playerInputController.GameplayInputHandler.GetMap("Simulation").GetAction("TogglePause").KeyboardBinding = newKey;
@@ -671,7 +676,7 @@ namespace StardustSandbox.Core.UI.Common
                                 {
                                     controlSettings.ClearWorldKeyboardBinding = newKey;
                                     SettingsSerializer.Save(controlSettings);
-                
+
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
                                     playerInputController.GameplayInputHandler.GetMap("Simulation").GetAction("ClearWorld").KeyboardBinding = newKey;
@@ -700,7 +705,7 @@ namespace StardustSandbox.Core.UI.Common
                                 {
                                     controlSettings.NextShapeKeyboardBinding = newKey;
                                     SettingsSerializer.Save(controlSettings);
-                
+
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
                                     playerInputController.GameplayInputHandler.GetMap("Simulation").GetAction("NextShape").KeyboardBinding = newKey;
@@ -729,7 +734,7 @@ namespace StardustSandbox.Core.UI.Common
                                 {
                                     controlSettings.ScreenshotKeyboardBinding = newKey;
                                     SettingsSerializer.Save(controlSettings);
-                
+
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
                                     playerInputController.SystemInputHandler.GetMap("General").GetAction("Screenshot").KeyboardBinding = newKey;

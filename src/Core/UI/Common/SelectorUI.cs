@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,36 +15,19 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Enums.UI
-{
-    internal enum UIIndex : sbyte
-    {
-        None = -1,
+using StardustSandbox.Core.UI.Elements;
 
-        Achievements,
-        ColorPicker,
-        Confirm,
-        Credits,
-        EnvironmentSettings,
-        GeneratorSettings,
-        Hud,
-        Information,
-        ItemExplorer,
-        ItemSearch,
-        KeySelector,
-        Main,
-        Message,
-        Options,
-        Pause,
-        PenSettings,
-        Play,
-        Save,
-        Selector,
-        Slider,
-        TemperatureSettings,
-        TextInput,
-        WorldDetails,
-        WorldExplorer,
-        WorldSettings,
+namespace StardustSandbox.Core.UI.Common
+{
+    internal sealed class SelectorUI : UIBase
+    {
+        internal SelectorUI(
+        ) : base()
+        {
+        }
+        protected override void OnBuild(Container root)
+        {
+
+        }
     }
 }

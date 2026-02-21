@@ -40,6 +40,8 @@ namespace StardustSandbox.Core.UI.Common
             string Name { get; }
             string Description { get; }
             OptionType Type { get; }
+            object[] Options { get; }
+            bool RequiresApplicationRestart { get; }
 
             void SetValue(OptionSlotInfo optionSlotInfo);
 
@@ -52,6 +54,8 @@ namespace StardustSandbox.Core.UI.Common
             public string Name => name;
             public string Description => description;
             public OptionType Type => type;
+            public object[] Options { get; init; }
+            public bool RequiresApplicationRestart { get; init; }
 
             public void SetValue(OptionSlotInfo optionSlotInfo)
             {

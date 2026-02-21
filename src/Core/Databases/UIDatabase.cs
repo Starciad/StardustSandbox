@@ -142,12 +142,15 @@ namespace StardustSandbox.Core.Databases
                 uiManager
             );
 
+            SelectorUI selectorUI = new();
+
             OptionsUI optionsUI = new(
                 colorPickerUI,
                 cursorManager,
                 keySelectorUI,
                 messageUI,
                 playerInputController,
+                selectorUI,
                 sliderUI,
                 stardustSandboxGame,
                 tooltipBox,
@@ -242,6 +245,7 @@ namespace StardustSandbox.Core.Databases
                 penSettingsUI,
                 playUI,
                 saveSettingsUI,
+                selectorUI,
                 sliderUI,
                 temperatureSettingsUI,
                 textInputUI,

@@ -201,7 +201,7 @@ namespace StardustSandbox.Core.InputSystem.Actions
         {
             this.capturedKeyboardBinding = Keys.None;
             this.capturedMouseBinding = MouseButton.None;
-            
+
             HandleKeyboardInput();
             HandleMouseInput();
         }
