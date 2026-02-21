@@ -82,7 +82,7 @@ namespace StardustSandbox.Core.UI.Common
 
                     this.textInputUI.Setup(
                         Localization_Messages.Input_World_Name,
-                        world.Information.Name,
+                        world.Name,
                         true,
                         InputMode.Normal,
                         InputRestriction.Alphanumeric,
@@ -95,7 +95,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         result =>
                         {
-                            world.Information.Name = result;
+                            world.Name = result;
                         }
                     );
 
@@ -109,7 +109,7 @@ namespace StardustSandbox.Core.UI.Common
 
                     this.textInputUI.Setup(
                         Localization_Messages.Input_World_Description,
-                        world.Information.Description,
+                        world.Description,
                         true,
                         InputMode.Normal,
                         InputRestriction.None,
@@ -122,7 +122,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (result) =>
                         {
-                            world.Information.Description = result;
+                            world.Description = result;
                         }
                     );
 
@@ -137,7 +137,7 @@ namespace StardustSandbox.Core.UI.Common
                     SoundEngine.Play(SoundEffectIndex.GUI_World_Saved);
                     SavingSerializer.Save(actorManager, world, this.graphicsDevice);
 
-                    GameHandler.DefineLoadedSaveFile(world.Information.Name);
+                    GameHandler.DefineLoadedSaveFile(world.Name);
 
                     this.uiManager.CloseUI();
                 }),
@@ -450,20 +450,20 @@ namespace StardustSandbox.Core.UI.Common
             this.worldThumbnailTexture = this.world.CreateThumbnail(this.graphicsDevice);
             this.thumbnailPreviewElement.Texture = this.worldThumbnailTexture;
 
-            this.titleTextualContent.TextContent = this.world.Information.Name.Truncate(19);
-            this.descriptionTextualContent.TextContent = this.world.Information.Description.Truncate(19);
+            this.titleTextualContent.TextContent = this.world.Name.Truncate(19);
+            this.descriptionTextualContent.TextContent = this.world.Description.Truncate(19);
         }
 
         protected override void OnOpened()
         {
-            if (string.IsNullOrWhiteSpace(this.world.Information.Name))
+            if (string.IsNullOrWhiteSpace(this.world.Name))
             {
-                this.world.Information.Name = Localization_Statements.Untitled;
+                this.world.Name = Localization_Statements.Untitled;
             }
 
-            if (string.IsNullOrWhiteSpace(this.world.Information.Description))
+            if (string.IsNullOrWhiteSpace(this.world.Description))
             {
-                this.world.Information.Description = Localization_Messages.NoDescription;
+                this.world.Description = Localization_Messages.NoDescription;
             }
 
             GameHandler.SetState(GameStates.IsCriticalMenuOpen);

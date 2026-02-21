@@ -26,7 +26,6 @@ namespace StardustSandbox.Core.Elements
 {
     internal sealed class ElementContext(World world)
     {
-        internal Information WorldInformation => world.Information;
         internal Temperature WorldTemperature => world.Temperature;
 
         internal Layer Layer { get; private set; }
@@ -45,6 +44,15 @@ namespace StardustSandbox.Core.Elements
                 this.Slot.Position = position;
             }
         }
+
+        #region WORLD
+
+        internal Point GetWorldSize()
+        {
+            return world.Size;
+        }
+
+        #endregion
 
         #region ELEMENTS
 

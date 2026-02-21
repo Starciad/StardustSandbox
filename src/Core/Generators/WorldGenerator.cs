@@ -37,8 +37,8 @@ namespace StardustSandbox.Core.Generators
         {
             context ??= new(world);
 
-            int width = world.Information.Size.X;
-            int height = world.Information.Size.Y;
+            int width = world.Size.X;
+            int height = world.Size.Y;
 
             GameHandler.Reset(actorManager, world);
 
@@ -189,7 +189,7 @@ namespace StardustSandbox.Core.Generators
         private static void GenerateTerrain(World world, int[] heightMap, WorldGenerationTheme theme, Layer layer)
         {
             int width = heightMap.Length;
-            int height = world.Information.Size.Y;
+            int height = world.Size.Y;
 
             for (int x = 0; x < width; x++)
             {
@@ -263,7 +263,7 @@ namespace StardustSandbox.Core.Generators
         private static void GenerateOceans(World world, int[] heightMap, Layer layer)
         {
             int width = heightMap.Length;
-            int height = world.Information.Size.Y;
+            int height = world.Size.Y;
 
             int leftOceanPointX = (int)PercentageMath.PercentageOfValue(width, 5.0f);
             int rightOceanPointX = (int)PercentageMath.PercentageOfValue(width, 95.0f);
@@ -315,7 +315,7 @@ namespace StardustSandbox.Core.Generators
         private static void GenerateTrees(World world, int[] heightMap, Layer layer)
         {
             int width = heightMap.Length;
-            int height = world.Information.Size.Y;
+            int height = world.Size.Y;
 
             for (int x = 0; x < width; x++)
             {
@@ -345,7 +345,7 @@ namespace StardustSandbox.Core.Generators
         private static void GenerateClouds(World world, int[] heightMap, Layer layer)
         {
             int width = heightMap.Length;
-            int height = world.Information.Size.Y;
+            int height = world.Size.Y;
             int cloudBaseY = (int)PercentageMath.PercentageOfValue(height, 15.0f);
 
             for (int x = 0; x < width; x++)

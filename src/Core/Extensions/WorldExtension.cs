@@ -35,8 +35,8 @@ namespace StardustSandbox.Core.Extensions
             int thumbnailHeight = WorldConstants.WORLD_THUMBNAIL_SIZE.Y;
 
             // Scale factor for spacing
-            float pixelSpacingX = world.Information.Size.X / (float)thumbnailWidth;
-            float pixelSpacingY = world.Information.Size.Y / (float)thumbnailHeight;
+            float pixelSpacingX = world.Size.X / (float)thumbnailWidth;
+            float pixelSpacingY = world.Size.Y / (float)thumbnailHeight;
 
             // Create texture for the thumbnail
             Texture2D thumbnailTexture = new(graphicsDevice, thumbnailWidth, thumbnailHeight, false, SurfaceFormat.Color);

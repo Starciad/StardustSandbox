@@ -242,7 +242,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             GameHandler.SetState(GameStates.IsCriticalMenuOpen);
 
-            Point worldSize = this.world.Information.Size;
+            Point worldSize = this.world.Size;
 
             uint limitOfElementsOnTheMap = (uint)(worldSize.X * worldSize.Y * 2);
             uint limitOfElementsPerLayer = (uint)(worldSize.X * worldSize.Y);

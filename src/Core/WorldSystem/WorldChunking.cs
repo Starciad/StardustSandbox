@@ -41,8 +41,8 @@ namespace StardustSandbox.Core.WorldSystem
         public void Reset()
         {
             this.chunks = new Chunk[
-                (this.world.Information.Size.X / WorldConstants.CHUNK_SCALE) + 1,
-                (this.world.Information.Size.Y / WorldConstants.CHUNK_SCALE) + 1
+                (this.world.Size.X / WorldConstants.CHUNK_SCALE) + 1,
+                (this.world.Size.Y / WorldConstants.CHUNK_SCALE) + 1
             ];
 
             this.worldChunkWidth = this.chunks.GetLength(0);

@@ -91,8 +91,8 @@ namespace StardustSandbox.Core.Actors
 
         private Point ClampPositionToWorld(Point position, Point size)
         {
-            int maxX = Math.Max(0, this.world.Information.Size.X - size.X);
-            int maxY = Math.Max(0, this.world.Information.Size.Y - size.Y);
+            int maxX = Math.Max(0, this.world.Size.X - size.X);
+            int maxY = Math.Max(0, this.world.Size.Y - size.Y);
 
             if (position.X < 0)
             {
@@ -119,8 +119,8 @@ namespace StardustSandbox.Core.Actors
         {
             return rectangle.Left >= 0
                 && rectangle.Top >= 0
-                && rectangle.Right <= this.world.Information.Size.X
-                && rectangle.Bottom <= this.world.Information.Size.Y;
+                && rectangle.Right <= this.world.Size.X
+                && rectangle.Bottom <= this.world.Size.Y;
         }
 
         internal bool IsInsideWorldBounds(Point position, Point size)

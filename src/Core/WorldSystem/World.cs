@@ -48,8 +48,10 @@ namespace StardustSandbox.Core.WorldSystem
 {
     internal sealed class World : IResettable
     {
-        internal Information Information => this.information;
-        internal Simulation Simulation => this.simulation;
+        internal string Name { get; set; }
+        internal string Description { get; set; }
+        internal Point Size { get; set; }
+
         internal Temperature Temperature => this.temperature;
         internal Time Time => this.time;
 
@@ -60,7 +62,6 @@ namespace StardustSandbox.Core.WorldSystem
 
         private Slot[,] slots;
 
-        private readonly Information information;
         private readonly Simulation simulation;
         private readonly Temperature temperature;
         private readonly Time time;
@@ -86,7 +87,6 @@ namespace StardustSandbox.Core.WorldSystem
 
         internal World(PlayerInputController inputController)
         {
-            this.information = new();
             this.simulation = new();
             this.time = new();
             this.temperature = new(this.time);
@@ -103,10 +103,12 @@ namespace StardustSandbox.Core.WorldSystem
 
         public void Reset()
         {
+            this.Name = string.Empty;
+            this.Description = string.Empty;
+
             GameStatistics.ResetWorldStatistics();
 
             this.chunking.Reset();
-            this.information.Reset();
             this.temperature.Reset();
             this.updating.Reset();
 
@@ -564,11 +566,11 @@ namespace StardustSandbox.Core.WorldSystem
             uint count = 0;
             object lockObj = new();
 
-            _ = Parallel.For(0, this.information.Size.Y, y =>
+            _ = Parallel.For(0, this.Size.Y, y =>
             {
                 uint localCount = 0;
 
-                for (int x = 0; x < this.information.Size.X; x++)
+                for (int x = 0; x < this.Size.X; x++)
                 {
                     if (TryGetSlot(new(x, y), out Slot value) && predicate(value))
                     {
@@ -731,8 +733,8 @@ namespace StardustSandbox.Core.WorldSystem
         {
             int left = -1;
             int top = -1;
-            int right = this.information.Size.X;
-            int bottom = this.information.Size.Y;
+            int right = this.Size.X;
+            int bottom = this.Size.Y;
 
             Texture2D texture = AssetDatabase.GetTexture(TextureIndex.Frames);
             int gridSize = WorldConstants.GRID_SIZE;
@@ -817,7 +819,7 @@ namespace StardustSandbox.Core.WorldSystem
 
         internal void StartNew()
         {
-            StartNew(this.information.Size);
+            StartNew(this.Size);
         }
 
         internal void StartNew(in Point size)
@@ -825,7 +827,7 @@ namespace StardustSandbox.Core.WorldSystem
             this.CanUpdate = true;
             this.CanDraw = true;
 
-            if (this.information.Size != size)
+            if (this.Size != size)
             {
                 Resize(size);
             }
@@ -837,9 +839,9 @@ namespace StardustSandbox.Core.WorldSystem
         {
             List<SlotData> slots = [];
 
-            for (int y = 0; y < this.Information.Size.Y; y++)
+            for (int y = 0; y < this.Size.Y; y++)
             {
-                for (int x = 0; x < this.Information.Size.X; x++)
+                for (int x = 0; x < this.Size.X; x++)
                 {
                     Point point = new(x, y);
 
@@ -865,8 +867,8 @@ namespace StardustSandbox.Core.WorldSystem
             StartNew(saveFile.Properties.Size);
 
             // Metadata
-            this.information.Name = saveFile.Metadata.Name;
-            this.information.Description = saveFile.Metadata.Description;
+            this.Name = saveFile.Metadata.Name;
+            this.Description = saveFile.Metadata.Description;
 
             // Time
             this.time.SetTime(saveFile.Environment.CurrentTime);
@@ -906,7 +908,7 @@ namespace StardustSandbox.Core.WorldSystem
         {
             DestroySlots();
 
-            this.information.Size = size;
+            this.Size = size;
             this.slots = new Slot[size.X, size.Y];
 
             InstantiateSlots();
@@ -925,12 +927,12 @@ namespace StardustSandbox.Core.WorldSystem
 
         internal bool IsWithinHorizontalBounds(in int x)
         {
-            return x >= 0 && x < this.information.Size.X;
+            return x >= 0 && x < this.Size.X;
         }
 
         internal bool IsWithinVerticalBounds(in int y)
         {
-            return y >= 0 && y < this.information.Size.Y;
+            return y >= 0 && y < this.Size.Y;
         }
 
         internal bool IsWithinBounds(in int x, in int y)
@@ -963,9 +965,9 @@ namespace StardustSandbox.Core.WorldSystem
                 return;
             }
 
-            for (int y = 0; y < this.information.Size.Y; y++)
+            for (int y = 0; y < this.Size.Y; y++)
             {
-                for (int x = 0; x < this.information.Size.X; x++)
+                for (int x = 0; x < this.Size.X; x++)
                 {
                     if (IsEmptySlot(new(x, y)))
                     {
@@ -989,9 +991,9 @@ namespace StardustSandbox.Core.WorldSystem
                 return;
             }
 
-            for (int y = 0; y < this.information.Size.Y; y++)
+            for (int y = 0; y < this.Size.Y; y++)
             {
-                for (int x = 0; x < this.information.Size.X; x++)
+                for (int x = 0; x < this.Size.X; x++)
                 {
                     this[x, y] = this.worldSlotsPool.TryDequeue(out IPoolableObject value) ? (Slot)value : new();
                 }
@@ -1005,9 +1007,9 @@ namespace StardustSandbox.Core.WorldSystem
                 return;
             }
 
-            for (int y = 0; y < this.information.Size.Y; y++)
+            for (int y = 0; y < this.Size.Y; y++)
             {
-                for (int x = 0; x < this.information.Size.X; x++)
+                for (int x = 0; x < this.Size.X; x++)
                 {
                     if (this[x, y] == null)
                     {

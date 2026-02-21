@@ -49,10 +49,10 @@ namespace StardustSandbox.Core.WorldSystem
             RectangleF viewBounds = Camera.GetViewBounds();
 
             // Converts the visible world area to tile indexes
-            int minTileX = (int)Math.Clamp(Math.Floor(viewBounds.Left / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.X);
-            int minTileY = (int)Math.Clamp(Math.Floor(viewBounds.Top / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.Y);
-            int maxTileX = (int)Math.Clamp(Math.Ceiling(viewBounds.Right / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.X);
-            int maxTileY = (int)Math.Clamp(Math.Ceiling(viewBounds.Bottom / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.Y);
+            int minTileX = (int)Math.Clamp(Math.Floor(viewBounds.Left / WorldConstants.GRID_SIZE), 0, this.world.Size.X);
+            int minTileY = (int)Math.Clamp(Math.Floor(viewBounds.Top / WorldConstants.GRID_SIZE), 0, this.world.Size.Y);
+            int maxTileX = (int)Math.Clamp(Math.Ceiling(viewBounds.Right / WorldConstants.GRID_SIZE), 0, this.world.Size.X);
+            int maxTileY = (int)Math.Clamp(Math.Ceiling(viewBounds.Bottom / WorldConstants.GRID_SIZE), 0, this.world.Size.Y);
 
             GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
 

@@ -46,7 +46,7 @@ namespace StardustSandbox.Core.Serialization
 
         internal static void Save(ActorManager actorManager, World world, GraphicsDevice graphicsDevice)
         {
-            string filename = Path.Combine(IO.Directory.Worlds, string.Concat(world.Information.Name, IOConstants.SAVE_FILE_EXTENSION));
+            string filename = Path.Combine(IO.Directory.Worlds, string.Concat(world.Name, IOConstants.SAVE_FILE_EXTENSION));
 
             if (System.IO.File.Exists(filename))
             {
@@ -136,8 +136,8 @@ namespace StardustSandbox.Core.Serialization
         {
             return new()
             {
-                Name = world.Information.Name,
-                Description = world.Information.Description
+                Name = world.Name,
+                Description = world.Description
             };
         }
 
@@ -154,8 +154,8 @@ namespace StardustSandbox.Core.Serialization
         {
             return new()
             {
-                Width = world.Information.Size.X,
-                Height = world.Information.Size.Y
+                Width = world.Size.X,
+                Height = world.Size.Y
             };
         }
 
