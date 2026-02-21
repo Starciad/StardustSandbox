@@ -73,7 +73,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.buttonInfos = [
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI),
-                new(TextureIndex.IconUI, new(0, 0, 32, 32), "Search", string.Empty, () =>
+                new(TextureIndex.IconUI, new(0, 0, 32, 32), Localization_GUIs.ItemSearch_Title, Localization_GUIs.ItemSearch_Description, () =>
                 {
                     this.itemSearchUI.Setup(result => {
                         SoundEngine.Play(SoundEffectIndex.GUI_Accepted);

@@ -19,7 +19,7 @@ namespace StardustSandbox.Core.Localization {
     // através de uma ferramenta como ResGen ou Visual Studio.
     // Para adicionar ou remover um associado, edite o arquivo .ResX e execute ResGen novamente
     // com a opção /str, ou recrie o projeto do VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Localization_GUIs {
@@ -907,6 +907,33 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Find the items you want by searching for them by name..
+        /// </summary>
+        internal static string ItemSearch_Description {
+            get {
+                return ResourceManager.GetString("ItemSearch.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Search for an item....
+        /// </summary>
+        internal static string ItemSearch_Placeholder {
+            get {
+                return ResourceManager.GetString("ItemSearch.Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Item Search.
+        /// </summary>
+        internal static string ItemSearch_Title {
+            get {
+                return ResourceManager.GetString("ItemSearch.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Create.
         /// </summary>
         internal static string Main_Create {
@@ -1357,7 +1384,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Select the language for the game interface..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Select the language for the game interface. Game restart required..
         /// </summary>
         internal static string Options_General_Language_Description {
             get {

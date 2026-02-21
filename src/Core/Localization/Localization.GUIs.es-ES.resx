@@ -825,4 +825,13 @@
   <data name="Achievements.Title" xml:space="preserve">
     <value>Logros</value>
   </data>
+  <data name="ItemSearch.Placeholder" xml:space="preserve">
+    <value>Buscar un objeto...</value>
+  </data>
+  <data name="ItemSearch.Title" xml:space="preserve">
+    <value>Búsqueda de Objetos</value>
+  </data>
+  <data name="ItemSearch.Description" xml:space="preserve">
+    <value>Encuentra los objetos que deseas buscando por su nombre.</value>
+  </data>
 </root>

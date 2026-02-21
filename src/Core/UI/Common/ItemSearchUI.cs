@@ -354,7 +354,7 @@ namespace StardustSandbox.Core.UI.Common
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.1f),
-                TextContent = "Search for an item...",
+                TextContent = Localization_GUIs.ItemSearch_Placeholder,
                 Color = AAP64ColorPalette.White,
                 Alignment = UIDirection.Northwest,
                 Margin = margin,
@@ -375,7 +375,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildExitButton()
         {
-            SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(-32.0f, -72.0f), this.exitButtonInfo);
+            SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(0.0f, -72.0f), this.exitButtonInfo);
 
             slot.Background.Alignment = UIDirection.Northeast;
             slot.Icon.Alignment = UIDirection.Center;
