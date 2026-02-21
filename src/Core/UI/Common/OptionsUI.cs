@@ -49,7 +49,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private SlotInfo exitButtonSlotInfo;
         private SlotInfo[] categoryButtonSlotInfos;
-        
+
         private readonly SlotInfo[] paginationButtonSlotInfos;
         private readonly OptionSlotInfo[] optionButtonSlotInfos;
 

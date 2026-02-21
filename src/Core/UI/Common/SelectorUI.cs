@@ -321,14 +321,7 @@ namespace StardustSandbox.Core.UI.Common
                 this.exitButtonInfo.ClickAction?.Invoke();
             }
 
-            if (Interaction.OnMouseOver(this.exitButtonSlotInfo.Background))
-            {
-                this.exitButtonSlotInfo.Background.Color = AAP64ColorPalette.HoverColor;
-            }
-            else
-            {
-                this.exitButtonSlotInfo.Background.Color = AAP64ColorPalette.White;
-            }
+            this.exitButtonSlotInfo.Background.Color = Interaction.OnMouseOver(this.exitButtonSlotInfo.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
         }
 
         private void UpdateChoiceButtons()
@@ -352,14 +345,7 @@ namespace StardustSandbox.Core.UI.Common
                     break;
                 }
 
-                if (Interaction.OnMouseOver(slotInfo.Background))
-                {
-                    slotInfo.Background.Color = AAP64ColorPalette.HoverColor;
-                }
-                else
-                {
-                    slotInfo.Background.Color = AAP64ColorPalette.White;
-                }
+                slotInfo.Background.Color = Interaction.OnMouseOver(slotInfo.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
