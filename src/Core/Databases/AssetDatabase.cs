@@ -118,6 +118,7 @@ namespace StardustSandbox.Core.Databases
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "pause")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "pen_settings")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "save_settings")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "selector")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "temperature_settings")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "world_settings")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "buttons")),

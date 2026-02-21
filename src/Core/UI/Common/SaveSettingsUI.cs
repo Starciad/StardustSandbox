@@ -91,7 +91,7 @@ namespace StardustSandbox.Core.UI.Common
                         {
                             return string.IsNullOrWhiteSpace(result)
                                 ? new(ValidationStatus.Failure, Localization_Messages.Input_World_Name_Validation_Empty)
-                                : new(ValidationStatus.Success);
+                                : new(ValidationStatus.Success, string.Empty);
                         },
                         result =>
                         {
@@ -118,7 +118,7 @@ namespace StardustSandbox.Core.UI.Common
                         {
                             return string.IsNullOrWhiteSpace(result)
                                 ? new(ValidationStatus.Failure, Localization_Messages.Input_World_Description_Validation_Empty)
-                                : new(ValidationStatus.Success);
+                                : new(ValidationStatus.Success, string.Empty);
                         },
                         (result) =>
                         {

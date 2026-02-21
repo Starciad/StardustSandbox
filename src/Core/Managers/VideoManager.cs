@@ -51,6 +51,11 @@ namespace StardustSandbox.Core.Managers
             this.graphicsDeviceManager.ApplyChanges();
         }
 
+        internal void SetResolution(Point resolution)
+        {
+            SetResolution(resolution.X, resolution.Y);
+        }
+
         internal void SetFullScreen(bool value)
         {
             this.graphicsDeviceManager.IsFullScreen = value;

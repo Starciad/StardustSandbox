@@ -66,6 +66,6 @@ namespace StardustSandbox.Core.Constants
         internal const byte OPTIONS_PER_PAGE = OPTIONS_PER_ROW * OPTIONS_PER_COLUMN;
 
         // Selector
-        internal const byte SELECTOR_CHOICES_PER_PAGE = 5;
+        internal const byte SELECTOR_CHOICES_PER_PAGE = 4;
     }
 }

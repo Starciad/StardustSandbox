@@ -21,12 +21,14 @@ namespace StardustSandbox.Core.UI.Common
     {
         internal interface IChoice
         {
-
+            internal string Name { get; }
+            internal object Value { get; }
         }
 
-        internal sealed class Choice<T> : IChoice
+        internal sealed class Choice<T>(string name, T value) : IChoice
         {
-
+            public string Name => name;
+            public object Value => value;
         }
     }
 }

@@ -48,8 +48,10 @@ namespace StardustSandbox.Core.UI.Common
         private Label title, pageIndexLabel;
 
         private SlotInfo exitButtonSlotInfo;
-        private SlotInfo[] categoryButtonSlotInfos, paginationButtonSlotInfos;
-        private OptionSlotInfo[] optionButtonSlotInfos;
+        private SlotInfo[] categoryButtonSlotInfos;
+        
+        private readonly SlotInfo[] paginationButtonSlotInfos;
+        private readonly OptionSlotInfo[] optionButtonSlotInfos;
 
         private readonly ButtonInfo exitButtonInfo;
         private readonly ButtonInfo[] categoryButtonInfos, paginationButtonInfos;
@@ -57,6 +59,9 @@ namespace StardustSandbox.Core.UI.Common
         private readonly TooltipBox tooltipBox;
 
         private readonly Category[] categories;
+
+        private readonly SelectorUI.IChoice[] availableGameCulturesChoices;
+        private readonly SelectorUI.IChoice[] resolutionChoices;
 
         internal OptionsUI(
             ColorPickerUI colorPickerUI,
@@ -80,6 +85,21 @@ namespace StardustSandbox.Core.UI.Common
             VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
             VolumeSettings volumeSettings = SettingsSerializer.Load<VolumeSettings>();
 
+            this.availableGameCulturesChoices = new SelectorUI.IChoice[LocalizationConstants.AVAILABLE_GAME_CULTURES.Length];
+            this.resolutionChoices = new SelectorUI.IChoice[ScreenConstants.RESOLUTIONS.Length];
+
+            for (int i = 0; i < LocalizationConstants.AVAILABLE_GAME_CULTURES.Length; i++)
+            {
+                GameCulture gameCulture = LocalizationConstants.AVAILABLE_GAME_CULTURES[i];
+                this.availableGameCulturesChoices[i] = new SelectorUI.Choice<GameCulture>(gameCulture.CultureInfo.NativeName, gameCulture);
+            }
+
+            for (int i = 0; i < ScreenConstants.RESOLUTIONS.Length; i++)
+            {
+                Point resolution = ScreenConstants.RESOLUTIONS[i];
+                this.resolutionChoices[i] = new SelectorUI.Choice<Point>(string.Concat(resolution.X, " x ", resolution.Y), resolution);
+            }
+
             this.categories =
             [
                 new(
@@ -97,7 +117,19 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (option, optionSlotInfo) =>
                         {
+                            selectorUI.Setup(
+                                Localization_GUIs.Options_General_Language_Name,
+                                (choice) =>
+                                {
+                                    generalSettings.SetGameCulture((GameCulture)choice.Value);
+                                    SettingsSerializer.Save(generalSettings);
 
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                },
+                                this.availableGameCulturesChoices
+                            );
+
+                            uiManager.OpenUI(UIIndex.Selector);
                         }
                     )
                     {
@@ -394,7 +426,21 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (option, optionSlotInfo) =>
                         {
+                            selectorUI.Setup(
+                                Localization_GUIs.Options_Video_Resolution_Name,
+                                (choice) =>
+                                {
+                                    videoSettings.Resolution = (Point)choice.Value;
+                                    SettingsSerializer.Save(videoSettings);
 
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+
+                                    videoManager.SetResolution(videoSettings.Resolution);
+                                },
+                                this.resolutionChoices
+                            );
+
+                            uiManager.OpenUI(UIIndex.Selector);
                         }
                     ),
                     new Option<bool>(
@@ -914,11 +960,6 @@ namespace StardustSandbox.Core.UI.Common
 
         private void SelectCategory(int index)
         {
-            if (index < 0 || index >= this.categories.Length)
-            {
-                return;
-            }
-
             this.selectedCategory = this.categories[index];
             this.title.TextContent = this.selectedCategory.Name;
 

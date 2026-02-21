@@ -71,6 +71,7 @@ namespace StardustSandbox.Core.Enums.Assets
         UIBackgroundPause,
         UIBackgroundPenSettings,
         UIBackgroundSave,
+        UIBackgroundSelector,
         UIBackgroundTemperatureSettings,
         UIBackgroundWorldSettings,
         UIButtons,
