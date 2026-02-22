@@ -42,7 +42,8 @@ namespace StardustSandbox.Core.UI.Common
     {
         private Category selectedCategory;
         private int currentPageIndex = 0, totalPages = 0;
-        private IOption[] selectedOptions;
+
+        private Range selectedOptionsRange;
 
         private Image panelBackground, shadowBackground;
         private Label title, pageIndexLabel;
@@ -939,27 +940,31 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.pageIndexLabel.TextContent = string.Concat(this.currentPageIndex + 1, " / ", this.totalPages);
 
-            int startIndex = this.currentPageIndex * UIConstants.OPTIONS_PER_PAGE;
-            int endIndex = Math.Min(startIndex + UIConstants.OPTIONS_PER_PAGE, this.selectedCategory.Options.Length);
-            int length = endIndex - startIndex;
+            this.selectedOptionsRange = new(
+                this.currentPageIndex * UIConstants.OPTIONS_PER_PAGE,
+                Math.Min(
+                    this.currentPageIndex * UIConstants.OPTIONS_PER_PAGE + UIConstants.OPTIONS_PER_PAGE,
+                    this.selectedCategory.Length
+                )
+            );
 
-            this.selectedOptions = new IOption[length];
-
-            Array.Copy(this.selectedCategory.Options, startIndex, this.selectedOptions, 0, length);
+            int length = this.selectedOptionsRange.End.Value - this.selectedOptionsRange.Start.Value;
 
             for (int i = 0; i < this.optionButtonSlotInfos.Length; i++)
             {
-                OptionSlotInfo optionSlotInfo = this.optionButtonSlotInfos[i];
+                OptionSlotInfo slot = this.optionButtonSlotInfos[i];
 
                 if (i < length)
                 {
-                    optionSlotInfo.Background.CanDraw = true;
-                    optionSlotInfo.Title.TextContent = this.selectedOptions[i].Name.Truncate(32);
-                    optionSlotInfo.Value.TextContent = this.selectedOptions[i].GetValueString();
+                    IOption option = this.selectedCategory[this.selectedOptionsRange.Start.Value + i];
+
+                    slot.Background.CanDraw = true;
+                    slot.Title.TextContent = option.Name.Truncate(32);
+                    slot.Value.TextContent = option.GetValueString();
                 }
                 else
                 {
-                    optionSlotInfo.Background.CanDraw = false;
+                    slot.Background.CanDraw = false;
                 }
             }
         }
@@ -970,7 +975,7 @@ namespace StardustSandbox.Core.UI.Common
             this.title.TextContent = this.selectedCategory.Name;
 
             this.currentPageIndex = 0;
-            this.totalPages = (int)MathF.Max(1.0f, MathF.Ceiling(this.selectedCategory.Options.Length / (float)UIConstants.OPTIONS_PER_PAGE));
+            this.totalPages = (int)MathF.Max(1.0f, MathF.Ceiling(this.selectedCategory.Length / (float)UIConstants.OPTIONS_PER_PAGE));
 
             RefreshContent();
         }
@@ -1259,33 +1264,33 @@ namespace StardustSandbox.Core.UI.Common
 
         private void UpdateOptionButtons()
         {
-            for (int i = 0; i < this.selectedOptions.Length; i++)
+            for (int i = this.selectedOptionsRange.Start.Value; i < this.selectedOptionsRange.End.Value; i++)
             {
-                OptionSlotInfo optionSlotInfo = this.optionButtonSlotInfos[i];
-                IOption option = this.selectedOptions[i];
+                OptionSlotInfo slot = this.optionButtonSlotInfos[i % UIConstants.OPTIONS_PER_PAGE];
+                IOption option = this.selectedCategory[i];
 
-                if (Interaction.OnMouseEnter(optionSlotInfo.Background))
+                if (Interaction.OnMouseEnter(slot.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Hover);
                 }
 
-                if (Interaction.OnMouseLeftClick(optionSlotInfo.Background))
+                if (Interaction.OnMouseLeftClick(slot.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                    option.SetValue(optionSlotInfo);
+                    option.SetValue(slot);
                     break;
                 }
 
-                if (Interaction.OnMouseOver(optionSlotInfo.Background))
+                if (Interaction.OnMouseOver(slot.Background))
                 {
                     this.tooltipBox.CanDraw = true;
                     TooltipBoxContent.SetTitle(option.Name);
                     TooltipBoxContent.SetDescription(option.Description);
-                    optionSlotInfo.Background.Color = AAP64ColorPalette.HoverColor;
+                    slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }
                 else
                 {
-                    optionSlotInfo.Background.Color = AAP64ColorPalette.White;
+                    slot.Background.Color = AAP64ColorPalette.White;
                 }
             }
         }

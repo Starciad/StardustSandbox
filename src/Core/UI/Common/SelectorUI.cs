@@ -36,9 +36,11 @@ namespace StardustSandbox.Core.UI.Common
     internal sealed partial class SelectorUI : UIBase
     {
         private int currentPageIndex = 0, totalPages = 0;
-        private IChoice[] choices, selectedChoices;
+        private IChoice[] choices;
 
         private Action<IChoice> sendCallback;
+
+        private Range selectedChoicesRange;
 
         private Image panelBackground, shadowBackground;
         private Label title, pageIndexLabel;
@@ -98,13 +100,15 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.pageIndexLabel.TextContent = string.Concat(this.currentPageIndex + 1, " / ", this.totalPages);
 
-            int startIndex = this.currentPageIndex * UIConstants.SELECTOR_CHOICES_PER_PAGE;
-            int endIndex = Math.Min(startIndex + UIConstants.SELECTOR_CHOICES_PER_PAGE, this.choices.Length);
-            int length = endIndex - startIndex;
+            this.selectedChoicesRange = new(
+                this.currentPageIndex * UIConstants.SELECTOR_CHOICES_PER_PAGE,
+                Math.Min(
+                    this.currentPageIndex * UIConstants.SELECTOR_CHOICES_PER_PAGE + UIConstants.SELECTOR_CHOICES_PER_PAGE,
+                    UIConstants.SELECTOR_CHOICES_PER_PAGE + 1
+                )
+            );
 
-            this.selectedChoices = new IChoice[length];
-
-            Array.Copy(this.choices, startIndex, this.selectedChoices, 0, length);
+            int length = this.selectedChoicesRange.End.Value - this.selectedChoicesRange.Start.Value;
 
             for (int i = 0; i < this.choiceButtonSlotInfos.Length; i++)
             {
@@ -113,7 +117,7 @@ namespace StardustSandbox.Core.UI.Common
                 if (i < length)
                 {
                     slotInfo.Background.CanDraw = true;
-                    slotInfo.Label.TextContent = this.selectedChoices[i].Name;
+                    slotInfo.Label.TextContent = this.choices[this.selectedChoicesRange.Start.Value + i].Name;
                 }
                 else
                 {
@@ -326,26 +330,25 @@ namespace StardustSandbox.Core.UI.Common
 
         private void UpdateChoiceButtons()
         {
-            for (int i = 0; i < this.selectedChoices.Length; i++)
+            for (int i = this.selectedChoicesRange.Start.Value; i < this.selectedChoicesRange.End.Value; i++)
             {
-                SlotInfo slotInfo = this.choiceButtonSlotInfos[i];
-                IChoice choice = this.selectedChoices[i];
+                SlotInfo slot = this.choiceButtonSlotInfos[i % UIConstants.SELECTOR_CHOICES_PER_PAGE];
+                IChoice choice = this.choices[i];
 
-                if (Interaction.OnMouseEnter(slotInfo.Background))
+                if (Interaction.OnMouseEnter(slot.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Hover);
                 }
 
-                if (Interaction.OnMouseLeftClick(slotInfo.Background))
+                if (Interaction.OnMouseLeftClick(slot.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
                     this.sendCallback?.Invoke(choice);
                     this.uiManager.CloseUI();
-
                     break;
                 }
 
-                slotInfo.Background.Color = Interaction.OnMouseOver(slotInfo.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
+                slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 

@@ -32,16 +32,16 @@ namespace StardustSandbox.Core.Catalog
         internal ItemContentType ContentType => contentType;
         internal TextureIndex TextureIndex => textureIndex;
         internal Rectangle? SourceRectangle => sourceRectangle;
-        internal Subcategory ParentSubcategory { get; private set; }
+        internal Subcategory Parent { get; private set; }
 
         internal void SetParentSubcategory(Subcategory subcategory)
         {
-            if (this.ParentSubcategory != null)
+            if (this.Parent != null)
             {
                 throw new InvalidOperationException("Parent subcategory has already been set for this item.");
             }
 
-            this.ParentSubcategory = subcategory;
+            this.Parent = subcategory;
         }
     }
 }

@@ -31,34 +31,24 @@ namespace StardustSandbox.Core.Catalog
         internal string Description => description;
         internal Texture2D Texture => AssetDatabase.GetTexture(textureIndex);
         internal Rectangle? SourceRectangle => sourceRectangle;
-        internal int ItemsLength => this.items.Length;
-        internal Category ParentCategory { get; private set; }
+        internal int Length => this.items.Length;
+        internal Category Parent { get; private set; }
 
         private readonly Item[] items = items;
 
-        internal Item GetItem(int index)
+        internal Item this[int i]
         {
-            return this.items[index];
-        }
-
-        internal Item[] GetItems(int startIndex, int endIndex)
-        {
-            int length = endIndex - startIndex;
-
-            Item[] result = new Item[length];
-            Array.Copy(this.items, startIndex, result, 0, length);
-
-            return result;
+            get => this.items[i];
         }
 
         internal void SetParentCategory(Category category)
         {
-            if (this.ParentCategory != null)
+            if (this.Parent != null)
             {
                 throw new InvalidOperationException("Parent category has already been set.");
             }
 
-            this.ParentCategory = category;
+            this.Parent = category;
         }
     }
 }
