@@ -170,7 +170,7 @@ namespace StardustSandbox.Core.Databases
             return effects[(int)index];
         }
 
-        internal static SoundEffect GetSoundEffect(SoundEffectIndex index)
+        internal static SoundEffect GetSoundEffect(in SoundEffectIndex index)
         {
             return soundEffects[(int)index];
         }

@@ -286,7 +286,7 @@ namespace StardustSandbox.Core.Elements
             }
         }
 
-        private static void DrawSingleElementRoutine(ElementContext context, SpriteBatch spriteBatch, in Point textureOriginOffset, in GameplaySettings gameplaySettings)
+        private static void DrawSingleElementRoutine(ElementContext context, SpriteBatch spriteBatch, in Point textureOriginOffset, GameplaySettings gameplaySettings)
         {
             SlotLayer slotLayer = context.CurrentSlot.GetLayer(context.CurrentLayer);
             Color colorModifier = slotLayer.ColorModifier;
@@ -304,7 +304,7 @@ namespace StardustSandbox.Core.Elements
             spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Elements), new Vector2(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y) * WorldConstants.GRID_SIZE, new(textureOriginOffset, new(32)), colorModifier, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }
 
-        internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, in Point textureOriginOffset, in GameplaySettings gameplaySettings)
+        internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, in Point textureOriginOffset, GameplaySettings gameplaySettings)
         {
             // If the camera is too far away, draw only a single pixel
             // that can represent the element to aid in performance and

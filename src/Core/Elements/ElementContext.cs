@@ -264,7 +264,7 @@ namespace StardustSandbox.Core.Elements
         {
             return TryHasElementState(this.CurrentPosition, state, out value);
         }
-        internal bool TrySetElementState(in Point position, in Layer layer, ElementStates state)
+        internal bool TrySetElementState(in Point position, in Layer layer, in ElementStates state)
         {
             return world.TrySetElementState(position, layer, state);
         }
