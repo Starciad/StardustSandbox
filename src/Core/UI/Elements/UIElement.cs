@@ -34,7 +34,6 @@ namespace StardustSandbox.Core.UI.Elements
         internal int ChildCount => this.children.Count;
         internal UIElement FirstChild => this.children.Count > 0 ? this.children[0] : null;
         internal UIElement LastChild => this.children.Count > 0 ? this.children[^1] : null;
-        internal IEnumerable<UIElement> Children => this.children;
         internal RectangleF Bounds => new(this.Position, this.Size);
         internal UIElement Parent
         {
@@ -91,7 +90,18 @@ namespace StardustSandbox.Core.UI.Elements
             {
                 if (this.scale != value)
                 {
+                    Vector2 oldScale = this.scale;
                     this.scale = value;
+
+                    // Calculates the relative scaling factor
+                    Vector2 scaleFactor = new(
+                        oldScale.X != 0.0f ? value.X / oldScale.X : 1f,
+                        oldScale.Y != 0.0f ? value.Y / oldScale.Y : 1f
+                    );
+
+                    // Applies the scale proportionally to the children
+                    ScaleChildren(scaleFactor);
+                    
                     RepositionRelativeToParent();
                 }
             }
@@ -132,8 +142,6 @@ namespace StardustSandbox.Core.UI.Elements
             this.CanUpdate = true;
         }
 
-        #region Positioning
-
         private static Vector2 GetAnchoredPosition(in RectangleF rect1, in RectangleF rect2, in UIDirection anchor, in Vector2 margin)
         {
             float x = rect2.Location.X;
@@ -142,27 +150,27 @@ namespace StardustSandbox.Core.UI.Elements
             switch (anchor)
             {
                 case UIDirection.Center:
-                    x += (rect2.Size.X - rect1.Size.X) / 2f;
-                    y += (rect2.Size.Y - rect1.Size.Y) / 2f;
+                    x += (rect2.Size.X - rect1.Size.X) / 2.0f;
+                    y += (rect2.Size.Y - rect1.Size.Y) / 2.0f;
                     break;
                 case UIDirection.North:
-                    x += (rect2.Size.X - rect1.Size.X) / 2f;
-                    y += 0f;
+                    x += (rect2.Size.X - rect1.Size.X) / 2.0f;
+                    y += 0.0f;
                     break;
                 case UIDirection.Northeast:
                     x += rect2.Size.X - rect1.Size.X;
-                    y += 0f;
+                    y += 0.0f;
                     break;
                 case UIDirection.East:
                     x += rect2.Size.X - rect1.Size.X;
-                    y += (rect2.Size.Y - rect1.Size.Y) / 2f;
+                    y += (rect2.Size.Y - rect1.Size.Y) / 2.0f;
                     break;
                 case UIDirection.Southeast:
                     x += rect2.Size.X - rect1.Size.X;
                     y += rect2.Size.Y - rect1.Size.Y;
                     break;
                 case UIDirection.South:
-                    x += (rect2.Size.X - rect1.Size.X) / 2f;
+                    x += (rect2.Size.X - rect1.Size.X) / 2.0f;
                     y += rect2.Size.Y - rect1.Size.Y;
                     break;
                 case UIDirection.Southwest:
@@ -171,18 +179,18 @@ namespace StardustSandbox.Core.UI.Elements
                     break;
                 case UIDirection.West:
                     x += 0f;
-                    y += (rect2.Size.Y - rect1.Size.Y) / 2f;
+                    y += (rect2.Size.Y - rect1.Size.Y) / 2.0f;
                     break;
                 case UIDirection.Northwest:
                 default:
-                    x += 0f;
-                    y += 0f;
+                    x += 0.0f;
+                    y += 0.0f;
                     break;
             }
 
-            // clamp to keep within target rectangle
-            x = Math.Clamp(x, rect2.Location.X, rect2.Location.X + Math.Max(0, rect2.Size.X - rect1.Size.X));
-            y = Math.Clamp(y, rect2.Location.Y, rect2.Location.Y + Math.Max(0, rect2.Size.Y - rect1.Size.Y));
+            // Clamp to keep within target rectangle
+            x = Math.Clamp(x, rect2.Location.X, rect2.Location.X + Math.Max(0.0f, rect2.Size.X - rect1.Size.X));
+            y = Math.Clamp(y, rect2.Location.Y, rect2.Location.Y + Math.Max(0.0f, rect2.Size.Y - rect1.Size.Y));
 
             return new(x + margin.X, y + margin.Y);
         }
@@ -223,9 +231,13 @@ namespace StardustSandbox.Core.UI.Elements
             }
         }
 
-        #endregion
-
-        #region Size Management
+        private void ScaleChildren(in Vector2 scaleFactor)
+        {
+            foreach (UIElement child in this.children)
+            {
+                child.Scale *= scaleFactor;
+            }
+        }
 
         private static RectangleF CalculateTotalBounds(UIElement element)
         {
@@ -255,8 +267,6 @@ namespace StardustSandbox.Core.UI.Elements
         {
             return CalculateTotalBounds(this);
         }
-
-        #endregion
 
         internal void AddChild(UIElement element)
         {
