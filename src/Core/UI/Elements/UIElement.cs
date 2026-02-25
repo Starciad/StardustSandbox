@@ -101,7 +101,7 @@ namespace StardustSandbox.Core.UI.Elements
 
                     // Applies the scale proportionally to the children
                     ScaleChildren(scaleFactor);
-                    
+
                     RepositionRelativeToParent();
                 }
             }

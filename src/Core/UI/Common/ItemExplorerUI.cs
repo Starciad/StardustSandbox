@@ -157,7 +157,7 @@ namespace StardustSandbox.Core.UI.Common
                 if (i < this.selectedCategory.Length)
                 {
                     Subcategory subcategory = this.selectedCategory[i];
-                    
+
                     slot.Background.CanDraw = true;
                     slot.Icon.Texture = subcategory.Texture;
                     slot.Icon.SourceRectangle = subcategory.SourceRectangle;
@@ -176,7 +176,7 @@ namespace StardustSandbox.Core.UI.Common
             this.selectedItemsRange = new(
                 this.currentPageIndex * UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE,
                 Math.Min(
-                    this.currentPageIndex * UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE + UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE,
+                    (this.currentPageIndex * UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE) + UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE,
                     this.selectedSubcategory.Length
                 )
             );

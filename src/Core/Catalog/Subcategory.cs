@@ -36,10 +36,7 @@ namespace StardustSandbox.Core.Catalog
 
         private readonly Item[] items = items;
 
-        internal Item this[int i]
-        {
-            get => this.items[i];
-        }
+        internal Item this[int i] => this.items[i];
 
         internal void SetParentCategory(Category category)
         {

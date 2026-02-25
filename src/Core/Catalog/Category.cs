@@ -33,9 +33,6 @@ namespace StardustSandbox.Core.Catalog
 
         private readonly Subcategory[] subcategories = subcategories;
 
-        internal Subcategory this[int i]
-        {
-            get => this.subcategories[i];
-        }
+        internal Subcategory this[int i] => this.subcategories[i];
     }
 }

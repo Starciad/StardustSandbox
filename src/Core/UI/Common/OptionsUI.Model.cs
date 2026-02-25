@@ -70,10 +70,7 @@ namespace StardustSandbox.Core.UI.Common
             internal Rectangle TextureSourceRectangle => textureSourceRectangle;
             internal int Length => options.Length;
 
-            internal IOption this[int i]
-            {
-                get => options[i];
-            }
+            internal IOption this[int i] => options[i];
         }
     }
 }

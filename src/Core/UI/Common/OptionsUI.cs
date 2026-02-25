@@ -943,7 +943,7 @@ namespace StardustSandbox.Core.UI.Common
             this.selectedOptionsRange = new(
                 this.currentPageIndex * UIConstants.OPTIONS_PER_PAGE,
                 Math.Min(
-                    this.currentPageIndex * UIConstants.OPTIONS_PER_PAGE + UIConstants.OPTIONS_PER_PAGE,
+                    (this.currentPageIndex * UIConstants.OPTIONS_PER_PAGE) + UIConstants.OPTIONS_PER_PAGE,
                     this.selectedCategory.Length
                 )
             );
