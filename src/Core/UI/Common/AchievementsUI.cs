@@ -153,7 +153,7 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        protected override void OnResize(Vector2 newSize)
+        protected override void OnScreenResize(Vector2 newSize)
         {
             this.headerBackground.Scale = new(newSize.X, this.headerBackground.Scale.Y);
         }

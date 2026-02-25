@@ -161,7 +161,7 @@ namespace StardustSandbox.Core.UI.Common
             this.timeButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(this.timeSectionTitle, this.timeButtonInfos, new(0.0f, 52.0f), 80.0f, UIDirection.Southwest);
         }
 
-        protected override void OnResize(Vector2 newSize)
+        protected override void OnScreenResize(Vector2 newSize)
         {
             this.shadowBackground.Scale = newSize;
         }
