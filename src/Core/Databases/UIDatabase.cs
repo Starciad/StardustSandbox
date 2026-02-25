@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
@@ -38,6 +39,7 @@ namespace StardustSandbox.Core.Databases
         internal static void Load(
             ActorManager actorManager,
             AmbientManager ambientManager,
+            Camera2D camera,
             CursorManager cursorManager,
             GameWindow gameWindow,
             GraphicsDevice graphicsDevice,
@@ -128,6 +130,7 @@ namespace StardustSandbox.Core.Databases
             MainUI mainUI = new(
                 actorManager,
                 ambientManager,
+                camera,
                 playerInputController,
                 stardustSandboxGame,
                 uiManager,
@@ -201,6 +204,7 @@ namespace StardustSandbox.Core.Databases
             WorldDetailsUI worldDetailsUI = new(
                 actorManager,
                 ambientManager,
+                camera,
                 playerInputController,
                 uiManager,
                 world

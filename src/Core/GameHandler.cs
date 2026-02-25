@@ -51,9 +51,9 @@ namespace StardustSandbox.Core
             GameHandler.gameWindow = gameWindow;
         }
 
-        internal static void StartGame(ActorManager actorManager, AmbientManager ambientManager, PlayerInputController inputController, UIManager uiManager, World world)
+        internal static void StartGame(ActorManager actorManager, AmbientManager ambientManager, Camera2D camera, PlayerInputController inputController, UIManager uiManager, World world)
         {
-            Camera.Reset();
+            camera.Reset();
             MediaPlayer.Stop();
             SongEngine.StartGameplayMusicCycle();
 
@@ -75,7 +75,7 @@ namespace StardustSandbox.Core
 
             SetSpeed(SimulationSpeed.Normal, actorManager, world);
 
-            Camera.SetPosition(Camera.WorldToScreen(Vector2.Zero));
+            camera.SetPosition(camera.WorldToScreen(Vector2.Zero));
 
             inputController.Pen.Tool = PenTool.Pencil;
             inputController.Enable();

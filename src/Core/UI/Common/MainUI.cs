@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Core.Audio;
+using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
@@ -58,6 +59,7 @@ namespace StardustSandbox.Core.UI.Common
         internal MainUI(
             ActorManager actorManager,
             AmbientManager ambientManager,
+            Camera2D camera,
             PlayerInputController inputController,
             StardustSandboxGame stardustSandboxGame,
             UIManager uiManager,
@@ -71,7 +73,7 @@ namespace StardustSandbox.Core.UI.Common
             this.world = world;
 
             this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, () => GameHandler.StartGame(actorManager, ambientManager, inputController, uiManager, world)),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, () => GameHandler.StartGame(actorManager, ambientManager, camera, inputController, uiManager, world)),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Play, string.Empty, () => this.uiManager.OpenUI(UIIndex.Play)),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Options, string.Empty, () =>
                 {

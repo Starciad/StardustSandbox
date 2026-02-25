@@ -21,11 +21,13 @@ namespace StardustSandbox.Core.Constants
 {
     internal static class WorldConstants
     {
-        internal const byte GRID_SIZE = 32;
         internal const byte CHUNK_SCALE = 6;
         internal const byte CHUNK_DEFAULT_COOLDOWN = 3;
-        internal const float BACKGROUND_COLOR_DARKENING_FACTOR = 0.5f;
+        internal const byte TILE_SIZE = 32;
+
         internal const int FRAME_PART_SIZE = 32;
+
+        internal const float BACKGROUND_COLOR_DARKENING_FACTOR = 0.5f;
 
         internal static readonly Point WORLD_THUMBNAIL_SIZE = new(23);
 

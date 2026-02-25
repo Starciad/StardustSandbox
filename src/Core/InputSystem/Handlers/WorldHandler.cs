@@ -35,6 +35,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers
 
         private readonly Player player;
         private readonly Pen pen;
+        private readonly Camera2D camera;
 
         private readonly VisualizationGizmo visualizationGizmo;
         private readonly PencilGizmo pencilGizmo;
@@ -44,7 +45,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers
 
         private readonly World world;
 
-        internal WorldHandler(ActorManager actorManager, Pen pen, Player player, World world)
+        internal WorldHandler(ActorManager actorManager, Camera2D camera, Pen pen, Player player, World world)
         {
             this.world = world;
 
@@ -52,6 +53,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers
 
             this.player = player;
             this.pen = pen;
+            this.camera = camera;
 
             this.visualizationGizmo = new(actorManager, pen, world, this);
             this.pencilGizmo = new(actorManager, pen, world, this);
@@ -101,14 +103,14 @@ namespace StardustSandbox.Core.InputSystem.Handlers
             return this.player.CanModifyEnvironment && this.player.SelectedItem != null;
         }
 
-        private static Vector2 GetWorldGridPositionFromMouse()
+        private Vector2 GetWorldGridPositionFromMouse()
         {
             return WorldMath.ToWorldPosition(ConvertScreenToWorld(InputEngine.GetCurrentMousePosition()));
         }
 
-        private static Vector2 ConvertScreenToWorld(Vector2 screenPosition)
+        private Vector2 ConvertScreenToWorld(Vector2 screenPosition)
         {
-            Vector3 worldPosition3D = Vector3.Transform(new(screenPosition, 0), Matrix.Invert(Camera.GetViewMatrix()));
+            Vector3 worldPosition3D = Vector3.Transform(new(screenPosition, 0), Matrix.Invert(this.camera.GetViewMatrix()));
 
             return new(worldPosition3D.X, worldPosition3D.Y);
         }

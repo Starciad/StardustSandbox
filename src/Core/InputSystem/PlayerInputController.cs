@@ -52,9 +52,9 @@ namespace StardustSandbox.Core.InputSystem
             this.player = new();
         }
 
-        internal void Initialize(ActorManager actorManager, World world)
+        internal void Initialize(ActorManager actorManager, Camera2D camera, World world)
         {
-            this.worldHandler = new(actorManager, this.pen, this.player, world);
+            this.worldHandler = new(actorManager, camera, this.pen, this.player, world);
 
             ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
 
@@ -78,38 +78,38 @@ namespace StardustSandbox.Core.InputSystem
                     new InputAction("MoveUp")
                     {
                         KeyboardBinding = controlSettings.MoveCameraUpKeyboardBinding,
-                        OnPerformed = _ => Camera.MoveUp(this.player.MovementSpeed),
+                        OnPerformed = _ => camera.MoveUp(this.player.MovementSpeed),
                     },
 
                     new InputAction("MoveRight")
                     {
                         KeyboardBinding = controlSettings.MoveCameraRightKeyboardBinding,
-                        OnPerformed = _ => Camera.MoveRight(this.player.MovementSpeed),
+                        OnPerformed = _ => camera.MoveRight(this.player.MovementSpeed),
                     },
 
                     new InputAction("MoveDown")
                     {
                         KeyboardBinding = controlSettings.MoveCameraDownKeyboardBinding,
-                        OnPerformed = _ => Camera.MoveDown(this.player.MovementSpeed),
+                        OnPerformed = _ => camera.MoveDown(this.player.MovementSpeed),
                     },
 
                     new InputAction("MoveLeft")
                     {
                         KeyboardBinding = controlSettings.MoveCameraLeftKeyboardBinding,
-                        OnPerformed = _ => Camera.MoveLeft(this.player.MovementSpeed),
+                        OnPerformed = _ => camera.MoveLeft(this.player.MovementSpeed),
                     },
 
                     // Zooming
                     new InputAction("ZoomIn")
                     {
                         KeyboardBinding = controlSettings.ZoomCameraInKeyboardBinding,
-                        OnPerformed = _ => Camera.FadeIn(this.player.ZoomingSpeed),
+                        OnPerformed = _ => camera.FadeIn(this.player.ZoomingSpeed),
                     },
 
                     new InputAction("ZoomOut")
                     {
                         KeyboardBinding = controlSettings.ZoomCameraOutKeyboardBinding,
-                        OnPerformed = _ => Camera.FadeOut(this.player.ZoomingSpeed),
+                        OnPerformed = _ => camera.FadeOut(this.player.ZoomingSpeed),
                     },
 
                     // Running

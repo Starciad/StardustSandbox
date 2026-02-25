@@ -81,10 +81,10 @@ namespace StardustSandbox.Core.Elements
         {
             float xOffset = ElementConstants.SPRITE_X_OFFSET, yOffset = ElementConstants.SPRITE_Y_OFFSET;
 
-            spritePositions[0] = new Vector2(position.X, position.Y) * WorldConstants.GRID_SIZE;
-            spritePositions[1] = new Vector2(position.X + xOffset, position.Y) * WorldConstants.GRID_SIZE;
-            spritePositions[2] = new Vector2(position.X, position.Y + yOffset) * WorldConstants.GRID_SIZE;
-            spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * WorldConstants.GRID_SIZE;
+            spritePositions[0] = new Vector2(position.X, position.Y) * WorldConstants.TILE_SIZE;
+            spritePositions[1] = new Vector2(position.X + xOffset, position.Y) * WorldConstants.TILE_SIZE;
+            spritePositions[2] = new Vector2(position.X, position.Y + yOffset) * WorldConstants.TILE_SIZE;
+            spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * WorldConstants.TILE_SIZE;
         }
 
         private static void UpdateSpriteSlice(ElementContext context, in ElementIndex elementIndex, in int index, in Point position)
@@ -259,7 +259,7 @@ namespace StardustSandbox.Core.Elements
                 referenceColor.A
             );
 
-            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Pixel), new Vector2(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y) * WorldConstants.GRID_SIZE, null, finalColor, 0f, Vector2.Zero, new Vector2(WorldConstants.GRID_SIZE), SpriteEffects.None, 0f);
+            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Pixel), new Vector2(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y) * WorldConstants.TILE_SIZE, null, finalColor, 0f, Vector2.Zero, new Vector2(WorldConstants.TILE_SIZE), SpriteEffects.None, 0f);
         }
 
         private static void DrawBlobElementRoutine(ElementContext context, in ElementIndex elementIndex, SpriteBatch spriteBatch, in Point textureOriginOffset, GameplaySettings gameplaySettings)
@@ -301,15 +301,15 @@ namespace StardustSandbox.Core.Elements
                 colorModifier = colorModifier.Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
             }
 
-            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Elements), new Vector2(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y) * WorldConstants.GRID_SIZE, new(textureOriginOffset, new(32)), colorModifier, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Elements), new Vector2(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y) * WorldConstants.TILE_SIZE, new(textureOriginOffset, new(32)), colorModifier, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }
 
-        internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, in Point textureOriginOffset, GameplaySettings gameplaySettings)
+        internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, Camera2D camera, in Point textureOriginOffset, GameplaySettings gameplaySettings)
         {
             // If the camera is too far away, draw only a single pixel
             // that can represent the element to aid in performance and
             // visibility.
-            if (Camera.Zoom <= CameraConstants.PIXEL_RENDER_ZOOM_THRESHOLD)
+            if (camera.Zoom <= CameraConstants.PIXEL_RENDER_ZOOM_THRESHOLD)
             {
                 DrawPixelElementRoutine(context, spriteBatch, gameplaySettings);
                 return;

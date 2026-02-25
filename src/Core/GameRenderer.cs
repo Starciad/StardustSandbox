@@ -56,6 +56,7 @@ namespace StardustSandbox.Core
         internal static void Draw(
             ActorManager actorManager,
             AmbientManager ambientManager,
+            Camera2D camera,
             CursorManager cursorManager,
             PlayerInputController inputController,
             SpriteBatch spriteBatch,
@@ -71,9 +72,9 @@ namespace StardustSandbox.Core
             graphicsDevice.SetRenderTarget(null);
             graphicsDevice.Clear(Color.Transparent);
 
-            DrawAmbient(spriteBatch, ambientManager);
-            DrawWorld(spriteBatch, actorManager, world);
-            DrawCursorPenActionArea(spriteBatch, inputController);
+            DrawAmbient(spriteBatch, ambientManager, camera);
+            DrawWorld(spriteBatch, camera, actorManager, world);
+            DrawCursorPenActionArea(spriteBatch, camera, inputController);
             DrawGUI(spriteBatch, uiManager);
             DrawCursor(spriteBatch, cursorManager);
 
@@ -84,7 +85,7 @@ namespace StardustSandbox.Core
             }
         }
 
-        private static void DrawAmbient(SpriteBatch spriteBatch, AmbientManager ambientManager)
+        private static void DrawAmbient(SpriteBatch spriteBatch, AmbientManager ambientManager, Camera2D camera)
         {
             Effect gradientTransitionEffect = AssetDatabase.GetEffect(EffectIndex.GradientTransition);
 
@@ -123,11 +124,11 @@ namespace StardustSandbox.Core
                 ambientManager.BackgroundHandler.GetCurrentBackground().IsAffectedByLighting ? gradientTransitionEffect : null,
                 null
             );
-            ambientManager.BackgroundHandler.Draw(spriteBatch);
+            ambientManager.BackgroundHandler.Draw(spriteBatch, camera);
             spriteBatch.End();
         }
 
-        private static void DrawWorld(SpriteBatch spriteBatch, ActorManager actorManager, World world)
+        private static void DrawWorld(SpriteBatch spriteBatch, Camera2D camera, ActorManager actorManager, World world)
         {
             spriteBatch.Begin(
                 SpriteSortMode.Deferred,
@@ -136,11 +137,11 @@ namespace StardustSandbox.Core
                 DepthStencilState.Default,
                 RasterizerState.CullNone,
                 null,
-                Camera.GetViewMatrix()
+                camera.GetViewMatrix()
             );
 
-            world.Draw(spriteBatch);
-            actorManager.Draw(spriteBatch);
+            world.Draw(spriteBatch, camera);
+            actorManager.Draw(spriteBatch, camera);
 
             spriteBatch.End();
         }
@@ -171,7 +172,7 @@ namespace StardustSandbox.Core
             spriteBatch.End();
         }
 
-        private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, PlayerInputController inputController)
+        private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, Camera2D camera, PlayerInputController inputController)
         {
             GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
 
@@ -181,25 +182,25 @@ namespace StardustSandbox.Core
             }
 
             Vector2 screenMousePosition = InputEngine.GetCurrentMousePosition();
-            Vector2 worldMousePosition = Camera.ScreenToWorld(screenMousePosition);
+            Vector2 worldMousePosition = camera.ScreenToWorld(screenMousePosition);
 
             Point alignedPosition = new(
-                (int)Math.Floor(worldMousePosition.X / WorldConstants.GRID_SIZE),
-                (int)Math.Floor(worldMousePosition.Y / WorldConstants.GRID_SIZE)
+                (int)Math.Floor(worldMousePosition.X / WorldConstants.TILE_SIZE),
+                (int)Math.Floor(worldMousePosition.Y / WorldConstants.TILE_SIZE)
             );
 
             spriteBatch.Begin(
                 SpriteSortMode.Deferred,
                 BlendState.NonPremultiplied,
                 SamplerState.PointClamp,
-                transformMatrix: Camera.GetViewMatrix()
+                transformMatrix: camera.GetViewMatrix()
             );
 
             foreach (Point point in inputController.Pen.GetShapePoints(alignedPosition))
             {
                 Vector2 worldPosition = new(
-                    point.X * WorldConstants.GRID_SIZE,
-                    point.Y * WorldConstants.GRID_SIZE
+                    point.X * WorldConstants.TILE_SIZE,
+                    point.Y * WorldConstants.TILE_SIZE
                 );
 
                 spriteBatch.Draw(

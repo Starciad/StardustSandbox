@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Backgrounds;
+using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Backgrounds;
 
@@ -43,9 +44,9 @@ namespace StardustSandbox.Core.Scenario
             this.currentBackground?.Update(gameTime);
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch, Camera2D camera)
         {
-            this.currentBackground?.Draw(spriteBatch);
+            this.currentBackground?.Draw(spriteBatch, camera);
         }
     }
 }

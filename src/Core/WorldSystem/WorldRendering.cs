@@ -44,15 +44,15 @@ namespace StardustSandbox.Core.WorldSystem
         private readonly PlayerInputController inputController = inputController;
         private readonly World world = world;
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch, Camera2D camera)
         {
-            RectangleF viewBounds = Camera.GetViewBounds();
+            RectangleF viewBounds = camera.GetViewBounds();
 
             // Converts the visible world area to tile indexes
-            int minTileX = (int)Math.Clamp(Math.Floor(viewBounds.Left / WorldConstants.GRID_SIZE), 0, this.world.Size.X);
-            int minTileY = (int)Math.Clamp(Math.Floor(viewBounds.Top / WorldConstants.GRID_SIZE), 0, this.world.Size.Y);
-            int maxTileX = (int)Math.Clamp(Math.Ceiling(viewBounds.Right / WorldConstants.GRID_SIZE), 0, this.world.Size.X);
-            int maxTileY = (int)Math.Clamp(Math.Ceiling(viewBounds.Bottom / WorldConstants.GRID_SIZE), 0, this.world.Size.Y);
+            int minTileX = (int)Math.Clamp(Math.Floor(viewBounds.Left / WorldConstants.TILE_SIZE), 0, this.world.Size.X);
+            int minTileY = (int)Math.Clamp(Math.Floor(viewBounds.Top / WorldConstants.TILE_SIZE), 0, this.world.Size.Y);
+            int maxTileX = (int)Math.Clamp(Math.Ceiling(viewBounds.Right / WorldConstants.TILE_SIZE), 0, this.world.Size.X);
+            int maxTileY = (int)Math.Clamp(Math.Ceiling(viewBounds.Bottom / WorldConstants.TILE_SIZE), 0, this.world.Size.Y);
 
             GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
 
@@ -64,30 +64,30 @@ namespace StardustSandbox.Core.WorldSystem
 
                     if (gameplaySettings.ShowGrid && this.inputController.Pen.Tool != PenTool.Visualization)
                     {
-                        spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.GRID_SIZE, new(32, 0, 32, 32), new(AAP64ColorPalette.White, gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.TILE_SIZE, new(32, 0, 32, 32), new(AAP64ColorPalette.White, gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                     }
 
                     if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot slot))
                     {
                         if (this.DrawBackgroundElements && !slot.Background.IsEmpty)
                         {
-                            DrawSlotLayer(spriteBatch, slot.Position, Layer.Background, slot.GetLayer(Layer.Background).Element, gameplaySettings);
+                            DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Background, slot.GetLayer(Layer.Background).Element, gameplaySettings);
                         }
 
                         if (this.DrawForegroundElements && !slot.Foreground.IsEmpty)
                         {
-                            DrawSlotLayer(spriteBatch, slot.Position, Layer.Foreground, slot.GetLayer(Layer.Foreground).Element, gameplaySettings);
+                            DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Foreground, slot.GetLayer(Layer.Foreground).Element, gameplaySettings);
                         }
                     }
                 }
             }
         }
 
-        private void DrawSlotLayer(SpriteBatch spriteBatch, in Point position, in Layer layer, Element element, GameplaySettings gameplaySettings)
+        private void DrawSlotLayer(SpriteBatch spriteBatch, Camera2D camera, in Point position, in Layer layer, Element element, GameplaySettings gameplaySettings)
         {
             this.elementRenderingContext.Initialize(position, layer);
 
-            ElementRenderer.Draw(this.elementRenderingContext, element, spriteBatch, element.TextureOriginOffset, gameplaySettings);
+            ElementRenderer.Draw(this.elementRenderingContext, element, spriteBatch, camera, element.TextureOriginOffset, gameplaySettings);
         }
     }
 }

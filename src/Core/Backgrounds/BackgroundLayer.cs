@@ -64,7 +64,7 @@ namespace StardustSandbox.Core.Backgrounds
             this.layerPosition += this.AutoMovementSpeed * elapsedSeconds;
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch, Camera2D camera)
         {
             if (this.Texture == null)
             {
@@ -80,7 +80,7 @@ namespace StardustSandbox.Core.Backgrounds
             }
 
             Vector2 viewport = GameScreen.GetViewport();
-            Vector2 cameraEffect = Camera.Position * this.ParallaxSpeed;
+            Vector2 cameraEffect = camera.Position * this.ParallaxSpeed;
 
             if (this.IsFixedHorizontally)
             {

@@ -18,6 +18,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Cameras;
+
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Backgrounds
@@ -35,11 +37,11 @@ namespace StardustSandbox.Core.Backgrounds
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch, Camera2D camera)
         {
             foreach (BackgroundLayer layer in this.Layers)
             {
-                layer.Draw(spriteBatch);
+                layer.Draw(spriteBatch, camera);
             }
         }
     }

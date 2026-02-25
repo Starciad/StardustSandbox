@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Achievements;
+using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
@@ -737,7 +738,7 @@ namespace StardustSandbox.Core.WorldSystem
             int bottom = this.Size.Y;
 
             Texture2D texture = AssetDatabase.GetTexture(TextureIndex.Frames);
-            int gridSize = WorldConstants.GRID_SIZE;
+            int gridSize = WorldConstants.TILE_SIZE;
 
             // Top line
             for (int x = left; x <= right; x++)
@@ -796,7 +797,7 @@ namespace StardustSandbox.Core.WorldSystem
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch, Camera2D camera)
         {
             if (!this.CanDraw)
             {
@@ -810,7 +811,7 @@ namespace StardustSandbox.Core.WorldSystem
                 this.chunking.Draw(spriteBatch);
             }
 
-            this.rendering.Draw(spriteBatch);
+            this.rendering.Draw(spriteBatch, camera);
         }
 
         #endregion

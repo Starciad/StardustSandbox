@@ -209,21 +209,21 @@ namespace StardustSandbox.Core.Managers
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch, Camera2D camera)
         {
             if (!this.CanDraw)
             {
                 return;
             }
 
-            RectangleF viewBoundsF = Camera.GetViewBounds();
+            RectangleF viewBoundsF = camera.GetViewBounds();
 
             // Convert the view boundaries to the world's tile system,
             // ensuring consistency with the culling and update logic.
-            int minTileX = (int)Math.Floor(viewBoundsF.Left / WorldConstants.GRID_SIZE);
-            int minTileY = (int)Math.Floor(viewBoundsF.Top / WorldConstants.GRID_SIZE);
-            int maxTileX = (int)Math.Ceiling(viewBoundsF.Right / WorldConstants.GRID_SIZE);
-            int maxTileY = (int)Math.Ceiling(viewBoundsF.Bottom / WorldConstants.GRID_SIZE);
+            int minTileX = (int)Math.Floor(viewBoundsF.Left / WorldConstants.TILE_SIZE);
+            int minTileY = (int)Math.Floor(viewBoundsF.Top / WorldConstants.TILE_SIZE);
+            int maxTileX = (int)Math.Ceiling(viewBoundsF.Right / WorldConstants.TILE_SIZE);
+            int maxTileY = (int)Math.Ceiling(viewBoundsF.Bottom / WorldConstants.TILE_SIZE);
 
             Rectangle viewRectangle = new(minTileX, minTileY, maxTileX - minTileX, maxTileY - minTileY);
 

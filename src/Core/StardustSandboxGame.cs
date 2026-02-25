@@ -46,6 +46,7 @@ namespace StardustSandbox.Core
 
         private readonly World world;
         private readonly PlayerInputController inputController;
+        private readonly Camera2D camera;
 
         private readonly ActorManager actorManager;
         private readonly AmbientManager ambientManager;
@@ -104,6 +105,7 @@ namespace StardustSandbox.Core
 
             // Core
             this.world = new(this.inputController);
+            this.camera = new();
 
             // Actor Manager
             this.actorManager = new(this.world);
@@ -120,7 +122,6 @@ namespace StardustSandbox.Core
             this.gameNotifier = this.Services.GetService<IGameNotifier>();
 
             GameScreen.Initialize(this.GraphicsDevice);
-            Camera.Initialize();
 
             AchievementEngine.Initialize(this.achievementNotifier);
             SongEngine.Initialize();
@@ -150,7 +151,7 @@ namespace StardustSandbox.Core
             BackgroundDatabase.Load();
             ToolDatabase.Load();
             ActorDatabase.Load(this.actorManager, this.world);
-            UIDatabase.Load(this.actorManager, this.ambientManager, this.cursorManager, this.Window, this.GraphicsDevice, this.inputController, this, this.uiManager, this.videoManager, this.world);
+            UIDatabase.Load(this.actorManager, this.ambientManager, this.camera, this.cursorManager, this.Window, this.GraphicsDevice, this.inputController, this, this.uiManager, this.videoManager, this.world);
 
             // Managers
             this.effectsManager.Initialize();
@@ -158,7 +159,7 @@ namespace StardustSandbox.Core
             this.ambientManager.Initialize(this.world);
 
             // Controllers
-            this.inputController.Initialize(this.actorManager, this.world);
+            this.inputController.Initialize(this.actorManager, this.camera, this.world);
 
             // Renderer
             GameRenderer.Initialize(this.videoManager);
@@ -177,7 +178,7 @@ namespace StardustSandbox.Core
 
             if (GameParameters.SkipIntro)
             {
-                GameHandler.StartGame(this.actorManager, this.ambientManager, this.inputController, this.uiManager, this.world);
+                GameHandler.StartGame(this.actorManager, this.ambientManager, this.camera, this.inputController, this.uiManager, this.world);
             }
             else
             {
@@ -201,7 +202,7 @@ namespace StardustSandbox.Core
 
             // Controllers
             this.inputController.Update();
-            Camera.Update(gameTime);
+            this.camera.Update(gameTime);
 
             // Managers
             this.effectsManager.Update(gameTime, this.world.Time.CurrentTime);
@@ -212,6 +213,8 @@ namespace StardustSandbox.Core
             {
                 this.world.Update(gameTime);
                 this.actorManager.Update(gameTime);
+
+                this.camera.ClampTargetPositionToBounds(new(0, 0, this.world.Size.X * WorldConstants.TILE_SIZE, this.world.Size.Y * WorldConstants.TILE_SIZE));
             }
 
             this.ambientManager.Update(gameTime);
@@ -224,6 +227,7 @@ namespace StardustSandbox.Core
             GameRenderer.Draw(
                 this.actorManager,
                 this.ambientManager,
+                this.camera,
                 this.cursorManager,
                 this.inputController,
                 this.spriteBatch,

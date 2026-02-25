@@ -26,16 +26,16 @@ namespace StardustSandbox.Core.Mathematics
         internal static Vector2 ToWorldPosition(Vector2 globalPosition)
         {
             return new(
-                (int)(globalPosition.X / WorldConstants.GRID_SIZE),
-                (int)(globalPosition.Y / WorldConstants.GRID_SIZE)
+                (int)(globalPosition.X / WorldConstants.TILE_SIZE),
+                (int)(globalPosition.Y / WorldConstants.TILE_SIZE)
             );
         }
 
         internal static Vector2 ToGlobalPosition(Vector2 worldPosition)
         {
             return new(
-                (int)(worldPosition.X * WorldConstants.GRID_SIZE),
-                (int)(worldPosition.Y * WorldConstants.GRID_SIZE)
+                (int)(worldPosition.X * WorldConstants.TILE_SIZE),
+                (int)(worldPosition.Y * WorldConstants.TILE_SIZE)
             );
         }
     }

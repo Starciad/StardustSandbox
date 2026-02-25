@@ -87,8 +87,8 @@ namespace StardustSandbox.Core.WorldSystem
                 {
                     for (int x = 0; x < WorldConstants.CHUNK_SCALE; x++)
                     {
-                        Point position = new((chunk.Position.X / WorldConstants.GRID_SIZE) + x,
-                                             (chunk.Position.Y / WorldConstants.GRID_SIZE) + y);
+                        Point position = new((chunk.Position.X / WorldConstants.TILE_SIZE) + x,
+                                             (chunk.Position.Y / WorldConstants.TILE_SIZE) + y);
 
                         if (!TryUpdateRow(position))
                         {
@@ -100,8 +100,8 @@ namespace StardustSandbox.Core.WorldSystem
                 {
                     for (int x = WorldConstants.CHUNK_SCALE - 1; x >= 0; x--)
                     {
-                        Point position = new((chunk.Position.X / WorldConstants.GRID_SIZE) + x,
-                                             (chunk.Position.Y / WorldConstants.GRID_SIZE) + y);
+                        Point position = new((chunk.Position.X / WorldConstants.TILE_SIZE) + x,
+                                             (chunk.Position.Y / WorldConstants.TILE_SIZE) + y);
 
                         if (!TryUpdateRow(position))
                         {

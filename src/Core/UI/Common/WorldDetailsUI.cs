@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Audio;
+using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Assets;
@@ -54,6 +55,7 @@ namespace StardustSandbox.Core.UI.Common
         internal WorldDetailsUI(
             ActorManager actorManager,
             AmbientManager ambientManager,
+            Camera2D camera,
             PlayerInputController inputController,
             UIManager uiManager,
             World world
@@ -77,7 +79,7 @@ namespace StardustSandbox.Core.UI.Common
                     uiManager.OpenUI(UIIndex.Main);
                     uiManager.OpenUI(UIIndex.Hud);
 
-                    GameHandler.StartGame(actorManager, ambientManager, inputController, uiManager, world);
+                    GameHandler.StartGame(actorManager, ambientManager, camera, inputController, uiManager, world);
                     GameHandler.LoadSaveFile(actorManager, world, this.saveFile.Metadata.Name);
                     SoundEngine.Play(SoundEffectIndex.GUI_World_Loaded);
                 }),
