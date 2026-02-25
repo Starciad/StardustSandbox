@@ -69,11 +69,11 @@ namespace StardustSandbox.Core.Serialization.Settings
             this.MoveCameraDownKeyboardBinding = Keys.S;
             this.MoveCameraRightKeyboardBinding = Keys.D;
             this.MoveCameraFastKeyboardBinding = Keys.LeftShift;
-            this.ZoomCameraInKeyboardBinding = Keys.OemPlus;
-            this.ZoomCameraOutKeyboardBinding = Keys.OemMinus;
+            this.ZoomCameraInKeyboardBinding = Keys.E;
+            this.ZoomCameraOutKeyboardBinding = Keys.Q;
 
             this.TogglePauseKeyboardBinding = Keys.Space;
-            this.ClearWorldKeyboardBinding = Keys.R;
+            this.ClearWorldKeyboardBinding = Keys.C;
             this.NextShapeKeyboardBinding = Keys.Tab;
 
             this.ScreenshotKeyboardBinding = Keys.F9;
