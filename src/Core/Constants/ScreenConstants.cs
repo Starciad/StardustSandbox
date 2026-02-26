@@ -24,10 +24,12 @@ namespace StardustSandbox.Core.Constants
         // 16:9 Aspect Ratio
         internal static Point[] RESOLUTIONS =>
         [
-            new(1280, 720), // [00] - SD / HD ready (720p)
-            new(1366, 768), // [01] - WXGA
-            new(1600, 900), // [02] - HD+
-            new(1920, 1080), // [03] - FHD / Full HD (1080p)
+            new(854, 480), // [00] - FWVGA
+            new(960, 540), // [01] - qHD
+            new(1280, 720), // [02] - SD / HD ready (720p)
+            new(1366, 768), // [03] - WXGA
+            new(1600, 900), // [04] - HD+
+            new(1920, 1080), // [05] - FHD / Full HD (1080p)
         ];
     }
 }
