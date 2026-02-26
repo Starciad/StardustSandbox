@@ -19,8 +19,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
-using SharpDX.Direct3D9;
-
 using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Cameras;
