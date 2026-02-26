@@ -24,30 +24,13 @@ using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Serialization;
+using StardustSandbox.Core.Serialization.Settings;
 
 using System;
 
 namespace StardustSandbox.Core.UI.Elements
 {
-    internal static class TooltipBoxContent
-    {
-        internal static string Title => title;
-        internal static string Description => description;
-
-        private static string title = string.Empty;
-        private static string description = string.Empty;
-
-        internal static void SetTitle(string value)
-        {
-            title = value ?? string.Empty;
-        }
-
-        internal static void SetDescription(string value)
-        {
-            description = value ?? string.Empty;
-        }
-    }
-
     internal sealed class TooltipBox : UIElement
     {
         internal Vector2 MinimumSize { get; set; }
@@ -58,6 +41,7 @@ namespace StardustSandbox.Core.UI.Elements
         private readonly Text description;
 
         private readonly CursorManager cursorManager;
+        private readonly InterfaceSettings interfaceSettings;
 
         internal TooltipBox(CursorManager cursorManager)
         {
@@ -98,22 +82,32 @@ namespace StardustSandbox.Core.UI.Elements
 
             this.MinimumSize = new(48f, 48f);
             this.MaximumSize = GameScreen.GetViewport();
+
+            this.interfaceSettings = SettingsSerializer.Load<InterfaceSettings>();
+        }
+
+        internal void SetTitle(string value)
+        {
+            this.title.TextContent = value;
+        }
+
+        internal void SetDescription(string value)
+        {
+            this.description.TextContent = value;
         }
 
         protected override void OnInitialize()
         {
+
         }
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            bool visible = !GameParameters.HideTooltips;
+            bool shouldShowTooltip = this.interfaceSettings.ShowTooltip;
 
-            this.background.CanDraw = visible;
-            this.title.CanDraw = visible;
-            this.description.CanDraw = visible;
-
-            this.title.TextContent = TooltipBoxContent.Title;
-            this.description.TextContent = TooltipBoxContent.Description;
+            this.background.CanDraw = shouldShowTooltip;
+            this.title.CanDraw = shouldShowTooltip;
+            this.description.CanDraw = shouldShowTooltip;
 
             UpdateSize();
             UpdatePosition();
@@ -121,6 +115,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         protected override void OnDraw(SpriteBatch spriteBatch)
         {
+            return;
         }
 
         private void UpdateSize()
@@ -160,7 +155,7 @@ namespace StardustSandbox.Core.UI.Elements
         private void UpdatePosition()
         {
             Vector2 mousePosition = InputEngine.GetCurrentMousePosition();
-            Vector2 spacing = new(this.cursorManager.Scale * 16f);
+            Vector2 spacing = new(this.cursorManager.Scale * 16.0f);
             Vector2 position = mousePosition + this.Margin + spacing;
 
             Vector2 viewport = GameScreen.GetViewport();
@@ -177,14 +172,14 @@ namespace StardustSandbox.Core.UI.Elements
 
             position.X = Math.Clamp(
                 position.X,
-                32f,
-                viewport.X - this.background.Size.X - 32f
+                32.0f,
+                viewport.X - this.background.Size.X - 32.0f
             );
 
             position.Y = Math.Clamp(
                 position.Y,
-                32f,
-                viewport.Y - this.background.Size.Y - 32f
+                32.0f,
+                viewport.Y - this.background.Size.Y - 32.0f
             );
 
             this.background.Position = position;

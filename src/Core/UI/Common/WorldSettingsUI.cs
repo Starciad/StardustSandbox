@@ -245,8 +245,8 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(this.menuButtonInfos[i].Name);
-                    TooltipBoxContent.SetDescription(this.menuButtonInfos[i].Description);
+                    this.tooltipBox.SetTitle(this.menuButtonInfos[i].Name);
+                    this.tooltipBox.SetDescription(this.menuButtonInfos[i].Description);
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }
@@ -286,8 +286,8 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(this.sizeButtonInfos[i].Name);
-                    TooltipBoxContent.SetDescription(this.sizeButtonInfos[i].Description);
+                    this.tooltipBox.SetTitle(this.sizeButtonInfos[i].Name);
+                    this.tooltipBox.SetDescription(this.sizeButtonInfos[i].Description);
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }

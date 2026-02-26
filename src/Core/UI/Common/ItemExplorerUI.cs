@@ -511,8 +511,8 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(this.buttonInfos[i].Name);
-                    TooltipBoxContent.SetDescription(this.buttonInfos[i].Description);
+                    this.tooltipBox.SetTitle(this.buttonInfos[i].Name);
+                    this.tooltipBox.SetDescription(this.buttonInfos[i].Description);
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }
@@ -546,8 +546,8 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(category.Name);
-                    TooltipBoxContent.SetDescription(category.Description);
+                    this.tooltipBox.SetTitle(category.Name);
+                    this.tooltipBox.SetDescription(category.Description);
                 }
 
                 categorySlot.Background.Color = this.selectedCategory == category ? AAP64ColorPalette.TealGray : AAP64ColorPalette.White;
@@ -577,8 +577,8 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(subcategory.Name);
-                    TooltipBoxContent.SetDescription(subcategory.Description);
+                    this.tooltipBox.SetTitle(subcategory.Name);
+                    this.tooltipBox.SetDescription(subcategory.Description);
                 }
 
                 subcategorySlot.Background.Color = this.selectedSubcategory == this.selectedCategory[i] ? AAP64ColorPalette.TealGray : AAP64ColorPalette.White;
@@ -609,8 +609,8 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(item.Name);
-                    TooltipBoxContent.SetDescription(item.Description);
+                    this.tooltipBox.SetTitle(item.Name);
+                    this.tooltipBox.SetDescription(item.Description);
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }

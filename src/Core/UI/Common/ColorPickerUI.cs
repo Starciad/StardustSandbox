@@ -309,8 +309,8 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(colorButton.Name);
-                    TooltipBoxContent.SetDescription(string.Empty);
+                    this.tooltipBox.SetTitle(colorButton.Name);
+                    this.tooltipBox.SetDescription(string.Empty);
 
                     colorSlot.Border.Color = AAP64ColorPalette.HoverColor;
                 }

@@ -113,11 +113,17 @@ namespace StardustSandbox.Core.UI
             OnScreenResize(newSize);
         }
 
+        internal void ChangeScale(float newScale)
+        {
+            OnScaleChange(newScale);
+        }
+
         protected abstract void OnBuild(Container root);
         protected virtual void OnOpened() { }
         protected virtual void OnClosed() { }
         protected virtual void OnUpdate(GameTime gameTime) { }
         protected virtual void OnScreenResize(Vector2 newSize) { }
+        protected virtual void OnScaleChange(float newScale) { }
 
         private void EnsureInitialized()
         {

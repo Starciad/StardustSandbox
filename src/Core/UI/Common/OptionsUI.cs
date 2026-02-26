@@ -21,6 +21,7 @@ using Microsoft.Xna.Framework.Input;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -83,6 +84,7 @@ namespace StardustSandbox.Core.UI.Common
             CursorSettings cursorSettings = SettingsSerializer.Load<CursorSettings>();
             GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
             GeneralSettings generalSettings = SettingsSerializer.Load<GeneralSettings>();
+            InterfaceSettings interfaceSettings = SettingsSerializer.Load<InterfaceSettings>();
             VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
             VolumeSettings volumeSettings = SettingsSerializer.Load<VolumeSettings>();
 
@@ -140,7 +142,60 @@ namespace StardustSandbox.Core.UI.Common
                     }
                 ),
 
-                // [1] Gameplay
+                // [1] Interface
+                new Category(
+                    Localization_GUIs.Options_Interface_Name,
+                    Localization_GUIs.Options_Interface_Description,
+                    TextureIndex.IconUI,
+                    new Rectangle(224, 256, 32, 32),
+                    new Option<float>(
+                        Localization_GUIs.Options_Interface_Scale_Name,
+                        Localization_GUIs.Options_Interface_Scale_Description,
+                        () =>
+                        {
+                            return interfaceSettings.Scale * 100.0f;
+                        },
+                        (value) =>
+                        {
+                            return string.Concat((int)value, '%');
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            sliderUI.Setup(
+                                Localization_GUIs.Options_Interface_Scale_Description,
+                                new(50, 200),
+                                Convert.ToInt32(option.GetValue()),
+                                (newValue) => {
+                                    interfaceSettings.Scale = newValue / 100.0f;
+                                    SettingsSerializer.Save(interfaceSettings);
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                    UIDatabase.ChangeScaleUIs(interfaceSettings.Scale);
+                                }
+                            );
+                            uiManager.OpenUI(UIIndex.Slider);
+                        }
+                    ),
+                    new Option<bool>(
+                        Localization_GUIs.Options_Interface_ShowTooltip_Name,
+                        Localization_GUIs.Options_Interface_ShowTooltip_Description,
+                        () =>
+                        {
+                            return interfaceSettings.ShowTooltip;
+                        },
+                        (value) =>
+                        {
+                            return value ? Localization_Statements.Enabled : Localization_Statements.Disabled;
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            interfaceSettings.ShowTooltip = !interfaceSettings.ShowTooltip;
+                            SettingsSerializer.Save(interfaceSettings);
+                            optionSlotInfo.Value.TextContent = option.GetValueString();
+                        }
+                    )
+                ),
+
+                // [2] Gameplay
                 new Category(
                     Localization_GUIs.Options_Gameplay_Name,
                     Localization_GUIs.Options_Gameplay_Description,
@@ -281,10 +336,54 @@ namespace StardustSandbox.Core.UI.Common
 
                             optionSlotInfo.Value.TextContent = option.GetValueString();
                         }
+                    ),
+                    new Option<bool>(
+                        Localization_GUIs.Options_Gameplay_UseSmoothCameraMovement_Name,
+                        Localization_GUIs.Options_Gameplay_UseSmoothCameraMovement_Description,
+                        () =>
+                        {
+                            return gameplaySettings.UseSmoothCameraMovement;
+                        },
+                        (value) =>
+                        {
+                            return value ? Localization_Statements.Enabled : Localization_Statements.Disabled;
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            gameplaySettings.UseSmoothCameraMovement = !gameplaySettings.UseSmoothCameraMovement;
+                            SettingsSerializer.Save(gameplaySettings);
+                            optionSlotInfo.Value.TextContent = option.GetValueString();
+                        }
+                    ),
+                    new Option<float>(
+                        Localization_GUIs.Options_Gameplay_CameraSpeed_Name,
+                        Localization_GUIs.Options_Gameplay_CameraSpeed_Description,
+                        () =>
+                        {
+                            return gameplaySettings.CameraSpeed;
+                        },
+                        (value) =>
+                        {
+                            return string.Concat((int)(value * 100.0f), '%');
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            sliderUI.Setup(
+                                Localization_GUIs.Options_Gameplay_CameraSpeed_Description,
+                                new(0, 300),
+                                Convert.ToInt32(option.GetValue()),
+                                (newValue) => {
+                                    gameplaySettings.CameraSpeed = newValue / 100.0f;
+                                    SettingsSerializer.Save(gameplaySettings);
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                }
+                            );
+                            uiManager.OpenUI(UIIndex.Slider);
+                         }
                     )
                 ),
 
-                // [2] Volume
+                // [3] Volume
                 new Category(
                     Localization_GUIs.Options_Volume_Name,
                     Localization_GUIs.Options_Volume_Description,
@@ -383,7 +482,7 @@ namespace StardustSandbox.Core.UI.Common
                     )
                 ),
 
-                // [3] Video
+                // [4] Video
                 new Category(
                     Localization_GUIs.Options_Video_Name,
                     Localization_GUIs.Options_Video_Description,
@@ -513,7 +612,7 @@ namespace StardustSandbox.Core.UI.Common
                     )
                 ),
 
-                // [4] Controls
+                // [5] Controls
                 new Category(
                     Localization_GUIs.Options_Controls_Name,
                     Localization_GUIs.Options_Controls_Description,
@@ -773,7 +872,7 @@ namespace StardustSandbox.Core.UI.Common
                     )
                 ),
 
-                // [5] Cursor
+                // [6] Cursor
                 new Category(
                     Localization_GUIs.Options_Cursor_Name,
                     Localization_GUIs.Options_Cursor_Description,
@@ -1218,8 +1317,8 @@ namespace StardustSandbox.Core.UI.Common
             {
                 this.tooltipBox.CanDraw = true;
 
-                TooltipBoxContent.SetTitle(this.exitButtonInfo.Name);
-                TooltipBoxContent.SetDescription(this.exitButtonInfo.Description);
+                this.tooltipBox.SetTitle(this.exitButtonInfo.Name);
+                this.tooltipBox.SetDescription(this.exitButtonInfo.Description);
 
                 this.exitButtonSlotInfo.Background.Color = AAP64ColorPalette.HoverColor;
             }
@@ -1251,8 +1350,8 @@ namespace StardustSandbox.Core.UI.Common
                 if (Interaction.OnMouseOver(slotInfo.Background))
                 {
                     this.tooltipBox.CanDraw = true;
-                    TooltipBoxContent.SetTitle(buttonInfo.Name);
-                    TooltipBoxContent.SetDescription(buttonInfo.Description);
+                    this.tooltipBox.SetTitle(buttonInfo.Name);
+                    this.tooltipBox.SetDescription(buttonInfo.Description);
                     slotInfo.Background.Color = AAP64ColorPalette.HoverColor;
                 }
                 else
@@ -1284,8 +1383,8 @@ namespace StardustSandbox.Core.UI.Common
                 if (Interaction.OnMouseOver(slot.Background))
                 {
                     this.tooltipBox.CanDraw = true;
-                    TooltipBoxContent.SetTitle(option.Name);
-                    TooltipBoxContent.SetDescription(option.Description);
+                    this.tooltipBox.SetTitle(option.Name);
+                    this.tooltipBox.SetDescription(option.Description);
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }
                 else

@@ -219,8 +219,8 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(this.buttonInfos[i].Name);
-                    TooltipBoxContent.SetDescription(this.buttonInfos[i].Description);
+                    this.tooltipBox.SetTitle(this.buttonInfos[i].Name);
+                    this.tooltipBox.SetDescription(this.buttonInfos[i].Description);
 
                     slot.Background.Color = AAP64ColorPalette.HoverColor;
                 }

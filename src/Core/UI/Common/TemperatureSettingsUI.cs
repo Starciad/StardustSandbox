@@ -204,8 +204,8 @@ namespace StardustSandbox.Core.UI.Common
             {
                 this.tooltipBox.CanDraw = true;
 
-                TooltipBoxContent.SetTitle(this.exitButtonInfo.Name);
-                TooltipBoxContent.SetDescription(this.exitButtonInfo.Description);
+                this.tooltipBox.SetTitle(this.exitButtonInfo.Name);
+                this.tooltipBox.SetDescription(this.exitButtonInfo.Description);
 
                 this.exitButtonSlotInfo.Background.Color = AAP64ColorPalette.HoverColor;
             }
@@ -242,8 +242,8 @@ namespace StardustSandbox.Core.UI.Common
                     {
                         this.tooltipBox.CanDraw = true;
 
-                        TooltipBoxContent.SetTitle(buttonInfo.Name);
-                        TooltipBoxContent.SetDescription(buttonInfo.Description);
+                        this.tooltipBox.SetTitle(buttonInfo.Name);
+                        this.tooltipBox.SetDescription(buttonInfo.Description);
 
                         buttonSlot.Background.Color = AAP64ColorPalette.HoverColor;
                     }

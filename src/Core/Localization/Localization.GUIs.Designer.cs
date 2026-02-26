@@ -1249,6 +1249,24 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Camera Speed.
+        /// </summary>
+        internal static string Options_Gameplay_CameraSpeed_Description {
+            get {
+                return ResourceManager.GetString("Options.Gameplay.CameraSpeed.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Camera Speed.
+        /// </summary>
+        internal static string Options_Gameplay_CameraSpeed_Name {
+            get {
+                return ResourceManager.GetString("Options.Gameplay.CameraSpeed.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Adjust gameplay-related preferences..
         /// </summary>
         internal static string Options_Gameplay_Description {
@@ -1375,6 +1393,24 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Use Smooth Camera Movement.
+        /// </summary>
+        internal static string Options_Gameplay_UseSmoothCameraMovement_Description {
+            get {
+                return ResourceManager.GetString("Options.Gameplay.UseSmoothCameraMovement.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Use Smooth Camera Movement.
+        /// </summary>
+        internal static string Options_Gameplay_UseSmoothCameraMovement_Name {
+            get {
+                return ResourceManager.GetString("Options.Gameplay.UseSmoothCameraMovement.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Basic game settings, including language and accessibility..
         /// </summary>
         internal static string Options_General_Description {
@@ -1407,6 +1443,60 @@ namespace StardustSandbox.Core.Localization {
         internal static string Options_General_Name {
             get {
                 return ResourceManager.GetString("Options.General.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Interface.
+        /// </summary>
+        internal static string Options_Interface_Description {
+            get {
+                return ResourceManager.GetString("Options.Interface.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Interface.
+        /// </summary>
+        internal static string Options_Interface_Name {
+            get {
+                return ResourceManager.GetString("Options.Interface.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Scale.
+        /// </summary>
+        internal static string Options_Interface_Scale_Description {
+            get {
+                return ResourceManager.GetString("Options.Interface.Scale.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Scale.
+        /// </summary>
+        internal static string Options_Interface_Scale_Name {
+            get {
+                return ResourceManager.GetString("Options.Interface.Scale.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Show Tooltip.
+        /// </summary>
+        internal static string Options_Interface_ShowTooltip_Description {
+            get {
+                return ResourceManager.GetString("Options.Interface.ShowTooltip.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Show Tooltip.
+        /// </summary>
+        internal static string Options_Interface_ShowTooltip_Name {
+            get {
+                return ResourceManager.GetString("Options.Interface.ShowTooltip.Name", resourceCulture);
             }
         }
         

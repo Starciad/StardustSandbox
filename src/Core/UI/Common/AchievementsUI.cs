@@ -183,8 +183,8 @@ namespace StardustSandbox.Core.UI.Common
             {
                 this.tooltipBox.CanDraw = true;
 
-                TooltipBoxContent.SetTitle(this.exitButtonInfo.Name);
-                TooltipBoxContent.SetDescription(this.exitButtonInfo.Description);
+                this.tooltipBox.SetTitle(this.exitButtonInfo.Name);
+                this.tooltipBox.SetDescription(this.exitButtonInfo.Description);
 
                 this.exitButtonSlotInfo.Background.Color = AAP64ColorPalette.HoverColor;
             }
@@ -211,8 +211,8 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(achievement.Title);
-                    TooltipBoxContent.SetDescription(achievement.Description);
+                    this.tooltipBox.SetTitle(achievement.Title);
+                    this.tooltipBox.SetDescription(achievement.Description);
 
                     image.Scale = Vector2.Lerp(image.Scale, new(2.2f), 0.2f);
                 }

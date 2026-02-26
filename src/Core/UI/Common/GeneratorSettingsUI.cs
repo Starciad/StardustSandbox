@@ -377,8 +377,8 @@ namespace StardustSandbox.Core.UI.Common
             {
                 this.tooltipBox.CanDraw = true;
 
-                TooltipBoxContent.SetTitle(this.exitButtonInfo.Name);
-                TooltipBoxContent.SetDescription(this.exitButtonInfo.Description);
+                this.tooltipBox.SetTitle(this.exitButtonInfo.Name);
+                this.tooltipBox.SetDescription(this.exitButtonInfo.Description);
 
                 this.exitButtonSlotInfo.Background.Color = AAP64ColorPalette.HoverColor;
             }
@@ -404,8 +404,8 @@ namespace StardustSandbox.Core.UI.Common
             if (Interaction.OnMouseOver(this.generateButtonSlotInfo.Background))
             {
                 this.tooltipBox.CanDraw = true;
-                TooltipBoxContent.SetTitle(this.generateButtonInfo.Name);
-                TooltipBoxContent.SetDescription(this.generateButtonInfo.Description);
+                this.tooltipBox.SetTitle(this.generateButtonInfo.Name);
+                this.tooltipBox.SetDescription(this.generateButtonInfo.Description);
 
                 this.generateButtonSlotInfo.Background.Color = AAP64ColorPalette.HoverColor;
             }
@@ -446,8 +446,8 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(this.themeButtonInfos[i].Name);
-                    TooltipBoxContent.SetDescription(this.themeButtonInfos[i].Description);
+                    this.tooltipBox.SetTitle(this.themeButtonInfos[i].Name);
+                    this.tooltipBox.SetDescription(this.themeButtonInfos[i].Description);
                 }
 
                 slot.Background.Color = i == (int)this.selectedTheme ? AAP64ColorPalette.SelectedColor : isOver ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
@@ -477,8 +477,9 @@ namespace StardustSandbox.Core.UI.Common
                 if (isOver)
                 {
                     tooltipBox.CanDraw = true;
-                    TooltipBoxContent.SetTitle(buttonInfo[i].Name);
-                    TooltipBoxContent.SetDescription(buttonInfo[i].Description);
+
+                    tooltipBox.SetTitle(buttonInfo[i].Name);
+                    tooltipBox.SetDescription(buttonInfo[i].Description);
                 }
 
                 int settingFlag = 1 << i;

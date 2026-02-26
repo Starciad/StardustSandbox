@@ -834,4 +834,34 @@
   <data name="ItemSearch.Description" xml:space="preserve">
     <value>Find the items you want by searching for them by name.</value>
   </data>
+  <data name="Options.Interface.Name" xml:space="preserve">
+    <value>Interface</value>
+  </data>
+  <data name="Options.Interface.Description" xml:space="preserve">
+    <value>Interface</value>
+  </data>
+  <data name="Options.Interface.Scale.Name" xml:space="preserve">
+    <value>Scale</value>
+  </data>
+  <data name="Options.Interface.Scale.Description" xml:space="preserve">
+    <value>Scale</value>
+  </data>
+  <data name="Options.Interface.ShowTooltip.Name" xml:space="preserve">
+    <value>Show Tooltip</value>
+  </data>
+  <data name="Options.Interface.ShowTooltip.Description" xml:space="preserve">
+    <value>Show Tooltip</value>
+  </data>
+  <data name="Options.Gameplay.UseSmoothCameraMovement.Name" xml:space="preserve">
+    <value>Use Smooth Camera Movement</value>
+  </data>
+  <data name="Options.Gameplay.UseSmoothCameraMovement.Description" xml:space="preserve">
+    <value>Use Smooth Camera Movement</value>
+  </data>
+  <data name="Options.Gameplay.CameraSpeed.Name" xml:space="preserve">
+    <value>Camera Speed</value>
+  </data>
+  <data name="Options.Gameplay.CameraSpeed.Description" xml:space="preserve">
+    <value>Camera Speed</value>
+  </data>
 </root>

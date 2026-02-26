@@ -35,25 +35,17 @@ namespace StardustSandbox.Core.Serialization
             void Load();
         }
 
-        private sealed class SettingsDescriptor<T> : ISettingsDescriptor where T : ISettingsModule, new()
+        private sealed class SettingsDescriptor<T>(string fileName) : ISettingsDescriptor where T : ISettingsModule, new()
         {
             public Type SettingsType => typeof(T);
             public T Value => this.cache;
 
             private T cache;
-
-            private readonly string fileName;
-            private readonly XmlSerializer serializer;
-
-            public SettingsDescriptor(string fileName)
-            {
-                this.fileName = fileName;
-                this.serializer = new(typeof(T));
-            }
+            private readonly XmlSerializer serializer = new(typeof(T));
 
             public void Load()
             {
-                string filePath = Path.Combine(IO.Directory.Settings, this.fileName);
+                string filePath = Path.Combine(IO.Directory.Settings, fileName);
 
                 if (!File.Exists(filePath))
                 {
@@ -75,7 +67,7 @@ namespace StardustSandbox.Core.Serialization
 
             public void Save(T value)
             {
-                using FileStream stream = new(Path.Combine(IO.Directory.Settings, this.fileName), FileMode.Create, FileAccess.Write);
+                using FileStream stream = new(Path.Combine(IO.Directory.Settings, fileName), FileMode.Create, FileAccess.Write);
 
                 this.cache = value;
                 this.serializer.Serialize(stream, value);
@@ -98,6 +90,7 @@ namespace StardustSandbox.Core.Serialization
             [typeof(CursorSettings)] = new SettingsDescriptor<CursorSettings>(IOConstants.CURSOR_SETTINGS_FILE),
             [typeof(GameplaySettings)] = new SettingsDescriptor<GameplaySettings>(IOConstants.GAMEPLAY_SETTINGS_FILE),
             [typeof(GeneralSettings)] = new SettingsDescriptor<GeneralSettings>(IOConstants.GENERAL_SETTINGS_FILE),
+            [typeof(InterfaceSettings)] = new SettingsDescriptor<InterfaceSettings>(IOConstants.INTERFACE_SETTINGS_FILE),
             [typeof(VideoSettings)] = new SettingsDescriptor<VideoSettings>(IOConstants.VIDEO_SETTINGS_FILE),
             [typeof(VolumeSettings)] = new SettingsDescriptor<VolumeSettings>(IOConstants.VOLUME_SETTINGS_FILE),
         };

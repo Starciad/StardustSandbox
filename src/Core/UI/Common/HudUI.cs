@@ -538,33 +538,33 @@ namespace StardustSandbox.Core.UI.Common
                 switch (this.playerInputController.Pen.Tool)
                 {
                     case PenTool.Visualization:
-                        TooltipBoxContent.SetTitle(Localization_WorldGizmos.Visualization_Name);
-                        TooltipBoxContent.SetDescription(Localization_WorldGizmos.Visualization_Description);
+                        this.tooltipBox.SetTitle(Localization_WorldGizmos.Visualization_Name);
+                        this.tooltipBox.SetDescription(Localization_WorldGizmos.Visualization_Description);
                         break;
 
                     case PenTool.Pencil:
-                        TooltipBoxContent.SetTitle(Localization_WorldGizmos.Pencil_Name);
-                        TooltipBoxContent.SetDescription(Localization_WorldGizmos.Pencil_Description);
+                        this.tooltipBox.SetTitle(Localization_WorldGizmos.Pencil_Name);
+                        this.tooltipBox.SetDescription(Localization_WorldGizmos.Pencil_Description);
                         break;
 
                     case PenTool.Eraser:
-                        TooltipBoxContent.SetTitle(Localization_WorldGizmos.Eraser_Name);
-                        TooltipBoxContent.SetDescription(Localization_WorldGizmos.Eraser_Description);
+                        this.tooltipBox.SetTitle(Localization_WorldGizmos.Eraser_Name);
+                        this.tooltipBox.SetDescription(Localization_WorldGizmos.Eraser_Description);
                         break;
 
                     case PenTool.Fill:
-                        TooltipBoxContent.SetTitle(Localization_WorldGizmos.Fill_Name);
-                        TooltipBoxContent.SetDescription(Localization_WorldGizmos.Fill_Description);
+                        this.tooltipBox.SetTitle(Localization_WorldGizmos.Fill_Name);
+                        this.tooltipBox.SetDescription(Localization_WorldGizmos.Fill_Description);
                         break;
 
                     case PenTool.Replace:
-                        TooltipBoxContent.SetTitle(Localization_WorldGizmos.Replace_Name);
-                        TooltipBoxContent.SetDescription(Localization_WorldGizmos.Replace_Description);
+                        this.tooltipBox.SetTitle(Localization_WorldGizmos.Replace_Name);
+                        this.tooltipBox.SetDescription(Localization_WorldGizmos.Replace_Description);
                         break;
 
                     default:
-                        TooltipBoxContent.SetTitle(Localization_Statements.Unknown);
-                        TooltipBoxContent.SetDescription(string.Empty);
+                        this.tooltipBox.SetTitle(Localization_Statements.Unknown);
+                        this.tooltipBox.SetDescription(string.Empty);
                         break;
                 }
 
@@ -615,8 +615,8 @@ namespace StardustSandbox.Core.UI.Common
 
                     slot.Background.Scale = Vector2.Lerp(slot.Background.Scale, new(2.2f), 0.2f);
 
-                    TooltipBoxContent.SetTitle(this.toolbarItems[i].Name);
-                    TooltipBoxContent.SetDescription(this.toolbarItems[i].Description);
+                    this.tooltipBox.SetTitle(this.toolbarItems[i].Name);
+                    this.tooltipBox.SetDescription(this.toolbarItems[i].Description);
                 }
                 else
                 {
@@ -644,8 +644,8 @@ namespace StardustSandbox.Core.UI.Common
                 this.tooltipBox.CanDraw = true;
                 this.toolbarSearchButton.Scale = Vector2.Lerp(this.toolbarSearchButton.Scale, new(2.65f), 0.2f);
 
-                TooltipBoxContent.SetTitle(Localization_GUIs.HUD_ItemExplorer_Name);
-                TooltipBoxContent.SetDescription(Localization_GUIs.HUD_ItemExplorer_Description);
+                this.tooltipBox.SetTitle(Localization_GUIs.HUD_ItemExplorer_Name);
+                this.tooltipBox.SetDescription(Localization_GUIs.HUD_ItemExplorer_Description);
             }
             else
             {
@@ -683,8 +683,8 @@ namespace StardustSandbox.Core.UI.Common
 
                     this.tooltipBox.CanDraw = true;
 
-                    TooltipBoxContent.SetTitle(button.Name);
-                    TooltipBoxContent.SetDescription(button.Description);
+                    this.tooltipBox.SetTitle(button.Name);
+                    this.tooltipBox.SetDescription(button.Description);
 
                     slot.Background.Scale = Vector2.Lerp(slot.Background.Scale, new(2.2f), 0.2f);
                 }

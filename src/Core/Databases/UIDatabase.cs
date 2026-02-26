@@ -279,5 +279,13 @@ namespace StardustSandbox.Core.Databases
                 ui.Resize(newSize);
             }
         }
+
+        internal static void ChangeScaleUIs(float newScale)
+        {
+            foreach (UIBase ui in uis)
+            {
+                ui.ChangeScale(newScale);
+            }
+        }
     }
 }
