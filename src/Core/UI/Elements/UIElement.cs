@@ -90,17 +90,7 @@ namespace StardustSandbox.Core.UI.Elements
             {
                 if (this.scale != value)
                 {
-                    Vector2 oldScale = this.scale;
                     this.scale = value;
-
-                    // Calculates the relative scaling factor
-                    Vector2 scaleFactor = new(
-                        oldScale.X != 0.0f ? value.X / oldScale.X : 1f,
-                        oldScale.Y != 0.0f ? value.Y / oldScale.Y : 1f
-                    );
-
-                    // Applies the scale proportionally to the children
-                    ScaleChildren(scaleFactor);
 
                     RepositionRelativeToParent();
                 }
@@ -228,14 +218,6 @@ namespace StardustSandbox.Core.UI.Elements
             foreach (UIElement child in this.children)
             {
                 child.RepositionRelativeToParent();
-            }
-        }
-
-        private void ScaleChildren(in Vector2 scaleFactor)
-        {
-            foreach (UIElement child in this.children)
-            {
-                child.Scale *= scaleFactor;
             }
         }
 
