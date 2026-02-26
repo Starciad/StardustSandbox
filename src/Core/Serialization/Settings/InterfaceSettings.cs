@@ -26,15 +26,11 @@ namespace StardustSandbox.Core.Serialization.Settings
     [XmlRoot("InterfaceSettings")]
     public sealed class InterfaceSettings : ISettingsModule
     {
-        [XmlElement("Scale", typeof(float))]
-        public float Scale { get; set; }
-
         [XmlElement("ShowTooltip", typeof(bool))]
         public bool ShowTooltip { get; set; }
 
         public InterfaceSettings()
         {
-            this.Scale = 1.0f;
             this.ShowTooltip = true;
         }
     }

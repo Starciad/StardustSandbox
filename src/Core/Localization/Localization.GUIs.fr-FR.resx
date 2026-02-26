@@ -840,12 +840,6 @@
   <data name="Options.Interface.Description" xml:space="preserve">
     <value>Ajustez les paramètres de l'interface pour une meilleure expérience utilisateur.</value>
   </data>
-  <data name="Options.Interface.Scale.Name" xml:space="preserve">
-    <value>Échelle</value>
-  </data>
-  <data name="Options.Interface.Scale.Description" xml:space="preserve">
-    <value>Ajustez l'échelle des éléments de l'interface.</value>
-  </data>
   <data name="Options.Interface.ShowTooltip.Name" xml:space="preserve">
     <value>Afficher l'Infobulle</value>
   </data>

@@ -18,6 +18,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Serialization.Settings;
 
 namespace StardustSandbox.Core.Managers
@@ -46,6 +48,19 @@ namespace StardustSandbox.Core.Managers
 
         internal void SetResolution(int width, int height)
         {
+            Point minSize = ScreenConstants.RESOLUTIONS[0];
+            Point newSize = new(this.gameWindow.ClientBounds.Width, this.gameWindow.ClientBounds.Height);
+
+            if (newSize.X < minSize.X)
+            {
+                newSize.X = minSize.X;
+            }
+
+            if (newSize.Y < minSize.Y)
+            {
+                newSize.Y = minSize.Y;
+            }
+
             this.graphicsDeviceManager.PreferredBackBufferWidth = width;
             this.graphicsDeviceManager.PreferredBackBufferHeight = height;
             this.graphicsDeviceManager.ApplyChanges();

@@ -104,7 +104,7 @@ namespace StardustSandbox.Core.UI.Common
                 this.currentPageIndex * UIConstants.SELECTOR_CHOICES_PER_PAGE,
                 Math.Min(
                     (this.currentPageIndex * UIConstants.SELECTOR_CHOICES_PER_PAGE) + UIConstants.SELECTOR_CHOICES_PER_PAGE,
-                    UIConstants.SELECTOR_CHOICES_PER_PAGE + 1
+                    this.choices.Length
                 )
             );
 

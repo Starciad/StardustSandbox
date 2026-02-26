@@ -840,12 +840,6 @@
   <data name="Options.Interface.Description" xml:space="preserve">
     <value>Adjust the interface settings for a better user experience.</value>
   </data>
-  <data name="Options.Interface.Scale.Name" xml:space="preserve">
-    <value>Scale</value>
-  </data>
-  <data name="Options.Interface.Scale.Description" xml:space="preserve">
-    <value>Adjust the scale of the interface elements.</value>
-  </data>
   <data name="Options.Interface.ShowTooltip.Name" xml:space="preserve">
     <value>Show Tooltip</value>
   </data>

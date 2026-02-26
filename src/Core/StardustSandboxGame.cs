@@ -19,6 +19,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
+using SharpDX.Direct3D9;
+
 using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Cameras;
@@ -131,15 +133,6 @@ namespace StardustSandbox.Core
 
             GameHandler.Initialize(this.Window);
 
-            if (this.videoSettings.Width == 0 || this.videoSettings.Height == 0)
-            {
-                this.videoSettings.UpdateResolution(this.GraphicsDevice);
-                SettingsSerializer.Save(this.videoSettings);
-            }
-
-            this.videoManager.ApplySettings(this.videoSettings);
-            this.Window.ClientSizeChanged += OnClientSizeChanged;
-
             base.Initialize();
         }
 
@@ -162,6 +155,16 @@ namespace StardustSandbox.Core
 
             // Controllers
             this.inputController.Initialize(this.actorManager, this.camera, this.world);
+
+            // Resolution
+            if (this.videoSettings.Width == 0 || this.videoSettings.Height == 0)
+            {
+                this.videoSettings.UpdateResolution(this.GraphicsDevice);
+                SettingsSerializer.Save(this.videoSettings);
+            }
+
+            this.Window.ClientSizeChanged += OnClientSizeChanged;
+            this.videoManager.ApplySettings(this.videoSettings);
 
             // Renderer
             GameRenderer.Initialize(this.videoManager);
@@ -188,6 +191,7 @@ namespace StardustSandbox.Core
             }
 
             this.gameNotifier?.OnBeginRun();
+            UIDatabase.ResizeUIs(GameScreen.GetViewport());
         }
 
         protected override void Update(GameTime gameTime)
@@ -273,7 +277,6 @@ namespace StardustSandbox.Core
             Point minSize = ScreenConstants.RESOLUTIONS[0];
             Point newSize = new(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
 
-            // Clamp to minimum
             if (newSize.X < minSize.X)
             {
                 newSize.X = minSize.X;
@@ -284,8 +287,7 @@ namespace StardustSandbox.Core
                 newSize.Y = minSize.Y;
             }
 
-            // Apply clamped size if changes were made
-            if (newSize.X != this.Window.ClientBounds.Width || newSize.Y != this.Window.ClientBounds.Height)
+            if (newSize.X != this.graphicsDeviceManager.PreferredBackBufferWidth || newSize.Y != this.graphicsDeviceManager.PreferredBackBufferHeight)
             {
                 this.graphicsDeviceManager.PreferredBackBufferWidth = newSize.X;
                 this.graphicsDeviceManager.PreferredBackBufferHeight = newSize.Y;

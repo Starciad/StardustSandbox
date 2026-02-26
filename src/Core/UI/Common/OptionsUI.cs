@@ -148,33 +148,6 @@ namespace StardustSandbox.Core.UI.Common
                     Localization_GUIs.Options_Interface_Description,
                     TextureIndex.IconUI,
                     new Rectangle(224, 256, 32, 32),
-                    new Option<float>(
-                        Localization_GUIs.Options_Interface_Scale_Name,
-                        Localization_GUIs.Options_Interface_Scale_Description,
-                        () =>
-                        {
-                            return interfaceSettings.Scale * 100.0f;
-                        },
-                        (value) =>
-                        {
-                            return string.Concat((int)value, '%');
-                        },
-                        (option, optionSlotInfo) =>
-                        {
-                            sliderUI.Setup(
-                                Localization_GUIs.Options_Interface_Scale_Description,
-                                new(50, 200),
-                                Convert.ToInt32(option.GetValue()),
-                                (newValue) => {
-                                    interfaceSettings.Scale = newValue / 100.0f;
-                                    SettingsSerializer.Save(interfaceSettings);
-                                    optionSlotInfo.Value.TextContent = option.GetValueString();
-                                    UIDatabase.ChangeScaleUIs(interfaceSettings.Scale);
-                                }
-                            );
-                            uiManager.OpenUI(UIIndex.Slider);
-                        }
-                    ),
                     new Option<bool>(
                         Localization_GUIs.Options_Interface_ShowTooltip_Name,
                         Localization_GUIs.Options_Interface_ShowTooltip_Description,

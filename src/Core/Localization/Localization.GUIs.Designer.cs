@@ -1249,24 +1249,6 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Camera Speed.
-        /// </summary>
-        internal static string Options_Gameplay_CameraSpeed_Description {
-            get {
-                return ResourceManager.GetString("Options.Gameplay.CameraSpeed.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Camera Speed.
-        /// </summary>
-        internal static string Options_Gameplay_CameraSpeed_Name {
-            get {
-                return ResourceManager.GetString("Options.Gameplay.CameraSpeed.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Adjust gameplay-related preferences..
         /// </summary>
         internal static string Options_Gameplay_Description {
@@ -1393,7 +1375,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Use Smooth Camera Movement.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Enable smooth camera movement for a more comfortable viewing experience..
         /// </summary>
         internal static string Options_Gameplay_UseSmoothCameraMovement_Description {
             get {
@@ -1402,7 +1384,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Use Smooth Camera Movement.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Smooth Camera Movement.
         /// </summary>
         internal static string Options_Gameplay_UseSmoothCameraMovement_Name {
             get {
@@ -1447,7 +1429,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Interface.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Adjust the interface settings for a better user experience..
         /// </summary>
         internal static string Options_Interface_Description {
             get {
@@ -1465,25 +1447,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Scale.
-        /// </summary>
-        internal static string Options_Interface_Scale_Description {
-            get {
-                return ResourceManager.GetString("Options.Interface.Scale.Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Scale.
-        /// </summary>
-        internal static string Options_Interface_Scale_Name {
-            get {
-                return ResourceManager.GetString("Options.Interface.Scale.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Show Tooltip.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Display tooltips when hovering over interface elements..
         /// </summary>
         internal static string Options_Interface_ShowTooltip_Description {
             get {
