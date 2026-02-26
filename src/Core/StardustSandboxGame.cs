@@ -57,12 +57,14 @@ namespace StardustSandbox.Core
 
         private readonly VideoSettings videoSettings;
 
+        private readonly GraphicsDeviceManager graphicsDeviceManager;
+
         public StardustSandboxGame(string[] args)
         {
             GameParameters.Start(args);
 
             // Graphics
-            GraphicsDeviceManager gdm = new(this)
+            this.graphicsDeviceManager = new(this)
             {
                 GraphicsProfile = GraphicsProfile.Reach,
                 PreferredBackBufferFormat = SurfaceFormat.Color,
@@ -77,7 +79,7 @@ namespace StardustSandbox.Core
                 SupportedOrientations = DisplayOrientation.Default
             };
 
-            this.videoManager = new(gdm, this.Window);
+            this.videoManager = new(this.graphicsDeviceManager, this.Window);
 
             // Load Settings
             this.videoSettings = SettingsSerializer.Load<VideoSettings>();
@@ -268,8 +270,29 @@ namespace StardustSandbox.Core
 
         private void OnClientSizeChanged(object sender, EventArgs args)
         {
+            Point minSize = ScreenConstants.RESOLUTIONS[0];
+            Point newSize = new(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
+
+            // Clamp to minimum
+            if (newSize.X < minSize.X)
+            {
+                newSize.X = minSize.X;
+            }
+
+            if (newSize.Y < minSize.Y)
+            {
+                newSize.Y = minSize.Y;
+            }
+
+            // Apply clamped size if changes were made
+            if (newSize.X != this.Window.ClientBounds.Width || newSize.Y != this.Window.ClientBounds.Height)
+            {
+                this.graphicsDeviceManager.PreferredBackBufferWidth = newSize.X;
+                this.graphicsDeviceManager.PreferredBackBufferHeight = newSize.Y;
+                this.graphicsDeviceManager.ApplyChanges();
+            }
+
             UIDatabase.ResizeUIs(GameScreen.GetViewport());
         }
     }
 }
-

@@ -62,7 +62,7 @@ namespace StardustSandbox.Core.Serialization.Settings
 
         public VideoSettings()
         {
-            this.Framerate = ScreenConstants.FRAMERATE;
+            this.Framerate = 60.0f;
             this.Width = 0;
             this.Height = 0;
             this.FullScreen = false;
