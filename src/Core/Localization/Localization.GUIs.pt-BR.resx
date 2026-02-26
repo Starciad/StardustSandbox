@@ -834,35 +834,28 @@
   <data name="ItemSearch.Description" xml:space="preserve">
     <value>Encontre os itens que deseja pesquisando por nome.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Options.Interface.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Interface.Name" xml:space="preserve">
+    <value>Interface</value>
   </data>
-  <data name="Options.Interface.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Interface.Description" xml:space="preserve">
+    <value>Ajuste as configurações da interface para uma melhor experiência do usuário.</value>
   </data>
-  <data name="Options.Interface.Scale.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Interface.Scale.Name" xml:space="preserve">
+    <value>Escala</value>
   </data>
-  <data name="Options.Interface.Scale.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Interface.Scale.Description" xml:space="preserve">
+    <value>Ajuste a escala dos elementos da interface.</value>
   </data>
-  <data name="Options.Interface.ShowTooltip.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Interface.ShowTooltip.Name" xml:space="preserve">
+    <value>Mostrar Dica</value>
   </data>
-  <data name="Options.Interface.ShowTooltip.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Interface.ShowTooltip.Description" xml:space="preserve">
+    <value>Exiba dicas ao passar o mouse sobre elementos da interface.</value>
   </data>
-  <data name="Options.Gameplay.UseSmoothCameraMovement.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Gameplay.UseSmoothCameraMovement.Name" xml:space="preserve">
+    <value>Movimento Suave da Câmera</value>
   </data>
-  <data name="Options.Gameplay.UseSmoothCameraMovement.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Options.Gameplay.CameraSpeed.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Options.Gameplay.CameraSpeed.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Gameplay.UseSmoothCameraMovement.Description" xml:space="preserve">
+    <value>Habilite o movimento suave da câmera para uma experiência de visualização mais confortável.</value>
   </data>
 </root>

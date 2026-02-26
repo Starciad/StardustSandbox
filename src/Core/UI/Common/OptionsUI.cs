@@ -333,7 +333,6 @@ namespace StardustSandbox.Core.UI.Common
                         {
                             gameplaySettings.ShowTemperatureColorVariations = !gameplaySettings.ShowTemperatureColorVariations;
                             SettingsSerializer.Save(gameplaySettings);
-
                             optionSlotInfo.Value.TextContent = option.GetValueString();
                         }
                     ),
@@ -354,32 +353,6 @@ namespace StardustSandbox.Core.UI.Common
                             SettingsSerializer.Save(gameplaySettings);
                             optionSlotInfo.Value.TextContent = option.GetValueString();
                         }
-                    ),
-                    new Option<float>(
-                        Localization_GUIs.Options_Gameplay_CameraSpeed_Name,
-                        Localization_GUIs.Options_Gameplay_CameraSpeed_Description,
-                        () =>
-                        {
-                            return gameplaySettings.CameraSpeed;
-                        },
-                        (value) =>
-                        {
-                            return string.Concat((int)(value * 100.0f), '%');
-                        },
-                        (option, optionSlotInfo) =>
-                        {
-                            sliderUI.Setup(
-                                Localization_GUIs.Options_Gameplay_CameraSpeed_Description,
-                                new(0, 300),
-                                Convert.ToInt32(option.GetValue()),
-                                (newValue) => {
-                                    gameplaySettings.CameraSpeed = newValue / 100.0f;
-                                    SettingsSerializer.Save(gameplaySettings);
-                                    optionSlotInfo.Value.TextContent = option.GetValueString();
-                                }
-                            );
-                            uiManager.OpenUI(UIIndex.Slider);
-                         }
                     )
                 ),
 

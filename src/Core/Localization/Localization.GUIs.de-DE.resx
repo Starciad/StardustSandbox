@@ -834,35 +834,28 @@
   <data name="ItemSearch.Description" xml:space="preserve">
     <value>Finden Sie die gewünschten Elemente, indem Sie nach ihnen nach Name suchen.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Options.Interface.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Interface.Name" xml:space="preserve">
+    <value>Benutzeroberfläche</value>
   </data>
-  <data name="Options.Interface.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Interface.Description" xml:space="preserve">
+    <value>Passen Sie die Einstellungen der Benutzeroberfläche für ein besseres Benutzererlebnis an.</value>
   </data>
-  <data name="Options.Interface.Scale.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Interface.Scale.Name" xml:space="preserve">
+    <value>Skalierung</value>
   </data>
-  <data name="Options.Interface.Scale.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Interface.Scale.Description" xml:space="preserve">
+    <value>Passen Sie die Skalierung der Benutzeroberflächen-Elemente an.</value>
   </data>
-  <data name="Options.Interface.ShowTooltip.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Interface.ShowTooltip.Name" xml:space="preserve">
+    <value>Tooltip anzeigen</value>
   </data>
-  <data name="Options.Interface.ShowTooltip.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Interface.ShowTooltip.Description" xml:space="preserve">
+    <value>Zeigen Sie Tooltips beim Überfahren von Benutzeroberflächen-Elementen an.</value>
   </data>
-  <data name="Options.Gameplay.UseSmoothCameraMovement.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Gameplay.UseSmoothCameraMovement.Name" xml:space="preserve">
+    <value>Sanfte Kamerabewegung</value>
   </data>
-  <data name="Options.Gameplay.UseSmoothCameraMovement.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Options.Gameplay.CameraSpeed.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="Options.Gameplay.CameraSpeed.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Options.Gameplay.UseSmoothCameraMovement.Description" xml:space="preserve">
+    <value>Aktivieren Sie sanfte Kamerabewegung für ein komfortableres Seherlebnis.</value>
   </data>
 </root>

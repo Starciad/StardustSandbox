@@ -56,9 +56,6 @@ namespace StardustSandbox.Core.Serialization.Settings
         [XmlElement("UseSmoothCameraMovement", typeof(bool))]
         public bool UseSmoothCameraMovement { get; set; }
 
-        [XmlElement("CameraSpeed", typeof(float))]
-        public float CameraSpeed { get; set; }
-
         [XmlIgnore]
         public Color PreviewAreaColor
         {
@@ -81,7 +78,6 @@ namespace StardustSandbox.Core.Serialization.Settings
             this.GridOpacity = 0.1f;
             this.ShowTemperatureColorVariations = true;
             this.UseSmoothCameraMovement = true;
-            this.CameraSpeed = 1.0f;
         }
     }
 }

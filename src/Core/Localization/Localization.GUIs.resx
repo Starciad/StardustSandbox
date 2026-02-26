@@ -838,30 +838,24 @@
     <value>Interface</value>
   </data>
   <data name="Options.Interface.Description" xml:space="preserve">
-    <value>Interface</value>
+    <value>Adjust the interface settings for a better user experience.</value>
   </data>
   <data name="Options.Interface.Scale.Name" xml:space="preserve">
     <value>Scale</value>
   </data>
   <data name="Options.Interface.Scale.Description" xml:space="preserve">
-    <value>Scale</value>
+    <value>Adjust the scale of the interface elements.</value>
   </data>
   <data name="Options.Interface.ShowTooltip.Name" xml:space="preserve">
     <value>Show Tooltip</value>
   </data>
   <data name="Options.Interface.ShowTooltip.Description" xml:space="preserve">
-    <value>Show Tooltip</value>
+    <value>Display tooltips when hovering over interface elements.</value>
   </data>
   <data name="Options.Gameplay.UseSmoothCameraMovement.Name" xml:space="preserve">
-    <value>Use Smooth Camera Movement</value>
+    <value>Smooth Camera Movement</value>
   </data>
   <data name="Options.Gameplay.UseSmoothCameraMovement.Description" xml:space="preserve">
-    <value>Use Smooth Camera Movement</value>
-  </data>
-  <data name="Options.Gameplay.CameraSpeed.Name" xml:space="preserve">
-    <value>Camera Speed</value>
-  </data>
-  <data name="Options.Gameplay.CameraSpeed.Description" xml:space="preserve">
-    <value>Camera Speed</value>
+    <value>Enable smooth camera movement for a more comfortable viewing experience.</value>
   </data>
 </root>

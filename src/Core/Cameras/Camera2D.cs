@@ -19,6 +19,8 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Mathematics.Primitives;
+using StardustSandbox.Core.Serialization;
+using StardustSandbox.Core.Serialization.Settings;
 
 using System;
 
@@ -35,8 +37,11 @@ namespace StardustSandbox.Core.Cameras
         private float zoom;
         private float targetZoom;
 
+        private readonly GameplaySettings gameplaySettings;
+
         internal Camera2D()
         {
+            this.gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
             Reset();
         }
 
@@ -48,10 +53,18 @@ namespace StardustSandbox.Core.Cameras
 
         internal void Update(GameTime gameTime)
         {
-            float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
+            if (this.gameplaySettings.UseSmoothCameraMovement)
+            {
+                float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
-            this.position = Vector2.Lerp(this.Position, this.targetPosition, CameraConstants.MOVEMENT_LERP_SPEED * deltaTime);
-            this.zoom = MathHelper.Lerp(this.zoom, this.targetZoom, CameraConstants.ZOOM_LERP_SPEED * deltaTime);
+                this.position = Vector2.Lerp(this.Position, this.targetPosition, CameraConstants.MOVEMENT_LERP_SPEED * deltaTime);
+                this.zoom = MathHelper.Lerp(this.zoom, this.targetZoom, CameraConstants.ZOOM_LERP_SPEED * deltaTime);
+            }
+            else
+            {
+                this.position = this.targetPosition;
+                this.zoom = this.targetZoom;
+            }
         }
 
         internal void ClampTargetPositionToBounds(RectangleF bounds)
