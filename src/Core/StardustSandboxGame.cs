@@ -208,6 +208,11 @@ namespace StardustSandbox.Core
             this.inputController.Update();
             this.camera.Update(gameTime);
 
+            if (this.world.CanUpdate || this.world.CanDraw)
+            {
+                this.camera.ClampTargetPositionToBounds(new(0, 0, this.world.Size.X * WorldConstants.TILE_SIZE, this.world.Size.Y * WorldConstants.TILE_SIZE));
+            }
+
             // Managers
             this.effectsManager.Update(gameTime, this.world.Time.CurrentTime);
             this.uiManager.Update(gameTime);
@@ -217,8 +222,6 @@ namespace StardustSandbox.Core
             {
                 this.world.Update(gameTime);
                 this.actorManager.Update(gameTime);
-
-                this.camera.ClampTargetPositionToBounds(new(0, 0, this.world.Size.X * WorldConstants.TILE_SIZE, this.world.Size.Y * WorldConstants.TILE_SIZE));
             }
 
             this.ambientManager.Update(gameTime);
