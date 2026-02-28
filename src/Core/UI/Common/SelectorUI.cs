@@ -373,6 +373,7 @@ namespace StardustSandbox.Core.UI.Common
                 slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
+
         protected override void OnOpened()
         {
             GameHandler.SetState(GameStates.IsCriticalMenuOpen);

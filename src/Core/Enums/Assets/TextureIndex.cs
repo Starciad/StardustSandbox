@@ -60,6 +60,7 @@ namespace StardustSandbox.Core.Enums.Assets
 
         #region UI
 
+        UIBackgroundAchievements,
         UIBackgroundEnvironmentSettings,
         UIBackgroundGeneratorSettings,
         UIBackgroundHudHorizontalToolbar,

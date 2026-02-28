@@ -26,6 +26,8 @@ namespace StardustSandbox.Core.Databases
 {
     public static class AchievementDatabase
     {
+        internal static int Length => achievements.Length;
+
         private static Achievement[] achievements;
 
         private static bool isLoaded = false;

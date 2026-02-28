@@ -35,18 +35,25 @@ using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 
+using System;
+
 namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class AchievementsUI : UIBase
     {
-        private Label titleLabelElement;
-        private Image headerBackground;
+        private int currentPageIndex = 0, totalPages = 0;
+        private Range achievementsRange;
+
+        private Label title, progress, pageIndexLabel;
+        private Image panelBackground;
 
         private SlotInfo exitButtonSlotInfo;
+        private readonly SlotInfo[] paginationButtonSlotInfos;
 
         private readonly Image[] achievementImages = new Image[UIConstants.ACHIEVEMENTS_PER_PAGE];
 
         private readonly ButtonInfo exitButtonInfo;
+        private readonly ButtonInfo[] paginationButtonInfos;
 
         private readonly AchievementSettings achievementSettings;
 
@@ -64,56 +71,136 @@ namespace StardustSandbox.Core.UI.Common
 
             this.achievementSettings = SettingsSerializer.Load<AchievementSettings>();
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI);
+
+            this.paginationButtonInfos =
+            [
+                new(TextureIndex.IconUI, new(128, 160, 32, 32), Localization_Statements.Previous, string.Empty, () =>
+                {
+                    if (this.currentPageIndex > 0)
+                    {
+                        this.currentPageIndex--;
+                    }
+                    else
+                    {
+                        this.currentPageIndex = this.totalPages - 1;
+                    }
+
+                    RefreshContent();
+                }),
+                new(TextureIndex.IconUI, new(64, 160, 32, 32), Localization_Statements.Next, string.Empty, () =>
+                {
+                    if (this.currentPageIndex < this.totalPages - 1)
+                    {
+                        this.currentPageIndex++;
+                    }
+                    else
+                    {
+                        this.currentPageIndex = 0;
+                    }
+
+                    RefreshContent();
+                }),
+            ];
+
+            this.paginationButtonSlotInfos = new SlotInfo[this.paginationButtonInfos.Length];
+        }
+
+        private void RefreshContent()
+        {
+            this.pageIndexLabel.TextContent = string.Concat(this.currentPageIndex + 1, " / ", this.totalPages);
+
+            this.achievementsRange = new(
+                this.currentPageIndex * UIConstants.ACHIEVEMENTS_PER_PAGE,
+                Math.Min(
+                    (this.totalPages * UIConstants.ACHIEVEMENTS_PER_PAGE) + UIConstants.ACHIEVEMENTS_PER_PAGE,
+                    AchievementDatabase.Length
+                )
+            );
+
+            int length = this.achievementsRange.End.Value - this.achievementsRange.Start.Value;
+
+            for (int i = 0; i < this.achievementImages.Length; i++)
+            {
+                Image image = this.achievementImages[i];
+
+                if (i < length)
+                {
+                    image.CanDraw = true;
+                    image.TextureIndex = TextureIndex.Achievements;
+
+                    Achievement achievement = AchievementDatabase.GetAchievement((AchievementIndex)(this.achievementsRange.Start.Value + i));
+
+                    image.SourceRectangle = this.achievementSettings.IsUnlocked((AchievementIndex)(this.achievementsRange.Start.Value + i))
+                        ? achievement.AchievedIconSourceRectangle
+                        : achievement.NotAchievedIconSourceRectangle;
+                }
+                else
+                {
+                    image.CanDraw = false;
+                }
+            }
         }
 
         protected override void OnBuild(Container root)
         {
-            BuildHeader(root);
+            BuildBackground(root);
             BuildExitButton();
             BuildAchievementSlots();
+            BuildPagination();
 
             root.AddChild(this.tooltipBox);
         }
 
-        private void BuildHeader(Container root)
+        private void BuildBackground(Container root)
         {
             // Background
-            this.headerBackground = new()
+            this.panelBackground = new()
             {
-                TextureIndex = TextureIndex.Pixel,
-                Color = new(AAP64ColorPalette.DarkGray, 196),
-                Size = Vector2.One,
-                Scale = new(GameScreen.GetViewport().X, 96.0f),
+                Alignment = UIDirection.Center,
+                TextureIndex = TextureIndex.UIBackgroundAchievements,
+                Size = new(420.0f, 568.0f),
             };
-
-            root.AddChild(this.headerBackground);
 
             // Title
-            this.titleLabelElement = new()
+            this.title = new()
             {
-                Scale = new(0.15f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = UIDirection.West,
-                Margin = new(32.0f, 0.0f),
+                Scale = new(0.1f),
+                Margin = new(16.0f, 4.0f),
                 TextContent = Localization_GUIs.Achievements_Title,
 
-                BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 2.0f,
-                BorderThickness = 2.0f,
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderOffset = 3.0f,
+                BorderThickness = 3.0f,
             };
 
-            this.headerBackground.AddChild(this.titleLabelElement);
+            this.progress = new()
+            {
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                Scale = new(0.05f),
+                Margin = new(0.0f, 40.0f),
+                TextContent = "100%",
+
+                BorderDirections = LabelBorderDirection.All,
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderOffset = 3.0f,
+                BorderThickness = 3.0f,
+            };
+
+            root.AddChild(this.panelBackground);
+            this.panelBackground.AddChild(this.title);
+            this.title.AddChild(this.progress);
         }
 
         private void BuildExitButton()
         {
-            SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(-32.0f, 0.0f), this.exitButtonInfo);
+            SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(-4.0f, 6.5f), this.exitButtonInfo);
 
-            slot.Background.Alignment = UIDirection.East;
+            slot.Background.Alignment = UIDirection.Northeast;
             slot.Icon.Alignment = UIDirection.Center;
 
-            this.headerBackground.AddChild(slot.Background);
+            this.panelBackground.AddChild(slot.Background);
             slot.Background.AddChild(slot.Icon);
 
             this.exitButtonSlotInfo = slot;
@@ -121,7 +208,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildAchievementSlots()
         {
-            Vector2 margin = new(48.0f, 136.0f);
+            Vector2 margin = new(16.0f, 92.0f);
 
             int rows = UIConstants.ACHIEVEMENTS_PER_ROW;
             int columns = UIConstants.ACHIEVEMENTS_PER_COLUMN;
@@ -142,20 +229,78 @@ namespace StardustSandbox.Core.UI.Common
                         Margin = margin
                     };
 
-                    this.headerBackground.AddChild(image);
+                    this.panelBackground.AddChild(image);
                     margin.X += 80.0f;
                     this.achievementImages[index] = image;
                     index++;
                 }
 
-                margin.X = 48.0f;
+                margin.X = 16.0f;
                 margin.Y += 80.0f;
             }
         }
 
-        protected override void OnScreenResize(Vector2 newSize)
+        private void BuildPagination()
         {
-            this.headerBackground.Scale = new(newSize.X, this.headerBackground.Scale.Y);
+            this.pageIndexLabel = new()
+            {
+                Scale = new(0.1f),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                Alignment = UIDirection.South,
+                Margin = new(0.0f, -12.0f),
+                TextContent = "1 / 1",
+
+                BorderDirections = LabelBorderDirection.All,
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderOffset = 2.0f,
+                BorderThickness = 2.0f,
+            };
+
+            this.panelBackground.AddChild(this.pageIndexLabel);
+
+            for (int i = 0; i < this.paginationButtonInfos.Length; i++)
+            {
+                SlotInfo slot = new(
+                    new()
+                    {
+                        TextureIndex = TextureIndex.UIButtons,
+                        SourceRectangle = new(320, 140, 32, 32),
+                        Scale = new(1.6f),
+                        Size = new(32.0f),
+                    },
+
+                    new()
+                    {
+                        TextureIndex = this.paginationButtonInfos[i].TextureIndex,
+                        SourceRectangle = this.paginationButtonInfos[i].TextureSourceRectangle,
+                        Alignment = UIDirection.Center,
+                        Size = new(32.0f)
+                    }
+                );
+
+                // Spacing
+                this.paginationButtonSlotInfos[i] = slot;
+
+                // Adding
+                this.panelBackground.AddChild(slot.Background);
+                slot.Background.AddChild(slot.Icon);
+            }
+
+            SlotInfo left = this.paginationButtonSlotInfos[0];
+            left.Background.Alignment = UIDirection.Southwest;
+            left.Background.Margin = new(10.0f, -10.0f);
+
+            SlotInfo right = this.paginationButtonSlotInfos[1];
+            right.Background.Alignment = UIDirection.Southeast;
+            right.Background.Margin = new(-10.0f);
+
+            for (int i = 0; i < this.paginationButtonSlotInfos.Length; i++)
+            {
+                SlotInfo slot = this.paginationButtonSlotInfos[i];
+
+                this.panelBackground.AddChild(slot.Background);
+                slot.Background.AddChild(slot.Icon);
+            }
         }
 
         protected override void OnUpdate(GameTime gameTime)
@@ -164,6 +309,7 @@ namespace StardustSandbox.Core.UI.Common
 
             UpdateExitButton();
             UpdateAchievementSlots();
+            UpdatePagination();
         }
 
         private void UpdateExitButton()
@@ -196,15 +342,9 @@ namespace StardustSandbox.Core.UI.Common
 
         private void UpdateAchievementSlots()
         {
-            for (int i = 0; i < this.achievementImages.Length; i++)
+            for (int i = this.achievementsRange.Start.Value; i < this.achievementsRange.End.Value; i++)
             {
-                Image image = this.achievementImages[i];
-
-                if (!this.achievementImages[i].CanDraw)
-                {
-                    break;
-                }
-
+                Image image = this.achievementImages[i % UIConstants.ACHIEVEMENTS_PER_PAGE];
                 Achievement achievement = AchievementDatabase.GetAchievement((AchievementIndex)i);
 
                 if (Interaction.OnMouseOver(image))
@@ -223,40 +363,37 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        private void ChangeAchievementsCatalog()
+        private void UpdatePagination()
         {
-            for (int i = 0; i < this.achievementImages.Length; i++)
+            for (int i = 0; i < this.paginationButtonInfos.Length; i++)
             {
-                Image image = this.achievementImages[i];
+                SlotInfo slot = this.paginationButtonSlotInfos[i];
 
-                if (image is null)
+                if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    continue;
+                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
                 }
 
-                if (i < (int)AchievementIndex.Length)
+                if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    AchievementIndex index = (AchievementIndex)i;
-
-                    Achievement achievement = AchievementDatabase.GetAchievement(index);
-
-                    image.CanDraw = true;
-
-                    image.SourceRectangle = this.achievementSettings.IsUnlocked(index) ? achievement.AchievedIconSourceRectangle : achievement.NotAchievedIconSourceRectangle;
+                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    this.paginationButtonInfos[i].ClickAction?.Invoke();
+                    break;
                 }
-                else
-                {
-                    image.CanDraw = false;
-                }
+
+                slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
-
+         
         protected override void OnOpened()
         {
-            this.titleLabelElement.TextContent = string.Concat(Localization_GUIs.Achievements_Title, " (", PercentageMath.PercentageFromValue((int)AchievementIndex.Length, this.achievementSettings.GetUnlockedCount()), "%)");
-
+            this.progress.TextContent = string.Concat(PercentageMath.PercentageFromValue((int)AchievementIndex.Length, this.achievementSettings.GetUnlockedCount()), '%');
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Credits);
-            ChangeAchievementsCatalog();
+
+            this.currentPageIndex = 0;
+            this.totalPages = (int)MathF.Max(1.0f, MathF.Ceiling(AchievementDatabase.Length / (float)UIConstants.ACHIEVEMENTS_PER_PAGE));
+
+            RefreshContent();
         }
     }
 }
