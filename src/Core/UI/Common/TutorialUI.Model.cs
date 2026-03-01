@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,37 +15,20 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Enums.UI
+namespace StardustSandbox.Core.UI.Common
 {
-    internal enum UIIndex : sbyte
+    internal sealed partial class TutorialUI
     {
-        None = -1,
+        private sealed class TutorialSection(string name, params TutorialContent[] contents)
+        {
+            internal string Name => name;
+            internal TutorialContent[] Contents => contents;
+        }
 
-        Achievements,
-        ColorPicker,
-        Confirm,
-        Credits,
-        EnvironmentSettings,
-        GeneratorSettings,
-        Hud,
-        Information,
-        ItemExplorer,
-        ItemSearch,
-        KeySelector,
-        Main,
-        Message,
-        Options,
-        Pause,
-        PenSettings,
-        Play,
-        Save,
-        Selector,
-        Slider,
-        TemperatureSettings,
-        TextInput,
-        Tutorial,
-        WorldDetails,
-        WorldExplorer,
-        WorldSettings,
+        private sealed class TutorialContent
+        {
+            internal required string Title { get; init; }
+            internal required string Description { get; init; }
+        }
     }
 }

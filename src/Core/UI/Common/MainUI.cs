@@ -75,6 +75,7 @@ namespace StardustSandbox.Core.UI.Common
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, () => GameHandler.StartGame(actorManager, ambientManager, camera, inputController, uiManager, world)),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Play, string.Empty, () => this.uiManager.OpenUI(UIIndex.Play)),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Tutorial, string.Empty, () => this.uiManager.OpenUI(UIIndex.Tutorial)),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Options, string.Empty, () =>
                 {
                     ((OptionsUI)UIDatabase.GetUI(UIIndex.Options)).Setup();

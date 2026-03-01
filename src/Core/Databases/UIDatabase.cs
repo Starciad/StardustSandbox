@@ -232,6 +232,10 @@ namespace StardustSandbox.Core.Databases
                 uiManager
             );
 
+            TutorialUI tutorialUI = new(
+                playerInputController
+            );
+
             uis = [
                 achievementsUI,
                 colorPickerUI,
@@ -255,6 +259,7 @@ namespace StardustSandbox.Core.Databases
                 sliderUI,
                 temperatureSettingsUI,
                 textInputUI,
+                tutorialUI,
                 worldDetailsUI,
                 worldExplorerUI,
                 worldSettingsUI,
