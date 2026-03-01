@@ -39,13 +39,18 @@ namespace StardustSandbox.Core.UI.Common
         private readonly UIManager uiManager;
 
         internal PlayUI(
-            UIManager uiManager
+            UIManager uiManager,
+            WorldExplorerUI worldExplorerUI
         ) : base()
         {
             this.uiManager = uiManager;
 
             this.menuButtonInfos = [
-                new(TextureIndex.IconUI, new(0, 32, 32, 32), Localization_Statements.Worlds, string.Empty, () => this.uiManager.OpenUI(UIIndex.WorldExplorer)),
+                new(TextureIndex.IconUI, new(0, 32, 32, 32), Localization_Statements.Worlds, string.Empty, () =>
+                {
+                    worldExplorerUI.Setup();
+                    this.uiManager.OpenUI(UIIndex.WorldExplorer);
+                }),
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Return, string.Empty, this.uiManager.CloseUI),
             ];
 

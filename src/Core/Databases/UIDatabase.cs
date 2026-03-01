@@ -175,8 +175,24 @@ namespace StardustSandbox.Core.Databases
                 world
             );
 
+            WorldDetailsUI worldDetailsUI = new(
+                actorManager,
+                ambientManager,
+                camera,
+                playerInputController,
+                uiManager,
+                world
+            );
+
+            WorldExplorerUI worldExplorerUI = new(
+                graphicsDevice,
+                uiManager,
+                worldDetailsUI
+            );
+
             PlayUI playUI = new(
-                uiManager
+                uiManager,
+                worldExplorerUI
             );
 
             TextInputUI textInputUI = new(
@@ -199,21 +215,6 @@ namespace StardustSandbox.Core.Databases
                 tooltipBox,
                 uiManager,
                 world
-            );
-
-            WorldDetailsUI worldDetailsUI = new(
-                actorManager,
-                ambientManager,
-                camera,
-                playerInputController,
-                uiManager,
-                world
-            );
-
-            WorldExplorerUI worldExplorerUI = new(
-                graphicsDevice,
-                uiManager,
-                worldDetailsUI
             );
 
             WorldSettingsUI worldSettingsUI = new(

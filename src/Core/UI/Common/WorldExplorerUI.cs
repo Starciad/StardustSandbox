@@ -41,7 +41,8 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class WorldExplorerUI : UIBase
     {
-        private int currentPage = 0, totalPages = 1;
+        private int currentPageIndex = 0, totalPages = 1;
+        private Range saveFilesRange;
 
         private Image panelBackground;
         private Label title, pageIndexLabel;
@@ -69,7 +70,6 @@ namespace StardustSandbox.Core.UI.Common
 
             this.menuButtonInfos = [
                 new(TextureIndex.IconUI, new(192, 0, 32, 32), Localization_Statements.Exit, string.Empty, this.uiManager.CloseUI),
-                new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_Statements.Reload, string.Empty, Reload),
                 new(TextureIndex.IconUI, new(32, 32, 32, 32), Localization_GUIs.WorldExplorer_OpenInDirectory_Name, string.Empty, () =>
                 {
                     Directory.OpenDirectoryInFileExplorer(Directory.Worlds);
@@ -79,31 +79,29 @@ namespace StardustSandbox.Core.UI.Common
             this.paginationButtonInfos = [
                 new(TextureIndex.IconUI, new(128, 160, 32, 32), Localization_Statements.Previous, string.Empty, () =>
                 {
-                    if (this.currentPage > 0)
+                    if (this.currentPageIndex > 0)
                     {
-                        this.currentPage--;
+                        this.currentPageIndex--;
                     }
                     else
                     {
-                        this.currentPage = this.totalPages - 1;
+                        this.currentPageIndex = this.totalPages - 1;
                     }
 
-                    RefreshWorldsCatalog();
-                    RecalculatePagination();
+                    RefreshContent();
                 }),
                 new(TextureIndex.IconUI, new(64, 160, 32, 32), Localization_Statements.Next, string.Empty, () =>
                 {
-                    if (this.currentPage < this.totalPages - 1)
+                    if (this.currentPageIndex < this.totalPages - 1)
                     {
-                        this.currentPage++;
+                        this.currentPageIndex++;
                     }
                     else
                     {
-                        this.currentPage = 0;
+                        this.currentPageIndex = 0;
                     }
 
-                    RefreshWorldsCatalog();
-                    RecalculatePagination();
+                    RefreshContent();
                 }),
             ];
 
@@ -111,26 +109,45 @@ namespace StardustSandbox.Core.UI.Common
             this.paginationButtonSlotInfos = new SlotInfo[this.paginationButtonInfos.Length];
         }
 
-        private void RecalculatePagination()
+        internal void Setup()
         {
-            this.totalPages = (int)MathF.Max(1.0f, MathF.Ceiling(this.loadedSaveFiles.Count / (float)UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE));
-            this.currentPage = Math.Clamp(this.currentPage, 0, this.totalPages - 1);
-
-            this.pageIndexLabel.TextContent = string.Concat(this.currentPage + 1, " / ", Math.Max(this.totalPages, 1));
+            this.currentPageIndex = 0;
         }
 
-        private void RefreshWorldsCatalog()
+        private void LoadAllSaveFiles()
         {
-            int startIndex = this.currentPage * UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE;
+            this.loadedSaveFiles.Clear();
+
+            foreach (SaveFile saveFile in SavingSerializer.LoadAll(LoadFlags.Thumbnail | LoadFlags.Metadata))
+            {
+                this.loadedSaveFiles.Add(saveFile);
+            }
+
+            this.currentPageIndex = Math.Clamp(this.currentPageIndex, 0, this.totalPages - 1);
+            this.totalPages = (int)MathF.Max(1.0f, MathF.Ceiling(this.loadedSaveFiles.Count / (float)UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE));
+        }
+
+        private void RefreshContent()
+        {
+            this.pageIndexLabel.TextContent = string.Concat(this.currentPageIndex + 1, " / ", this.totalPages);
+
+            this.saveFilesRange = new(
+                this.currentPageIndex * UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE,
+                Math.Min(
+                    (this.totalPages * UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE) + UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE,
+                    this.loadedSaveFiles.Count
+                )
+            );
+
+            int length = this.saveFilesRange.End.Value - this.saveFilesRange.Start.Value;
 
             for (int i = 0; i < this.worldButtonSlotInfos.Length; i++)
             {
                 SlotInfo slotInfoElement = this.worldButtonSlotInfos[i];
-                int worldIndex = startIndex + i;
 
-                if (worldIndex < this.loadedSaveFiles?.Count)
+                if (i < length)
                 {
-                    SaveFile saveFile = this.loadedSaveFiles[worldIndex];
+                    SaveFile saveFile = this.loadedSaveFiles[this.saveFilesRange.Start.Value + i];
 
                     slotInfoElement.Background.CanDraw = true;
 
@@ -145,34 +162,12 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        private void LoadAllSaveFiles()
-        {
-            this.loadedSaveFiles.Clear();
-
-            foreach (SaveFile saveFile in SavingSerializer.LoadAll(LoadFlags.Thumbnail | LoadFlags.Metadata))
-            {
-                this.loadedSaveFiles.Add(saveFile);
-            }
-        }
-
-        private void Reload()
-        {
-            LoadAllSaveFiles();
-            this.currentPage = 0;
-
-            RefreshWorldsCatalog();
-            RecalculatePagination();
-        }
-
         protected override void OnBuild(Container root)
         {
             BuildBackground(root);
             BuildMenuButtons();
             BuildWorldDisplaySlots();
             BuildPagination();
-
-            RefreshWorldsCatalog();
-            RecalculatePagination();
         }
 
         private void BuildBackground(Container root)
@@ -337,7 +332,7 @@ namespace StardustSandbox.Core.UI.Common
         protected override void OnUpdate(GameTime gameTime)
         {
             UpdateMenuButtons();
-            UpdateSlotButtons();
+            UpdateWorldSlotButtons();
             UpdatePagination();
         }
 
@@ -363,16 +358,12 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        private void UpdateSlotButtons()
+        private void UpdateWorldSlotButtons()
         {
-            for (int i = 0; i < this.worldButtonSlotInfos.Length; i++)
+            for (int i = this.saveFilesRange.Start.Value; i < this.saveFilesRange.End.Value; i++)
             {
-                SlotInfo slotInfoElement = this.worldButtonSlotInfos[i];
-
-                if (!this.worldButtonSlotInfos[i].Background.CanDraw)
-                {
-                    break;
-                }
+                SlotInfo slotInfoElement = this.worldButtonSlotInfos[i % UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE];
+                SaveFile saveFile = this.loadedSaveFiles[i];
 
                 if (Interaction.OnMouseEnter(slotInfoElement.Background))
                 {
@@ -382,7 +373,7 @@ namespace StardustSandbox.Core.UI.Common
                 if (Interaction.OnMouseLeftClick(slotInfoElement.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                    this.worldDetailsMenuUI.SetSaveFile(this.graphicsDevice, this.loadedSaveFiles[(this.currentPage * UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE) + i].Metadata.Name);
+                    this.worldDetailsMenuUI.SetSaveFile(this.graphicsDevice, saveFile.Metadata.Name);
                     this.uiManager.OpenUI(UIIndex.WorldDetails);
                     break;
                 }
@@ -415,17 +406,8 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnOpened()
         {
-            Reload();
-        }
-
-        protected override void OnClosed()
-        {
-            this.loadedSaveFiles.Clear();
-
-            for (int i = 0; i < this.worldButtonSlotInfos.Length; i++)
-            {
-                this.worldButtonSlotInfos[i].Icon.DisposeTexture();
-            }
+            LoadAllSaveFiles();
+            RefreshContent();
         }
     }
 }
