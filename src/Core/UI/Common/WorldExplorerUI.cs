@@ -190,7 +190,7 @@ namespace StardustSandbox.Core.UI.Common
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.1f),
-                Margin = new(16.0f, 10.0f),
+                Margin = new(16.0f, 15.0f),
                 TextContent = Localization_GUIs.WorldExplorer_Title,
 
                 BorderDirections = LabelBorderDirection.All,
@@ -209,7 +209,7 @@ namespace StardustSandbox.Core.UI.Common
                 this.panelBackground,
                 this.menuButtonInfos,
                 new(-4.0f, 6.5f),
-                -80.0f,
+                -76.0f,
                 UIDirection.Northeast
             );
         }
@@ -218,14 +218,11 @@ namespace StardustSandbox.Core.UI.Common
         {
             Vector2 margin = new(17.0f, 91.0f);
 
-            int rows = UIConstants.WORLD_EXPLORER_ITEMS_PER_ROW;
-            int columns = UIConstants.WORLD_EXPLORER_ITEMS_PER_COLUMN;
-
             int index = 0;
 
-            for (int row = 0; row < rows; row++)
+            for (int row = 0; row < UIConstants.WORLD_EXPLORER_ITEMS_PER_ROW; row++)
             {
-                for (int col = 0; col < columns; col++)
+                for (int col = 0; col < UIConstants.WORLD_EXPLORER_ITEMS_PER_COLUMN; col++)
                 {
                     Image background = new()
                     {
