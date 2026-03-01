@@ -305,9 +305,9 @@ namespace StardustSandbox.Core.UI.Common
 
             int index = 0;
 
-            for (byte row = 0; row < UIConstants.ITEM_SEARCH_ITEMS_PER_ROW; row++)
+            for (int row = 0; row < UIConstants.ITEM_SEARCH_ITEMS_PER_ROW; row++)
             {
-                for (byte col = 0; col < UIConstants.ITEM_SEARCH_ITEMS_PER_COLUMN; col++)
+                for (int col = 0; col < UIConstants.ITEM_SEARCH_ITEMS_PER_COLUMN; col++)
                 {
                     SlotInfo slot = new(
                         new()

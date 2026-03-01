@@ -43,19 +43,17 @@ namespace StardustSandbox.Core.UI.Common
     {
         private int currentPage = 0, totalPages = 1;
 
-        private Image headerBackground, footerBackground;
+        private Image panelBackground;
+        private Label title, pageIndexLabel;
 
-        private Label pageIndexLabel;
-        private SlotInfo[] headerButtonSlotInfos;
+        private SlotInfo[] menuButtonSlotInfos;
+
+        private readonly SlotInfo[] worldButtonSlotInfos, paginationButtonSlotInfos;
+        private readonly ButtonInfo[] menuButtonInfos, paginationButtonInfos;
 
         private readonly List<SaveFile> loadedSaveFiles = [];
-        private readonly ButtonInfo[] headerButtonInfos, footerButtonInfos;
-
-        private readonly Label[] footerButtonLabels = new Label[2];
-        private readonly SlotInfo[] itemButtonSlotInfos = new SlotInfo[UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE];
 
         private readonly WorldDetailsUI worldDetailsMenuUI;
-
         private readonly GraphicsDevice graphicsDevice;
         private readonly UIManager uiManager;
 
@@ -69,7 +67,7 @@ namespace StardustSandbox.Core.UI.Common
             this.uiManager = uiManager;
             this.worldDetailsMenuUI = worldDetailsMenuUI;
 
-            this.headerButtonInfos = [
+            this.menuButtonInfos = [
                 new(TextureIndex.IconUI, new(192, 0, 32, 32), Localization_Statements.Exit, string.Empty, this.uiManager.CloseUI),
                 new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_Statements.Reload, string.Empty, Reload),
                 new(TextureIndex.IconUI, new(32, 32, 32, 32), Localization_GUIs.WorldExplorer_OpenInDirectory_Name, string.Empty, () =>
@@ -78,8 +76,8 @@ namespace StardustSandbox.Core.UI.Common
                 }),
             ];
 
-            this.footerButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Previous, string.Empty, () =>
+            this.paginationButtonInfos = [
+                new(TextureIndex.IconUI, new(128, 160, 32, 32), Localization_Statements.Previous, string.Empty, () =>
                 {
                     if (this.currentPage > 0)
                     {
@@ -93,7 +91,7 @@ namespace StardustSandbox.Core.UI.Common
                     RefreshWorldsCatalog();
                     RecalculatePagination();
                 }),
-                new(TextureIndex.None, null, Localization_Statements.Next, string.Empty, () =>
+                new(TextureIndex.IconUI, new(64, 160, 32, 32), Localization_Statements.Next, string.Empty, () =>
                 {
                     if (this.currentPage < this.totalPages - 1)
                     {
@@ -108,6 +106,9 @@ namespace StardustSandbox.Core.UI.Common
                     RecalculatePagination();
                 }),
             ];
+
+            this.worldButtonSlotInfos = new SlotInfo[UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE];
+            this.paginationButtonSlotInfos = new SlotInfo[this.paginationButtonInfos.Length];
         }
 
         private void RecalculatePagination()
@@ -122,9 +123,9 @@ namespace StardustSandbox.Core.UI.Common
         {
             int startIndex = this.currentPage * UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE;
 
-            for (int i = 0; i < this.itemButtonSlotInfos.Length; i++)
+            for (int i = 0; i < this.worldButtonSlotInfos.Length; i++)
             {
-                SlotInfo slotInfoElement = this.itemButtonSlotInfos[i];
+                SlotInfo slotInfoElement = this.worldButtonSlotInfos[i];
                 int worldIndex = startIndex + i;
 
                 if (worldIndex < this.loadedSaveFiles?.Count)
@@ -165,128 +166,66 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnBuild(Container root)
         {
-            BuildHeader(root);
-            BuildFooter(root);
+            BuildBackground(root);
+            BuildMenuButtons();
             BuildWorldDisplaySlots();
+            BuildPagination();
 
             RefreshWorldsCatalog();
             RecalculatePagination();
         }
 
-        private void BuildHeader(Container root)
+        private void BuildBackground(Container root)
         {
             // Background
-            this.headerBackground = new()
+            this.panelBackground = new()
             {
-                TextureIndex = TextureIndex.Pixel,
-                Color = new(AAP64ColorPalette.DarkGray, 196),
-                Size = Vector2.One,
-                Scale = new(GameScreen.GetViewport().X, 96.0f),
+                Alignment = UIDirection.Center,
+                TextureIndex = TextureIndex.UIBackgroundWorldExplorer,
+                Size = new(823.0f, 629.0f),
             };
-
-            root.AddChild(this.headerBackground);
 
             // Title
-            Label titleLabelElement = new()
+            this.title = new()
             {
-                Scale = new(0.15f),
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = UIDirection.West,
-                Margin = new(32.0f, 0.0f),
+                Scale = new(0.1f),
+                Margin = new(16.0f, 10.0f),
                 TextContent = Localization_GUIs.WorldExplorer_Title,
 
-                BorderColor = AAP64ColorPalette.DarkGray,
                 BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 2.0f,
-                BorderThickness = 2.0f,
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderOffset = 3.0f,
+                BorderThickness = 3.0f,
             };
 
-            this.headerBackground.AddChild(titleLabelElement);
-
-            // Buttons
-            this.headerButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
-                this.headerBackground,
-                this.headerButtonInfos,
-                new(-32.0f, 0.0f),
-                -80.0f,
-                UIDirection.East
-            );
+            root.AddChild(this.panelBackground);
+            this.panelBackground.AddChild(this.title);
         }
 
-        private void BuildFooter(Container root)
+        private void BuildMenuButtons()
         {
-            this.footerBackground = new()
-            {
-                TextureIndex = TextureIndex.Pixel,
-                Color = new(AAP64ColorPalette.DarkGray, 196),
-                Size = Vector2.One,
-                Scale = new(GameScreen.GetViewport().X, 96.0f),
-                Alignment = UIDirection.Southwest,
-            };
-
-            this.pageIndexLabel = new()
-            {
-                Scale = new(0.15f),
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = UIDirection.Center,
-                TextContent = "1 / 1",
-
-                BorderColor = AAP64ColorPalette.DarkGray,
-                BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 2.0f,
-                BorderThickness = 2.0f,
-            };
-
-            Label previousButtonLabel = new()
-            {
-                Scale = new(0.15f),
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = UIDirection.West,
-                TextContent = Localization_Statements.Previous,
-                Margin = new(32.0f, 0.0f),
-
-                BorderColor = AAP64ColorPalette.DarkGray,
-                BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 2.0f,
-                BorderThickness = 2.0f,
-            };
-
-            Label nextButtonLabel = new()
-            {
-                Scale = new(0.15f),
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Alignment = UIDirection.East,
-                TextContent = Localization_Statements.Next,
-                Margin = new(-32.0f, 0.0f),
-
-                BorderColor = AAP64ColorPalette.DarkGray,
-                BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 2.0f,
-                BorderThickness = 2.0f,
-            };
-
-            this.footerButtonLabels[0] = previousButtonLabel;
-            this.footerButtonLabels[1] = nextButtonLabel;
-
-            this.footerBackground.AddChild(this.pageIndexLabel);
-            this.footerBackground.AddChild(previousButtonLabel);
-            this.footerBackground.AddChild(nextButtonLabel);
-
-            root.AddChild(this.footerBackground);
+            this.menuButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+                this.panelBackground,
+                this.menuButtonInfos,
+                new(-4.0f, 6.5f),
+                -80.0f,
+                UIDirection.Northeast
+            );
         }
 
         private void BuildWorldDisplaySlots()
         {
-            Vector2 margin = new(32.0f, 118.0f);
+            Vector2 margin = new(17.0f, 91.0f);
 
             int rows = UIConstants.WORLD_EXPLORER_ITEMS_PER_ROW;
             int columns = UIConstants.WORLD_EXPLORER_ITEMS_PER_COLUMN;
 
             int index = 0;
 
-            for (byte col = 0; col < columns; col++)
+            for (int row = 0; row < rows; row++)
             {
-                for (byte row = 0; row < rows; row++)
+                for (int col = 0; col < columns; col++)
                 {
                     Image background = new()
                     {
@@ -318,65 +257,122 @@ namespace StardustSandbox.Core.UI.Common
                     };
 
                     // Position
-                    this.headerBackground.AddChild(background);
+                    this.panelBackground.AddChild(background);
                     background.AddChild(thumbnail);
                     background.AddChild(title);
 
                     // Spacing
-                    margin.X += 418.0f;
+                    margin.X += 402.0f;
 
-                    this.itemButtonSlotInfos[index] = new(background, thumbnail, title);
+                    this.worldButtonSlotInfos[index] = new(background, thumbnail, title);
 
                     index++;
                 }
 
-                margin.X = 32.0f;
-                margin.Y += 172.0f;
+                margin.X = 17.0f;
+                margin.Y += 156.0f;
             }
         }
 
-        protected override void OnScreenResize(Vector2 newSize)
+        private void BuildPagination()
         {
-            this.headerBackground.Scale = new(newSize.X, this.headerBackground.Scale.Y);
-            this.footerBackground.Scale = new(newSize.X, this.headerBackground.Scale.Y);
+            this.pageIndexLabel = new()
+            {
+                Scale = new(0.1f),
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                Alignment = UIDirection.South,
+                Margin = new(0.0f, -12.0f),
+                TextContent = "1 / 1",
+
+                BorderDirections = LabelBorderDirection.All,
+                BorderColor = AAP64ColorPalette.DarkGray,
+                BorderOffset = 2.0f,
+                BorderThickness = 2.0f,
+            };
+
+            this.panelBackground.AddChild(this.pageIndexLabel);
+
+            for (int i = 0; i < this.paginationButtonInfos.Length; i++)
+            {
+                SlotInfo slot = new(
+                    new()
+                    {
+                        TextureIndex = TextureIndex.UIButtons,
+                        SourceRectangle = new(320, 140, 32, 32),
+                        Scale = new(1.6f),
+                        Size = new(32.0f),
+                    },
+
+                    new()
+                    {
+                        TextureIndex = this.paginationButtonInfos[i].TextureIndex,
+                        SourceRectangle = this.paginationButtonInfos[i].TextureSourceRectangle,
+                        Alignment = UIDirection.Center,
+                        Size = new(32.0f)
+                    }
+                );
+
+                // Spacing
+                this.paginationButtonSlotInfos[i] = slot;
+
+                // Adding
+                this.panelBackground.AddChild(slot.Background);
+                slot.Background.AddChild(slot.Icon);
+            }
+
+            SlotInfo left = this.paginationButtonSlotInfos[0];
+            left.Background.Alignment = UIDirection.Southwest;
+            left.Background.Margin = new(10.0f, -10.0f);
+
+            SlotInfo right = this.paginationButtonSlotInfos[1];
+            right.Background.Alignment = UIDirection.Southeast;
+            right.Background.Margin = new(-10.0f);
+
+            for (int i = 0; i < this.paginationButtonSlotInfos.Length; i++)
+            {
+                SlotInfo slot = this.paginationButtonSlotInfos[i];
+
+                this.panelBackground.AddChild(slot.Background);
+                slot.Background.AddChild(slot.Icon);
+            }
         }
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            UpdateHeaderButtons();
+            UpdateMenuButtons();
             UpdateSlotButtons();
-            UpdateFooterButtons();
+            UpdatePagination();
         }
 
-        private void UpdateHeaderButtons()
+        private void UpdateMenuButtons()
         {
-            for (int i = 0; i < this.headerButtonSlotInfos.Length; i++)
+            for (int i = 0; i < this.menuButtonSlotInfos.Length; i++)
             {
-                SlotInfo slotInfo = this.headerButtonSlotInfos[i];
+                SlotInfo slot = this.menuButtonSlotInfos[i];
 
-                if (Interaction.OnMouseEnter(slotInfo.Background))
+                if (Interaction.OnMouseEnter(slot.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Hover);
                 }
 
-                if (Interaction.OnMouseLeftClick(slotInfo.Background))
+                if (Interaction.OnMouseLeftClick(slot.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                    this.headerButtonInfos[i].ClickAction?.Invoke();
+                    this.menuButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
 
-                slotInfo.Background.Color = Interaction.OnMouseOver(slotInfo.Background) ? AAP64ColorPalette.LightGrayBlue : AAP64ColorPalette.White;
+                slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
         private void UpdateSlotButtons()
         {
-            for (int i = 0; i < this.itemButtonSlotInfos.Length; i++)
+            for (int i = 0; i < this.worldButtonSlotInfos.Length; i++)
             {
-                SlotInfo slotInfoElement = this.itemButtonSlotInfos[i];
+                SlotInfo slotInfoElement = this.worldButtonSlotInfos[i];
 
-                if (!this.itemButtonSlotInfos[i].Background.CanDraw)
+                if (!this.worldButtonSlotInfos[i].Background.CanDraw)
                 {
                     break;
                 }
@@ -398,25 +394,25 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        private void UpdateFooterButtons()
+        private void UpdatePagination()
         {
-            for (int i = 0; i < this.footerButtonLabels.Length; i++)
+            for (int i = 0; i < this.paginationButtonInfos.Length; i++)
             {
-                Label label = this.footerButtonLabels[i];
+                SlotInfo slot = this.paginationButtonSlotInfos[i];
 
-                if (Interaction.OnMouseEnter(label))
+                if (Interaction.OnMouseEnter(slot.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Hover);
                 }
 
-                if (Interaction.OnMouseLeftClick(label))
+                if (Interaction.OnMouseLeftClick(slot.Background))
                 {
                     SoundEngine.Play(SoundEffectIndex.GUI_Click);
-                    this.footerButtonInfos[i].ClickAction?.Invoke();
+                    this.paginationButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
 
-                label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
+                slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
 
@@ -429,9 +425,9 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.loadedSaveFiles.Clear();
 
-            for (int i = 0; i < this.itemButtonSlotInfos.Length; i++)
+            for (int i = 0; i < this.worldButtonSlotInfos.Length; i++)
             {
-                this.itemButtonSlotInfos[i].Icon.DisposeTexture();
+                this.worldButtonSlotInfos[i].Icon.DisposeTexture();
             }
         }
     }

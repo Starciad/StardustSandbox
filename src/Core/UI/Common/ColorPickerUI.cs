@@ -193,9 +193,9 @@ namespace StardustSandbox.Core.UI.Common
 
             int index = 0;
 
-            for (byte row = 0; row < totalRows; row++)
+            for (int row = 0; row < totalRows; row++)
             {
-                for (byte col = 0; col < buttonsPerRow; col++)
+                for (int col = 0; col < buttonsPerRow; col++)
                 {
                     if (index >= totalButtons)
                     {

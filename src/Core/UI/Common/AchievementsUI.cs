@@ -215,9 +215,9 @@ namespace StardustSandbox.Core.UI.Common
 
             int index = 0;
 
-            for (byte col = 0; col < columns; col++)
+            for (int col = 0; col < columns; col++)
             {
-                for (byte row = 0; row < rows; row++)
+                for (int row = 0; row < rows; row++)
                 {
                     Image image = new()
                     {
@@ -384,7 +384,7 @@ namespace StardustSandbox.Core.UI.Common
                 slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
             }
         }
-         
+
         protected override void OnOpened()
         {
             this.progress.TextContent = string.Concat(PercentageMath.PercentageFromValue((int)AchievementIndex.Length, this.achievementSettings.GetUnlockedCount()), '%');

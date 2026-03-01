@@ -37,7 +37,7 @@ namespace StardustSandbox.Core.Constants
 
         // World Explorer
         internal const byte WORLD_EXPLORER_ITEMS_PER_ROW = 3;
-        internal const byte WORLD_EXPLORER_ITEMS_PER_COLUMN = 3;
+        internal const byte WORLD_EXPLORER_ITEMS_PER_COLUMN = 2;
         internal const byte WORLD_EXPLORER_ITEMS_PER_PAGE = WORLD_EXPLORER_ITEMS_PER_ROW * WORLD_EXPLORER_ITEMS_PER_COLUMN;
 
         // Achievements
