@@ -852,56 +852,55 @@
   <data name="Options.Gameplay.UseSmoothCameraMovement.Description" xml:space="preserve">
     <value>Enable smooth camera movement for a more comfortable viewing experience.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Tutorial.Introduction.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Introduction.Title" xml:space="preserve">
+    <value>Introduction</value>
   </data>
-  <data name="Tutorial.Introduction.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Introduction.Description" xml:space="preserve">
+    <value>Welcome to Stardust Sandbox. Here you can create experiences using different materials and entities. This tutorial shows only the essentials to get started. After that, you can explore freely.</value>
   </data>
-  <data name="Tutorial.Camera.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Camera.Title" xml:space="preserve">
+    <value>Camera</value>
   </data>
-  <data name="Tutorial.Camera.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Camera.Description" xml:space="preserve">
+    <value>Use {0} {1} {2} {3} to move the camera around the map. Use {4} to zoom in and {5} to zoom out. If you want to move faster, hold {6} while using the movement keys.</value>
   </data>
-  <data name="Tutorial.Draw.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Draw.Title" xml:space="preserve">
+    <value>Draw</value>
   </data>
-  <data name="Tutorial.Draw.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Draw.Description" xml:space="preserve">
+    <value>Choose an item from the top bar to make it active. Then, hold the left mouse button and drag over the map to apply the item. Use the mouse wheel to adjust the brush size as needed.</value>
   </data>
-  <data name="Tutorial.Erase.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Erase.Title" xml:space="preserve">
+    <value>Erase</value>
   </data>
-  <data name="Tutorial.Erase.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Erase.Description" xml:space="preserve">
+    <value>To remove content from the map, hold the right mouse button over the desired area or select the Eraser tool. Erasing is part of the process of testing and adjusting your creations.</value>
   </data>
-  <data name="Tutorial.Interface.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Interface.Title" xml:space="preserve">
+    <value>Interface</value>
   </data>
-  <data name="Tutorial.Interface.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Interface.Description" xml:space="preserve">
+    <value>The top bar shows the current item and allows access to other materials through the explorer. The left bar contains tools and world settings. The right bar contains important actions such as saving, loading, and clearing the map.</value>
   </data>
-  <data name="Tutorial.Simulation.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Simulation.Title" xml:space="preserve">
+    <value>Simulation</value>
   </data>
-  <data name="Tutorial.Simulation.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Simulation.Description" xml:space="preserve">
+    <value>Everything happens within the map. Elements are materials like sand and water that follow physics rules and interact with each other. Actors are entities that respond to the environment and can modify the world around them.</value>
   </data>
-  <data name="Tutorial.Save.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Save.Title" xml:space="preserve">
+    <value>Save</value>
   </data>
-  <data name="Tutorial.Save.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Save.Description" xml:space="preserve">
+    <value>Use the right bar to save your creations. This way you can continue later without losing your progress.</value>
   </data>
-  <data name="Tutorial.Explore.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Explore.Title" xml:space="preserve">
+    <value>Explore</value>
   </data>
-  <data name="Tutorial.Explore.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Explore.Description" xml:space="preserve">
+    <value>Try combining different elements to observe new behaviors. Testing, adjusting, and trying again is the best way to learn how the simulation works.</value>
   </data>
-  <data name="Tutorial.ClickToContinue" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.ClickToContinue" xml:space="preserve">
+    <value>Click to Continue...</value>
   </data>
 </root>

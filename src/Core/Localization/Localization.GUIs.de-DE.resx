@@ -852,56 +852,55 @@
   <data name="Options.Gameplay.UseSmoothCameraMovement.Description" xml:space="preserve">
     <value>Aktivieren Sie sanfte Kamerabewegung für ein komfortableres Seherlebnis.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Tutorial.Introduction.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Introduction.Title" xml:space="preserve">
+    <value>Einführung</value>
   </data>
-  <data name="Tutorial.Introduction.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Introduction.Description" xml:space="preserve">
+    <value>Willkommen bei Stardust Sandbox. Hier kannst du Erlebnisse mit verschiedenen Materialien und Entitäten erstellen. Dieses Tutorial zeigt nur das Wesentliche für den Einstieg. Danach kannst du frei erkunden.</value>
   </data>
-  <data name="Tutorial.Camera.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Camera.Title" xml:space="preserve">
+    <value>Kamera</value>
   </data>
-  <data name="Tutorial.Camera.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Camera.Description" xml:space="preserve">
+    <value>Verwende {0} {1} {2} {3}, um die Kamera auf der Karte zu bewegen. Verwende {4} zum Vergrößern und {5} zum Verkleinern. Wenn du schneller bewegen möchtest, halte {6} gedrückt, während du die Bewegungstasten verwendest.</value>
   </data>
-  <data name="Tutorial.Draw.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Draw.Title" xml:space="preserve">
+    <value>Zeichnen</value>
   </data>
-  <data name="Tutorial.Draw.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Draw.Description" xml:space="preserve">
+    <value>Wähle einen Gegenstand aus der oberen Leiste, um ihn aktiv zu machen. Halte dann die linke Maustaste gedrückt und ziehe über die Karte, um den Gegenstand anzuwenden. Verwende das Mausrad, um die Pinselgröße nach Bedarf anzupassen.</value>
   </data>
-  <data name="Tutorial.Erase.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Erase.Title" xml:space="preserve">
+    <value>Löschen</value>
   </data>
-  <data name="Tutorial.Erase.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Erase.Description" xml:space="preserve">
+    <value>Um Inhalte von der Karte zu entfernen, halte die rechte Maustaste über dem gewünschten Bereich gedrückt oder wähle das Radiergummi-Werkzeug. Das Löschen ist Teil des Prozesses zum Testen und Anpassen deiner Kreationen.</value>
   </data>
-  <data name="Tutorial.Interface.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Interface.Title" xml:space="preserve">
+    <value>Benutzeroberfläche</value>
   </data>
-  <data name="Tutorial.Interface.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Interface.Description" xml:space="preserve">
+    <value>Die obere Leiste zeigt den aktuellen Gegenstand und ermöglicht den Zugriff auf andere Materialien durch den Explorer. Die linke Leiste enthält Werkzeuge und Welteinstellungen. Die rechte Leiste enthält wichtige Aktionen wie Speichern, Laden und Löschen der Karte.</value>
   </data>
-  <data name="Tutorial.Simulation.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Simulation.Title" xml:space="preserve">
+    <value>Simulation</value>
   </data>
-  <data name="Tutorial.Simulation.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Simulation.Description" xml:space="preserve">
+    <value>Alles findet auf der Karte statt. Elemente sind Materialien wie Sand und Wasser, die Physikregeln folgen und miteinander interagieren. Akteure sind Entitäten, die auf die Umgebung reagieren und die Welt um sie herum verändern können.</value>
   </data>
-  <data name="Tutorial.Save.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Save.Title" xml:space="preserve">
+    <value>Speichern</value>
   </data>
-  <data name="Tutorial.Save.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Save.Description" xml:space="preserve">
+    <value>Verwende die rechte Leiste, um deine Kreationen zu speichern. So kannst du später weitermachen, ohne deinen Fortschritt zu verlieren.</value>
   </data>
-  <data name="Tutorial.Explore.Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Explore.Title" xml:space="preserve">
+    <value>Erkunden</value>
   </data>
-  <data name="Tutorial.Explore.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.Explore.Description" xml:space="preserve">
+    <value>Versuche, verschiedene Elemente zu kombinieren, um neues Verhalten zu beobachten. Testen, Anpassen und erneut Versuchen ist die beste Art, um zu lernen, wie die Simulation funktioniert.</value>
   </data>
-  <data name="Tutorial.ClickToContinue" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Tutorial.ClickToContinue" xml:space="preserve">
+    <value>Klicke zum Fortfahren...</value>
   </data>
 </root>
