@@ -56,7 +56,9 @@ namespace StardustSandbox.Core.UI.Common
             ActorManager actorManager,
             AmbientManager ambientManager,
             Camera2D camera,
-            PlayerInputController inputController,
+            HudUI hudUI,
+            ItemExplorerUI itemExplorerUI,
+            PlayerInputController playerInputController,
             UIManager uiManager,
             World world
         ) : base()
@@ -79,7 +81,16 @@ namespace StardustSandbox.Core.UI.Common
                     uiManager.OpenUI(UIIndex.Main);
                     uiManager.OpenUI(UIIndex.Hud);
 
-                    GameHandler.StartGame(actorManager, ambientManager, camera, inputController, uiManager, world);
+                    GameHandler.StartGame(
+                        actorManager,
+                        ambientManager,
+                        camera,
+                        hudUI,
+                        itemExplorerUI,
+                        playerInputController,
+                        uiManager,
+                        world
+                    );
                     GameHandler.LoadSaveFile(actorManager, world, this.saveFile.Metadata.Name);
                     SoundEngine.Play(SoundEffectIndex.GUI_World_Loaded);
                 }),

@@ -58,7 +58,7 @@ namespace StardustSandbox.Core
             AmbientManager ambientManager,
             Camera2D camera,
             CursorManager cursorManager,
-            PlayerInputController inputController,
+            PlayerInputController playerInputController,
             SpriteBatch spriteBatch,
             UIManager uiManager,
             World world
@@ -74,7 +74,7 @@ namespace StardustSandbox.Core
 
             DrawAmbient(spriteBatch, ambientManager, camera);
             DrawWorld(spriteBatch, camera, actorManager, world);
-            DrawCursorPenActionArea(spriteBatch, camera, inputController);
+            DrawCursorPenActionArea(spriteBatch, camera, playerInputController);
             DrawGUI(spriteBatch, uiManager);
             DrawCursor(spriteBatch, cursorManager);
 
@@ -172,11 +172,11 @@ namespace StardustSandbox.Core
             spriteBatch.End();
         }
 
-        private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, Camera2D camera, PlayerInputController inputController)
+        private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, Camera2D camera, PlayerInputController playerInputController)
         {
             GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
 
-            if (!gameplaySettings.ShowPreviewArea || inputController.Pen.Tool is PenTool.Visualization or PenTool.Fill)
+            if (!gameplaySettings.ShowPreviewArea || playerInputController.Pen.Tool is PenTool.Visualization or PenTool.Fill)
             {
                 return;
             }
@@ -196,7 +196,7 @@ namespace StardustSandbox.Core
                 transformMatrix: camera.GetViewMatrix()
             );
 
-            foreach (Point point in inputController.Pen.GetShapePoints(alignedPosition))
+            foreach (Point point in playerInputController.Pen.GetShapePoints(alignedPosition))
             {
                 Vector2 worldPosition = new(
                     point.X * WorldConstants.TILE_SIZE,

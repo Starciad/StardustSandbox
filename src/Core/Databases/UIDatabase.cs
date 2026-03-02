@@ -127,16 +127,6 @@ namespace StardustSandbox.Core.Databases
                 uiManager
             );
 
-            MainUI mainUI = new(
-                actorManager,
-                ambientManager,
-                camera,
-                playerInputController,
-                stardustSandboxGame,
-                uiManager,
-                world
-            );
-
             MessageUI messageUI = new(
                 uiManager
             );
@@ -162,8 +152,22 @@ namespace StardustSandbox.Core.Databases
                 videoManager
             );
 
+            MainUI mainUI = new(
+                actorManager,
+                ambientManager,
+                camera,
+                hudUI,
+                itemExplorerUI,
+                optionsUI,
+                playerInputController,
+                stardustSandboxGame,
+                uiManager,
+                world
+            );
+
             PauseUI pauseUI = new(
                 confirmUI,
+                optionsUI,
                 uiManager
             );
 
@@ -179,6 +183,8 @@ namespace StardustSandbox.Core.Databases
                 actorManager,
                 ambientManager,
                 camera,
+                hudUI,
+                itemExplorerUI,
                 playerInputController,
                 uiManager,
                 world
@@ -233,7 +239,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             TutorialUI tutorialUI = new(
-                playerInputController
+                uiManager
             );
 
             uis = [

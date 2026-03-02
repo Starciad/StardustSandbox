@@ -35,6 +35,8 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Serialization;
+using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.WorldSystem;
@@ -64,8 +66,9 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo[] leftPanelTopButtonInfos, leftPanelBottomButtonInfos, rightPanelTopButtonInfos, rightPanelBottomButtonInfos;
 
         private readonly PlayerInputController playerInputController;
-        private readonly ConfirmUI confirmUI;
         private readonly UIManager uiManager;
+
+        private readonly SystemInformationSettings systemInformationSettings;
 
         private readonly Rectangle[] speedIconRectangles = [
             new(192, 128, 32, 32),
@@ -89,10 +92,11 @@ namespace StardustSandbox.Core.UI.Common
         ) : base()
         {
             this.playerInputController = playerInputController;
-            this.confirmUI = confirmUI;
             this.uiManager = uiManager;
             this.notificationBox = notificationBox;
             this.tooltipBox = tooltipBox;
+
+            this.systemInformationSettings = SettingsSerializer.Load<SystemInformationSettings>();
 
             this.leftPanelTopButtonInfos = [
                 new(TextureIndex.IconUI, new(64, 0, 32, 32), Localization_GUIs.HUD_EnvironmentSettings_Name, Localization_GUIs.HUD_EnvironmentSettings_Description, () => this.uiManager.OpenUI(UIIndex.EnvironmentSettings)),
@@ -123,7 +127,7 @@ namespace StardustSandbox.Core.UI.Common
                 new(TextureIndex.IconUI, new(224, 96, 32, 32), Localization_GUIs.HUD_EraseEverything_Name, Localization_GUIs.HUD_EraseEverything_Description, () =>
                 {
                     GameHandler.SetState(GameStates.IsCriticalMenuOpen);
-                    this.confirmUI.Setup(
+                    confirmUI.Setup(
                         Localization_Messages.Confirm_Simulation_EraseEverything_Title,
                         Localization_Messages.Confirm_Simulation_EraseEverything_Description,
                         status =>
@@ -141,7 +145,7 @@ namespace StardustSandbox.Core.UI.Common
                 new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_GUIs.HUD_ReloadSimulation_Name, Localization_GUIs.HUD_ReloadSimulation_Description, () =>
                 {
                     GameHandler.SetState(GameStates.IsCriticalMenuOpen);
-                    this.confirmUI.Setup(
+                    confirmUI.Setup(
                         Localization_Messages.Confirm_Simulation_Reload_Title,
                         Localization_Messages.Confirm_Simulation_Reload_Description,
                         status =>
@@ -727,7 +731,6 @@ namespace StardustSandbox.Core.UI.Common
         protected override void OnOpened()
         {
             AchievementEngine.AchievementUnlocked += OnAchievementUnlocked;
-            this.uiManager.OpenUI(UIIndex.Tutorial);
         }
 
         protected override void OnClosed()

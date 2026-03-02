@@ -15,14 +15,23 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.UI.Common
+using StardustSandbox.Core.Interfaces.Serialization;
+
+using System;
+using System.Xml.Serialization;
+
+namespace StardustSandbox.Core.Serialization.Settings
 {
-    internal sealed partial class TutorialUI
+    [Serializable]
+    [XmlRoot("SystemInformationSettings")]
+    public sealed class SystemInformationSettings : ISettingsModule
     {
-        private sealed class TutorialContent(string title, string description)
+        [XmlElement("TutorialDisplayed", typeof(bool))]
+        public bool TutorialDisplayed { get; set; }
+
+        public SystemInformationSettings()
         {
-            internal string Title => title;
-            internal string Description => description;
+            this.TutorialDisplayed = false;
         }
     }
 }

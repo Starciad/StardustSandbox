@@ -86,7 +86,7 @@ namespace StardustSandbox.Core.WorldSystem
             set => this.slots[x, y] = value;
         }
 
-        internal World(PlayerInputController inputController)
+        internal World(PlayerInputController playerInputController)
         {
             this.simulation = new();
             this.time = new();
@@ -95,7 +95,7 @@ namespace StardustSandbox.Core.WorldSystem
             this.worldSlotsPool = new();
 
             this.chunking = new(this);
-            this.rendering = new(inputController, this);
+            this.rendering = new(playerInputController, this);
             this.updating = new(this);
 
             this.worldElementContext = new(this);

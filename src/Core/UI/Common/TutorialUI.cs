@@ -20,9 +20,7 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
-using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.InputSystem;
-using StardustSandbox.Core.InputSystem.Actions;
+using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI.Elements;
@@ -31,123 +29,89 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed partial class TutorialUI : UIBase
     {
+        private int currentPageIndex = 0;
+
         private Image panelBackground, shadowBackground;
-        private Label title, subtitle;
+        private Label title;
         private Text content;
 
-        private readonly TutorialSection[] sections;
+        private readonly UIManager uiManager;
+
+        private readonly SystemInformationSettings systemInformationSettings;
+
+        private readonly TutorialContent[] contents;
 
         internal TutorialUI(
-            PlayerInputController playerInputController
+            UIManager uiManager
         ) : base()
         {
-            ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
+            this.uiManager = uiManager;
 
-            this.sections =
+            ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
+            this.systemInformationSettings = SettingsSerializer.Load<SystemInformationSettings>();
+
+            this.contents =
             [
-                new TutorialSection(
-                    "Introdução",
-                    new TutorialContent()
-                    {
-                        Title = "Bem-vindo",
-                        Description = "Bem-vindo ao Stardust Sandbox! Este rápido tutorial mostra o básico para você começar a criar e se divertir."
-                    }
+                new(
+                    "Bem-vindo(a)",
+                    "Bem-vindo(a) ao Stardust Sandbox. Aqui você pode criar experiências usando diferentes materiais e entidades. Este tutorial mostra apenas o essencial para começar. Depois disso, você poderá explorar livremente."
                 ),
-            
-                new TutorialSection(
+
+                new(
                     "Câmera",
-                    new TutorialContent()
-                    {
-                        Title = "Mover a câmera",
-                        Description = string.Format("Use {0} {1} {2} {3} para mover a câmera: cima, baixo, direita e esquerda.", controlSettings.MoveCameraUpKeyboardBinding, controlSettings.MoveCameraDownKeyboardBinding, controlSettings.MoveCameraRightKeyboardBinding, controlSettings.MoveCameraLeftKeyboardBinding)
-                    },
-                    new TutorialContent()
-                    {
-                        Title = "Zoom",
-                        Description = string.Format("Use {0} para aumentar e {1} para diminuir o zoom da câmera.", controlSettings.ZoomCameraInKeyboardBinding, controlSettings.ZoomCameraOutKeyboardBinding)
-                    },
-                    new TutorialContent()
-                    {
-                        Title = "Mover rápido",
-                        Description = string.Format("Segure {0} enquanto se move para ir mais rápido pela tela.", controlSettings.MoveCameraFastKeyboardBinding)
-                    }
+                    string.Format("Use {0} {1} {2} {3} para mover a câmera pelo mapa. Use {4} para aproximar e {5} para afastar a visão. Se quiser se mover mais rápido, segure {6} enquanto utiliza as teclas de movimento.", controlSettings.MoveCameraUpKeyboardBinding, controlSettings.MoveCameraDownKeyboardBinding, controlSettings.MoveCameraRightKeyboardBinding, controlSettings.MoveCameraLeftKeyboardBinding, controlSettings.ZoomCameraInKeyboardBinding, controlSettings.ZoomCameraOutKeyboardBinding, controlSettings.MoveCameraFastKeyboardBinding)
                 ),
-            
-                new TutorialSection(
-                    "Selecionar e Aplicar",
-                    new TutorialContent()
-                    {
-                        Title = "Escolher um item",
-                        Description = "Selecione um item na barra superior para torná-lo o item atual."
-                    },
-                    new TutorialContent()
-                    {
-                        Title = "Aplicar no mapa",
-                        Description = "Segure o botão direito do mouse e arraste sobre o mapa para adicionar o item selecionado."
-                    },
-                    new TutorialContent()
-                    {
-                        Title = "Apagar",
-                        Description = "Segure o botão direito do mouse sobre a área desejada para remover itens ou use a ferramenta Borracha."
-                    }
+
+                new(
+                    "Desenhar",
+                    "Escolha um item na barra superior para torná-lo ativo. Depois, segure o botão esquerdo do mouse e arraste sobre o mapa para aplicar o item. Use a roda do mouse para ajustar o tamanho do pincel conforme necessário."
                 ),
-            
-                new TutorialSection(
-                    "Ferramentas e Interface",
-                    new TutorialContent()
-                    {
-                        Title = "Barra superior (rápida)",
-                        Description = "Aqui ficam: a ferramenta atual, os itens mais usados e o explorador de itens para ver tudo."
-                    },
-                    new TutorialContent()
-                    {
-                        Title = "Barra esquerda",
-                        Description = "Ferramentas de interação (p. ex. configurações do mundo). Explore para ver opções."
-                    },
-                    new TutorialContent()
-                    {
-                        Title = "Barra direita",
-                        Description = "Operações técnicas: salvar, carregar e limpar o mapa. Use com cuidado."
-                    }
+
+                new(
+                    "Apagar",
+                    "Para remover conteúdo do mapa, segure o botão direito do mouse sobre a área desejada ou selecione a ferramenta Borracha. Apagar faz parte do processo de testar e ajustar suas criações."
                 ),
-            
-                new TutorialSection(
-                    "Mundo do Jogo",
-                    new TutorialContent()
-                    {
-                        Title = "Mapa",
-                        Description = "O mapa é onde a simulação acontece. Tudo dentro do mapa faz parte da simulação."
-                    },
-                    new TutorialContent()
-                    {
-                        Title = "Elementos",
-                        Description = "Elementos são materiais (ex.: areia, água). Eles interagem entre si formando comportamentos divertidos."
-                    },
-                    new TutorialContent()
-                    {
-                        Title = "Atores",
-                        Description = "Atores são seres que reagem ao mundo — mexem, empurram e mudam a simulação."
-                    }
+
+                new(
+                    "Interface",
+                    "A barra superior mostra o item atual e permite acessar outros materiais pelo explorador. A barra esquerda reúne ferramentas e configurações do mundo. A barra direita contém ações importantes como salvar, carregar e limpar o mapa."
                 ),
-            
-                new TutorialSection(
-                    "Dicas Rápidas",
-                    new TutorialContent()
-                    {
-                        Title = "Experimente",
-                        Description = "Tente combinar elementos diferentes e veja o que acontece — é a melhor forma de aprender!"
-                    }
+
+                new(
+                    "Simulação",
+                    "Tudo acontece dentro do mapa. Os elementos são materiais como areia e água que seguem regras físicas e interagem entre si. Atores são entidades que reagem ao ambiente e podem modificar o mundo ao seu redor."
                 ),
-            
-                new TutorialSection(
-                    "Conclusão",
-                    new TutorialContent()
-                    {
-                        Title = "Pronto para criar",
-                        Description = "Agora é com você: explore, experimente e divirta-se. Compartilhe suas criações com a comunidade!"
-                    }
+
+                new(
+                    "Salvar",
+                    "Use a barra direita para salvar suas criações. Assim você pode continuar depois sem perder seu progresso."
                 ),
+
+                new(
+                    "Explorar",
+                    "Experimente combinar diferentes elementos para observar novos comportamentos. Testar, ajustar e tentar novamente é a melhor forma de aprender como a simulação funciona."
+                )
             ];
+        }
+
+        private bool TryNextPage()
+        {
+            if (this.currentPageIndex < this.contents.Length - 1)
+            {
+                this.currentPageIndex++;
+                RefreshContent();
+                return true;
+            }
+
+            return false;
+        }
+
+        private void RefreshContent()
+        {
+            TutorialContent content = this.contents[this.currentPageIndex];
+
+            this.title.TextContent = content.Title;
+            this.content.TextContent = content.Description;
         }
 
         protected override void OnBuild(Container root)
@@ -170,7 +134,7 @@ namespace StardustSandbox.Core.UI.Common
             {
                 Alignment = UIDirection.Center,
                 TextureIndex = TextureIndex.UIBackgroundTutorial,
-                Size = new(1006.0f, 715.0f),
+                Size = new(390.0f, 520.0f),
             };
 
             root.AddChild(this.shadowBackground);
@@ -181,44 +145,48 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.title = new()
             {
-                Alignment  = UIDirection.North,
+                Alignment = UIDirection.North,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Scale = new(0.12f),
-                Margin = new(16.0f, 10.0f),
-                TextContent = "Tutorial",
-
-                BorderDirections = LabelBorderDirection.All,
-                BorderColor = AAP64ColorPalette.DarkGray,
-                BorderOffset = 3.0f,
-                BorderThickness = 3.0f,
-            };
-
-            this.subtitle = new()
-            {
-                Alignment  = UIDirection.North,
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Scale = new(0.08f),
-                Margin = new(16.0f, 60.0f),
-                TextContent = "Aprenda o básico para começar a criar e se divertir!",
-
-                BorderDirections = LabelBorderDirection.All,
-                BorderColor = AAP64ColorPalette.DarkGray,
-                BorderOffset = 2.0f,
-                BorderThickness = 2.0f,
+                Scale = new(0.1f),
+                Margin = new(0.0f, 24.0f),
+                TextContent = "Title",
+                Color = AAP64ColorPalette.Umber,
             };
 
             this.content = new()
             {
-                Alignment  = UIDirection.Center,
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
-                Scale = new(0.06f),
-                Margin = new(16.0f, 120.0f),
-                TextContent = "Use as setas para navegar pelas seções do tutorial.",
+                Scale = new(0.055f),
+                Margin = new(24.0f, 96.0f),
+                LineHeight = 0.95f,
+                TextAreaSize = new(376.0f, 472.0f),
+                TextContent = "Description",
+                Color = AAP64ColorPalette.Umber,
             };
 
             this.panelBackground.AddChild(this.title);
-            this.panelBackground.AddChild(this.subtitle);
             this.panelBackground.AddChild(this.content);
+        }
+
+        protected override void OnScreenResize(Vector2 newSize)
+        {
+            this.shadowBackground.Scale = newSize;
+        }
+
+        protected override void OnUpdate(GameTime gameTime)
+        {
+            if (Interaction.OnMouseLeftClick(this.Root) && !TryNextPage())
+            {
+                this.uiManager.CloseUI();
+                this.systemInformationSettings.TutorialDisplayed = true;
+                SettingsSerializer.Save(this.systemInformationSettings);
+            }
+        }
+
+        protected override void OnOpened()
+        {
+            this.currentPageIndex = 0;
+            RefreshContent();
         }
     }
 }

@@ -852,7 +852,4 @@
   <data name="Options.Gameplay.UseSmoothCameraMovement.Description" xml:space="preserve">
     <value>Habilite o movimento suave da câmera para uma experiência de visualização mais confortável.</value>
   </data>
-  <data name="Main.Tutorial" xml:space="preserve">
-    <value>Tutorial</value>
-  </data>
 </root>

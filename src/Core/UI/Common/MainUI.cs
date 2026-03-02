@@ -22,7 +22,6 @@ using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Backgrounds;
 using StardustSandbox.Core.Enums.Directions;
@@ -30,6 +29,8 @@ using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Serialization;
+using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.WorldSystem;
@@ -51,7 +52,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo[] menuButtonInfos, topButtonInfos;
 
         private readonly ActorManager actorManager;
-        private readonly PlayerInputController inputController;
+        private readonly PlayerInputController playerInputController;
         private readonly AmbientManager ambientManager;
         private readonly UIManager uiManager;
         private readonly World world;
@@ -60,7 +61,10 @@ namespace StardustSandbox.Core.UI.Common
             ActorManager actorManager,
             AmbientManager ambientManager,
             Camera2D camera,
-            PlayerInputController inputController,
+            HudUI hudUI,
+            ItemExplorerUI itemExplorerUI,
+            OptionsUI optionsUI,
+            PlayerInputController playerInputController,
             StardustSandboxGame stardustSandboxGame,
             UIManager uiManager,
             World world
@@ -68,17 +72,33 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.actorManager = actorManager;
             this.ambientManager = ambientManager;
-            this.inputController = inputController;
+            this.playerInputController = playerInputController;
             this.uiManager = uiManager;
             this.world = world;
 
             this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, () => GameHandler.StartGame(actorManager, ambientManager, camera, inputController, uiManager, world)),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, () =>
+                {
+                    GameHandler.StartGame(
+                        actorManager,
+                        ambientManager,
+                        camera,
+                        hudUI,
+                        itemExplorerUI,
+                        playerInputController,
+                        uiManager,
+                        world
+                    );
+
+                    if (!SettingsSerializer.Load<SystemInformationSettings>().TutorialDisplayed)
+                    {
+                        this.uiManager.OpenUI(UIIndex.Tutorial);
+                    }
+                }),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Play, string.Empty, () => this.uiManager.OpenUI(UIIndex.Play)),
-                new(TextureIndex.None, null, Localization_GUIs.Main_Tutorial, string.Empty, () => this.uiManager.OpenUI(UIIndex.Tutorial)),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Options, string.Empty, () =>
                 {
-                    ((OptionsUI)UIDatabase.GetUI(UIIndex.Options)).Setup();
+                    optionsUI.Setup();
                     this.uiManager.OpenUI(UIIndex.Options);
                 }),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Credits, string.Empty, () => this.uiManager.OpenUI(UIIndex.Credits)),
@@ -288,7 +308,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnOpened()
         {
-            GameHandler.StopGame(this.actorManager, this.inputController, this.world);
+            GameHandler.StopGame(this.actorManager, this.playerInputController, this.world);
 
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.MainMenu);
             this.gameTitle.Margin = Vector2.Zero;

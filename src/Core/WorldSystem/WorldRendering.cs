@@ -35,13 +35,13 @@ using System;
 
 namespace StardustSandbox.Core.WorldSystem
 {
-    internal sealed class WorldRendering(PlayerInputController inputController, World world)
+    internal sealed class WorldRendering(PlayerInputController playerInputController, World world)
     {
         internal bool DrawForegroundElements { get; set; } = true;
         internal bool DrawBackgroundElements { get; set; } = true;
 
         private readonly ElementContext elementRenderingContext = new(world);
-        private readonly PlayerInputController inputController = inputController;
+        private readonly PlayerInputController playerInputController = playerInputController;
         private readonly World world = world;
 
         internal void Draw(SpriteBatch spriteBatch, Camera2D camera)
@@ -62,7 +62,7 @@ namespace StardustSandbox.Core.WorldSystem
                 {
                     Vector2 targetPosition = new(x, y);
 
-                    if (gameplaySettings.ShowGrid && this.inputController.Pen.Tool != PenTool.Visualization)
+                    if (gameplaySettings.ShowGrid && this.playerInputController.Pen.Tool != PenTool.Visualization)
                     {
                         spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.TILE_SIZE, new(32, 0, 32, 32), new(AAP64ColorPalette.White, gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                     }

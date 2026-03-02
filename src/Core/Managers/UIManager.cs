@@ -68,10 +68,6 @@ namespace StardustSandbox.Core.Managers
         internal void OpenUI(UIIndex index)
         {
             UIBase ui = UIDatabase.GetUI(index);
-            if (ui == null)
-            {
-                return;
-            }
 
             // If the requested UI is already the active one and active, nothing to do.
             if (this.uiStack.Count > 0 && this.uiStack.Peek() == ui)

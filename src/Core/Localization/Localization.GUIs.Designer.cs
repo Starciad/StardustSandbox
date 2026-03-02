@@ -979,15 +979,6 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Tutorial.
-        /// </summary>
-        internal static string Main_Tutorial {
-            get {
-                return ResourceManager.GetString("Main.Tutorial", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Type a shortcut key to clear the world..
         /// </summary>
         internal static string Options_Controls_ClearWorld_Description {

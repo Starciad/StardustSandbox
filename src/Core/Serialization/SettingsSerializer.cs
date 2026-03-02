@@ -91,6 +91,7 @@ namespace StardustSandbox.Core.Serialization
             [typeof(GameplaySettings)] = new SettingsDescriptor<GameplaySettings>(IOConstants.GAMEPLAY_SETTINGS_FILE),
             [typeof(GeneralSettings)] = new SettingsDescriptor<GeneralSettings>(IOConstants.GENERAL_SETTINGS_FILE),
             [typeof(InterfaceSettings)] = new SettingsDescriptor<InterfaceSettings>(IOConstants.INTERFACE_SETTINGS_FILE),
+            [typeof(SystemInformationSettings)] = new SettingsDescriptor<SystemInformationSettings>(IOConstants.SYSTEM_INFORMATION_FILE),
             [typeof(VideoSettings)] = new SettingsDescriptor<VideoSettings>(IOConstants.VIDEO_SETTINGS_FILE),
             [typeof(VolumeSettings)] = new SettingsDescriptor<VolumeSettings>(IOConstants.VOLUME_SETTINGS_FILE),
         };
