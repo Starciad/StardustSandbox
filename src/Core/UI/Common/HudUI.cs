@@ -428,6 +428,11 @@ namespace StardustSandbox.Core.UI.Common
             root.AddChild(this.simulationPausedBackground);
         }
 
+        protected override void OnScreenResize(Vector2 newSize)
+        {
+            this.notificationBox.OnScreenResize(newSize);
+        }
+
         protected override void OnUpdate(GameTime gameTime)
         {
             this.tooltipBox.CanDraw = false;

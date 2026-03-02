@@ -191,5 +191,10 @@ namespace StardustSandbox.Core.UI.Elements
             this.state = DisplayState.Showing;
             this.stateTimerSeconds = UIConstants.NOTIFICATION_DISPLAY_DURATION_SECONDS;
         }
+
+        internal void OnScreenResize(Vector2 newSize)
+        {
+            this.Size = newSize;
+        }
     }
 }
