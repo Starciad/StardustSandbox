@@ -20,20 +20,28 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
+using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI.Elements;
 
+using System;
+
 namespace StardustSandbox.Core.UI.Common
 {
     internal sealed partial class TutorialUI : UIBase
     {
-        private int currentPageIndex = 0;
+        private int currentPageIndex = 0, currentSpriteOffset = 0;
+        private float currentAnimationDelay = 0.0f;
 
-        private Image panelBackground, shadowBackground;
-        private Label title;
-        private Text content;
+        private const int SPACING_X = 360;
+        private const int TOTAL_SPRITES = 3;
+        private const float ANIMATION_DELAY = 0.5f;
+
+        private Image panelBackground, shadowBackground, contentImage;
+        private Label title, clickToContinue;
+        private Text contentText;
 
         private readonly UIManager uiManager;
 
@@ -53,43 +61,60 @@ namespace StardustSandbox.Core.UI.Common
             this.contents =
             [
                 new(
-                    "Introdução",
-                    "Bem-vindo(a) ao Stardust Sandbox. Aqui você pode criar experiências usando diferentes materiais e entidades. Este tutorial mostra apenas o essencial para começar. Depois disso, você poderá explorar livremente."
+                    Localization_GUIs.Tutorial_Introduction_Title,
+                    Localization_GUIs.Tutorial_Introduction_Description,
+                    new(0, 0)
                 ),
-
+            
                 new(
-                    "Câmera",
-                    string.Format("Use {0} {1} {2} {3} para mover a câmera pelo mapa. Use {4} para aproximar e {5} para afastar a visão. Se quiser se mover mais rápido, segure {6} enquanto utiliza as teclas de movimento.", controlSettings.MoveCameraUpKeyboardBinding, controlSettings.MoveCameraRightKeyboardBinding, controlSettings.MoveCameraDownKeyboardBinding, controlSettings.MoveCameraLeftKeyboardBinding, controlSettings.ZoomCameraInKeyboardBinding, controlSettings.ZoomCameraOutKeyboardBinding, controlSettings.MoveCameraFastKeyboardBinding)
+                    Localization_GUIs.Tutorial_Camera_Title,
+                    string.Format(
+                        Localization_GUIs.Tutorial_Camera_Description,
+                        controlSettings.MoveCameraUpKeyboardBinding,
+                        controlSettings.MoveCameraRightKeyboardBinding,
+                        controlSettings.MoveCameraDownKeyboardBinding,
+                        controlSettings.MoveCameraLeftKeyboardBinding,
+                        controlSettings.ZoomCameraInKeyboardBinding,
+                        controlSettings.ZoomCameraOutKeyboardBinding,
+                        controlSettings.MoveCameraFastKeyboardBinding
+                    ),
+                    new(0, 120)
                 ),
-
+            
                 new(
-                    "Desenhar",
-                    "Escolha um item na barra superior para torná-lo ativo. Depois, segure o botão esquerdo do mouse e arraste sobre o mapa para aplicar o item. Use a roda do mouse para ajustar o tamanho do pincel conforme necessário."
+                    Localization_GUIs.Tutorial_Draw_Title,
+                    Localization_GUIs.Tutorial_Draw_Description,
+                    new(0, 240)
                 ),
-
+            
                 new(
-                    "Apagar",
-                    "Para remover conteúdo do mapa, segure o botão direito do mouse sobre a área desejada ou selecione a ferramenta Borracha. Apagar faz parte do processo de testar e ajustar suas criações."
+                    Localization_GUIs.Tutorial_Erase_Title,
+                    Localization_GUIs.Tutorial_Erase_Description,
+                    new(0, 360)
                 ),
-
+            
                 new(
-                    "Interface",
-                    "A barra superior mostra o item atual e permite acessar outros materiais pelo explorador. A barra esquerda reúne ferramentas e configurações do mundo. A barra direita contém ações importantes como salvar, carregar e limpar o mapa."
+                    Localization_GUIs.Tutorial_Interface_Title,
+                    Localization_GUIs.Tutorial_Interface_Description,
+                    new(0, 480)
                 ),
-
+            
                 new(
-                    "Simulação",
-                    "Tudo acontece dentro do mapa. Os elementos são materiais como areia e água que seguem regras físicas e interagem entre si. Atores são entidades que reagem ao ambiente e podem modificar o mundo ao seu redor."
+                    Localization_GUIs.Tutorial_Simulation_Title,
+                    Localization_GUIs.Tutorial_Simulation_Description,
+                    new(0, 600)
                 ),
-
+            
                 new(
-                    "Salvar",
-                    "Use a barra direita para salvar suas criações. Assim você pode continuar depois sem perder seu progresso."
+                    Localization_GUIs.Tutorial_Save_Title,
+                    Localization_GUIs.Tutorial_Save_Description,
+                    new(0, 720)
                 ),
-
+            
                 new(
-                    "Explorar",
-                    "Experimente combinar diferentes elementos para observar novos comportamentos. Testar, ajustar e tentar novamente é a melhor forma de aprender como a simulação funciona."
+                    Localization_GUIs.Tutorial_Explore_Title,
+                    Localization_GUIs.Tutorial_Explore_Description,
+                    new(0, 840)
                 )
             ];
         }
@@ -111,13 +136,23 @@ namespace StardustSandbox.Core.UI.Common
             TutorialContent content = this.contents[this.currentPageIndex];
 
             this.title.TextContent = content.Title;
-            this.content.TextContent = content.Description;
+            this.contentText.TextContent = content.Description;
+
+            this.currentSpriteOffset = 0;
+            this.currentAnimationDelay = 0.0f;
+
+            this.contentImage.SourceRectangle = new(
+                content.TextureOffset.X,
+                content.TextureOffset.Y,
+                360,
+                120
+            );
         }
 
         protected override void OnBuild(Container root)
         {
             BuildBackground(root);
-            BuildTitle();
+            BuildContent();
         }
 
         private void BuildBackground(Container root)
@@ -134,14 +169,14 @@ namespace StardustSandbox.Core.UI.Common
             {
                 Alignment = UIDirection.Center,
                 TextureIndex = TextureIndex.UIBackgroundTutorial,
-                Size = new(390.0f, 520.0f),
+                Size = new(406.0f, 520.0f),
             };
 
             root.AddChild(this.shadowBackground);
             root.AddChild(this.panelBackground);
         }
 
-        private void BuildTitle()
+        private void BuildContent()
         {
             this.title = new()
             {
@@ -153,19 +188,40 @@ namespace StardustSandbox.Core.UI.Common
                 Color = AAP64ColorPalette.Umber,
             };
 
-            this.content = new()
+            this.contentText = new()
             {
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.055f),
-                Margin = new(24.0f, 96.0f),
+                Margin = new(24.0f, 74.0f),
                 LineHeight = 1.5f,
                 TextAreaSize = new(365.0f, 472.0f),
                 TextContent = "Description",
                 Color = AAP64ColorPalette.Umber,
             };
 
+            this.contentImage = new()
+            {
+                Alignment = UIDirection.South,
+                TextureIndex = TextureIndex.UITutorial,
+                SourceRectangle = new(0, 0, 360, 120),
+                Size = new(360.0f, 120.0f),
+                Margin = new(0.0f, -64.0f),
+            };
+
+            this.clickToContinue = new()
+            {
+                Alignment = UIDirection.South,
+                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                Scale = new(0.05f),
+                Margin = new(0.0f, -32.0f),
+                TextContent = Localization_GUIs.Tutorial_ClickToContinue,
+                Color = AAP64ColorPalette.Umber,
+            };
+
             this.panelBackground.AddChild(this.title);
-            this.panelBackground.AddChild(this.content);
+            this.panelBackground.AddChild(this.contentText);
+            this.panelBackground.AddChild(this.contentImage);
+            this.panelBackground.AddChild(this.clickToContinue);
         }
 
         protected override void OnScreenResize(Vector2 newSize)
@@ -175,11 +231,33 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnUpdate(GameTime gameTime)
         {
+            float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
+
+            UpdateContentAnimation(deltaTime);
+
             if (Interaction.OnMouseLeftClick(this.Root) && !TryNextPage())
             {
                 this.uiManager.CloseUI();
                 this.systemInformationSettings.TutorialDisplayed = true;
                 SettingsSerializer.Save(this.systemInformationSettings);
+            }
+        }
+
+        private void UpdateContentAnimation(float deltaTime)
+        {
+            this.currentAnimationDelay += deltaTime;
+
+            if (this.currentAnimationDelay >= ANIMATION_DELAY)
+            {
+                this.currentAnimationDelay = 0.0f;
+                this.currentSpriteOffset = (this.currentSpriteOffset + 1) % TOTAL_SPRITES;
+
+                this.contentImage.SourceRectangle = new(
+                    this.contents[this.currentPageIndex].TextureOffset.X + (SPACING_X * this.currentSpriteOffset),
+                    this.contents[this.currentPageIndex].TextureOffset.Y,
+                    360,
+                    120
+                );
             }
         }
 

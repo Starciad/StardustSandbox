@@ -138,6 +138,7 @@ namespace StardustSandbox.Core.Databases
                 contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "size_slider")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "slider_input_ornament")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "text_input_ornament")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "tutorial")),
             ];
 
             isLoaded = true;

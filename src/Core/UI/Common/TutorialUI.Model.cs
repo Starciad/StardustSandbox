@@ -15,14 +15,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
+
 namespace StardustSandbox.Core.UI.Common
 {
     internal sealed partial class TutorialUI
     {
-        private sealed class TutorialContent(string title, string description)
+        private sealed class TutorialContent(string title, string description, Point textureOffset)
         {
             internal string Title => title;
             internal string Description => description;
+            internal Point TextureOffset => textureOffset;
         }
     }
 }

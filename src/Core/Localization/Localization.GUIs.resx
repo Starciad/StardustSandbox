@@ -852,4 +852,55 @@
   <data name="Options.Gameplay.UseSmoothCameraMovement.Description" xml:space="preserve">
     <value>Enable smooth camera movement for a more comfortable viewing experience.</value>
   </data>
+  <data name="Tutorial.Introduction.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.Introduction.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.Camera.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.Camera.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.Draw.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.Draw.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.Erase.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.Erase.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.Interface.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.Interface.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.Simulation.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.Simulation.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.Save.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.Save.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.Explore.Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.Explore.Description" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Tutorial.ClickToContinue" xml:space="preserve">
+    <value />
+  </data>
 </root>

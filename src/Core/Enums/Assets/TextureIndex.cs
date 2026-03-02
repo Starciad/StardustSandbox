@@ -116,6 +116,7 @@ namespace StardustSandbox.Core.Enums.Assets
         UISizeSlider,
         UISliderInputOrnament,
         UITextInputOrnament,
+        UITutorial,
 
         #endregion
     }
