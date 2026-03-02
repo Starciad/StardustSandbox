@@ -71,9 +71,9 @@ namespace StardustSandbox.Core.UI.Common
                     string.Format(
                         Localization_GUIs.Tutorial_Camera_Description,
                         controlSettings.MoveCameraUpKeyboardBinding,
-                        controlSettings.MoveCameraRightKeyboardBinding,
-                        controlSettings.MoveCameraDownKeyboardBinding,
                         controlSettings.MoveCameraLeftKeyboardBinding,
+                        controlSettings.MoveCameraDownKeyboardBinding,
+                        controlSettings.MoveCameraRightKeyboardBinding,
                         controlSettings.ZoomCameraInKeyboardBinding,
                         controlSettings.ZoomCameraOutKeyboardBinding,
                         controlSettings.MoveCameraFastKeyboardBinding
