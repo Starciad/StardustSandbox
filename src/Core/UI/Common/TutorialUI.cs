@@ -53,13 +53,13 @@ namespace StardustSandbox.Core.UI.Common
             this.contents =
             [
                 new(
-                    "Bem-vindo(a)",
+                    "Introdução",
                     "Bem-vindo(a) ao Stardust Sandbox. Aqui você pode criar experiências usando diferentes materiais e entidades. Este tutorial mostra apenas o essencial para começar. Depois disso, você poderá explorar livremente."
                 ),
 
                 new(
                     "Câmera",
-                    string.Format("Use {0} {1} {2} {3} para mover a câmera pelo mapa. Use {4} para aproximar e {5} para afastar a visão. Se quiser se mover mais rápido, segure {6} enquanto utiliza as teclas de movimento.", controlSettings.MoveCameraUpKeyboardBinding, controlSettings.MoveCameraDownKeyboardBinding, controlSettings.MoveCameraRightKeyboardBinding, controlSettings.MoveCameraLeftKeyboardBinding, controlSettings.ZoomCameraInKeyboardBinding, controlSettings.ZoomCameraOutKeyboardBinding, controlSettings.MoveCameraFastKeyboardBinding)
+                    string.Format("Use {0} {1} {2} {3} para mover a câmera pelo mapa. Use {4} para aproximar e {5} para afastar a visão. Se quiser se mover mais rápido, segure {6} enquanto utiliza as teclas de movimento.", controlSettings.MoveCameraUpKeyboardBinding, controlSettings.MoveCameraRightKeyboardBinding, controlSettings.MoveCameraDownKeyboardBinding, controlSettings.MoveCameraLeftKeyboardBinding, controlSettings.ZoomCameraInKeyboardBinding, controlSettings.ZoomCameraOutKeyboardBinding, controlSettings.MoveCameraFastKeyboardBinding)
                 ),
 
                 new(
@@ -158,8 +158,8 @@ namespace StardustSandbox.Core.UI.Common
                 SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.055f),
                 Margin = new(24.0f, 96.0f),
-                LineHeight = 0.95f,
-                TextAreaSize = new(376.0f, 472.0f),
+                LineHeight = 1.5f,
+                TextAreaSize = new(365.0f, 472.0f),
                 TextContent = "Description",
                 Color = AAP64ColorPalette.Umber,
             };
