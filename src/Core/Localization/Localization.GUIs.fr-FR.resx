@@ -868,13 +868,13 @@
     <value>Dessiner</value>
   </data>
   <data name="Tutorial.Draw.Description" xml:space="preserve">
-    <value>Choisissez un élément dans la barre supérieure pour l'activer. Ensuite, maintenez le bouton gauche de la souris enfoncé et faites glisser sur la carte pour appliquer l'élément. Utilisez la molette de la souris pour ajuster la taille du pinceau selon vos besoins.</value>
+    <value>Choisissez un élément dans la barre supérieure pour l'activer. Après l'avoir sélectionné, déplacez simplement votre souris sur la carte et maintenez le bouton gauche enfoncé pour appliquer l'élément. Utilisez la molette de la souris pour ajuster la taille du pinceau selon vos besoins.</value>
   </data>
   <data name="Tutorial.Erase.Title" xml:space="preserve">
     <value>Effacer</value>
   </data>
   <data name="Tutorial.Erase.Description" xml:space="preserve">
-    <value>Pour supprimer le contenu de la carte, maintenez le bouton droit de la souris sur la zone souhaitée ou sélectionnez l'outil Gomme. L'effacement fait partie du processus de test et d'ajustement de vos créations.</value>
+    <value>Pour supprimer du contenu de la carte, sélectionnez l'outil Gomme ou maintenez le bouton droit de la souris enfoncé sur la zone souhaitée. Rappelez-vous que pour effacer un élément, vous devez sélectionner le même type d'élément que vous souhaitez supprimer.</value>
   </data>
   <data name="Tutorial.Interface.Title" xml:space="preserve">
     <value>Interface</value>

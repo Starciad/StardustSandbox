@@ -868,13 +868,13 @@
     <value>Dibujar</value>
   </data>
   <data name="Tutorial.Draw.Description" xml:space="preserve">
-    <value>Elige un objeto de la barra superior para activarlo. Luego, mantén presionado el botón izquierdo del ratón y arrastra sobre el mapa para aplicar el objeto. Usa la rueda del ratón para ajustar el tamaño del pincel según sea necesario.</value>
+    <value>Elige un elemento en la barra superior para hacerlo activo. Después de seleccionarlo, simplemente mueve el ratón al mapa y mantén presionado el botón izquierdo para aplicar el elemento. Usa la rueda del ratón para ajustar el tamaño del pincel según sea necesario.</value>
   </data>
   <data name="Tutorial.Erase.Title" xml:space="preserve">
     <value>Borrar</value>
   </data>
   <data name="Tutorial.Erase.Description" xml:space="preserve">
-    <value>Para eliminar contenido del mapa, mantén presionado el botón derecho del ratón sobre el área deseada o selecciona la herramienta Borrador. Borrar es parte del proceso de probar y ajustar tus creaciones.</value>
+    <value>Para eliminar contenido del mapa, selecciona la herramienta Borrador o mantén presionado el botón derecho del ratón sobre el área deseada. Recuerda que para borrar un elemento, debes seleccionar el mismo tipo de elemento que deseas eliminar.</value>
   </data>
   <data name="Tutorial.Interface.Title" xml:space="preserve">
     <value>Interfaz</value>

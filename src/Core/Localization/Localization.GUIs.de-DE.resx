@@ -868,13 +868,13 @@
     <value>Zeichnen</value>
   </data>
   <data name="Tutorial.Draw.Description" xml:space="preserve">
-    <value>Wähle einen Gegenstand aus der oberen Leiste, um ihn aktiv zu machen. Halte dann die linke Maustaste gedrückt und ziehe über die Karte, um den Gegenstand anzuwenden. Verwende das Mausrad, um die Pinselgröße nach Bedarf anzupassen.</value>
+    <value>Wählen Sie einen Gegenstand in der oberen Leiste aus, um ihn aktiv zu machen. Nach der Auswahl bewegen Sie einfach die Maus zur Karte und halten die linke Maustaste gedrückt, um den Gegenstand anzubringen. Verwenden Sie das Mausrad, um die Pinselgröße nach Bedarf anzupassen.</value>
   </data>
   <data name="Tutorial.Erase.Title" xml:space="preserve">
     <value>Löschen</value>
   </data>
   <data name="Tutorial.Erase.Description" xml:space="preserve">
-    <value>Um Inhalte von der Karte zu entfernen, halte die rechte Maustaste über dem gewünschten Bereich gedrückt oder wähle das Radiergummi-Werkzeug. Das Löschen ist Teil des Prozesses zum Testen und Anpassen deiner Kreationen.</value>
+    <value>Um Inhalte von der Karte zu entfernen, wählen Sie das Radierer-Werkzeug aus oder halten Sie die rechte Maustaste über den gewünschten Bereich gedrückt. Denken Sie daran, dass Sie zum Löschen eines Elements denselben Elementtyp auswählen müssen, den Sie entfernen möchten.</value>
   </data>
   <data name="Tutorial.Interface.Title" xml:space="preserve">
     <value>Benutzeroberfläche</value>

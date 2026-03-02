@@ -868,13 +868,13 @@
     <value>Draw</value>
   </data>
   <data name="Tutorial.Draw.Description" xml:space="preserve">
-    <value>Choose an item from the top bar to make it active. Then, hold the left mouse button and drag over the map to apply the item. Use the mouse wheel to adjust the brush size as needed.</value>
+    <value>Choose an item from the top bar to make it active. After selecting it, simply move your mouse to the map and hold the left mouse button to apply the item. Use the mouse wheel to adjust the brush size as needed.</value>
   </data>
   <data name="Tutorial.Erase.Title" xml:space="preserve">
     <value>Erase</value>
   </data>
   <data name="Tutorial.Erase.Description" xml:space="preserve">
-    <value>To remove content from the map, hold the right mouse button over the desired area or select the Eraser tool. Erasing is part of the process of testing and adjusting your creations.</value>
+    <value>To remove content from the map, select the Eraser tool or hold the right mouse button over the desired area. Remember that to erase an item, you must select the same type of item that you want to remove.</value>
   </data>
   <data name="Tutorial.Interface.Title" xml:space="preserve">
     <value>Interface</value>
