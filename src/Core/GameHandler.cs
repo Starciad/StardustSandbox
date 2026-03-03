@@ -26,8 +26,9 @@ using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Common;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
@@ -49,11 +50,23 @@ namespace StardustSandbox.Core
             GameHandler.gameWindow = gameWindow;
         }
 
-        internal static void StartGame(ActorManager actorManager, AmbientManager ambientManager, InputController inputController, UIManager uiManager, World world)
+        internal static void StartGame(
+            ActorManager actorManager,
+            AmbientManager ambientManager,
+            Camera2D camera,
+            HudUI hudUI,
+            ItemExplorerUI itemExplorerUI,
+            PlayerInputController playerInputController,
+            UIManager uiManager,
+            World world
+        )
         {
-            Camera.Reset();
+            camera.Reset();
             MediaPlayer.Stop();
             SongEngine.StartGameplayMusicCycle();
+
+            hudUI.Setup();
+            itemExplorerUI.Setup();
 
             uiManager.OpenUI(UIIndex.Hud);
 
@@ -70,19 +83,23 @@ namespace StardustSandbox.Core
 
             SetSpeed(SimulationSpeed.Normal, actorManager, world);
 
-            Camera.SetPosition(new(0f, -(world.Information.Size.Y * WorldConstants.GRID_SIZE)));
+            camera.SetPosition(camera.WorldToScreen(Vector2.Zero));
 
-            inputController.Pen.Tool = PenTool.Pencil;
-            inputController.Enable();
+            playerInputController.Pen.Tool = PenTool.Pencil;
+            playerInputController.Enable();
         }
 
-        internal static void StopGame(ActorManager actorManager, InputController inputController, World world)
+        internal static void StopGame(
+            ActorManager actorManager,
+            PlayerInputController playerInputController,
+            World world
+        )
         {
             UnloadSaveFile();
             SongEngine.StopGameplayMusicCycle();
 
-            inputController.Pen.Tool = PenTool.Visualization;
-            inputController.Disable();
+            playerInputController.Pen.Tool = PenTool.Visualization;
+            playerInputController.Disable();
 
             world.CanDraw = false;
             world.CanUpdate = false;

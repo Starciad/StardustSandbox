@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Backgrounds;
+using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Backgrounds;
 
@@ -26,23 +27,26 @@ namespace StardustSandbox.Core.Scenario
 {
     internal sealed class BackgroundHandler
     {
-        internal bool IsAffectedByLighting => this.selectedBackground.IsAffectedByLighting;
-
-        private Background selectedBackground;
-
-        internal void Update(GameTime gameTime)
-        {
-            this.selectedBackground.Update(gameTime);
-        }
-
-        internal void Draw(SpriteBatch spriteBatch)
-        {
-            this.selectedBackground.Draw(spriteBatch);
-        }
+        private Background currentBackground;
 
         internal void SetBackground(BackgroundIndex backgroundIndex)
         {
-            this.selectedBackground = BackgroundDatabase.GetBackground(backgroundIndex);
+            this.currentBackground = BackgroundDatabase.GetBackground(backgroundIndex);
+        }
+
+        internal Background GetCurrentBackground()
+        {
+            return this.currentBackground;
+        }
+
+        internal void Update(GameTime gameTime)
+        {
+            this.currentBackground?.Update(gameTime);
+        }
+
+        internal void Draw(SpriteBatch spriteBatch, Camera2D camera)
+        {
+            this.currentBackground?.Draw(spriteBatch, camera);
         }
     }
 }

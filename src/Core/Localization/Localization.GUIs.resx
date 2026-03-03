@@ -493,7 +493,7 @@
     <value>Choose the color for the preview area displayed during gameplay.</value>
   </data>
   <data name="Options.General.Language.Description" xml:space="preserve">
-    <value>Select the language for the game interface.</value>
+    <value>Select the language for the game interface. Game restart required.</value>
   </data>
   <data name="Options.Save.Description" xml:space="preserve">
     <value>Saves and applies all modified options.</value>
@@ -824,5 +824,83 @@
   </data>
   <data name="Achievements.Title" xml:space="preserve">
     <value>Achievements</value>
+  </data>
+  <data name="ItemSearch.Placeholder" xml:space="preserve">
+    <value>Search for an item...</value>
+  </data>
+  <data name="ItemSearch.Title" xml:space="preserve">
+    <value>Item Search</value>
+  </data>
+  <data name="ItemSearch.Description" xml:space="preserve">
+    <value>Find the items you want by searching for them by name.</value>
+  </data>
+  <data name="Options.Interface.Name" xml:space="preserve">
+    <value>Interface</value>
+  </data>
+  <data name="Options.Interface.Description" xml:space="preserve">
+    <value>Adjust the interface settings for a better user experience.</value>
+  </data>
+  <data name="Options.Interface.ShowTooltip.Name" xml:space="preserve">
+    <value>Show Tooltip</value>
+  </data>
+  <data name="Options.Interface.ShowTooltip.Description" xml:space="preserve">
+    <value>Display tooltips when hovering over interface elements.</value>
+  </data>
+  <data name="Options.Gameplay.UseSmoothCameraMovement.Name" xml:space="preserve">
+    <value>Smooth Camera Movement</value>
+  </data>
+  <data name="Options.Gameplay.UseSmoothCameraMovement.Description" xml:space="preserve">
+    <value>Enable smooth camera movement for a more comfortable viewing experience.</value>
+  </data>
+  <data name="Tutorial.Introduction.Title" xml:space="preserve">
+    <value>Introduction</value>
+  </data>
+  <data name="Tutorial.Introduction.Description" xml:space="preserve">
+    <value>Welcome to Stardust Sandbox. Here you can create experiences using different materials and entities. This tutorial shows only the essentials to get started. After that, you can explore freely.</value>
+  </data>
+  <data name="Tutorial.Camera.Title" xml:space="preserve">
+    <value>Camera</value>
+  </data>
+  <data name="Tutorial.Camera.Description" xml:space="preserve">
+    <value>Use {0} {1} {2} {3} to move the camera around the map. Use {4} to zoom in and {5} to zoom out. If you want to move faster, hold {6} while using the movement keys.</value>
+  </data>
+  <data name="Tutorial.Draw.Title" xml:space="preserve">
+    <value>Draw</value>
+  </data>
+  <data name="Tutorial.Draw.Description" xml:space="preserve">
+    <value>Choose an item from the top bar to make it active. After selecting it, simply move your mouse to the map and hold the left mouse button to apply the item. Use the mouse wheel to adjust the brush size as needed.</value>
+  </data>
+  <data name="Tutorial.Erase.Title" xml:space="preserve">
+    <value>Erase</value>
+  </data>
+  <data name="Tutorial.Erase.Description" xml:space="preserve">
+    <value>To remove content from the map, select the Eraser tool or hold the right mouse button over the desired area. Remember that to erase an item, you must select the same type of item that you want to remove.</value>
+  </data>
+  <data name="Tutorial.Interface.Title" xml:space="preserve">
+    <value>Interface</value>
+  </data>
+  <data name="Tutorial.Interface.Description" xml:space="preserve">
+    <value>The top bar shows the current item and allows access to other materials through the explorer. The left bar contains tools and world settings. The right bar contains important actions such as saving, loading, and clearing the map.</value>
+  </data>
+  <data name="Tutorial.Simulation.Title" xml:space="preserve">
+    <value>Simulation</value>
+  </data>
+  <data name="Tutorial.Simulation.Description" xml:space="preserve">
+    <value>Everything happens within the map. Elements are materials like sand and water that follow physics rules and interact with each other. Actors are entities that respond to the environment and can modify the world around them.</value>
+  </data>
+  <data name="Tutorial.Save.Title" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Tutorial.Save.Description" xml:space="preserve">
+    <value>Use the right bar to save your creations. This way you can continue later without losing your progress.</value>
+  </data>
+  <data name="Tutorial.Explore.Title" xml:space="preserve">
+    <value>Explore</value>
+  </data>
+  <data name="Tutorial.Explore.Description" xml:space="preserve">
+    <value>Try combining different elements to observe new behaviors. Testing, adjusting, and trying again is the best way to learn how the simulation works.</value>
+  </data>
+  <data name="Tutorial.ClickToContinue" xml:space="preserve">
+    <value>Click to Continue...</value>
   </data>
 </root>

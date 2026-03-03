@@ -19,14 +19,14 @@ using StardustSandbox.Core.Serialization.Saving.Data;
 
 namespace StardustSandbox.Core.Serialization.Saving
 {
-    public sealed class SaveFile
+    internal sealed class SaveFile
     {
-        public Texture2DData ThumbnailTextureData { get; set; }
-        public Metadata Metadata { get; set; }
-        public ManifestData Manifest { get; set; }
-        public PropertyData Properties { get; set; }
-        public EnvironmentData Environment { get; set; }
-        public ContentData Content { get; set; }
+        internal Texture2DData ThumbnailTextureData { get; set; }
+        internal Metadata Metadata { get; set; }
+        internal ManifestData Manifest { get; set; }
+        internal PropertyData Properties { get; set; }
+        internal EnvironmentData Environment { get; set; }
+        internal ContentData Content { get; set; }
     }
 }
 

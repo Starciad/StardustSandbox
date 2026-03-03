@@ -28,58 +28,55 @@ namespace StardustSandbox.Core.Serialization.Settings
     [XmlRoot("ControlSettings")]
     public sealed class ControlSettings : ISettingsModule
     {
-        #region Camera Controls
+        [XmlElement("MoveCameraUpKeyboardBinding", typeof(Keys))]
+        public Keys MoveCameraUpKeyboardBinding { get; set; }
 
-        [XmlElement("MoveCameraUp", typeof(Keys))]
-        public Keys MoveCameraUp { get; set; }
+        [XmlElement("MoveCameraRightKeyboardBinding", typeof(Keys))]
+        public Keys MoveCameraRightKeyboardBinding { get; set; }
 
-        [XmlElement("MoveCameraRight", typeof(Keys))]
-        public Keys MoveCameraRight { get; set; }
+        [XmlElement("MoveCameraDownKeyboardBinding", typeof(Keys))]
+        public Keys MoveCameraDownKeyboardBinding { get; set; }
 
-        [XmlElement("MoveCameraDown", typeof(Keys))]
-        public Keys MoveCameraDown { get; set; }
+        [XmlElement("MoveCameraLeftKeyboardBinding", typeof(Keys))]
+        public Keys MoveCameraLeftKeyboardBinding { get; set; }
 
-        [XmlElement("MoveCameraLeft", typeof(Keys))]
-        public Keys MoveCameraLeft { get; set; }
+        [XmlElement("MoveCameraFastKeyboardBinding", typeof(Keys))]
+        public Keys MoveCameraFastKeyboardBinding { get; set; }
 
-        [XmlElement("MoveCameraFast", typeof(Keys))]
-        public Keys MoveCameraFast { get; set; }
+        [XmlElement("ZoomCameraInKeyboardBinding", typeof(Keys))]
+        public Keys ZoomCameraInKeyboardBinding { get; set; }
 
-        #endregion
+        [XmlElement("ZoomCameraOutKeyboardBinding", typeof(Keys))]
+        public Keys ZoomCameraOutKeyboardBinding { get; set; }
 
-        #region World Controls
+        [XmlElement("TogglePauseKeyboardBinding", typeof(Keys))]
+        public Keys TogglePauseKeyboardBinding { get; set; }
 
-        [XmlElement("TogglePause", typeof(Keys))]
-        public Keys TogglePause { get; set; }
+        [XmlElement("ClearWorldKeyboardBinding", typeof(Keys))]
+        public Keys ClearWorldKeyboardBinding { get; set; }
 
-        [XmlElement("ClearWorld", typeof(Keys))]
-        public Keys ClearWorld { get; set; }
+        [XmlElement("NextShapeKeyboardBinding", typeof(Keys))]
+        public Keys NextShapeKeyboardBinding { get; set; }
 
-        [XmlElement("NextShape", typeof(Keys))]
-        public Keys NextShape { get; set; }
-
-        #endregion
-
-        #region Tool Controls
-
-        [XmlElement("Screenshot", typeof(Keys))]
-        public Keys Screenshot { get; set; }
-
-        #endregion
+        [XmlElement("ScreenshotKeyboardBinding", typeof(Keys))]
+        public Keys ScreenshotKeyboardBinding { get; set; }
 
         public ControlSettings()
         {
-            this.MoveCameraUp = Keys.W;
-            this.MoveCameraLeft = Keys.A;
-            this.MoveCameraDown = Keys.S;
-            this.MoveCameraRight = Keys.D;
-            this.MoveCameraFast = Keys.LeftShift;
+            // Keyboard
+            this.MoveCameraUpKeyboardBinding = Keys.W;
+            this.MoveCameraLeftKeyboardBinding = Keys.A;
+            this.MoveCameraDownKeyboardBinding = Keys.S;
+            this.MoveCameraRightKeyboardBinding = Keys.D;
+            this.MoveCameraFastKeyboardBinding = Keys.LeftShift;
+            this.ZoomCameraInKeyboardBinding = Keys.E;
+            this.ZoomCameraOutKeyboardBinding = Keys.Q;
 
-            this.TogglePause = Keys.Space;
-            this.ClearWorld = Keys.R;
-            this.NextShape = Keys.Tab;
+            this.TogglePauseKeyboardBinding = Keys.Space;
+            this.ClearWorldKeyboardBinding = Keys.C;
+            this.NextShapeKeyboardBinding = Keys.Tab;
 
-            this.Screenshot = Keys.F9;
+            this.ScreenshotKeyboardBinding = Keys.F9;
         }
     }
 }

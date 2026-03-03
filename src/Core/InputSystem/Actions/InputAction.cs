@@ -21,14 +21,12 @@ using StardustSandbox.Core.Enums.Inputs;
 
 namespace StardustSandbox.Core.InputSystem.Actions
 {
-    internal sealed class InputAction
+    internal sealed class InputAction(string name)
     {
-        internal readonly struct CallbackContext(InputState state, MouseButton capturedMouseButton, Keys capturedKey)
-        {
-            internal readonly InputState State => state;
-            internal readonly MouseButton CapturedMouseButton => capturedMouseButton;
-            internal readonly Keys CapturedKey => capturedKey;
-        }
+        internal string Name => name;
+
+        internal Keys KeyboardBinding { get; set; }
+        internal MouseButton MouseBinding { get; set; }
 
         internal Started OnStarted { get; init; }
         internal Performed OnPerformed { get; init; }
@@ -38,123 +36,37 @@ namespace StardustSandbox.Core.InputSystem.Actions
         private bool performed = false;
         private bool canceled = true;
 
-        private Keys capturedKey;
-        private MouseButton capturedMouseButton;
+        private Keys capturedKeyboardBinding;
+        private MouseButton capturedMouseBinding;
 
-        internal delegate void Started(CallbackContext context);
-        internal delegate void Performed(CallbackContext context);
-        internal delegate void Canceled(CallbackContext context);
+        internal delegate void Started(InputCallbackContext context);
+        internal delegate void Performed(InputCallbackContext context);
+        internal delegate void Canceled(InputCallbackContext context);
 
-        private readonly Keys key;
-        private readonly MouseButton mouseButton;
-
-        internal InputAction(Keys value)
+        private bool IsKeyboardStarting(Keys key)
         {
-            this.key = value;
-            this.mouseButton = MouseButton.None;
-        }
-
-        internal InputAction(MouseButton value)
-        {
-            this.key = Keys.None;
-            this.mouseButton = value;
-        }
-
-        internal void Update()
-        {
-            this.capturedKey = Keys.None;
-            this.capturedMouseButton = MouseButton.None;
-
-            // Keyboard State
-            if (this.key != Keys.None)
-            {
-                // Started
-                if (GetKeyboardStartedState(this.key))
-                {
-                    this.capturedKey = this.key;
-                    UpdateStarting();
-                }
-
-                // Performed
-                if (GetKeyboardPerformedState(this.key))
-                {
-                    this.capturedKey = this.key;
-                    UpdatePerformed();
-                }
-
-                // Canceled
-                if (GetKeyboardCanceledState(this.key))
-                {
-                    this.capturedKey = this.key;
-                    UpdateCanceled();
-                }
-            }
-
-            // Mouse State
-            if (this.mouseButton != MouseButton.None)
-            {
-                // Started
-                if (GetMouseStartedState(this.mouseButton) &&
-                    !this.started && !this.performed && this.canceled)
-                {
-                    this.capturedMouseButton = this.mouseButton;
-                    UpdateStarting();
-                }
-
-                // Performed
-                if (GetMousePerformedState(this.mouseButton) &&
-                    this.started && !this.canceled)
-                {
-                    this.capturedMouseButton = this.mouseButton;
-                    UpdatePerformed();
-                }
-
-                // Canceled
-                if (GetMouseCanceledState(this.mouseButton) &&
-                    this.started && this.performed && !this.canceled)
-                {
-                    this.capturedMouseButton = this.mouseButton;
-                    UpdateCanceled();
-                }
-            }
-        }
-
-        // Keyboard State
-        private bool GetKeyboardStartedState(Keys key)
-        {
-            return !Input.PreviousKeyboardState.IsKeyDown(key) &&
-                    Input.KeyboardState.IsKeyDown(key) &&
+            return !InputEngine.PreviousKeyboardState.IsKeyDown(key) &&
+                    InputEngine.CurrentKeyboardState.IsKeyDown(key) &&
                    !this.started && !this.performed && this.canceled;
         }
 
-        private bool GetKeyboardPerformedState(Keys key)
+        private bool IsKeyboardPerforming(Keys key)
         {
-            return Input.PreviousKeyboardState.IsKeyDown(key) &&
-                   Input.KeyboardState.IsKeyDown(key) &&
+            return InputEngine.PreviousKeyboardState.IsKeyDown(key) &&
+                   InputEngine.CurrentKeyboardState.IsKeyDown(key) &&
                    this.started && !this.canceled;
         }
 
-        private bool GetKeyboardCanceledState(Keys key)
+        private bool IsKeyboardCanceling(Keys key)
         {
-            return Input.PreviousKeyboardState.IsKeyDown(key) &&
-                  !Input.KeyboardState.IsKeyDown(key) &&
+            return InputEngine.PreviousKeyboardState.IsKeyDown(key) &&
+                  !InputEngine.CurrentKeyboardState.IsKeyDown(key) &&
                    this.started && this.performed && !this.canceled;
         }
 
-        // Mouse State
-        private static bool GetMouseStartedState(MouseButton mouseButton)
+        private static bool CheckMouseState(ButtonState previousState, ButtonState currentState, ButtonState desiredState)
         {
-            return GetMouseState(mouseButton, ButtonState.Pressed);
-        }
-
-        private static bool GetMousePerformedState(MouseButton mouseButton)
-        {
-            return GetMouseState(mouseButton, ButtonState.Pressed);
-        }
-
-        private static bool GetMouseCanceledState(MouseButton mouseButton)
-        {
-            return GetMouseState(mouseButton, ButtonState.Released);
+            return previousState is ButtonState.Pressed && currentState == desiredState;
         }
 
         private static bool GetMouseState(MouseButton mouseButton, ButtonState desiredState)
@@ -164,18 +76,18 @@ namespace StardustSandbox.Core.InputSystem.Actions
             switch (mouseButton)
             {
                 case MouseButton.Left:
-                    previousState = Input.PreviousMouseState.LeftButton;
-                    currentState = Input.MouseState.LeftButton;
+                    previousState = InputEngine.PreviousMouseState.LeftButton;
+                    currentState = InputEngine.CurrentMouseState.LeftButton;
                     break;
 
                 case MouseButton.Middle:
-                    previousState = Input.PreviousMouseState.MiddleButton;
-                    currentState = Input.MouseState.MiddleButton;
+                    previousState = InputEngine.PreviousMouseState.MiddleButton;
+                    currentState = InputEngine.CurrentMouseState.MiddleButton;
                     break;
 
                 case MouseButton.Right:
-                    previousState = Input.PreviousMouseState.RightButton;
-                    currentState = Input.MouseState.RightButton;
+                    previousState = InputEngine.PreviousMouseState.RightButton;
+                    currentState = InputEngine.CurrentMouseState.RightButton;
                     break;
 
                 default:
@@ -185,14 +97,24 @@ namespace StardustSandbox.Core.InputSystem.Actions
             return CheckMouseState(previousState, currentState, desiredState);
         }
 
-        private static bool CheckMouseState(ButtonState previousState, ButtonState currentState, ButtonState desiredState)
+        private static bool IsMouseStarting(MouseButton mouseButton)
         {
-            return previousState == ButtonState.Pressed && currentState == desiredState;
+            return GetMouseState(mouseButton, ButtonState.Pressed);
+        }
+
+        private static bool IsMousePerforming(MouseButton mouseButton)
+        {
+            return GetMouseState(mouseButton, ButtonState.Pressed);
+        }
+
+        private static bool IsMouseCanceling(MouseButton mouseButton)
+        {
+            return GetMouseState(mouseButton, ButtonState.Released);
         }
 
         private void UpdateStarting()
         {
-            this.OnStarted?.Invoke(new(InputState.Started, this.capturedMouseButton, this.capturedKey));
+            this.OnStarted?.Invoke(new(InputState.Started, this.capturedMouseBinding, this.capturedKeyboardBinding));
 
             this.started = true;
             this.canceled = false;
@@ -200,18 +122,88 @@ namespace StardustSandbox.Core.InputSystem.Actions
 
         private void UpdatePerformed()
         {
-            this.OnPerformed?.Invoke(new(InputState.Performed, this.capturedMouseButton, this.capturedKey));
+            this.OnPerformed?.Invoke(new(InputState.Performed, this.capturedMouseBinding, this.capturedKeyboardBinding));
 
             this.performed = true;
         }
 
         private void UpdateCanceled()
         {
-            this.OnCanceled?.Invoke(new(InputState.Canceled, this.capturedMouseButton, this.capturedKey));
+            this.OnCanceled?.Invoke(new(InputState.Canceled, this.capturedMouseBinding, this.capturedKeyboardBinding));
 
             this.started = false;
             this.performed = false;
             this.canceled = true;
+        }
+
+        private void HandleKeyboardInput()
+        {
+            if (this.KeyboardBinding is Keys.None)
+            {
+                return;
+            }
+
+            // Started
+            if (IsKeyboardStarting(this.KeyboardBinding))
+            {
+                this.capturedKeyboardBinding = this.KeyboardBinding;
+                UpdateStarting();
+            }
+
+            // Performed
+            if (IsKeyboardPerforming(this.KeyboardBinding))
+            {
+                this.capturedKeyboardBinding = this.KeyboardBinding;
+                UpdatePerformed();
+            }
+
+            // Canceled
+            if (IsKeyboardCanceling(this.KeyboardBinding))
+            {
+                this.capturedKeyboardBinding = this.KeyboardBinding;
+                UpdateCanceled();
+            }
+        }
+
+        private void HandleMouseInput()
+        {
+            if (this.MouseBinding is MouseButton.None)
+            {
+                return;
+            }
+
+            // Started
+            if (IsMouseStarting(this.MouseBinding) &&
+                !this.started && !this.performed && this.canceled)
+            {
+                this.capturedMouseBinding = this.MouseBinding;
+                UpdateStarting();
+            }
+
+            // Performed
+            if (IsMousePerforming(this.MouseBinding) &&
+                this.started && !this.canceled)
+            {
+                this.capturedMouseBinding = this.MouseBinding;
+                UpdatePerformed();
+            }
+
+            // Canceled
+            if (IsMouseCanceling(this.MouseBinding) &&
+                this.started && this.performed && !this.canceled)
+            {
+                this.capturedMouseBinding = this.MouseBinding;
+                UpdateCanceled();
+            }
+        }
+
+        internal void Update()
+        {
+            this.capturedKeyboardBinding = Keys.None;
+            this.capturedMouseBinding = MouseButton.None;
+
+            HandleKeyboardInput();
+            HandleMouseInput();
         }
     }
 }

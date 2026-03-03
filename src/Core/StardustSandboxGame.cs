@@ -27,11 +27,11 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.InputSystem;
-using StardustSandbox.Core.InputSystem.Game;
 using StardustSandbox.Core.Interfaces.Notifiers;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
+using StardustSandbox.Core.UI.Common;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
@@ -41,12 +41,13 @@ namespace StardustSandbox.Core
     public sealed class StardustSandboxGame : Game
     {
         private IAchievementNotifier achievementNotifier;
-        private IGameUpdateNotifier gameUpdateNotifier;
+        private IGameNotifier gameNotifier;
 
         private SpriteBatch spriteBatch;
 
         private readonly World world;
-        private readonly InputController inputController;
+        private readonly PlayerInputController playerInputController;
+        private readonly Camera2D camera;
 
         private readonly ActorManager actorManager;
         private readonly AmbientManager ambientManager;
@@ -55,17 +56,21 @@ namespace StardustSandbox.Core
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
 
+        private readonly VideoSettings videoSettings;
+
+        private readonly GraphicsDeviceManager graphicsDeviceManager;
+
         public StardustSandboxGame(string[] args)
         {
             GameParameters.Start(args);
 
             // Graphics
-            this.videoManager = new(new GraphicsDeviceManager(this)
+            this.graphicsDeviceManager = new(this)
             {
                 GraphicsProfile = GraphicsProfile.Reach,
                 PreferredBackBufferFormat = SurfaceFormat.Color,
-                PreferredBackBufferWidth = ScreenConstants.SCREEN_WIDTH,
-                PreferredBackBufferHeight = ScreenConstants.SCREEN_HEIGHT,
+                PreferredBackBufferWidth = 1280,
+                PreferredBackBufferHeight = 720,
                 SynchronizeWithVerticalRetrace = true,
                 HardwareModeSwitch = true,
                 IsFullScreen = false,
@@ -73,54 +78,53 @@ namespace StardustSandbox.Core
                 PreferMultiSampling = false,
                 PreferredDepthStencilFormat = DepthFormat.None,
                 SupportedOrientations = DisplayOrientation.Default
-            });
+            };
+
+            this.videoManager = new(this.graphicsDeviceManager, this.Window);
 
             // Load Settings
-            VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
-
-            if (videoSettings.Width == 0 || videoSettings.Height == 0)
-            {
-                videoSettings = videoSettings.UpdateResolution(this.videoManager.GraphicsDevice);
-                SettingsSerializer.Save(videoSettings);
-            }
+            this.videoSettings = SettingsSerializer.Load<VideoSettings>();
 
             // Initialize Content
             this.Content.RootDirectory = IOConstants.ASSETS_DIRECTORY;
 
             // Configure the game's window
-            this.Window.IsBorderless = videoSettings.Borderless;
+            this.Window.IsBorderless = this.videoSettings.Borderless;
             this.Window.Title = GameConstants.GetTitleAndVersionString();
             this.Window.AllowUserResizing = true;
-            this.videoManager.SetGameWindow(this.Window);
 
             // Configure game settings
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / videoSettings.Framerate);
+            SetFrameRate(this.videoSettings.Framerate);
+
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
 
             // Managers
-            this.inputController = new();
+            this.playerInputController = new();
             this.effectsManager = new();
             this.uiManager = new();
             this.cursorManager = new();
             this.ambientManager = new();
 
             // Core
-            this.world = new(this.inputController);
+            this.world = new(this.playerInputController);
+            this.camera = new();
 
             // Actor Manager
             this.actorManager = new(this.world);
+        }
 
-            // Apply video settings
-            this.videoManager.ApplySettings(videoSettings);
+        internal void SetFrameRate(float framerate)
+        {
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / framerate);
         }
 
         protected override void Initialize()
         {
             this.achievementNotifier = this.Services.GetService<IAchievementNotifier>();
-            this.gameUpdateNotifier = this.Services.GetService<IGameUpdateNotifier>();
+            this.gameNotifier = this.Services.GetService<IGameNotifier>();
 
-            Camera.Initialize(this.world);
+            GameScreen.Initialize(this.GraphicsDevice);
 
             AchievementEngine.Initialize(this.achievementNotifier);
             SongEngine.Initialize();
@@ -133,18 +137,15 @@ namespace StardustSandbox.Core
 
         protected override void LoadContent()
         {
-            // Input
-            Input.Initialize(this.videoManager);
-
             // Databases
-            AchievementDatabase.Load();
             AssetDatabase.Load(this.Content, this.GraphicsDevice);
+            AchievementDatabase.Load();
             ElementDatabase.Load();
             CatalogDatabase.Load();
-            UIDatabase.Load(this.actorManager, this.ambientManager, this.cursorManager, this.Window, this.GraphicsDevice, this.inputController, this, this.uiManager, this.videoManager, this.world);
             BackgroundDatabase.Load();
             ToolDatabase.Load();
             ActorDatabase.Load(this.actorManager, this.world);
+            UIDatabase.Load(this.actorManager, this.ambientManager, this.camera, this.cursorManager, this.Window, this.GraphicsDevice, this.playerInputController, this, this.uiManager, this.videoManager, this.world);
 
             // Managers
             this.effectsManager.Initialize();
@@ -152,7 +153,17 @@ namespace StardustSandbox.Core
             this.ambientManager.Initialize(this.world);
 
             // Controllers
-            this.inputController.Initialize(this.actorManager, this.world);
+            this.playerInputController.Initialize(this.actorManager, this.camera, this.world);
+
+            // Resolution
+            if (this.videoSettings.Width == 0 || this.videoSettings.Height == 0)
+            {
+                this.videoSettings.UpdateResolution(this.GraphicsDevice);
+                SettingsSerializer.Save(this.videoSettings);
+            }
+
+            this.Window.ClientSizeChanged += OnClientSizeChanged;
+            this.videoManager.ApplySettings(this.videoSettings);
 
             // Renderer
             GameRenderer.Initialize(this.videoManager);
@@ -171,28 +182,46 @@ namespace StardustSandbox.Core
 
             if (GameParameters.SkipIntro)
             {
-                GameHandler.StartGame(this.actorManager, this.ambientManager, this.inputController, this.uiManager, this.world);
+                GameHandler.StartGame(
+                    this.actorManager,
+                    this.ambientManager,
+                    this.camera,
+                    (HudUI)UIDatabase.GetUI(UIIndex.Hud),
+                    (ItemExplorerUI)UIDatabase.GetUI(UIIndex.ItemExplorer),
+                    this.playerInputController,
+                    this.uiManager,
+                    this.world
+                );
             }
             else
             {
-                this.uiManager.OpenUI(UIIndex.MainMenu);
+                this.uiManager.OpenUI(UIIndex.Main);
             }
+
+            this.gameNotifier?.OnBeginRun();
+            UIDatabase.ResizeUIs(GameScreen.GetViewport());
         }
 
         protected override void Update(GameTime gameTime)
         {
-            this.gameUpdateNotifier?.OnUpdate();
+            this.gameNotifier?.OnUpdate();
 
             if (!GameHandler.HasState(GameStates.IsFocused) || GameHandler.HasState(GameStates.IsPaused))
             {
+                base.Update(gameTime);
                 return;
             }
 
-            Input.Update();
+            InputEngine.Update();
 
             // Controllers
-            this.inputController.Update();
-            Camera.Update(gameTime);
+            this.playerInputController.Update();
+            this.camera.Update(gameTime);
+
+            if (this.world.CanUpdate || this.world.CanDraw)
+            {
+                this.camera.ClampTargetPositionToBounds(new(0, 0, this.world.Size.X * WorldConstants.TILE_SIZE, this.world.Size.Y * WorldConstants.TILE_SIZE));
+            }
 
             // Managers
             this.effectsManager.Update(gameTime, this.world.Time.CurrentTime);
@@ -215,11 +244,11 @@ namespace StardustSandbox.Core
             GameRenderer.Draw(
                 this.actorManager,
                 this.ambientManager,
+                this.camera,
                 this.cursorManager,
-                this.inputController,
+                this.playerInputController,
                 this.spriteBatch,
                 this.uiManager,
-                this.videoManager,
                 this.world
             );
 
@@ -229,12 +258,10 @@ namespace StardustSandbox.Core
         protected override void UnloadContent()
         {
             AssetDatabase.Unload();
-            GameRenderer.Unload();
 
             base.UnloadContent();
         }
 
-        // Event occurs when the game window returns to focus.
         protected override void OnActivated(object sender, EventArgs args)
         {
             base.OnActivated(sender, args);
@@ -242,7 +269,6 @@ namespace StardustSandbox.Core
             MediaPlayer.Resume();
         }
 
-        // Event occurs when the game window stops having focus.
         protected override void OnDeactivated(object sender, EventArgs args)
         {
             base.OnDeactivated(sender, args);
@@ -250,16 +276,36 @@ namespace StardustSandbox.Core
             MediaPlayer.Pause();
         }
 
-        // Event occurs when the game process is finished.
         protected override void OnExiting(object sender, ExitingEventArgs args)
         {
+            this.Window.ClientSizeChanged -= OnClientSizeChanged;
+
             base.OnExiting(sender, args);
         }
 
-        internal void Quit()
+        private void OnClientSizeChanged(object sender, EventArgs args)
         {
-            Exit();
+            Point minSize = ScreenConstants.RESOLUTIONS[0];
+            Point newSize = new(this.Window.ClientBounds.Width, this.Window.ClientBounds.Height);
+
+            if (newSize.X < minSize.X)
+            {
+                newSize.X = minSize.X;
+            }
+
+            if (newSize.Y < minSize.Y)
+            {
+                newSize.Y = minSize.Y;
+            }
+
+            if (newSize.X != this.graphicsDeviceManager.PreferredBackBufferWidth || newSize.Y != this.graphicsDeviceManager.PreferredBackBufferHeight)
+            {
+                this.graphicsDeviceManager.PreferredBackBufferWidth = newSize.X;
+                this.graphicsDeviceManager.PreferredBackBufferHeight = newSize.Y;
+                this.graphicsDeviceManager.ApplyChanges();
+            }
+
+            UIDatabase.ResizeUIs(GameScreen.GetViewport());
         }
     }
 }
-

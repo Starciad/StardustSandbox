@@ -493,7 +493,7 @@
     <value>Choisissez la couleur pour la zone de prévisualisation affichée pendant le jeu.</value>
   </data>
   <data name="Options.General.Language.Description" xml:space="preserve">
-    <value>Sélectionnez la langue pour l'interface du jeu.</value>
+    <value>Sélectionnez la langue pour l'interface du jeu. Un redémarrage du jeu est nécessaire pour appliquer les modifications.</value>
   </data>
   <data name="Options.Save.Description" xml:space="preserve">
     <value>Enregistrez et appliquez toutes les options modifiées.</value>
@@ -824,5 +824,83 @@
   </data>
   <data name="Achievements.Title" xml:space="preserve">
     <value>Réalisations</value>
+  </data>
+  <data name="ItemSearch.Placeholder" xml:space="preserve">
+    <value>Rechercher un élément...</value>
+  </data>
+  <data name="ItemSearch.Title" xml:space="preserve">
+    <value>Recherche d'éléments</value>
+  </data>
+  <data name="ItemSearch.Description" xml:space="preserve">
+    <value>Recherchez les éléments que vous souhaitez en les nommant.</value>
+  </data>
+  <data name="Options.Interface.Name" xml:space="preserve">
+    <value>Interface</value>
+  </data>
+  <data name="Options.Interface.Description" xml:space="preserve">
+    <value>Ajustez les paramètres de l'interface pour une meilleure expérience utilisateur.</value>
+  </data>
+  <data name="Options.Interface.ShowTooltip.Name" xml:space="preserve">
+    <value>Afficher l'Infobulle</value>
+  </data>
+  <data name="Options.Interface.ShowTooltip.Description" xml:space="preserve">
+    <value>Affichage des infobulles lors du survol des éléments de l'interface.</value>
+  </data>
+  <data name="Options.Gameplay.UseSmoothCameraMovement.Name" xml:space="preserve">
+    <value>Mouvement Fluide de la Caméra</value>
+  </data>
+  <data name="Options.Gameplay.UseSmoothCameraMovement.Description" xml:space="preserve">
+    <value>Activez le mouvement fluide de la caméra pour une expérience de visualisation plus confortable.</value>
+  </data>
+  <data name="Tutorial.Introduction.Title" xml:space="preserve">
+    <value>Introduction</value>
+  </data>
+  <data name="Tutorial.Introduction.Description" xml:space="preserve">
+    <value>Bienvenue dans Stardust Sandbox. Ici, vous pouvez créer des expériences en utilisant différents matériaux et entités. Ce tutoriel montre seulement l'essentiel pour commencer. Après cela, vous pouvez explorer librement.</value>
+  </data>
+  <data name="Tutorial.Camera.Title" xml:space="preserve">
+    <value>Caméra</value>
+  </data>
+  <data name="Tutorial.Camera.Description" xml:space="preserve">
+    <value>Utilisez {0} {1} {2} {3} pour déplacer la caméra autour de la carte. Utilisez {4} pour zoomer et {5} pour dézommer. Si vous voulez vous déplacer plus rapidement, maintenez {6} enfoncé en utilisant les touches de mouvement.</value>
+  </data>
+  <data name="Tutorial.Draw.Title" xml:space="preserve">
+    <value>Dessiner</value>
+  </data>
+  <data name="Tutorial.Draw.Description" xml:space="preserve">
+    <value>Choisissez un élément dans la barre supérieure pour l'activer. Après l'avoir sélectionné, déplacez simplement votre souris sur la carte et maintenez le bouton gauche enfoncé pour appliquer l'élément. Utilisez la molette de la souris pour ajuster la taille du pinceau selon vos besoins.</value>
+  </data>
+  <data name="Tutorial.Erase.Title" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="Tutorial.Erase.Description" xml:space="preserve">
+    <value>Pour supprimer du contenu de la carte, sélectionnez l'outil Gomme ou maintenez le bouton droit de la souris enfoncé sur la zone souhaitée. Rappelez-vous que pour effacer un élément, vous devez sélectionner le même type d'élément que vous souhaitez supprimer.</value>
+  </data>
+  <data name="Tutorial.Interface.Title" xml:space="preserve">
+    <value>Interface</value>
+  </data>
+  <data name="Tutorial.Interface.Description" xml:space="preserve">
+    <value>La barre supérieure affiche l'élément actuel et permet d'accéder à d'autres matériaux via l'explorateur. La barre de gauche contient les outils et les paramètres du monde. La barre de droite contient des actions importantes telles que l'enregistrement, le chargement et l'effacement de la carte.</value>
+  </data>
+  <data name="Tutorial.Simulation.Title" xml:space="preserve">
+    <value>Simulation</value>
+  </data>
+  <data name="Tutorial.Simulation.Description" xml:space="preserve">
+    <value>Tout se passe dans la carte. Les éléments sont des matériaux comme le sable et l'eau qui suivent les règles de la physique et interagissent les uns avec les autres. Les acteurs sont des entités qui réagissent à l'environnement et peuvent modifier le monde autour d'eux.</value>
+  </data>
+  <data name="Tutorial.Save.Title" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="Tutorial.Save.Description" xml:space="preserve">
+    <value>Utilisez la barre de droite pour enregistrer vos créations. De cette façon, vous pouvez continuer plus tard sans perdre votre progression.</value>
+  </data>
+  <data name="Tutorial.Explore.Title" xml:space="preserve">
+    <value>Explorer</value>
+  </data>
+  <data name="Tutorial.Explore.Description" xml:space="preserve">
+    <value>Essayez de combiner différents éléments pour observer de nouveaux comportements. Tester, ajuster et réessayer est le meilleur moyen d'apprendre comment la simulation fonctionne.</value>
+  </data>
+  <data name="Tutorial.ClickToContinue" xml:space="preserve">
+    <value>Cliquez pour Continuer...</value>
   </data>
 </root>

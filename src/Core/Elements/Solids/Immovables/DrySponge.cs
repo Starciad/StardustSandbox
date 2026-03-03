@@ -31,12 +31,12 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer))
                 {
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex)
                 {
                     case ElementIndex.Water:
                     case ElementIndex.Saltwater:

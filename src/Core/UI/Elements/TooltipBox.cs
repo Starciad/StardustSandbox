@@ -19,36 +19,18 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Colors.Palettes;
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Serialization;
+using StardustSandbox.Core.Serialization.Settings;
 
 using System;
 
 namespace StardustSandbox.Core.UI.Elements
 {
-    internal static class TooltipBoxContent
-    {
-        internal static string Title => title;
-        internal static string Description => description;
-
-        private static string title = string.Empty;
-        private static string description = string.Empty;
-
-        internal static void SetTitle(string value)
-        {
-            title = value ?? string.Empty;
-        }
-
-        internal static void SetDescription(string value)
-        {
-            description = value ?? string.Empty;
-        }
-    }
-
     internal sealed class TooltipBox : UIElement
     {
         internal Vector2 MinimumSize { get; set; }
@@ -59,6 +41,7 @@ namespace StardustSandbox.Core.UI.Elements
         private readonly Text description;
 
         private readonly CursorManager cursorManager;
+        private readonly InterfaceSettings interfaceSettings;
 
         internal TooltipBox(CursorManager cursorManager)
         {
@@ -98,26 +81,33 @@ namespace StardustSandbox.Core.UI.Elements
             AddChild(this.background);
 
             this.MinimumSize = new(48f, 48f);
-            this.MaximumSize = new(
-                ScreenConstants.SCREEN_WIDTH,
-                ScreenConstants.SCREEN_HEIGHT
-            );
+            this.MaximumSize = GameScreen.GetViewport();
+
+            this.interfaceSettings = SettingsSerializer.Load<InterfaceSettings>();
+        }
+
+        internal void SetTitle(string value)
+        {
+            this.title.TextContent = value;
+        }
+
+        internal void SetDescription(string value)
+        {
+            this.description.TextContent = value;
         }
 
         protected override void OnInitialize()
         {
+
         }
 
         protected override void OnUpdate(GameTime gameTime)
         {
-            bool visible = !GameParameters.HideTooltips;
+            bool shouldShowTooltip = this.interfaceSettings.ShowTooltip;
 
-            this.background.CanDraw = visible;
-            this.title.CanDraw = visible;
-            this.description.CanDraw = visible;
-
-            this.title.TextContent = TooltipBoxContent.Title;
-            this.description.TextContent = TooltipBoxContent.Description;
+            this.background.CanDraw = shouldShowTooltip;
+            this.title.CanDraw = shouldShowTooltip;
+            this.description.CanDraw = shouldShowTooltip;
 
             UpdateSize();
             UpdatePosition();
@@ -125,6 +115,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         protected override void OnDraw(SpriteBatch spriteBatch)
         {
+            return;
         }
 
         private void UpdateSize()
@@ -163,31 +154,31 @@ namespace StardustSandbox.Core.UI.Elements
 
         private void UpdatePosition()
         {
-            Vector2 mousePosition = Input.GetScaledMousePosition();
-            Vector2 spacing = this.cursorManager.Scale * 16f;
-            Vector2 position = mousePosition + this.Margin + spacing;
+            Vector2 viewport = GameScreen.GetViewport();
 
-            if (position.X + this.background.Size.X > ScreenConstants.SCREEN_WIDTH)
+            Vector2 mousePosition = InputEngine.GetCurrentMousePosition();
+            Vector2 spacing = new(this.cursorManager.Scale * 16.0f);
+            Vector2 position = mousePosition + this.Margin + spacing;
+            Vector2 minPosition = new(32.0f);
+            Vector2 maxPosition = new(
+                viewport.X - this.background.Size.X - minPosition.X,
+                viewport.Y - this.background.Size.Y - minPosition.Y
+            );
+
+            if (position.X + this.background.Size.X > viewport.X)
             {
                 position.X = mousePosition.X - this.background.Size.X - this.Margin.X - spacing.X;
             }
 
-            if (position.Y + this.background.Size.Y > ScreenConstants.SCREEN_HEIGHT)
+            if (position.Y + this.background.Size.Y > viewport.Y)
             {
                 position.Y = mousePosition.Y - this.background.Size.Y - this.Margin.Y - spacing.Y;
             }
 
-            position.X = Math.Clamp(
-                position.X,
-                32f,
-                ScreenConstants.SCREEN_WIDTH - this.background.Size.X - 32f
-            );
-
-            position.Y = Math.Clamp(
-                position.Y,
-                32f,
-                ScreenConstants.SCREEN_HEIGHT - this.background.Size.Y - 32f
-            );
+            if (position.X < minPosition.X || position.Y < minPosition.Y)
+            {
+                position = Vector2.Clamp(position, minPosition, maxPosition);
+            }
 
             this.background.Position = position;
         }

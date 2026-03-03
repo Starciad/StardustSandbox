@@ -28,11 +28,13 @@ namespace StardustSandbox.Core.Enums.Assets
         Actors,
         Cursors,
         Elements,
+        Frames,
 
         #endregion
 
         #region Backgrounds
 
+        BackgroundClouds,
         BackgroundOcean,
 
         #endregion
@@ -53,27 +55,6 @@ namespace StardustSandbox.Core.Enums.Assets
         #region Game
 
         GameTitle,
-
-        #endregion
-
-        #region UI
-
-        UIBackgroundEnvironmentSettings,
-        UIBackgroundGeneratorSettings,
-        UIBackgroundHudHorizontalToolbar,
-        UIBackgroundHudVerticalToolbar,
-        UIBackgroundInformation,
-        UIBackgroundItemExplorer,
-        UIBackgroundOptions,
-        UIBackgroundPause,
-        UIBackgroundPenSettings,
-        UIBackgroundSave,
-        UIBackgroundTemperatureSettings,
-        UIBackgroundWorldSettings,
-        UIButtons,
-        UISizeSlider,
-        UISliderInputOrnament,
-        UITextInputOrnament,
 
         #endregion
 
@@ -109,6 +90,33 @@ namespace StardustSandbox.Core.Enums.Assets
 
         ThirdPartyMonogame,
         ThirdPartyXna,
+
+        #endregion
+
+        #region UI
+
+        UIBackgroundAchievements,
+        UIBackgroundEnvironmentSettings,
+        UIBackgroundGeneratorSettings,
+        UIBackgroundHudHorizontalToolbar,
+        UIBackgroundHudVerticalToolbar,
+        UIBackgroundInformation,
+        UIBackgroundItemExplorer,
+        UIBackgroundItemSearch,
+        UIBackgroundOptions,
+        UIBackgroundPause,
+        UIBackgroundPenSettings,
+        UIBackgroundSave,
+        UIBackgroundSelector,
+        UIBackgroundTemperatureSettings,
+        UIBackgroundTutorial,
+        UIBackgroundWorldExplorer,
+        UIBackgroundWorldSettings,
+        UIButtons,
+        UISizeSlider,
+        UISliderInputOrnament,
+        UITextInputOrnament,
+        UITutorial,
 
         #endregion
     }

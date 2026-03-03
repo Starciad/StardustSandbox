@@ -825,4 +825,82 @@
   <data name="Achievements.Title" xml:space="preserve">
     <value>Erfolge</value>
   </data>
+  <data name="ItemSearch.Placeholder" xml:space="preserve">
+    <value>Suche nach einem Gegenstand...</value>
+  </data>
+  <data name="ItemSearch.Title" xml:space="preserve">
+    <value>Elementsuche</value>
+  </data>
+  <data name="ItemSearch.Description" xml:space="preserve">
+    <value>Finden Sie die gewünschten Elemente, indem Sie nach ihnen nach Name suchen.</value>
+  </data>
+  <data name="Options.Interface.Name" xml:space="preserve">
+    <value>Benutzeroberfläche</value>
+  </data>
+  <data name="Options.Interface.Description" xml:space="preserve">
+    <value>Passen Sie die Einstellungen der Benutzeroberfläche für ein besseres Benutzererlebnis an.</value>
+  </data>
+  <data name="Options.Interface.ShowTooltip.Name" xml:space="preserve">
+    <value>Tooltip anzeigen</value>
+  </data>
+  <data name="Options.Interface.ShowTooltip.Description" xml:space="preserve">
+    <value>Zeigen Sie Tooltips beim Überfahren von Benutzeroberflächen-Elementen an.</value>
+  </data>
+  <data name="Options.Gameplay.UseSmoothCameraMovement.Name" xml:space="preserve">
+    <value>Sanfte Kamerabewegung</value>
+  </data>
+  <data name="Options.Gameplay.UseSmoothCameraMovement.Description" xml:space="preserve">
+    <value>Aktivieren Sie sanfte Kamerabewegung für ein komfortableres Seherlebnis.</value>
+  </data>
+  <data name="Tutorial.Introduction.Title" xml:space="preserve">
+    <value>Einführung</value>
+  </data>
+  <data name="Tutorial.Introduction.Description" xml:space="preserve">
+    <value>Willkommen bei Stardust Sandbox. Hier kannst du Erlebnisse mit verschiedenen Materialien und Entitäten erstellen. Dieses Tutorial zeigt nur das Wesentliche für den Einstieg. Danach kannst du frei erkunden.</value>
+  </data>
+  <data name="Tutorial.Camera.Title" xml:space="preserve">
+    <value>Kamera</value>
+  </data>
+  <data name="Tutorial.Camera.Description" xml:space="preserve">
+    <value>Verwende {0} {1} {2} {3}, um die Kamera auf der Karte zu bewegen. Verwende {4} zum Vergrößern und {5} zum Verkleinern. Wenn du schneller bewegen möchtest, halte {6} gedrückt, während du die Bewegungstasten verwendest.</value>
+  </data>
+  <data name="Tutorial.Draw.Title" xml:space="preserve">
+    <value>Zeichnen</value>
+  </data>
+  <data name="Tutorial.Draw.Description" xml:space="preserve">
+    <value>Wählen Sie einen Gegenstand in der oberen Leiste aus, um ihn aktiv zu machen. Nach der Auswahl bewegen Sie einfach die Maus zur Karte und halten die linke Maustaste gedrückt, um den Gegenstand anzubringen. Verwenden Sie das Mausrad, um die Pinselgröße nach Bedarf anzupassen.</value>
+  </data>
+  <data name="Tutorial.Erase.Title" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Tutorial.Erase.Description" xml:space="preserve">
+    <value>Um Inhalte von der Karte zu entfernen, wählen Sie das Radierer-Werkzeug aus oder halten Sie die rechte Maustaste über den gewünschten Bereich gedrückt. Denken Sie daran, dass Sie zum Löschen eines Elements denselben Elementtyp auswählen müssen, den Sie entfernen möchten.</value>
+  </data>
+  <data name="Tutorial.Interface.Title" xml:space="preserve">
+    <value>Benutzeroberfläche</value>
+  </data>
+  <data name="Tutorial.Interface.Description" xml:space="preserve">
+    <value>Die obere Leiste zeigt den aktuellen Gegenstand und ermöglicht den Zugriff auf andere Materialien durch den Explorer. Die linke Leiste enthält Werkzeuge und Welteinstellungen. Die rechte Leiste enthält wichtige Aktionen wie Speichern, Laden und Löschen der Karte.</value>
+  </data>
+  <data name="Tutorial.Simulation.Title" xml:space="preserve">
+    <value>Simulation</value>
+  </data>
+  <data name="Tutorial.Simulation.Description" xml:space="preserve">
+    <value>Alles findet auf der Karte statt. Elemente sind Materialien wie Sand und Wasser, die Physikregeln folgen und miteinander interagieren. Akteure sind Entitäten, die auf die Umgebung reagieren und die Welt um sie herum verändern können.</value>
+  </data>
+  <data name="Tutorial.Save.Title" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="Tutorial.Save.Description" xml:space="preserve">
+    <value>Verwende die rechte Leiste, um deine Kreationen zu speichern. So kannst du später weitermachen, ohne deinen Fortschritt zu verlieren.</value>
+  </data>
+  <data name="Tutorial.Explore.Title" xml:space="preserve">
+    <value>Erkunden</value>
+  </data>
+  <data name="Tutorial.Explore.Description" xml:space="preserve">
+    <value>Versuche, verschiedene Elemente zu kombinieren, um neues Verhalten zu beobachten. Testen, Anpassen und erneut Versuchen ist die beste Art, um zu lernen, wie die Simulation funktioniert.</value>
+  </data>
+  <data name="Tutorial.ClickToContinue" xml:space="preserve">
+    <value>Klicke zum Fortfahren...</value>
+  </data>
 </root>

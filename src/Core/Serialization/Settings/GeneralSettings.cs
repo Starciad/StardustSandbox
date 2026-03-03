@@ -56,6 +56,12 @@ namespace StardustSandbox.Core.Serialization.Settings
             return LocalizationConstants.GetGameCulture(this.Name) ?? LocalizationConstants.DEFAULT_GAME_CULTURE;
         }
 
+        internal void SetGameCulture(GameCulture gameCulture)
+        {
+            this.Language = gameCulture.Language;
+            this.Region = gameCulture.Region;
+        }
+
         private static bool TryGetAvailableGameCulture(out GameCulture value)
         {
             value = LocalizationConstants.GetGameCulture(CultureInfo.CurrentCulture.Name);

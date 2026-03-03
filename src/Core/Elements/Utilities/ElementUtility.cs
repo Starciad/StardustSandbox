@@ -67,8 +67,8 @@ namespace StardustSandbox.Core.Elements.Utilities
 
         internal static void NotifyFreeFallingFromAdjacentNeighbors(ElementContext context, Point position)
         {
-            context.SetElementState(new(position.X - 1, position.Y), context.Layer, ElementStates.IsFalling);
-            context.SetElementState(new(position.X + 1, position.Y), context.Layer, ElementStates.IsFalling);
+            context.SetElementState(new(position.X - 1, position.Y), context.CurrentLayer, ElementStates.IsFalling);
+            context.SetElementState(new(position.X + 1, position.Y), context.CurrentLayer, ElementStates.IsFalling);
         }
     }
 }

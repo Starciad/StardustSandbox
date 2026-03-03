@@ -19,19 +19,8 @@ namespace StardustSandbox.Core.Constants
 {
     internal static class UIConstants
     {
-        #region Data
-
-        internal const string DATA_ITEM = "item";
-        internal const string DATA_CATEGORY = "category";
-        internal const string DATA_SUBCATEGORY = "subcategory";
-        internal const string DATA_LANGUAGE_CODE = "language_code";
-
-        #endregion
-
-        #region GUIs
-
-        // Buttons
-        internal const byte ELEMENT_BUTTONS_LENGTH = 13;
+        // HUD
+        internal const byte HUD_ELEMENT_BUTTONS_LENGTH = 13;
 
         // Item Explorer
         internal const byte ITEM_EXPLORER_ITEMS_PER_ROW = 12;
@@ -39,18 +28,25 @@ namespace StardustSandbox.Core.Constants
         internal const byte ITEM_EXPLORER_ITEMS_PER_PAGE = ITEM_EXPLORER_ITEMS_PER_ROW * ITEM_EXPLORER_ITEMS_PER_COLUMN;
         internal const byte ITEM_EXPLORER_SUBCATEGORY_BUTTONS_LENGTH = 14;
 
+        // Item Search
+        internal const byte ITEM_SEARCH_ITEMS_PER_ROW = 5;
+        internal const byte ITEM_SEARCH_ITEMS_PER_COLUMN = 6;
+        internal const byte ITEM_SEARCH_ITEMS_PER_PAGE = ITEM_SEARCH_ITEMS_PER_ROW * ITEM_SEARCH_ITEMS_PER_COLUMN;
+        internal const byte ITEM_SERACH_EXPECTED_ITEMS = 128;
+        internal const byte ITEM_SEARCH_MAX_CHARACTERS = 21;
+
         // World Explorer
         internal const byte WORLD_EXPLORER_ITEMS_PER_ROW = 3;
-        internal const byte WORLD_EXPLORER_ITEMS_PER_COLUMN = 3;
+        internal const byte WORLD_EXPLORER_ITEMS_PER_COLUMN = 2;
         internal const byte WORLD_EXPLORER_ITEMS_PER_PAGE = WORLD_EXPLORER_ITEMS_PER_ROW * WORLD_EXPLORER_ITEMS_PER_COLUMN;
 
         // Achievements
-        internal const byte ACHIEVEMENTS_PER_ROW = 15;
-        internal const byte ACHIEVEMENTS_PER_COLUMN = 7;
+        internal const byte ACHIEVEMENTS_PER_ROW = 5;
+        internal const byte ACHIEVEMENTS_PER_COLUMN = 5;
         internal const byte ACHIEVEMENTS_PER_PAGE = ACHIEVEMENTS_PER_ROW * ACHIEVEMENTS_PER_COLUMN;
 
         // Credits
-        internal const float CREDITS_SPEED = 0.05f;
+        internal const float CREDITS_SPEED = 65.0f;
         internal const float CREDITS_VERTICAL_SPACING = 64.0f;
 
         // Main Menu
@@ -59,15 +55,17 @@ namespace StardustSandbox.Core.Constants
         internal const float MAIN_BUTTON_ANIMATION_SPEED = 1.5f;
         internal const float MAIN_BUTTON_ANIMATION_AMPLITUDE = 5.0f;
 
-        // Options
-        internal const float OPTIONS_SCROLL_STEP = 52.0f;
-        internal const float OPTIONS_ITEM_SPACING = 58.0f;
-
         // Notification Box
         internal const float NOTIFICATION_DISPLAY_DURATION_SECONDS = 5.0f;
         internal const float NOTIFICATION_HIDE_DURATION_SECONDS = 0.5f;
         internal const float NOTIFICATION_MARGIN_LERP_FACTOR = 0.2f;
 
-        #endregion
+        // Options
+        internal const byte OPTIONS_PER_ROW = 6;
+        internal const byte OPTIONS_PER_COLUMN = 2;
+        internal const byte OPTIONS_PER_PAGE = OPTIONS_PER_ROW * OPTIONS_PER_COLUMN;
+
+        // Selector
+        internal const byte SELECTOR_CHOICES_PER_PAGE = 4;
     }
 }

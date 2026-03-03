@@ -15,16 +15,20 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using System;
+
 namespace StardustSandbox.Core.InputSystem.Actions
 {
     internal sealed class InputActionMap
     {
+        internal string Name { get; }
         internal bool IsActivated { get; set; }
 
         private readonly InputAction[] actions;
 
-        internal InputActionMap(InputAction[] actions)
+        internal InputActionMap(string name, params InputAction[] actions)
         {
+            this.Name = name;
             this.IsActivated = true;
             this.actions = actions;
         }
@@ -35,6 +39,11 @@ namespace StardustSandbox.Core.InputSystem.Actions
             {
                 this.actions[i].Update();
             }
+        }
+
+        internal InputAction GetAction(string name)
+        {
+            return Array.Find(this.actions, x => x.Name == name);
         }
     }
 }

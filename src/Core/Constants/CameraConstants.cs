@@ -19,6 +19,10 @@ namespace StardustSandbox.Core.Constants
 {
     internal static class CameraConstants
     {
+        internal const float PIXEL_RENDER_ZOOM_THRESHOLD = 0.35f;
+        internal const float MIN_ZOOM = 0.20f;
+        internal const float MAX_ZOOM = 1.25f;
+
         internal const float MOVEMENT_LERP_SPEED = 8.0f;
         internal const float ZOOM_LERP_SPEED = 8.0f;
     }

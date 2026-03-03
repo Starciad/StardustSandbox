@@ -21,7 +21,7 @@ namespace StardustSandbox.Core.Colors
 {
     internal readonly struct GradientColor(Color start, Color end)
     {
-        public readonly Color Start => start;
-        public readonly Color End => end;
+        internal readonly Color Start => start;
+        internal readonly Color End => end;
     }
 }

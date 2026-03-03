@@ -45,12 +45,12 @@ namespace StardustSandbox.Core.Elements.Energies
         {
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer))
                 {
                     continue;
                 }
 
-                SlotLayer slotLayer = neighbors.GetSlotLayer(i, context.Layer);
+                SlotLayer slotLayer = neighbors.GetSlotLayer(i, context.CurrentLayer);
 
                 if (slotLayer.Element.Category is ElementCategory.Gas)
                 {

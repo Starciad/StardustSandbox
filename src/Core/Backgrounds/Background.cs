@@ -18,38 +18,30 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Cameras;
+
+using System.Collections.Generic;
+
 namespace StardustSandbox.Core.Backgrounds
 {
     internal sealed class Background
     {
-        internal bool IsAffectedByLighting => this.isAffectedByLighting;
-
-        private readonly BackgroundLayer[] backgroundLayers;
-        private readonly bool isAffectedByLighting;
-        private readonly int layerCount;
-        private readonly Texture2D texture;
-
-        internal Background(BackgroundLayer[] backgroundLayers, bool isAffectedByLighting, Texture2D texture)
-        {
-            this.backgroundLayers = backgroundLayers;
-            this.isAffectedByLighting = isAffectedByLighting;
-            this.layerCount = backgroundLayers.Length;
-            this.texture = texture;
-        }
+        internal bool IsAffectedByLighting { get; init; }
+        internal required IEnumerable<BackgroundLayer> Layers { get; init; }
 
         internal void Update(GameTime gameTime)
         {
-            for (int i = 0; i < this.layerCount; i++)
+            foreach (BackgroundLayer layer in this.Layers)
             {
-                this.backgroundLayers[i].Update(gameTime, this.texture.Width, this.texture.Height);
+                layer.Update(gameTime);
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch, Camera2D camera)
         {
-            for (int i = 0; i < this.layerCount; i++)
+            foreach (BackgroundLayer layer in this.Layers)
             {
-                this.backgroundLayers[i].Draw(spriteBatch, this.texture);
+                layer.Draw(spriteBatch, camera);
             }
         }
     }

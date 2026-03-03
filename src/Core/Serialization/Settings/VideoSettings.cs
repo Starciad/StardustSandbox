@@ -15,11 +15,11 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.Serialization;
-using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
 using System.Xml.Serialization;
@@ -49,54 +49,47 @@ namespace StardustSandbox.Core.Serialization.Settings
         public bool Borderless { get; set; }
 
         [XmlIgnore]
-        public Resolution Resolution
+        public Point Resolution
         {
             get => new(this.Width, this.Height);
 
             set
             {
-                this.Width = value.Width;
-                this.Height = value.Height;
+                this.Width = value.X;
+                this.Height = value.Y;
             }
         }
 
         public VideoSettings()
         {
-            this.Framerate = ScreenConstants.FRAMERATE;
+            this.Framerate = 60.0f;
             this.Width = 0;
             this.Height = 0;
             this.FullScreen = false;
-            this.VSync = false;
+            this.VSync = true;
             this.Borderless = false;
         }
 
-        public VideoSettings UpdateResolution(GraphicsDevice graphicsDevice)
+        public void UpdateResolution(GraphicsDevice graphicsDevice)
         {
-            Resolution monitorResolution = new(
+            Point monitorResolution = new(
                 graphicsDevice.Adapter.CurrentDisplayMode.Width,
                 graphicsDevice.Adapter.CurrentDisplayMode.Height
             );
 
-            Resolution autoResolution = GetAutoResolution(monitorResolution);
+            Point autoResolution = GetAutoResolution(monitorResolution);
 
-            return new()
-            {
-                Framerate = this.Framerate,
-                Width = autoResolution.Width,
-                Height = autoResolution.Height,
-                FullScreen = this.FullScreen,
-                VSync = this.VSync,
-                Borderless = this.Borderless
-            };
+            this.Width = autoResolution.X;
+            this.Height = autoResolution.Y;
         }
 
-        private static Resolution GetAutoResolution(Resolution monitorResolution)
+        private static Point GetAutoResolution(Point monitorResolution)
         {
             for (int i = ScreenConstants.RESOLUTIONS.Length - 1; i >= 0; i--)
             {
-                Resolution resolution = ScreenConstants.RESOLUTIONS[i];
+                Point resolution = ScreenConstants.RESOLUTIONS[i];
 
-                if (resolution.Width <= monitorResolution.Width && resolution.Height <= monitorResolution.Height)
+                if (resolution.X <= monitorResolution.X && resolution.Y <= monitorResolution.Y)
                 {
                     return resolution;
                 }

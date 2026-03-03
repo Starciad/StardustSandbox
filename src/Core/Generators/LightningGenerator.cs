@@ -72,19 +72,19 @@ namespace StardustSandbox.Core.Generators
                     continue;
                 }
 
-                if (context.TryGetSlot(position, out Slot slot) && !slot.GetLayer(context.Layer).IsEmpty)
+                if (context.TryGetSlot(position, out Slot slot) && !slot.GetLayer(context.CurrentLayer).IsEmpty)
                 {
-                    if (slot.GetLayer(context.Layer).Element.Category is ElementCategory.Gas)
+                    if (slot.GetLayer(context.CurrentLayer).Element.Category is ElementCategory.Gas)
                     {
                         continue;
                     }
 
-                    switch (slot.GetLayer(context.Layer).ElementIndex)
+                    switch (slot.GetLayer(context.CurrentLayer).ElementIndex)
                     {
                         case ElementIndex.Water:
                         case ElementIndex.Ice:
                         case ElementIndex.Snow:
-                            if (slot.HasState(context.Layer, ElementStates.IsFalling))
+                            if (slot.HasState(context.CurrentLayer, ElementStates.IsFalling))
                             {
                                 continue;
                             }

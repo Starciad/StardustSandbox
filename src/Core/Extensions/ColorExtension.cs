@@ -50,9 +50,9 @@ namespace StardustSandbox.Core.Extensions
         {
             darkenFactor = Math.Clamp(darkenFactor, 0f, 1f);
 
-            int r = (int)(baseColor.R * (1 - darkenFactor));
-            int g = (int)(baseColor.G * (1 - darkenFactor));
-            int b = (int)(baseColor.B * (1 - darkenFactor));
+            int r = (int)(baseColor.R * (1.0f - darkenFactor));
+            int g = (int)(baseColor.G * (1.0f - darkenFactor));
+            int b = (int)(baseColor.B * (1.0f - darkenFactor));
 
             return new(r, g, b, baseColor.A);
         }
@@ -67,6 +67,11 @@ namespace StardustSandbox.Core.Extensions
             int a = (int)(baseColor.A + ((overlayColor.A - baseColor.A) * blendFactor));
 
             return new(r, g, b, a);
+        }
+
+        internal static string ToHexString(this Color color, bool includeAlpha = false)
+        {
+            return includeAlpha ? $"#{color.R:X2}{color.G:X2}{color.B:X2}{color.A:X2}" : $"#{color.R:X2}{color.G:X2}{color.B:X2}";
         }
     }
 }

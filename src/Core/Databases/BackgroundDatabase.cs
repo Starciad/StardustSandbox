@@ -15,8 +15,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
 using StardustSandbox.Core.Backgrounds;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Backgrounds;
@@ -40,19 +38,83 @@ namespace StardustSandbox.Core.Databases
 
             backgrounds = [
                 // [0] Main Menu
-                new([
-                    new(new(2.0f, 0.0f), new(-16.0f, 0.0f), false, true),
-                ], true, AssetDatabase.GetTexture(TextureIndex.BackgroundOcean)),
+                new()
+                {
+                    IsAffectedByLighting = true,
+                    Layers = [
+                        // Clouds
+                        new()
+                        {
+                            Anchoring = BackgroundAnchoring.South,
+                            AnchoringOffset = new(0.0f, -338.0f),
+                            AutoMovementSpeed = new(-6.0f, 0.0f),
+                            IsFixedVertically = true,
+                            RepeatHorizontally = true,
+                            Texture = AssetDatabase.GetTexture(TextureIndex.BackgroundClouds),
+                            TextureSourceRectangle = new(0, 0, 1280, 240),
+                        },
+
+                        // Ocean
+                        new()
+                        {
+                            Anchoring = BackgroundAnchoring.South,
+                            AnchoringOffset = new(0.0f, -184.0f),
+                            AutoMovementSpeed = new(-16.0f, 0.0f),
+                            IsFixedVertically = true,
+                            RepeatHorizontally = true,
+                            Texture = AssetDatabase.GetTexture(TextureIndex.BackgroundOcean),
+                            TextureSourceRectangle = new(0, 0, 1280, 216),
+                        },
+                    ],
+                },
 
                 // [1] Ocean
-                new([
-                    new(new(2.0f, 0.0f), Vector2.Zero, false, true),
-                ], true, AssetDatabase.GetTexture(TextureIndex.BackgroundOcean)),
+                new()
+                {
+                    IsAffectedByLighting = true,
+                    Layers = [
+                        // Clouds
+                        new()
+                        {
+                            Anchoring = BackgroundAnchoring.South,
+                            AnchoringOffset = new(0.0f, -338.0f),
+                            AutoMovementSpeed = new(-3.0f, 0.0f),
+                            IsFixedVertically = true,
+                            ParallaxSpeed = new(0.008f, 0.0f),
+                            RepeatHorizontally = true,
+                            Texture = AssetDatabase.GetTexture(TextureIndex.BackgroundClouds),
+                            TextureSourceRectangle = new(0, 0, 1280, 240),
+                        },
+
+                        // Ocean
+                        new()
+                        {
+                            Anchoring = BackgroundAnchoring.South,
+                            AnchoringOffset = new(0.0f, -184.0f),
+                            IsFixedVertically = true,
+                            ParallaxSpeed = new(0.01f, 0.0f),
+                            RepeatHorizontally = true,
+                            Texture = AssetDatabase.GetTexture(TextureIndex.BackgroundOcean),
+                            TextureSourceRectangle = new(0, 0, 1280, 216),
+                        },
+                    ],
+                },
 
                 // [2] Credits
-                new([
-                    new(new(0.0f, 0.0f), new(-32.0f), false, false),
-                ], false, AssetDatabase.GetTexture(TextureIndex.PatternDiamonds)),
+                new()
+                {
+                    Layers = [
+                        new()
+                        {
+                            Anchoring = BackgroundAnchoring.Northwest,
+                            AutoMovementSpeed = new(-32.0f),
+                            RepeatHorizontally = true,
+                            RepeatVertically = true,
+                            Texture = AssetDatabase.GetTexture(TextureIndex.PatternDiamonds),
+                            TextureSourceRectangle = new(0, 0, 80, 80),
+                        }
+                    ],
+                },
             ];
 
             isLoaded = true;

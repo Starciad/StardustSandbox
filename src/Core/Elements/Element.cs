@@ -128,7 +128,7 @@ namespace StardustSandbox.Core.Elements
         {
             float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
-            float currentTemperature = this.context.SlotLayer.Temperature;
+            float currentTemperature = this.context.CurrentSlotLayer.Temperature;
             float totalHeatTransfer = 0.0f;
             int validNeighborCount = 0;
 
@@ -165,32 +165,32 @@ namespace StardustSandbox.Core.Elements
                 }
             }
 
-            if (this.context.WorldTemperature.CanApplyTemperature)
+            if (this.context.GetWorldTemperature().CanApplyTemperature)
             {
-                float worldTemp = this.context.WorldTemperature.CurrentTemperature;
+                float worldTemp = this.context.GetWorldTemperature().CurrentTemperature;
                 float worldHeatTransfer = TemperatureConstants.WORLD_THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (worldTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
 
                 totalHeatTransfer += worldHeatTransfer;
             }
 
             float newTemperature = currentTemperature + totalHeatTransfer;
-            this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(newTemperature));
+            this.context.SetElementTemperature(this.context.CurrentPosition, this.context.CurrentLayer, TemperatureMath.Clamp(newTemperature));
 
             if (Math.Abs(totalHeatTransfer) < TemperatureConstants.EQUILIBRIUM_THRESHOLD)
             {
-                this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(currentTemperature));
+                this.context.SetElementTemperature(this.context.CurrentPosition, this.context.CurrentLayer, TemperatureMath.Clamp(currentTemperature));
             }
 
-            if (this.context.SlotLayer.Temperature == TemperatureConstants.MAX_CELSIUS_VALUE)
+            if (this.context.CurrentSlotLayer.Temperature == TemperatureConstants.MAX_CELSIUS_VALUE)
             {
                 AchievementEngine.Unlock(AchievementIndex.ACH_009);
             }
-            else if (this.context.SlotLayer.Temperature == TemperatureConstants.MIN_CELSIUS_VALUE)
+            else if (this.context.CurrentSlotLayer.Temperature == TemperatureConstants.MIN_CELSIUS_VALUE)
             {
                 AchievementEngine.Unlock(AchievementIndex.ACH_010);
             }
 
-            OnTemperatureChanged(this.context, this.context.SlotLayer.Temperature);
+            OnTemperatureChanged(this.context, this.context.CurrentSlotLayer.Temperature);
         }
 
         #endregion

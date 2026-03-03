@@ -27,7 +27,7 @@ using System.Xml.Serialization;
 
 namespace StardustSandbox.Core.Serialization
 {
-    internal static class SettingsSerializer
+    public static class SettingsSerializer
     {
         private interface ISettingsDescriptor
         {
@@ -35,25 +35,17 @@ namespace StardustSandbox.Core.Serialization
             void Load();
         }
 
-        private sealed class SettingsDescriptor<T> : ISettingsDescriptor where T : ISettingsModule, new()
+        private sealed class SettingsDescriptor<T>(string fileName) : ISettingsDescriptor where T : ISettingsModule, new()
         {
             public Type SettingsType => typeof(T);
-            internal T Value => this.cache;
+            public T Value => this.cache;
 
             private T cache;
-
-            private readonly string fileName;
-            private readonly XmlSerializer serializer;
-
-            internal SettingsDescriptor(string fileName)
-            {
-                this.fileName = fileName;
-                this.serializer = new(typeof(T));
-            }
+            private readonly XmlSerializer serializer = new(typeof(T));
 
             public void Load()
             {
-                string filePath = Path.Combine(IO.Directory.Settings, this.fileName);
+                string filePath = Path.Combine(IO.Directory.Settings, fileName);
 
                 if (!File.Exists(filePath))
                 {
@@ -73,9 +65,9 @@ namespace StardustSandbox.Core.Serialization
                 }
             }
 
-            internal void Save(T value)
+            public void Save(T value)
             {
-                using FileStream stream = new(Path.Combine(IO.Directory.Settings, this.fileName), FileMode.Create, FileAccess.Write);
+                using FileStream stream = new(Path.Combine(IO.Directory.Settings, fileName), FileMode.Create, FileAccess.Write);
 
                 this.cache = value;
                 this.serializer.Serialize(stream, value);
@@ -98,12 +90,13 @@ namespace StardustSandbox.Core.Serialization
             [typeof(CursorSettings)] = new SettingsDescriptor<CursorSettings>(IOConstants.CURSOR_SETTINGS_FILE),
             [typeof(GameplaySettings)] = new SettingsDescriptor<GameplaySettings>(IOConstants.GAMEPLAY_SETTINGS_FILE),
             [typeof(GeneralSettings)] = new SettingsDescriptor<GeneralSettings>(IOConstants.GENERAL_SETTINGS_FILE),
-            [typeof(StatusSettings)] = new SettingsDescriptor<StatusSettings>(IOConstants.STATUS_SETTINGS_FILE),
+            [typeof(InterfaceSettings)] = new SettingsDescriptor<InterfaceSettings>(IOConstants.INTERFACE_SETTINGS_FILE),
+            [typeof(SystemInformationSettings)] = new SettingsDescriptor<SystemInformationSettings>(IOConstants.SYSTEM_INFORMATION_FILE),
             [typeof(VideoSettings)] = new SettingsDescriptor<VideoSettings>(IOConstants.VIDEO_SETTINGS_FILE),
             [typeof(VolumeSettings)] = new SettingsDescriptor<VolumeSettings>(IOConstants.VOLUME_SETTINGS_FILE),
         };
 
-        internal static void Initialize()
+        public static void Initialize()
         {
             _ = Directory.CreateDirectory(IO.Directory.Settings);
 
@@ -115,12 +108,12 @@ namespace StardustSandbox.Core.Serialization
             CreateWarningFile();
         }
 
-        internal static T Load<T>() where T : ISettingsModule, new()
+        public static T Load<T>() where T : ISettingsModule, new()
         {
             return GetDescriptor<T>().Value;
         }
 
-        internal static void Save<T>(T value) where T : ISettingsModule, new()
+        public static void Save<T>(T value) where T : ISettingsModule, new()
         {
             GetDescriptor<T>().Save(value);
         }

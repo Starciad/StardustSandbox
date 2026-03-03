@@ -31,17 +31,17 @@ namespace StardustSandbox.Core.Elements.Gases
 
         private void EvaluateNeighboringPosition(ElementContext context, Point position)
         {
-            if (context.IsEmptySlotLayer(position, context.Layer))
+            if (context.IsEmptySlotLayer(position, context.CurrentLayer))
             {
                 availablePositions.Add(position);
             }
             else if (context.TryGetSlot(position, out Slot value))
             {
-                SlotLayer slotLayer = value.GetLayer(context.Layer);
+                SlotLayer slotLayer = value.GetLayer(context.CurrentLayer);
 
                 if (slotLayer.Element.Category is ElementCategory.Gas or ElementCategory.Liquid)
                 {
-                    if ((slotLayer.ElementIndex == this.Index && slotLayer.Temperature > context.SlotLayer.Temperature) || this.DefaultDensity > slotLayer.Element.DefaultDensity)
+                    if ((slotLayer.ElementIndex == this.Index && slotLayer.Temperature > context.CurrentSlotLayer.Temperature) || this.DefaultDensity > slotLayer.Element.DefaultDensity)
                     {
                         availablePositions.Add(position);
                     }
@@ -53,8 +53,8 @@ namespace StardustSandbox.Core.Elements.Gases
         {
             availablePositions.Clear();
 
-            int centerX = context.Slot.Position.X;
-            int centerY = context.Slot.Position.Y;
+            int centerX = context.CurrentSlot.Position.X;
+            int centerY = context.CurrentSlot.Position.Y;
 
             for (int dx = -1; dx <= 1; dx++)
             {

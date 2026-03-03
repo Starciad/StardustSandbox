@@ -25,8 +25,8 @@ namespace StardustSandbox.Core.Elements.Gases
     {
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
-            if (context.Position.Y <= PercentageMath.PercentageOfValue(context.WorldInformation.Size.Y, 15.0f) &&
-                neighbors.CountNeighborsByElementIndex(ElementIndex.Cloud, context.Layer) >= 4 &&
+            if (context.CurrentPosition.Y <= PercentageMath.PercentageOfValue(context.GetWorldSize().Y, 15.0f) &&
+                neighbors.CountNeighborsByElementIndex(ElementIndex.Cloud, context.CurrentLayer) >= 4 &&
                 Random.Chance(5))
             {
                 context.ReplaceElement(ElementIndex.ChargedCloud);
@@ -37,7 +37,7 @@ namespace StardustSandbox.Core.Elements.Gases
         {
             if (Random.Chance(35))
             {
-                context.UpdateElementPosition(new(context.Slot.Position.X, context.Slot.Position.Y - 1));
+                context.UpdateElementPosition(new(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y - 1));
                 return;
             }
 

@@ -41,8 +41,8 @@ namespace StardustSandbox.Core.WorldSystem
         public void Reset()
         {
             this.chunks = new Chunk[
-                (this.world.Information.Size.X / WorldConstants.CHUNK_SCALE) + 1,
-                (this.world.Information.Size.Y / WorldConstants.CHUNK_SCALE) + 1
+                (this.world.Size.X / WorldConstants.CHUNK_SCALE) + 1,
+                (this.world.Size.Y / WorldConstants.CHUNK_SCALE) + 1
             ];
 
             this.worldChunkWidth = this.chunks.GetLength(0);
@@ -52,7 +52,7 @@ namespace StardustSandbox.Core.WorldSystem
             {
                 for (int y = 0; y < this.worldChunkHeight; y++)
                 {
-                    this.chunks[x, y] = new Chunk(new(x * WorldConstants.CHUNK_SCALE * WorldConstants.GRID_SIZE, y * WorldConstants.CHUNK_SCALE * WorldConstants.GRID_SIZE));
+                    this.chunks[x, y] = new Chunk(new(x * WorldConstants.CHUNK_SCALE * WorldConstants.TILE_SIZE, y * WorldConstants.CHUNK_SCALE * WorldConstants.TILE_SIZE));
                 }
             }
         }
@@ -86,7 +86,7 @@ namespace StardustSandbox.Core.WorldSystem
                     Chunk chunk = this.chunks[x, y];
 
                     Vector2 position = new(chunk.Position.X, chunk.Position.Y);
-                    Vector2 scale = new(WorldConstants.CHUNK_SCALE * WorldConstants.GRID_SIZE);
+                    Vector2 scale = new(WorldConstants.CHUNK_SCALE * WorldConstants.TILE_SIZE);
                     Color color = chunk.ShouldUpdate ? AAP64ColorPalette.Crimson : AAP64ColorPalette.White;
 
                     if (chessEffect)

@@ -32,9 +32,9 @@ namespace StardustSandbox.Core.UI.Elements
     {
         private readonly struct NotificationEntry(TextureIndex iconTextureIndex, Rectangle? iconSourceRectangle, string message)
         {
-            public TextureIndex IconTextureIndex => iconTextureIndex;
-            public Rectangle? IconSourceRectangle => iconSourceRectangle;
-            public string Message => message;
+            internal TextureIndex IconTextureIndex => iconTextureIndex;
+            internal Rectangle? IconSourceRectangle => iconSourceRectangle;
+            internal string Message => message;
         }
 
         private enum DisplayState : byte
@@ -63,7 +63,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         internal NotificationBox()
         {
-            this.Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2();
+            this.Size = GameScreen.GetViewport();
 
             this.background = new()
             {
@@ -164,7 +164,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         internal void EnqueueNotification(TextureIndex iconTextureIndex, Rectangle? sourceRectangle, string message)
         {
-            if (string.IsNullOrEmpty(message))
+            if (string.IsNullOrWhiteSpace(message))
             {
                 return;
             }
@@ -190,6 +190,11 @@ namespace StardustSandbox.Core.UI.Elements
             // Set state to showing and start timer
             this.state = DisplayState.Showing;
             this.stateTimerSeconds = UIConstants.NOTIFICATION_DISPLAY_DURATION_SECONDS;
+        }
+
+        internal void OnScreenResize(Vector2 newSize)
+        {
+            this.Size = newSize;
         }
     }
 }

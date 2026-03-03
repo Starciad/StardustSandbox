@@ -15,8 +15,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
 using StardustSandbox.Core.Actors;
 using StardustSandbox.Core.Actors.Common;
 using StardustSandbox.Core.Enums.Actors;
@@ -43,11 +41,10 @@ namespace StardustSandbox.Core.Databases
             descriptors = [
                 new ActorDescriptor<GulActor>(ActorIndex.Gul, () => new(ActorIndex.Gul, actorManager, world)
                 {
-                    Position = Point.Zero,
-                    Size = new(1),
-
                     CanDraw = true,
                     CanUpdate = true,
+
+                    Size = new(1),
                 }),
             ];
 

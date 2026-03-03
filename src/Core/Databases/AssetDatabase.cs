@@ -76,22 +76,22 @@ namespace StardustSandbox.Core.Databases
             ];
 
             soundEffects = [
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "accepted")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "click")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "error")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "hover")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "message")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "pause_ended")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "pause_started")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "rejected")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "returning")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "typing_1")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "typing_2")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "typing_3")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "typing_4")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "typing_5")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "world_loaded")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "guis", "world_saved")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "accepted")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "click")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "error")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "hover")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "message")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "pause_ended")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "pause_started")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "rejected")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "returning")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "typing_1")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "typing_2")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "typing_3")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "typing_4")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "typing_5")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "world_loaded")),
+                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "world_saved")),
             ];
 
             textures = [
@@ -100,27 +100,13 @@ namespace StardustSandbox.Core.Databases
                 contentManager.Load<Texture2D>(Path.Combine("textures", "actors")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "cursors")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "elements")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "frames")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "backgrounds", "clouds")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "backgrounds", "ocean")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "bgos", "celestial_bodies")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "bgos", "clouds")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "characters", "starciad")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "game", "title")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "environment_settings")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "generator_settings")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "hud_horizontal_toolbar")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "hud_vertical_toolbar")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "information")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "item_explorer")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "options")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "pause")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "pen_settings")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "save_settings")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "temperature_settings")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "backgrounds", "world_settings")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "buttons")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "size_slider")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "slider_input_ornament")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "gui", "text_input_ornament")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "actors")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "elements")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "keys")),
@@ -131,6 +117,28 @@ namespace StardustSandbox.Core.Databases
                 contentManager.Load<Texture2D>(Path.Combine("textures", "shapes", "squares")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "third_parties", "monogame")),
                 contentManager.Load<Texture2D>(Path.Combine("textures", "third_parties", "xna")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "achievements")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "environment_settings")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "generator_settings")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "hud_horizontal_toolbar")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "hud_vertical_toolbar")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "information")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "item_explorer")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "item_search")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "options")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "pause")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "pen_settings")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "save_settings")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "selector")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "temperature_settings")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "tutorial")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "world_explorer")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "world_settings")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "buttons")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "size_slider")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "slider_input_ornament")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "text_input_ornament")),
+                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "tutorial")),
             ];
 
             isLoaded = true;
@@ -166,7 +174,7 @@ namespace StardustSandbox.Core.Databases
             return effects[(int)index];
         }
 
-        internal static SoundEffect GetSoundEffect(SoundEffectIndex index)
+        internal static SoundEffect GetSoundEffect(in SoundEffectIndex index)
         {
             return soundEffects[(int)index];
         }

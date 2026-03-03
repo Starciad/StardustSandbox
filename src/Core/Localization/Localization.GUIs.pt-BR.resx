@@ -493,7 +493,7 @@
     <value>Escolha a cor para a área de pré-visualização exibida durante o jogo.</value>
   </data>
   <data name="Options.General.Language.Description" xml:space="preserve">
-    <value>Selecione o idioma para a interface do jogo.</value>
+    <value>Selecione o idioma para a interface do jogo. A reinicialização do jogo é necessária para aplicar as alterações.</value>
   </data>
   <data name="Options.Save.Description" xml:space="preserve">
     <value>Salva e aplica todas as opções modificadas.</value>
@@ -824,5 +824,83 @@
   </data>
   <data name="Achievements.Title" xml:space="preserve">
     <value>Conquistas</value>
+  </data>
+  <data name="ItemSearch.Placeholder" xml:space="preserve">
+    <value>Pesquisar por um item...</value>
+  </data>
+  <data name="ItemSearch.Title" xml:space="preserve">
+    <value>Pesquisa de Itens</value>
+  </data>
+  <data name="ItemSearch.Description" xml:space="preserve">
+    <value>Encontre os itens que deseja pesquisando por nome.</value>
+  </data>
+  <data name="Options.Interface.Name" xml:space="preserve">
+    <value>Interface</value>
+  </data>
+  <data name="Options.Interface.Description" xml:space="preserve">
+    <value>Ajuste as configurações da interface para uma melhor experiência do usuário.</value>
+  </data>
+  <data name="Options.Interface.ShowTooltip.Name" xml:space="preserve">
+    <value>Mostrar Dica</value>
+  </data>
+  <data name="Options.Interface.ShowTooltip.Description" xml:space="preserve">
+    <value>Exiba dicas ao passar o mouse sobre elementos da interface.</value>
+  </data>
+  <data name="Options.Gameplay.UseSmoothCameraMovement.Name" xml:space="preserve">
+    <value>Movimento Suave da Câmera</value>
+  </data>
+  <data name="Options.Gameplay.UseSmoothCameraMovement.Description" xml:space="preserve">
+    <value>Habilite o movimento suave da câmera para uma experiência de visualização mais confortável.</value>
+  </data>
+  <data name="Tutorial.Introduction.Title" xml:space="preserve">
+    <value>Introdução</value>
+  </data>
+  <data name="Tutorial.Introduction.Description" xml:space="preserve">
+    <value>Bem-vindo(a) ao Stardust Sandbox. Aqui você pode criar experiências usando diferentes materiais e entidades. Este tutorial mostra apenas o essencial para começar. Depois disso, você poderá explorar livremente.</value>
+  </data>
+  <data name="Tutorial.Camera.Title" xml:space="preserve">
+    <value>Câmera</value>
+  </data>
+  <data name="Tutorial.Camera.Description" xml:space="preserve">
+    <value>Use {0} {1} {2} {3} para mover a câmera pelo mapa. Use {4} para aproximar e {5} para afastar a visão. Se quiser se mover mais rápido, segure {6} enquanto utiliza as teclas de movimento.</value>
+  </data>
+  <data name="Tutorial.Draw.Title" xml:space="preserve">
+    <value>Desenhar</value>
+  </data>
+  <data name="Tutorial.Draw.Description" xml:space="preserve">
+    <value>Escolha um item na barra superior para torná-lo ativo. Depois de seleciona-lo, basta mover o mouse para o mapa e segurar o botão esquerdo para aplicar o item. Use a roda do mouse para ajustar o tamanho do pincel conforme necessário.</value>
+  </data>
+  <data name="Tutorial.Erase.Title" xml:space="preserve">
+    <value>Apagar</value>
+  </data>
+  <data name="Tutorial.Erase.Description" xml:space="preserve">
+    <value>Para remover conteúdo do mapa, selecione a ferramenta Borracha ou segure o botão direito do mouse sobre a área desejada. Lembre-se de que para apagar um item, você deve selecionar o mesmo tipo de item que deseja remover.</value>
+  </data>
+  <data name="Tutorial.Interface.Title" xml:space="preserve">
+    <value>Interface</value>
+  </data>
+  <data name="Tutorial.Interface.Description" xml:space="preserve">
+    <value>A barra superior mostra o item atual e permite acessar outros materiais pelo explorador. A barra esquerda reúne ferramentas e configurações do mundo. A barra direita contém ações importantes como salvar, carregar e limpar o mapa.</value>
+  </data>
+  <data name="Tutorial.Simulation.Title" xml:space="preserve">
+    <value>Simulação</value>
+  </data>
+  <data name="Tutorial.Simulation.Description" xml:space="preserve">
+    <value>Tudo acontece dentro do mapa. Os elementos são materiais como areia e água que seguem regras físicas e interagem entre si. Atores são entidades que reagem ao ambiente e podem modificar o mundo ao seu redor.</value>
+  </data>
+  <data name="Tutorial.Save.Title" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="Tutorial.Save.Description" xml:space="preserve">
+    <value>Use a barra direita para salvar suas criações. Assim você pode continuar depois sem perder seu progresso.</value>
+  </data>
+  <data name="Tutorial.Explore.Title" xml:space="preserve">
+    <value>Explorar</value>
+  </data>
+  <data name="Tutorial.Explore.Description" xml:space="preserve">
+    <value>Experimente combinar diferentes elementos para observar novos comportamentos. Testar, ajustar e tentar novamente é a melhor forma de aprender como a simulação funciona.</value>
+  </data>
+  <data name="Tutorial.ClickToContinue" xml:space="preserve">
+    <value>Clique para Continuar...</value>
   </data>
 </root>

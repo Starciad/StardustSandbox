@@ -52,7 +52,7 @@ namespace StardustSandbox.Core.UI.Elements
             get => this.textContent;
             set
             {
-                if (!string.IsNullOrWhiteSpace(value) && !this.textContent.Equals(value))
+                if (value is not null && !this.textContent.Equals(value))
                 {
                     this.textContent = value;
                     this.textContentDirty = true;
@@ -132,7 +132,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         protected override void OnDraw(SpriteBatch spriteBatch)
         {
-            if (!string.IsNullOrEmpty(this.textContent))
+            if (!string.IsNullOrWhiteSpace(this.textContent))
             {
                 Vector2 position = this.Position;
 
@@ -146,7 +146,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         private Vector2 MeasureText()
         {
-            return string.IsNullOrEmpty(this.textContent) ? Vector2.Zero : this.spriteFont.MeasureString(this.textContent) * this.Scale;
+            return string.IsNullOrWhiteSpace(this.textContent) ? Vector2.Zero : this.spriteFont.MeasureString(this.textContent) * this.Scale;
         }
     }
 }

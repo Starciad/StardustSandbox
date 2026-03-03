@@ -25,7 +25,6 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.InputSystem;
-using StardustSandbox.Core.InputSystem.Game;
 using StardustSandbox.Core.IO;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
@@ -38,41 +37,10 @@ namespace StardustSandbox.Core
 {
     internal static class GameRenderer
     {
-        internal static RenderTarget2D ScreenRenderTarget2D => screenRenderTarget2D;
-
         private static bool isInitialized;
-        private static bool isUnloaded;
         private static bool hasScreenshotRequest;
 
-        private static RenderTarget2D screenRenderTarget2D;
-        private static RenderTarget2D backgroundRenderTarget2D;
-        private static RenderTarget2D uiRenderTarget2D;
-        private static RenderTarget2D worldRenderTarget2D;
-        private static RenderTarget2D screenshotRenderTarget2D;
-        private static RenderTarget2D cursorRenderTarget2D;
-
         private static GraphicsDevice graphicsDevice;
-
-        private static RenderTarget2D CreateRenderTarget(int width, int height)
-        {
-            return new RenderTarget2D(
-                graphicsDevice,
-                width,
-                height,
-                false,
-                SurfaceFormat.Color,
-                DepthFormat.None,
-                0,
-                RenderTargetUsage.DiscardContents,
-                false
-            );
-        }
-
-        private static void DisposeRenderTarget(ref RenderTarget2D renderTarget)
-        {
-            renderTarget?.Dispose();
-            renderTarget = null;
-        }
 
         internal static void Initialize(VideoManager videoManager)
         {
@@ -82,210 +50,185 @@ namespace StardustSandbox.Core
             }
 
             graphicsDevice = videoManager.GraphicsDevice;
-
-            int width = ScreenConstants.SCREEN_WIDTH;
-            int height = ScreenConstants.SCREEN_HEIGHT;
-
-            screenRenderTarget2D = CreateRenderTarget(width, height);
-            uiRenderTarget2D = CreateRenderTarget(width, height);
-            backgroundRenderTarget2D = CreateRenderTarget(width, height);
-            worldRenderTarget2D = CreateRenderTarget(width, height);
-            screenshotRenderTarget2D = CreateRenderTarget(width, height);
-            cursorRenderTarget2D = CreateRenderTarget(width, height);
-
             isInitialized = true;
-            isUnloaded = false;
-        }
-
-        internal static void Unload()
-        {
-            if (isUnloaded)
-            {
-                throw new InvalidOperationException($"{nameof(GameRenderer)} has already been unloaded.");
-            }
-
-            DisposeRenderTarget(ref screenRenderTarget2D);
-            DisposeRenderTarget(ref uiRenderTarget2D);
-            DisposeRenderTarget(ref backgroundRenderTarget2D);
-            DisposeRenderTarget(ref worldRenderTarget2D);
-            DisposeRenderTarget(ref screenshotRenderTarget2D);
-            DisposeRenderTarget(ref cursorRenderTarget2D);
-
-            isUnloaded = true;
-            isInitialized = false;
         }
 
         internal static void Draw(
             ActorManager actorManager,
             AmbientManager ambientManager,
+            Camera2D camera,
             CursorManager cursorManager,
-            InputController inputController,
+            PlayerInputController playerInputController,
             SpriteBatch spriteBatch,
             UIManager uiManager,
-            VideoManager videoManager,
             World world
         )
         {
-            if (!isInitialized || isUnloaded)
+            if (!isInitialized)
             {
-                throw new InvalidOperationException($"{nameof(GameRenderer)} is not properly initialized or has been unloaded.");
-            }
-
-            DrawAmbient(spriteBatch, ambientManager);
-            DrawWorld(spriteBatch, actorManager, world);
-            DrawCursorPenActionArea(spriteBatch, inputController);
-            DrawGUI(spriteBatch, uiManager);
-
-            graphicsDevice.SetRenderTarget(screenRenderTarget2D);
-            graphicsDevice.Clear(Color.Transparent);
-
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
-            spriteBatch.Draw(backgroundRenderTarget2D, Vector2.Zero, Color.White);
-            spriteBatch.Draw(worldRenderTarget2D, Vector2.Zero, Color.White);
-            spriteBatch.Draw(cursorRenderTarget2D, Vector2.Zero, Color.White);
-            spriteBatch.Draw(uiRenderTarget2D, Vector2.Zero, Color.White);
-            spriteBatch.End();
-
-            if (hasScreenshotRequest)
-            {
-                graphicsDevice.SetRenderTarget(screenshotRenderTarget2D);
-                graphicsDevice.Clear(Color.Transparent);
-
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
-                spriteBatch.Draw(backgroundRenderTarget2D, Vector2.Zero, Color.White);
-                spriteBatch.Draw(worldRenderTarget2D, Vector2.Zero, Color.White);
-                spriteBatch.Draw(cursorRenderTarget2D, Vector2.Zero, Color.White);
-                spriteBatch.Draw(uiRenderTarget2D, Vector2.Zero, Color.White);
-                spriteBatch.End();
-
-                _ = File.WriteRenderTarget2D(screenRenderTarget2D);
-                hasScreenshotRequest = false;
+                throw new InvalidOperationException($"{nameof(GameRenderer)} is not initialized.");
             }
 
             graphicsDevice.SetRenderTarget(null);
             graphicsDevice.Clear(Color.Transparent);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
-            spriteBatch.Draw(screenRenderTarget2D, videoManager.AdjustRenderTargetOnScreen(screenRenderTarget2D), Color.White);
-            cursorManager.Draw(spriteBatch);
-            spriteBatch.End();
+            DrawAmbient(spriteBatch, ambientManager, camera);
+            DrawWorld(spriteBatch, camera, actorManager, world);
+            DrawCursorPenActionArea(spriteBatch, camera, playerInputController);
+            DrawGUI(spriteBatch, uiManager);
+            DrawCursor(spriteBatch, cursorManager);
+
+            if (hasScreenshotRequest)
+            {
+                SaveBackBufferScreenshot();
+                hasScreenshotRequest = false;
+            }
         }
 
-        private static void DrawAmbient(SpriteBatch spriteBatch, AmbientManager ambientManager)
+        private static void DrawAmbient(SpriteBatch spriteBatch, AmbientManager ambientManager, Camera2D camera)
         {
-            graphicsDevice.SetRenderTarget(backgroundRenderTarget2D);
-            graphicsDevice.Clear(Color.Transparent);
+            Effect gradientTransitionEffect = AssetDatabase.GetEffect(EffectIndex.GradientTransition);
 
-            // Sky
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, AssetDatabase.GetEffect(EffectIndex.GradientTransition), null);
-            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Pixel), Vector2.Zero, null, AAP64ColorPalette.White, 0f, Vector2.Zero, new Vector2(ScreenConstants.SCREEN_WIDTH, ScreenConstants.SCREEN_HEIGHT), SpriteEffects.None, 0f);
+            // Sky (gradient)
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.NonPremultiplied,
+                null,
+                null,
+                null,
+                gradientTransitionEffect
+            );
+            spriteBatch.Draw(
+                AssetDatabase.GetTexture(TextureIndex.Pixel),
+                new Rectangle(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height),
+                AAP64ColorPalette.White
+            );
             spriteBatch.End();
 
-            // Celestial Bodies
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
+            // Celestial bodies
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.NonPremultiplied,
+                SamplerState.PointClamp
+            );
             ambientManager.CelestialBodyHandler.Draw(spriteBatch);
             spriteBatch.End();
 
             // Background
-            if (ambientManager.BackgroundHandler.IsAffectedByLighting)
-            {
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, AssetDatabase.GetEffect(EffectIndex.GradientTransition), null);
-                ambientManager.CloudHandler.Draw(spriteBatch);
-                ambientManager.BackgroundHandler.Draw(spriteBatch);
-                spriteBatch.End();
-            }
-            else
-            {
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, null);
-                ambientManager.CloudHandler.Draw(spriteBatch);
-                ambientManager.BackgroundHandler.Draw(spriteBatch);
-                spriteBatch.End();
-            }
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.NonPremultiplied,
+                SamplerState.PointClamp,
+                DepthStencilState.Default,
+                RasterizerState.CullNone,
+                ambientManager.BackgroundHandler.GetCurrentBackground().IsAffectedByLighting ? gradientTransitionEffect : null,
+                null
+            );
+            ambientManager.BackgroundHandler.Draw(spriteBatch, camera);
+            spriteBatch.End();
         }
 
-        private static void DrawWorld(SpriteBatch spriteBatch, ActorManager actorManager, World world)
+        private static void DrawWorld(SpriteBatch spriteBatch, Camera2D camera, ActorManager actorManager, World world)
         {
-            graphicsDevice.SetRenderTarget(worldRenderTarget2D);
-            graphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.NonPremultiplied,
+                SamplerState.PointClamp,
+                DepthStencilState.Default,
+                RasterizerState.CullNone,
+                null,
+                camera.GetViewMatrix()
+            );
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Camera.GetViewMatrix());
-            world.Draw(spriteBatch);
-            actorManager.Draw(spriteBatch);
+            world.Draw(spriteBatch, camera);
+            actorManager.Draw(spriteBatch, camera);
+
             spriteBatch.End();
         }
 
         private static void DrawGUI(SpriteBatch spriteBatch, UIManager uiManager)
         {
-            graphicsDevice.SetRenderTarget(uiRenderTarget2D);
-            graphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.NonPremultiplied,
+                SamplerState.PointClamp
+            );
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
             uiManager.Draw(spriteBatch);
+
             spriteBatch.End();
         }
 
-        private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, InputController inputController)
+        private static void DrawCursor(SpriteBatch spriteBatch, CursorManager cursorManager)
         {
-            graphicsDevice.SetRenderTarget(cursorRenderTarget2D);
-            graphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.NonPremultiplied,
+                SamplerState.PointClamp
+            );
 
+            cursorManager.Draw(spriteBatch);
+
+            spriteBatch.End();
+        }
+
+        private static void DrawCursorPenActionArea(SpriteBatch spriteBatch, Camera2D camera, PlayerInputController playerInputController)
+        {
             GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
 
-            PenTool penTool = inputController.Pen.Tool;
-
-            if (!gameplaySettings.ShowPreviewArea || penTool is PenTool.Visualization or PenTool.Fill)
+            if (!gameplaySettings.ShowPreviewArea || playerInputController.Pen.Tool is PenTool.Visualization or PenTool.Fill)
             {
                 return;
             }
 
-            Vector2 mousePosition = Input.GetScaledMousePosition();
-            Vector2 worldMousePosition = Camera.ScreenToWorld(mousePosition);
+            Vector2 screenMousePosition = InputEngine.GetCurrentMousePosition();
+            Vector2 worldMousePosition = camera.ScreenToWorld(screenMousePosition);
 
             Point alignedPosition = new(
-                (int)Math.Floor(worldMousePosition.X / WorldConstants.GRID_SIZE),
-                (int)Math.Floor(worldMousePosition.Y / WorldConstants.GRID_SIZE)
+                (int)Math.Floor(worldMousePosition.X / WorldConstants.TILE_SIZE),
+                (int)Math.Floor(worldMousePosition.Y / WorldConstants.TILE_SIZE)
             );
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone);
+            spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.NonPremultiplied,
+                SamplerState.PointClamp,
+                transformMatrix: camera.GetViewMatrix()
+            );
 
-            foreach (Point point in inputController.Pen.GetShapePoints(alignedPosition))
+            foreach (Point point in playerInputController.Pen.GetShapePoints(alignedPosition))
             {
                 Vector2 worldPosition = new(
-                    point.X * WorldConstants.GRID_SIZE,
-                    point.Y * WorldConstants.GRID_SIZE
+                    point.X * WorldConstants.TILE_SIZE,
+                    point.Y * WorldConstants.TILE_SIZE
                 );
-
-                Vector2 screenPosition = Camera.WorldToScreen(worldPosition);
 
                 spriteBatch.Draw(
                     AssetDatabase.GetTexture(TextureIndex.ShapeSquares),
-                    screenPosition,
-                    new(110, 0, 32, 32),
-                    gameplaySettings.PreviewAreaColor,
-                    0f,
-                    Vector2.Zero,
-                    Vector2.One,
-                    SpriteEffects.None,
-                    0f
+                    worldPosition,
+                    new Rectangle(110, 0, 32, 32),
+                    gameplaySettings.PreviewAreaColor
                 );
             }
 
             spriteBatch.End();
         }
 
-        internal static Vector2 CalculateScaledMousePosition(in Vector2 mousePosition, VideoManager videoManager)
+        private static void SaveBackBufferScreenshot()
         {
-            Rectangle adjustedScreen = videoManager.AdjustRenderTargetOnScreen(ScreenRenderTarget2D);
+            int width = graphicsDevice.PresentationParameters.BackBufferWidth;
+            int height = graphicsDevice.PresentationParameters.BackBufferHeight;
 
-            float scale = adjustedScreen.Width / (float)ScreenRenderTarget2D.Width;
+            Color[] data = new Color[width * height];
+            graphicsDevice.GetBackBufferData(data);
 
-            float mouseX = (mousePosition.X - adjustedScreen.X) / scale;
-            float mouseY = (mousePosition.Y - adjustedScreen.Y) / scale;
+            // Flatten Alpha
+            for (int i = 0; i < data.Length; i++)
+            {
+                data[i] = new(data[i].R, data[i].G, data[i].B, (byte)255);
+            }
 
-            mouseX = Math.Clamp(mouseX, 0, ScreenRenderTarget2D.Width - 1);
-            mouseY = Math.Clamp(mouseY, 0, ScreenRenderTarget2D.Height - 1);
-
-            return new(mouseX, mouseY);
+            File.WriteColorBuffer(graphicsDevice, width, height, data);
         }
 
         internal static void RequestScreenshot()

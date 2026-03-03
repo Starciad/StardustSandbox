@@ -19,7 +19,7 @@ namespace StardustSandbox.Core.Localization {
     // através de uma ferramenta como ResGen ou Visual Studio.
     // Para adicionar ou remover um associado, edite o arquivo .ResX e execute ResGen novamente
     // com a opção /str, ou recrie o projeto do VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Localization_GUIs {
@@ -907,6 +907,33 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Find the items you want by searching for them by name..
+        /// </summary>
+        internal static string ItemSearch_Description {
+            get {
+                return ResourceManager.GetString("ItemSearch.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Search for an item....
+        /// </summary>
+        internal static string ItemSearch_Placeholder {
+            get {
+                return ResourceManager.GetString("ItemSearch.Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Item Search.
+        /// </summary>
+        internal static string ItemSearch_Title {
+            get {
+                return ResourceManager.GetString("ItemSearch.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Create.
         /// </summary>
         internal static string Main_Create {
@@ -1348,6 +1375,24 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Enable smooth camera movement for a more comfortable viewing experience..
+        /// </summary>
+        internal static string Options_Gameplay_UseSmoothCameraMovement_Description {
+            get {
+                return ResourceManager.GetString("Options.Gameplay.UseSmoothCameraMovement.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Smooth Camera Movement.
+        /// </summary>
+        internal static string Options_Gameplay_UseSmoothCameraMovement_Name {
+            get {
+                return ResourceManager.GetString("Options.Gameplay.UseSmoothCameraMovement.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Basic game settings, including language and accessibility..
         /// </summary>
         internal static string Options_General_Description {
@@ -1357,7 +1402,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Select the language for the game interface..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Select the language for the game interface. Game restart required..
         /// </summary>
         internal static string Options_General_Language_Description {
             get {
@@ -1380,6 +1425,42 @@ namespace StardustSandbox.Core.Localization {
         internal static string Options_General_Name {
             get {
                 return ResourceManager.GetString("Options.General.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Adjust the interface settings for a better user experience..
+        /// </summary>
+        internal static string Options_Interface_Description {
+            get {
+                return ResourceManager.GetString("Options.Interface.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Interface.
+        /// </summary>
+        internal static string Options_Interface_Name {
+            get {
+                return ResourceManager.GetString("Options.Interface.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Display tooltips when hovering over interface elements..
+        /// </summary>
+        internal static string Options_Interface_ShowTooltip_Description {
+            get {
+                return ResourceManager.GetString("Options.Interface.ShowTooltip.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Show Tooltip.
+        /// </summary>
+        internal static string Options_Interface_ShowTooltip_Name {
+            get {
+                return ResourceManager.GetString("Options.Interface.ShowTooltip.Name", resourceCulture);
             }
         }
         
@@ -2028,6 +2109,159 @@ namespace StardustSandbox.Core.Localization {
         internal static string Tools_ColorPicker_Title {
             get {
                 return ResourceManager.GetString("Tools.ColorPicker.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Camera_Description {
+            get {
+                return ResourceManager.GetString("Tutorial.Camera.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Camera_Title {
+            get {
+                return ResourceManager.GetString("Tutorial.Camera.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_ClickToContinue {
+            get {
+                return ResourceManager.GetString("Tutorial.ClickToContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Draw_Description {
+            get {
+                return ResourceManager.GetString("Tutorial.Draw.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Draw_Title {
+            get {
+                return ResourceManager.GetString("Tutorial.Draw.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Erase_Description {
+            get {
+                return ResourceManager.GetString("Tutorial.Erase.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Erase_Title {
+            get {
+                return ResourceManager.GetString("Tutorial.Erase.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Explore_Description {
+            get {
+                return ResourceManager.GetString("Tutorial.Explore.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Explore_Title {
+            get {
+                return ResourceManager.GetString("Tutorial.Explore.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Interface_Description {
+            get {
+                return ResourceManager.GetString("Tutorial.Interface.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Interface_Title {
+            get {
+                return ResourceManager.GetString("Tutorial.Interface.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Introduction_Description {
+            get {
+                return ResourceManager.GetString("Tutorial.Introduction.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Introduction_Title {
+            get {
+                return ResourceManager.GetString("Tutorial.Introduction.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Save_Description {
+            get {
+                return ResourceManager.GetString("Tutorial.Save.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Save_Title {
+            get {
+                return ResourceManager.GetString("Tutorial.Save.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Simulation_Description {
+            get {
+                return ResourceManager.GetString("Tutorial.Simulation.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Tutorial_Simulation_Title {
+            get {
+                return ResourceManager.GetString("Tutorial.Simulation.Title", resourceCulture);
             }
         }
         

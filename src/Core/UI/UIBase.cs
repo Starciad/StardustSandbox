@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.UI.Elements;
 
 using System;
@@ -34,11 +33,11 @@ namespace StardustSandbox.Core.UI
 
         protected UIBase()
         {
-            this.Root = new Container
+            this.Root = new()
             {
                 CanDraw = false,
                 CanUpdate = false,
-                Size = ScreenConstants.SCREEN_DIMENSIONS.ToVector2()
+                Size = GameScreen.GetViewport()
             };
         }
 
@@ -51,7 +50,6 @@ namespace StardustSandbox.Core.UI
 
             OnBuild(this.Root);
             this.Root.Initialize();
-
             this.IsInitialized = true;
         }
 
@@ -95,6 +93,7 @@ namespace StardustSandbox.Core.UI
             }
 
             this.Root.Update(gameTime);
+
             OnUpdate(gameTime);
         }
 
@@ -108,10 +107,17 @@ namespace StardustSandbox.Core.UI
             this.Root.Draw(spriteBatch);
         }
 
+        internal void Resize(Vector2 newSize)
+        {
+            this.Root.Size = newSize;
+            OnScreenResize(newSize);
+        }
+
         protected abstract void OnBuild(Container root);
         protected virtual void OnOpened() { }
         protected virtual void OnClosed() { }
         protected virtual void OnUpdate(GameTime gameTime) { }
+        protected virtual void OnScreenResize(Vector2 newSize) { }
 
         private void EnsureInitialized()
         {

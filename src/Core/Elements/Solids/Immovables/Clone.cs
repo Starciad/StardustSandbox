@@ -41,13 +41,13 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                 return;
             }
 
-            context.InstantiateElement(validPosition, context.Layer, stored);
+            context.InstantiateElement(validPosition, context.CurrentLayer, stored);
             GameStatistics.IncrementWorldClonedElements();
         }
 
         private static void TryAddEmptyPosition(ElementContext context, Point position)
         {
-            if (context.IsEmptySlotLayer(position, context.Layer))
+            if (context.IsEmptySlotLayer(position, context.CurrentLayer))
             {
                 positionScratch.Add(position);
             }
@@ -56,8 +56,8 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         // Collect neighboring empty positions and pick one at random
         private static bool TryGetValidPosition(ElementContext context, out Point validPosition)
         {
-            int centerX = context.Slot.Position.X;
-            int centerY = context.Slot.Position.Y;
+            int centerX = context.CurrentSlot.Position.X;
+            int centerY = context.CurrentSlot.Position.Y;
 
             for (int dx = -1; dx <= 1; dx++)
             {
@@ -92,12 +92,12 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer))
                 {
                     continue;
                 }
 
-                SlotLayer neighborLayer = neighbors.GetSlotLayer(i, context.Layer);
+                SlotLayer neighborLayer = neighbors.GetSlotLayer(i, context.CurrentLayer);
                 ElementIndex index = neighborLayer.ElementIndex;
 
                 // Skip cloning from these element types

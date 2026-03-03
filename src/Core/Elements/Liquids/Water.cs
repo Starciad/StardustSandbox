@@ -29,23 +29,23 @@ namespace StardustSandbox.Core.Elements.Liquids
         {
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer))
                 {
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex)
                 {
                     case ElementIndex.FertileSoil:
                     case ElementIndex.Dirt:
-                        context.ReplaceElement(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Mud);
+                        context.ReplaceElement(neighbors.GetNeighborPosition(i), context.CurrentLayer, ElementIndex.Mud);
                         context.DestroyElement();
                         return;
 
                     case ElementIndex.Stone:
                         if (Random.Range(0, 150) == 0)
                         {
-                            context.ReplaceElement(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Sand);
+                            context.ReplaceElement(neighbors.GetNeighborPosition(i), context.CurrentLayer, ElementIndex.Sand);
                             context.DestroyElement();
                             return;
                         }
@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.Elements.Liquids
                         break;
 
                     case ElementIndex.Fire:
-                        context.DestroyElement(neighbors.GetNeighborPosition(i), context.Layer);
+                        context.DestroyElement(neighbors.GetNeighborPosition(i), context.CurrentLayer);
                         break;
 
                     default:

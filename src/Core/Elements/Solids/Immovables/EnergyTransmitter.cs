@@ -37,7 +37,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                     continue;
                 }
 
-                SlotLayer layer = neighbors.GetSlotLayer(i, context.Layer);
+                SlotLayer layer = neighbors.GetSlotLayer(i, context.CurrentLayer);
 
                 if (!layer.IsEmpty && layer.Element.HasCharacteristic(ElementCharacteristics.IsElectrified))
                 {
@@ -46,11 +46,11 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                 }
             }
 
-            Layer oppositeLayer = context.Layer.GetOppositeLayer();
+            Layer oppositeLayer = context.CurrentLayer.GetOppositeLayer();
 
-            if (electrifiedNeighborFound && !context.IsEmptySlotLayer(context.Position, oppositeLayer))
+            if (electrifiedNeighborFound && !context.IsEmptySlotLayer(context.CurrentPosition, oppositeLayer))
             {
-                ElectricityUtility.Electrify(context, context.Position, oppositeLayer);
+                ElectricityUtility.Electrify(context, context.CurrentPosition, oppositeLayer);
             }
         }
     }

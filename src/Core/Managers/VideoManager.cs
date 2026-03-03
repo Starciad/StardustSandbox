@@ -19,10 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
-
-using System;
 
 namespace StardustSandbox.Core.Managers
 {
@@ -30,67 +27,64 @@ namespace StardustSandbox.Core.Managers
     {
         internal GraphicsDeviceManager GraphicsDeviceManager => this.graphicsDeviceManager;
         internal GraphicsDevice GraphicsDevice => this.graphicsDeviceManager.GraphicsDevice;
-        internal GameWindow GameWindow { get; private set; }
 
         private readonly GraphicsDeviceManager graphicsDeviceManager;
+        private readonly GameWindow gameWindow;
 
-        internal VideoManager(GraphicsDeviceManager graphicsDeviceManager)
+        internal VideoManager(GraphicsDeviceManager graphicsDeviceManager, GameWindow gameWindow)
         {
             this.graphicsDeviceManager = graphicsDeviceManager;
-            ApplySettings(SettingsSerializer.Load<VideoSettings>());
+            this.gameWindow = gameWindow;
         }
 
-        internal void ApplySettings(in VideoSettings videoSettings)
+        internal void ApplySettings(VideoSettings videoSettings)
         {
-            _ = this.GameWindow?.IsBorderless = videoSettings.Borderless;
+            SetResolution(videoSettings.Width, videoSettings.Height);
+            SetFullScreen(videoSettings.FullScreen);
+            SetVSync(videoSettings.VSync);
+            SetBorderless(videoSettings.Borderless);
+        }
 
-            if (videoSettings.Width == 0 || videoSettings.Height == 0)
+        internal void SetResolution(int width, int height)
+        {
+            Point minSize = ScreenConstants.RESOLUTIONS[0];
+            Point newSize = new(this.gameWindow.ClientBounds.Width, this.gameWindow.ClientBounds.Height);
+
+            if (newSize.X < minSize.X)
             {
-                this.graphicsDeviceManager.PreferredBackBufferWidth = ScreenConstants.SCREEN_WIDTH;
-                this.graphicsDeviceManager.PreferredBackBufferHeight = ScreenConstants.SCREEN_HEIGHT;
-            }
-            else
-            {
-                this.graphicsDeviceManager.PreferredBackBufferWidth = videoSettings.Width;
-                this.graphicsDeviceManager.PreferredBackBufferHeight = videoSettings.Height;
+                newSize.X = minSize.X;
             }
 
-            this.graphicsDeviceManager.IsFullScreen = videoSettings.FullScreen;
-            this.graphicsDeviceManager.SynchronizeWithVerticalRetrace = videoSettings.VSync;
+            if (newSize.Y < minSize.Y)
+            {
+                newSize.Y = minSize.Y;
+            }
+
+            this.graphicsDeviceManager.PreferredBackBufferWidth = width;
+            this.graphicsDeviceManager.PreferredBackBufferHeight = height;
             this.graphicsDeviceManager.ApplyChanges();
         }
 
-        internal void SetGameWindow(GameWindow gameWindow)
+        internal void SetResolution(Point resolution)
         {
-            this.GameWindow = gameWindow;
+            SetResolution(resolution.X, resolution.Y);
         }
 
-        internal Rectangle AdjustRenderTargetOnScreen(RenderTarget2D renderTarget)
+        internal void SetFullScreen(bool value)
         {
-            Rectangle screenDimensions, adjustedScreen;
-            float scale, newWidth, newHeight, posX, posY;
+            this.graphicsDeviceManager.IsFullScreen = value;
+            this.graphicsDeviceManager.ApplyChanges();
+        }
 
-            screenDimensions = this.GraphicsDevice.PresentationParameters.Bounds;
+        internal void SetVSync(bool value)
+        {
+            this.graphicsDeviceManager.SynchronizeWithVerticalRetrace = value;
+            this.graphicsDeviceManager.ApplyChanges();
+        }
 
-            scale = MathF.Min(
-                screenDimensions.Width / (float)renderTarget.Width,
-                screenDimensions.Height / (float)renderTarget.Height
-            );
-
-            newWidth = renderTarget.Width * scale;
-            newHeight = renderTarget.Height * scale;
-
-            posX = (screenDimensions.Width - newWidth) / 2.0f;
-            posY = (screenDimensions.Height - newHeight) / 2.0f;
-
-            adjustedScreen = new(
-                (int)posX,
-                (int)posY,
-                (int)newWidth,
-                (int)newHeight
-            );
-
-            return adjustedScreen;
+        internal void SetBorderless(bool value)
+        {
+            this.gameWindow.IsBorderless = value;
         }
     }
 }

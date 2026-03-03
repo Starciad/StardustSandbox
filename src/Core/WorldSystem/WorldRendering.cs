@@ -26,7 +26,8 @@ using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.World;
-using StardustSandbox.Core.InputSystem.Game;
+using StardustSandbox.Core.InputSystem;
+using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 
@@ -34,24 +35,24 @@ using System;
 
 namespace StardustSandbox.Core.WorldSystem
 {
-    internal sealed class WorldRendering(InputController inputController, World world)
+    internal sealed class WorldRendering(PlayerInputController playerInputController, World world)
     {
         internal bool DrawForegroundElements { get; set; } = true;
         internal bool DrawBackgroundElements { get; set; } = true;
 
         private readonly ElementContext elementRenderingContext = new(world);
-        private readonly InputController inputController = inputController;
+        private readonly PlayerInputController playerInputController = playerInputController;
         private readonly World world = world;
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch, Camera2D camera)
         {
-            Vector2 topLeftWorld = Camera.ScreenToWorld(new(0, 0));
-            Vector2 bottomRightWorld = Camera.ScreenToWorld(new(ScreenConstants.SCREEN_DIMENSIONS.X, ScreenConstants.SCREEN_DIMENSIONS.Y));
+            RectangleF viewBounds = camera.GetViewBounds();
 
-            int minTileX = (int)Math.Clamp(Math.Floor(topLeftWorld.X / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.X);
-            int minTileY = (int)Math.Clamp(Math.Floor(topLeftWorld.Y / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.Y);
-            int maxTileX = (int)Math.Clamp(Math.Ceiling(bottomRightWorld.X / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.X);
-            int maxTileY = (int)Math.Clamp(Math.Ceiling(bottomRightWorld.Y / WorldConstants.GRID_SIZE), 0, this.world.Information.Size.Y);
+            // Converts the visible world area to tile indexes
+            int minTileX = (int)Math.Clamp(Math.Floor(viewBounds.Left / WorldConstants.TILE_SIZE), 0, this.world.Size.X);
+            int minTileY = (int)Math.Clamp(Math.Floor(viewBounds.Top / WorldConstants.TILE_SIZE), 0, this.world.Size.Y);
+            int maxTileX = (int)Math.Clamp(Math.Ceiling(viewBounds.Right / WorldConstants.TILE_SIZE), 0, this.world.Size.X);
+            int maxTileY = (int)Math.Clamp(Math.Ceiling(viewBounds.Bottom / WorldConstants.TILE_SIZE), 0, this.world.Size.Y);
 
             GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
 
@@ -61,32 +62,32 @@ namespace StardustSandbox.Core.WorldSystem
                 {
                     Vector2 targetPosition = new(x, y);
 
-                    if (gameplaySettings.ShowGrid && this.inputController.Pen.Tool != PenTool.Visualization)
+                    if (gameplaySettings.ShowGrid && this.playerInputController.Pen.Tool != PenTool.Visualization)
                     {
-                        spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.GRID_SIZE, new(32, 0, 32, 32), new(AAP64ColorPalette.White, gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.TILE_SIZE, new(32, 0, 32, 32), new(AAP64ColorPalette.White, gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                     }
 
                     if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot slot))
                     {
                         if (this.DrawBackgroundElements && !slot.Background.IsEmpty)
                         {
-                            DrawSlotLayer(spriteBatch, slot.Position, Layer.Background, slot.GetLayer(Layer.Background).Element, gameplaySettings);
+                            DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Background, slot.GetLayer(Layer.Background).Element, gameplaySettings);
                         }
 
                         if (this.DrawForegroundElements && !slot.Foreground.IsEmpty)
                         {
-                            DrawSlotLayer(spriteBatch, slot.Position, Layer.Foreground, slot.GetLayer(Layer.Foreground).Element, gameplaySettings);
+                            DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Foreground, slot.GetLayer(Layer.Foreground).Element, gameplaySettings);
                         }
                     }
                 }
             }
         }
 
-        private void DrawSlotLayer(SpriteBatch spriteBatch, in Point position, in Layer layer, Element element, in GameplaySettings gameplaySettings)
+        private void DrawSlotLayer(SpriteBatch spriteBatch, Camera2D camera, in Point position, in Layer layer, Element element, GameplaySettings gameplaySettings)
         {
             this.elementRenderingContext.Initialize(position, layer);
 
-            ElementRenderer.Draw(this.elementRenderingContext, element, spriteBatch, element.TextureOriginOffset, gameplaySettings);
+            ElementRenderer.Draw(this.elementRenderingContext, element, spriteBatch, camera, element.TextureOriginOffset, gameplaySettings);
         }
     }
 }

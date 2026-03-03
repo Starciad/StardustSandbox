@@ -58,7 +58,7 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
 
         }
 
-        public SlotData(Slot slot)
+        internal SlotData(Slot slot)
         {
             this.Position = slot.Position;
 

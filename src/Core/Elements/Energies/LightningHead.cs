@@ -23,7 +23,7 @@ namespace StardustSandbox.Core.Elements.Energies
     {
         protected override void OnInstantiated(ElementContext context)
         {
-            LightningGenerator.Start(context, context.Position);
+            LightningGenerator.Start(context, context.CurrentPosition);
         }
 
         protected override void OnStep(ElementContext context)

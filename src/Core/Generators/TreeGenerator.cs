@@ -31,21 +31,21 @@ namespace StardustSandbox.Core.Generators
             {
                 for (int x = -trunkWidth / 2; x <= trunkWidth / 2; x++)
                 {
-                    Point position = new(context.Position.X + x, context.Position.Y - y);
+                    Point position = new(context.CurrentPosition.X + x, context.CurrentPosition.Y - y);
 
-                    if (context.IsEmptySlotLayer(position, context.Layer))
+                    if (context.IsEmptySlotLayer(position, context.CurrentLayer))
                     {
-                        context.InstantiateElement(position, context.Layer, ElementIndex.Wood);
+                        context.InstantiateElement(position, context.CurrentLayer, ElementIndex.Wood);
                     }
                     else
                     {
-                        context.ReplaceElement(position, context.Layer, ElementIndex.Wood);
+                        context.ReplaceElement(position, context.CurrentLayer, ElementIndex.Wood);
                     }
                 }
             }
 
             // Generate leaves
-            int leavesStartY = context.Position.Y - height;
+            int leavesStartY = context.CurrentPosition.Y - height;
 
             for (int y = -leavesRadius; y <= leavesRadius; y++)
             {
@@ -53,15 +53,15 @@ namespace StardustSandbox.Core.Generators
                 {
                     if ((x * x) + (y * y) <= leavesRadius * leavesRadius)
                     {
-                        Point position = new(context.Position.X + x, leavesStartY + y);
+                        Point position = new(context.CurrentPosition.X + x, leavesStartY + y);
 
-                        if (context.IsEmptySlotLayer(position, context.Layer))
+                        if (context.IsEmptySlotLayer(position, context.CurrentLayer))
                         {
-                            context.InstantiateElement(position, context.Layer, ElementIndex.TreeLeaf);
+                            context.InstantiateElement(position, context.CurrentLayer, ElementIndex.TreeLeaf);
                         }
                         else
                         {
-                            context.ReplaceElement(position, context.Layer, ElementIndex.TreeLeaf);
+                            context.ReplaceElement(position, context.CurrentLayer, ElementIndex.TreeLeaf);
                         }
                     }
                 }

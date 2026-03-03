@@ -17,7 +17,7 @@
 
 namespace StardustSandbox.Core.Enums.Inputs
 {
-    public enum MouseButton : byte
+    internal enum MouseButton : byte
     {
         None = 0,
         Left = 1,
