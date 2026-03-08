@@ -903,4 +903,10 @@
   <data name="Tutorial.ClickToContinue" xml:space="preserve">
     <value>Clique para Continuar...</value>
   </data>
+  <data name="Options.Controls.ToggleFullscreen.Name" xml:space="preserve">
+    <value>Alternar Tela Cheia</value>
+  </data>
+  <data name="Options.Controls.ToggleFullscreen.Description" xml:space="preserve">
+    <value>Digite uma tecla de atalho para alternar o modo de tela cheia.</value>
+  </data>
 </root>

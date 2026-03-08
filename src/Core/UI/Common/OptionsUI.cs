@@ -814,6 +814,31 @@ namespace StardustSandbox.Core.UI.Common
 
                             uiManager.OpenUI(UIIndex.KeySelector);
                         }
+                    ),
+                    new Option<Keys>(
+                        Localization_GUIs.Options_Controls_ToggleFullscreen_Name,
+                        Localization_GUIs.Options_Controls_ToggleFullscreen_Description,
+                        () =>
+                        {
+                            return controlSettings.ToggleFullscreenKeyboardBinding;
+                        },
+                        (value) =>
+                        {
+                            return value.ToString();
+                        },
+                        (option, optionSlotInfo) =>
+                        {
+                            keySelectorUI.Setup(Localization_GUIs.Options_Controls_ToggleFullscreen_Description,
+                                (newKey) =>
+                                {
+                                    controlSettings.ToggleFullscreenKeyboardBinding = newKey;
+                                    SettingsSerializer.Save(controlSettings);
+                                    optionSlotInfo.Value.TextContent = option.GetValueString();
+                                    playerInputController.SystemInputHandler.GetMap("General").GetAction("ToggleFullscreen").KeyboardBinding = newKey;
+                                }
+                            );
+                            uiManager.OpenUI(UIIndex.KeySelector);
+                        }
                     )
                 ),
 

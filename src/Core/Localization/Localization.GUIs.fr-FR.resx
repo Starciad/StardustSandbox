@@ -903,4 +903,10 @@
   <data name="Tutorial.ClickToContinue" xml:space="preserve">
     <value>Cliquez pour Continuer...</value>
   </data>
+  <data name="Options.Controls.ToggleFullscreen.Name" xml:space="preserve">
+    <value>Bascule Plein Écran</value>
+  </data>
+  <data name="Options.Controls.ToggleFullscreen.Description" xml:space="preserve">
+    <value>Entrez une touche de raccourci pour basculer entre le mode plein écran et le mode fenêtre.</value>
+  </data>
 </root>

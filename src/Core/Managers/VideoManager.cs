@@ -76,6 +76,12 @@ namespace StardustSandbox.Core.Managers
             this.graphicsDeviceManager.ApplyChanges();
         }
 
+        internal void ToggleFullScreen()
+        {
+            this.graphicsDeviceManager.IsFullScreen = !this.graphicsDeviceManager.IsFullScreen;
+            this.graphicsDeviceManager.ApplyChanges();
+        }
+
         internal void SetVSync(bool value)
         {
             this.graphicsDeviceManager.SynchronizeWithVerticalRetrace = value;

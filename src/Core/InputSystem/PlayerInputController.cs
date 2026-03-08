@@ -52,7 +52,7 @@ namespace StardustSandbox.Core.InputSystem
             this.player = new();
         }
 
-        internal void Initialize(ActorManager actorManager, Camera2D camera, World world)
+        internal void Initialize(ActorManager actorManager, Camera2D camera, VideoManager videoManager, World world)
         {
             this.worldHandler = new(actorManager, camera, this.pen, this.player, world);
 
@@ -68,6 +68,12 @@ namespace StardustSandbox.Core.InputSystem
                             SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
                             GameRenderer.RequestScreenshot();
                         },
+                    },
+
+                    new InputAction("ToggleFullscreen")
+                    {
+                        KeyboardBinding = controlSettings.ToggleFullscreenKeyboardBinding,
+                        OnStarted = _ => videoManager.ToggleFullScreen(),
                     }
                 )
             );

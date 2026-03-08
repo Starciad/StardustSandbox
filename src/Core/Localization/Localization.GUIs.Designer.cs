@@ -1141,6 +1141,24 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Options_Controls_ToggleFullscreen_Description {
+            get {
+                return ResourceManager.GetString("Options.Controls.ToggleFullscreen.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        /// </summary>
+        internal static string Options_Controls_ToggleFullscreen_Name {
+            get {
+                return ResourceManager.GetString("Options.Controls.ToggleFullscreen.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Type a shortcut key to pause the world..
         /// </summary>
         internal static string Options_Controls_TogglePause_Description {
@@ -2113,7 +2131,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Use {0} {1} {2} {3} to move the camera around the map. Use {4} to zoom in and {5} to zoom out. If you want to move faster, hold {6} while using the movement keys..
         /// </summary>
         internal static string Tutorial_Camera_Description {
             get {
@@ -2122,7 +2140,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Camera.
         /// </summary>
         internal static string Tutorial_Camera_Title {
             get {
@@ -2131,7 +2149,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Click to Continue....
         /// </summary>
         internal static string Tutorial_ClickToContinue {
             get {
@@ -2140,7 +2158,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Choose an item from the top bar to make it active. After selecting it, simply move your mouse to the map and hold the left mouse button to apply the item. Use the mouse wheel to adjust the brush size as needed..
         /// </summary>
         internal static string Tutorial_Draw_Description {
             get {
@@ -2149,7 +2167,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Draw.
         /// </summary>
         internal static string Tutorial_Draw_Title {
             get {
@@ -2158,7 +2176,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a To remove content from the map, select the Eraser tool or hold the right mouse button over the desired area. Remember that to erase an item, you must select the same type of item that you want to remove..
         /// </summary>
         internal static string Tutorial_Erase_Description {
             get {
@@ -2167,7 +2185,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Erase.
         /// </summary>
         internal static string Tutorial_Erase_Title {
             get {
@@ -2176,7 +2194,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Try combining different elements to observe new behaviors. Testing, adjusting, and trying again is the best way to learn how the simulation works..
         /// </summary>
         internal static string Tutorial_Explore_Description {
             get {
@@ -2185,7 +2203,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Explore.
         /// </summary>
         internal static string Tutorial_Explore_Title {
             get {
@@ -2194,7 +2212,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The top bar shows the current item and allows access to other materials through the explorer. The left bar contains tools and world settings. The right bar contains important actions such as saving, loading, and clearing the map..
         /// </summary>
         internal static string Tutorial_Interface_Description {
             get {
@@ -2203,7 +2221,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Interface.
         /// </summary>
         internal static string Tutorial_Interface_Title {
             get {
@@ -2212,7 +2230,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Welcome to Stardust Sandbox. Here you can create experiences using different materials and entities. This tutorial shows only the essentials to get started. After that, you can explore freely..
         /// </summary>
         internal static string Tutorial_Introduction_Description {
             get {
@@ -2221,7 +2239,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Introduction.
         /// </summary>
         internal static string Tutorial_Introduction_Title {
             get {
@@ -2230,7 +2248,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Use the right bar to save your creations. This way you can continue later without losing your progress..
         /// </summary>
         internal static string Tutorial_Save_Description {
             get {
@@ -2239,7 +2257,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Save.
         /// </summary>
         internal static string Tutorial_Save_Title {
             get {
@@ -2248,7 +2266,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Everything happens within the map. Elements are materials like sand and water that follow physics rules and interact with each other. Actors are entities that respond to the environment and can modify the world around them..
         /// </summary>
         internal static string Tutorial_Simulation_Description {
             get {
@@ -2257,7 +2275,7 @@ namespace StardustSandbox.Core.Localization {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a .
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Simulation.
         /// </summary>
         internal static string Tutorial_Simulation_Title {
             get {

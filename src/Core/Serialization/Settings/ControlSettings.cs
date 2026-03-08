@@ -61,9 +61,11 @@ namespace StardustSandbox.Core.Serialization.Settings
         [XmlElement("ScreenshotKeyboardBinding", typeof(Keys))]
         public Keys ScreenshotKeyboardBinding { get; set; }
 
+        [XmlElement("ToggleFullscreenKeyboardBinding", typeof(Keys))]
+        public Keys ToggleFullscreenKeyboardBinding { get; set; }
+
         public ControlSettings()
         {
-            // Keyboard
             this.MoveCameraUpKeyboardBinding = Keys.W;
             this.MoveCameraLeftKeyboardBinding = Keys.A;
             this.MoveCameraDownKeyboardBinding = Keys.S;
@@ -77,6 +79,7 @@ namespace StardustSandbox.Core.Serialization.Settings
             this.NextShapeKeyboardBinding = Keys.Tab;
 
             this.ScreenshotKeyboardBinding = Keys.F9;
+            this.ToggleFullscreenKeyboardBinding = Keys.F11;
         }
     }
 }
