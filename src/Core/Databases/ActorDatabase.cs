@@ -39,7 +39,7 @@ namespace StardustSandbox.Core.Databases
             }
 
             descriptors = [
-                new ActorDescriptor<GulActor>(ActorIndex.Gul, () => new(ActorIndex.Gul, actorManager, world)
+                new ActorDescriptor<Gul>(ActorIndex.Gul, () => new(ActorIndex.Gul, actorManager, world)
                 {
                     CanDraw = true,
                     CanUpdate = true,

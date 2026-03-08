@@ -33,5 +33,10 @@ namespace StardustSandbox.Core.Serialization.Saving.Data
 
         [Key("Index")]
         public required ActorIndex Index { get; set; }
+
+        internal T GetOrDefault<T>(string key, T defaultValue = default!)
+        {
+            return this.Content.TryGetValue(key, out object value) && value is T typed ? typed : defaultValue;
+        }
     }
 }

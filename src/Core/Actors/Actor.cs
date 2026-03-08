@@ -34,43 +34,38 @@ namespace StardustSandbox.Core.Actors
     {
         internal ActorIndex Index { get; }
 
-        internal Rectangle SelfRectangle => new(this.positionX, this.positionY, this.width, this.height);
+        internal Rectangle SelfRectangle => new(this.PositionX, this.PositionY, this.Width, this.Height);
 
         internal Point Position
         {
-            get => new(this.positionX, this.positionY);
+            get => new(this.PositionX, this.PositionY);
 
             private set
             {
-                this.positionX = value.X;
-                this.positionY = value.Y;
+                this.PositionX = value.X;
+                this.PositionY = value.Y;
             }
         }
 
         internal Point Size
         {
-            get => new(this.width, this.height);
+            get => new(this.Width, this.Height);
 
             set
             {
-                this.width = value.X;
-                this.height = value.Y;
+                this.Width = value.X;
+                this.Height = value.Y;
             }
         }
 
-        internal int PositionX => this.positionX;
-        internal int PositionY => this.positionY;
-        internal int Width => this.width;
-        internal int Height => this.height;
+        internal int PositionX { get; set; }
+        internal int PositionY { get; set; }
+        internal int Width { get; set; }
+        internal int Height { get; set; }
 
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
         internal ActorState State { get; set; }
-
-        private int positionX;
-        private int positionY;
-        private int width;
-        private int height;
 
         protected readonly ActorManager actorManager;
         protected readonly World world;
@@ -85,8 +80,8 @@ namespace StardustSandbox.Core.Actors
         internal void ClampToWorld()
         {
             Point clamped = ClampPositionToWorld(this.Position, this.Size);
-            this.positionX = clamped.X;
-            this.positionY = clamped.Y;
+            this.PositionX = clamped.X;
+            this.PositionY = clamped.Y;
         }
 
         private Point ClampPositionToWorld(Point position, Point size)
@@ -139,13 +134,13 @@ namespace StardustSandbox.Core.Actors
             {
                 Point clamped = ClampPositionToWorld(newPos, this.Size);
 
-                this.positionX = clamped.X;
-                this.positionY = clamped.Y;
+                this.PositionX = clamped.X;
+                this.PositionY = clamped.Y;
             }
             else
             {
-                this.positionX = newPos.X;
-                this.positionY = newPos.Y;
+                this.PositionX = newPos.X;
+                this.PositionY = newPos.Y;
             }
         }
 
@@ -155,8 +150,8 @@ namespace StardustSandbox.Core.Actors
 
             if (IsInsideWorldBounds(rect))
             {
-                this.positionX = newPosition.X;
-                this.positionY = newPosition.Y;
+                this.PositionX = newPosition.X;
+                this.PositionY = newPosition.Y;
                 return true;
             }
 
@@ -171,8 +166,8 @@ namespace StardustSandbox.Core.Actors
             }
 
             int sign = motion > 0 ? 1 : -1;
-            int pos = isHorizontalAxis ? this.positionX : this.positionY;
-            int otherPos = isHorizontalAxis ? this.positionY : this.positionX;
+            int pos = isHorizontalAxis ? this.PositionX : this.PositionY;
+            int otherPos = isHorizontalAxis ? this.PositionY : this.PositionX;
 
             Rectangle nextRect = this.SelfRectangle;
 
@@ -200,11 +195,11 @@ namespace StardustSandbox.Core.Actors
 
             if (isHorizontalAxis)
             {
-                this.positionX = pos;
+                this.PositionX = pos;
             }
             else
             {
-                this.positionY = pos;
+                this.PositionY = pos;
             }
         }
 

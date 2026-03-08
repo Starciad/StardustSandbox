@@ -37,7 +37,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Actors.Common
 {
-    internal sealed class GulActor : Actor
+    internal sealed class Gul : Actor
     {
         private enum Direction : sbyte
         {
@@ -55,7 +55,7 @@ namespace StardustSandbox.Core.Actors.Common
 
         private static readonly List<Point> possiblePositions = [];
 
-        internal GulActor(ActorIndex index, ActorManager actorManager, World world) : base(index, actorManager, world)
+        internal Gul(ActorIndex index, ActorManager actorManager, World world) : base(index, actorManager, world)
         {
             Reset();
         }
@@ -287,6 +287,39 @@ namespace StardustSandbox.Core.Actors.Common
             return false;
         }
 
+        private void UpdateGrabbedElementBehavior()
+        {
+            // Try to walk or place element
+            if (Randomness.Random.Chance(40) && !TryWalk() && !TryPlaceElement())
+            {
+                // Turn around if unable to walk or place element
+                TurnAround();
+            }
+        }
+
+        private void UpdateNormalBehavior()
+        {
+            // Try to walk or grab element
+            if (Randomness.Random.Chance(40) && !TryWalk() && !TryGrabElement())
+            {
+                // Turn around if unable to walk or grab element
+                TurnAround();
+            }
+        }
+
+        private void UpdateBehavior()
+        {
+            // Different behavior based on whether grabbing an element
+            if (this.IsGrabbingElement)
+            {
+                UpdateGrabbedElementBehavior();
+            }
+            else
+            {
+                UpdateNormalBehavior();
+            }
+        }
+
         internal override void Update(GameTime gameTime)
         {
             // If spawned inside a non-empty slot, destroy immediately
@@ -306,39 +339,6 @@ namespace StardustSandbox.Core.Actors.Common
             {
                 // Perform behavior only when grounded
                 UpdateBehavior();
-            }
-        }
-
-        private void UpdateBehavior()
-        {
-            // Different behavior based on whether grabbing an element
-            if (this.IsGrabbingElement)
-            {
-                UpdateGrabbedElementBehavior();
-            }
-            else
-            {
-                UpdateNormalBehavior();
-            }
-        }
-
-        private void UpdateGrabbedElementBehavior()
-        {
-            // Try to walk or place element
-            if (Randomness.Random.Chance(40) && !TryWalk() && !TryPlaceElement())
-            {
-                // Turn around if unable to walk or place element
-                TurnAround();
-            }
-        }
-
-        private void UpdateNormalBehavior()
-        {
-            // Try to walk or grab element
-            if (Randomness.Random.Chance(40) && !TryWalk() && !TryGrabElement())
-            {
-                // Turn around if unable to walk or grab element
-                TurnAround();
             }
         }
 
@@ -388,55 +388,35 @@ namespace StardustSandbox.Core.Actors.Common
                 {
                     ["Direction"] = this.direction,
                     ["GrabbedElementIndex"] = this.grabbedElementIndex,
-                    ["Position.X"] = this.PositionX,
-                    ["Position.Y"] = this.PositionY,
-                    ["PositionElementPlaced.X"] = this.positionElementPlaced.X,
-                    ["PositionElementPlaced.Y"] = this.positionElementPlaced.Y,
+                    ["PositionX"] = this.PositionX,
+                    ["PositionY"] = this.PositionY,
+                    ["PositionElementPlacedX"] = this.positionElementPlaced.X,
+                    ["PositionElementPlacedY"] = this.positionElementPlaced.Y,
                 },
             };
         }
 
         internal override void Deserialize(ActorData data)
         {
-            Direction tempDirection = Randomness.Random.GetBool() ? Direction.Left : Direction.Right;
-            ElementIndex tempGrabbedElementIndex = ElementIndex.None;
-            Point tempPosition = Point.Zero;
-            Point tempPositionElementPlaced = Point.Zero;
+            this.direction = data.GetOrDefault(
+                "Direction",
+                Randomness.Random.GetBool() ? Direction.Left : Direction.Right
+            );
 
-            if (data.Content.TryGetValue("Direction", out object value))
-            {
-                tempDirection = (Direction)value;
-            }
+            this.grabbedElementIndex = data.GetOrDefault(
+                "GrabbedElementIndex",
+                ElementIndex.None
+            );
 
-            if (data.Content.TryGetValue("GrabbedElementIndex", out value))
-            {
-                tempGrabbedElementIndex = (ElementIndex)value;
-            }
+            SetPosition(new(
+                data.GetOrDefault("PositionX", 0),
+                data.GetOrDefault("PositionY", 0)
+            ));
 
-            if (data.Content.TryGetValue("Position.X", out value))
-            {
-                tempPosition.X = (int)value;
-            }
-
-            if (data.Content.TryGetValue("Position.Y", out value))
-            {
-                tempPosition.Y = (int)value;
-            }
-
-            if (data.Content.TryGetValue("PositionElementPlaced.X", out value))
-            {
-                tempPositionElementPlaced.X = (int)value;
-            }
-
-            if (data.Content.TryGetValue("PositionElementPlaced.Y", out value))
-            {
-                tempPositionElementPlaced.Y = (int)value;
-            }
-
-            this.direction = tempDirection;
-            this.grabbedElementIndex = tempGrabbedElementIndex;
-            SetPosition(tempPosition);
-            this.positionElementPlaced = tempPositionElementPlaced;
+            this.positionElementPlaced = new(
+                data.GetOrDefault("PositionElementPlacedX", 0),
+                data.GetOrDefault("PositionElementPlacedY", 0)
+            );
         }
     }
 }

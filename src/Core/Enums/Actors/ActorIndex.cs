@@ -22,5 +22,6 @@ namespace StardustSandbox.Core.Enums.Actors
         None = -1,
 
         Gul = 0,
+        Ant = 1,
     }
 }
