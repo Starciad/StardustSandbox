@@ -388,8 +388,8 @@ namespace StardustSandbox.Core.Actors.Common
                 {
                     ["Direction"] = this.direction,
                     ["GrabbedElementIndex"] = this.grabbedElementIndex,
-                    ["PositionX"] = this.PositionX,
-                    ["PositionY"] = this.PositionY,
+                    ["Position.X"] = this.PositionX,
+                    ["Position.Y"] = this.PositionY,
                     ["PositionElementPlaced.X"] = this.positionElementPlaced.X,
                     ["PositionElementPlaced.Y"] = this.positionElementPlaced.Y,
                 },
@@ -413,12 +413,12 @@ namespace StardustSandbox.Core.Actors.Common
                 tempGrabbedElementIndex = (ElementIndex)value;
             }
 
-            if (data.Content.TryGetValue("PositionX", out value))
+            if (data.Content.TryGetValue("Position.X", out value))
             {
                 tempPosition.X = (int)value;
             }
 
-            if (data.Content.TryGetValue("PositionY", out value))
+            if (data.Content.TryGetValue("Position.Y", out value))
             {
                 tempPosition.Y = (int)value;
             }
