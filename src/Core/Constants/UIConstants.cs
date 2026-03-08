@@ -23,8 +23,8 @@ namespace StardustSandbox.Core.Constants
         internal const byte HUD_ELEMENT_BUTTONS_LENGTH = 13;
 
         // Item Explorer
-        internal const byte ITEM_EXPLORER_ITEMS_PER_ROW = 12;
-        internal const byte ITEM_EXPLORER_ITEMS_PER_COLUMN = 4;
+        internal const byte ITEM_EXPLORER_ITEMS_PER_ROW = 4;
+        internal const byte ITEM_EXPLORER_ITEMS_PER_COLUMN = 12;
         internal const byte ITEM_EXPLORER_ITEMS_PER_PAGE = ITEM_EXPLORER_ITEMS_PER_ROW * ITEM_EXPLORER_ITEMS_PER_COLUMN;
         internal const byte ITEM_EXPLORER_SUBCATEGORY_BUTTONS_LENGTH = 14;
 
@@ -67,5 +67,8 @@ namespace StardustSandbox.Core.Constants
 
         // Selector
         internal const byte SELECTOR_CHOICES_PER_PAGE = 4;
+
+        // Color Picker
+        internal const byte COLOR_PICKER_COLORS_PER_ROW = 12;
     }
 }

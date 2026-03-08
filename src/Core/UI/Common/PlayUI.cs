@@ -92,26 +92,25 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildMenuButtons(Container root)
         {
-            float marginY = 0.0f;
-
-            for (int i = 0; i < this.menuButtonInfos.Length; i++)
+            for (int i = 0; i < menuButtonInfos.Length; i++)
             {
-                ButtonInfo button = this.menuButtonInfos[i];
-
+                ButtonInfo button = menuButtonInfos[i];
+    
                 Label label = new()
                 {
                     Scale = new(0.15f),
-                    Margin = new(0.0f, marginY),
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Alignment = UIDirection.Center,
                     TextContent = button.Name,
-
+    
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderDirections = LabelBorderDirection.All,
                     BorderOffset = 2.0f,
                     BorderThickness = 2.0f,
                 };
-
+    
+                label.Margin = new(0.0f, i * (label.Size.Y + 64.0f));
+    
                 Image icon = new()
                 {
                     TextureIndex = button.TextureIndex,
@@ -119,13 +118,11 @@ namespace StardustSandbox.Core.UI.Common
                     Margin = new(-96.0f, 0.0f),
                     Scale = new(2),
                 };
-
+    
                 label.AddChild(icon);
                 root.AddChild(label);
-
-                marginY += label.Size.Y + 64.0f;
-
-                this.menuButtonLabels[i] = label;
+    
+                menuButtonLabels[i] = label;
             }
         }
 

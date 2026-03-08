@@ -301,14 +301,12 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildItemSlots()
         {
-            Vector2 margin = new(38.0f, 114.0f);
-
-            int index = 0;
-
             for (int row = 0; row < UIConstants.ITEM_SEARCH_ITEMS_PER_ROW; row++)
             {
-                for (int col = 0; col < UIConstants.ITEM_SEARCH_ITEMS_PER_COLUMN; col++)
+                for (int column = 0; column < UIConstants.ITEM_SEARCH_ITEMS_PER_COLUMN; column++)
                 {
+                    Vector2 margin = new(38.0f + column * 80.0f, 114.0f + row * 80.0f);
+
                     SlotInfo slot = new(
                         new()
                         {
@@ -319,7 +317,7 @@ namespace StardustSandbox.Core.UI.Common
                             Size = new(32.0f),
                             Margin = margin
                         },
-
+    
                         new()
                         {
                             Alignment = UIDirection.Center,
@@ -330,19 +328,11 @@ namespace StardustSandbox.Core.UI.Common
                         }
                     );
 
-                    // Position
                     this.panelBackground.AddChild(slot.Background);
                     slot.Background.AddChild(slot.Icon);
 
-                    // Spacing
-                    margin.X += 80.0f;
-
-                    this.itemButtonSlotInfos[index] = slot;
-                    index++;
+                    this.itemButtonSlotInfos[column + UIConstants.ITEM_SEARCH_ITEMS_PER_COLUMN * row] = slot;
                 }
-
-                margin.X = 38.0f;
-                margin.Y += 80.0f;
             }
         }
 

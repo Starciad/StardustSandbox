@@ -357,19 +357,18 @@ namespace StardustSandbox.Core.UI.Common
 
         private void CreateTopToolbarSlots()
         {
-            float marginX = UIConstants.HUD_ELEMENT_BUTTONS_LENGTH / 2.0f * 73.85f * -1.0f;
+            float startMarginX = UIConstants.HUD_ELEMENT_BUTTONS_LENGTH / 2.0f * 73.85f * -1.0f;
 
-            for (int i = 0, length = UIConstants.HUD_ELEMENT_BUTTONS_LENGTH; i < length; i++)
+            for (int i = 0; i < UIConstants.HUD_ELEMENT_BUTTONS_LENGTH; i++)
             {
-                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(marginX, 0.0f), TextureIndex.IconElements, new(0, 0, 32, 32));
-
+                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(startMarginX + (i * 80.0f), 0.0f), TextureIndex.IconElements, new(0, 0, 32, 32));
+    
                 slot.Background.Alignment = UIDirection.Center;
-
+    
                 this.topToolbarBackground.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
-
+    
                 this.toolbarSlots[i] = slot;
-                marginX += 80.0f;
             }
         }
 

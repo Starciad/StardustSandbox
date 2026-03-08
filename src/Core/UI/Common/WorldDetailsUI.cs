@@ -208,29 +208,25 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildWorldButtons(Container root)
         {
-            float marginY = -32.0f;
-
             for (int i = 0; i < this.worldButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.worldButtonInfos[i];
-
+    
                 Label buttonLabel = new()
                 {
                     Scale = new(0.12f),
-                    Margin = new(32.0f, marginY),
+                    Margin = new(32.0f, -32.0f - (i * (64.0f + 8.0f))),
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Alignment = UIDirection.Southwest,
                     TextContent = button.Name,
-
+    
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderDirections = LabelBorderDirection.All,
                     BorderOffset = 2.0f,
                     BorderThickness = 2.0f,
                 };
-
+    
                 root.AddChild(buttonLabel);
-                marginY -= buttonLabel.Size.Y + 8.0f;
-
                 this.worldButtonLabels[i] = buttonLabel;
             }
         }

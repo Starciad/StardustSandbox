@@ -304,22 +304,20 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildFooterButtons()
         {
-            float marginX = 32.0f;
-
             for (int i = 0; i < this.footerButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.footerButtonInfos[i];
-
+    
                 Image background = new()
                 {
                     TextureIndex = TextureIndex.UIButtons,
                     SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320.0f, 80.0f),
-                    Margin = new(marginX, -32.0f),
+                    Margin = new(32.0f + (i * 352.0f), -32.0f),
                     Alignment = UIDirection.Southwest,
                 };
-
+    
                 Label label = new()
                 {
                     Scale = new(0.1f),
@@ -327,19 +325,17 @@ namespace StardustSandbox.Core.UI.Common
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Alignment = UIDirection.Center,
                     TextContent = button.Name,
-
+    
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderDirections = LabelBorderDirection.All,
                     BorderOffset = 2.0f,
                     BorderThickness = 2.0f,
                 };
-
+    
                 this.panelBackground.AddChild(background);
                 background.AddChild(label);
-
+    
                 this.footerButtonSlotInfos[i] = new(background, null, label);
-
-                marginX += background.Size.X + 32.0f;
             }
         }
 

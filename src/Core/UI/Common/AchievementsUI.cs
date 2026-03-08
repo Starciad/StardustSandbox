@@ -208,35 +208,26 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildAchievementSlots()
         {
-            Vector2 margin = new(16.0f, 92.0f);
-
             int rows = UIConstants.ACHIEVEMENTS_PER_ROW;
             int columns = UIConstants.ACHIEVEMENTS_PER_COLUMN;
 
-            int index = 0;
-
-            for (int col = 0; col < columns; col++)
+            for (int i = 0; i < rows * columns; i++)
             {
-                for (int row = 0; row < rows; row++)
+                int row = i % rows;
+                int column = i / rows;
+    
+                Image image = new()
                 {
-                    Image image = new()
-                    {
-                        TextureIndex = TextureIndex.Achievements,
-                        SourceRectangle = new(0, 0, 32, 32),
-                        Alignment = UIDirection.Northwest,
-                        Scale = new(2.0f),
-                        Size = new(32.0f),
-                        Margin = margin
-                    };
-
-                    this.panelBackground.AddChild(image);
-                    margin.X += 80.0f;
-                    this.achievementImages[index] = image;
-                    index++;
-                }
-
-                margin.X = 16.0f;
-                margin.Y += 80.0f;
+                    TextureIndex = TextureIndex.Achievements,
+                    SourceRectangle = new(0, 0, 32, 32),
+                    Alignment = UIDirection.Northwest,
+                    Scale = new(2.0f),
+                    Size = new(32.0f),
+                    Margin = new(16.0f + (row * 80.0f), 92.0f + (column * 80.0f))
+                };
+    
+                this.panelBackground.AddChild(image);
+                this.achievementImages[i] = image;
             }
         }
 
