@@ -1118,7 +1118,7 @@ namespace StardustSandbox.Core.UI.Common
                 for (int column = 0; column < UIConstants.OPTIONS_PER_COLUMN; column++)
                 {
                     Vector2 margin = column % 2 == 0 ? firstColumnMargin : secondColumnMargin;
-                    margin.Y = firstColumnMargin.Y + row * (size.Y + spacing.Y);
+                    margin.Y = firstColumnMargin.Y + (row * (size.Y + spacing.Y));
 
                     Image background = new()
                     {

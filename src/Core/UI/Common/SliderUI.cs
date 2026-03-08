@@ -151,7 +151,7 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
-    
+
                 Label label = new()
                 {
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
@@ -159,15 +159,15 @@ namespace StardustSandbox.Core.UI.Common
                     Margin = new(0.0f, -48.0f - (i * 72)),
                     Alignment = UIDirection.South,
                     TextContent = button.Name,
-    
+
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderDirections = LabelBorderDirection.All,
                     BorderOffset = 2.0f,
                     BorderThickness = 2.0f,
                 };
-    
+
                 root.AddChild(label);
-    
+
                 this.menuButtonLabels[i] = label;
             }
         }

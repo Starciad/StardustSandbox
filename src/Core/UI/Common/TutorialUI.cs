@@ -65,7 +65,7 @@ namespace StardustSandbox.Core.UI.Common
                     Localization_GUIs.Tutorial_Introduction_Description,
                     new(0, 0)
                 ),
-            
+
                 new(
                     Localization_GUIs.Tutorial_Camera_Title,
                     string.Format(
@@ -80,37 +80,37 @@ namespace StardustSandbox.Core.UI.Common
                     ),
                     new(0, 120)
                 ),
-            
+
                 new(
                     Localization_GUIs.Tutorial_Draw_Title,
                     Localization_GUIs.Tutorial_Draw_Description,
                     new(0, 240)
                 ),
-            
+
                 new(
                     Localization_GUIs.Tutorial_Erase_Title,
                     Localization_GUIs.Tutorial_Erase_Description,
                     new(0, 360)
                 ),
-            
+
                 new(
                     Localization_GUIs.Tutorial_Interface_Title,
                     Localization_GUIs.Tutorial_Interface_Description,
                     new(0, 480)
                 ),
-            
+
                 new(
                     Localization_GUIs.Tutorial_Simulation_Title,
                     Localization_GUIs.Tutorial_Simulation_Description,
                     new(0, 600)
                 ),
-            
+
                 new(
                     Localization_GUIs.Tutorial_Save_Title,
                     Localization_GUIs.Tutorial_Save_Description,
                     new(0, 720)
                 ),
-            
+
                 new(
                     Localization_GUIs.Tutorial_Explore_Title,
                     Localization_GUIs.Tutorial_Explore_Description,

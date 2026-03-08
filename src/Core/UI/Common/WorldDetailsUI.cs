@@ -211,7 +211,7 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = 0; i < this.worldButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.worldButtonInfos[i];
-    
+
                 Label buttonLabel = new()
                 {
                     Scale = new(0.12f),
@@ -219,13 +219,13 @@ namespace StardustSandbox.Core.UI.Common
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Alignment = UIDirection.Southwest,
                     TextContent = button.Name,
-    
+
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderDirections = LabelBorderDirection.All,
                     BorderOffset = 2.0f,
                     BorderThickness = 2.0f,
                 };
-    
+
                 root.AddChild(buttonLabel);
                 this.worldButtonLabels[i] = buttonLabel;
             }

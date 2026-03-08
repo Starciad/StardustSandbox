@@ -192,12 +192,12 @@ namespace StardustSandbox.Core.UI.Common
                 int column = i % UIConstants.COLOR_PICKER_COLORS_PER_ROW;
 
                 Vector2 margin = new(
-                    74.0f + column * (textureSize.X * 2.0f + 16.0f),
-                    192.0f + row * (textureSize.Y * 2.0f + 16.0f)
+                    74.0f + (column * ((textureSize.X * 2.0f) + 16.0f)),
+                    192.0f + (row * ((textureSize.Y * 2.0f) + 16.0f))
                 );
-    
+
                 ColorButtonInfo colorButton = this.colorButtonInfos[i];
-    
+
                 Image background = new()
                 {
                     TextureIndex = TextureIndex.UIButtons,
@@ -207,7 +207,7 @@ namespace StardustSandbox.Core.UI.Common
                     Color = colorButton.Color,
                     Margin = margin,
                 };
-    
+
                 Image borderElement = new()
                 {
                     TextureIndex = TextureIndex.UIButtons,
@@ -215,10 +215,10 @@ namespace StardustSandbox.Core.UI.Common
                     Scale = new(2.0f),
                     Size = textureSize,
                 };
-    
+
                 background.AddChild(borderElement);
                 root.AddChild(background);
-    
+
                 this.colorButtonSlotInfos[i] = new(background, borderElement);
             }
         }

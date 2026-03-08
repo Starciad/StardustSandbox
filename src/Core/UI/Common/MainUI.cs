@@ -189,7 +189,7 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = 0; i < this.menuButtonLabels.Length; i++)
             {
                 ButtonInfo info = this.menuButtonInfos[i];
-    
+
                 Label label = new()
                 {
                     Scale = new(0.15f),
@@ -198,13 +198,13 @@ namespace StardustSandbox.Core.UI.Common
                     Alignment = UIDirection.Center,
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     TextContent = info.Name,
-    
+
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderDirections = LabelBorderDirection.All,
                     BorderOffset = 4.0f,
                     BorderThickness = 4.0f,
                 };
-    
+
                 this.shadowBackground.AddChild(label);
                 this.menuButtonLabels[i] = label;
             }

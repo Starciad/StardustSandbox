@@ -145,13 +145,13 @@ namespace StardustSandbox.Core.UI.Common
                     Margin = new(32.0f, 128.0f + (i * 56.0f)),
                     Color = AAP64ColorPalette.White,
                     TextContent = string.Concat("Info ", i),
-    
+
                     BorderDirections = LabelBorderDirection.All,
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderOffset = 2.0f,
                     BorderThickness = 2.0f,
                 };
-    
+
                 this.panelBackground.AddChild(label);
                 this.infoLabels[i] = label;
             }

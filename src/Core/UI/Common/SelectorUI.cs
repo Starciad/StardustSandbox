@@ -212,23 +212,23 @@ namespace StardustSandbox.Core.UI.Common
                     Alignment = UIDirection.Northwest,
                     Margin = new(0.0f, 74.0f + (i * 89.0f)),
                 };
-    
+
                 Label label = new()
                 {
                     Scale = new(0.075f),
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Alignment = UIDirection.Center,
                     TextContent = "Content",
-    
+
                     BorderDirections = LabelBorderDirection.All,
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderOffset = 2.0f,
                     BorderThickness = 2.0f,
                 };
-    
+
                 this.panelBackground.AddChild(background);
                 background.AddChild(label);
-    
+
                 this.choiceButtonSlotInfos[i] = new(background, null, label);
             }
         }

@@ -305,7 +305,7 @@ namespace StardustSandbox.Core.UI.Common
             {
                 for (int column = 0; column < UIConstants.ITEM_SEARCH_ITEMS_PER_COLUMN; column++)
                 {
-                    Vector2 margin = new(38.0f + column * 80.0f, 114.0f + row * 80.0f);
+                    Vector2 margin = new(38.0f + (column * 80.0f), 114.0f + (row * 80.0f));
 
                     SlotInfo slot = new(
                         new()
@@ -317,7 +317,7 @@ namespace StardustSandbox.Core.UI.Common
                             Size = new(32.0f),
                             Margin = margin
                         },
-    
+
                         new()
                         {
                             Alignment = UIDirection.Center,
@@ -331,7 +331,7 @@ namespace StardustSandbox.Core.UI.Common
                     this.panelBackground.AddChild(slot.Background);
                     slot.Background.AddChild(slot.Icon);
 
-                    this.itemButtonSlotInfos[column + UIConstants.ITEM_SEARCH_ITEMS_PER_COLUMN * row] = slot;
+                    this.itemButtonSlotInfos[column + (UIConstants.ITEM_SEARCH_ITEMS_PER_COLUMN * row)] = slot;
                 }
             }
         }

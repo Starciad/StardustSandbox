@@ -342,7 +342,7 @@ namespace StardustSandbox.Core.UI.Common
                     this.panelBackground.AddChild(slot.Background);
                     slot.Background.AddChild(slot.Icon);
 
-                    this.subcategoryButtonSlotInfos[side * sideCounts + i] = slot;
+                    this.subcategoryButtonSlotInfos[(side * sideCounts) + i] = slot;
                 }
             }
         }
@@ -377,7 +377,7 @@ namespace StardustSandbox.Core.UI.Common
                     this.panelBackground.AddChild(slot.Background);
                     slot.Background.AddChild(slot.Icon);
 
-                    this.itemButtonSlotInfos[column + UIConstants.ITEM_EXPLORER_ITEMS_PER_COLUMN * row] = slot;
+                    this.itemButtonSlotInfos[column + (UIConstants.ITEM_EXPLORER_ITEMS_PER_COLUMN * row)] = slot;
                 }
             }
         }

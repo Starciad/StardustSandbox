@@ -215,7 +215,7 @@ namespace StardustSandbox.Core.UI.Common
             {
                 int row = i % rows;
                 int column = i / rows;
-    
+
                 Image image = new()
                 {
                     TextureIndex = TextureIndex.Achievements,
@@ -225,7 +225,7 @@ namespace StardustSandbox.Core.UI.Common
                     Size = new(32.0f),
                     Margin = new(16.0f + (row * 80.0f), 92.0f + (column * 80.0f))
                 };
-    
+
                 this.panelBackground.AddChild(image);
                 this.achievementImages[i] = image;
             }

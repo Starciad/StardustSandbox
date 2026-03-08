@@ -237,7 +237,7 @@ namespace StardustSandbox.Core.UI.Common
                         Scale = new(0.1f),
                         Margin = new((WorldConstants.WORLD_THUMBNAIL_SIZE.X * thumbnail.Scale.X) + 22.0f, 5.0f),
                         TextContent = "Title",
-    
+
                         BorderColor = AAP64ColorPalette.DarkGray,
                         BorderDirections = LabelBorderDirection.All,
                         BorderOffset = 2.0f,
@@ -248,7 +248,7 @@ namespace StardustSandbox.Core.UI.Common
                     background.AddChild(thumbnail);
                     background.AddChild(title);
 
-                    this.worldButtonSlotInfos[column + UIConstants.WORLD_EXPLORER_ITEMS_PER_COLUMN * row] = new(background, thumbnail, title);
+                    this.worldButtonSlotInfos[column + (UIConstants.WORLD_EXPLORER_ITEMS_PER_COLUMN * row)] = new(background, thumbnail, title);
                 }
             }
         }

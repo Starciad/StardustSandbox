@@ -135,17 +135,17 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
-    
+
                 Image background = new()
                 {
                     TextureIndex = TextureIndex.UIButtons,
                     SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320.0f, 80.0f),
-                    Margin = new(0.0f, 118.0f + i * 112.0f),
+                    Margin = new(0.0f, 118.0f + (i * 112.0f)),
                     Alignment = UIDirection.North,
                 };
-    
+
                 Label label = new()
                 {
                     Scale = new(0.1f),
@@ -153,16 +153,16 @@ namespace StardustSandbox.Core.UI.Common
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Alignment = UIDirection.Center,
                     TextContent = button.Name,
-    
+
                     BorderColor = AAP64ColorPalette.DarkGray,
                     BorderDirections = LabelBorderDirection.All,
                     BorderOffset = 2.0f,
                     BorderThickness = 2.0f,
                 };
-    
+
                 this.panelBackground.AddChild(background);
                 background.AddChild(label);
-    
+
                 this.menuButtonSlotInfos[i] = new(background, null, label);
             }
         }
