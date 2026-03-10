@@ -216,6 +216,11 @@ namespace StardustSandbox.Core.Actors
             }
         }
 
+        internal void MoveBy(Point delta)
+        {
+            MoveBy(delta.X, delta.Y);
+        }
+
         internal bool IsGrounded(Point position, Point size)
         {
             int startX = position.X;

@@ -20,8 +20,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Actors;
 using StardustSandbox.Core.Enums.Assets;
+using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Saving.Data;
 using StardustSandbox.Core.WorldSystem;
@@ -77,20 +80,12 @@ namespace StardustSandbox.Core.Actors.Common
             new(64, 96, 32, 32),
         ];
 
-        // private bool isHoldingBackground;
-        // private bool isFacingForward;
-
         internal Ant(ActorIndex index, ActorManager actorManager, World world) : base(index, actorManager, world)
         {
             Reset();
         }
 
-        // private Point GetForwardPoint()
-        // {
-        //     return default;
-        // }
-
-        private Rectangle GetSourceRectangle()
+        private static Rectangle GetSourceRectangle()
         {
             return sourceRectangleSprites[0];
         }
@@ -99,7 +94,7 @@ namespace StardustSandbox.Core.Actors.Common
         {
 
         }
-        
+
         internal override void Update(GameTime gameTime)
         {
 
