@@ -207,4 +207,10 @@
   <data name="Subcategory.Actors.Creatures.Description" xml:space="preserve">
     <value>Fantastic and curious creatures that may inhabit the world.</value>
   </data>
+  <data name="Subcategory.Actors.Animals.Name" xml:space="preserve">
+    <value>Animals</value>
+  </data>
+  <data name="Subcategory.Actors.Animals.Description" xml:space="preserve">
+    <value>Animals</value>
+  </data>
 </root>

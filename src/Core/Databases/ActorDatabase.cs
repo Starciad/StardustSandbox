@@ -43,7 +43,13 @@ namespace StardustSandbox.Core.Databases
                 {
                     CanDraw = true,
                     CanUpdate = true,
+                    Size = new(1),
+                }),
 
+                new ActorDescriptor<Ant>(ActorIndex.Ant, () => new(ActorIndex.Ant, actorManager, world)
+                {
+                    CanDraw = true,
+                    CanUpdate = true,
                     Size = new(1),
                 }),
             ];

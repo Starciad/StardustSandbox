@@ -123,4 +123,10 @@
   <data name="Gul.Description" xml:space="preserve">
     <value>A curious and friendly creature that roams around the world. It can pick up map elements and place them in another location.</value>
   </data>
+  <data name="Ant.Name" xml:space="preserve">
+    <value>Ant</value>
+  </data>
+  <data name="Ant.Description" xml:space="preserve">
+    <value>Ant</value>
+  </data>
 </root>

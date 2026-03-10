@@ -1205,6 +1205,24 @@ namespace StardustSandbox.Core.Databases
                             textureIndex: TextureIndex.IconActors,
                             sourceRectangle: new(0, 0, 32, 32)
                         )
+                    ),
+
+                    // [1] Animals
+                    new Subcategory(
+                        name: Localization_Catalog.Subcategory_Actors_Animals_Name,
+                        description: Localization_Catalog.Subcategory_Actors_Animals_Description,
+                        textureIndex: TextureIndex.IconActors,
+                        sourceRectangle: new(32, 0, 32, 32),
+
+                        // [0] Ant
+                        new Item(
+                            contentIndex: (int)ActorIndex.Ant,
+                            name: Localization_Actors.Ant_Name,
+                            description: Localization_Actors.Ant_Description,
+                            contentType: ItemContentType.Actor,
+                            textureIndex: TextureIndex.IconActors,
+                            sourceRectangle: new(32, 0, 32, 32)
+                        )
                     )
                 ),
             ];

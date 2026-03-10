@@ -207,4 +207,11 @@
   <data name="Subcategory.Actors.Creatures.Description" xml:space="preserve">
     <value>Fantastische und neugierige Kreaturen, die die Welt bewohnen können.</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Subcategory.Actors.Animals.Name" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Subcategory.Actors.Animals.Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>
