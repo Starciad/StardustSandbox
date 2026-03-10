@@ -23,7 +23,7 @@ using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.Elements.Utilities
 {
-    internal static class TemperatureUtilities
+    internal static class TemperatureUtility
     {
         internal static void ModifyNeighborsTemperature(ElementContext context, ElementNeighbors neighbors, in TemperatureModifierMode temperatureModifierMode)
         {
