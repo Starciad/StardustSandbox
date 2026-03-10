@@ -39,16 +39,11 @@ namespace StardustSandbox.Core.Actors.Common
 {
     internal sealed class Gul : Actor
     {
-        private enum Direction : sbyte
-        {
-            Left = -1,
-            Right = 1,
-        }
-
         private Element GrabbedElement => ElementDatabase.GetElement(this.grabbedElementIndex);
         private bool IsGrabbingElement => this.grabbedElementIndex is not ElementIndex.None;
+        private int HorizontalDirection => this.isFacingRight ? 1 : -1;
 
-        private Direction direction;
+        private bool isFacingRight;
         private ElementIndex grabbedElementIndex;
         private Point positionElementPlaced;
         private uint elementsPlacedCount;
@@ -62,7 +57,7 @@ namespace StardustSandbox.Core.Actors.Common
 
         public override void Reset()
         {
-            this.direction = Randomness.Random.GetBool() ? Direction.Left : Direction.Right;
+            this.isFacingRight = Randomness.Random.GetBool();
             this.grabbedElementIndex = ElementIndex.None;
             this.positionElementPlaced = new(-1);
         }
@@ -172,7 +167,7 @@ namespace StardustSandbox.Core.Actors.Common
 
         private void TurnAround()
         {
-            this.direction = this.direction == Direction.Left ? Direction.Right : Direction.Left;
+            this.isFacingRight = !this.isFacingRight;
         }
 
         private bool HasEntityAbove(Point position)
@@ -183,9 +178,9 @@ namespace StardustSandbox.Core.Actors.Common
         private void SetFrontPositions(Predicate<Point> removeMatch)
         {
             possiblePositions.Clear();
-            possiblePositions.Add(new(this.PositionX + (sbyte)this.direction, this.PositionY - 1));
-            possiblePositions.Add(new(this.PositionX + (sbyte)this.direction, this.PositionY));
-            possiblePositions.Add(new(this.PositionX + (sbyte)this.direction, this.PositionY + 1));
+            possiblePositions.Add(new(this.PositionX + this.HorizontalDirection, this.PositionY - 1));
+            possiblePositions.Add(new(this.PositionX + this.HorizontalDirection, this.PositionY));
+            possiblePositions.Add(new(this.PositionX + this.HorizontalDirection, this.PositionY + 1));
             _ = possiblePositions.RemoveAll(removeMatch);
         }
 
@@ -347,7 +342,7 @@ namespace StardustSandbox.Core.Actors.Common
             spriteBatch.Draw(
                 AssetDatabase.GetTexture(TextureIndex.Actors),
                 new(this.PositionX * SpriteConstants.SPRITE_SCALE, this.PositionY * SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE),
-                new(0, this.direction == Direction.Right ? 0 : 32, 32, 32),
+                new(0, this.isFacingRight ? 0 : 32, 32, 32),
                 Color.White,
                 0.0f,
                 Vector2.Zero,
@@ -360,7 +355,7 @@ namespace StardustSandbox.Core.Actors.Common
                 spriteBatch.Draw(
                     AssetDatabase.GetTexture(TextureIndex.Elements),
                     new(
-                        (this.PositionX * SpriteConstants.SPRITE_SCALE) + (this.direction is Direction.Right ? 12.0f * (float)this.direction : 4.0f),
+                        (this.PositionX * SpriteConstants.SPRITE_SCALE) + (this.isFacingRight ? 12.0f * this.HorizontalDirection : 4.0f),
                         (this.PositionY * SpriteConstants.SPRITE_SCALE) + 16.0f
                     ),
                     new(this.GrabbedElement.RenderingType switch
@@ -386,7 +381,7 @@ namespace StardustSandbox.Core.Actors.Common
                 Index = this.Index,
                 Content = new Dictionary<string, object>()
                 {
-                    ["Direction"] = this.direction,
+                    ["IsFacingRight"] = this.isFacingRight,
                     ["GrabbedElementIndex"] = this.grabbedElementIndex,
                     ["PositionX"] = this.PositionX,
                     ["PositionY"] = this.PositionY,
@@ -398,9 +393,9 @@ namespace StardustSandbox.Core.Actors.Common
 
         internal override void Deserialize(ActorData data)
         {
-            this.direction = data.GetOrDefault(
+            this.isFacingRight = data.GetOrDefault(
                 "Direction",
-                Randomness.Random.GetBool() ? Direction.Left : Direction.Right
+                Randomness.Random.GetBool()
             );
 
             this.grabbedElementIndex = data.GetOrDefault(
