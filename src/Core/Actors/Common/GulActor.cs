@@ -149,7 +149,7 @@ namespace StardustSandbox.Core.Actors.Common
                 ElementIndex.OrangePaint or
                 ElementIndex.YellowPaint or
                 ElementIndex.GreenPaint or
-                ElementIndex.BluePaint or
+                ElementIndex.CyanPaint or
                 ElementIndex.GrayPaint or
                 ElementIndex.VioletPaint or
                 ElementIndex.BrownPaint or

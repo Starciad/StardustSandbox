@@ -83,7 +83,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                     case ElementIndex.OrangePaint:
                     case ElementIndex.YellowPaint:
                     case ElementIndex.GreenPaint:
-                    case ElementIndex.BluePaint:
+                    case ElementIndex.CyanPaint:
                     case ElementIndex.GrayPaint:
                     case ElementIndex.VioletPaint:
                     case ElementIndex.BrownPaint:

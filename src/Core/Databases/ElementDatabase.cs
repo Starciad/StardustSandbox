@@ -38,6 +38,7 @@ namespace StardustSandbox.Core.Databases
             }
 
             elements = [
+                // [000] Dirt
                 new Elements.Solids.Movables.Dirt()
                 {
                     Index = ElementIndex.Dirt,
@@ -52,6 +53,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.6f,
                     DefaultExplosionResistance = 1.0f,
                 },
+
+                // [001] Mud
                 new Elements.Solids.Movables.Mud()
                 {
                     Index = ElementIndex.Mud,
@@ -66,6 +69,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.5f,
                     DefaultExplosionResistance = 0.6f,
                 },
+
+                // [002] Water
                 new Elements.Liquids.Water()
                 {
                     Index = ElementIndex.Water,
@@ -82,6 +87,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.0f,
                     DefaultExplosionResistance = 0.2f,
                 },
+
+                // [003] Stone
                 new Elements.Solids.Movables.Stone()
                 {
                     Index = ElementIndex.Stone,
@@ -96,6 +103,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 2.5f,
                     DefaultExplosionResistance = 0.5f,
                 },
+
+                // [004] Grass
                 new Elements.Solids.Movables.Grass()
                 {
                     Index = ElementIndex.Grass,
@@ -112,6 +121,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.1f,
                     DefaultExplosionResistance = 0.5f,
                 },
+                
+                // [005] Ice
                 new Elements.Solids.Movables.Ice()
                 {
                     Index = ElementIndex.Ice,
@@ -126,6 +137,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.92f,
                     DefaultExplosionResistance = 1.2f,
                 },
+
+                // [006] Sand
                 new Elements.Solids.Movables.Sand()
                 {
                     Index = ElementIndex.Sand,
@@ -140,6 +153,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.5f,
                     DefaultExplosionResistance = 0.5f,
                 },
+
+                // [007] Snow
                 new Elements.Solids.Movables.Snow()
                 {
                     Index = ElementIndex.Snow,
@@ -154,6 +169,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.1f,
                     DefaultExplosionResistance = 0.3f,
                 },
+
+                // [008] Movable Corruption
                 new Elements.Solids.Movables.MovableCorruption()
                 {
                     Index = ElementIndex.MovableCorruption,
@@ -168,6 +185,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.4f,
                     DefaultExplosionResistance = 0.8f,
                 },
+                
+                // [009] Lava
                 new Elements.Liquids.Lava()
                 {
                     Index = ElementIndex.Lava,
@@ -183,6 +202,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 2.7f,
                     DefaultExplosionResistance = 0.4f,
                 },
+
+                // [010] Acid
                 new Elements.Liquids.Acid()
                 {
                     Index = ElementIndex.Acid,
@@ -198,6 +219,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.2f,
                     DefaultExplosionResistance = 0.2f,
                 },
+
+                // [011] Glass
                 new Elements.Solids.Immovables.Glass()
                 {
                     Index = ElementIndex.Glass,
@@ -212,6 +235,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 2.5f,
                     DefaultExplosionResistance = 0.5f,
                 },
+
+                // [012] Iron
                 new Elements.Solids.Immovables.Iron()
                 {
                     Index = ElementIndex.Iron,
@@ -227,6 +252,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 7.8f,
                     DefaultExplosionResistance = 0.3f,
                 },
+
+                // [013] Wall
                 new Elements.Solids.Immovables.Wall()
                 {
                     Index = ElementIndex.Wall,
@@ -238,6 +265,8 @@ namespace StardustSandbox.Core.Databases
 
                     DefaultDensity = 2.2f,
                 },
+
+                // [014] Wood
                 new Elements.Solids.Immovables.Wood()
                 {
                     Index = ElementIndex.Wood,
@@ -254,6 +283,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.7f,
                     DefaultExplosionResistance = 1.5f,
                 },
+
+                // [015] Gas Corruption
                 new Elements.Gases.GasCorruption()
                 {
                     Index = ElementIndex.GasCorruption,
@@ -267,6 +298,8 @@ namespace StardustSandbox.Core.Databases
                     ReferenceColor = AAP64ColorPalette.PurpleGray,
                     DefaultDensity = 0.005f,
                 },
+
+                // [016] Liquid Corruption
                 new Elements.Liquids.LiquidCorruption()
                 {
                     Index = ElementIndex.LiquidCorruption,
@@ -281,6 +314,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.05f,
                     DefaultExplosionResistance = 0.1f,
                 },
+
+                // [017] Immovable Corruption
                 new Elements.Solids.Immovables.ImmovableCorruption()
                 {
                     Index = ElementIndex.ImmovableCorruption,
@@ -295,6 +330,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.6f,
                     DefaultExplosionResistance = 1.2f,
                 },
+
+                // [018] Steam
                 new Elements.Gases.Steam()
                 {
                     Index = ElementIndex.Steam,
@@ -309,6 +346,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultTemperature = 200.0f,
                     DefaultDensity = 0.0006f,
                 },
+
+                // [019] Smoke
                 new Elements.Gases.Smoke()
                 {
                     Index = ElementIndex.Smoke,
@@ -322,6 +361,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultTemperature = 350.0f,
                     DefaultDensity = 0.002f,
                 },
+
+                // [020] Red Brick
                 new Elements.Solids.Immovables.RedBrick()
                 {
                     Index = ElementIndex.RedBrick,
@@ -336,6 +377,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 2.4f,
                     DefaultExplosionResistance = 2.5f,
                 },
+
+                // [021] Tree Leaf
                 new Elements.Solids.Immovables.TreeLeaf()
                 {
                     Index = ElementIndex.TreeLeaf,
@@ -352,6 +395,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.04f,
                     DefaultExplosionResistance = 0.1f,
                 },
+
+                // [022] Mounting Block
                 new Elements.Solids.Immovables.MountingBlock()
                 {
                     Index = ElementIndex.MountingBlock,
@@ -368,6 +413,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.8f,
                     DefaultExplosionResistance = 1.5f,
                 },
+
+                // [023] Fire
                 new Elements.Energies.Fire()
                 {
                     Index = ElementIndex.Fire,
@@ -383,6 +430,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultTemperature = 500.0f,
                     DefaultDensity = 0.0f,
                 },
+
+                // [024] Lamp On
                 new Elements.Solids.Immovables.LampOn()
                 {
                     Index = ElementIndex.LampOn,
@@ -397,6 +446,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultTemperature = 26.0f,
                     DefaultDensity = 2.8f,
                 },
+
+                // [025] Void
                 new Elements.Solids.Immovables.Void()
                 {
                     Index = ElementIndex.Void,
@@ -408,6 +459,8 @@ namespace StardustSandbox.Core.Databases
                     ReferenceColor = AAP64ColorPalette.DarkGray,
                     DefaultDensity = 0.001f,
                 },
+
+                // [026] Clone
                 new Elements.Solids.Immovables.Clone()
                 {
                     Index = ElementIndex.Clone,
@@ -419,6 +472,8 @@ namespace StardustSandbox.Core.Databases
                     ReferenceColor = AAP64ColorPalette.Amber,
                     DefaultDensity = 3.0f,
                 },
+
+                // [027] Oil
                 new Elements.Liquids.Oil()
                 {
                     Index = ElementIndex.Oil,
@@ -435,6 +490,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.92f,
                     DefaultExplosionResistance = 0.3f,
                 },
+
+                // [028] Salt
                 new Elements.Solids.Movables.Salt()
                 {
                     Index = ElementIndex.Salt,
@@ -451,6 +508,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 2.2f,
                     DefaultExplosionResistance = 0.7f,
                 },
+
+                // [029] Saltwater
                 new Elements.Liquids.Saltwater()
                 {
                     Index = ElementIndex.Saltwater,
@@ -468,6 +527,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.03f,
                     DefaultExplosionResistance = 0.2f,
                 },
+
+                // [030] Bomb
                 new Elements.Solids.Movables.Explosives.Bomb()
                 {
                     Index = ElementIndex.Bomb,
@@ -483,6 +544,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 3.5f,
                     DefaultExplosionResistance = 0.3f,
                 },
+
+                // [031] Dynamite
                 new Elements.Solids.Movables.Explosives.Dynamite()
                 {
                     Index = ElementIndex.Dynamite,
@@ -498,6 +561,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 2.4f,
                     DefaultExplosionResistance = 0.5f,
                 },
+
+                // [032] TNT
                 new Elements.Solids.Movables.Explosives.Tnt()
                 {
                     Index = ElementIndex.Tnt,
@@ -514,6 +579,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 2.8f,
                     DefaultExplosionResistance = 0.35f,
                 },
+
+                // [033] Dry Sponge
                 new Elements.Solids.Immovables.DrySponge()
                 {
                     Index = ElementIndex.DrySponge,
@@ -531,6 +598,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.055f,
                     DefaultExplosionResistance = 0.5f,
                 },
+
+                // [034] Wet Sponge
                 new Elements.Solids.Immovables.WetSponge()
                 {
                     Index = ElementIndex.WetSponge,
@@ -546,6 +615,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.2f,
                     DefaultExplosionResistance = 0.8f,
                 },
+
+                // [035] Gold
                 new Elements.Solids.Immovables.Gold()
                 {
                     Index = ElementIndex.Gold,
@@ -561,6 +632,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 19.3f,
                     DefaultExplosionResistance = 0.3f,
                 },
+
+                // [036] Heater
                 new Elements.Solids.Immovables.Heater()
                 {
                     Index = ElementIndex.Heater,
@@ -576,6 +649,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.5f,
                     DefaultExplosionResistance = 2.5f,
                 },
+
+                // [037] Freezer
                 new Elements.Solids.Immovables.Freezer()
                 {
                     Index = ElementIndex.Freezer,
@@ -590,6 +665,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultTemperature = 0.0f,
                     DefaultDensity = 1.5f,
                 },
+
+                // [038] Ash
                 new Elements.Solids.Movables.Ash()
                 {
                     Index = ElementIndex.Ash,
@@ -605,6 +682,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.35f,
                     DefaultExplosionResistance = 0.0f,
                 },
+
+                // [039] Anti-Corruption
                 new Elements.Gases.AntiCorruption()
                 {
                     Index = ElementIndex.AntiCorruption,
@@ -616,6 +695,8 @@ namespace StardustSandbox.Core.Databases
                     ReferenceColor = AAP64ColorPalette.Crimson,
                     DefaultDensity = 0.5f,
                 },
+
+                // [040] Devourer
                 new Elements.Solids.Immovables.Devourer()
                 {
                     Index = ElementIndex.Devourer,
@@ -629,7 +710,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 3.5f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Pushers.UpwardPusher()
+
+                // [041] Upward Pusher
+                new Elements.Solids.Immovables.Pusher()
                 {
                     Index = ElementIndex.UpwardPusher,
                     Category = ElementCategory.ImmovableSolid,
@@ -638,9 +721,12 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(320, 320),
                     ReferenceColor = AAP64ColorPalette.Rust,
+                    Direction = PusherDirection.Up,
                     DefaultDensity = 2.0f,
                 },
-                new Elements.Solids.Immovables.Pushers.RightwardPusher()
+
+                // [042] Rightward Pusher
+                new Elements.Solids.Immovables.Pusher()
                 {
                     Index = ElementIndex.RightwardPusher,
                     Category = ElementCategory.ImmovableSolid,
@@ -649,9 +735,12 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(352, 320),
                     ReferenceColor = AAP64ColorPalette.Rust,
+                    Direction = PusherDirection.Right,
                     DefaultDensity = 2.0f,
                 },
-                new Elements.Solids.Immovables.Pushers.DownwardPusher()
+
+                // [043] Downward Pusher
+                new Elements.Solids.Immovables.Pusher()
                 {
                     Index = ElementIndex.DownwardPusher,
                     Category = ElementCategory.ImmovableSolid,
@@ -660,9 +749,12 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(384, 320),
                     ReferenceColor = AAP64ColorPalette.Rust,
+                    Direction = PusherDirection.Down,
                     DefaultDensity = 2.0f,
                 },
-                new Elements.Solids.Immovables.Pushers.LeftwardPusher()
+
+                // [044] Leftward Pusher
+                new Elements.Solids.Immovables.Pusher()
                 {
                     Index = ElementIndex.LeftwardPusher,
                     Category = ElementCategory.ImmovableSolid,
@@ -671,8 +763,11 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(416, 320),
                     ReferenceColor = AAP64ColorPalette.Rust,
+                    Direction = PusherDirection.Left,
                     DefaultDensity = 2.0f,
                 },
+
+                // [045] Cloud
                 new Elements.Gases.Cloud()
                 {
                     Index = ElementIndex.Cloud,
@@ -689,6 +784,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.15f,
                     DefaultExplosionResistance = 0.5f,
                 },
+
+                // [046] Charged Cloud
                 new Elements.Gases.ChargedCloud()
                 {
                     Index = ElementIndex.ChargedCloud,
@@ -706,6 +803,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.2f,
                     DefaultExplosionResistance = 0.7f,
                 },
+
+                // [047] Lightning Head
                 new Elements.Energies.LightningHead()
                 {
                     Index = ElementIndex.LightningHead,
@@ -717,6 +816,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultTemperature = TemperatureConstants.MAX_CELSIUS_VALUE,
                     DefaultDensity = 0.0f,
                 },
+
+                // [048] Lightning Body
                 new Elements.Energies.LightningBody()
                 {
                     Index = ElementIndex.LightningBody,
@@ -730,7 +831,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultTemperature = TemperatureConstants.MAX_CELSIUS_VALUE,
                     DefaultDensity = 0.0f,
                 },
-                new Elements.Solids.Immovables.Wools.DryBlackWool()
+
+                // [049] Dry Wool (Black)
+                new Elements.Solids.Immovables.DryWool()
                 {
                     Index = ElementIndex.DryBlackWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -748,7 +851,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.DryWhiteWool()
+
+                // [050] Dry Wool (White)
+                new Elements.Solids.Immovables.DryWool()
                 {
                     Index = ElementIndex.DryWhiteWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -766,7 +871,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.DryRedWool()
+
+                // [051] Dry Wool (Red)
+                new Elements.Solids.Immovables.DryWool()
                 {
                     Index = ElementIndex.DryRedWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -784,7 +891,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.DryOrangeWool()
+
+                // [052] Dry Wool (Orange)
+                new Elements.Solids.Immovables.DryWool()
                 {
                     Index = ElementIndex.DryOrangeWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -802,7 +911,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.DryYellowWool()
+
+                // [053] Dry Wool (Yellow)
+                new Elements.Solids.Immovables.DryWool()
                 {
                     Index = ElementIndex.DryYellowWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -820,7 +931,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.DryGreenWool()
+
+                // [054] Dry Wool (Green)
+                new Elements.Solids.Immovables.DryWool()
                 {
                     Index = ElementIndex.DryGreenWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -838,7 +951,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.DryGrayWool()
+
+                // [055] Dry Wool (Gray)
+                new Elements.Solids.Immovables.DryWool()
                 {
                     Index = ElementIndex.DryGrayWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -856,7 +971,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.DryBlueWool()
+
+                // [056] Dry Wool (Blue)
+                new Elements.Solids.Immovables.DryWool()
                 {
                     Index = ElementIndex.DryBlueWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -874,7 +991,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.DryVioletWool()
+
+                // [057] Dry Wool (Violet)
+                new Elements.Solids.Immovables.DryWool()
                 {
                     Index = ElementIndex.DryVioletWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -892,7 +1011,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.DryBrownWool()
+
+                // [058] Dry Wool (Brown)
+                new Elements.Solids.Immovables.DryWool()
                 {
                     Index = ElementIndex.DryBrownWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -910,7 +1031,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.WetBlackWool()
+
+                // [059] Wet Wool (Black)
+                new Elements.Solids.Immovables.WetWool()
                 {
                     Index = ElementIndex.WetBlackWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -926,7 +1049,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.WetWhiteWool()
+
+                // [060] Wet Wool (White)
+                new Elements.Solids.Immovables.WetWool()
                 {
                     Index = ElementIndex.WetWhiteWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -942,7 +1067,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.WetRedWool()
+
+                // [061] Wet Wool (Red)
+                new Elements.Solids.Immovables.WetWool()
                 {
                     Index = ElementIndex.WetRedWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -958,7 +1085,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.WetOrangeWool()
+
+                // [062] Wet Wool (Orange)
+                new Elements.Solids.Immovables.WetWool()
                 {
                     Index = ElementIndex.WetOrangeWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -974,7 +1103,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.WetYellowWool()
+
+                // [063] Wet Wool (Yellow)
+                new Elements.Solids.Immovables.WetWool()
                 {
                     Index = ElementIndex.WetYellowWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -990,7 +1121,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.WetGreenWool()
+
+                // [064] Wet Wool (Green)
+                new Elements.Solids.Immovables.WetWool()
                 {
                     Index = ElementIndex.WetGreenWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -1006,7 +1139,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.WetGrayWool()
+
+                // [065] Wet Wool (Gray)
+                new Elements.Solids.Immovables.WetWool()
                 {
                     Index = ElementIndex.WetGrayWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -1022,7 +1157,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.WetBlueWool()
+
+                // [066] Wet Wool (Blue)
+                new Elements.Solids.Immovables.WetWool()
                 {
                     Index = ElementIndex.WetBlueWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -1038,7 +1175,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.WetVioletWool()
+
+                // [067] Wet Wool (Violet)
+                new Elements.Solids.Immovables.WetWool()
                 {
                     Index = ElementIndex.WetVioletWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -1054,7 +1193,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
-                new Elements.Solids.Immovables.Wools.WetBrownWool()
+
+                // [068] Wet Wool (Brown)
+                new Elements.Solids.Immovables.WetWool()
                 {
                     Index = ElementIndex.WetBrownWool,
                     Category = ElementCategory.ImmovableSolid,
@@ -1070,6 +1211,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
                 },
+
+                // [069] Fertile Soil
                 new Elements.Solids.Movables.FertileSoil()
                 {
                     Index = ElementIndex.FertileSoil,
@@ -1084,6 +1227,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.4f,
                     DefaultExplosionResistance = 0.4f,
                 },
+
+                // [070] Seed
                 new Elements.Solids.Movables.Seed()
                 {
                     Index = ElementIndex.Seed,
@@ -1101,6 +1246,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.05f,
                     DefaultExplosionResistance = 0.2f,
                 },
+
+                // [071] Sapling
                 new Elements.Solids.Movables.Sapling()
                 {
                     Index = ElementIndex.Sapling,
@@ -1118,6 +1265,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.3f,
                     DefaultExplosionResistance = 0.5f,
                 },
+
+                // [072] Moss
                 new Elements.Solids.Immovables.Moss()
                 {
                     Index = ElementIndex.Moss,
@@ -1134,6 +1283,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.4f,
                     DefaultExplosionResistance = 0.3f,
                 },
+
+                // [073] Gunpowder
                 new Elements.Solids.Movables.Explosives.Gunpowder()
                 {
                     Index = ElementIndex.Gunpowder,
@@ -1151,6 +1302,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.9f,
                     DefaultExplosionResistance = 0.1f,
                 },
+
+                // [074] Liquefied Petroleum Gas
                 new Elements.Gases.LiquefiedPetroleumGas()
                 {
                     Index = ElementIndex.LiquefiedPetroleumGas,
@@ -1168,6 +1321,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 0.25f,
                     DefaultExplosionResistance = 0.2f,
                 },
+
+                // [075] Obsidian
                 new Elements.Solids.Immovables.Obsidian()
                 {
                     Index = ElementIndex.Obsidian,
@@ -1181,7 +1336,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultTemperature = 35.0f,
                     DefaultDensity = 2.4f,
                 },
-                new Elements.Liquids.Paints.BlackPaint()
+
+                // [076] Paint (Black)
+                new Elements.Liquids.Paint()
                 {
                     Index = ElementIndex.BlackPaint,
                     Category = ElementCategory.Liquid,
@@ -1198,7 +1355,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.2f,
                     DefaultExplosionResistance = 0.3f,
                 },
-                new Elements.Liquids.Paints.WhitePaint()
+
+                // [077] Paint (White)
+                new Elements.Liquids.Paint()
                 {
                     Index = ElementIndex.WhitePaint,
                     Category = ElementCategory.Liquid,
@@ -1215,7 +1374,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.2f,
                     DefaultExplosionResistance = 0.3f,
                 },
-                new Elements.Liquids.Paints.RedPaint()
+
+                // [078] Paint (Red)
+                new Elements.Liquids.Paint()
                 {
                     Index = ElementIndex.RedPaint,
                     Category = ElementCategory.Liquid,
@@ -1232,7 +1393,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.2f,
                     DefaultExplosionResistance = 0.3f,
                 },
-                new Elements.Liquids.Paints.OrangePaint()
+
+                // [079] Paint (Orange)
+                new Elements.Liquids.Paint()
                 {
                     Index = ElementIndex.OrangePaint,
                     Category = ElementCategory.Liquid,
@@ -1249,7 +1412,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.2f,
                     DefaultExplosionResistance = 0.3f,
                 },
-                new Elements.Liquids.Paints.YellowPaint()
+
+                // [080] Paint (Yellow)
+                new Elements.Liquids.Paint()
                 {
                     Index = ElementIndex.YellowPaint,
                     Category = ElementCategory.Liquid,
@@ -1266,7 +1431,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.2f,
                     DefaultExplosionResistance = 0.3f,
                 },
-                new Elements.Liquids.Paints.GreenPaint()
+
+                // [081] Paint (Green)
+                new Elements.Liquids.Paint()
                 {
                     Index = ElementIndex.GreenPaint,
                     Category = ElementCategory.Liquid,
@@ -1283,9 +1450,11 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.2f,
                     DefaultExplosionResistance = 0.3f,
                 },
-                new Elements.Liquids.Paints.BluePaint()
+
+                // [082] Paint (Cyan)
+                new Elements.Liquids.Paint()
                 {
-                    Index = ElementIndex.BluePaint,
+                    Index = ElementIndex.CyanPaint,
                     Category = ElementCategory.Liquid,
                     Characteristics = ElementCharacteristics.AffectsNeighbors |
                                       ElementCharacteristics.HasTemperature |
@@ -1294,13 +1463,15 @@ namespace StardustSandbox.Core.Databases
                                       ElementCharacteristics.IsFlammable,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(960, 128),
-                    ReferenceColor = AAP64ColorPalette.Gunmetal,
-                    DyeingColor = AAP64ColorPalette.Gunmetal,
+                    ReferenceColor = AAP64ColorPalette.Cyan,
+                    DyeingColor = AAP64ColorPalette.Cyan,
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 1.2f,
                     DefaultExplosionResistance = 0.3f,
                 },
-                new Elements.Liquids.Paints.GrayPaint()
+
+                // [083] Paint (Gray)
+                new Elements.Liquids.Paint()
                 {
                     Index = ElementIndex.GrayPaint,
                     Category = ElementCategory.Liquid,
@@ -1311,13 +1482,15 @@ namespace StardustSandbox.Core.Databases
                                       ElementCharacteristics.IsFlammable,
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(960, 160),
-                    ReferenceColor = AAP64ColorPalette.Cyan,
-                    DyeingColor = AAP64ColorPalette.Cyan,
+                    ReferenceColor = AAP64ColorPalette.Gunmetal,
+                    DyeingColor = AAP64ColorPalette.Gunmetal,
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 1.2f,
                     DefaultExplosionResistance = 0.3f,
                 },
-                new Elements.Liquids.Paints.VioletPaint()
+
+                // [084] Paint (Violet)
+                new Elements.Liquids.Paint()
                 {
                     Index = ElementIndex.VioletPaint,
                     Category = ElementCategory.Liquid,
@@ -1334,7 +1507,9 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.2f,
                     DefaultExplosionResistance = 0.3f,
                 },
-                new Elements.Liquids.Paints.BrownPaint()
+
+                // [085] Paint (Brown)
+                new Elements.Liquids.Paint()
                 {
                     Index = ElementIndex.BrownPaint,
                     Category = ElementCategory.Liquid,
@@ -1351,6 +1526,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.2f,
                     DefaultExplosionResistance = 0.3f,
                 },
+
+                // [086] Mercury
                 new Elements.Liquids.Mercury()
                 {
                     Index = ElementIndex.Mercury,
@@ -1367,6 +1544,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultExplosionResistance = 0.5f,
                     DefaultDispersionRate = 3,
                 },
+
+                // [087] Electricity
                 new Elements.Energies.Electricity()
                 {
                     Index = ElementIndex.Electricity,
@@ -1382,6 +1561,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultExplosionResistance = 0.0f,
                     DefaultDispersionRate = 8,
                 },
+
+                // [088] Battery
                 new Elements.Solids.Immovables.Battery()
                 {
                     Index = ElementIndex.Battery,
@@ -1399,6 +1580,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.2f,
                     DefaultExplosionResistance = 1.0f,
                 },
+
+                // [089] Lamp (Off)
                 new Elements.Solids.Immovables.LampOff()
                 {
                     Index = ElementIndex.LampOff,
@@ -1415,6 +1598,8 @@ namespace StardustSandbox.Core.Databases
                     DefaultDensity = 1.0f,
                     DefaultExplosionResistance = 0.5f,
                 },
+
+                // [090] Energy Transmitter
                 new Elements.Solids.Immovables.EnergyTransmitter()
                 {
                     Index = ElementIndex.EnergyTransmitter,
