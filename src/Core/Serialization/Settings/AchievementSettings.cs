@@ -83,17 +83,14 @@ namespace StardustSandbox.Core.Serialization.Settings
 
         public void Unlock(AchievementIndex index)
         {
-            AchievementProgressData data = GetData(index);
+            AchievementProgressData data = GetData(index) ?? AddData(index);
+            data.IsUnlocked = true;
+        }
 
-            if (data is null)
-            {
-                data = AddData(index);
-                data.IsUnlocked = true;
-            }
-            else
-            {
-                data.IsUnlocked = true;
-            }
+        public void Lock(AchievementIndex index)
+        {
+            AchievementProgressData data = GetData(index) ?? AddData(index);
+            data.IsUnlocked = false;
         }
 
         public uint GetUnlockedCount()
