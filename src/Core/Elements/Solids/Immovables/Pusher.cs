@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -16,14 +16,37 @@
 */
 
 using StardustSandbox.Core.Elements.Utilities;
+using StardustSandbox.Core.Enums.Elements;
 
-namespace StardustSandbox.Core.Elements.Solids.Immovables.Pushers
+namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
-    internal sealed class RightwardPusher : ImmovableSolid
+    internal sealed class Pusher : ImmovableSolid
     {
+        internal required PusherDirection Direction { get; init; }
+
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
-            PusherUtility.PushingNeighborsRight(context, neighbors);
+            switch (this.Direction)
+            {
+                case PusherDirection.Up:
+                    PusherUtility.PushingNeighborsUp(context, neighbors);
+                    break;
+
+                case PusherDirection.Right:
+                    PusherUtility.PushingNeighborsRight(context, neighbors);
+                    break;
+
+                case PusherDirection.Down:
+                    PusherUtility.PushingNeighborsDown(context, neighbors);
+                    break;
+
+                case PusherDirection.Left:
+                    PusherUtility.PushingNeighborsLeft(context, neighbors);
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 }

@@ -312,7 +312,7 @@ namespace StardustSandbox.Core.Databases
 
                         // [12] Blue Paint
                         new Item(
-                            contentIndex: (int)ElementIndex.BluePaint,
+                            contentIndex: (int)ElementIndex.CyanPaint,
                             name: Localization_Elements.Liquid_BluePaint_Name,
                             description: Localization_Elements.Liquid_BluePaint_Description,
                             contentType: ItemContentType.Element,

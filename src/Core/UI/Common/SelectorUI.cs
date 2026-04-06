@@ -202,8 +202,6 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildChoiceButtons()
         {
-            Vector2 margin = new(0.0f, 74.0f);
-
             for (int i = 0; i < this.choiceButtonSlotInfos.Length; i++)
             {
                 Image background = new()
@@ -212,7 +210,7 @@ namespace StardustSandbox.Core.UI.Common
                     SourceRectangle = new(0, 361, 396, 91),
                     Size = new(396.0f, 89.0f),
                     Alignment = UIDirection.Northwest,
-                    Margin = margin,
+                    Margin = new(0.0f, 74.0f + (i * 89.0f)),
                 };
 
                 Label label = new()
@@ -232,8 +230,6 @@ namespace StardustSandbox.Core.UI.Common
                 background.AddChild(label);
 
                 this.choiceButtonSlotInfos[i] = new(background, null, label);
-
-                margin.Y += background.Size.Y;
             }
         }
 

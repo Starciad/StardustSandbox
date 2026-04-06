@@ -15,48 +15,34 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
+
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 
-namespace StardustSandbox.Core.Elements.Solids.Immovables.Wools
+namespace StardustSandbox.Core.Elements.Liquids
 {
-    internal abstract class DryWool : ImmovableSolid
+    internal sealed class Paint : Liquid
     {
-        internal required ElementIndex WetWoolIndex { get; init; }
+        internal required Color DyeingColor { get; init; }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
-            bool shouldBecomeWet = false;
-
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer) ||
+                    neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex == this.Index)
                 {
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex)
-                {
-                    case ElementIndex.Water:
-                    case ElementIndex.Saltwater:
-                        context.RemoveElement(neighbors.GetNeighborPosition(i));
-                        shouldBecomeWet = true;
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-
-            if (shouldBecomeWet)
-            {
-                context.ReplaceElement(this.WetWoolIndex);
+                context.SetElementColorModifier(neighbors.GetNeighborPosition(i), this.DyeingColor);
             }
         }
 
         protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
         {
-            if (currentValue >= 580.0f)
+            if (currentValue >= 200.0f)
             {
                 context.ReplaceElement(ElementIndex.Fire);
             }

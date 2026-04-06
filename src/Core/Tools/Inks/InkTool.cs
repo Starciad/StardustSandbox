@@ -23,7 +23,7 @@ using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.Tools.Inks
 {
-    internal abstract class InkTool : Tool
+    internal sealed class InkTool : Tool
     {
         internal required Color InkColor { get; init; }
 

@@ -103,7 +103,7 @@ namespace StardustSandbox.Core.Enums.Elements
         OrangePaint = 79,
         YellowPaint = 80,
         GreenPaint = 81,
-        BluePaint = 82,
+        CyanPaint = 82,
         GrayPaint = 83,
         VioletPaint = 84,
         BrownPaint = 85,

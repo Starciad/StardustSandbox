@@ -903,4 +903,10 @@
   <data name="Tutorial.ClickToContinue" xml:space="preserve">
     <value>Click to Continue...</value>
   </data>
+  <data name="Options.Controls.ToggleFullscreen.Name" xml:space="preserve">
+    <value>Toggle Fullscreen</value>
+  </data>
+  <data name="Options.Controls.ToggleFullscreen.Description" xml:space="preserve">
+    <value>Type a shortcut key to toggle fullscreen mode on or off.</value>
+  </data>
 </root>

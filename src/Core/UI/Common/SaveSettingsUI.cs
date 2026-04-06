@@ -304,8 +304,6 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildFooterButtons()
         {
-            float marginX = 32.0f;
-
             for (int i = 0; i < this.footerButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.footerButtonInfos[i];
@@ -316,7 +314,7 @@ namespace StardustSandbox.Core.UI.Common
                     SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320.0f, 80.0f),
-                    Margin = new(marginX, -32.0f),
+                    Margin = new(32.0f + (i * 352.0f), -32.0f),
                     Alignment = UIDirection.Southwest,
                 };
 
@@ -338,8 +336,6 @@ namespace StardustSandbox.Core.UI.Common
                 background.AddChild(label);
 
                 this.footerButtonSlotInfos[i] = new(background, null, label);
-
-                marginX += background.Size.X + 32.0f;
             }
         }
 

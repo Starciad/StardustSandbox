@@ -274,13 +274,10 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildCategoryButtons()
         {
-            Vector2 margin = new(32.0f, -72.0f);
-
-            int index = 0;
-
             for (int i = 0; i < CatalogDatabase.Categories.Length; i++)
             {
                 Category category = CatalogDatabase.Categories[i];
+
                 SlotInfo slot = new(
                     new()
                     {
@@ -289,7 +286,7 @@ namespace StardustSandbox.Core.UI.Common
                         Alignment = UIDirection.Northwest,
                         Scale = new(2.0f),
                         Size = new(32.0f),
-                        Margin = margin
+                        Margin = new(32.0f + (i * 80.0f), -72.0f)
                     },
 
                     new()
@@ -306,28 +303,19 @@ namespace StardustSandbox.Core.UI.Common
                 this.panelBackground.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
-                // Spacing
-                margin.X += 80.0f;
-                this.categoryButtonSlotInfos[index] = slot;
-
-                index++;
+                this.categoryButtonSlotInfos[i] = slot;
             }
         }
 
         private void BuildSubcategoryButtons()
         {
-            int index = 0;
             int sideCounts = UIConstants.ITEM_EXPLORER_SUBCATEGORY_BUTTONS_LENGTH / 2;
-            Vector2 margin;
 
-            margin = new(-80.0f, 32.0f);
-            BuildSlots(UIDirection.Northwest);
-
-            margin = new(80.0f, 32.0f);
-            BuildSlots(UIDirection.Northeast);
-
-            void BuildSlots(UIDirection positionAnchor)
+            for (int side = 0; side < 2; side++)
             {
+                UIDirection positionAnchor = side == 0 ? UIDirection.Northwest : UIDirection.Northeast;
+                float marginX = side == 0 ? -80.0f : 80.0f;
+
                 for (int i = 0; i < sideCounts; i++)
                 {
                     SlotInfo slot = new(
@@ -338,7 +326,7 @@ namespace StardustSandbox.Core.UI.Common
                             Alignment = positionAnchor,
                             Scale = new(2.0f),
                             Size = new(32.0f),
-                            Margin = margin
+                            Margin = new(marginX, 32.0f + (i * 80.0f))
                         },
 
                         new()
@@ -351,27 +339,19 @@ namespace StardustSandbox.Core.UI.Common
                         }
                     );
 
-                    // Position
                     this.panelBackground.AddChild(slot.Background);
                     slot.Background.AddChild(slot.Icon);
 
-                    // Spacing
-                    margin.Y += 80.0f;
-                    this.subcategoryButtonSlotInfos[index] = slot;
-                    index++;
+                    this.subcategoryButtonSlotInfos[(side * sideCounts) + i] = slot;
                 }
             }
         }
 
         private void BuildItemSlots()
         {
-            Vector2 margin = new(68.0f, 168.0f);
-
-            int index = 0;
-
-            for (int col = 0; col < UIConstants.ITEM_EXPLORER_ITEMS_PER_COLUMN; col++)
+            for (int row = 0; row < UIConstants.ITEM_EXPLORER_ITEMS_PER_ROW; row++)
             {
-                for (int row = 0; row < UIConstants.ITEM_EXPLORER_ITEMS_PER_ROW; row++)
+                for (int column = 0; column < UIConstants.ITEM_EXPLORER_ITEMS_PER_COLUMN; column++)
                 {
                     SlotInfo slot = new(
                         new()
@@ -381,7 +361,7 @@ namespace StardustSandbox.Core.UI.Common
                             Alignment = UIDirection.Northwest,
                             Scale = new(2.0f),
                             Size = new(32.0f),
-                            Margin = margin
+                            Margin = new(68.0f + (column * 80.0f), 168.0f + (row * 80.0f))
                         },
 
                         new()
@@ -394,19 +374,11 @@ namespace StardustSandbox.Core.UI.Common
                         }
                     );
 
-                    // Position
                     this.panelBackground.AddChild(slot.Background);
                     slot.Background.AddChild(slot.Icon);
 
-                    // Spacing
-                    margin.X += 80.0f;
-
-                    this.itemButtonSlotInfos[index] = slot;
-                    index++;
+                    this.itemButtonSlotInfos[column + (UIConstants.ITEM_EXPLORER_ITEMS_PER_COLUMN * row)] = slot;
                 }
-
-                margin.X = 68.0f;
-                margin.Y += 80.0f;
             }
         }
 

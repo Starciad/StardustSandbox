@@ -153,7 +153,7 @@ namespace StardustSandbox.Core
             this.ambientManager.Initialize(this.world);
 
             // Controllers
-            this.playerInputController.Initialize(this.actorManager, this.camera, this.world);
+            this.playerInputController.Initialize(this.actorManager, this.camera, this.videoManager, this.world);
 
             // Resolution
             if (this.videoSettings.Width == 0 || this.videoSettings.Height == 0)

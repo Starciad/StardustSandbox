@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
-            TemperatureUtilities.ModifyNeighborsTemperature(context, neighbors, TemperatureModifierMode.Cooling);
+            TemperatureUtility.ModifyNeighborsTemperature(context, neighbors, TemperatureModifierMode.Cooling);
         }
     }
 }

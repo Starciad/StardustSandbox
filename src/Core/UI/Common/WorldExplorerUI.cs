@@ -211,20 +211,16 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildWorldDisplaySlots()
         {
-            Vector2 margin = new(17.0f, 91.0f);
-
-            int index = 0;
-
             for (int row = 0; row < UIConstants.WORLD_EXPLORER_ITEMS_PER_ROW; row++)
             {
-                for (int col = 0; col < UIConstants.WORLD_EXPLORER_ITEMS_PER_COLUMN; col++)
+                for (int column = 0; column < UIConstants.WORLD_EXPLORER_ITEMS_PER_COLUMN; column++)
                 {
                     Image background = new()
                     {
                         TextureIndex = TextureIndex.UIButtons,
                         SourceRectangle = new(0, 0, 386, 140),
                         Size = new(386.0f, 140.0f),
-                        Margin = margin
+                        Margin = new(17.0f + (column * 402.0f), 91.0f + (row * 156.0f))
                     };
 
                     Image thumbnail = new()
@@ -248,21 +244,12 @@ namespace StardustSandbox.Core.UI.Common
                         BorderThickness = 2.0f,
                     };
 
-                    // Position
                     this.panelBackground.AddChild(background);
                     background.AddChild(thumbnail);
                     background.AddChild(title);
 
-                    // Spacing
-                    margin.X += 402.0f;
-
-                    this.worldButtonSlotInfos[index] = new(background, thumbnail, title);
-
-                    index++;
+                    this.worldButtonSlotInfos[column + (UIConstants.WORLD_EXPLORER_ITEMS_PER_COLUMN * row)] = new(background, thumbnail, title);
                 }
-
-                margin.X = 17.0f;
-                margin.Y += 156.0f;
             }
         }
 

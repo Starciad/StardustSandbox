@@ -903,4 +903,10 @@
   <data name="Tutorial.ClickToContinue" xml:space="preserve">
     <value>Klicke zum Fortfahren...</value>
   </data>
+  <data name="Options.Controls.ToggleFullscreen.Name" xml:space="preserve">
+    <value>Vollbild wechseln</value>
+  </data>
+  <data name="Options.Controls.ToggleFullscreen.Description" xml:space="preserve">
+    <value>Geben Sie eine Tastenkombination ein, um zwischen Vollbild- und Fenstermodus zu wechseln.</value>
+  </data>
 </root>

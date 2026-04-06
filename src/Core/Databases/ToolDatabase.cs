@@ -38,71 +38,83 @@ namespace StardustSandbox.Core.Databases
             }
 
             tools = [
+                // [000] Heat Tool
                 new HeatTool()
                 {
                     Index = ToolIndex.HeatTool
                 },
 
+                // [001] Freeze Tool
                 new FreezeTool()
                 {
                     Index = ToolIndex.FreezeTool,
                 },
 
-                new BlackInkTool()
+                // [002] Ink Tool (Black)
+                new InkTool()
                 {
                     Index = ToolIndex.BlackInkTool,
                     InkColor = AAP64ColorPalette.DarkGray,
                 },
 
-                new WhiteInkTool()
+                // [003] Ink Tool (White)
+                new InkTool()
                 {
                     Index = ToolIndex.WhiteInkTool,
                     InkColor = AAP64ColorPalette.White,
                 },
 
-                new RedInkTool()
+                // [004] Ink Tool (Red)
+                new InkTool()
                 {
                     Index = ToolIndex.RedInkTool,
                     InkColor = AAP64ColorPalette.Crimson,
                 },
 
-                new OrangeInkTool()
+                // [005] Ink Tool (Orange)
+                new InkTool()
                 {
                     Index = ToolIndex.OrangeInkTool,
                     InkColor = AAP64ColorPalette.Orange,
                 },
 
-                new YellowInkTool()
+                // [006] Ink Tool (Yellow)
+                new InkTool()
                 {
                     Index = ToolIndex.YellowInkTool,
                     InkColor = AAP64ColorPalette.Gold,
                 },
 
-                new GreenInkTool()
+                // [007] Ink Tool (Green)
+                new InkTool()
                 {
                     Index = ToolIndex.GreenInkTool,
                     InkColor = AAP64ColorPalette.GrassGreen,
                 },
 
-                new BlueInkTool()
+                // [008] Ink Tool (Blue)
+                new InkTool()
                 {
                     Index = ToolIndex.BlueInkTool,
                     InkColor = AAP64ColorPalette.RoyalBlue,
                 },
 
-                new GrayInkTool()
+                // [009] Ink Tool (Gray)
+                new InkTool()
                 {
                     Index = ToolIndex.GrayInkTool,
                     InkColor = AAP64ColorPalette.Slate,
                 },
 
-                new VioletInkTool()
+                // [010] Ink Tool (Violet)
+                new InkTool()
                 {
                     Index = ToolIndex.VioletInkTool,
                     InkColor = AAP64ColorPalette.Violet,
                 },
 
-                new BrownInkTool()
+                // [011] Ink Tool (Brown)
+                new InkTool()
                 {
                     Index = ToolIndex.BrownInkTool,
                     InkColor = AAP64ColorPalette.Brown,

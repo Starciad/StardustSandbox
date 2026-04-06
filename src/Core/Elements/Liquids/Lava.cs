@@ -55,7 +55,7 @@ namespace StardustSandbox.Core.Elements.Liquids
                     case ElementIndex.OrangePaint:
                     case ElementIndex.YellowPaint:
                     case ElementIndex.GreenPaint:
-                    case ElementIndex.BluePaint:
+                    case ElementIndex.CyanPaint:
                     case ElementIndex.GrayPaint:
                     case ElementIndex.VioletPaint:
                     case ElementIndex.BrownPaint:

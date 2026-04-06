@@ -15,15 +15,20 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Elements.Utilities;
+using StardustSandbox.Core.Enums.Elements;
 
-namespace StardustSandbox.Core.Elements.Solids.Immovables.Pushers
+namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
-    internal sealed class UpwardPusher : ImmovableSolid
+    internal sealed class WetWool : ImmovableSolid
     {
-        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
+        internal required ElementIndex DryWoolIndex { get; init; }
+
+        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
         {
-            PusherUtility.PushingNeighborsUp(context, neighbors);
+            if (currentValue >= 55.0f)
+            {
+                context.ReplaceElement(this.DryWoolIndex);
+            }
         }
     }
 }

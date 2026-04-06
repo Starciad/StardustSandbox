@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -181,59 +182,44 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildColorButtons(Container root)
         {
-            Vector2 baseMargin = new(74.0f, 192.0f);
-            Vector2 margin = baseMargin;
-
             Vector2 textureSize = new(40.0f, 22.0f);
 
-            int buttonsPerRow = 12;
-
             int totalButtons = this.colorButtonInfos.Length;
-            int totalRows = (totalButtons + buttonsPerRow - 1) / buttonsPerRow;
 
-            int index = 0;
-
-            for (int row = 0; row < totalRows; row++)
+            for (int i = 0; i < totalButtons; i++)
             {
-                for (int col = 0; col < buttonsPerRow; col++)
+                int row = i / UIConstants.COLOR_PICKER_COLORS_PER_ROW;
+                int column = i % UIConstants.COLOR_PICKER_COLORS_PER_ROW;
+
+                Vector2 margin = new(
+                    74.0f + (column * ((textureSize.X * 2.0f) + 16.0f)),
+                    192.0f + (row * ((textureSize.Y * 2.0f) + 16.0f))
+                );
+
+                ColorButtonInfo colorButton = this.colorButtonInfos[i];
+
+                Image background = new()
                 {
-                    if (index >= totalButtons)
-                    {
-                        break;
-                    }
+                    TextureIndex = TextureIndex.UIButtons,
+                    SourceRectangle = new(386, 0, 40, 22),
+                    Scale = new(2.0f),
+                    Size = textureSize,
+                    Color = colorButton.Color,
+                    Margin = margin,
+                };
 
-                    ColorButtonInfo colorButton = this.colorButtonInfos[index];
+                Image borderElement = new()
+                {
+                    TextureIndex = TextureIndex.UIButtons,
+                    SourceRectangle = new(386, 22, 40, 22),
+                    Scale = new(2.0f),
+                    Size = textureSize,
+                };
 
-                    Image background = new()
-                    {
-                        TextureIndex = TextureIndex.UIButtons,
-                        SourceRectangle = new(386, 0, 40, 22),
-                        Scale = new(2.0f),
-                        Size = textureSize,
-                        Color = colorButton.Color,
-                        Margin = margin,
-                    };
+                background.AddChild(borderElement);
+                root.AddChild(background);
 
-                    Image borderElement = new()
-                    {
-                        TextureIndex = TextureIndex.UIButtons,
-                        SourceRectangle = new(386, 22, 40, 22),
-                        Scale = new(2.0f),
-                        Size = textureSize,
-                    };
-
-                    background.AddChild(borderElement);
-
-                    root.AddChild(background);
-
-                    this.colorButtonSlotInfos[index] = new(background, borderElement);
-                    index++;
-
-                    margin.X += background.Size.X + 16.0f;
-                }
-
-                margin.X = baseMargin.X;
-                margin.Y += (textureSize.Y * 2.0f) + 16.0f;
+                this.colorButtonSlotInfos[i] = new(background, borderElement);
             }
         }
 

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,11 +15,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Tools.Inks
+namespace StardustSandbox.Core.Enums.Elements
 {
-    internal sealed class BlackInkTool : InkTool
+    internal enum PusherDirection : byte
     {
-
+        Up = 0,
+        Right = 1,
+        Down = 2,
+        Left = 3
     }
 }
-

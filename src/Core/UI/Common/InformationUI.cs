@@ -118,32 +118,23 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildMenuButtons()
         {
-            float marginX = -32.0f;
-
             for (int i = 0; i < this.buttonInfos.Length; i++)
             {
                 ButtonInfo button = this.buttonInfos[i];
-                SlotInfo slot = CreateButtonSlot(new(marginX, -72.0f), button);
+                SlotInfo slot = CreateButtonSlot(new(-32.0f - (i * 80.0f), -72.0f), button);
 
                 slot.Background.Alignment = UIDirection.Northeast;
                 slot.Icon.Alignment = UIDirection.Center;
 
-                // Update
                 this.panelBackground.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
-                // Save
                 this.buttonSlotInfos[i] = slot;
-
-                // Spacing
-                marginX -= 80.0f;
             }
         }
 
         private void BuildInfoFields()
         {
-            float marginY = 128.0f;
-
             for (int i = 0; i < this.infoLabels.Length; i++)
             {
                 Label label = new()
@@ -151,7 +142,7 @@ namespace StardustSandbox.Core.UI.Common
                     SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.1f),
                     Alignment = UIDirection.Northwest,
-                    Margin = new(32.0f, marginY),
+                    Margin = new(32.0f, 128.0f + (i * 56.0f)),
                     Color = AAP64ColorPalette.White,
                     TextContent = string.Concat("Info ", i),
 
@@ -162,12 +153,7 @@ namespace StardustSandbox.Core.UI.Common
                 };
 
                 this.panelBackground.AddChild(label);
-
-                // Save
                 this.infoLabels[i] = label;
-
-                // Spacing
-                marginY += label.Size.Y + 8.0f;
             }
         }
 

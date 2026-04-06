@@ -160,12 +160,10 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildMenuButtons()
         {
-            float marginX = -32.0f;
-
             for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
-                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(marginX, -72.0f), button);
+                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(-32.0f - (i * 80.0f), -72.0f), button);
 
                 slot.Background.Alignment = UIDirection.Northeast;
                 slot.Icon.Alignment = UIDirection.Center;
@@ -176,9 +174,6 @@ namespace StardustSandbox.Core.UI.Common
 
                 // Save
                 this.menuButtonSlotInfos[i] = slot;
-
-                // Spacing
-                marginX -= 80.0f;
             }
         }
 
@@ -194,26 +189,18 @@ namespace StardustSandbox.Core.UI.Common
 
             this.panelBackground.AddChild(this.sizeSectionTitle);
 
-            // Buttons
-            float marginX = 0.0f;
-
             for (int i = 0; i < this.sizeButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.sizeButtonInfos[i];
-                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(marginX, 52.0f), button);
+                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(i * 80.0f, 52.0f), button);
 
                 slot.Background.Alignment = UIDirection.Southwest;
                 slot.Icon.Alignment = UIDirection.Center;
 
-                // Update
                 this.sizeSectionTitle.AddChild(slot.Background);
                 slot.Background.AddChild(slot.Icon);
 
-                // Save
                 this.sizeButtonSlotInfos[i] = slot;
-
-                // Spacing
-                marginX += 80.0f;
             }
         }
 

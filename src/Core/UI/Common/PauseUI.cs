@@ -132,8 +132,6 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildMenuButtons()
         {
-            float marginY = 118.0f;
-
             for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
@@ -144,7 +142,7 @@ namespace StardustSandbox.Core.UI.Common
                     SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320.0f, 80.0f),
-                    Margin = new(0.0f, marginY),
+                    Margin = new(0.0f, 118.0f + (i * 112.0f)),
                     Alignment = UIDirection.North,
                 };
 
@@ -166,8 +164,6 @@ namespace StardustSandbox.Core.UI.Common
                 background.AddChild(label);
 
                 this.menuButtonSlotInfos[i] = new(background, null, label);
-
-                marginY += background.Size.Y + 32.0f;
             }
         }
 
