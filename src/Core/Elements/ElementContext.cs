@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.Elements
 
             if (world.IsWithinBounds(position))
             {
-                this.CurrentSlot = world[position.X, position.Y];
+                this.CurrentSlot = world[position];
                 this.CurrentSlot.Position = position;
             }
         }

@@ -86,6 +86,12 @@ namespace StardustSandbox.Core.WorldSystem
             set => this.slots[x, y] = value;
         }
 
+        internal Slot this[Point point]
+        {
+            get => this.slots[point.X, point.Y];
+            set => this.slots[point.X, point.Y] = value;
+        }
+
         internal World(PlayerInputController playerInputController)
         {
             this.simulation = new();
@@ -127,7 +133,7 @@ namespace StardustSandbox.Core.WorldSystem
 
             NotifyChunk(position);
 
-            Slot slot = this[position.X, position.Y];
+            Slot slot = this[position];
 
             slot.Position = position;
             slot.Instantiate(layer, index);
@@ -158,9 +164,9 @@ namespace StardustSandbox.Core.WorldSystem
             NotifyChunk(oldPosition);
             NotifyChunk(newPosition);
 
-            this[newPosition.X, newPosition.Y].Copy(layer, this[oldPosition.X, oldPosition.Y].GetLayer(layer));
-            this[newPosition.X, newPosition.Y].Position = newPosition;
-            this[oldPosition.X, oldPosition.Y].Destroy(layer);
+            this[newPosition].Copy(layer, this[oldPosition].GetLayer(layer));
+            this[newPosition].Position = newPosition;
+            this[oldPosition].Destroy(layer);
 
             return true;
         }
@@ -181,13 +187,13 @@ namespace StardustSandbox.Core.WorldSystem
 
             Slot tempSlot = this.worldSlotsPool.TryDequeue(out IPoolableObject value) ? (Slot)value : new();
 
-            tempSlot.Copy(layer, this[element1Position.X, element1Position.Y].GetLayer(layer));
+            tempSlot.Copy(layer, this[element1Position].GetLayer(layer));
 
-            this[element1Position.X, element1Position.Y].Copy(layer, this[element2Position.X, element2Position.Y].GetLayer(layer));
-            this[element2Position.X, element2Position.Y].Copy(layer, tempSlot.GetLayer(layer));
+            this[element1Position].Copy(layer, this[element2Position].GetLayer(layer));
+            this[element2Position].Copy(layer, tempSlot.GetLayer(layer));
 
-            this[element1Position.X, element1Position.Y].Position = element1Position;
-            this[element2Position.X, element2Position.Y].Position = element2Position;
+            this[element1Position].Position = element1Position;
+            this[element2Position].Position = element2Position;
 
             this.worldSlotsPool.Enqueue(tempSlot);
 
@@ -203,7 +209,7 @@ namespace StardustSandbox.Core.WorldSystem
 
             NotifyChunk(position);
 
-            Slot slot = this[position.X, position.Y];
+            Slot slot = this[position];
             SlotLayer slotLayer = slot.GetLayer(layer);
 
             this.worldElementContext.Initialize(position, layer);
@@ -223,7 +229,7 @@ namespace StardustSandbox.Core.WorldSystem
 
             NotifyChunk(position);
 
-            this[position.X, position.Y].Destroy(layer);
+            this[position].Destroy(layer);
 
             return true;
         }
@@ -242,7 +248,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return false;
             }
 
-            SlotLayer slotLayer = this[position.X, position.Y].GetLayer(layer);
+            SlotLayer slotLayer = this[position].GetLayer(layer);
 
             if (slotLayer.IsEmpty)
             {
@@ -262,7 +268,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return false;
             }
 
-            value = this[position.X, position.Y];
+            value = this[position];
             return true;
         }
 
@@ -275,7 +281,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return false;
             }
 
-            slotLayer = this[position.X, position.Y].GetLayer(layer);
+            slotLayer = this[position].GetLayer(layer);
             return true;
         }
 
@@ -286,7 +292,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return false;
             }
 
-            SlotLayer slotLayer = this[position.X, position.Y].GetLayer(layer);
+            SlotLayer slotLayer = this[position].GetLayer(layer);
 
             if (slotLayer.Temperature != value)
             {
@@ -304,7 +310,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return false;
             }
 
-            this[position.X, position.Y].GetLayer(layer).ColorModifier = value;
+            this[position].GetLayer(layer).ColorModifier = value;
 
             return true;
         }
@@ -318,7 +324,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return false;
             }
 
-            value = this[position.X, position.Y].GetLayer(layer).HasStoredElement;
+            value = this[position].GetLayer(layer).HasStoredElement;
             return true;
         }
 
@@ -329,7 +335,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return false;
             }
 
-            this[position.X, position.Y].GetLayer(layer).StoredElementIndex = index;
+            this[position].GetLayer(layer).StoredElementIndex = index;
             return true;
         }
 
@@ -342,7 +348,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return false;
             }
 
-            index = this[position.X, position.Y].GetLayer(layer).StoredElementIndex;
+            index = this[position].GetLayer(layer).StoredElementIndex;
 
             return index is not ElementIndex.None;
         }
@@ -356,7 +362,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return false;
             }
 
-            value = this[position.X, position.Y].HasState(layer, state);
+            value = this[position].HasState(layer, state);
             return true;
         }
 
@@ -367,7 +373,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return false;
             }
 
-            this[position.X, position.Y].SetState(layer, state);
+            this[position].SetState(layer, state);
             return true;
         }
 
@@ -378,7 +384,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return false;
             }
 
-            this[position.X, position.Y].RemoveState(layer, state);
+            this[position].RemoveState(layer, state);
             return true;
         }
 
@@ -389,7 +395,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return false;
             }
 
-            this[position.X, position.Y].ClearStates(layer);
+            this[position].ClearStates(layer);
             return true;
         }
 
@@ -400,7 +406,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return false;
             }
 
-            this[position.X, position.Y].ToggleState(layer, state);
+            this[position].ToggleState(layer, state);
             return true;
         }
 
@@ -539,12 +545,12 @@ namespace StardustSandbox.Core.WorldSystem
 
         internal bool IsEmptySlot(in Point position)
         {
-            return !IsWithinBounds(position) || this[position.X, position.Y].IsEmpty;
+            return !IsWithinBounds(position) || this[position].IsEmpty;
         }
 
         internal bool IsEmptySlotLayer(in Point position, in Layer layer)
         {
-            return !IsWithinBounds(position) || this[position.X, position.Y].GetLayer(layer).IsEmpty;
+            return !IsWithinBounds(position) || this[position].GetLayer(layer).IsEmpty;
         }
 
         internal uint GetTotalElementCount()
