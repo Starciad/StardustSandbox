@@ -63,20 +63,22 @@ namespace StardustSandbox.Core.Elements.Liquids
             {
                 return false;
             }
-            else if (belowLayer.Element.Category is ElementCategory.Gas)
+
+            bool canSwap = belowLayer.Element.Category switch
+            {
+                ElementCategory.Gas => true,
+                ElementCategory.Liquid when belowLayer.Element.DefaultDensity < this.DefaultDensity => true,
+                ElementCategory.MovableSolid when this.DefaultDensity > belowLayer.Element.DefaultDensity => true,
+                _ => false
+            };
+
+            if (canSwap)
             {
                 context.SwappingElements(position);
                 return true;
             }
-            else if (belowLayer.Element.Category is ElementCategory.Liquid && belowLayer.Element.DefaultDensity < this.DefaultDensity)
-            {
-                context.SwappingElements(position);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         private void TryPerformConvection(ElementContext context, Point position, SlotLayer belowLayer)

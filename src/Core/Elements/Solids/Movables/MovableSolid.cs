@@ -52,11 +52,8 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
                     context.SetElementState(belowPosition, ElementStates.IsFalling);
                     return;
                 }
-                else
-                {
-                    context.RemoveElementState(ElementStates.IsFalling);
-                    return;
-                }
+
+                context.RemoveElementState(ElementStates.IsFalling);
             }
         }
 
