@@ -47,7 +47,7 @@ namespace StardustSandbox.Core.WorldSystem
         }
 
         // Lifecycle Management
-        internal void Instantiate(in ElementIndex index)
+        internal void Instantiate(ElementIndex index)
         {
             ClearStates();
 
@@ -87,19 +87,19 @@ namespace StardustSandbox.Core.WorldSystem
         {
             this.States = ElementStates.None;
         }
-        internal bool HasState(in ElementStates value)
+        internal bool HasState(ElementStates value)
         {
             return this.States.HasFlag(value);
         }
-        internal void RemoveState(in ElementStates value)
+        internal void RemoveState(ElementStates value)
         {
             this.States &= ~value;
         }
-        internal void SetState(in ElementStates value)
+        internal void SetState(ElementStates value)
         {
             this.States |= value;
         }
-        internal void ToggleState(in ElementStates value)
+        internal void ToggleState(ElementStates value)
         {
             this.States ^= value;
         }

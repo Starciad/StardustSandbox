@@ -132,7 +132,7 @@ namespace StardustSandbox.Core.Elements.Liquids
             }
         }
 
-        private int GetMaxDispersionSteps(ElementContext context, in int direction)
+        private int GetMaxDispersionSteps(ElementContext context, int direction)
         {
             Point checkPos = context.CurrentSlot.Position;
             int steps = 0;
@@ -165,7 +165,7 @@ namespace StardustSandbox.Core.Elements.Liquids
             return steps;
         }
 
-        private static Point GetHorizontalDispersionPosition(ElementContext context, in int direction, in int stepsToMove)
+        private static Point GetHorizontalDispersionPosition(ElementContext context, int direction, int stepsToMove)
         {
             Point dispersionPosition = context.CurrentSlot.Position;
             int steps = 0;

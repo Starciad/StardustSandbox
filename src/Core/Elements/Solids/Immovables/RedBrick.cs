@@ -21,7 +21,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class RedBrick : ImmovableSolid
     {
-        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, float currentValue)
         {
             if (currentValue >= 1727.0f)
             {

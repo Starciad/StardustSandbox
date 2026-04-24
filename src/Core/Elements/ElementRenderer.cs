@@ -77,7 +77,7 @@ namespace StardustSandbox.Core.Elements
 
         #region BLOB RENDERING
 
-        private static void UpdateSpritePositions(in Point position)
+        private static void UpdateSpritePositions(Point position)
         {
             float xOffset = ElementConstants.SPRITE_X_OFFSET, yOffset = ElementConstants.SPRITE_Y_OFFSET;
 
@@ -87,12 +87,12 @@ namespace StardustSandbox.Core.Elements
             spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * WorldConstants.TILE_SIZE;
         }
 
-        private static void UpdateSpriteSlice(ElementContext context, in ElementIndex elementIndex, in int index, in Point position)
+        private static void UpdateSpriteSlice(ElementContext context, ElementIndex elementIndex, int index, Point position)
         {
             SetChunkSpriteFromIndexAndBlobValue(index, GetBlobValueFromTargetPositions(context, elementIndex, index, position));
         }
 
-        private static byte GetBlobValueFromTargetPositions(ElementContext context, in ElementIndex elementIndex, in int index, in Point position)
+        private static byte GetBlobValueFromTargetPositions(ElementContext context, ElementIndex elementIndex, int index, Point position)
         {
             byte result = 0;
 
@@ -118,7 +118,7 @@ namespace StardustSandbox.Core.Elements
             return result;
         }
 
-        private static void GetTargetPositionsFromIndex(in int index, in Point position)
+        private static void GetTargetPositionsFromIndex(int index, Point position)
         {
             switch (index)
             {
@@ -158,7 +158,7 @@ namespace StardustSandbox.Core.Elements
             }
         }
 
-        private static void SetChunkSpriteFromIndexAndBlobValue(in int index, in byte blobValue)
+        private static void SetChunkSpriteFromIndexAndBlobValue(int index, in byte blobValue)
         {
             switch (index)
             {
@@ -262,7 +262,7 @@ namespace StardustSandbox.Core.Elements
             spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Pixel), new Vector2(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y) * WorldConstants.TILE_SIZE, null, finalColor, 0f, Vector2.Zero, new Vector2(WorldConstants.TILE_SIZE), SpriteEffects.None, 0f);
         }
 
-        private static void DrawBlobElementRoutine(ElementContext context, in ElementIndex elementIndex, SpriteBatch spriteBatch, in Point textureOriginOffset, GameplaySettings gameplaySettings)
+        private static void DrawBlobElementRoutine(ElementContext context, ElementIndex elementIndex, SpriteBatch spriteBatch, Point textureOriginOffset, GameplaySettings gameplaySettings)
         {
             SlotLayer slotLayer = context.CurrentSlot.GetLayer(context.CurrentLayer);
             Color colorModifier = slotLayer.ColorModifier;
@@ -286,7 +286,7 @@ namespace StardustSandbox.Core.Elements
             }
         }
 
-        private static void DrawSingleElementRoutine(ElementContext context, SpriteBatch spriteBatch, in Point textureOriginOffset, GameplaySettings gameplaySettings)
+        private static void DrawSingleElementRoutine(ElementContext context, SpriteBatch spriteBatch, Point textureOriginOffset, GameplaySettings gameplaySettings)
         {
             SlotLayer slotLayer = context.CurrentSlot.GetLayer(context.CurrentLayer);
             Color colorModifier = slotLayer.ColorModifier;
@@ -304,7 +304,7 @@ namespace StardustSandbox.Core.Elements
             spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Elements), new Vector2(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y) * WorldConstants.TILE_SIZE, new(textureOriginOffset, new(32)), colorModifier, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }
 
-        internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, Camera2D camera, in Point textureOriginOffset, GameplaySettings gameplaySettings)
+        internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, Camera2D camera, Point textureOriginOffset, GameplaySettings gameplaySettings)
         {
             // If the camera is too far away, draw only a single pixel
             // that can represent the element to aid in performance and

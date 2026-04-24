@@ -23,7 +23,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 {
     internal sealed class Stone : MovableSolid
     {
-        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, float currentValue)
         {
             if (currentValue > 600.0f)
             {

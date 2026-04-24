@@ -39,7 +39,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             }
         }
 
-        private static void ApplyTemperature(ElementContext context, in Point targetPosition, SlotLayer slotLayer, in TemperatureModifierMode temperatureModifierMode)
+        private static void ApplyTemperature(ElementContext context, Point targetPosition, SlotLayer slotLayer, in TemperatureModifierMode temperatureModifierMode)
         {
             float result = slotLayer.Temperature;
 

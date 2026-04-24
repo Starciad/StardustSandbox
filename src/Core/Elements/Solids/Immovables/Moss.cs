@@ -121,7 +121,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             context.InstantiateElement(availablePositions.GetRandomItem(), context.CurrentLayer, ElementIndex.Moss);
         }
 
-        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, float currentValue)
         {
             if (currentValue >= 100.0f)
             {

@@ -25,7 +25,7 @@ namespace StardustSandbox.Core.Elements.Utilities
 {
     internal static class ElectricityUtility
     {
-        internal static void Electrify(ElementContext context, in Point position, in Layer layer)
+        internal static void Electrify(ElementContext context, Point position, Layer layer)
         {
             SlotLayer slotLayer = context.GetSlotLayer(position, layer);
 

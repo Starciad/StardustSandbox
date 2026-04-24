@@ -45,7 +45,7 @@ namespace StardustSandbox.Core.Elements.Gases
             }
         }
 
-        protected override void OnTemperatureChanged(ElementContext context, in float currentValue)
+        protected override void OnTemperatureChanged(ElementContext context, float currentValue)
         {
             if (currentValue < 35.0f)
             {

@@ -31,7 +31,7 @@ namespace StardustSandbox.Core.Tools
         private Point position;
         private Layer layer;
 
-        internal void Update(in Point position, in Layer layer)
+        internal void Update(Point position, Layer layer)
         {
             this.position = position;
             this.layer = layer;

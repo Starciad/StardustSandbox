@@ -75,7 +75,7 @@ namespace StardustSandbox.Core.Elements
         protected virtual void OnStep(ElementContext context) { return; }
         protected virtual void OnDestroyed(ElementContext context) { return; }
         protected virtual void OnNeighbors(ElementContext context, ElementNeighbors neighbors) { return; }
-        protected virtual void OnTemperatureChanged(ElementContext context, in float currentValue) { return; }
+        protected virtual void OnTemperatureChanged(ElementContext context, float currentValue) { return; }
 
         #endregion
 

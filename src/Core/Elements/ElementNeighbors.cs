@@ -46,7 +46,7 @@ namespace StardustSandbox.Core.Elements
             this.slots = new Slot[ElementConstants.NEIGHBORS_ARRAY_LENGTH];
         }
 
-        internal void SetNeighbor(in int index, Slot slot)
+        internal void SetNeighbor(int index, Slot slot)
         {
             this.slots[index] = slot;
         }
@@ -56,12 +56,12 @@ namespace StardustSandbox.Core.Elements
             SetNeighbor((int)direction, slot);
         }
 
-        internal void SetNeighborCountOccupied(in int countOccupied)
+        internal void SetNeighborCountOccupied(int countOccupied)
         {
             this.CountOccupied = countOccupied;
         }
 
-        internal Slot GetSlot(in int index)
+        internal Slot GetSlot(int index)
         {
             return this.slots[index];
         }
@@ -71,17 +71,17 @@ namespace StardustSandbox.Core.Elements
             return GetSlot((int)direction);
         }
 
-        internal SlotLayer GetSlotLayer(in int index, in Layer layer)
+        internal SlotLayer GetSlotLayer(int index, Layer layer)
         {
             return GetSlot(index)?.GetLayer(layer);
         }
 
-        internal SlotLayer GetSlotLayer(in ElementNeighborDirection direction, in Layer layer)
+        internal SlotLayer GetSlotLayer(in ElementNeighborDirection direction, Layer layer)
         {
             return GetSlotLayer((int)direction, layer);
         }
 
-        internal bool HasNeighbor(in int index)
+        internal bool HasNeighbor(int index)
         {
             return this.slots[index] != null;
         }
@@ -91,7 +91,7 @@ namespace StardustSandbox.Core.Elements
             return HasNeighbor((int)direction);
         }
 
-        internal int CountNeighborsByElementIndex(in ElementIndex elementIndex, in Layer layer)
+        internal int CountNeighborsByElementIndex(ElementIndex elementIndex, Layer layer)
         {
             int count = 0;
 
@@ -106,17 +106,17 @@ namespace StardustSandbox.Core.Elements
             return count;
         }
 
-        internal bool IsNeighborLayerOccupied(in int index, in Layer layer)
+        internal bool IsNeighborLayerOccupied(int index, Layer layer)
         {
             return HasNeighbor(index) && !GetSlotLayer(index, layer).IsEmpty;
         }
 
-        internal bool IsNeighborLayerOccupied(in ElementNeighborDirection direction, in Layer layer)
+        internal bool IsNeighborLayerOccupied(in ElementNeighborDirection direction, Layer layer)
         {
             return IsNeighborLayerOccupied((int)direction, layer);
         }
 
-        internal Point GetNeighborPosition(in int index)
+        internal Point GetNeighborPosition(int index)
         {
             return this.slots[index]?.Position ?? new(-1);
         }
@@ -136,7 +136,7 @@ namespace StardustSandbox.Core.Elements
             this.CountOccupied = 0;
         }
 
-        internal static bool IsDiagonalNeighbor(in int index)
+        internal static bool IsDiagonalNeighbor(int index)
         {
             return index is (int)ElementNeighborDirection.Northwest or (int)ElementNeighborDirection.Northeast or (int)ElementNeighborDirection.Southwest or (int)ElementNeighborDirection.Southeast;
         }

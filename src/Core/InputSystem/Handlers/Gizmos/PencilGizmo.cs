@@ -42,7 +42,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
 
         }
 
-        internal override void Execute(in WorldModificationType worldModificationType, in InputState inputState, in ItemContentType contentType, in int contentIndex, in Point position)
+        internal override void Execute(in WorldModificationType worldModificationType, in InputState inputState, in ItemContentType contentType, int contentIndex, Point position)
         {
             switch (contentType)
             {

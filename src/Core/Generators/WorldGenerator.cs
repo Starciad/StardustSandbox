@@ -128,7 +128,7 @@ namespace StardustSandbox.Core.Generators
             }
         }
 
-        private static int[] GenerateHeightMap(in int width, in int height, in Range amplitudeRange, int smoothness)
+        private static int[] GenerateHeightMap(int width, int height, in Range amplitudeRange, int smoothness)
         {
             int[] heights = new int[width];
             int baseline = (int)PercentageMath.PercentageOfValue(height, 60.0f);
@@ -280,7 +280,7 @@ namespace StardustSandbox.Core.Generators
             // Generate sand band first (keeps shoreline consistent)
             foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(leftCenter, sandRadius))
             {
-                if (world.IsWithinBounds(in point))
+                if (world.IsWithinBounds(point))
                 {
                     world.ReplaceElement(point, layer, ElementIndex.Sand);
                 }
@@ -288,7 +288,7 @@ namespace StardustSandbox.Core.Generators
 
             foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(rightCenter, sandRadius))
             {
-                if (world.IsWithinBounds(in point))
+                if (world.IsWithinBounds(point))
                 {
                     world.ReplaceElement(point, layer, ElementIndex.Sand);
                 }
@@ -297,7 +297,7 @@ namespace StardustSandbox.Core.Generators
             // Generate water inside the sand band
             foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(leftCenter, oceansRadius))
             {
-                if (world.IsWithinBounds(in point))
+                if (world.IsWithinBounds(point))
                 {
                     world.ReplaceElement(point, layer, ElementIndex.Saltwater);
                 }
@@ -305,7 +305,7 @@ namespace StardustSandbox.Core.Generators
 
             foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(rightCenter, oceansRadius))
             {
-                if (world.IsWithinBounds(in point))
+                if (world.IsWithinBounds(point))
                 {
                     world.ReplaceElement(point, layer, ElementIndex.Saltwater);
                 }

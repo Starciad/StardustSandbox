@@ -117,7 +117,7 @@ namespace StardustSandbox.Core
             world.Time.IsFrozen = false;
         }
 
-        internal static void SetSpeed(in SimulationSpeed speed, ActorManager actorManager, World world)
+        internal static void SetSpeed(SimulationSpeed speed, ActorManager actorManager, World world)
         {
             SimulationSpeed = speed;
 

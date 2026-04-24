@@ -135,7 +135,7 @@ namespace StardustSandbox.Core.UI.Common
             this.colorSelectionCallback = colorSelectionCallback;
         }
 
-        private void SelectColorButtonAction(in Color color)
+        private void SelectColorButtonAction(Color color)
         {
             this.uiManager.CloseUI();
             this.colorSelectionCallback?.Invoke(color);

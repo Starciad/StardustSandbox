@@ -40,7 +40,7 @@ namespace StardustSandbox.Core.WorldSystem
             this.horizontalLeftToRight = true;
         }
 
-        private void UpdateSlotLayerTarget(GameTime gameTime, in Point position, in Layer layer, Slot slot)
+        private void UpdateSlotLayerTarget(GameTime gameTime, Point position, Layer layer, Slot slot)
         {
             SlotLayer slotLayer = slot.GetLayer(layer);
 

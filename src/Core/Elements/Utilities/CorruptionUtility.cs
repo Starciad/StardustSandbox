@@ -35,7 +35,7 @@ namespace StardustSandbox.Core.Elements.Utilities
 
         private static readonly List<SlotTarget> targets = [];
 
-        internal static bool CheckIfNeighboringElementsAreCorrupted(in Layer layer, ElementNeighbors neighbors)
+        internal static bool CheckIfNeighboringElementsAreCorrupted(Layer layer, ElementNeighbors neighbors)
         {
             int count = 0;
             int corruptNeighboringElements = 0;
