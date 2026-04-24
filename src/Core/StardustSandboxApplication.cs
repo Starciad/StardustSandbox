@@ -28,15 +28,15 @@ using System.Threading;
 
 namespace StardustSandbox.Core
 {
-    public static class StardustSandboxEnvironment
+    public static class StardustSandboxApplication
     {
-        public static void InitializeDirectories()
+        private static void InitializeDirectories()
         {
             Directory.Initialize();
             SettingsSerializer.Initialize();
         }
 
-        public static void InitializeGameCulture()
+        private static void InitializeGameCulture()
         {
             GameCulture gameCulture = SettingsSerializer.Load<GeneralSettings>().GetGameCulture();
 
@@ -44,6 +44,12 @@ namespace StardustSandbox.Core
             Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;
 
             gameCulture.CultureInfo.ClearCachedData();
+        }
+
+        public static void Initialize()
+        {
+            InitializeDirectories();
+            InitializeGameCulture();
         }
 
         public static void HandleException(Exception value)

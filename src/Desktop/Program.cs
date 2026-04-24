@@ -45,7 +45,7 @@ namespace StardustSandbox.Desktop
             }
             catch (Exception e)
             {
-                StardustSandboxEnvironment.HandleException(e);
+                StardustSandboxApplication.HandleException(e);
             }
             finally
             {
@@ -60,8 +60,7 @@ namespace StardustSandbox.Desktop
 
         private static void InitializeGame(string[] args)
         {
-            StardustSandboxEnvironment.InitializeDirectories();
-            StardustSandboxEnvironment.InitializeGameCulture();
+            StardustSandboxApplication.Initialize();
 
             stardustSandboxGame = new(args);
             stardustSandboxGame.Run();
