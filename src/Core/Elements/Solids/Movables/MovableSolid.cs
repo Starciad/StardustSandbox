@@ -68,15 +68,8 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             {
                 switch (slotLayer.Element.Category)
                 {
-                    case ElementCategory.Liquid:
-                        if (this.DefaultDensity > slotLayer.Element.DefaultDensity && context.TrySwappingElements(position))
-                        {
-                            return true;
-                        }
-
-                        break;
-
                     case ElementCategory.Gas:
+                    case ElementCategory.Liquid:
                         if (context.TrySwappingElements(position))
                         {
                             return true;

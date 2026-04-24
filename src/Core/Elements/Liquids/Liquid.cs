@@ -68,7 +68,6 @@ namespace StardustSandbox.Core.Elements.Liquids
             {
                 ElementCategory.Gas => true,
                 ElementCategory.Liquid when belowLayer.Element.DefaultDensity < this.DefaultDensity => true,
-                ElementCategory.MovableSolid when this.DefaultDensity > belowLayer.Element.DefaultDensity => true,
                 _ => false
             };
 
