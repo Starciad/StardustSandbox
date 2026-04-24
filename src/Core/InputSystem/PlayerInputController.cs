@@ -52,7 +52,7 @@ namespace StardustSandbox.Core.InputSystem
             this.player = new();
         }
 
-        internal void Initialize(ActorManager actorManager, Camera2D camera, VideoManager videoManager, World world)
+        internal void Initialize(ActorManager actorManager, Camera2D camera, StardustSandboxGame stardustSandboxGame, VideoManager videoManager, World world)
         {
             this.worldHandler = new(actorManager, camera, this.pen, this.player, world);
 
@@ -66,7 +66,7 @@ namespace StardustSandbox.Core.InputSystem
                         OnStarted = _ =>
                         {
                             SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
-                            GameRenderer.RequestScreenshot();
+                            stardustSandboxGame.RequestScreenshot();
                         },
                     },
 

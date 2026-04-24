@@ -38,7 +38,7 @@ using System;
 
 namespace StardustSandbox.Core
 {
-    public sealed class StardustSandboxGame : Game
+    public sealed partial class StardustSandboxGame : Game
     {
         private IAchievementNotifier achievementNotifier;
         private IGameNotifier gameNotifier;
@@ -153,7 +153,7 @@ namespace StardustSandbox.Core
             this.ambientManager.Initialize(this.world);
 
             // Controllers
-            this.playerInputController.Initialize(this.actorManager, this.camera, this.videoManager, this.world);
+            this.playerInputController.Initialize(this.actorManager, this.camera, this, this.videoManager, this.world);
 
             // Resolution
             if (this.videoSettings.Width == 0 || this.videoSettings.Height == 0)
@@ -166,7 +166,6 @@ namespace StardustSandbox.Core
             this.videoManager.ApplySettings(this.videoSettings);
 
             // Renderer
-            GameRenderer.Initialize(this.videoManager);
             this.spriteBatch = new(this.GraphicsDevice);
         }
 
@@ -237,22 +236,6 @@ namespace StardustSandbox.Core
             this.ambientManager.Update(gameTime);
 
             base.Update(gameTime);
-        }
-
-        protected override void Draw(GameTime gameTime)
-        {
-            GameRenderer.Draw(
-                this.actorManager,
-                this.ambientManager,
-                this.camera,
-                this.cursorManager,
-                this.playerInputController,
-                this.spriteBatch,
-                this.uiManager,
-                this.world
-            );
-
-            base.Draw(gameTime);
         }
 
         protected override void UnloadContent()
