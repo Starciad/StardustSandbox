@@ -14,6 +14,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{02EA
 		Scripts\publish_all.ps1 = Scripts\publish_all.ps1
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targets", "Targets", "{96E6E11A-DCCA-4CEB-AE53-0BEDC73479AF}"
+	ProjectSection(SolutionItems) = preProject
+		Targets\Application.targets = Targets\Application.targets
+		Targets\Directories.targets = Targets\Directories.targets
+		Targets\Files.targets = Targets\Files.targets
+		Targets\Icons.targets = Targets\Icons.targets
+		Targets\Localization.targets = Targets\Localization.targets
+		Targets\Metadata.targets = Targets\Metadata.targets
+		Targets\NetBeauty.targets = Targets\NetBeauty.targets
+		Targets\Restore.targets = Targets\Restore.targets
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
