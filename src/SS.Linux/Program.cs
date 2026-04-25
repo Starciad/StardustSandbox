@@ -19,10 +19,6 @@ using StardustSandbox.Core;
 
 using System;
 
-#if SS_WINDOWS
-using System.Windows.Forms;
-#endif
-
 namespace StardustSandbox.Desktop
 {
     internal static class Program
@@ -32,10 +28,6 @@ namespace StardustSandbox.Desktop
         [STAThread]
         private static void Main(string[] args)
         {
-#if SS_WINDOWS
-            _ = Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
-#endif
-
 #if DEBUG
             InitializeGame(args);
 #else

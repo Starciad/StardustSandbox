@@ -59,12 +59,12 @@
 
 	<!-- REFERENCES -->
 	<ItemGroup>
-		<ProjectReference Include="..\Core\SS.Core.Windows.csproj" />
+		<ProjectReference Include="..\SS.Core\SS.Core.csproj" />
 	</ItemGroup>
 
 	<!-- CONTENT -->
 	<ItemGroup>
-		<MonoGameContentReference Include="..\Core\assets\assets.mgcb">
+		<MonoGameContentReference Include="..\SS.Core\assets\assets.mgcb">
 			<Link>assets\assets.mgcb</Link>
 		</MonoGameContentReference>
 	</ItemGroup>
