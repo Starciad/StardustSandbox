@@ -21,7 +21,7 @@ namespace StardustSandbox.Core.Constants
 {
     internal static class GameConstants
     {
-        internal static Version VERSION => new("2.5.1.1");
+        internal static Version VERSION => new("2.6.0.0");
 
         internal const string ID = "stardust_sandbox";
         internal const string TITLE = "Stardust Sandbox";
