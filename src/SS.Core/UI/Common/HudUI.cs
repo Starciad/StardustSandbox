@@ -16,7 +16,6 @@
 */
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Audio;
