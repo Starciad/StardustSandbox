@@ -47,6 +47,15 @@ namespace StardustSandbox.Core
 
         private readonly GameLaunchOptions gameLaunchOptions;
 
+        private readonly AchievementDatabase achievementDatabase;
+        private readonly ActorDatabase actorDatabase;
+        private readonly AssetDatabase assetDatabase;
+        private readonly BackgroundDatabase backgroundDatabase;
+        private readonly CatalogDatabase catalogDatabase;
+        private readonly ElementDatabase elementDatabase;
+        private readonly ToolDatabase toolDatabase;
+        private readonly UIDatabase uiDatabase;
+
         private readonly World world;
         private readonly PlayerInputController playerInputController;
         private readonly Camera2D camera;
@@ -101,19 +110,27 @@ namespace StardustSandbox.Core
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
 
-            // Managers
+            // Core
             this.playerInputController = new();
+            this.world = new(this.playerInputController);
+            this.camera = new();
+
+            // Managers
             this.effectsManager = new();
             this.uiManager = new();
             this.cursorManager = new();
             this.ambientManager = new();
-
-            // Core
-            this.world = new(this.playerInputController);
-            this.camera = new();
-
-            // Actor Manager
             this.actorManager = new(this.world);
+
+            // Database
+            this.achievementDatabase = new();
+            this.actorDatabase = new(this.actorManager, this.world);
+            this.assetDatabase = new(this.Content, this.graphicsDeviceManager);
+            this.backgroundDatabase = new(this.assetDatabase);
+            this.catalogDatabase = new();
+            this.elementDatabase = new();
+            this.toolDatabase = new();
+            this.uiDatabase = new();
         }
 
         internal void SetFrameRate(float framerate)
@@ -140,14 +157,9 @@ namespace StardustSandbox.Core
         protected override void LoadContent()
         {
             // Databases
-            AssetDatabase.Load(this.Content, this.GraphicsDevice);
-            AchievementDatabase.Load();
-            ElementDatabase.Load();
-            CatalogDatabase.Load();
-            BackgroundDatabase.Load();
-            ToolDatabase.Load();
-            ActorDatabase.Load(this.actorManager, this.world);
-            UIDatabase.Load(this.actorManager, this.ambientManager, this.camera, this.cursorManager, this.Window, this.GraphicsDevice, this.playerInputController, this, this.uiManager, this.videoManager, this.world);
+            this.assetDatabase.Load();
+            this.backgroundDatabase.Load();
+            this.uiDatabase.Load(this.actorManager, this.ambientManager, this.camera, this.cursorManager, this.Window, this.GraphicsDevice, this.playerInputController, this, this.uiManager, this.videoManager, this.world);
 
             // Managers
             this.effectsManager.Initialize();
@@ -187,8 +199,8 @@ namespace StardustSandbox.Core
                     this.actorManager,
                     this.ambientManager,
                     this.camera,
-                    (HudUI)UIDatabase.GetUI(UIIndex.Hud),
-                    (ItemExplorerUI)UIDatabase.GetUI(UIIndex.ItemExplorer),
+                    (HudUI)this.uiDatabase.GetUI(UIIndex.Hud),
+                    (ItemExplorerUI)this.uiDatabase.GetUI(UIIndex.ItemExplorer),
                     this.playerInputController,
                     this.uiManager,
                     this.world
@@ -200,7 +212,7 @@ namespace StardustSandbox.Core
             }
 
             this.gameNotifier?.OnBeginRun();
-            UIDatabase.ResizeUIs(GameScreen.GetViewport());
+            this.uiDatabase.ResizeUIs(GameScreen.GetViewport());
         }
 
         protected override void Update(GameTime gameTime)
@@ -242,8 +254,7 @@ namespace StardustSandbox.Core
 
         protected override void UnloadContent()
         {
-            AssetDatabase.Unload();
-
+            this.assetDatabase.Unload();
             base.UnloadContent();
         }
 
@@ -290,7 +301,7 @@ namespace StardustSandbox.Core
                 this.graphicsDeviceManager.ApplyChanges();
             }
 
-            UIDatabase.ResizeUIs(GameScreen.GetViewport());
+            this.uiDatabase.ResizeUIs(GameScreen.GetViewport());
         }
     }
 }

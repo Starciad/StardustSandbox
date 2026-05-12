@@ -23,20 +23,27 @@ using System;
 
 namespace StardustSandbox.Core.Databases
 {
-    internal static class BackgroundDatabase
+    internal sealed class BackgroundDatabase
     {
-        private static Background[] backgrounds;
+        private Background[] backgrounds;
 
-        private static bool isLoaded = false;
+        private bool isLoaded = false;
 
-        internal static void Load()
+        private readonly AssetDatabase assetDatabase;
+
+        internal BackgroundDatabase(AssetDatabase assetDatabase)
         {
-            if (isLoaded)
+            this.assetDatabase = assetDatabase;
+        }
+
+        internal void Load()
+        {
+            if (this.isLoaded)
             {
                 throw new InvalidOperationException($"{nameof(BackgroundDatabase)} has already been loaded.");
             }
 
-            backgrounds = [
+            this.backgrounds = [
                 // [0] Main Menu
                 new()
                 {
@@ -50,7 +57,7 @@ namespace StardustSandbox.Core.Databases
                             AutoMovementSpeed = new(-6.0f, 0.0f),
                             IsFixedVertically = true,
                             RepeatHorizontally = true,
-                            Texture = AssetDatabase.GetTexture(TextureIndex.BackgroundClouds),
+                            Texture = this.assetDatabase.GetTexture(TextureIndex.BackgroundClouds),
                             TextureSourceRectangle = new(0, 0, 1280, 240),
                         },
 
@@ -62,7 +69,7 @@ namespace StardustSandbox.Core.Databases
                             AutoMovementSpeed = new(-16.0f, 0.0f),
                             IsFixedVertically = true,
                             RepeatHorizontally = true,
-                            Texture = AssetDatabase.GetTexture(TextureIndex.BackgroundOcean),
+                            Texture = this.assetDatabase.GetTexture(TextureIndex.BackgroundOcean),
                             TextureSourceRectangle = new(0, 0, 1280, 216),
                         },
                     ],
@@ -82,7 +89,7 @@ namespace StardustSandbox.Core.Databases
                             IsFixedVertically = true,
                             ParallaxSpeed = new(0.008f, 0.0f),
                             RepeatHorizontally = true,
-                            Texture = AssetDatabase.GetTexture(TextureIndex.BackgroundClouds),
+                            Texture = this.assetDatabase.GetTexture(TextureIndex.BackgroundClouds),
                             TextureSourceRectangle = new(0, 0, 1280, 240),
                         },
 
@@ -94,7 +101,7 @@ namespace StardustSandbox.Core.Databases
                             IsFixedVertically = true,
                             ParallaxSpeed = new(0.01f, 0.0f),
                             RepeatHorizontally = true,
-                            Texture = AssetDatabase.GetTexture(TextureIndex.BackgroundOcean),
+                            Texture = this.assetDatabase.GetTexture(TextureIndex.BackgroundOcean),
                             TextureSourceRectangle = new(0, 0, 1280, 216),
                         },
                     ],
@@ -110,19 +117,19 @@ namespace StardustSandbox.Core.Databases
                             AutoMovementSpeed = new(-32.0f),
                             RepeatHorizontally = true,
                             RepeatVertically = true,
-                            Texture = AssetDatabase.GetTexture(TextureIndex.PatternDiamonds),
+                            Texture = this.assetDatabase.GetTexture(TextureIndex.PatternDiamonds),
                             TextureSourceRectangle = new(0, 0, 80, 80),
                         }
                     ],
                 },
             ];
 
-            isLoaded = true;
+            this.isLoaded = true;
         }
 
-        internal static Background GetBackground(in BackgroundIndex index)
+        internal Background GetBackground(BackgroundIndex index)
         {
-            return backgrounds[(int)index];
+            return this.backgrounds[(int)index];
         }
     }
 }

@@ -25,106 +25,93 @@ using System;
 
 namespace StardustSandbox.Core.Databases
 {
-    internal static class ToolDatabase
+    internal sealed class ToolDatabase
     {
-        private static Tool[] tools;
-        private static bool isLoaded;
-
-        internal static void Load()
-        {
-            if (isLoaded)
+        private Tool[] tools = [
+            // [000] Heat Tool
+            new HeatTool()
             {
-                throw new InvalidOperationException($"{nameof(ToolDatabase)} is already loaded.");
-            }
+                Index = ToolIndex.HeatTool
+            },
 
-            tools = [
-                // [000] Heat Tool
-                new HeatTool()
-                {
-                    Index = ToolIndex.HeatTool
-                },
+            // [001] Freeze Tool
+            new FreezeTool()
+            {
+                Index = ToolIndex.FreezeTool,
+            },
 
-                // [001] Freeze Tool
-                new FreezeTool()
-                {
-                    Index = ToolIndex.FreezeTool,
-                },
+            // [002] Ink Tool (Black)
+            new InkTool()
+            {
+                Index = ToolIndex.BlackInkTool,
+                InkColor = AAP64ColorPalette.DarkGray,
+            },
 
-                // [002] Ink Tool (Black)
-                new InkTool()
-                {
-                    Index = ToolIndex.BlackInkTool,
-                    InkColor = AAP64ColorPalette.DarkGray,
-                },
+            // [003] Ink Tool (White)
+            new InkTool()
+            {
+                Index = ToolIndex.WhiteInkTool,
+                InkColor = AAP64ColorPalette.White,
+            },
 
-                // [003] Ink Tool (White)
-                new InkTool()
-                {
-                    Index = ToolIndex.WhiteInkTool,
-                    InkColor = AAP64ColorPalette.White,
-                },
+            // [004] Ink Tool (Red)
+            new InkTool()
+            {
+                Index = ToolIndex.RedInkTool,
+                InkColor = AAP64ColorPalette.Crimson,
+            },
 
-                // [004] Ink Tool (Red)
-                new InkTool()
-                {
-                    Index = ToolIndex.RedInkTool,
-                    InkColor = AAP64ColorPalette.Crimson,
-                },
+            // [005] Ink Tool (Orange)
+            new InkTool()
+            {
+                Index = ToolIndex.OrangeInkTool,
+                InkColor = AAP64ColorPalette.Orange,
+            },
 
-                // [005] Ink Tool (Orange)
-                new InkTool()
-                {
-                    Index = ToolIndex.OrangeInkTool,
-                    InkColor = AAP64ColorPalette.Orange,
-                },
+            // [006] Ink Tool (Yellow)
+            new InkTool()
+            {
+                Index = ToolIndex.YellowInkTool,
+                InkColor = AAP64ColorPalette.Gold,
+            },
 
-                // [006] Ink Tool (Yellow)
-                new InkTool()
-                {
-                    Index = ToolIndex.YellowInkTool,
-                    InkColor = AAP64ColorPalette.Gold,
-                },
+            // [007] Ink Tool (Green)
+            new InkTool()
+            {
+                Index = ToolIndex.GreenInkTool,
+                InkColor = AAP64ColorPalette.GrassGreen,
+            },
 
-                // [007] Ink Tool (Green)
-                new InkTool()
-                {
-                    Index = ToolIndex.GreenInkTool,
-                    InkColor = AAP64ColorPalette.GrassGreen,
-                },
+            // [008] Ink Tool (Blue)
+            new InkTool()
+            {
+                Index = ToolIndex.BlueInkTool,
+                InkColor = AAP64ColorPalette.RoyalBlue,
+            },
 
-                // [008] Ink Tool (Blue)
-                new InkTool()
-                {
-                    Index = ToolIndex.BlueInkTool,
-                    InkColor = AAP64ColorPalette.RoyalBlue,
-                },
+            // [009] Ink Tool (Gray)
+            new InkTool()
+            {
+                Index = ToolIndex.GrayInkTool,
+                InkColor = AAP64ColorPalette.Slate,
+            },
 
-                // [009] Ink Tool (Gray)
-                new InkTool()
-                {
-                    Index = ToolIndex.GrayInkTool,
-                    InkColor = AAP64ColorPalette.Slate,
-                },
+            // [010] Ink Tool (Violet)
+            new InkTool()
+            {
+                Index = ToolIndex.VioletInkTool,
+                InkColor = AAP64ColorPalette.Violet,
+            },
 
-                // [010] Ink Tool (Violet)
-                new InkTool()
-                {
-                    Index = ToolIndex.VioletInkTool,
-                    InkColor = AAP64ColorPalette.Violet,
-                },
+            // [011] Ink Tool (Brown)
+            new InkTool()
+            {
+                Index = ToolIndex.BrownInkTool,
+                InkColor = AAP64ColorPalette.Brown,
+            },
+        ];
 
-                // [011] Ink Tool (Brown)
-                new InkTool()
-                {
-                    Index = ToolIndex.BrownInkTool,
-                    InkColor = AAP64ColorPalette.Brown,
-                },
-            ];
-
-            isLoaded = true;
-        }
-
-        internal static Tool GetTool(ToolIndex toolIndex)
+        internal Tool GetTool(ToolIndex toolIndex)
         {
             return tools[(int)toolIndex];
         }

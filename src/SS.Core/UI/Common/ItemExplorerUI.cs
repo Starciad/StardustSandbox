@@ -274,9 +274,9 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildCategoryButtons()
         {
-            for (int i = 0; i < CatalogDatabase.Categories.Length; i++)
+            for (int i = 0; i < CatalogDatabase.CategoriesLength; i++)
             {
-                Category category = CatalogDatabase.Categories[i];
+                Category category = CatalogDatabase.GetCategories(i);
 
                 SlotInfo slot = new(
                     new()

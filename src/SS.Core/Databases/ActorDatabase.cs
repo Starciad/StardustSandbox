@@ -22,23 +22,15 @@ using StardustSandbox.Core.Interfaces.Actors;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem;
 
-using System;
-
 namespace StardustSandbox.Core.Databases
 {
-    internal static class ActorDatabase
+    internal sealed class ActorDatabase
     {
-        private static IActorDescriptor[] descriptors;
-        private static bool isLoaded = false;
+        private readonly IActorDescriptor[] descriptors;
 
-        internal static void Load(ActorManager actorManager, World world)
+        internal ActorDatabase(ActorManager actorManager, World world)
         {
-            if (isLoaded)
-            {
-                throw new InvalidOperationException($"{nameof(ActorDatabase)} has already been loaded.");
-            }
-
-            descriptors = [
+            this.descriptors = [
                 new ActorDescriptor<GulActor>(ActorIndex.Gul, () => new(ActorIndex.Gul, actorManager, world)
                 {
                     CanDraw = true,
@@ -47,13 +39,11 @@ namespace StardustSandbox.Core.Databases
                     Size = new(1),
                 }),
             ];
-
-            isLoaded = true;
         }
 
-        internal static IActorDescriptor GetDescriptor(ActorIndex index)
+        internal IActorDescriptor GetDescriptor(ActorIndex index)
         {
-            return descriptors[(byte)index];
+            return this.descriptors[(byte)index];
         }
     }
 }

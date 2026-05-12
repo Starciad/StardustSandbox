@@ -31,12 +31,12 @@ using System;
 
 namespace StardustSandbox.Core.Databases
 {
-    internal static class UIDatabase
+    internal sealed class UIDatabase
     {
-        private static UIBase[] uis;
-        private static bool isLoaded;
+        private UIBase[] uis;
+        private bool isLoaded;
 
-        internal static void Load(
+        internal void Load(
             ActorManager actorManager,
             AmbientManager ambientManager,
             Camera2D camera,
@@ -279,12 +279,12 @@ namespace StardustSandbox.Core.Databases
             isLoaded = true;
         }
 
-        internal static UIBase GetUI(UIIndex index)
+        internal UIBase GetUI(UIIndex index)
         {
             return uis[(int)index];
         }
 
-        internal static void ResizeUIs(Vector2 newSize)
+        internal void ResizeUIs(Vector2 newSize)
         {
             foreach (UIBase ui in uis)
             {

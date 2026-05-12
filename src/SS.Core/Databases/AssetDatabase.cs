@@ -28,155 +28,164 @@ using System.IO;
 
 namespace StardustSandbox.Core.Databases
 {
-    internal static class AssetDatabase
+    internal sealed class AssetDatabase
     {
-        private static bool isLoaded = false;
+        private bool isLoaded = false;
 
-        private static Texture2D pixelTexture;
+        private Texture2D pixelTexture;
 
-        private static Texture2D[] textures;
-        private static SpriteFont[] fonts;
-        private static Song[] songs;
-        private static SoundEffect[] soundEffects;
-        private static Effect[] effects;
+        private Texture2D[] textures;
+        private SpriteFont[] fonts;
+        private Song[] songs;
+        private SoundEffect[] soundEffects;
+        private Effect[] effects;
 
-        internal static void Load(ContentManager contentManager, GraphicsDevice graphicsDevice)
+        private readonly ContentManager contentManager;
+        private readonly GraphicsDeviceManager graphicsDeviceManager;
+
+        internal AssetDatabase(ContentManager contentManager, GraphicsDeviceManager graphicsDeviceManager)
         {
-            if (isLoaded)
+            this.contentManager = contentManager;
+            this.graphicsDeviceManager = graphicsDeviceManager;
+        }
+
+        internal void Load()
+        {
+            if (this.isLoaded)
             {
                 throw new InvalidOperationException($"{nameof(AssetDatabase)} has already been loaded.");
             }
 
-            pixelTexture = new(graphicsDevice, 1, 1);
-            pixelTexture.SetData([Color.White]);
+            this.pixelTexture = new(this.graphicsDeviceManager.GraphicsDevice, 1, 1);
+            this.pixelTexture.SetData([Color.White]);
 
-            effects = [
-                contentManager.Load<Effect>(Path.Combine("effects", "gradient_transition")),
+            this.effects = [
+                this.contentManager.Load<Effect>(Path.Combine("effects", "gradient_transition")),
             ];
 
-            fonts = [
-                contentManager.Load<SpriteFont>(Path.Combine("fonts", "arial")),
-                contentManager.Load<SpriteFont>(Path.Combine("fonts", "big_apple_3pm")),
-                contentManager.Load<SpriteFont>(Path.Combine("fonts", "comic_sans_ms")),
-                contentManager.Load<SpriteFont>(Path.Combine("fonts", "cooper_bits")),
-                contentManager.Load<SpriteFont>(Path.Combine("fonts", "de_pixel_breit")),
-                contentManager.Load<SpriteFont>(Path.Combine("fonts", "digital_disco")),
-                contentManager.Load<SpriteFont>(Path.Combine("fonts", "pixel_operator")),
-                contentManager.Load<SpriteFont>(Path.Combine("fonts", "vcr_osd_mono_1.001")),
-                contentManager.Load<SpriteFont>(Path.Combine("fonts", "windows_command_prompt")),
+            this.fonts = [
+                this.contentManager.Load<SpriteFont>(Path.Combine("fonts", "arial")),
+                this.contentManager.Load<SpriteFont>(Path.Combine("fonts", "big_apple_3pm")),
+                this.contentManager.Load<SpriteFont>(Path.Combine("fonts", "comic_sans_ms")),
+                this.contentManager.Load<SpriteFont>(Path.Combine("fonts", "cooper_bits")),
+                this.contentManager.Load<SpriteFont>(Path.Combine("fonts", "de_pixel_breit")),
+                this.contentManager.Load<SpriteFont>(Path.Combine("fonts", "digital_disco")),
+                this.contentManager.Load<SpriteFont>(Path.Combine("fonts", "pixel_operator")),
+                this.contentManager.Load<SpriteFont>(Path.Combine("fonts", "vcr_osd_mono_1.001")),
+                this.contentManager.Load<SpriteFont>(Path.Combine("fonts", "windows_command_prompt")),
             ];
 
-            songs = [
-                contentManager.Load<Song>(Path.Combine("songs", "volume_01", "track_01")),
-                contentManager.Load<Song>(Path.Combine("songs", "volume_01", "track_02")),
-                contentManager.Load<Song>(Path.Combine("songs", "volume_01", "track_03")),
-                contentManager.Load<Song>(Path.Combine("songs", "volume_01", "track_04")),
-                contentManager.Load<Song>(Path.Combine("songs", "volume_01", "track_05")),
-                contentManager.Load<Song>(Path.Combine("songs", "volume_01", "track_06")),
+            this.songs = [
+                this.contentManager.Load<Song>(Path.Combine("songs", "volume_01", "track_01")),
+                this.contentManager.Load<Song>(Path.Combine("songs", "volume_01", "track_02")),
+                this.contentManager.Load<Song>(Path.Combine("songs", "volume_01", "track_03")),
+                this.contentManager.Load<Song>(Path.Combine("songs", "volume_01", "track_04")),
+                this.contentManager.Load<Song>(Path.Combine("songs", "volume_01", "track_05")),
+                this.contentManager.Load<Song>(Path.Combine("songs", "volume_01", "track_06")),
             ];
 
-            soundEffects = [
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "accepted")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "click")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "error")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "hover")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "message")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "pause_ended")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "pause_started")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "rejected")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "returning")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "typing_1")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "typing_2")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "typing_3")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "typing_4")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "typing_5")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "world_loaded")),
-                contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "world_saved")),
+            this.soundEffects = [
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "accepted")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "click")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "error")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "hover")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "message")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "pause_ended")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "pause_started")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "rejected")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "returning")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "typing_1")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "typing_2")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "typing_3")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "typing_4")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "typing_5")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "world_loaded")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "uis", "world_saved")),
             ];
 
-            textures = [
-                pixelTexture,
-                contentManager.Load<Texture2D>(Path.Combine("textures", "achievements")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "actors")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "cursors")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "elements")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "frames")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "backgrounds", "clouds")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "backgrounds", "ocean")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "bgos", "celestial_bodies")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "bgos", "clouds")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "characters", "starciad")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "game", "title")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "actors")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "elements")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "keys")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "tools")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "ui")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "miscellaneous", "theatrical_curtains")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "patterns", "diamonds")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "shapes", "squares")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "third_parties", "monogame")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "third_parties", "xna")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "achievements")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "environment_settings")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "generator_settings")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "hud_horizontal_toolbar")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "hud_vertical_toolbar")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "information")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "item_explorer")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "item_search")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "options")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "pause")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "pen_settings")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "save_settings")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "selector")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "temperature_settings")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "tutorial")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "world_explorer")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "world_settings")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "buttons")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "size_slider")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "slider_input_ornament")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "text_input_ornament")),
-                contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "tutorial")),
+            this.textures = [
+                this.pixelTexture,
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "achievements")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "actors")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "cursors")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "elements")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "frames")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "backgrounds", "clouds")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "backgrounds", "ocean")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "bgos", "celestial_bodies")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "bgos", "clouds")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "characters", "starciad")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "game", "title")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "actors")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "elements")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "keys")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "tools")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "icons", "ui")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "miscellaneous", "theatrical_curtains")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "patterns", "diamonds")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "shapes", "squares")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "third_parties", "monogame")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "third_parties", "xna")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "achievements")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "environment_settings")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "generator_settings")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "hud_horizontal_toolbar")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "hud_vertical_toolbar")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "information")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "item_explorer")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "item_search")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "options")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "pause")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "pen_settings")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "save_settings")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "selector")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "temperature_settings")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "tutorial")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "world_explorer")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "backgrounds", "world_settings")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "buttons")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "size_slider")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "slider_input_ornament")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "text_input_ornament")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "tutorial")),
             ];
 
-            isLoaded = true;
+            this.isLoaded = true;
         }
 
-        internal static void Unload()
+        internal void Unload()
         {
-            pixelTexture.Dispose();
+            this.pixelTexture.Dispose();
         }
 
-        internal static Texture2D GetTexture(in TextureIndex index)
+        internal Texture2D GetTexture(TextureIndex index)
         {
-            return textures[(int)index];
+            return this.textures[(int)index];
         }
 
-        internal static SpriteFont GetSpriteFont(in SpriteFontIndex index)
+        internal SpriteFont GetSpriteFont(SpriteFontIndex index)
         {
-            return fonts[(int)index];
+            return this.fonts[(int)index];
         }
 
-        internal static Song GetSong(in SongIndex index)
+        internal Song GetSong(SongIndex index)
         {
-            return songs[(int)index];
+            return this.songs[(int)index];
         }
 
-        internal static Effect[] GetEffects()
+        internal Effect[] GetEffects()
         {
-            return effects;
+            return this.effects;
         }
 
-        internal static Effect GetEffect(in EffectIndex index)
+        internal Effect GetEffect(EffectIndex index)
         {
-            return effects[(int)index];
+            return this.effects[(int)index];
         }
 
-        internal static SoundEffect GetSoundEffect(in SoundEffectIndex index)
+        internal SoundEffect GetSoundEffect(SoundEffectIndex index)
         {
-            return soundEffects[(int)index];
+            return this.soundEffects[(int)index];
         }
     }
 }
