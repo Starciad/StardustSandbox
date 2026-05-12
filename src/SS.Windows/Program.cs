@@ -18,6 +18,7 @@
 using StardustSandbox.Core;
 
 using System;
+using System.CommandLine;
 using System.Windows.Forms;
 
 namespace StardustSandbox.Desktop
@@ -26,17 +27,22 @@ namespace StardustSandbox.Desktop
     {
         private static StardustSandboxGame stardustSandboxGame;
 
-        [STAThread]
-        private static void Main(string[] args)
+        private static void BuildAndRun(GameLaunchOptions options)
         {
-            _ = Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+            StardustSandboxApplication.Initialize();
 
+            stardustSandboxGame = new(options);
+            stardustSandboxGame.Run();
+        }
+
+        private static void ConfigureAndExecute(GameLaunchOptions options)
+        {
 #if DEBUG
-            InitializeGame(args);
+            BuildAndRun(options);
 #else
             try
             {
-                InitializeGame(args);
+                BuildAndRun(options);
             }
             catch (Exception e)
             {
@@ -53,12 +59,67 @@ namespace StardustSandbox.Desktop
 #endif
         }
 
-        private static void InitializeGame(string[] args)
+        [STAThread]
+        private static int Main(string[] args)
         {
-            StardustSandboxApplication.Initialize();
+            _ = Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 
-            stardustSandboxGame = new(args);
-            stardustSandboxGame.Run();
+            Option<bool> createExceptionOption = new("create-exception", ["ce"])
+            {
+                Description = "Creates an experimental error and generates a log file locally.",
+                AllowMultipleArgumentsPerToken = false,
+                Required = false,
+                DefaultValueFactory = (_) => false
+            };
+
+            Option<bool> noMusicDelay = new("no-music-delay", ["nmd"])
+            {
+                Description = "Disables the default delay for music, allowing all tracks to play sequentially without pauses.",
+                AllowMultipleArgumentsPerToken = false,
+                Required = false,
+                DefaultValueFactory = (_) => false
+            };
+
+            Option<bool> skipIntroOption = new("skip-intro", ["si"])
+            {
+                Description = "The game starts directly in the simulator, skipping the main menu.",
+                AllowMultipleArgumentsPerToken = false,
+                Required = false,
+                DefaultValueFactory = (_) => false
+            };
+
+            Option<bool> showChunksOption = new("show-chunks", ["sc"])
+            {
+                Description = "Shows chunks and their sizes in-game during simulation. Red chunks indicate that all elements in that region will be updated.",
+                AllowMultipleArgumentsPerToken = false,
+                Required = false,
+                DefaultValueFactory = (_) => false
+            };
+
+            RootCommand rootCommand = new()
+            {
+                Description = "Stardust Sandbox is a particle simulator sandbox game inspired by the classic 'falling sand'.",
+            };
+
+            rootCommand.Add(createExceptionOption);
+            rootCommand.Add(noMusicDelay);
+            rootCommand.Add(skipIntroOption);
+            rootCommand.Add(showChunksOption);
+
+            rootCommand.SetAction(parseResult =>
+            {
+                GameLaunchOptions options = new()
+                {
+                    CreateException = parseResult.GetValue(createExceptionOption),
+                    NoMusicDelay = parseResult.GetValue(noMusicDelay),
+                    SkipIntro = parseResult.GetValue(skipIntroOption),
+                    ShowChunks = parseResult.GetValue(showChunksOption),
+                };
+
+                ConfigureAndExecute(options);
+            });
+
+            return rootCommand.Parse(args).Invoke();
         }
     }
 }

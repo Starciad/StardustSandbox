@@ -45,6 +45,8 @@ namespace StardustSandbox.Core
 
         private SpriteBatch spriteBatch;
 
+        private readonly GameLaunchOptions gameLaunchOptions;
+
         private readonly World world;
         private readonly PlayerInputController playerInputController;
         private readonly Camera2D camera;
@@ -60,9 +62,9 @@ namespace StardustSandbox.Core
 
         private readonly GraphicsDeviceManager graphicsDeviceManager;
 
-        public StardustSandboxGame(string[] args)
+        public StardustSandboxGame(GameLaunchOptions options)
         {
-            GameParameters.Start(args);
+            this.gameLaunchOptions = options;
 
             // Graphics
             this.graphicsDeviceManager = new(this)
