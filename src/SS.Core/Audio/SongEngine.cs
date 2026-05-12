@@ -39,6 +39,7 @@ namespace StardustSandbox.Core.Audio
         internal static SongIndex CurrentSongIndex { get; private set; }
 
         private static bool isInitialized;
+        private static GameLaunchOptions gameLaunchOptions;
 
         private static float fadeFactor = 1f;
         private static VolumeSettings currentVolumeSettings;
@@ -50,12 +51,14 @@ namespace StardustSandbox.Core.Audio
 
         private static readonly Queue<SongIndex> gameplaySongDeck = [];
 
-        internal static void Initialize()
+        internal static void Initialize(GameLaunchOptions gameLaunchOptions)
         {
             if (isInitialized)
             {
                 throw new InvalidOperationException($"{nameof(SongEngine)} is already initialized.");
             }
+
+            SongEngine.gameLaunchOptions = gameLaunchOptions;
 
             currentVolumeSettings = SettingsSerializer.Load<VolumeSettings>();
             ApplyFinalVolume();
@@ -170,7 +173,7 @@ namespace StardustSandbox.Core.Audio
             {
                 while (!token.IsCancellationRequested)
                 {
-                    if (!GameParameters.NoMusicDelay)
+                    if (!gameLaunchOptions.NoMusicDelay)
                     {
                         await Task.Delay(TimeSpan.FromSeconds(Randomness.Random.Range(30, 60)), token);
                     }

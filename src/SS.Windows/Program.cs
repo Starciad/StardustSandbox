@@ -64,7 +64,7 @@ namespace StardustSandbox.Desktop
         {
             _ = Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
 
-            Option<bool> createExceptionOption = new("create-exception", ["ce"])
+            Option<bool> createExceptionOption = new("--create-exception", ["-ce"])
             {
                 Description = "Creates an experimental error and generates a log file locally.",
                 AllowMultipleArgumentsPerToken = false,
@@ -72,7 +72,7 @@ namespace StardustSandbox.Desktop
                 DefaultValueFactory = (_) => false
             };
 
-            Option<bool> noMusicDelay = new("no-music-delay", ["nmd"])
+            Option<bool> noMusicDelay = new("--no-music-delay", ["-nmd"])
             {
                 Description = "Disables the default delay for music, allowing all tracks to play sequentially without pauses.",
                 AllowMultipleArgumentsPerToken = false,
@@ -80,7 +80,7 @@ namespace StardustSandbox.Desktop
                 DefaultValueFactory = (_) => false
             };
 
-            Option<bool> skipIntroOption = new("skip-intro", ["si"])
+            Option<bool> skipIntroOption = new("--skip-intro", ["-si"])
             {
                 Description = "The game starts directly in the simulator, skipping the main menu.",
                 AllowMultipleArgumentsPerToken = false,
@@ -88,7 +88,7 @@ namespace StardustSandbox.Desktop
                 DefaultValueFactory = (_) => false
             };
 
-            Option<bool> showChunksOption = new("show-chunks", ["sc"])
+            Option<bool> showChunksOption = new("--show-chunks", ["-sc"])
             {
                 Description = "Shows chunks and their sizes in-game during simulation. Red chunks indicate that all elements in that region will be updated.",
                 AllowMultipleArgumentsPerToken = false,
@@ -99,13 +99,14 @@ namespace StardustSandbox.Desktop
             RootCommand rootCommand = new()
             {
                 Description = "Stardust Sandbox is a particle simulator sandbox game inspired by the classic 'falling sand'.",
+                TreatUnmatchedTokensAsErrors = true,
             };
 
             rootCommand.Add(createExceptionOption);
             rootCommand.Add(noMusicDelay);
             rootCommand.Add(skipIntroOption);
             rootCommand.Add(showChunksOption);
-
+            
             rootCommand.SetAction(parseResult =>
             {
                 GameLaunchOptions options = new()

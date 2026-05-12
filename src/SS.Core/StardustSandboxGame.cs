@@ -129,7 +129,7 @@ namespace StardustSandbox.Core
             GameScreen.Initialize(this.GraphicsDevice);
 
             AchievementEngine.Initialize(this.achievementNotifier);
-            SongEngine.Initialize();
+            SongEngine.Initialize(this.gameLaunchOptions);
             SoundEngine.Initialize();
 
             GameHandler.Initialize(this.Window);
@@ -173,7 +173,7 @@ namespace StardustSandbox.Core
 
         protected override void BeginRun()
         {
-            if (GameParameters.CreateException)
+            if (this.gameLaunchOptions.CreateException)
             {
                 throw new Exception("This is a test exception created by the --create-exception parameter.");
             }
@@ -181,7 +181,7 @@ namespace StardustSandbox.Core
             GameHandler.RemoveState(GameStates.IsPaused);
             GameHandler.RemoveState(GameStates.IsSimulationPaused);
 
-            if (GameParameters.SkipIntro)
+            if (this.gameLaunchOptions.SkipIntro)
             {
                 GameHandler.StartGame(
                     this.actorManager,

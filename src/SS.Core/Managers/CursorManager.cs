@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
@@ -61,12 +60,6 @@ namespace StardustSandbox.Core.Managers
         internal void Update()
         {
             Vector2 position = InputEngine.CurrentMouseState.Position.ToVector2();
-
-            // Toggle cursor visibility with D2 key
-            if (GameParameters.CanHideMouse && InputEngine.CurrentKeyboardState.IsKeyDown(Keys.D2) && !InputEngine.PreviousKeyboardState.IsKeyDown(Keys.D2))
-            {
-                this.canDraw = !this.canDraw;
-            }
 
             this.backgroundPosition = position;
             this.Position = position;

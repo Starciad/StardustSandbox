@@ -111,7 +111,7 @@ namespace StardustSandbox.Core
                 this.camera.GetViewMatrix()
             );
 
-            this.world.Draw(this.spriteBatch, this.camera);
+            this.world.Draw(this.spriteBatch, this.camera, this.gameLaunchOptions);
             this.actorManager.Draw(this.spriteBatch, this.camera);
 
             this.spriteBatch.End();

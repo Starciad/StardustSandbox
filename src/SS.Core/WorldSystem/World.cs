@@ -1003,7 +1003,7 @@ namespace StardustSandbox.Core.WorldSystem
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch, Camera2D camera)
+        internal void Draw(SpriteBatch spriteBatch, Camera2D camera, GameLaunchOptions options)
         {
             if (!this.CanDraw)
             {
@@ -1012,7 +1012,7 @@ namespace StardustSandbox.Core.WorldSystem
 
             DrawWorldBorder(spriteBatch);
 
-            if (GameParameters.ShowChunks)
+            if (options.ShowChunks)
             {
                 this.chunking.Draw(spriteBatch);
             }
