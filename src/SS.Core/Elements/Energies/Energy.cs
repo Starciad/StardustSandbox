@@ -15,10 +15,18 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
+
+using StardustSandbox.Core.Achievements;
+using StardustSandbox.Core.Enums.Elements;
+
 namespace StardustSandbox.Core.Elements.Energies
 {
     internal abstract class Energy : Element
     {
+        internal Energy(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        {
 
+        }
     }
 }

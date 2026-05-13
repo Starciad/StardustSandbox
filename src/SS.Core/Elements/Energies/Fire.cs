@@ -19,7 +19,6 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
@@ -30,6 +29,11 @@ namespace StardustSandbox.Core.Elements.Energies
 {
     internal sealed class Fire : Energy
     {
+        internal Fire(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        {
+
+        }
+
         private static bool TryIgniteElement(ElementContext context, Slot slot, SlotLayer slotLayer, Layer layer)
         {
             // Increase neighboring temperature by fire's heat value
@@ -95,7 +99,7 @@ namespace StardustSandbox.Core.Elements.Energies
             // Unlock achievement if 4 or more elements were burned and there were at least 4 elements around
             if (burnedElements >= 4 && aroundElements >= 4)
             {
-                AchievementSystem.Unlock(AchievementIndex.ACH_023);
+                this.AchievementSystem.Unlock(AchievementIndex.ACH_023);
             }
         }
 

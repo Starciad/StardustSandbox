@@ -15,6 +15,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
+
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Explosions;
@@ -40,6 +43,11 @@ namespace StardustSandbox.Core.Elements.Energies
                 ElementIndex.Smoke
             ]
         };
+
+        internal LightningBody(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        {
+
+        }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {

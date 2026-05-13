@@ -28,7 +28,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             if (currentValue > 600.0f)
             {
                 context.ReplaceElementIndex(ElementIndex.Lava);
-                AchievementSystem.Unlock(AchievementIndex.ACH_020);
+                this.AchievementSystem.Unlock(AchievementIndex.ACH_020);
             }
         }
     }

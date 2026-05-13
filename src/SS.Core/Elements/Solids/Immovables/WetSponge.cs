@@ -48,7 +48,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             if (currentValue >= 60.0f)
             {
                 context.ReplaceElementIndex(ElementIndex.DrySponge);
-                AchievementSystem.Unlock(AchievementIndex.ACH_019);
+                this.AchievementSystem.Unlock(AchievementIndex.ACH_019);
             }
         }
     }

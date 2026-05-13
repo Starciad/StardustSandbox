@@ -163,7 +163,7 @@ namespace StardustSandbox.Core.UI.Common
                     Subcategory subcategory = this.selectedCategory[i];
 
                     slot.Background.CanDraw = true;
-                    slot.Icon.Texture = subcategory.Texture;
+                    slot.Icon.Texture = subcategory.TextureIndex;
                     slot.Icon.SourceRectangle = subcategory.SourceRectangle;
                 }
                 else
@@ -295,7 +295,7 @@ namespace StardustSandbox.Core.UI.Common
 
                     new()
                     {
-                        Texture = category.Texture,
+                        Texture = category.TextureIndex,
                         SourceRectangle = category.SourceRectangle,
                         Alignment = UIDirection.Center,
                         Scale = new(1.5f),

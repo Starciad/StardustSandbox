@@ -235,7 +235,7 @@ namespace StardustSandbox.Core.Elements
 
         #region DRAWING LOGIC
 
-        private static void DrawPixelElementRoutine(ElementContext context, SpriteBatch spriteBatch, GameplaySettings gameplaySettings)
+        private static void DrawPixelElementRoutine(ElementContext context, SpriteBatch spriteBatch, AssetDatabase assetDatabase, GameplaySettings gameplaySettings)
         {
             SlotLayer slotLayer = context.CurrentSlot.GetLayer(context.CurrentLayer);
 
@@ -259,10 +259,10 @@ namespace StardustSandbox.Core.Elements
                 referenceColor.A
             );
 
-            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Pixel), new Vector2(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y) * WorldConstants.TILE_SIZE, null, finalColor, 0f, Vector2.Zero, new Vector2(WorldConstants.TILE_SIZE), SpriteEffects.None, 0f);
+            spriteBatch.Draw(assetDatabase.GetTexture(TextureIndex.Pixel), new Vector2(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y) * WorldConstants.TILE_SIZE, null, finalColor, 0f, Vector2.Zero, new Vector2(WorldConstants.TILE_SIZE), SpriteEffects.None, 0f);
         }
 
-        private static void DrawBlobElementRoutine(ElementContext context, ElementIndex elementIndex, SpriteBatch spriteBatch, Point textureOriginOffset, GameplaySettings gameplaySettings)
+        private static void DrawBlobElementRoutine(ElementContext context, ElementIndex elementIndex, SpriteBatch spriteBatch, AssetDatabase assetDatabase, Point textureOriginOffset, GameplaySettings gameplaySettings)
         {
             SlotLayer slotLayer = context.CurrentSlot.GetLayer(context.CurrentLayer);
             Color colorModifier = slotLayer.ColorModifier;
@@ -282,11 +282,11 @@ namespace StardustSandbox.Core.Elements
             for (int i = 0; i < ElementConstants.SPRITE_DIVISIONS_LENGTH; i++)
             {
                 UpdateSpriteSlice(context, elementIndex, i, context.CurrentSlot.Position);
-                spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Elements), spritePositions[i], new(textureOriginOffset + spriteClipAreas[i].Location, spriteClipAreas[i].Size), colorModifier, 0.0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(assetDatabase.GetTexture(TextureIndex.Elements), spritePositions[i], new(textureOriginOffset + spriteClipAreas[i].Location, spriteClipAreas[i].Size), colorModifier, 0.0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.0f);
             }
         }
 
-        private static void DrawSingleElementRoutine(ElementContext context, SpriteBatch spriteBatch, Point textureOriginOffset, GameplaySettings gameplaySettings)
+        private static void DrawSingleElementRoutine(ElementContext context, SpriteBatch spriteBatch, AssetDatabase assetDatabase, Point textureOriginOffset, GameplaySettings gameplaySettings)
         {
             SlotLayer slotLayer = context.CurrentSlot.GetLayer(context.CurrentLayer);
             Color colorModifier = slotLayer.ColorModifier;
@@ -301,17 +301,17 @@ namespace StardustSandbox.Core.Elements
                 colorModifier = colorModifier.Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
             }
 
-            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Elements), new Vector2(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y) * WorldConstants.TILE_SIZE, new(textureOriginOffset, new(32)), colorModifier, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            spriteBatch.Draw(assetDatabase.GetTexture(TextureIndex.Elements), new Vector2(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y) * WorldConstants.TILE_SIZE, new(textureOriginOffset, new(32)), colorModifier, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
         }
 
-        internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, Camera2D camera, Point textureOriginOffset, GameplaySettings gameplaySettings)
+        internal static void Draw(ElementContext context, Element element, SpriteBatch spriteBatch, AssetDatabase assetDatabase, Camera2D camera, Point textureOriginOffset, GameplaySettings gameplaySettings)
         {
             // If the camera is too far away, draw only a single pixel
             // that can represent the element to aid in performance and
             // visibility.
             if (camera.Zoom <= CameraConstants.PIXEL_RENDER_ZOOM_THRESHOLD)
             {
-                DrawPixelElementRoutine(context, spriteBatch, gameplaySettings);
+                DrawPixelElementRoutine(context, spriteBatch, assetDatabase, gameplaySettings);
                 return;
             }
 
@@ -319,11 +319,11 @@ namespace StardustSandbox.Core.Elements
             switch (element.RenderingType)
             {
                 case ElementRenderingType.Single:
-                    DrawSingleElementRoutine(context, spriteBatch, textureOriginOffset, gameplaySettings);
+                    DrawSingleElementRoutine(context, spriteBatch, assetDatabase, textureOriginOffset, gameplaySettings);
                     break;
 
                 case ElementRenderingType.Blob:
-                    DrawBlobElementRoutine(context, element.Index, spriteBatch, textureOriginOffset, gameplaySettings);
+                    DrawBlobElementRoutine(context, element.Index, spriteBatch, assetDatabase, textureOriginOffset, gameplaySettings);
                     break;
 
                 default:

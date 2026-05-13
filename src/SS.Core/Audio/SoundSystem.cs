@@ -34,29 +34,25 @@ namespace StardustSandbox.Core.Audio
 {
     internal sealed class SoundSystem
     {
+        private float masterVolume = 1.0f;
+
         private readonly SoundEffectInstance[] activeInstances = new SoundEffectInstance[SoundEffectConstants.MAX_CONCURRENT_INSTANCES];
+        private readonly AssetDatabase assetDatabase;
 
-        private bool isInitialized = false;
-
-        internal void Initialize()
+        internal SoundSystem(AssetDatabase assetDatabase)
         {
-            if (isInitialized)
-            {
-                throw new InvalidOperationException($"{nameof(SoundSystem)} is already initialized.");
-            }
-
+            this.assetDatabase = assetDatabase;
             ApplyVolumeSettings(SettingsSerializer.Load<VolumeSettings>());
 
 #if SS_WINDOWS
             SoundEffect.Speakers = Speakers.Stereo;
 #endif
-
-            isInitialized = true;
         }
 
         internal void ApplyVolumeSettings(VolumeSettings volumeSettings)
         {
-            SoundEffect.MasterVolume = volumeSettings.MasterVolume;
+            this.masterVolume = volumeSettings.MasterVolume;
+            SoundEffect.MasterVolume = this.masterVolume;
         }
 
         private void RegisterInstance(SoundEffectInstance instance)
@@ -81,7 +77,7 @@ namespace StardustSandbox.Core.Audio
 
         private void Play(SoundEffectIndex index, float volume, float pitch, float pan)
         {
-            SoundEffect effect = AssetDatabase.GetSoundEffect(index);
+            SoundEffect effect = this.assetDatabase.GetSoundEffect(index);
             SoundEffectInstance instance = effect.CreateInstance();
 
             instance.Volume = MathHelper.Clamp(volume, 0.0f, 1.0f);

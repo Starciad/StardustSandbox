@@ -35,7 +35,7 @@ using System;
 
 namespace StardustSandbox.Core.WorldSystem
 {
-    internal sealed class WorldRendering(PlayerInputController playerInputController, World world)
+    internal sealed class WorldRendering(AssetDatabase assetDatabase, PlayerInputController playerInputController, World world)
     {
         internal bool DrawForegroundElements { get; set; } = true;
         internal bool DrawBackgroundElements { get; set; } = true;
@@ -86,8 +86,7 @@ namespace StardustSandbox.Core.WorldSystem
         private void DrawSlotLayer(SpriteBatch spriteBatch, Camera2D camera, Point position, Layer layer, Element element, GameplaySettings gameplaySettings)
         {
             this.elementRenderingContext.Initialize(position, layer);
-
-            ElementRenderer.Draw(this.elementRenderingContext, element, spriteBatch, camera, element.TextureOriginOffset, gameplaySettings);
+            ElementRenderer.Draw(this.elementRenderingContext, element, spriteBatch, assetDatabase, camera, element.TextureOriginOffset, gameplaySettings);
         }
     }
 }

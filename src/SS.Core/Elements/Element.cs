@@ -33,12 +33,14 @@ namespace StardustSandbox.Core.Elements
     {
         #region Properties
 
-        internal required ElementIndex Index { get; init; }
-        internal required ElementCategory Category { get; init; }
-        internal required ElementCharacteristics Characteristics { get; init; }
-        internal required ElementRenderingType RenderingType { get; init; }
-        internal required Point TextureOriginOffset { get; init; }
-        internal required Color ReferenceColor { get; init; }
+        internal ElementIndex Index { get; private set; }
+        internal ElementCategory Category { get; private set; }
+        internal ElementCharacteristics Characteristics { get; private set; }
+        internal ElementRenderingType RenderingType { get; private set; }
+        internal Point TextureOriginOffset { get; private set; }
+        internal Color ReferenceColor { get; private set; }
+
+        protected AchievementSystem AchievementSystem { get; private set; }
 
         internal int DefaultDispersionRate { get; init; }
         internal float DefaultTemperature { get; init; }
@@ -50,8 +52,17 @@ namespace StardustSandbox.Core.Elements
 
         private ElementContext context;
 
-        internal Element()
+        internal Element(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem)
         {
+            this.Index = index;
+            this.Category = category;
+            this.Characteristics = characteristics;
+            this.RenderingType = renderingType;
+            this.TextureOriginOffset = textureOriginOffset;
+            this.ReferenceColor = referenceColor;
+
+            this.AchievementSystem = achievementSystem;
+
             this.DefaultDispersionRate = 1;
             this.DefaultTemperature = 25.0f;
             this.DefaultFlammabilityResistance = 25.0f;

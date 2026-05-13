@@ -126,7 +126,7 @@ namespace StardustSandbox.Core
 
             // System
             this.songSystem = new(this.assetDatabase, gameLaunchOptions);
-            this.soundSystem = new();
+            this.soundSystem = new(this.assetDatabase);
             this.achievementSystem = new(this.achievementDatabase, this.soundSystem);
 
             // Core

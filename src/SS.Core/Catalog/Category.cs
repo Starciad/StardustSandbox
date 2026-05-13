@@ -16,9 +16,7 @@
 */
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 
 namespace StardustSandbox.Core.Catalog
@@ -27,7 +25,7 @@ namespace StardustSandbox.Core.Catalog
     {
         internal string Name => name;
         internal string Description => description;
-        internal Texture2D Texture => AssetDatabase.GetTexture(textureIndex);
+        internal TextureIndex TextureIndex => textureIndex;
         internal Rectangle? SourceRectangle => sourceRectangle;
         internal int Length => this.subcategories.Length;
 

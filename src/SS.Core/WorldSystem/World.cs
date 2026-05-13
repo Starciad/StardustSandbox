@@ -77,6 +77,7 @@ namespace StardustSandbox.Core.WorldSystem
 
         private readonly Queue<Explosion> instantiatedExplosions;
 
+        private readonly AchievementSystem achievementSystem;
         private readonly AssetDatabase assetDatabase;
         private readonly ElementNeighbors elementNeighbors;
         private readonly ElementDatabase elementDatabase;
@@ -93,7 +94,7 @@ namespace StardustSandbox.Core.WorldSystem
             set => this.slots[point.X, point.Y] = value;
         }
 
-        internal World(AssetDatabase assetDatabase, ElementDatabase elementDatabase, PlayerInputController playerInputController)
+        internal World(AchievementSystem achievementSystem, AssetDatabase assetDatabase, ElementDatabase elementDatabase, PlayerInputController playerInputController)
         {
             this.assetDatabase = assetDatabase;
             this.elementDatabase = elementDatabase;
@@ -106,7 +107,7 @@ namespace StardustSandbox.Core.WorldSystem
             this.explosionPool = new();
 
             this.chunking = new(this);
-            this.rendering = new(playerInputController, this);
+            this.rendering = new(assetDatabase, playerInputController, this);
             this.updating = new(this);
 
             this.instantiatedExplosions = new(ExplosionConstants.MAX_SIMULTANEOUS_EXPLOSIONS);
@@ -935,7 +936,7 @@ namespace StardustSandbox.Core.WorldSystem
                 InstantiateElementIndex(point, explosion.Layer, explosion.ExplosionResidues.GetRandomItem());
             }
 
-            AchievementSystem.Unlock(AchievementIndex.ACH_016);
+            this.achievementSystem.Unlock(AchievementIndex.ACH_016);
         }
 
         private void TryAffectSlotLayer(SlotLayer slotLayer, Layer layer, Point targetPosition, Explosion explosion)
