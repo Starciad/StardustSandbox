@@ -33,14 +33,14 @@ namespace StardustSandbox.Core.Elements
     {
         #region Properties
 
-        internal ElementIndex Index { get; private set; }
-        internal ElementCategory Category { get; private set; }
-        internal ElementCharacteristics Characteristics { get; private set; }
-        internal ElementRenderingType RenderingType { get; private set; }
-        internal Point TextureOriginOffset { get; private set; }
-        internal Color ReferenceColor { get; private set; }
+        internal ElementIndex Index { get; }
+        internal ElementCategory Category { get; }
+        internal ElementCharacteristics Characteristics { get; }
+        internal ElementRenderingType RenderingType { get; }
+        internal Point TextureOriginOffset { get; }
+        internal Color ReferenceColor { get; }
 
-        protected AchievementSystem AchievementSystem { get; private set; }
+        protected AchievementSystem AchievementSystem { get; }
 
         internal int DefaultDispersionRate { get; init; }
         internal float DefaultTemperature { get; init; }

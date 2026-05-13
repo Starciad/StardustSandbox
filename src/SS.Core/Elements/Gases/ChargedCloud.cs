@@ -15,6 +15,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
+
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Mathematics;
@@ -24,6 +27,11 @@ namespace StardustSandbox.Core.Elements.Gases
 {
     internal sealed class ChargedCloud : Gas
     {
+        internal ChargedCloud(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        {
+
+        }
+
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             if (context.CurrentPosition.Y <= PercentageMath.PercentageOfValue(context.GetWorldSize().Y, 10.0f) && Random.Chance(1))

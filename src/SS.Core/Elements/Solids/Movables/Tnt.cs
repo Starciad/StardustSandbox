@@ -15,19 +15,22 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
+
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Explosions;
 
-namespace StardustSandbox.Core.Elements.Solids.Movables.Explosives
+namespace StardustSandbox.Core.Elements.Solids.Movables
 {
-    internal sealed class Gunpowder : MovableSolid
+    internal sealed class Tnt : MovableSolid
     {
         private static readonly ExplosionBuilder explosionBuilder = new()
         {
-            Radius = 4.0f,
-            Power = 3.0f,
-            Heat = 300.0f,
+            Radius = 6.0f,
+            Power = 5.0f,
+            Heat = 450.0f,
 
             AffectsWater = false,
             AffectsSolids = true,
@@ -39,6 +42,11 @@ namespace StardustSandbox.Core.Elements.Solids.Movables.Explosives
                 ElementIndex.Smoke,
             ]
         };
+
+        internal Tnt(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        {
+
+        }
 
         protected override void OnDestroyed(ElementContext context)
         {
@@ -59,12 +67,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables.Explosives
                     case ElementIndex.Fire:
                     case ElementIndex.Lava:
                         context.DestroyElement();
-                        return;
-
-                    case ElementIndex.Water:
-                    case ElementIndex.Saltwater:
-                        context.RemoveElement();
-                        return;
+                        break;
 
                     default:
                         break;
@@ -74,7 +77,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables.Explosives
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)
         {
-            if (currentValue >= 300.0f)
+            if (currentValue > 120.0f)
             {
                 context.DestroyElement();
             }

@@ -331,12 +331,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -354,12 +354,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slotInfoElement.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slotInfoElement.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
                     this.worldDetailsMenuUI.SetSaveFile(this.graphicsDevice, saveFile.Metadata.Name);
                     this.uiManager.OpenUI(UIIndex.WorldDetails);
                     break;
@@ -377,12 +377,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
                     this.paginationButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }

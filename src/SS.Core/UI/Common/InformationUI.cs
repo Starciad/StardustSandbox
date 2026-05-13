@@ -198,7 +198,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -217,7 +217,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
                     this.buttonInfos[i].ClickAction?.Invoke();
                     break;
                 }

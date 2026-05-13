@@ -24,6 +24,7 @@ using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.InputSystem;
@@ -49,7 +50,7 @@ namespace StardustSandbox.Core
 
         private readonly AchievementSystem achievementSystem;
         private readonly SongSystem songSystem;
-        private readonly SoundSystem soundSystem;
+        private readonly SoundEffectSystem soundEffectSystem;
 
         private readonly AchievementDatabase achievementDatabase;
         private readonly ActorDatabase actorDatabase;
@@ -126,12 +127,12 @@ namespace StardustSandbox.Core
 
             // System
             this.songSystem = new(this.assetDatabase, gameLaunchOptions);
-            this.soundSystem = new(this.assetDatabase);
-            this.achievementSystem = new(this.achievementDatabase, this.soundSystem);
+            this.soundEffectSystem = new(this.assetDatabase);
+            this.achievementSystem = new(this.achievementDatabase);
 
             // Core
             this.playerInputController = new();
-            this.world = new(this.assetDatabase, this.elementDatabase, this.playerInputController);
+            this.world = new(this.achievementSystem, this.assetDatabase, this.elementDatabase, this.playerInputController);
             this.camera = new();
 
             // Managers
@@ -157,6 +158,8 @@ namespace StardustSandbox.Core
                 this.achievementSystem.AchievementUnlocked += this.achievementNotifier.OnAchievementUnlocked;
             }
 
+            this.achievementSystem.AchievementUnlocked += OnAchievementUnlocked;
+
             GameScreen.Initialize(this.GraphicsDevice);
             GameHandler.Initialize(this.Window);
 
@@ -170,6 +173,7 @@ namespace StardustSandbox.Core
             this.actorDatabase.Load(this.actorManager, this.assetDatabase, this.elementDatabase, this.world);
             this.backgroundDatabase.Load();
             this.uiDatabase.Load(this.actorManager, this.ambientManager, this.camera, this.catalogDatabase, this.cursorManager, this.Window, this.GraphicsDevice, this.playerInputController, this, this.uiManager, this.videoManager, this.world);
+            this.elementDatabase.Load(this.achievementSystem);
 
             // Managers
             this.effectsManager.Initialize();
@@ -287,6 +291,11 @@ namespace StardustSandbox.Core
             this.Window.ClientSizeChanged -= OnClientSizeChanged;
 
             base.OnExiting(sender, args);
+        }
+
+        private void OnAchievementUnlocked(Achievement achievement)
+        {
+            this.soundEffectSystem.Play(SoundEffectIndex.GUI_World_Saved);
         }
 
         private void OnClientSizeChanged(object sender, EventArgs args)

@@ -54,12 +54,12 @@ namespace StardustSandbox.Core.UI.Common
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Returning);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Returning);
                     uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Accepted);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Accepted);
                     uiManager.CloseUI();
                     this.sendCallback?.Invoke(this.value);
                 }),

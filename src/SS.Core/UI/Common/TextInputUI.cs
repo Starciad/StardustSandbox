@@ -77,7 +77,7 @@ namespace StardustSandbox.Core.UI.Common
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
                     uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
@@ -91,14 +91,14 @@ namespace StardustSandbox.Core.UI.Common
 
                         if (validationState.Status is ValidationStatus.Failure)
                         {
-                            SoundSystem.Play(SoundEffectIndex.GUI_Error);
+                            SoundEffectSystem.Play(SoundEffectIndex.GUI_Error);
                             messageUI.SetContent(validationState.Message);
                             uiManager.OpenUI(UIIndex.Message);
                             return;
                         }
                     }
 
-                    SoundSystem.Play(SoundEffectIndex.GUI_Accepted);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Accepted);
                     uiManager.CloseUI();
                 }),
             ];
@@ -305,7 +305,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private static void PlayTypingSound()
         {
-            SoundSystem.Play((SoundEffectIndex)Randomness.Random.Range((int)SoundEffectIndex.GUI_Typing_1, (int)SoundEffectIndex.GUI_Typing_5));
+            SoundEffectSystem.Play((SoundEffectIndex)Randomness.Random.Range((int)SoundEffectIndex.GUI_Typing_1, (int)SoundEffectIndex.GUI_Typing_5));
         }
 
         private void OnKeyDown(object sender, InputKeyEventArgs inputKeyEventArgs)

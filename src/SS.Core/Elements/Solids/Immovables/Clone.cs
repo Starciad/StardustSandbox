@@ -17,6 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Extensions;
@@ -30,6 +31,11 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         private static readonly List<Point> positionScratch = [];
         private static readonly List<SlotLayer> layerScratch = [];
+
+        internal Clone(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        {
+
+        }
 
         // Instantiate the stored element into a random valid adjacent empty slot
         private static void TryInstantiateStoredElement(ElementContext context)

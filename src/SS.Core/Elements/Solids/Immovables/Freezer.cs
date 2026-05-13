@@ -15,6 +15,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
+
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.Elements;
 
@@ -22,6 +25,11 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Freezer : ImmovableSolid
     {
+        internal Freezer(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        {
+
+        }
+
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             TemperatureUtility.ModifyNeighborsTemperature(context, neighbors, TemperatureModifierMode.Cooling);

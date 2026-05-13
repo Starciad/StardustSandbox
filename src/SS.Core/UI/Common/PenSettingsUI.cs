@@ -318,12 +318,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -348,7 +348,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             if (Interaction.OnMouseEnter(this.brushSizeSlider))
             {
-                SoundSystem.Play(SoundEffectIndex.GUI_Hover);
+                SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
             }
 
             for (int i = 0; i < this.brushSizeSliderSourceRectangles.Length; i++)
@@ -382,12 +382,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Accepted);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Accepted);
                     this.toolButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -415,12 +415,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Accepted);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Accepted);
                     this.layerButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -445,12 +445,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Accepted);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Accepted);
                     this.layerVisibility[i].ClickAction?.Invoke();
                     break;
                 }
@@ -486,12 +486,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Accepted);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Accepted);
                     this.shapeButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }

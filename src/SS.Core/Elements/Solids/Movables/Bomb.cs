@@ -15,19 +15,22 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
+
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Explosions;
 
-namespace StardustSandbox.Core.Elements.Solids.Movables.Explosives
+namespace StardustSandbox.Core.Elements.Solids.Movables
 {
-    internal sealed class Tnt : MovableSolid
+    internal sealed class Bomb : MovableSolid
     {
         private static readonly ExplosionBuilder explosionBuilder = new()
         {
-            Radius = 6.0f,
-            Power = 5.0f,
-            Heat = 450.0f,
+            Radius = 4.0f,
+            Power = 2.5f,
+            Heat = 180.0f,
 
             AffectsWater = false,
             AffectsSolids = true,
@@ -39,6 +42,11 @@ namespace StardustSandbox.Core.Elements.Solids.Movables.Explosives
                 ElementIndex.Smoke,
             ]
         };
+
+        internal Bomb(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        {
+
+        }
 
         protected override void OnDestroyed(ElementContext context)
         {
@@ -56,12 +64,18 @@ namespace StardustSandbox.Core.Elements.Solids.Movables.Explosives
 
                 switch (neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex)
                 {
-                    case ElementIndex.Fire:
-                    case ElementIndex.Lava:
-                        context.DestroyElement();
+                    case ElementIndex.Bomb:
+                    case ElementIndex.Wall:
+                    case ElementIndex.Clone:
+                    case ElementIndex.Void:
+                    case ElementIndex.DownwardPusher:
+                    case ElementIndex.UpwardPusher:
+                    case ElementIndex.RightwardPusher:
+                    case ElementIndex.LeftwardPusher:
                         break;
 
                     default:
+                        context.DestroyElement();
                         break;
                 }
             }
@@ -69,7 +83,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables.Explosives
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)
         {
-            if (currentValue > 120.0f)
+            if (currentValue > 100.0f)
             {
                 context.DestroyElement();
             }

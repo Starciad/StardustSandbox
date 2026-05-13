@@ -15,6 +15,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
+
 using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Achievements;
@@ -25,6 +27,14 @@ namespace StardustSandbox.Core.Elements.Liquids
 {
     internal sealed class Water : Liquid
     {
+        internal Water(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        {
+            this.DefaultDispersionRate = 3;
+            this.DefaultTemperature = 25.0f;
+            this.DefaultDensity = 1.0f;
+            this.DefaultExplosionResistance = 0.2f;
+        }
+
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)

@@ -15,6 +15,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
+
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Extensions;
@@ -24,6 +27,11 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class MountingBlock : ImmovableSolid
     {
+        internal MountingBlock(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        {
+
+        }
+
         protected override void OnInstantiated(ElementContext context)
         {
             context.SetElementColorModifier(ElementConstants.COLORS_OF_MOUNTING_BLOCKS.GetRandomItem());

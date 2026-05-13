@@ -15,6 +15,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
+
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Randomness;
 
@@ -22,6 +25,11 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Wood : ImmovableSolid
     {
+        internal Wood(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        {
+
+        }
+
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)
         {
             if (currentValue >= 300.0f)

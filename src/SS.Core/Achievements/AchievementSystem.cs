@@ -31,12 +31,10 @@ namespace StardustSandbox.Core.Achievements
         internal event AchievementUnlockedHandler AchievementUnlocked;
 
         private readonly AchievementDatabase achievementDatabase;
-        private readonly SoundSystem soundSystem;
 
-        internal AchievementSystem(AchievementDatabase achievementDatabase, SoundSystem soundSystem)
+        internal AchievementSystem(AchievementDatabase achievementDatabase)
         {
             this.achievementDatabase = achievementDatabase;
-            this.soundSystem = soundSystem;
         }
 
         internal void Unlock(AchievementIndex index)
@@ -53,7 +51,6 @@ namespace StardustSandbox.Core.Achievements
             SettingsSerializer.Save(achievementSettings);
 
             AchievementUnlocked?.Invoke(achievement);
-            this.soundSystem.Play(SoundEffectIndex.GUI_World_Saved);
         }
     }
 }

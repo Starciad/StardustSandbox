@@ -15,27 +15,20 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
+
 using StardustSandbox.Core.Achievements;
-using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Enums.Elements;
 
 namespace StardustSandbox.Core.Elements.Solids.Movables
 {
     internal sealed class Dirt : MovableSolid
     {
-        internal Dirt(AchievementSystem achievementSystem) : base(achievementSystem)
+        internal Dirt(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-            Index = ElementIndex.Dirt,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(0, 0),
-                    ReferenceColor = AAP64ColorPalette.Clay,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 1.6f,
-                    DefaultExplosionResistance = 1.0f,
+            this.DefaultTemperature = 20.0f;
+            this.DefaultDensity = 1.6f;
+            this.DefaultExplosionResistance = 1.0f;
         }
     }
 }

@@ -17,6 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Explosions;
@@ -48,6 +49,10 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         };
 
         private static readonly List<Slot> cachedNeighborSlots = [];
+
+        internal Devourer(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        {
+        }
 
         protected override void OnDestroyed(ElementContext context)
         {

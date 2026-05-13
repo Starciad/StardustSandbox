@@ -28,47 +28,43 @@ namespace StardustSandbox.Core.Databases
 {
     internal sealed class ElementDatabase
     {
-        private readonly Element[] elements;
+        private Element[] elements;
 
-        internal ElementDatabase(AchievementSystem achievementSystem)
+        internal void Load(AchievementSystem achievementSystem)
         {
             elements = [
                 // [000] Dirt
-                new Elements.Solids.Movables.Dirt(achievementSystem),
+                new Elements.Solids.Movables.Dirt(
+                    ElementIndex.Dirt,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible | ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(0, 0),
+                    AAP64ColorPalette.Clay,
+                    achievementSystem
+                ),
 
                 // [001] Mud
-                new Elements.Solids.Movables.Mud()
-                {
-                    Index = ElementIndex.Mud,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(0, 32),
-                    ReferenceColor = new(87, 44, 45),
-                    DefaultTemperature = 18.0f,
-                    DefaultDensity = 1.5f,
-                    DefaultExplosionResistance = 0.6f,
-                },
+                new Elements.Solids.Movables.Mud(
+                    ElementIndex.Mud,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible | ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(0, 32),
+                    new(87, 44, 45),
+                    achievementSystem
+                ),
 
                 // [002] Water
-                new Elements.Liquids.Water()
-                {
-                    Index = ElementIndex.Water,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(0, 64),
-                    ReferenceColor = new(8, 120, 184),
-                    DefaultDispersionRate = 3,
-                    DefaultTemperature = 25.0f,
-                    DefaultDensity = 1.0f,
-                    DefaultExplosionResistance = 0.2f,
-                },
+                new Elements.Liquids.Water(
+                    ElementIndex.Water,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible | ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(0, 64),
+                    new(8, 120, 184),
+                    achievementSystem
+                ),
 
                 // [003] Stone
                 new Elements.Solids.Movables.Stone()
@@ -703,7 +699,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(320, 320),
                     ReferenceColor = AAP64ColorPalette.Rust,
-                    Direction = PusherDirection.Up,
+                    direction = PusherDirection.Up,
                     DefaultDensity = 2.0f,
                 },
 
@@ -717,7 +713,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(352, 320),
                     ReferenceColor = AAP64ColorPalette.Rust,
-                    Direction = PusherDirection.Right,
+                    direction = PusherDirection.Right,
                     DefaultDensity = 2.0f,
                 },
 
@@ -731,7 +727,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(384, 320),
                     ReferenceColor = AAP64ColorPalette.Rust,
-                    Direction = PusherDirection.Down,
+                    direction = PusherDirection.Down,
                     DefaultDensity = 2.0f,
                 },
 
@@ -745,7 +741,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Single,
                     TextureOriginOffset = new(416, 320),
                     ReferenceColor = AAP64ColorPalette.Rust,
-                    Direction = PusherDirection.Left,
+                    direction = PusherDirection.Left,
                     DefaultDensity = 2.0f,
                 },
 
@@ -827,7 +823,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(480, 96),
                     ReferenceColor = AAP64ColorPalette.DarkGray,
-                    WetWoolIndex = ElementIndex.WetBlackWool,
+                    wetWoolIndex = ElementIndex.WetBlackWool,
                     DefaultTemperature = 20.0f,
                     DefaultFlammabilityResistance = 35.0f,
                     DefaultDensity = 0.6f,
@@ -847,7 +843,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(480, 128),
                     ReferenceColor = AAP64ColorPalette.White,
-                    WetWoolIndex = ElementIndex.WetWhiteWool,
+                    wetWoolIndex = ElementIndex.WetWhiteWool,
                     DefaultTemperature = 20.0f,
                     DefaultFlammabilityResistance = 35.0f,
                     DefaultDensity = 0.6f,
@@ -867,7 +863,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(480, 160),
                     ReferenceColor = AAP64ColorPalette.Crimson,
-                    WetWoolIndex = ElementIndex.WetRedWool,
+                    wetWoolIndex = ElementIndex.WetRedWool,
                     DefaultTemperature = 20.0f,
                     DefaultFlammabilityResistance = 35.0f,
                     DefaultDensity = 0.6f,
@@ -887,7 +883,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(480, 192),
                     ReferenceColor = AAP64ColorPalette.Orange,
-                    WetWoolIndex = ElementIndex.WetOrangeWool,
+                    wetWoolIndex = ElementIndex.WetOrangeWool,
                     DefaultTemperature = 20.0f,
                     DefaultFlammabilityResistance = 35.0f,
                     DefaultDensity = 0.6f,
@@ -907,7 +903,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(480, 224),
                     ReferenceColor = AAP64ColorPalette.Gold,
-                    WetWoolIndex = ElementIndex.WetYellowWool,
+                    wetWoolIndex = ElementIndex.WetYellowWool,
                     DefaultTemperature = 20.0f,
                     DefaultFlammabilityResistance = 35.0f,
                     DefaultDensity = 0.6f,
@@ -927,7 +923,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(480, 256),
                     ReferenceColor = AAP64ColorPalette.ForestGreen,
-                    WetWoolIndex = ElementIndex.WetGreenWool,
+                    wetWoolIndex = ElementIndex.WetGreenWool,
                     DefaultTemperature = 20.0f,
                     DefaultFlammabilityResistance = 35.0f,
                     DefaultDensity = 0.6f,
@@ -947,7 +943,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(480, 288),
                     ReferenceColor = AAP64ColorPalette.Gunmetal,
-                    WetWoolIndex = ElementIndex.WetGrayWool,
+                    wetWoolIndex = ElementIndex.WetGrayWool,
                     DefaultTemperature = 20.0f,
                     DefaultFlammabilityResistance = 35.0f,
                     DefaultDensity = 0.6f,
@@ -967,7 +963,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 0),
                     ReferenceColor = AAP64ColorPalette.Cyan,
-                    WetWoolIndex = ElementIndex.WetBlueWool,
+                    wetWoolIndex = ElementIndex.WetBlueWool,
                     DefaultTemperature = 20.0f,
                     DefaultFlammabilityResistance = 35.0f,
                     DefaultDensity = 0.6f,
@@ -987,7 +983,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 32),
                     ReferenceColor = AAP64ColorPalette.Violet,
-                    WetWoolIndex = ElementIndex.WetVioletWool,
+                    wetWoolIndex = ElementIndex.WetVioletWool,
                     DefaultTemperature = 20.0f,
                     DefaultFlammabilityResistance = 35.0f,
                     DefaultDensity = 0.6f,
@@ -1007,7 +1003,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 64),
                     ReferenceColor = AAP64ColorPalette.Brown,
-                    WetWoolIndex = ElementIndex.WetBrownWool,
+                    wetWoolIndex = ElementIndex.WetBrownWool,
                     DefaultTemperature = 20.0f,
                     DefaultFlammabilityResistance = 35.0f,
                     DefaultDensity = 0.6f,
@@ -1026,7 +1022,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 96),
                     ReferenceColor = AAP64ColorPalette.DarkGray.Darken(0.65f),
-                    DryWoolIndex = ElementIndex.DryBlackWool,
+                    dryWoolIndex = ElementIndex.DryBlackWool,
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
@@ -1044,7 +1040,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 128),
                     ReferenceColor = AAP64ColorPalette.White.Darken(0.65f),
-                    DryWoolIndex = ElementIndex.DryWhiteWool,
+                    dryWoolIndex = ElementIndex.DryWhiteWool,
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
@@ -1062,7 +1058,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 160),
                     ReferenceColor = AAP64ColorPalette.Crimson.Darken(0.65f),
-                    DryWoolIndex = ElementIndex.DryRedWool,
+                    dryWoolIndex = ElementIndex.DryRedWool,
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
@@ -1080,7 +1076,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 192),
                     ReferenceColor = AAP64ColorPalette.Orange.Darken(0.65f),
-                    DryWoolIndex = ElementIndex.DryOrangeWool,
+                    dryWoolIndex = ElementIndex.DryOrangeWool,
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
@@ -1098,7 +1094,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 224),
                     ReferenceColor = AAP64ColorPalette.Gold.Darken(0.65f),
-                    DryWoolIndex = ElementIndex.DryYellowWool,
+                    dryWoolIndex = ElementIndex.DryYellowWool,
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
@@ -1116,7 +1112,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 256),
                     ReferenceColor = AAP64ColorPalette.ForestGreen.Darken(0.65f),
-                    DryWoolIndex = ElementIndex.DryGreenWool,
+                    dryWoolIndex = ElementIndex.DryGreenWool,
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
@@ -1134,7 +1130,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(640, 288),
                     ReferenceColor = AAP64ColorPalette.Gunmetal.Darken(0.65f),
-                    DryWoolIndex = ElementIndex.DryGrayWool,
+                    dryWoolIndex = ElementIndex.DryGrayWool,
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
@@ -1152,7 +1148,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(800, 0),
                     ReferenceColor = AAP64ColorPalette.Cyan.Darken(0.65f),
-                    DryWoolIndex = ElementIndex.DryBlueWool,
+                    dryWoolIndex = ElementIndex.DryBlueWool,
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
@@ -1170,7 +1166,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(800, 32),
                     ReferenceColor = AAP64ColorPalette.Violet.Darken(0.65f),
-                    DryWoolIndex = ElementIndex.DryVioletWool,
+                    dryWoolIndex = ElementIndex.DryVioletWool,
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,
@@ -1188,7 +1184,7 @@ namespace StardustSandbox.Core.Databases
                     RenderingType = ElementRenderingType.Blob,
                     TextureOriginOffset = new(800, 64),
                     ReferenceColor = AAP64ColorPalette.Brown.Darken(0.65f),
-                    DryWoolIndex = ElementIndex.DryBrownWool,
+                    dryWoolIndex = ElementIndex.DryBrownWool,
                     DefaultTemperature = 20.0f,
                     DefaultDensity = 0.6f,
                     DefaultExplosionResistance = 1.5f,

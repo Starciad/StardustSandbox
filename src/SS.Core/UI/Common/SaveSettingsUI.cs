@@ -78,7 +78,7 @@ namespace StardustSandbox.Core.UI.Common
                 // Name Field
                 new(TextureIndex.None, null, string.Empty, string.Empty, () =>
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
 
                     this.textInputUI.Setup(
                         Localization_Messages.Input_World_Name,
@@ -105,7 +105,7 @@ namespace StardustSandbox.Core.UI.Common
                 // Description Field
                 new(TextureIndex.None, null, string.Empty, string.Empty, () =>
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
 
                     this.textInputUI.Setup(
                         Localization_Messages.Input_World_Description,
@@ -134,7 +134,7 @@ namespace StardustSandbox.Core.UI.Common
                 // Save Button
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Save_Save_Description, () =>
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_World_Saved);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_World_Saved);
                     SavingSerializer.Save(actorManager, world, this.graphicsDevice);
 
                     GameHandler.DefineLoadedSaveFile(world.Name);
@@ -361,12 +361,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -395,7 +395,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
                     break;
                 }
 
@@ -416,7 +416,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
