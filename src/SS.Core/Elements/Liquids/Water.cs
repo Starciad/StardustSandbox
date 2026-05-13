@@ -38,14 +38,14 @@ namespace StardustSandbox.Core.Elements.Liquids
                 {
                     case ElementIndex.FertileSoil:
                     case ElementIndex.Dirt:
-                        context.ReplaceElement(neighbors.GetNeighborPosition(i), context.CurrentLayer, ElementIndex.Mud);
+                        context.ReplaceElementIndex(neighbors.GetNeighborPosition(i), context.CurrentLayer, ElementIndex.Mud);
                         context.DestroyElement();
                         return;
 
                     case ElementIndex.Stone:
                         if (Random.Range(0, 150) == 0)
                         {
-                            context.ReplaceElement(neighbors.GetNeighborPosition(i), context.CurrentLayer, ElementIndex.Sand);
+                            context.ReplaceElementIndex(neighbors.GetNeighborPosition(i), context.CurrentLayer, ElementIndex.Sand);
                             context.DestroyElement();
                             return;
                         }
@@ -66,12 +66,12 @@ namespace StardustSandbox.Core.Elements.Liquids
         {
             if (currentValue <= 0.0f)
             {
-                context.ReplaceElement(ElementIndex.Ice);
+                context.ReplaceElementIndex(ElementIndex.Ice);
                 AchievementEngine.Unlock(AchievementIndex.ACH_021);
             }
             else if (currentValue >= 100.0f)
             {
-                context.ReplaceElement(ElementIndex.Steam);
+                context.ReplaceElementIndex(ElementIndex.Steam);
                 AchievementEngine.Unlock(AchievementIndex.ACH_005);
             }
         }

@@ -33,18 +33,18 @@ namespace StardustSandbox.Core.Elements.Gases
                 {
                     if (Random.Chance(65))
                     {
-                        context.ReplaceElement(ElementIndex.Snow);
+                        context.ReplaceElementIndex(ElementIndex.Snow);
                         context.SetElementTemperature(-55.0f);
                     }
                     else
                     {
-                        context.ReplaceElement(ElementIndex.LightningHead);
+                        context.ReplaceElementIndex(ElementIndex.LightningHead);
                         AchievementEngine.Unlock(AchievementIndex.ACH_015);
                     }
                 }
                 else
                 {
-                    context.ReplaceElement(ElementIndex.Water);
+                    context.ReplaceElementIndex(ElementIndex.Water);
                     context.SetElementTemperature(2.5f);
                 }
             }

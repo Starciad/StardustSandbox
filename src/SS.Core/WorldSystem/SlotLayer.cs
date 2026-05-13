@@ -27,10 +27,10 @@ namespace StardustSandbox.Core.WorldSystem
     internal sealed class SlotLayer
     {
         internal bool IsEmpty => this.ElementIndex is ElementIndex.None;
-        internal bool HasStoredElement => this.StoredElementIndex is not Enums.Elements.ElementIndex.None;
+        internal bool HasStoredElement => this.StoredElementIndex is not ElementIndex.None;
 
-        internal Element Element => ElementDatabase.GetElement(this.ElementIndex);
-        internal Element StoredElement => ElementDatabase.GetElement(this.StoredElementIndex);
+        internal Element Element => this.elementDatabase.GetElement(this.ElementIndex);
+        internal Element StoredElement => this.elementDatabase.GetElement(this.StoredElementIndex);
 
         internal Color ColorModifier { get; set; }
         internal ElementIndex ElementIndex { get; set; }
@@ -40,9 +40,11 @@ namespace StardustSandbox.Core.WorldSystem
         internal float Temperature { get => this.temperature; set => this.temperature = TemperatureMath.Clamp(value); }
 
         private float temperature;
+        private readonly ElementDatabase elementDatabase;
 
-        internal SlotLayer()
+        internal SlotLayer(ElementDatabase elementDatabase)
         {
+            this.elementDatabase = elementDatabase;
             Reset();
         }
 

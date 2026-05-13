@@ -75,7 +75,7 @@ namespace StardustSandbox.Core.WorldSystem
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch, AssetDatabase assetDatabase)
         {
             bool chessEffect = false;
 
@@ -94,7 +94,7 @@ namespace StardustSandbox.Core.WorldSystem
                         color = color.Darken(0.25f);
                     }
 
-                    spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Pixel), position, null, color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(assetDatabase.GetTexture(TextureIndex.Pixel), position, null, color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
                     chessEffect = !chessEffect;
                 }
 

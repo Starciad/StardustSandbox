@@ -90,7 +90,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
             _ = this.floodFillVisited.Add(position);
 
             // Determines the initial target
-            ElementIndex targetElement = this.world.IsEmptySlotLayer(position, this.pen.Layer) ? ElementIndex.None : this.world.GetElement(position, this.pen.Layer);
+            ElementIndex targetElement = this.world.IsEmptySlotLayer(position, this.pen.Layer) ? ElementIndex.None : this.world.GetElementIndex(position, this.pen.Layer);
 
             while (this.floodFillQueue.Count > 0)
             {
@@ -118,7 +118,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             return isErasing
                 ? !this.world.IsEmptySlotLayer(position, this.pen.Layer)
-                : this.world.IsEmptySlotLayer(position, this.pen.Layer) || this.world.GetElement(position, this.pen.Layer) != elementIndex;
+                : this.world.IsEmptySlotLayer(position, this.pen.Layer) || this.world.GetElementIndex(position, this.pen.Layer) != elementIndex;
         }
 
         private bool IsValidNeighbor(Point neighborPosition, ElementIndex targetElementIndex, bool isErasing)
@@ -126,7 +126,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
             if (isErasing)
             {
                 // Valid neighborPosition to delete: must contain the same target element
-                return !this.world.IsEmptySlotLayer(neighborPosition, this.pen.Layer) && this.world.GetElement(neighborPosition, this.pen.Layer) == targetElementIndex;
+                return !this.world.IsEmptySlotLayer(neighborPosition, this.pen.Layer) && this.world.GetElementIndex(neighborPosition, this.pen.Layer) == targetElementIndex;
             }
 
             if (targetElementIndex is ElementIndex.None)
@@ -136,7 +136,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
             }
 
             // Valid neighborPosition to replace: must contain the same target element
-            return !this.world.IsEmptySlotLayer(neighborPosition, this.pen.Layer) && this.world.GetElement(neighborPosition, this.pen.Layer) == targetElementIndex;
+            return !this.world.IsEmptySlotLayer(neighborPosition, this.pen.Layer) && this.world.GetElementIndex(neighborPosition, this.pen.Layer) == targetElementIndex;
         }
 
         private bool ShouldProcessPosition(Point position, ElementIndex targetElementIndex, bool isErasing)
@@ -144,7 +144,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
             if (isErasing)
             {
                 // Erase: The slot must contain the same target element
-                return !this.world.IsEmptySlotLayer(position, this.pen.Layer) && this.world.GetElement(position, this.pen.Layer) == targetElementIndex;
+                return !this.world.IsEmptySlotLayer(position, this.pen.Layer) && this.world.GetElementIndex(position, this.pen.Layer) == targetElementIndex;
             }
 
             if (targetElementIndex is ElementIndex.None)
@@ -154,7 +154,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
             }
 
             // Replace elements that match the target
-            return !this.world.IsEmptySlotLayer(position, this.pen.Layer) && this.world.GetElement(position, this.pen.Layer) == targetElementIndex;
+            return !this.world.IsEmptySlotLayer(position, this.pen.Layer) && this.world.GetElementIndex(position, this.pen.Layer) == targetElementIndex;
         }
 
         private void ProcessPosition(Point position, ElementIndex index, bool isErasing)
@@ -165,11 +165,11 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
             }
             else if (this.world.IsEmptySlotLayer(position, this.pen.Layer))
             {
-                this.world.InstantiateElement(position, this.pen.Layer, index); // Insert new element
+                this.world.InstantiateElementIndex(position, this.pen.Layer, index); // Insert new element
             }
             else
             {
-                this.world.ReplaceElement(position, this.pen.Layer, index); // Replace the element
+                this.world.ReplaceElementIndex(position, this.pen.Layer, index); // Replace the element
             }
         }
 

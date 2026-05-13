@@ -44,7 +44,7 @@ namespace StardustSandbox.Core.Elements.Liquids
         {
             if (currentValue >= 200.0f)
             {
-                context.ReplaceElement(ElementIndex.Fire);
+                context.ReplaceElementIndex(ElementIndex.Fire);
             }
         }
     }

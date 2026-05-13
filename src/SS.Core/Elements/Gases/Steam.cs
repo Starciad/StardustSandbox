@@ -39,7 +39,7 @@ namespace StardustSandbox.Core.Elements.Gases
         {
             if (context.CurrentPosition.Y <= PercentageMath.PercentageOfValue(context.GetWorldSize().Y, 15.0f) && Random.Chance(5))
             {
-                context.ReplaceElement(ElementIndex.Cloud);
+                context.ReplaceElementIndex(ElementIndex.Cloud);
             }
         }
 
@@ -47,7 +47,7 @@ namespace StardustSandbox.Core.Elements.Gases
         {
             if (currentValue < 35.0f)
             {
-                context.ReplaceElement(ElementIndex.Water);
+                context.ReplaceElementIndex(ElementIndex.Water);
             }
         }
     }

@@ -29,7 +29,7 @@ namespace StardustSandbox.Core.Elements.Gases
             {
                 if (context.HasElementState(ElementStates.IsDissipating))
                 {
-                    context.ReplaceElement(context.GetStoredElement());
+                    context.ReplaceElementIndex(context.GetStoredElementIndex());
                     return;
                 }
                 else
@@ -54,8 +54,8 @@ namespace StardustSandbox.Core.Elements.Gases
                 {
                     ElementIndex originalElementIndex = layer.StoredElementIndex;
 
-                    context.ReplaceElement(slot.Position, ElementIndex.AntiCorruption);
-                    context.SetStoredElement(slot.Position, context.CurrentLayer, originalElementIndex);
+                    context.ReplaceElementIndex(slot.Position, ElementIndex.AntiCorruption);
+                    context.SetStoredElementIndex(slot.Position, context.CurrentLayer, originalElementIndex);
                 }
             }
         }

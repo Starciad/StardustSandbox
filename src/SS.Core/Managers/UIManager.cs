@@ -34,6 +34,12 @@ namespace StardustSandbox.Core.Managers
 
         // Stack represents navigation/history. Top = currently active UI.
         private readonly Stack<UIBase> uiStack = new();
+        private readonly UIDatabase uiDatabase;
+
+        internal UIManager(UIDatabase uiDatabase)
+        {
+            this.uiDatabase = uiDatabase;
+        }
 
         public void Reset()
         {
@@ -67,7 +73,7 @@ namespace StardustSandbox.Core.Managers
 
         internal void OpenUI(UIIndex index)
         {
-            UIBase ui = UIDatabase.GetUI(index);
+            UIBase ui = this.uiDatabase.GetUI(index);
 
             // If the requested UI is already the active one and active, nothing to do.
             if (this.uiStack.Count > 0 && this.uiStack.Peek() == ui)

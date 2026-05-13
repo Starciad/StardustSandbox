@@ -39,7 +39,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
                     case ElementIndex.Ice:
                     case ElementIndex.Snow:
                         context.DestroyElement();
-                        context.ReplaceElement(neighbors.GetNeighborPosition(i), context.CurrentLayer, ElementIndex.Saltwater);
+                        context.ReplaceElementIndex(neighbors.GetNeighborPosition(i), context.CurrentLayer, ElementIndex.Saltwater);
                         AchievementEngine.Unlock(AchievementIndex.ACH_024);
                         break;
 
@@ -53,8 +53,8 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             if (currentValue > 900.0f)
             {
-                context.ReplaceElement(ElementIndex.Lava);
-                context.SetStoredElement(ElementIndex.Salt);
+                context.ReplaceElementIndex(ElementIndex.Lava);
+                context.SetStoredElementIndex(ElementIndex.Salt);
             }
         }
     }

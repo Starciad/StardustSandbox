@@ -74,17 +74,17 @@ namespace StardustSandbox.Core.Elements
             return TrySetPosition(newPosition, this.CurrentLayer);
         }
 
-        internal bool TryInstantiateElement(Point position, Layer layer, ElementIndex index)
+        internal bool TryInstantiateElementIndex(Point position, Layer layer, ElementIndex index)
         {
-            return world.TryInstantiateElement(position, layer, index);
+            return world.TryInstantiateElementIndex(position, layer, index);
         }
-        internal bool TryInstantiateElement(Point position, ElementIndex index)
+        internal bool TryInstantiateElementIndex(Point position, ElementIndex index)
         {
-            return TryInstantiateElement(position, this.CurrentLayer, index);
+            return TryInstantiateElementIndex(position, this.CurrentLayer, index);
         }
-        internal bool TryInstantiateElement(ElementIndex index)
+        internal bool TryInstantiateElementIndex(ElementIndex index)
         {
-            return TryInstantiateElement(this.CurrentPosition, index);
+            return TryInstantiateElementIndex(this.CurrentPosition, index);
         }
 
         internal bool TryUpdateElementPosition(Point oldPosition, Point newPosition, Layer layer)
@@ -139,30 +139,43 @@ namespace StardustSandbox.Core.Elements
             return TryRemoveElement(this.CurrentPosition);
         }
 
-        internal bool TryReplaceElement(Point position, Layer layer, ElementIndex index)
+        internal bool TryReplaceElementIndex(Point position, Layer layer, ElementIndex index)
         {
-            return world.TryReplaceElement(position, layer, index);
+            return world.TryReplaceElementIndex(position, layer, index);
         }
-        internal bool TryReplaceElement(Point position, ElementIndex index)
+        internal bool TryReplaceElementIndex(Point position, ElementIndex index)
         {
-            return TryReplaceElement(position, this.CurrentLayer, index);
+            return TryReplaceElementIndex(position, this.CurrentLayer, index);
         }
-        internal bool TryReplaceElement(ElementIndex index)
+        internal bool TryReplaceElementIndex(ElementIndex index)
         {
-            return TryReplaceElement(this.CurrentPosition, index);
+            return TryReplaceElementIndex(this.CurrentPosition, index);
         }
 
-        internal bool TryGetElement(Point position, Layer layer, out ElementIndex index)
+        internal bool TryGetElementIndex(Point position, Layer layer, out ElementIndex index)
         {
-            return world.TryGetElement(position, layer, out index);
+            return world.TryGetElementIndex(position, layer, out index);
         }
-        internal bool TryGetElement(Point position, out ElementIndex index)
+        internal bool TryGetElementIndex(Point position, out ElementIndex index)
         {
-            return TryGetElement(position, this.CurrentLayer, out index);
+            return TryGetElementIndex(position, this.CurrentLayer, out index);
         }
-        internal bool TryGetElement(out ElementIndex index)
+        internal bool TryGetElementIndex(out ElementIndex index)
         {
-            return TryGetElement(this.CurrentPosition, out index);
+            return TryGetElementIndex(this.CurrentPosition, out index);
+        }
+
+        internal bool TryGetElement(Point position, Layer layer, out Element element)
+        {
+            return world.TryGetElement(position, layer, out element);
+        }
+        internal bool TryGetElement(Point position, out Element element)
+        {
+            return TryGetElement(position, this.CurrentLayer, out element);
+        }
+        internal bool TryGetElement(out Element element)
+        {
+            return TryGetElement(this.CurrentPosition, out element);
         }
 
         internal bool TryGetSlot(Point position, out Slot value)
@@ -226,30 +239,43 @@ namespace StardustSandbox.Core.Elements
             return TryHasStoredElement(this.CurrentPosition, out value);
         }
 
-        internal bool TrySetStoredElement(Point position, Layer layer, ElementIndex index)
+        internal bool TrySetStoredElementIndex(Point position, Layer layer, ElementIndex index)
         {
-            return world.TrySetStoredElement(position, layer, index);
+            return world.TrySetStoredElementIndex(position, layer, index);
         }
-        internal bool TrySetStoredElement(Point position, ElementIndex index)
+        internal bool TrySetStoredElementIndex(Point position, ElementIndex index)
         {
-            return TrySetStoredElement(position, this.CurrentLayer, index);
+            return TrySetStoredElementIndex(position, this.CurrentLayer, index);
         }
-        internal bool TrySetStoredElement(ElementIndex index)
+        internal bool TrySetStoredElementIndex(ElementIndex index)
         {
-            return TrySetStoredElement(this.CurrentPosition, index);
+            return TrySetStoredElementIndex(this.CurrentPosition, index);
         }
 
-        internal bool TryGetStoredElement(Point position, Layer layer, out ElementIndex index)
+        internal bool TryGetStoredElementIndex(Point position, Layer layer, out ElementIndex index)
         {
-            return world.TryGetStoredElement(position, layer, out index);
+            return world.TryGetStoredElementIndex(position, layer, out index);
         }
-        internal bool TryGetStoredElement(Point position, out ElementIndex index)
+        internal bool TryGetStoredElementIndex(Point position, out ElementIndex index)
         {
-            return TryGetStoredElement(position, this.CurrentLayer, out index);
+            return TryGetStoredElementIndex(position, this.CurrentLayer, out index);
         }
-        internal bool TryGetStoredElement(out ElementIndex index)
+        internal bool TryGetStoredElementIndex(out ElementIndex index)
         {
-            return TryGetStoredElement(this.CurrentPosition, out index);
+            return TryGetStoredElementIndex(this.CurrentPosition, out index);
+        }
+
+        internal bool TryGetStoredElement(Point position, Layer layer, out Element element)
+        {
+            return world.TryGetStoredElement(position, layer, out element);
+        }
+        internal bool TryGetStoredElement(Point position, out Element element)
+        {
+            return TryGetStoredElement(position, this.CurrentLayer, out element);
+        }
+        internal bool TryGetStoredElement(out Element element)
+        {
+            return TryGetStoredElement(this.CurrentPosition, out element);
         }
 
         internal bool TryHasElementState(Point position, Layer layer, ElementStates state, out bool value)
@@ -322,17 +348,17 @@ namespace StardustSandbox.Core.Elements
             SetPosition(newPosition, this.CurrentLayer);
         }
 
-        internal void InstantiateElement(Point position, Layer layer, ElementIndex index)
+        internal void InstantiateElementIndex(Point position, Layer layer, ElementIndex index)
         {
-            world.InstantiateElement(position, layer, index);
+            world.InstantiateElementIndex(position, layer, index);
         }
-        internal void InstantiateElement(Point position, ElementIndex index)
+        internal void InstantiateElementIndex(Point position, ElementIndex index)
         {
-            InstantiateElement(position, this.CurrentLayer, index);
+            InstantiateElementIndex(position, this.CurrentLayer, index);
         }
-        internal void InstantiateElement(ElementIndex index)
+        internal void InstantiateElementIndex(ElementIndex index)
         {
-            InstantiateElement(this.CurrentPosition, index);
+            InstantiateElementIndex(this.CurrentPosition, index);
         }
 
         internal void UpdateElementPosition(Point oldPosition, Point newPosition, Layer layer)
@@ -387,17 +413,17 @@ namespace StardustSandbox.Core.Elements
             RemoveElement(this.CurrentPosition, this.CurrentLayer);
         }
 
-        internal void ReplaceElement(Point position, Layer layer, ElementIndex index)
+        internal void ReplaceElementIndex(Point position, Layer layer, ElementIndex index)
         {
-            world.ReplaceElement(position, layer, index);
+            world.ReplaceElementIndex(position, layer, index);
         }
-        internal void ReplaceElement(Point position, ElementIndex index)
+        internal void ReplaceElementIndex(Point position, ElementIndex index)
         {
-            ReplaceElement(position, this.CurrentLayer, index);
+            ReplaceElementIndex(position, this.CurrentLayer, index);
         }
-        internal void ReplaceElement(ElementIndex index)
+        internal void ReplaceElementIndex(ElementIndex index)
         {
-            ReplaceElement(this.CurrentPosition, index);
+            ReplaceElementIndex(this.CurrentPosition, index);
         }
 
         internal void SetElementTemperature(Point position, Layer layer, float value)
@@ -426,28 +452,41 @@ namespace StardustSandbox.Core.Elements
             SetElementColorModifier(this.CurrentPosition, value);
         }
 
-        internal void SetStoredElement(Point position, Layer layer, ElementIndex index)
+        internal void SetStoredElementIndex(Point position, Layer layer, ElementIndex index)
         {
-            world.SetStoredElement(position, layer, index);
+            world.SetStoredElementIndex(position, layer, index);
         }
-        internal void SetStoredElement(Point position, ElementIndex index)
+        internal void SetStoredElementIndex(Point position, ElementIndex index)
         {
-            SetStoredElement(position, this.CurrentLayer, index);
+            SetStoredElementIndex(position, this.CurrentLayer, index);
         }
-        internal void SetStoredElement(ElementIndex index)
+        internal void SetStoredElementIndex(ElementIndex index)
         {
-            SetStoredElement(this.CurrentPosition, index);
+            SetStoredElementIndex(this.CurrentPosition, index);
         }
 
-        internal ElementIndex GetStoredElement(Point position, Layer layer)
+        internal ElementIndex GetStoredElementIndex(Point position, Layer layer)
+        {
+            return world.GetStoredElementIndex(position, layer);
+        }
+        internal ElementIndex GetStoredElementIndex(Point position)
+        {
+            return GetStoredElementIndex(position, this.CurrentLayer);
+        }
+        internal ElementIndex GetStoredElementIndex()
+        {
+            return GetStoredElementIndex(this.CurrentPosition);
+        }
+
+        internal Element GetStoredElement(Point position, Layer layer)
         {
             return world.GetStoredElement(position, layer);
         }
-        internal ElementIndex GetStoredElement(Point position)
+        internal Element GetStoredElement(Point position)
         {
             return GetStoredElement(position, this.CurrentLayer);
         }
-        internal ElementIndex GetStoredElement()
+        internal Element GetStoredElement()
         {
             return GetStoredElement(this.CurrentPosition);
         }
@@ -526,15 +565,28 @@ namespace StardustSandbox.Core.Elements
             ToggleElementState(this.CurrentPosition, state);
         }
 
-        internal ElementIndex GetElement(Point position, Layer layer)
+        internal ElementIndex GetElementIndex(Point position, Layer layer)
+        {
+            return world.GetElementIndex(position, layer);
+        }
+        internal ElementIndex GetElementIndex(Point position)
+        {
+            return GetElementIndex(position, this.CurrentLayer);
+        }
+        internal ElementIndex GetElementIndex()
+        {
+            return GetElementIndex(this.CurrentPosition);
+        }
+
+        internal Element GetElement(Point position, Layer layer)
         {
             return world.GetElement(position, layer);
         }
-        internal ElementIndex GetElement(Point position)
+        internal Element GetElement(Point position)
         {
             return GetElement(position, this.CurrentLayer);
         }
-        internal ElementIndex GetElement()
+        internal Element GetElement()
         {
             return GetElement(this.CurrentPosition);
         }

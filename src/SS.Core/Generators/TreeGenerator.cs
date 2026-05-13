@@ -35,11 +35,11 @@ namespace StardustSandbox.Core.Generators
 
                     if (context.IsEmptySlotLayer(position, context.CurrentLayer))
                     {
-                        context.InstantiateElement(position, context.CurrentLayer, ElementIndex.Wood);
+                        context.InstantiateElementIndex(position, context.CurrentLayer, ElementIndex.Wood);
                     }
                     else
                     {
-                        context.ReplaceElement(position, context.CurrentLayer, ElementIndex.Wood);
+                        context.ReplaceElementIndex(position, context.CurrentLayer, ElementIndex.Wood);
                     }
                 }
             }
@@ -57,11 +57,11 @@ namespace StardustSandbox.Core.Generators
 
                         if (context.IsEmptySlotLayer(position, context.CurrentLayer))
                         {
-                            context.InstantiateElement(position, context.CurrentLayer, ElementIndex.TreeLeaf);
+                            context.InstantiateElementIndex(position, context.CurrentLayer, ElementIndex.TreeLeaf);
                         }
                         else
                         {
-                            context.ReplaceElement(position, context.CurrentLayer, ElementIndex.TreeLeaf);
+                            context.ReplaceElementIndex(position, context.CurrentLayer, ElementIndex.TreeLeaf);
                         }
                     }
                 }

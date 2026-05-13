@@ -28,11 +28,11 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             {
                 if (Random.Chance(75))
                 {
-                    context.ReplaceElement(ElementIndex.Fire);
+                    context.ReplaceElementIndex(ElementIndex.Fire);
                 }
                 else
                 {
-                    context.ReplaceElement(ElementIndex.Ash);
+                    context.ReplaceElementIndex(ElementIndex.Ash);
                 }
             }
         }

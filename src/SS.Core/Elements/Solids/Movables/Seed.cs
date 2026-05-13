@@ -54,7 +54,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 
             if (hasWater && hasFertileSoil && Random.Chance(25, 500))
             {
-                context.ReplaceElement(ElementIndex.Sapling);
+                context.ReplaceElementIndex(ElementIndex.Sapling);
             }
         }
 
@@ -62,7 +62,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             if (currentValue >= 75.0f)
             {
-                context.ReplaceElement(ElementIndex.Fire);
+                context.ReplaceElementIndex(ElementIndex.Fire);
             }
         }
     }

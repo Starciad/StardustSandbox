@@ -51,7 +51,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             if (shouldBecomeWet)
             {
-                context.ReplaceElement(ElementIndex.WetSponge);
+                context.ReplaceElementIndex(ElementIndex.WetSponge);
                 AchievementEngine.Unlock(AchievementIndex.ACH_003);
             }
         }
@@ -62,11 +62,11 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             {
                 if (Random.Chance(70))
                 {
-                    context.ReplaceElement(ElementIndex.Fire);
+                    context.ReplaceElementIndex(ElementIndex.Fire);
                 }
                 else
                 {
-                    context.ReplaceElement(ElementIndex.Ash);
+                    context.ReplaceElementIndex(ElementIndex.Ash);
                 }
             }
         }

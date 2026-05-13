@@ -25,8 +25,8 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         {
             if (currentValue >= 1727.0f)
             {
-                context.ReplaceElement(ElementIndex.Lava);
-                context.SetStoredElement(ElementIndex.RedBrick);
+                context.ReplaceElementIndex(ElementIndex.Lava);
+                context.SetStoredElementIndex(ElementIndex.RedBrick);
             }
         }
     }

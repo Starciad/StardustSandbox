@@ -110,27 +110,27 @@ namespace StardustSandbox.Core
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
 
-            // Core
-            this.playerInputController = new();
-            this.world = new(this.playerInputController);
-            this.camera = new();
-
-            // Managers
-            this.effectsManager = new();
-            this.uiManager = new();
-            this.cursorManager = new();
-            this.ambientManager = new();
-            this.actorManager = new(this.world);
-
             // Database
             this.achievementDatabase = new();
-            this.actorDatabase = new(this.actorManager, this.world);
+            this.actorDatabase = new();
             this.assetDatabase = new(this.Content, this.graphicsDeviceManager);
             this.backgroundDatabase = new(this.assetDatabase);
             this.catalogDatabase = new();
             this.elementDatabase = new();
             this.toolDatabase = new();
             this.uiDatabase = new();
+
+            // Core
+            this.playerInputController = new();
+            this.world = new(this.assetDatabase, this.elementDatabase, this.playerInputController);
+            this.camera = new();
+
+            // Managers
+            this.effectsManager = new();
+            this.uiManager = new(this.uiDatabase);
+            this.cursorManager = new();
+            this.ambientManager = new();
+            this.actorManager = new(this.world);
         }
 
         internal void SetFrameRate(float framerate)
@@ -158,6 +158,7 @@ namespace StardustSandbox.Core
         {
             // Databases
             this.assetDatabase.Load();
+            this.actorDatabase.Load(this.actorManager, this.assetDatabase, this.elementDatabase, this.world);
             this.backgroundDatabase.Load();
             this.uiDatabase.Load(this.actorManager, this.ambientManager, this.camera, this.cursorManager, this.Window, this.GraphicsDevice, this.playerInputController, this, this.uiManager, this.videoManager, this.world);
 
@@ -167,7 +168,7 @@ namespace StardustSandbox.Core
             this.ambientManager.Initialize(this.world);
 
             // Controllers
-            this.playerInputController.Initialize(this.actorManager, this.camera, this, this.videoManager, this.world);
+            this.playerInputController.Initialize(this.actorManager, this.camera, this, this.toolDatabase, this.videoManager, this.world);
 
             // Resolution
             if (this.videoSettings.Width == 0 || this.videoSettings.Height == 0)

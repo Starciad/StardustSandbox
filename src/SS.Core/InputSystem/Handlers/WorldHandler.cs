@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Cameras;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Inputs;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.InputSystem.Handlers.Gizmos;
@@ -45,7 +46,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers
 
         private readonly World world;
 
-        internal WorldHandler(ActorManager actorManager, Camera2D camera, Pen pen, Player player, World world)
+        internal WorldHandler(ActorManager actorManager, Camera2D camera, Pen pen, Player player, ToolDatabase toolDatabase, World world)
         {
             this.world = world;
 
@@ -56,7 +57,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers
             this.camera = camera;
 
             this.visualizationGizmo = new(actorManager, pen, world, this);
-            this.pencilGizmo = new(actorManager, pen, world, this);
+            this.pencilGizmo = new(actorManager, pen, toolDatabase, world, this);
             this.eraserGizmo = new(actorManager, pen, world, this);
             this.floodFillGizmo = new(actorManager, pen, world, this);
             this.replaceGizmo = new(actorManager, pen, world, this);

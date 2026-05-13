@@ -34,14 +34,14 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         // Instantiate the stored element into a random valid adjacent empty slot
         private static void TryInstantiateStoredElement(ElementContext context)
         {
-            ElementIndex stored = context.GetStoredElement();
+            ElementIndex stored = context.GetStoredElementIndex();
 
             if (stored is ElementIndex.None || !TryGetValidPosition(context, out Point validPosition))
             {
                 return;
             }
 
-            context.InstantiateElement(validPosition, context.CurrentLayer, stored);
+            context.InstantiateElementIndex(validPosition, context.CurrentLayer, stored);
             GameStatistics.IncrementWorldClonedElements();
         }
 
@@ -85,7 +85,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         // Define the stored element based on the first valid neighboring element found
         private static void TryDefineStoredElement(ElementContext context, ElementNeighbors neighbors)
         {
-            if (context.GetStoredElement() is not ElementIndex.None)
+            if (context.GetStoredElementIndex() is not ElementIndex.None)
             {
                 return;
             }
@@ -123,7 +123,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                 return;
             }
 
-            context.SetStoredElement(layerScratch.GetRandomItem().ElementIndex);
+            context.SetStoredElementIndex(layerScratch.GetRandomItem().ElementIndex);
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

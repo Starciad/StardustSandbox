@@ -44,7 +44,7 @@ namespace StardustSandbox.Core.WorldSystem
         private readonly PlayerInputController playerInputController = playerInputController;
         private readonly World world = world;
 
-        internal void Draw(SpriteBatch spriteBatch, Camera2D camera)
+        internal void Draw(SpriteBatch spriteBatch, AssetDatabase assetDatabase, Camera2D camera)
         {
             RectangleF viewBounds = camera.GetViewBounds();
 
@@ -64,7 +64,7 @@ namespace StardustSandbox.Core.WorldSystem
 
                     if (gameplaySettings.ShowGrid && this.playerInputController.Pen.Tool != PenTool.Visualization)
                     {
-                        spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.TILE_SIZE, new(32, 0, 32, 32), new(AAP64ColorPalette.White, gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(assetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.TILE_SIZE, new(32, 0, 32, 32), new(AAP64ColorPalette.White, gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                     }
 
                     if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot slot))

@@ -35,7 +35,7 @@ namespace StardustSandbox.Core.Elements.Liquids
                 {
                     case ElementIndex.Lava:
                     case ElementIndex.Fire:
-                        context.ReplaceElement(ElementIndex.Fire);
+                        context.ReplaceElementIndex(ElementIndex.Fire);
                         break;
 
                     default:
@@ -48,7 +48,7 @@ namespace StardustSandbox.Core.Elements.Liquids
         {
             if (currentValue >= 280.0f)
             {
-                context.ReplaceElement(ElementIndex.Fire);
+                context.ReplaceElementIndex(ElementIndex.Fire);
             }
         }
     }

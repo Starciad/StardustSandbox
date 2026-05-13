@@ -51,7 +51,7 @@ namespace StardustSandbox.Core.Elements.Energies
                 // Attempt combustion based on flammabilityResistance
                 if (Random.Chance(combustionChance, 100.0f + slotLayer.Element.DefaultFlammabilityResistance))
                 {
-                    context.ReplaceElement(slot.Position, layer, ElementIndex.Fire);
+                    context.ReplaceElementIndex(slot.Position, layer, ElementIndex.Fire);
                     return true;
                 }
             }
@@ -107,7 +107,7 @@ namespace StardustSandbox.Core.Elements.Energies
 
                 if (Random.Chance(ElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE))
                 {
-                    context.InstantiateElement(ElementIndex.Smoke);
+                    context.InstantiateElementIndex(ElementIndex.Smoke);
                 }
 
                 return;
@@ -124,14 +124,12 @@ namespace StardustSandbox.Core.Elements.Energies
             }
             else
             {
-                if (!context.TryGetElement(targetPosition, context.CurrentLayer, out ElementIndex index))
+                if (!context.TryGetElement(targetPosition, context.CurrentLayer, out Element element))
                 {
                     return;
                 }
 
-                Element targetElement = ElementDatabase.GetElement(index);
-
-                if (index is not ElementIndex.None && (targetElement.Category is ElementCategory.MovableSolid or ElementCategory.Liquid or ElementCategory.Gas))
+                if (element is not null && (element.Category is ElementCategory.MovableSolid or ElementCategory.Liquid or ElementCategory.Gas))
                 {
                     context.SwappingElements(targetPosition);
                 }

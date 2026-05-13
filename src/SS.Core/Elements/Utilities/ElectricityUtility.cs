@@ -39,8 +39,8 @@ namespace StardustSandbox.Core.Elements.Utilities
 
             ElementIndex originalElementIndex = slotLayer.ElementIndex;
 
-            context.ReplaceElement(position, layer, ElementIndex.Electricity);
-            context.SetStoredElement(position, layer, originalElementIndex);
+            context.ReplaceElementIndex(position, layer, ElementIndex.Electricity);
+            context.SetStoredElementIndex(position, layer, originalElementIndex);
         }
     }
 }

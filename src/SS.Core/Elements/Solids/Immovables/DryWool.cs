@@ -50,7 +50,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             if (shouldBecomeWet)
             {
-                context.ReplaceElement(this.WetWoolIndex);
+                context.ReplaceElementIndex(this.WetWoolIndex);
             }
         }
 
@@ -58,7 +58,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         {
             if (currentValue >= 580.0f)
             {
-                context.ReplaceElement(ElementIndex.Fire);
+                context.ReplaceElementIndex(ElementIndex.Fire);
             }
         }
     }

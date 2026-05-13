@@ -140,7 +140,7 @@ namespace StardustSandbox.Core.Elements.Liquids
             {
                 Point nextPosition = new(checkPos.X + direction, checkPos.Y);
 
-                if (!context.TryGetElement(nextPosition, context.CurrentLayer, out ElementIndex index))
+                if (!context.TryGetElement(nextPosition, context.CurrentLayer, out Element element))
                 {
                     // No element entry found -> treat as traversable
                     steps++;
@@ -150,7 +150,7 @@ namespace StardustSandbox.Core.Elements.Liquids
 
                 // If the next position is an empty slot layer or contains a liquid/gas element, it is traversable
                 if (context.IsEmptySlotLayer(nextPosition, context.CurrentLayer) ||
-                    (index is not ElementIndex.None && ElementDatabase.GetElement(index).Category is ElementCategory.Liquid or ElementCategory.Gas))
+                    (element is not null && element.Category is ElementCategory.Liquid or ElementCategory.Gas))
                 {
                     steps++;
                     checkPos = nextPosition;
@@ -173,7 +173,7 @@ namespace StardustSandbox.Core.Elements.Liquids
             {
                 Point nextPosition = new(dispersionPosition.X + direction, dispersionPosition.Y);
 
-                if (!context.TryGetElement(nextPosition, context.CurrentLayer, out ElementIndex index))
+                if (!context.TryGetElement(nextPosition, context.CurrentLayer, out Element element))
                 {
                     dispersionPosition = nextPosition;
                     steps++;
@@ -181,7 +181,7 @@ namespace StardustSandbox.Core.Elements.Liquids
                 }
 
                 // Can disperse to the next position
-                if (context.IsEmptySlotLayer(nextPosition, context.CurrentLayer) || (index is not ElementIndex.None && ElementDatabase.GetElement(index).Category is ElementCategory.Liquid or ElementCategory.Gas))
+                if (context.IsEmptySlotLayer(nextPosition, context.CurrentLayer) || (element is not null && element.Category is ElementCategory.Liquid or ElementCategory.Gas))
                 {
                     dispersionPosition = nextPosition;
                     steps++;

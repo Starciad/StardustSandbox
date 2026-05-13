@@ -62,7 +62,7 @@ namespace StardustSandbox.Core.Elements.Liquids
                     case ElementIndex.Moss:
                     case ElementIndex.Seed:
                     case ElementIndex.Sapling:
-                        context.ReplaceElement(neighbors.GetNeighborPosition(i), context.CurrentLayer, ElementIndex.Fire);
+                        context.ReplaceElementIndex(neighbors.GetNeighborPosition(i), context.CurrentLayer, ElementIndex.Fire);
                         break;
 
                     default:
@@ -75,13 +75,13 @@ namespace StardustSandbox.Core.Elements.Liquids
         {
             if (currentValue <= 500.0f)
             {
-                if (context.GetStoredElement() is ElementIndex.None)
+                if (context.GetStoredElementIndex() is ElementIndex.None)
                 {
-                    context.ReplaceElement(ElementIndex.Stone);
+                    context.ReplaceElementIndex(ElementIndex.Stone);
                 }
                 else
                 {
-                    context.ReplaceElement(context.GetStoredElement());
+                    context.ReplaceElementIndex(context.GetStoredElementIndex());
                 }
 
                 context.SetElementTemperature(500.0f);

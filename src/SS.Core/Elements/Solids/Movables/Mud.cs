@@ -25,7 +25,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             if (currentValue >= 100.0f)
             {
-                context.ReplaceElement(ElementIndex.Dirt);
+                context.ReplaceElementIndex(ElementIndex.Dirt);
             }
         }
     }

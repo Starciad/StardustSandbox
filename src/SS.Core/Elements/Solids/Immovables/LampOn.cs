@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             if (!electrifiedNeighborFound)
             {
-                context.ReplaceElement(ElementIndex.LampOff);
+                context.ReplaceElementIndex(ElementIndex.LampOff);
             }
         }
     }

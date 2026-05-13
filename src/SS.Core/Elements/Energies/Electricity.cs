@@ -32,7 +32,7 @@ namespace StardustSandbox.Core.Elements.Energies
             {
                 if (context.HasElementState(ElementStates.IsDissipating))
                 {
-                    context.ReplaceElement(context.GetStoredElement());
+                    context.ReplaceElementIndex(context.GetStoredElementIndex());
                     return;
                 }
                 else

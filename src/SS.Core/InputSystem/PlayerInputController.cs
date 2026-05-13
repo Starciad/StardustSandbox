@@ -17,6 +17,7 @@
 
 using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Cameras;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Inputs;
 using StardustSandbox.Core.Enums.Inputs.Game;
@@ -52,9 +53,9 @@ namespace StardustSandbox.Core.InputSystem
             this.player = new();
         }
 
-        internal void Initialize(ActorManager actorManager, Camera2D camera, StardustSandboxGame stardustSandboxGame, VideoManager videoManager, World world)
+        internal void Initialize(ActorManager actorManager, Camera2D camera, StardustSandboxGame stardustSandboxGame, ToolDatabase toolDatabase, VideoManager videoManager, World world)
         {
-            this.worldHandler = new(actorManager, camera, this.pen, this.player, world);
+            this.worldHandler = new(actorManager, camera, this.pen, this.player, toolDatabase, world);
 
             ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
 

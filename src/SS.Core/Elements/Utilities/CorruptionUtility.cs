@@ -112,27 +112,27 @@ namespace StardustSandbox.Core.Elements.Utilities
             switch (targetElement.Category)
             {
                 case ElementCategory.MovableSolid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MovableCorruption);
+                    context.ReplaceElementIndex(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MovableCorruption);
                     break;
 
                 case ElementCategory.ImmovableSolid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.ImmovableCorruption);
+                    context.ReplaceElementIndex(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.ImmovableCorruption);
                     break;
 
                 case ElementCategory.Liquid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.LiquidCorruption);
+                    context.ReplaceElementIndex(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.LiquidCorruption);
                     break;
 
                 case ElementCategory.Gas:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.GasCorruption);
+                    context.ReplaceElementIndex(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.GasCorruption);
                     break;
 
                 default:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MovableCorruption);
+                    context.ReplaceElementIndex(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MovableCorruption);
                     break;
             }
 
-            context.SetStoredElement(slotTarget.Slot.Position, slotTarget.Layer, targetElement.Index);
+            context.SetStoredElementIndex(slotTarget.Slot.Position, slotTarget.Layer, targetElement.Index);
             GameStatistics.IncrementWorldElementsConsumedByCorruption();
         }
     }

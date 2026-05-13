@@ -102,7 +102,7 @@ namespace StardustSandbox.Core.Elements
             for (int i = 0; i < blobInfos.Length; i++)
             {
                 // Get element from target position.
-                if (context.TryGetElement(blobInfos[i].Position, context.CurrentLayer, out ElementIndex targetElement))
+                if (context.TryGetElementIndex(blobInfos[i].Position, context.CurrentLayer, out ElementIndex targetElement))
                 {
                     // Check conditions for addition to blob value. If you fail, just continue to the next iteration.
                     if (targetElement != elementIndex)

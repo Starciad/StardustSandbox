@@ -29,7 +29,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         {
             Point belowPosition = new(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y + 1);
 
-            if (context.TryGetElement(belowPosition, context.CurrentLayer, out ElementIndex index))
+            if (context.TryGetElementIndex(belowPosition, context.CurrentLayer, out ElementIndex index))
             {
                 switch (index)
                 {
@@ -47,7 +47,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         {
             if (currentValue >= 60.0f)
             {
-                context.ReplaceElement(ElementIndex.DrySponge);
+                context.ReplaceElementIndex(ElementIndex.DrySponge);
                 AchievementEngine.Unlock(AchievementIndex.ACH_019);
             }
         }

@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         {
             if (currentValue >= 55.0f)
             {
-                context.ReplaceElement(this.DryWoolIndex);
+                context.ReplaceElementIndex(this.DryWoolIndex);
             }
         }
     }

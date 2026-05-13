@@ -26,12 +26,12 @@ namespace StardustSandbox.Core.Databases
 {
     internal sealed class ActorDatabase
     {
-        private readonly IActorDescriptor[] descriptors;
+        private IActorDescriptor[] descriptors;
 
-        internal ActorDatabase(ActorManager actorManager, World world)
+        internal void Load(ActorManager actorManager, AssetDatabase assetDatabase, ElementDatabase elementDatabase, World world)
         {
             this.descriptors = [
-                new ActorDescriptor<GulActor>(ActorIndex.Gul, () => new(ActorIndex.Gul, actorManager, world)
+                new ActorDescriptor<GulActor>(ActorIndex.Gul, () => new(ActorIndex.Gul, actorManager, assetDatabase, elementDatabase, world)
                 {
                     CanDraw = true,
                     CanUpdate = true,

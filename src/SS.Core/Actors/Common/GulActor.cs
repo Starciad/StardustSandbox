@@ -45,7 +45,7 @@ namespace StardustSandbox.Core.Actors.Common
             Right = 1,
         }
 
-        private Element GrabbedElement => ElementDatabase.GetElement(this.grabbedElementIndex);
+        private Element GrabbedElement => this.elementDatabase.GetElement(this.grabbedElementIndex);
         private bool IsGrabbingElement => this.grabbedElementIndex is not ElementIndex.None;
 
         private Direction direction;
@@ -53,10 +53,15 @@ namespace StardustSandbox.Core.Actors.Common
         private Point positionElementPlaced;
         private uint elementsPlacedCount;
 
+        private readonly AssetDatabase assetDatabase;
+        private readonly ElementDatabase elementDatabase;
+
         private static readonly List<Point> possiblePositions = [];
 
-        internal GulActor(ActorIndex index, ActorManager actorManager, World world) : base(index, actorManager, world)
+        internal GulActor(ActorIndex index, ActorManager actorManager, AssetDatabase assetDatabase, ElementDatabase elementDatabase, World world) : base(index, actorManager, world)
         {
+            this.assetDatabase = assetDatabase;
+            this.elementDatabase = elementDatabase;
             Reset();
         }
 
@@ -222,7 +227,7 @@ namespace StardustSandbox.Core.Actors.Common
         {
             SetFrontPositions(point =>
                 this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
-                !IsGrabbableElement(this.world.GetElement(point, Layer.Foreground)) ||
+                !IsGrabbableElement(this.world.GetElementIndex(point, Layer.Foreground)) ||
                 HasEntityAbove(point)
             );
 
@@ -230,7 +235,7 @@ namespace StardustSandbox.Core.Actors.Common
             {
                 Point position = possiblePositions.GetRandomItem();
 
-                if (this.world.TryGetElement(position, Layer.Foreground, out ElementIndex index) && IsOnTopMortalElement(new(position.X, position.Y - 1)))
+                if (this.world.TryGetElementIndex(position, Layer.Foreground, out ElementIndex index) && IsOnTopMortalElement(new(position.X, position.Y - 1)))
                 {
                     _ = possiblePositions.Remove(position);
                     continue;
@@ -270,7 +275,7 @@ namespace StardustSandbox.Core.Actors.Common
             {
                 Point position = possiblePositions.GetRandomItem();
 
-                if (!this.world.TryInstantiateElement(position, Layer.Foreground, this.grabbedElementIndex))
+                if (!this.world.TryInstantiateElementIndex(position, Layer.Foreground, this.grabbedElementIndex))
                 {
                     _ = possiblePositions.Remove(position);
                     continue;
@@ -345,7 +350,7 @@ namespace StardustSandbox.Core.Actors.Common
         internal override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(
-                AssetDatabase.GetTexture(TextureIndex.Actors),
+                this.assetDatabase.GetTexture(TextureIndex.Actors),
                 new(this.PositionX * SpriteConstants.SPRITE_SCALE, this.PositionY * SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE, SpriteConstants.SPRITE_SCALE),
                 new(0, this.direction == Direction.Right ? 0 : 32, 32, 32),
                 Color.White,
@@ -358,7 +363,7 @@ namespace StardustSandbox.Core.Actors.Common
             if (this.IsGrabbingElement)
             {
                 spriteBatch.Draw(
-                    AssetDatabase.GetTexture(TextureIndex.Elements),
+                    this.assetDatabase.GetTexture(TextureIndex.Elements),
                     new(
                         (this.PositionX * SpriteConstants.SPRITE_SCALE) + (this.direction is Direction.Right ? 12.0f * (float)this.direction : 4.0f),
                         (this.PositionY * SpriteConstants.SPRITE_SCALE) + 16.0f

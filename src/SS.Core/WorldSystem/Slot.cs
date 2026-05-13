@@ -17,6 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Collections;
@@ -27,16 +28,22 @@ namespace StardustSandbox.Core.WorldSystem
     {
         internal bool IsEmpty => this.IsBackgroundEmpty && this.IsForegroundEmpty;
 
-        internal bool IsForegroundEmpty => this.Foreground.IsEmpty;
-        internal bool IsBackgroundEmpty => this.Background.IsEmpty;
+        internal bool IsForegroundEmpty => this.foreground.IsEmpty;
+        internal bool IsBackgroundEmpty => this.background.IsEmpty;
 
         internal Point Position { get; set; }
 
         internal SlotLayer Foreground => this.foreground;
         internal SlotLayer Background => this.background;
 
-        private readonly SlotLayer foreground = new();
-        private readonly SlotLayer background = new();
+        private readonly SlotLayer foreground;
+        private readonly SlotLayer background;
+
+        internal Slot(ElementDatabase elementDatabase)
+        {
+            this.foreground = new(elementDatabase);
+            this.background = new(elementDatabase);
+        }
 
         internal SlotLayer GetLayer(Layer layer)
         {

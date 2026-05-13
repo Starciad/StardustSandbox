@@ -118,14 +118,14 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                 return;
             }
 
-            context.InstantiateElement(availablePositions.GetRandomItem(), context.CurrentLayer, ElementIndex.Moss);
+            context.InstantiateElementIndex(availablePositions.GetRandomItem(), context.CurrentLayer, ElementIndex.Moss);
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)
         {
             if (currentValue >= 100.0f)
             {
-                context.ReplaceElement(ElementIndex.Fire);
+                context.ReplaceElementIndex(ElementIndex.Fire);
             }
         }
     }

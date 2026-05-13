@@ -29,7 +29,7 @@ namespace StardustSandbox.Core.Elements.Gases
                 neighbors.CountNeighborsByElementIndex(ElementIndex.Cloud, context.CurrentLayer) >= 2 &&
                 Random.Chance(5))
             {
-                context.ReplaceElement(ElementIndex.ChargedCloud);
+                context.ReplaceElementIndex(ElementIndex.ChargedCloud);
             }
         }
 

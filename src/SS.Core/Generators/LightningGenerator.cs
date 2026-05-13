@@ -93,7 +93,7 @@ namespace StardustSandbox.Core.Generators
                     }
                 }
 
-                if (!context.TryInstantiateElement(position, ElementIndex.LightningBody))
+                if (!context.TryInstantiateElementIndex(position, ElementIndex.LightningBody))
                 {
                     return false;
                 }

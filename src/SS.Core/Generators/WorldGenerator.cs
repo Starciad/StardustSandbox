@@ -255,7 +255,7 @@ namespace StardustSandbox.Core.Generators
                         : relativeDepth <= subsurfaceThickness ? subsurfaceElement
                         : relativeDepth <= deepThreshold ? rockElement : abyssElement;
 
-                    world.InstantiateElement(new(x, y), layer, chosen);
+                    world.InstantiateElementIndex(new(x, y), layer, chosen);
                 }
             }
         }
@@ -282,7 +282,7 @@ namespace StardustSandbox.Core.Generators
             {
                 if (world.IsWithinBounds(point))
                 {
-                    world.ReplaceElement(point, layer, ElementIndex.Sand);
+                    world.ReplaceElementIndex(point, layer, ElementIndex.Sand);
                 }
             }
 
@@ -290,7 +290,7 @@ namespace StardustSandbox.Core.Generators
             {
                 if (world.IsWithinBounds(point))
                 {
-                    world.ReplaceElement(point, layer, ElementIndex.Sand);
+                    world.ReplaceElementIndex(point, layer, ElementIndex.Sand);
                 }
             }
 
@@ -299,7 +299,7 @@ namespace StardustSandbox.Core.Generators
             {
                 if (world.IsWithinBounds(point))
                 {
-                    world.ReplaceElement(point, layer, ElementIndex.Saltwater);
+                    world.ReplaceElementIndex(point, layer, ElementIndex.Saltwater);
                 }
             }
 
@@ -307,7 +307,7 @@ namespace StardustSandbox.Core.Generators
             {
                 if (world.IsWithinBounds(point))
                 {
-                    world.ReplaceElement(point, layer, ElementIndex.Saltwater);
+                    world.ReplaceElementIndex(point, layer, ElementIndex.Saltwater);
                 }
             }
         }
@@ -328,7 +328,7 @@ namespace StardustSandbox.Core.Generators
                 }
 
                 // Confirm top element is grass
-                if (Randomness.Random.Chance(25) && world.TryGetElement(new(x, surfaceY), layer, out ElementIndex index) && index is ElementIndex.Grass)
+                if (Randomness.Random.Chance(25) && world.TryGetElementIndex(new(x, surfaceY), layer, out ElementIndex index) && index is ElementIndex.Grass)
                 {
                     Point origin = new(x, surfaceY - 1);
                     int trunkHeight = Randomness.Random.Range(6, 12);
@@ -356,7 +356,7 @@ namespace StardustSandbox.Core.Generators
 
                     foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(origin, Randomness.Random.Range(3, 6)))
                     {
-                        world.InstantiateElement(point, layer, ElementIndex.Cloud);
+                        world.InstantiateElementIndex(point, layer, ElementIndex.Cloud);
                     }
                 }
             }

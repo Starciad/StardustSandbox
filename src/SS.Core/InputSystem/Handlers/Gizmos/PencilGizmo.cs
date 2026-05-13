@@ -37,9 +37,11 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
 {
     internal sealed class PencilGizmo : Gizmo
     {
-        internal PencilGizmo(ActorManager actorManager, Pen pen, World world, WorldHandler worldHandler) : base(actorManager, pen, world, worldHandler)
-        {
+        private readonly ToolDatabase toolDatabase;
 
+        internal PencilGizmo(ActorManager actorManager, Pen pen, ToolDatabase toolDatabase, World world, WorldHandler worldHandler) : base(actorManager, pen, world, worldHandler)
+        {
+            this.toolDatabase = toolDatabase;
         }
 
         internal override void Execute(in WorldModificationType worldModificationType, in InputState inputState, in ItemContentType contentType, int contentIndex, Point position)
@@ -113,7 +115,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                _ = this.world.TryInstantiateElement(position, this.pen.Layer, elementIndex);
+                _ = this.world.TryInstantiateElementIndex(position, this.pen.Layer, elementIndex);
             }
         }
 
@@ -132,7 +134,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
             foreach (Point position in positions)
             {
                 this.worldHandler.ToolContext.Update(position, this.pen.Layer);
-                ToolDatabase.GetTool(toolIndex).Execute(this.worldHandler.ToolContext);
+                this.toolDatabase.GetTool(toolIndex).Execute(this.worldHandler.ToolContext);
             }
         }
 

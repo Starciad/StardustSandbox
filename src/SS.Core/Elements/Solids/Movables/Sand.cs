@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             if (currentValue >= 1500.0f)
             {
-                context.ReplaceElement(ElementIndex.Glass);
+                context.ReplaceElementIndex(ElementIndex.Glass);
                 AchievementEngine.Unlock(AchievementIndex.ACH_013);
             }
         }

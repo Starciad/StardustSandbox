@@ -70,7 +70,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                this.world.ReplaceElement(position, this.pen.Layer, elementIndex);
+                this.world.ReplaceElementIndex(position, this.pen.Layer, elementIndex);
             }
         }
 
