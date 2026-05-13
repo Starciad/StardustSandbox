@@ -63,7 +63,7 @@ namespace StardustSandbox.Core
         {
             camera.Reset();
             MediaPlayer.Stop();
-            SongEngine.StartGameplayMusicCycle();
+            SongSystem.StartGameplayMusicCycle();
 
             hudUI.Setup();
             itemExplorerUI.Setup();
@@ -96,7 +96,7 @@ namespace StardustSandbox.Core
         )
         {
             UnloadSaveFile();
-            SongEngine.StopGameplayMusicCycle();
+            SongSystem.StopGameplayMusicCycle();
 
             playerInputController.Pen.Tool = PenTool.Visualization;
             playerInputController.Disable();

@@ -52,7 +52,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             if (shouldBecomeWet)
             {
                 context.ReplaceElementIndex(ElementIndex.WetSponge);
-                AchievementEngine.Unlock(AchievementIndex.ACH_003);
+                AchievementSystem.Unlock(AchievementIndex.ACH_003);
             }
         }
 

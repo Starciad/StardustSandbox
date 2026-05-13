@@ -154,12 +154,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(label))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(label))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
                     this.buttonInfos[i].ClickAction?.Invoke();
                     break;
                 }

@@ -66,7 +66,7 @@ namespace StardustSandbox.Core.InputSystem
                         KeyboardBinding = controlSettings.ScreenshotKeyboardBinding,
                         OnStarted = _ =>
                         {
-                            SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
+                            SoundSystem.Play(SoundEffectIndex.GUI_Accepted);
                             stardustSandboxGame.RequestScreenshot();
                         },
                     },

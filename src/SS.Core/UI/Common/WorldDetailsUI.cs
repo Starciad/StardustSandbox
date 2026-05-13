@@ -66,12 +66,12 @@ namespace StardustSandbox.Core.UI.Common
             this.worldButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Return, string.Empty, () =>
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
                     uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Delete, string.Empty, () =>
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
                     SavingSerializer.Delete(this.saveFile.Metadata.Name);
                     uiManager.CloseUI();
                 }),
@@ -92,7 +92,7 @@ namespace StardustSandbox.Core.UI.Common
                         world
                     );
                     GameHandler.LoadSaveFile(actorManager, world, this.saveFile.Metadata.Name);
-                    SoundEngine.Play(SoundEffectIndex.GUI_World_Loaded);
+                    SoundSystem.Play(SoundEffectIndex.GUI_World_Loaded);
                 }),
             ];
 
@@ -245,7 +245,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slotInfoElement))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slotInfoElement))

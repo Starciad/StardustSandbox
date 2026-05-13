@@ -33,72 +33,65 @@ using System.Threading.Tasks;
 
 namespace StardustSandbox.Core.Audio
 {
-    internal static class SongEngine
+    internal sealed class SongSystem
     {
-        internal static Song CurrentSong { get; private set; }
-        internal static SongIndex CurrentSongIndex { get; private set; }
+        internal Song CurrentSong { get; private set; }
+        internal SongIndex CurrentSongIndex { get; private set; }
 
-        private static bool isInitialized;
-        private static GameLaunchOptions gameLaunchOptions;
+        private float fadeFactor = 1f;
+        private VolumeSettings currentVolumeSettings;
 
-        private static float fadeFactor = 1f;
-        private static VolumeSettings currentVolumeSettings;
+        private SongIndex lastPlayedGameplaySong;
 
-        private static SongIndex lastPlayedGameplaySong;
+        private CancellationTokenSource gameplayMusicToken;
+        private Task gameplayMusicTask;
 
-        private static CancellationTokenSource gameplayMusicToken;
-        private static Task gameplayMusicTask;
+        private readonly AssetDatabase assetDatabase;
+        private readonly GameLaunchOptions gameLaunchOptions;
+        private readonly Queue<SongIndex> gameplaySongDeck = [];
 
-        private static readonly Queue<SongIndex> gameplaySongDeck = [];
-
-        internal static void Initialize(GameLaunchOptions gameLaunchOptions)
+        internal SongSystem(AssetDatabase assetDatabase, GameLaunchOptions gameLaunchOptions)
         {
-            if (isInitialized)
-            {
-                throw new InvalidOperationException($"{nameof(SongEngine)} is already initialized.");
-            }
+            this.assetDatabase = assetDatabase;
+            this.gameLaunchOptions = gameLaunchOptions;
 
-            SongEngine.gameLaunchOptions = gameLaunchOptions;
-
-            currentVolumeSettings = SettingsSerializer.Load<VolumeSettings>();
-            ApplyFinalVolume();
-
-            isInitialized = true;
-        }
-
-        internal static void ApplyVolumeSettings(VolumeSettings volumeSettings)
-        {
-            currentVolumeSettings = volumeSettings;
+            this.currentVolumeSettings = SettingsSerializer.Load<VolumeSettings>();
             ApplyFinalVolume();
         }
 
-        private static void ApplyFinalVolume()
+        internal void ApplyVolumeSettings(VolumeSettings volumeSettings)
         {
-            float baseVolume = currentVolumeSettings.MusicVolume * currentVolumeSettings.MasterVolume;
-            MediaPlayer.Volume = baseVolume * fadeFactor;
+            this.currentVolumeSettings = volumeSettings;
+            ApplyFinalVolume();
         }
 
-        internal static void Play(SongIndex songIndex)
+        private void ApplyFinalVolume()
         {
-            CurrentSong = AssetDatabase.GetSong(songIndex);
-            CurrentSongIndex = songIndex;
+            float baseVolume = this.currentVolumeSettings.MusicVolume * this.currentVolumeSettings.MasterVolume;
+            MediaPlayer.Volume = baseVolume * this.fadeFactor;
+        }
 
-            fadeFactor = 1f;
+        internal void Play(SongIndex songIndex)
+        {
+            this.CurrentSong = this.assetDatabase.GetSong(songIndex);
+            this.CurrentSongIndex = songIndex;
+
+            this.fadeFactor = 1f;
             ApplyFinalVolume();
 
             MediaPlayer.Stop();
-            MediaPlayer.Play(CurrentSong);
+            MediaPlayer.Play(this.CurrentSong);
         }
 
-        private static SongIndex GetNextGameplaySong()
+        private SongIndex GetNextGameplaySong()
         {
-            if (gameplaySongDeck.Count == 0)
+            if (this.gameplaySongDeck.Count == 0)
             {
                 List<SongIndex> shuffledSongs = [.. SongConstants.GAMEPLAY_SONGS.Shuffle()];
 
                 // Prevents the first song in the new deck
                 // from being the same as the last song in the previous deck
-                if (lastPlayedGameplaySong != SongIndex.None && shuffledSongs.Count > 1 && shuffledSongs[0] == lastPlayedGameplaySong)
+                if (this.lastPlayedGameplaySong != SongIndex.None && shuffledSongs.Count > 1 && shuffledSongs[0] == this.lastPlayedGameplaySong)
                 {
                     int swapIndex = 1 + Randomness.Random.Range(0, shuffledSongs.Count - 1);
 
@@ -107,17 +100,17 @@ namespace StardustSandbox.Core.Audio
 
                 foreach (SongIndex songIndex in shuffledSongs)
                 {
-                    gameplaySongDeck.Enqueue(songIndex);
+                    this.gameplaySongDeck.Enqueue(songIndex);
                 }
             }
 
-            SongIndex nextSong = gameplaySongDeck.Dequeue();
-            lastPlayedGameplaySong = nextSong;
+            SongIndex nextSong = this.gameplaySongDeck.Dequeue();
+            this.lastPlayedGameplaySong = nextSong;
 
             return nextSong;
         }
 
-        private static async Task FadeOutAsync(CancellationToken token)
+        private async Task FadeOutAsync(CancellationToken token)
         {
             int steps = (int)(SongConstants.FADE_DURATION_MS / SongConstants.FADE_STEP_INTERVAL_MS);
 
@@ -128,17 +121,17 @@ namespace StardustSandbox.Core.Audio
                     return;
                 }
 
-                fadeFactor = MathHelper.Lerp(1f, 0f, i / (float)steps);
+                this.fadeFactor = MathHelper.Lerp(1f, 0f, i / (float)steps);
                 ApplyFinalVolume();
 
                 await Task.Delay((int)SongConstants.FADE_STEP_INTERVAL_MS, token);
             }
 
-            fadeFactor = 0f;
+            this.fadeFactor = 0f;
             ApplyFinalVolume();
         }
 
-        private static async Task FadeInAsync(CancellationToken token)
+        private async Task FadeInAsync(CancellationToken token)
         {
             int steps = (int)(SongConstants.FADE_DURATION_MS / SongConstants.FADE_STEP_INTERVAL_MS);
 
@@ -149,31 +142,31 @@ namespace StardustSandbox.Core.Audio
                     return;
                 }
 
-                fadeFactor = MathHelper.Lerp(0f, 1f, i / (float)steps);
+                this.fadeFactor = MathHelper.Lerp(0f, 1f, i / (float)steps);
                 ApplyFinalVolume();
 
                 await Task.Delay((int)SongConstants.FADE_STEP_INTERVAL_MS, token);
             }
 
-            fadeFactor = 1f;
+            this.fadeFactor = 1f;
             ApplyFinalVolume();
         }
 
-        internal static void StartGameplayMusicCycle()
+        internal void StartGameplayMusicCycle()
         {
-            if (gameplayMusicTask != null && !gameplayMusicTask.IsCompleted)
+            if (this.gameplayMusicTask != null && !this.gameplayMusicTask.IsCompleted)
             {
                 return;
             }
 
-            gameplayMusicToken = new CancellationTokenSource();
-            CancellationToken token = gameplayMusicToken.Token;
+            this.gameplayMusicToken = new CancellationTokenSource();
+            CancellationToken token = this.gameplayMusicToken.Token;
 
-            gameplayMusicTask = Task.Run(async () =>
+            this.gameplayMusicTask = Task.Run(async () =>
             {
                 while (!token.IsCancellationRequested)
                 {
-                    if (!gameLaunchOptions.NoMusicDelay)
+                    if (!this.gameLaunchOptions.NoMusicDelay)
                     {
                         await Task.Delay(TimeSpan.FromSeconds(Randomness.Random.Range(30, 60)), token);
                     }
@@ -189,13 +182,13 @@ namespace StardustSandbox.Core.Audio
                     }
 
                     SongIndex songIndex = GetNextGameplaySong();
-                    CurrentSong = AssetDatabase.GetSong(songIndex);
-                    CurrentSongIndex = songIndex;
+                    this.CurrentSong = this.assetDatabase.GetSong(songIndex);
+                    this.CurrentSongIndex = songIndex;
 
-                    fadeFactor = 0f;
+                    this.fadeFactor = 0f;
                     ApplyFinalVolume();
 
-                    MediaPlayer.Play(CurrentSong);
+                    MediaPlayer.Play(this.CurrentSong);
                     await FadeInAsync(token);
 
                     while (MediaPlayer.State is MediaState.Playing or MediaState.Paused && !token.IsCancellationRequested)
@@ -209,20 +202,20 @@ namespace StardustSandbox.Core.Audio
             }, token);
         }
 
-        internal static void StopGameplayMusicCycle()
+        internal void StopGameplayMusicCycle()
         {
-            if (gameplayMusicToken == null)
+            if (this.gameplayMusicToken == null)
             {
                 return;
             }
 
-            gameplayMusicToken.Cancel();
-            gameplayMusicToken.Dispose();
+            this.gameplayMusicToken.Cancel();
+            this.gameplayMusicToken.Dispose();
 
-            gameplayMusicToken = null;
-            gameplayMusicTask = null;
+            this.gameplayMusicToken = null;
+            this.gameplayMusicTask = null;
 
-            fadeFactor = 1f;
+            this.fadeFactor = 1f;
             ApplyFinalVolume();
 
             MediaPlayer.Stop();

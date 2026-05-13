@@ -36,7 +36,7 @@ namespace StardustSandbox.Core.Tools.Inks
             }
 
             context.World.SetElementColorModifier(context.Position, context.Layer, this.InkColor);
-            AchievementEngine.Unlock(AchievementIndex.ACH_008);
+            AchievementSystem.Unlock(AchievementIndex.ACH_008);
         }
     }
 }

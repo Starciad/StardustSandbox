@@ -47,6 +47,10 @@ namespace StardustSandbox.Core
 
         private readonly GameLaunchOptions gameLaunchOptions;
 
+        private readonly AchievementSystem achievementSystem;
+        private readonly SongSystem songSystem;
+        private readonly SoundSystem soundSystem;
+
         private readonly AchievementDatabase achievementDatabase;
         private readonly ActorDatabase actorDatabase;
         private readonly AssetDatabase assetDatabase;
@@ -120,6 +124,11 @@ namespace StardustSandbox.Core
             this.toolDatabase = new();
             this.uiDatabase = new();
 
+            // System
+            this.songSystem = new(this.assetDatabase, gameLaunchOptions);
+            this.soundSystem = new();
+            this.achievementSystem = new(this.achievementDatabase, this.soundSystem);
+
             // Core
             this.playerInputController = new();
             this.world = new(this.assetDatabase, this.elementDatabase, this.playerInputController);
@@ -143,12 +152,12 @@ namespace StardustSandbox.Core
             this.achievementNotifier = this.Services.GetService<IAchievementNotifier>();
             this.gameNotifier = this.Services.GetService<IGameNotifier>();
 
+            if (this.achievementNotifier is not null)
+            {
+                this.achievementSystem.AchievementUnlocked += this.achievementNotifier.OnAchievementUnlocked;
+            }
+
             GameScreen.Initialize(this.GraphicsDevice);
-
-            AchievementEngine.Initialize(this.achievementNotifier);
-            SongEngine.Initialize(this.gameLaunchOptions);
-            SoundEngine.Initialize();
-
             GameHandler.Initialize(this.Window);
 
             base.Initialize();
@@ -160,7 +169,7 @@ namespace StardustSandbox.Core
             this.assetDatabase.Load();
             this.actorDatabase.Load(this.actorManager, this.assetDatabase, this.elementDatabase, this.world);
             this.backgroundDatabase.Load();
-            this.uiDatabase.Load(this.actorManager, this.ambientManager, this.camera, this.cursorManager, this.Window, this.GraphicsDevice, this.playerInputController, this, this.uiManager, this.videoManager, this.world);
+            this.uiDatabase.Load(this.actorManager, this.ambientManager, this.camera, this.catalogDatabase, this.cursorManager, this.Window, this.GraphicsDevice, this.playerInputController, this, this.uiManager, this.videoManager, this.world);
 
             // Managers
             this.effectsManager.Initialize();

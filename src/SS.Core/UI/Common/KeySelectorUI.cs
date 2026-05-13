@@ -116,7 +116,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void OnKeyDown(object sender, InputKeyEventArgs inputKeyEventArgs)
         {
-            SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
+            SoundSystem.Play(SoundEffectIndex.GUI_Accepted);
 
             this.uiManager.CloseUI();
             this.keySelectionCallback?.Invoke(inputKeyEventArgs.Key);

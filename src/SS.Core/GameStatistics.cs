@@ -109,37 +109,37 @@ namespace StardustSandbox.Core
         {
             if (worldClonedElements >= 500)
             {
-                AchievementEngine.Unlock(AchievementIndex.ACH_004);
+                AchievementSystem.Unlock(AchievementIndex.ACH_004);
             }
 
             if (worldCorrodedElements >= 300)
             {
-                AchievementEngine.Unlock(AchievementIndex.ACH_025);
+                AchievementSystem.Unlock(AchievementIndex.ACH_025);
             }
 
             if (worldElementsConsumedByCorruption >= 1_000)
             {
-                AchievementEngine.Unlock(AchievementIndex.ACH_018);
+                AchievementSystem.Unlock(AchievementIndex.ACH_018);
             }
 
             if (worldElementsConsumedByDevourer >= 500)
             {
-                AchievementEngine.Unlock(AchievementIndex.ACH_014);
+                AchievementSystem.Unlock(AchievementIndex.ACH_014);
             }
 
             if (worldElementsConsumedByVoid >= 100)
             {
-                AchievementEngine.Unlock(AchievementIndex.ACH_017);
+                AchievementSystem.Unlock(AchievementIndex.ACH_017);
             }
 
             if (worldPushedElements >= 1_000)
             {
-                AchievementEngine.Unlock(AchievementIndex.ACH_022);
+                AchievementSystem.Unlock(AchievementIndex.ACH_022);
             }
 
             if (worldUniqueInstantiatedElements.Count >= 10)
             {
-                AchievementEngine.Unlock(AchievementIndex.ACH_002);
+                AchievementSystem.Unlock(AchievementIndex.ACH_002);
             }
         }
     }

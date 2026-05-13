@@ -267,12 +267,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(label))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(label))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -289,12 +289,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slotInfo.Background))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slotInfo.Background))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
                     this.topButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -316,9 +316,9 @@ namespace StardustSandbox.Core.UI.Common
                 this.buttonAnimationOffsets[i] = Randomness.Random.GetFloat() * MathF.PI * 2.0f;
             }
 
-            if (MediaPlayer.State != MediaState.Playing || SongEngine.CurrentSongIndex != SongIndex.Volume_01_Track_01)
+            if (MediaPlayer.State != MediaState.Playing || SongSystem.CurrentSongIndex != SongIndex.Volume_01_Track_01)
             {
-                SongEngine.Play(SongIndex.Volume_01_Track_01);
+                SongSystem.Play(SongIndex.Volume_01_Track_01);
             }
         }
 

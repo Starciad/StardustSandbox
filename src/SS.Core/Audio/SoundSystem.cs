@@ -32,17 +32,17 @@ using SharpDX.Multimedia;
 
 namespace StardustSandbox.Core.Audio
 {
-    internal static class SoundEngine
+    internal sealed class SoundSystem
     {
-        private static readonly SoundEffectInstance[] activeInstances = new SoundEffectInstance[SoundEffectConstants.MAX_CONCURRENT_INSTANCES];
+        private readonly SoundEffectInstance[] activeInstances = new SoundEffectInstance[SoundEffectConstants.MAX_CONCURRENT_INSTANCES];
 
-        private static bool isInitialized = false;
+        private bool isInitialized = false;
 
-        internal static void Initialize()
+        internal void Initialize()
         {
             if (isInitialized)
             {
-                throw new InvalidOperationException($"{nameof(SoundEngine)} is already initialized.");
+                throw new InvalidOperationException($"{nameof(SoundSystem)} is already initialized.");
             }
 
             ApplyVolumeSettings(SettingsSerializer.Load<VolumeSettings>());
@@ -54,12 +54,12 @@ namespace StardustSandbox.Core.Audio
             isInitialized = true;
         }
 
-        internal static void ApplyVolumeSettings(VolumeSettings volumeSettings)
+        internal void ApplyVolumeSettings(VolumeSettings volumeSettings)
         {
             SoundEffect.MasterVolume = volumeSettings.MasterVolume;
         }
 
-        private static void RegisterInstance(SoundEffectInstance instance)
+        private void RegisterInstance(SoundEffectInstance instance)
         {
             for (int i = 0; i < activeInstances.Length; i++)
             {
@@ -79,7 +79,7 @@ namespace StardustSandbox.Core.Audio
             instance.Dispose();
         }
 
-        private static void Play(SoundEffectIndex index, float volume, float pitch, float pan)
+        private void Play(SoundEffectIndex index, float volume, float pitch, float pan)
         {
             SoundEffect effect = AssetDatabase.GetSoundEffect(index);
             SoundEffectInstance instance = effect.CreateInstance();
@@ -92,7 +92,7 @@ namespace StardustSandbox.Core.Audio
             RegisterInstance(instance);
         }
 
-        internal static void Play(SoundEffectIndex index)
+        internal void Play(SoundEffectIndex index)
         {
             Play(index, SettingsSerializer.Load<VolumeSettings>().SFXVolume, 0.0f, 0.0f);
         }

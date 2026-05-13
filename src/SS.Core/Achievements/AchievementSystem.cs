@@ -25,25 +25,23 @@ using StardustSandbox.Core.Serialization.Settings;
 
 namespace StardustSandbox.Core.Achievements
 {
-    internal static class AchievementEngine
+    internal sealed class AchievementSystem
     {
         internal delegate void AchievementUnlockedHandler(Achievement achievement);
+        internal event AchievementUnlockedHandler AchievementUnlocked;
 
-        internal static event AchievementUnlockedHandler AchievementUnlocked;
+        private readonly AchievementDatabase achievementDatabase;
+        private readonly SoundSystem soundSystem;
 
-        internal static void Initialize(IAchievementNotifier notifier)
+        internal AchievementSystem(AchievementDatabase achievementDatabase, SoundSystem soundSystem)
         {
-            if (notifier is null)
-            {
-                return;
-            }
-
-            AchievementUnlocked += notifier.OnAchievementUnlocked;
+            this.achievementDatabase = achievementDatabase;
+            this.soundSystem = soundSystem;
         }
 
-        internal static void Unlock(AchievementIndex index)
+        internal void Unlock(AchievementIndex index)
         {
-            Achievement achievement = AchievementDatabase.GetAchievement(index);
+            Achievement achievement = this.achievementDatabase.GetAchievement(index);
             AchievementSettings achievementSettings = SettingsSerializer.Load<AchievementSettings>();
 
             if (achievementSettings.IsUnlocked(index))
@@ -55,7 +53,7 @@ namespace StardustSandbox.Core.Achievements
             SettingsSerializer.Save(achievementSettings);
 
             AchievementUnlocked?.Invoke(achievement);
-            SoundEngine.Play(SoundEffectIndex.GUI_World_Saved);
+            this.soundSystem.Play(SoundEffectIndex.GUI_World_Saved);
         }
     }
 }

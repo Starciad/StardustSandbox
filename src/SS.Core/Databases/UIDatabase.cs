@@ -40,6 +40,7 @@ namespace StardustSandbox.Core.Databases
             ActorManager actorManager,
             AmbientManager ambientManager,
             Camera2D camera,
+            CatalogDatabase catalogDatabase,
             CursorManager cursorManager,
             GameWindow gameWindow,
             GraphicsDevice graphicsDevice,
@@ -115,6 +116,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             ItemExplorerUI itemExplorerUI = new(
+                catalogDatabase,
                 hudUI,
                 itemSearchUI,
                 tooltipBox,

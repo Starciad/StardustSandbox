@@ -191,12 +191,12 @@ namespace StardustSandbox.Core.UI.Common
         {
             if (Interaction.OnMouseEnter(this.exitButtonSlotInfo.Background))
             {
-                SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                SoundSystem.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseLeftClick(this.exitButtonSlotInfo.Background))
             {
-                SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                SoundSystem.Play(SoundEffectIndex.GUI_Click);
                 this.exitButtonInfo.ClickAction?.Invoke();
             }
 
@@ -228,12 +228,12 @@ namespace StardustSandbox.Core.UI.Common
 
                     if (Interaction.OnMouseEnter(buttonSlot.Background))
                     {
-                        SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                        SoundSystem.Play(SoundEffectIndex.GUI_Hover);
                     }
 
                     if (Interaction.OnMouseLeftClick(buttonSlot.Background))
                     {
-                        SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
+                        SoundSystem.Play(SoundEffectIndex.GUI_Accepted);
                         buttonInfo.ClickAction?.Invoke();
                         break;
                     }

@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
                     {
                         case WorldModificationType.Adding:
                             DrawElements((ElementIndex)contentIndex, this.pen.GetShapePoints(position));
-                            AchievementEngine.Unlock(AchievementIndex.ACH_001);
+                            AchievementSystem.Unlock(AchievementIndex.ACH_001);
                             break;
 
                         case WorldModificationType.Removing:

@@ -53,18 +53,22 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo[] buttonInfos, paginationButtonInfos;
         private readonly SlotInfo[] itemButtonSlotInfos, categoryButtonSlotInfos, subcategoryButtonSlotInfos, paginationButtonSlotInfos;
 
+        private readonly CatalogDatabase catalogDatabase;
+
         private readonly HudUI hudUI;
         private readonly ItemSearchUI itemSearchUI;
 
         private readonly UIManager uiManager;
 
         internal ItemExplorerUI(
+            CatalogDatabase catalogDatabase,
             HudUI hudUI,
             ItemSearchUI itemSearchUI,
             TooltipBox tooltipBox,
             UIManager uiManager
         ) : base()
         {
+            this.catalogDatabase = catalogDatabase;
             this.uiManager = uiManager;
             this.hudUI = hudUI;
             this.itemSearchUI = itemSearchUI;
@@ -75,7 +79,7 @@ namespace StardustSandbox.Core.UI.Common
                 new(TextureIndex.IconUI, new(0, 0, 32, 32), Localization_GUIs.ItemSearch_Title, Localization_GUIs.ItemSearch_Description, () =>
                 {
                     this.itemSearchUI.Setup(result => {
-                        SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
+                        SoundSystem.Play(SoundEffectIndex.GUI_Accepted);
                         hudUI.AddItemToToolbar(result);
                         uiManager.CloseUI();
                     });
@@ -117,7 +121,7 @@ namespace StardustSandbox.Core.UI.Common
             ];
 
             this.itemButtonSlotInfos = new SlotInfo[UIConstants.ITEM_EXPLORER_ITEMS_PER_PAGE];
-            this.categoryButtonSlotInfos = new SlotInfo[CatalogDatabase.CategoryLength];
+            this.categoryButtonSlotInfos = new SlotInfo[catalogDatabase.CategoryLength];
             this.subcategoryButtonSlotInfos = new SlotInfo[UIConstants.ITEM_EXPLORER_SUBCATEGORY_BUTTONS_LENGTH];
             this.paginationButtonSlotInfos = new SlotInfo[this.paginationButtonInfos.Length];
         }
@@ -136,7 +140,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void SelectItemCatalog(int categoryIndex, int subcategoryIndex, int pageIndex)
         {
-            Category category = CatalogDatabase.GetCategory(categoryIndex);
+            Category category = this.catalogDatabase.GetCategory(categoryIndex);
             Subcategory subcategory = category[subcategoryIndex];
 
             SelectItemCatalog(category, subcategory, pageIndex);
@@ -274,9 +278,9 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildCategoryButtons()
         {
-            for (int i = 0; i < CatalogDatabase.CategoriesLength; i++)
+            for (int i = 0; i < this.catalogDatabase.CategoryLength; i++)
             {
-                Category category = CatalogDatabase.GetCategories(i);
+                Category category = this.catalogDatabase.GetCategory(i);
 
                 SlotInfo slot = new(
                     new()
@@ -469,12 +473,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
                     this.buttonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -500,16 +504,16 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = 0; i < this.categoryButtonSlotInfos.Length; i++)
             {
                 SlotInfo categorySlot = this.categoryButtonSlotInfos[i];
-                Category category = CatalogDatabase.GetCategory(i);
+                Category category = this.catalogDatabase.GetCategory(i);
 
                 if (Interaction.OnMouseEnter(categorySlot.Background))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(categorySlot.Background))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
                     SelectItemCatalog(category, category[0], 0);
                     break;
                 }
@@ -535,12 +539,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(subcategorySlot.Background))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(subcategorySlot.Background))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
                     SelectItemCatalog(subcategory.Parent, subcategory, 0);
                     break;
                 }
@@ -566,12 +570,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Accepted);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Accepted);
                     this.hudUI.AddItemToToolbar(item);
                     this.uiManager.CloseUI();
                     break;
@@ -601,12 +605,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Hover);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEngine.Play(SoundEffectIndex.GUI_Click);
+                    SoundSystem.Play(SoundEffectIndex.GUI_Click);
                     this.paginationButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }

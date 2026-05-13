@@ -59,7 +59,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             {
                 context.DestroyElement();
                 TreeGenerator.Start(context, Random.Range(5, 8), 1, 2);
-                AchievementEngine.Unlock(AchievementIndex.ACH_006);
+                AchievementSystem.Unlock(AchievementIndex.ACH_006);
             }
         }
 

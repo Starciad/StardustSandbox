@@ -95,7 +95,7 @@ namespace StardustSandbox.Core.Elements.Energies
             // Unlock achievement if 4 or more elements were burned and there were at least 4 elements around
             if (burnedElements >= 4 && aroundElements >= 4)
             {
-                AchievementEngine.Unlock(AchievementIndex.ACH_023);
+                AchievementSystem.Unlock(AchievementIndex.ACH_023);
             }
         }
 
