@@ -60,23 +60,32 @@ namespace StardustSandbox.Core.UI.Common
         private readonly StringBuilder userInputStringBuilder = new();
         private readonly StringBuilder userInputPasswordMaskedStringBuilder = new();
 
+        private readonly GameHandler gameHandler;
+        private readonly GameScreen gameScreen;
         private readonly GameWindow gameWindow;
         private readonly PlayerInputController playerInputController;
+        private readonly SoundEffectManager soundEffectManager;
 
         internal TextInputUI(
+            GameHandler gameHandler,
+            GameScreen gameScreen,
             GameWindow gameWindow,
             MessageUI messageUI,
             PlayerInputController playerInputController,
+            SoundEffectManager soundEffectManager,
             UIManager uiManager
         ) : base()
         {
+            this.gameHandler = gameHandler;
+            this.gameScreen = gameScreen;
             this.gameWindow = gameWindow;
             this.playerInputController = playerInputController;
+            this.soundEffectManager = soundEffectManager;
 
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
@@ -90,14 +99,14 @@ namespace StardustSandbox.Core.UI.Common
 
                         if (validationState.Status is ValidationStatus.Failure)
                         {
-                            SoundEffectManager.Play(SoundEffectIndex.GUI_Error);
+                            soundEffectManager.Play(SoundEffectIndex.GUI_Error);
                             messageUI.SetContent(validationState.Message);
                             uiManager.OpenUI(UIIndex.Message);
                             return;
                         }
                     }
 
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
+                    soundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
                     uiManager.CloseUI();
                 }),
             ];
@@ -143,7 +152,7 @@ namespace StardustSandbox.Core.UI.Common
             this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = GameScreen.GetViewport(),
+                Scale = this.gameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
@@ -263,7 +272,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void UpdateElementPositionAccordingToUserInput()
         {
-            float screenCenterYPosition = GameScreen.GetViewportCenter().Y + (this.userInput.Size.Y / 2.0f);
+            float screenCenterYPosition = this.gameScreen.GetViewportCenter().Y + (this.userInput.Size.Y / 2.0f);
 
             // Background
             this.userInputBackgroundElementPosition.X = this.userInputBackground.Position.X;
@@ -284,7 +293,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             UpdateDisplayedText();
 
-            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
             this.playerInputController.Disable();
 
             this.gameWindow.KeyDown += OnKeyDown;
@@ -293,7 +302,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnClosed()
         {
-            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
             this.playerInputController.Enable();
 
             this.gameWindow.KeyDown -= OnKeyDown;
@@ -302,9 +311,9 @@ namespace StardustSandbox.Core.UI.Common
 
         #region INPUT EVENTS
 
-        private static void PlayTypingSound()
+        private void PlayTypingSound()
         {
-            SoundEffectManager.Play((SoundEffectIndex)Randomness.Random.Range((int)SoundEffectIndex.GUI_Typing_1, (int)SoundEffectIndex.GUI_Typing_5));
+            this.soundEffectManager.Play((SoundEffectIndex)Randomness.Random.Range((int)SoundEffectIndex.GUI_Typing_1, (int)SoundEffectIndex.GUI_Typing_5));
         }
 
         private void OnKeyDown(object sender, InputKeyEventArgs inputKeyEventArgs)
