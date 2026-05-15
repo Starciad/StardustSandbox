@@ -42,18 +42,24 @@ namespace StardustSandbox.Core.UI.Common
 
         private readonly CreditSection[] creditSections;
 
+        private readonly AmbientManager ambientManager;
+        private readonly GameScreen gameScreen;
+        private readonly SongManager songManager;
+        private readonly UIManager uiManager;
         private readonly World world;
 
-        private readonly AmbientManager ambientManager;
-        private readonly UIManager uiManager;
-
         internal CreditsUI(
+            AssetDatabase assetDatabase,
             AmbientManager ambientManager,
+            GameScreen gameScreen,
+            SongManager songManager,
             UIManager uiManager,
             World world
         ) : base()
         {
             this.ambientManager = ambientManager;
+            this.gameScreen = gameScreen;
+            this.songManager = songManager;
             this.uiManager = uiManager;
             this.world = world;
 
@@ -64,7 +70,7 @@ namespace StardustSandbox.Core.UI.Common
                 [
                     new()
                     {
-                        Texture = AssetDatabase.GetTexture(TextureIndex.GameTitle),
+                        Texture = assetDatabase.GetTexture(TextureIndex.GameTitle),
                         ContentType = CreditContentType.Image,
                         TextureScale = new(2.5f),
                     },
@@ -165,14 +171,14 @@ namespace StardustSandbox.Core.UI.Common
                     new()
                     {
                         ContentType = CreditContentType.Image,
-                        Texture = AssetDatabase.GetTexture(TextureIndex.ThirdPartyMonogame),
+                        Texture = assetDatabase.GetTexture(TextureIndex.ThirdPartyMonogame),
                         TextureScale = new(0.2f),
                     },
 
                     new()
                     {
                         ContentType = CreditContentType.Image,
-                        Texture = AssetDatabase.GetTexture(TextureIndex.ThirdPartyXna),
+                        Texture = assetDatabase.GetTexture(TextureIndex.ThirdPartyXna),
                         TextureScale = new(0.15f),
                     },
                 ]),
@@ -187,8 +193,8 @@ namespace StardustSandbox.Core.UI.Common
                     new()
                     {
                         ContentType = CreditContentType.Image,
-                        Texture = AssetDatabase.GetTexture(TextureIndex.CharacterStarciad),
-                        Margin = new(0.0f, AssetDatabase.GetTexture(TextureIndex.CharacterStarciad).Height),
+                        Texture = assetDatabase.GetTexture(TextureIndex.CharacterStarciad),
+                        Margin = new(0.0f, assetDatabase.GetTexture(TextureIndex.CharacterStarciad).Height),
                     },
                 ]),
             ];
@@ -344,9 +350,9 @@ namespace StardustSandbox.Core.UI.Common
             this.world.CanUpdate = false;
             this.world.CanDraw = false;
 
-            SongManager.Play(SongIndex.Volume_01_Track_02);
+            this.songManager.Play(SongIndex.Volume_01_Track_02);
 
-            this.rootContainer.Margin = new(0.0f, GameScreen.GetViewportCenter().Y / 2.0f);
+            this.rootContainer.Margin = new(0.0f, this.gameScreen.GetViewportCenter().Y / 2.0f);
 
             this.lastElement ??= this.rootContainer.LastChild;
         }
