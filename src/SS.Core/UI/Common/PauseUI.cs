@@ -39,16 +39,23 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SlotInfo[] menuButtonSlotInfos;
 
         private readonly ConfirmUI confirmUI;
-
+        private readonly GameHandler gameHandler;
+        private readonly GameScreen gameScreen;
+        private readonly SoundEffectManager soundEffectManager;
         private readonly UIManager uiManager;
 
         internal PauseUI(
             ConfirmUI confirmUI,
+            GameHandler gameHandler,
+            GameScreen gameScreen,
             OptionsUI optionsUI,
+            SoundEffectManager soundEffectManager,
             UIManager uiManager
         ) : base()
         {
             this.confirmUI = confirmUI;
+            this.gameHandler = gameHandler;
+            this.soundEffectManager = soundEffectManager;
             this.uiManager = uiManager;
 
             this.menuButtonInfos = [
@@ -57,7 +64,7 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     optionsUI.Setup();
                     uiManager.OpenUI(UIIndex.Options);
-                    GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+                    gameHandler.SetState(GameStates.IsCriticalMenuOpen);
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Exit, string.Empty, () =>
                 {
@@ -74,7 +81,7 @@ namespace StardustSandbox.Core.UI.Common
                         }
                     );
                     this.uiManager.OpenUI(UIIndex.Confirm);
-                    GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+                    gameHandler.SetState(GameStates.IsCriticalMenuOpen);
                 }),
             ];
 
@@ -93,7 +100,7 @@ namespace StardustSandbox.Core.UI.Common
             this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = GameScreen.GetViewport(),
+                Scale = this.gameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
@@ -184,12 +191,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -200,12 +207,12 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnOpened()
         {
-            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 
         protected override void OnClosed()
         {
-            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }
