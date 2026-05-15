@@ -41,18 +41,27 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo[] buttonInfos;
 
         private readonly ActorManager actorManager;
+        private readonly GameHandler gameHandler;
+        private readonly GameScreen gameScreen;
+        private readonly SoundEffectManager soundEffectManager;
         private readonly TooltipBox tooltipBox;
         private readonly UIManager uiManager;
         private readonly World world;
 
         internal InformationUI(
             ActorManager actorManager,
+            GameHandler gameHandler,
+            GameScreen gameScreen,
+            SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
         ) : base()
         {
             this.actorManager = actorManager;
+            this.gameHandler = gameHandler;
+            this.gameScreen = gameScreen;
+            this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
             this.world = world;
@@ -80,7 +89,7 @@ namespace StardustSandbox.Core.UI.Common
             this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = GameScreen.GetViewport(),
+                Scale = this.gameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
@@ -197,7 +206,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -216,7 +225,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     this.buttonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -225,7 +234,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnOpened()
         {
-            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
 
             Point worldSize = this.world.Size;
 
@@ -247,7 +256,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnClosed()
         {
-            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }
