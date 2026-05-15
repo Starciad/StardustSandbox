@@ -53,17 +53,20 @@ namespace StardustSandbox.Core.UI.Common
 
         private readonly List<SaveFile> loadedSaveFiles = [];
 
-        private readonly WorldDetailsUI worldDetailsMenuUI;
         private readonly GraphicsDevice graphicsDevice;
+        private SoundEffectManager soundEffectManager;
         private readonly UIManager uiManager;
+        private readonly WorldDetailsUI worldDetailsMenuUI;
 
         internal WorldExplorerUI(
             GraphicsDevice graphicsDevice,
+            SoundEffectManager soundEffectManager,
             UIManager uiManager,
             WorldDetailsUI worldDetailsMenuUI
         ) : base()
         {
             this.graphicsDevice = graphicsDevice;
+            this.soundEffectManager = soundEffectManager;
             this.uiManager = uiManager;
             this.worldDetailsMenuUI = worldDetailsMenuUI;
 
@@ -330,12 +333,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -353,12 +356,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slotInfoElement.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slotInfoElement.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     this.worldDetailsMenuUI.SetSaveFile(this.graphicsDevice, saveFile.Metadata.Name);
                     this.uiManager.OpenUI(UIIndex.WorldDetails);
                     break;
@@ -376,12 +379,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     this.paginationButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
