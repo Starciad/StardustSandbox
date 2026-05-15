@@ -42,27 +42,33 @@ namespace StardustSandbox.Core.UI.Common
         private Image panelBackground, shadowBackground, titleInputField, descriptionInputField, thumbnailPreviewElement;
         private SlotInfo[] menuButtonSlotInfos;
 
-        private readonly TooltipBox tooltipBox;
-
         private readonly ButtonInfo[] menuButtonInfos, fieldButtonInfos, footerButtonInfos;
         private readonly SlotInfo[] fieldButtonSlotInfos, footerButtonSlotInfos;
 
-        private readonly World world;
+        private readonly GameHandler gameHandler;
+        private readonly GameScreen gameScreen;
+        private readonly SoundEffectManager soundEffectManager;
         private readonly TextInputUI textInputUI;
-
+        private readonly TooltipBox tooltipBox;
         private readonly UIManager uiManager;
+        private readonly World world;
 
         private readonly GraphicsDevice graphicsDevice;
 
         internal SaveUI(
             ActorManager actorManager,
+            GameHandler gameHandler,
+            GameScreen gameScreen,
             GraphicsDevice graphicsDevice,
+            SoundEffectManager soundEffectManager,
             TextInputUI textInputUI,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
         ) : base()
         {
+            this.gameHandler = gameHandler;
+            this.gameScreen = gameScreen;
             this.graphicsDevice = graphicsDevice;
             this.textInputUI = textInputUI;
             this.tooltipBox = tooltipBox;
@@ -77,7 +83,7 @@ namespace StardustSandbox.Core.UI.Common
                 // Name Field
                 new(TextureIndex.None, null, string.Empty, string.Empty, () =>
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    soundEffectManager.Play(SoundEffectIndex.GUI_Click);
 
                     this.textInputUI.Setup(
                         Localization_Messages.Input_World_Name,
@@ -104,7 +110,7 @@ namespace StardustSandbox.Core.UI.Common
                 // Description Field
                 new(TextureIndex.None, null, string.Empty, string.Empty, () =>
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    soundEffectManager.Play(SoundEffectIndex.GUI_Click);
 
                     this.textInputUI.Setup(
                         Localization_Messages.Input_World_Description,
@@ -133,10 +139,10 @@ namespace StardustSandbox.Core.UI.Common
                 // Save Button
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Save_Save_Description, () =>
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_World_Saved);
+                    soundEffectManager.Play(SoundEffectIndex.GUI_World_Saved);
                     SavingSerializer.Save(actorManager, world, this.graphicsDevice);
 
-                    GameHandler.DefineLoadedSaveFile(world.Name);
+                    gameHandler.DefineLoadedSaveFile(world.Name);
 
                     this.uiManager.CloseUI();
                 }),
@@ -164,7 +170,7 @@ namespace StardustSandbox.Core.UI.Common
             this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = GameScreen.GetViewport(),
+                Scale = this.gameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
@@ -360,12 +366,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -394,7 +400,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                     break;
                 }
 
@@ -415,7 +421,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
@@ -461,13 +467,13 @@ namespace StardustSandbox.Core.UI.Common
                 this.world.Description = Localization_Messages.NoDescription;
             }
 
-            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
             UpdateInfos();
         }
 
         protected override void OnClosed()
         {
-            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
             this.worldThumbnailTexture.Dispose();
             this.worldThumbnailTexture = null;
         }
