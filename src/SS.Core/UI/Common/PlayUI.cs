@@ -35,13 +35,19 @@ namespace StardustSandbox.Core.UI.Common
         private readonly Label[] menuButtonLabels;
         private readonly ButtonInfo[] menuButtonInfos;
 
+        private readonly GameScreen gameScreen;
+        private readonly SoundEffectManager soundEffectManager;
         private readonly UIManager uiManager;
 
         internal PlayUI(
+            GameScreen gameScreen,
+            SoundEffectManager soundEffectManager,
             UIManager uiManager,
             WorldExplorerUI worldExplorerUI
         ) : base()
         {
+            this.gameScreen = gameScreen;
+            this.soundEffectManager = soundEffectManager;
             this.uiManager = uiManager;
 
             this.menuButtonInfos = [
@@ -68,7 +74,7 @@ namespace StardustSandbox.Core.UI.Common
             {
                 TextureIndex = TextureIndex.Pixel,
                 Color = new(AAP64ColorPalette.DarkGray, 196),
-                Scale = new(GameScreen.GetViewport().X, 128.0f),
+                Scale = new(this.gameScreen.GetViewport().X, 128.0f),
                 Size = Vector2.One,
             };
 
@@ -138,12 +144,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(label))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(label))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
