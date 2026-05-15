@@ -70,6 +70,7 @@ namespace StardustSandbox.Core.UI.Common
             this.gameHandler = gameHandler;
             this.gameScreen = gameScreen;
             this.graphicsDevice = graphicsDevice;
+            this.soundEffectManager = soundEffectManager;
             this.textInputUI = textInputUI;
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;

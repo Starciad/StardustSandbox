@@ -55,7 +55,6 @@ namespace StardustSandbox.Core.UI.Common
         private readonly UIManager uiManager;
 
         internal GeneratorSettingsUI(
-            ActorManager actorManager,
             ConfirmUI confirmUI,
             GameHandler gameHandler,
             GameScreen gameScreen,
@@ -94,7 +93,7 @@ namespace StardustSandbox.Core.UI.Common
                             if (status is ConfirmStatus.Confirmed)
                             {
                                 WorldGenerator.Start(
-                                    actorManager,
+                                    gameHandler,
                                     world,
                                     this.selectedTheme,
                                     this.selectedSettings,

@@ -29,9 +29,16 @@ namespace StardustSandbox.Core.Scenario
     {
         private Background currentBackground;
 
+        private readonly BackgroundDatabase backgroundDatabase;
+
+        internal BackgroundHandler(BackgroundDatabase backgroundDatabase)
+        {
+            this.backgroundDatabase = backgroundDatabase;
+        }
+
         internal void SetBackground(BackgroundIndex backgroundIndex)
         {
-            this.currentBackground = BackgroundDatabase.GetBackground(backgroundIndex);
+            this.currentBackground = this.backgroundDatabase.GetBackground(backgroundIndex);
         }
 
         internal Background GetCurrentBackground()
@@ -44,9 +51,9 @@ namespace StardustSandbox.Core.Scenario
             this.currentBackground?.Update(gameTime);
         }
 
-        internal void Draw(SpriteBatch spriteBatch, Camera2D camera)
+        internal void Draw(SpriteBatch spriteBatch, Camera2D camera, GameScreen gameScreen)
         {
-            this.currentBackground?.Draw(spriteBatch, camera);
+            this.currentBackground?.Draw(spriteBatch, camera, gameScreen);
         }
     }
 }

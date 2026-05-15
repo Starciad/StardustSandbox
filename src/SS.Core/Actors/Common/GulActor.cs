@@ -57,7 +57,7 @@ namespace StardustSandbox.Core.Actors.Common
 
         private static readonly List<Point> possiblePositions = [];
 
-        internal GulActor(ActorIndex index, ActorManager actorManager, AssetDatabase assetDatabase, ElementDatabase elementDatabase, World world) : base(index, actorManager, world)
+        internal GulActor(ActorIndex index, ActorManager actorManager, AchievementManager achievementManager, AssetDatabase assetDatabase, ElementDatabase elementDatabase, World world) : base(index, actorManager, achievementManager, world)
         {
             this.assetDatabase = assetDatabase;
             this.elementDatabase = elementDatabase;
@@ -165,12 +165,12 @@ namespace StardustSandbox.Core.Actors.Common
 
         private bool IsBeingSuffocated(Point position)
         {
-            return !this.world.IsEmptySlotLayer(position, Layer.Foreground);
+            return !this.World.IsEmptySlotLayer(position, Layer.Foreground);
         }
 
         private bool IsOnTopMortalElement(Point position)
         {
-            return this.world.TryGetSlotLayer(new(position.X, position.Y + 1), Layer.Foreground, out SlotLayer slotLayer) && !slotLayer.IsEmpty &&
+            return this.World.TryGetSlotLayer(new(position.X, position.Y + 1), Layer.Foreground, out SlotLayer slotLayer) && !slotLayer.IsEmpty &&
                    (IsMortalElement(slotLayer.ElementIndex) || slotLayer.Temperature < -15.0f || slotLayer.Temperature > 48.0f);
         }
 
@@ -181,7 +181,7 @@ namespace StardustSandbox.Core.Actors.Common
 
         private bool HasEntityAbove(Point position)
         {
-            return this.actorManager.HasEntityAtPosition(new(position.X, position.Y - 1));
+            return this.ActorManager.HasEntityAtPosition(new(position.X, position.Y - 1));
         }
 
         private void SetFrontPositions(Predicate<Point> removeMatch)
@@ -195,7 +195,7 @@ namespace StardustSandbox.Core.Actors.Common
 
         private bool CanWalkTo(Point position)
         {
-            return this.world.IsEmptySlotLayer(position, Layer.Foreground) &&
+            return this.World.IsEmptySlotLayer(position, Layer.Foreground) &&
                    IsInsideWorldBounds(position) &&
                    IsGrounded(position) &&
                    !IsOnTopMortalElement(position);
@@ -203,7 +203,7 @@ namespace StardustSandbox.Core.Actors.Common
 
         private bool TryWalk()
         {
-            SetFrontPositions(point => !this.world.IsEmptySlotLayer(point, Layer.Foreground) || !IsGrounded(point));
+            SetFrontPositions(point => !this.World.IsEmptySlotLayer(point, Layer.Foreground) || !IsGrounded(point));
 
             while (possiblePositions.Count > 0)
             {
@@ -225,8 +225,8 @@ namespace StardustSandbox.Core.Actors.Common
         private bool TryGrabElement()
         {
             SetFrontPositions(point =>
-                this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
-                !IsGrabbableElement(this.world.GetElementIndex(point, Layer.Foreground)) ||
+                this.World.IsEmptySlotLayer(point, Layer.Foreground) ||
+                !IsGrabbableElement(this.World.GetElementIndex(point, Layer.Foreground)) ||
                 HasEntityAbove(point)
             );
 
@@ -234,14 +234,14 @@ namespace StardustSandbox.Core.Actors.Common
             {
                 Point position = possiblePositions.GetRandomItem();
 
-                if (this.world.TryGetElementIndex(position, Layer.Foreground, out ElementIndex index) && IsOnTopMortalElement(new(position.X, position.Y - 1)))
+                if (this.World.TryGetElementIndex(position, Layer.Foreground, out ElementIndex index) && IsOnTopMortalElement(new(position.X, position.Y - 1)))
                 {
                     _ = possiblePositions.Remove(position);
                     continue;
                 }
 
                 this.grabbedElementIndex = index;
-                this.world.RemoveElement(position, Layer.Foreground);
+                this.World.RemoveElement(position, Layer.Foreground);
 
                 return true;
             }
@@ -265,8 +265,8 @@ namespace StardustSandbox.Core.Actors.Common
         private bool TryPlaceElement()
         {
             SetFrontPositions(point =>
-                !this.world.IsEmptySlotLayer(point, Layer.Foreground) ||
-                this.actorManager.HasEntityAtPosition(point) ||
+                !this.World.IsEmptySlotLayer(point, Layer.Foreground) ||
+                this.ActorManager.HasEntityAtPosition(point) ||
                 point == this.positionElementPlaced
             );
 
@@ -274,7 +274,7 @@ namespace StardustSandbox.Core.Actors.Common
             {
                 Point position = possiblePositions.GetRandomItem();
 
-                if (!this.world.TryInstantiateElementIndex(position, Layer.Foreground, this.grabbedElementIndex))
+                if (!this.World.TryInstantiateElementIndex(position, Layer.Foreground, this.grabbedElementIndex))
                 {
                     _ = possiblePositions.Remove(position);
                     continue;
@@ -296,7 +296,7 @@ namespace StardustSandbox.Core.Actors.Common
             // If spawned inside a non-empty slot, destroy immediately
             if (IsBeingSuffocated(this.Position) || IsOnTopMortalElement(this.Position))
             {
-                this.actorManager.Destroy(this);
+                this.ActorManager.Destroy(this);
                 return;
             }
 

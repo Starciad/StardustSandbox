@@ -52,7 +52,15 @@ namespace StardustSandbox.Core.InputSystem
             this.player = new();
         }
 
-        internal void Initialize(ActorManager actorManager, Camera2D camera, StardustSandboxGame stardustSandboxGame, ToolDatabase toolDatabase, VideoManager videoManager, World world)
+        internal void Initialize(
+            ActorManager actorManager,
+            Camera2D camera,
+            GameHandler gameHandler,
+            SoundEffectManager soundEffectManager,
+            ToolDatabase toolDatabase,
+            VideoManager videoManager,
+            World world
+        )
         {
             this.worldHandler = new(actorManager, camera, this.pen, this.player, toolDatabase, world);
 
@@ -65,8 +73,8 @@ namespace StardustSandbox.Core.InputSystem
                         KeyboardBinding = controlSettings.ScreenshotKeyboardBinding,
                         OnStarted = _ =>
                         {
-                            SoundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
-                            stardustSandboxGame.RequestScreenshot();
+                            soundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
+                            gameHandler.RequestScreenshot();
                         },
                     },
 
@@ -131,7 +139,7 @@ namespace StardustSandbox.Core.InputSystem
                     new InputAction("TooglePause")
                     {
                         KeyboardBinding = controlSettings.TogglePauseKeyboardBinding,
-                        OnStarted = _ => GameHandler.ToggleState(GameStates.IsSimulationPaused),
+                        OnStarted = _ => gameHandler.ToggleState(GameStates.IsSimulationPaused),
                     },
 
                     new InputAction("NextShape")
@@ -143,7 +151,7 @@ namespace StardustSandbox.Core.InputSystem
                     new InputAction("ClearWorld")
                     {
                         KeyboardBinding = controlSettings.ClearWorldKeyboardBinding,
-                        OnStarted = _ => GameHandler.Reset(actorManager, world),
+                        OnStarted = _ => gameHandler.Reset(),
                     }
                 ),
 
@@ -176,11 +184,6 @@ namespace StardustSandbox.Core.InputSystem
 
         private void UpdatePlaceAreaSize()
         {
-            if (GameHandler.HasState(GameStates.IsCriticalMenuOpen))
-            {
-                return;
-            }
-
             if (InputEngine.GetDeltaScrollWheel() > 0)
             {
                 this.pen.Size--;

@@ -83,6 +83,7 @@ namespace StardustSandbox.Core.UI.Common
             this.uiManager = uiManager;
             this.hudUI = hudUI;
             this.itemSearchUI = itemSearchUI;
+            this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
 
             this.buttonInfos = [

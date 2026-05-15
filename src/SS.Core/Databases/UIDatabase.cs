@@ -101,7 +101,6 @@ namespace StardustSandbox.Core.Databases
             );
 
             GeneratorSettingsUI generatorSettingsUI = new(
-                actorManager,
                 confirmUI,
                 gameHandler,
                 gameScreen,
@@ -287,7 +286,10 @@ namespace StardustSandbox.Core.Databases
             WorldSettingsUI worldSettingsUI = new(
                 actorManager,
                 confirmUI,
+                gameHandler,
+                gameScreen,
                 messageUI,
+                soundEffectManager,
                 tooltipBox,
                 uiManager,
                 world

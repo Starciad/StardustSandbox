@@ -91,6 +91,11 @@ namespace StardustSandbox.Core
             this.stardustSandboxGame.SetFrameRate(framerate);
         }
 
+        internal void RequestScreenshot()
+        {
+            this.stardustSandboxGame.RequestScreenshot();
+        }
+
         internal void DefineLoadedSaveFile(string saveFileName)
         {
             this.loadedSaveFileName = saveFileName;
@@ -106,6 +111,8 @@ namespace StardustSandbox.Core
             {
                 throw new ArgumentException("Save file name cannot be null or whitespace.", nameof(saveFileName));
             }
+
+            SetState(GameStates.IsSimulationPaused);
 
             this.actorManager.Deserialize(saveFileName);
             this.world.Deserialize(saveFileName);
@@ -192,8 +199,8 @@ namespace StardustSandbox.Core
 
         internal void ReloadSaveFile()
         {
-            this.actorManager.Reload();
-            this.world.Reload();
+            this.actorManager.Reload(this.HasSaveFileLoaded, this.LoadedSaveFileName);
+            this.world.Reload(this.HasSaveFileLoaded, this.LoadedSaveFileName);
         }
 
         internal bool HasState(GameStates value)

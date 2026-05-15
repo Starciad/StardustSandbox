@@ -131,18 +131,25 @@ namespace StardustSandbox.Core
             this.soundEffectManager = new(this.assetDatabase);
             this.achievementManager = new(this.achievementDatabase);
             this.statisticsManager = new(this.achievementManager);
+            this.gameScreen = new(this.graphicsDeviceManager);
 
             // Core
             this.playerInputController = new();
-            this.world = new(this.achievementManager, this.assetDatabase, this.elementDatabase, this.playerInputController);
-            this.camera = new();
+            this.world = new(
+                this.achievementManager,
+                this.assetDatabase,
+                this.elementDatabase,
+                this.playerInputController,
+                this.statisticsManager
+            );
+            this.camera = new(this.gameScreen);
 
             // Managers
-            this.effectsManager = new();
+            this.effectsManager = new(this.assetDatabase);
             this.uiManager = new(this.uiDatabase);
-            this.cursorManager = new();
-            this.ambientManager = new();
-            this.actorManager = new(this.world);
+            this.cursorManager = new(this.assetDatabase);
+            this.ambientManager = new(this.backgroundDatabase, this.world);
+            this.actorManager = new(this.actorDatabase, this.world);
 
             // Others
             this.gameHandler = new(
@@ -152,12 +159,11 @@ namespace StardustSandbox.Core
                 this.Window,
                 this.playerInputController,
                 this.songManager,
+                this,
                 this.uiDatabase,
                 this.uiManager,
                 this.world
             );
-
-            this.gameScreen = new(this.graphicsDeviceManager);
         }
 
         internal void SetFrameRate(float framerate)
@@ -193,7 +199,7 @@ namespace StardustSandbox.Core
         {
             // Databases
             this.assetDatabase.Load();
-            this.actorDatabase.Load(this.actorManager, this.assetDatabase, this.elementDatabase, this.world);
+            this.actorDatabase.Load(this.achievementManager, this.actorManager, this.assetDatabase, this.elementDatabase, this.world);
             this.backgroundDatabase.Load();
             this.uiDatabase.Load(
                 this.achievementDatabase,
@@ -201,7 +207,6 @@ namespace StardustSandbox.Core
                 this.actorManager,
                 this.ambientManager,
                 this.assetDatabase,
-                this.camera,
                 this.catalogDatabase,
                 this.cursorManager,
                 this.gameHandler,
@@ -211,7 +216,6 @@ namespace StardustSandbox.Core
                 this.playerInputController,
                 this.songManager,
                 this.soundEffectManager,
-                this,
                 this.uiManager,
                 this.videoManager,
                 this.world
@@ -221,10 +225,18 @@ namespace StardustSandbox.Core
             // Managers
             this.effectsManager.Initialize();
             this.cursorManager.Initialize();
-            this.ambientManager.Initialize(this.world);
+            this.ambientManager.Initialize();
 
             // Controllers
-            this.playerInputController.Initialize(this.actorManager, this.camera, this, this.toolDatabase, this.videoManager, this.world);
+            this.playerInputController.Initialize(
+                this.actorManager,
+                this.camera,
+                this.gameHandler,
+                this.soundEffectManager,
+                this.toolDatabase,
+                this.videoManager,
+                this.world
+            );
 
             // Resolution
             if (this.videoSettings.Width == 0 || this.videoSettings.Height == 0)

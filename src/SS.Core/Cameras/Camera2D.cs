@@ -37,10 +37,12 @@ namespace StardustSandbox.Core.Cameras
         private float zoom;
         private float targetZoom;
 
+        private readonly GameScreen gameScreen;
         private readonly GameplaySettings gameplaySettings;
 
-        internal Camera2D()
+        internal Camera2D(GameScreen gameScreen)
         {
+            this.gameScreen = gameScreen;
             this.gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
             Reset();
         }
@@ -118,7 +120,7 @@ namespace StardustSandbox.Core.Cameras
 
         private Matrix GetVirtualViewMatrix()
         {
-            Vector2 viewportCenter = GameScreen.GetViewportCenter();
+            Vector2 viewportCenter = this.gameScreen.GetViewportCenter();
 
             return
                 Matrix.CreateTranslation(-this.Position.X, -this.Position.Y, 0f) *
@@ -143,7 +145,7 @@ namespace StardustSandbox.Core.Cameras
 
         internal RectangleF GetViewBounds()
         {
-            Vector2 viewportSize = GameScreen.GetViewport();
+            Vector2 viewportSize = this.gameScreen.GetViewport();
 
             Vector2 topLeft = ScreenToWorld(Vector2.Zero);
             Vector2 bottomRight = ScreenToWorld(viewportSize);

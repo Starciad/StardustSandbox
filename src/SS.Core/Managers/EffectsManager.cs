@@ -32,9 +32,16 @@ namespace StardustSandbox.Core.Managers
         private Effect[] effects;
         private int effectsLength;
 
+        private readonly AssetDatabase assetDatabase;
+
+        internal EffectsManager(AssetDatabase assetDatabase)
+        {
+            this.assetDatabase = assetDatabase;
+        }
+
         internal void Initialize()
         {
-            this.effects = AssetDatabase.GetEffects();
+            this.effects = this.assetDatabase.GetEffects();
             this.effectsLength = this.effects.Length;
         }
 
@@ -46,11 +53,11 @@ namespace StardustSandbox.Core.Managers
             }
         }
 
-        private static void UpdateGradientTransitionEffect(GradientColorMap gradientColorMap, TimeSpan timeSpan)
+        private void UpdateGradientTransitionEffect(GradientColorMap gradientColorMap, TimeSpan timeSpan)
         {
             float interpolation = gradientColorMap.GetInterpolationFactor(timeSpan);
 
-            Effect effect = AssetDatabase.GetEffect(EffectIndex.GradientTransition);
+            Effect effect = this.assetDatabase.GetEffect(EffectIndex.GradientTransition);
 
             effect.Parameters["StartColor1"].SetValue(gradientColorMap.GradientStartColor.Start.ToVector4());
             effect.Parameters["StartColor2"].SetValue(gradientColorMap.GradientEndColor.Start.ToVector4());

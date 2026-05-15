@@ -55,6 +55,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.confirmUI = confirmUI;
             this.gameHandler = gameHandler;
+            this.gameScreen = gameScreen;
             this.soundEffectManager = soundEffectManager;
             this.uiManager = uiManager;
 

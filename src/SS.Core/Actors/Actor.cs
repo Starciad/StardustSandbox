@@ -67,19 +67,21 @@ namespace StardustSandbox.Core.Actors
         internal bool CanDraw { get; set; }
         internal ActorState State { get; set; }
 
+        protected ActorManager ActorManager { get; }
+        protected AchievementManager AchievementManager { get; }
+        protected World World { get; }
+
         private int positionX;
         private int positionY;
         private int width;
         private int height;
 
-        protected readonly ActorManager actorManager;
-        protected readonly World world;
-
-        internal Actor(ActorIndex index, ActorManager actorManager, World world)
+        internal Actor(ActorIndex index, ActorManager actorManager, AchievementManager achievementManager, World world)
         {
             this.Index = index;
-            this.actorManager = actorManager;
-            this.world = world;
+            this.ActorManager = actorManager;
+            this.AchievementManager = achievementManager;
+            this.World = world;
         }
 
         internal void ClampToWorld()
@@ -91,8 +93,8 @@ namespace StardustSandbox.Core.Actors
 
         private Point ClampPositionToWorld(Point position, Point size)
         {
-            int maxX = Math.Max(0, this.world.Size.X - size.X);
-            int maxY = Math.Max(0, this.world.Size.Y - size.Y);
+            int maxX = Math.Max(0, this.World.Size.X - size.X);
+            int maxY = Math.Max(0, this.World.Size.Y - size.Y);
 
             if (position.X < 0)
             {
@@ -119,8 +121,8 @@ namespace StardustSandbox.Core.Actors
         {
             return rectangle.Left >= 0
                 && rectangle.Top >= 0
-                && rectangle.Right <= this.world.Size.X
-                && rectangle.Bottom <= this.world.Size.Y;
+                && rectangle.Right <= this.World.Size.X
+                && rectangle.Bottom <= this.World.Size.Y;
         }
 
         internal bool IsInsideWorldBounds(Point position, Point size)
@@ -241,7 +243,7 @@ namespace StardustSandbox.Core.Actors
                 }
 
                 // Only query the layer if it is within the limits.
-                if (this.world.TryGetSlotLayer(belowPosition, Layer.Foreground, out SlotLayer slotLayer))
+                if (this.World.TryGetSlotLayer(belowPosition, Layer.Foreground, out SlotLayer slotLayer))
                 {
                     ElementCategory category = slotLayer.Element.Category;
 

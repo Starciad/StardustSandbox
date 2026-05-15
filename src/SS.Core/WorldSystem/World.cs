@@ -81,6 +81,7 @@ namespace StardustSandbox.Core.WorldSystem
         private readonly AssetDatabase assetDatabase;
         private readonly ElementNeighbors elementNeighbors;
         private readonly ElementDatabase elementDatabase;
+        private readonly StatisticsManager statisticsManager;
 
         internal Slot this[int x, int y]
         {
@@ -94,10 +95,18 @@ namespace StardustSandbox.Core.WorldSystem
             set => this.slots[point.X, point.Y] = value;
         }
 
-        internal World(AchievementManager achievementManager, AssetDatabase assetDatabase, ElementDatabase elementDatabase, PlayerInputController playerInputController)
+        internal World(
+            AchievementManager achievementManager,
+            AssetDatabase assetDatabase,
+            ElementDatabase elementDatabase,
+            PlayerInputController playerInputController,
+            StatisticsManager statisticsManager
+        )
         {
+            this.achievementManager = achievementManager;
             this.assetDatabase = assetDatabase;
             this.elementDatabase = elementDatabase;
+            this.statisticsManager = statisticsManager;
 
             this.simulation = new();
             this.time = new();
@@ -121,7 +130,7 @@ namespace StardustSandbox.Core.WorldSystem
             this.Name = string.Empty;
             this.Description = string.Empty;
 
-            StatisticsManager.ResetWorldStatistics();
+            this.statisticsManager.ResetWorldStatistics();
 
             this.chunking.Reset();
             this.temperature.Reset();
@@ -176,8 +185,6 @@ namespace StardustSandbox.Core.WorldSystem
         {
             SaveFile saveFile = SavingSerializer.Load(saveFileName, LoadFlags.Metadata | LoadFlags.Properties | LoadFlags.Environment | LoadFlags.Content);
 
-            GameHandler.SetState(GameStates.IsSimulationPaused);
-
             // World
             StartNew(saveFile.Properties.Size);
 
@@ -229,11 +236,11 @@ namespace StardustSandbox.Core.WorldSystem
             InstantiateSlots();
         }
 
-        internal void Reload()
+        internal void Reload(bool hasSaveFileLoaded, string loadedSaveFileName)
         {
-            if (GameHandler.HasSaveFileLoaded)
+            if (hasSaveFileLoaded)
             {
-                Deserialize(GameHandler.LoadedSaveFileName);
+                Deserialize(loadedSaveFileName);
                 return;
             }
 
@@ -351,7 +358,7 @@ namespace StardustSandbox.Core.WorldSystem
             element.SetContext(this.worldElementContext);
             element.Instantiate();
 
-            StatisticsManager.RegisterInstantiatedElement(index);
+            this.statisticsManager.RegisterInstantiatedElement(index);
 
             return true;
         }

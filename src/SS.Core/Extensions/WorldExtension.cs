@@ -67,11 +67,11 @@ namespace StardustSandbox.Core.Extensions
 
                         if (!slot.Foreground.IsEmpty)
                         {
-                            data[index] = ElementDatabase.GetElement(world.GetElementIndex(worldPosition, Layer.Foreground)).ReferenceColor.Vary(5);
+                            data[index] = world.GetElement(worldPosition, Layer.Foreground).ReferenceColor.Vary(5);
                         }
                         else if (!slot.Background.IsEmpty)
                         {
-                            data[index] = ElementDatabase.GetElement(world.GetElementIndex(worldPosition, Layer.Background)).ReferenceColor.Vary(5).Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
+                            data[index] = world.GetElement(worldPosition, Layer.Background).ReferenceColor.Vary(5).Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
                         }
                     }
                 }

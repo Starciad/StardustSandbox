@@ -39,14 +39,21 @@ namespace StardustSandbox.Core.Managers
 
         private Texture2D cursorTexture;
 
+        private readonly AssetDatabase assetDatabase;
+
         private static readonly Rectangle[] cursorClipAreas = [
             new(0, 0, 36, 36),
             new(0, 36, 36, 36),
         ];
 
+        internal CursorManager(AssetDatabase assetDatabase)
+        {
+            this.assetDatabase = assetDatabase;
+        }
+
         internal void Initialize()
         {
-            this.cursorTexture = AssetDatabase.GetTexture(TextureIndex.Cursors);
+            this.cursorTexture = this.assetDatabase.GetTexture(TextureIndex.Cursors);
             this.canDraw = true;
 
             CursorSettings cursorSettings = SettingsSerializer.Load<CursorSettings>();

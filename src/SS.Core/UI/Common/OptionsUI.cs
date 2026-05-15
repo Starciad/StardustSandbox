@@ -85,6 +85,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.gameHandler = gameHandler;
             this.gameScreen = gameScreen;
+            this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
 
             ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();

@@ -33,14 +33,14 @@ namespace StardustSandbox.Core.Generators
     {
         private static ElementContext context;
 
-        internal static void Start(ActorManager actorManager, World world, in WorldGenerationTheme theme, in WorldGenerationSettings settings, in WorldGenerationContents contents)
+        internal static void Start(GameHandler gameHandler, World world, in WorldGenerationTheme theme, in WorldGenerationSettings settings, in WorldGenerationContents contents)
         {
             context ??= new(world);
 
             int width = world.Size.X;
             int height = world.Size.Y;
 
-            GameHandler.Reset(actorManager, world);
+            gameHandler.Reset();
 
             Range amplitudeRange;
             int smoothness;

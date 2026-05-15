@@ -17,6 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Scenario;
 using StardustSandbox.Core.WorldSystem;
 
@@ -31,11 +32,20 @@ namespace StardustSandbox.Core.Managers
         private CelestialBodyHandler celestialBodyHandler;
         private TimeHandler timeHandler;
 
-        internal void Initialize(World world)
+        private readonly BackgroundDatabase backgroundDatabase;
+        private readonly World world;
+
+        internal AmbientManager(BackgroundDatabase backgroundDatabase, World world)
         {
-            this.backgroundHandler = new();
-            this.timeHandler = new(world.Time);
-            this.celestialBodyHandler = new(this.timeHandler, world);
+            this.backgroundDatabase = backgroundDatabase;
+            this.world = world;
+        }
+
+        internal void Initialize()
+        {
+            this.backgroundHandler = new(this.backgroundDatabase);
+            this.timeHandler = new(this.world.Time);
+            this.celestialBodyHandler = new(this.timeHandler, this.world);
         }
 
         internal void Update(GameTime gameTime)

@@ -37,11 +37,11 @@ namespace StardustSandbox.Core.Backgrounds
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch, Camera2D camera)
+        internal void Draw(SpriteBatch spriteBatch, Camera2D camera, GameScreen gameScreen)
         {
             foreach (BackgroundLayer layer in this.Layers)
             {
-                layer.Draw(spriteBatch, camera);
+                layer.Draw(spriteBatch, camera, gameScreen);
             }
         }
     }

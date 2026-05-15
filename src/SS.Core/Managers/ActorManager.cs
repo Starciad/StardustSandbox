@@ -52,10 +52,12 @@ namespace StardustSandbox.Core.Managers
         private readonly Queue<Actor> actorsToAdd = [];
         private readonly Queue<Actor> actorsToRemove = [];
 
+        private readonly ActorDatabase actorDatabase;
         private readonly World world;
 
-        internal ActorManager(World world)
+        internal ActorManager(ActorDatabase actorDatabase, World world)
         {
+            this.actorDatabase = actorDatabase;
             this.world = world;
         }
 
@@ -85,7 +87,7 @@ namespace StardustSandbox.Core.Managers
                 return false;
             }
 
-            actor = ActorDatabase.GetDescriptor(index).Dequeue();
+            actor = this.actorDatabase.GetDescriptor(index).Dequeue();
 
             this.actorsToAdd.Enqueue(actor);
             this.totalActorCount++;
@@ -100,7 +102,7 @@ namespace StardustSandbox.Core.Managers
                 return;
             }
 
-            ActorDatabase.GetDescriptor(actor.Index).Enqueue(actor);
+            this.actorDatabase.GetDescriptor(actor.Index).Enqueue(actor);
             this.actorsToRemove.Enqueue(actor);
             this.totalActorCount--;
         }
@@ -143,7 +145,7 @@ namespace StardustSandbox.Core.Managers
 
                 if (actor.State is not ActorState.Destroyed)
                 {
-                    ActorDatabase.GetDescriptor(actor.Index).Enqueue(actor);
+                    this.actorDatabase.GetDescriptor(actor.Index).Enqueue(actor);
                     actor.OnDestroyed();
                 }
             }
@@ -267,7 +269,7 @@ namespace StardustSandbox.Core.Managers
 
             for (int i = 0; i < datas.Length; i++)
             {
-                Actor actor = ActorDatabase.GetDescriptor(datas[i].Index).Dequeue();
+                Actor actor = this.actorDatabase.GetDescriptor(datas[i].Index).Dequeue();
                 actor.Deserialize(datas[i]);
 
                 this.actorsToAdd.Enqueue(actor);
@@ -280,11 +282,11 @@ namespace StardustSandbox.Core.Managers
             Deserialize(SavingSerializer.Load(saveFileName, LoadFlags.Content).Content.Actors);
         }
 
-        internal void Reload()
+        internal void Reload(bool hasSaveFileLoaded, string loadedSaveFileName)
         {
-            if (GameHandler.HasSaveFileLoaded)
+            if (hasSaveFileLoaded)
             {
-                Deserialize(GameHandler.LoadedSaveFileName);
+                Deserialize(loadedSaveFileName);
                 return;
             }
 
@@ -293,7 +295,6 @@ namespace StardustSandbox.Core.Managers
 
         public void Reset()
         {
-            StatisticsManager.ResetActorsStatistics();
             Clear();
         }
 

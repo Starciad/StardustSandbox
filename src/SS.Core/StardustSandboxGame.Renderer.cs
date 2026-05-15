@@ -58,7 +58,7 @@ namespace StardustSandbox.Core
 
         private void DrawAmbient()
         {
-            Effect gradientTransitionEffect = AssetDatabase.GetEffect(EffectIndex.GradientTransition);
+            Effect gradientTransitionEffect = this.assetDatabase.GetEffect(EffectIndex.GradientTransition);
 
             // Sky (gradient)
             this.spriteBatch.Begin(
@@ -70,7 +70,7 @@ namespace StardustSandbox.Core
                 gradientTransitionEffect
             );
             this.spriteBatch.Draw(
-                AssetDatabase.GetTexture(TextureIndex.Pixel),
+                this.assetDatabase.GetTexture(TextureIndex.Pixel),
                 new Rectangle(0, 0, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height),
                 AAP64ColorPalette.White
             );
@@ -95,7 +95,7 @@ namespace StardustSandbox.Core
                 this.ambientManager.BackgroundHandler.GetCurrentBackground().IsAffectedByLighting ? gradientTransitionEffect : null,
                 null
             );
-            this.ambientManager.BackgroundHandler.Draw(this.spriteBatch, this.camera);
+            this.ambientManager.BackgroundHandler.Draw(this.spriteBatch, this.camera, this.gameScreen);
             this.spriteBatch.End();
         }
 
@@ -175,7 +175,7 @@ namespace StardustSandbox.Core
                 );
 
                 this.spriteBatch.Draw(
-                    AssetDatabase.GetTexture(TextureIndex.ShapeSquares),
+                    this.assetDatabase.GetTexture(TextureIndex.ShapeSquares),
                     worldPosition,
                     new Rectangle(110, 0, 32, 32),
                     gameplaySettings.PreviewAreaColor
