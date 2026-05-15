@@ -43,16 +43,18 @@ namespace StardustSandbox.Core.UI.Common
         private Label title, clickToContinue;
         private Text contentText;
 
-        private readonly UIManager uiManager;
-
         private readonly SystemInformationSettings systemInformationSettings;
-
         private readonly TutorialContent[] contents;
 
+        private readonly GameScreen gameScreen;
+        private readonly UIManager uiManager;
+
         internal TutorialUI(
+            GameScreen gameScreen,
             UIManager uiManager
         ) : base()
         {
+            this.gameScreen = gameScreen;
             this.uiManager = uiManager;
 
             ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
@@ -160,7 +162,7 @@ namespace StardustSandbox.Core.UI.Common
             this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = GameScreen.GetViewport(),
+                Scale = this.gameScreen.GetViewport(),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };

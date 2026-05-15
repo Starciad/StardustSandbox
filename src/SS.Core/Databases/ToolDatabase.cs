@@ -17,6 +17,7 @@
 
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Enums.Tools;
+using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Tools;
 using StardustSandbox.Core.Tools.Environment;
 using StardustSandbox.Core.Tools.Inks;
@@ -27,89 +28,48 @@ namespace StardustSandbox.Core.Databases
 {
     internal sealed class ToolDatabase
     {
-        private Tool[] tools = [
-            // [000] Heat Tool
-            new HeatTool()
-            {
-                Index = ToolIndex.HeatTool
-            },
+        private Tool[] tools;
 
-            // [001] Freeze Tool
-            new FreezeTool()
-            {
-                Index = ToolIndex.FreezeTool,
-            },
+        internal void Load(AchievementManager achievementManager)
+        {
+            tools = [
+                // [000] Heat Tool
+                new HeatTool(ToolIndex.HeatTool, achievementManager),
 
-            // [002] Ink Tool (Black)
-            new InkTool()
-            {
-                Index = ToolIndex.BlackInkTool,
-                InkColor = AAP64ColorPalette.DarkGray,
-            },
+                // [001] Freeze Tool
+                new FreezeTool(ToolIndex.FreezeTool, achievementManager),
 
-            // [003] Ink Tool (White)
-            new InkTool()
-            {
-                Index = ToolIndex.WhiteInkTool,
-                InkColor = AAP64ColorPalette.White,
-            },
+                // [002] Ink Tool (Black)
+                new InkTool(ToolIndex.BlackInkTool, AAP64ColorPalette.DarkGray, achievementManager),
 
-            // [004] Ink Tool (Red)
-            new InkTool()
-            {
-                Index = ToolIndex.RedInkTool,
-                InkColor = AAP64ColorPalette.Crimson,
-            },
+                // [003] Ink Tool (White)
+                new InkTool(ToolIndex.WhiteInkTool, AAP64ColorPalette.White, achievementManager),
 
-            // [005] Ink Tool (Orange)
-            new InkTool()
-            {
-                Index = ToolIndex.OrangeInkTool,
-                InkColor = AAP64ColorPalette.Orange,
-            },
+                // [004] Ink Tool (Red)
+                new InkTool(ToolIndex.RedInkTool, AAP64ColorPalette.Crimson, achievementManager),
 
-            // [006] Ink Tool (Yellow)
-            new InkTool()
-            {
-                Index = ToolIndex.YellowInkTool,
-                InkColor = AAP64ColorPalette.Gold,
-            },
+                // [005] Ink Tool (Orange)
+                new InkTool(ToolIndex.OrangeInkTool, AAP64ColorPalette.Orange, achievementManager),
 
-            // [007] Ink Tool (Green)
-            new InkTool()
-            {
-                Index = ToolIndex.GreenInkTool,
-                InkColor = AAP64ColorPalette.GrassGreen,
-            },
+                // [006] Ink Tool (Yellow)
+                new InkTool(ToolIndex.YellowInkTool, AAP64ColorPalette.Gold, achievementManager),
 
-            // [008] Ink Tool (Blue)
-            new InkTool()
-            {
-                Index = ToolIndex.BlueInkTool,
-                InkColor = AAP64ColorPalette.RoyalBlue,
-            },
+                // [007] Ink Tool (Green)
+                new InkTool(ToolIndex.GreenInkTool, AAP64ColorPalette.GrassGreen, achievementManager),
 
-            // [009] Ink Tool (Gray)
-            new InkTool()
-            {
-                Index = ToolIndex.GrayInkTool,
-                InkColor = AAP64ColorPalette.Slate,
-            },
+                // [008] Ink Tool (Blue)
+                new InkTool(ToolIndex.BlueInkTool, AAP64ColorPalette.RoyalBlue, achievementManager),
 
-            // [010] Ink Tool (Violet)
-            new InkTool()
-            {
-                Index = ToolIndex.VioletInkTool,
-                InkColor = AAP64ColorPalette.Violet,
-            },
+                // [009] Ink Tool (Gray)
+                new InkTool(ToolIndex.GrayInkTool, AAP64ColorPalette.Slate, achievementManager),
 
-            // [011] Ink Tool (Brown)
-            new InkTool()
-            {
-                Index = ToolIndex.BrownInkTool,
-                InkColor = AAP64ColorPalette.Brown,
-            },
-        ];
+                // [010] Ink Tool (Violet)
+                new InkTool(ToolIndex.VioletInkTool, AAP64ColorPalette.Violet, achievementManager),
+
+                // [011] Ink Tool (Brown)
+                new InkTool(ToolIndex.BrownInkTool, AAP64ColorPalette.Brown, achievementManager),
+            ];
+        }
 
         internal Tool GetTool(ToolIndex toolIndex)
         {

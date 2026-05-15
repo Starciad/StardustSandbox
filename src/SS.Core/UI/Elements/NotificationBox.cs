@@ -61,9 +61,9 @@ namespace StardustSandbox.Core.UI.Elements
         private static readonly Vector2 HIDDEN_MARGIN = new(0.0f, 96.0f);
         private static readonly Vector2 VISIBLE_MARGIN = new(0.0f, -48.0f);
 
-        internal NotificationBox()
+        internal NotificationBox(GameScreen gameScreen)
         {
-            this.Size = GameScreen.GetViewport();
+            this.Size = gameScreen.GetViewport();
 
             this.background = new()
             {

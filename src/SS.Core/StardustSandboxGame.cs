@@ -127,7 +127,7 @@ namespace StardustSandbox.Core
             this.uiDatabase = new();
 
             // System
-            this.songManager = new(this.assetDatabase, gameLaunchOptions);
+            this.songManager = new(this.assetDatabase, this.gameLaunchOptions);
             this.soundEffectManager = new(this.assetDatabase);
             this.achievementManager = new(this.achievementDatabase);
             this.statisticsManager = new(this.achievementManager);
@@ -148,7 +148,7 @@ namespace StardustSandbox.Core
             this.effectsManager = new(this.assetDatabase);
             this.uiManager = new(this.uiDatabase);
             this.cursorManager = new(this.assetDatabase);
-            this.ambientManager = new(this.backgroundDatabase, this.world);
+            this.ambientManager = new(this.assetDatabase, this.backgroundDatabase, this.gameScreen, this.world);
             this.actorManager = new(this.actorDatabase, this.world);
 
             // Others
@@ -220,7 +220,7 @@ namespace StardustSandbox.Core
                 this.videoManager,
                 this.world
             );
-            this.elementDatabase.Load(this.achievementManager);
+            this.elementDatabase.Load(this.achievementManager, this.statisticsManager);
 
             // Managers
             this.effectsManager.Initialize();
@@ -229,6 +229,7 @@ namespace StardustSandbox.Core
 
             // Controllers
             this.playerInputController.Initialize(
+                this.achievementManager,
                 this.actorManager,
                 this.camera,
                 this.gameHandler,

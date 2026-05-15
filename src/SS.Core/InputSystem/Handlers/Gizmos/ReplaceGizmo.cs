@@ -31,14 +31,14 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
 {
     internal sealed class ReplaceGizmo : Gizmo
     {
-        internal ReplaceGizmo(ActorManager actorManager, Pen pen, World world, WorldHandler worldHandler) : base(actorManager, pen, world, worldHandler)
+        internal ReplaceGizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, World world, WorldHandler worldHandler) : base(achievementManager, actorManager, pen, world, worldHandler)
         {
 
         }
 
-        internal override void Execute(in WorldModificationType worldModificationType, in InputState inputState, in ItemContentType contentType, int contentIndex, Point position)
+        internal override void Execute(WorldModificationType worldModificationType, InputState inputState, ItemContentType contentType, int contentIndex, Point position)
         {
-            IEnumerable<Point> targetPoints = this.pen.GetShapePoints(position);
+            IEnumerable<Point> targetPoints = this.Pen.GetShapePoints(position);
 
             switch (contentType)
             {
@@ -70,7 +70,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                this.world.ReplaceElementIndex(position, this.pen.Layer, elementIndex);
+                this.World.ReplaceElementIndex(position, this.Pen.Layer, elementIndex);
             }
         }
 
@@ -78,7 +78,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                this.world.RemoveElement(position, this.pen.Layer);
+                this.World.RemoveElement(position, this.Pen.Layer);
             }
         }
     }

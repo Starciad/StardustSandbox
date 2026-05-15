@@ -196,18 +196,9 @@ namespace StardustSandbox.Core.UI.Elements
             RepositionRelativeToElement(targetElement.Bounds);
         }
 
-        private void RepositionRelativeToScreen()
-        {
-            RepositionRelativeToElement(new RectangleF(Vector2.Zero, GameScreen.GetViewport()));
-        }
-
         protected void RepositionRelativeToParent()
         {
-            if (this.Parent == null)
-            {
-                RepositionRelativeToScreen();
-            }
-            else
+            if (this.Parent != null)
             {
                 RepositionRelativeToElement(this.Parent);
             }

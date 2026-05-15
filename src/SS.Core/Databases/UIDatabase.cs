@@ -62,7 +62,7 @@ namespace StardustSandbox.Core.Databases
             }
 
             NotificationBox notificationBox = new();
-            TooltipBox tooltipBox = new(cursorManager)
+            TooltipBox tooltipBox = new(assetDatabase, cursorManager, gameScreen)
             {
                 MinimumSize = new(500f, 0f),
             };
@@ -304,6 +304,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             TutorialUI tutorialUI = new(
+                gameScreen,
                 uiManager
             );
 
@@ -338,7 +339,7 @@ namespace StardustSandbox.Core.Databases
 
             for (int i = 0; i < uis.Length; i++)
             {
-                uis[i].Initialize();
+                uis[i].Initialize(gameScreen);
             }
 
             isLoaded = true;

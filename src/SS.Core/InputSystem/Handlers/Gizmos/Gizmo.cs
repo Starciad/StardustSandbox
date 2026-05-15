@@ -28,19 +28,21 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
 {
     internal abstract class Gizmo
     {
-        protected readonly ActorManager actorManager;
-        protected readonly World world;
-        protected readonly WorldHandler worldHandler;
-        protected readonly Pen pen;
+        protected AchievementManager AchievementManager { get; }
+        protected ActorManager ActorManager { get; }
+        protected Pen Pen { get; }
+        protected World World { get; }
+        protected WorldHandler WorldHandler { get; }
 
-        internal Gizmo(ActorManager actorManager, Pen pen, World world, WorldHandler worldHandler)
+        internal Gizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, World world, WorldHandler worldHandler)
         {
-            this.actorManager = actorManager;
-            this.pen = pen;
-            this.world = world;
-            this.worldHandler = worldHandler;
+            this.AchievementManager = achievementManager;
+            this.ActorManager = actorManager;
+            this.Pen = pen;
+            this.World = world;
+            this.WorldHandler = worldHandler;
         }
 
-        internal abstract void Execute(in WorldModificationType worldModificationType, in InputState inputState, in ItemContentType contentType, int contentIndex, Point position);
+        internal abstract void Execute(WorldModificationType worldModificationType, InputState inputState, ItemContentType contentType, int contentIndex, Point position);
     }
 }

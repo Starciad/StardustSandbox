@@ -16,12 +16,21 @@
 */
 
 using StardustSandbox.Core.Enums.Tools;
+using StardustSandbox.Core.Managers;
 
 namespace StardustSandbox.Core.Tools
 {
     internal abstract class Tool
     {
-        internal required ToolIndex Index { get; init; }
+        internal ToolIndex Index { get; }
+        
+        protected AchievementManager AchievementManager { get; }
+
+        internal Tool(ToolIndex index, AchievementManager achievementManager)
+        {
+            this.Index = index;
+            this.AchievementManager = achievementManager;
+        }
 
         internal abstract void Execute(ToolContext context);
     }

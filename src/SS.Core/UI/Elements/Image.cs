@@ -27,15 +27,6 @@ namespace StardustSandbox.Core.UI.Elements
     {
         internal bool HasTexture => this.texture != null;
 
-        internal TextureIndex TextureIndex
-        {
-            get => this.textureIndex;
-            set
-            {
-                this.textureIndex = value;
-                this.texture = AssetDatabase.GetTexture(value);
-            }
-        }
         internal Texture2D Texture
         {
             get => this.texture;

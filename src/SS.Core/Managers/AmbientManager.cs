@@ -32,12 +32,16 @@ namespace StardustSandbox.Core.Managers
         private CelestialBodyHandler celestialBodyHandler;
         private TimeHandler timeHandler;
 
+        private readonly AssetDatabase assetDatabase;
         private readonly BackgroundDatabase backgroundDatabase;
+        private readonly GameScreen gameScreen;
         private readonly World world;
 
-        internal AmbientManager(BackgroundDatabase backgroundDatabase, World world)
+        internal AmbientManager(AssetDatabase assetDatabase, BackgroundDatabase backgroundDatabase, GameScreen gameScreen, World world)
         {
+            this.assetDatabase = assetDatabase;
             this.backgroundDatabase = backgroundDatabase;
+            this.gameScreen = gameScreen;
             this.world = world;
         }
 
@@ -45,7 +49,7 @@ namespace StardustSandbox.Core.Managers
         {
             this.backgroundHandler = new(this.backgroundDatabase);
             this.timeHandler = new(this.world.Time);
-            this.celestialBodyHandler = new(this.timeHandler, this.world);
+            this.celestialBodyHandler = new(this.assetDatabase, this.gameScreen, this.timeHandler, this.world);
         }
 
         internal void Update(GameTime gameTime)

@@ -17,6 +17,7 @@
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Achievements;
+using StardustSandbox.Core.Enums.Tools;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.WorldSystem;
@@ -25,6 +26,11 @@ namespace StardustSandbox.Core.Tools.Environment
 {
     internal sealed class FreezeTool : Tool
     {
+        internal FreezeTool(ToolIndex index, AchievementManager achievementManager) : base(index, achievementManager)
+        {
+
+        }
+
         internal override void Execute(ToolContext context)
         {
             if (!context.World.TryGetSlot(context.Position, out Slot slot))

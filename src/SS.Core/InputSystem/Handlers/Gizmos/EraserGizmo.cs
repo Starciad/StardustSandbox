@@ -31,21 +31,21 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
 {
     internal sealed class EraserGizmo : Gizmo
     {
-        internal EraserGizmo(ActorManager actorManager, Pen pen, World world, WorldHandler worldHandler) : base(actorManager, pen, world, worldHandler)
+        internal EraserGizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, World world, WorldHandler worldHandler) : base(achievementManager, actorManager, pen, world, worldHandler)
         {
 
         }
 
-        internal override void Execute(in WorldModificationType worldModificationType, in InputState inputState, in ItemContentType contentType, int contentIndex, Point position)
+        internal override void Execute(WorldModificationType worldModificationType, InputState inputState, ItemContentType contentType, int contentIndex, Point position)
         {
             switch (contentType)
             {
                 case ItemContentType.Element:
-                    EraseElements(this.pen.GetShapePoints(position));
+                    EraseElements(this.Pen.GetShapePoints(position));
                     break;
 
                 case ItemContentType.Actor:
-                    EraseActors(this.pen.GetShapePoints(position));
+                    EraseActors(this.Pen.GetShapePoints(position));
                     break;
 
                 default:
@@ -57,7 +57,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                this.world.RemoveElement(position, this.pen.Layer);
+                this.World.RemoveElement(position, this.Pen.Layer);
             }
         }
 
@@ -65,11 +65,11 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                foreach (Actor actor in this.actorManager.GetActors())
+                foreach (Actor actor in this.ActorManager.GetActors())
                 {
                     if (actor.Position == position)
                     {
-                        this.actorManager.Destroy(actor);
+                        this.ActorManager.Destroy(actor);
                     }
                 }
             }

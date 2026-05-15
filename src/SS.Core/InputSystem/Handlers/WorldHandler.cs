@@ -46,7 +46,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers
 
         private readonly World world;
 
-        internal WorldHandler(ActorManager actorManager, Camera2D camera, Pen pen, Player player, ToolDatabase toolDatabase, World world)
+        internal WorldHandler(AchievementManager achievementManager, ActorManager actorManager, Camera2D camera, Pen pen, Player player, ToolDatabase toolDatabase, World world)
         {
             this.world = world;
 
@@ -56,11 +56,11 @@ namespace StardustSandbox.Core.InputSystem.Handlers
             this.pen = pen;
             this.camera = camera;
 
-            this.visualizationGizmo = new(actorManager, pen, world, this);
-            this.pencilGizmo = new(actorManager, pen, toolDatabase, world, this);
-            this.eraserGizmo = new(actorManager, pen, world, this);
-            this.floodFillGizmo = new(actorManager, pen, world, this);
-            this.replaceGizmo = new(actorManager, pen, world, this);
+            this.visualizationGizmo = new(achievementManager, actorManager, pen, world, this);
+            this.pencilGizmo = new(achievementManager, actorManager, pen, toolDatabase, world, this);
+            this.eraserGizmo = new(achievementManager, actorManager, pen, world, this);
+            this.floodFillGizmo = new(achievementManager, actorManager, pen, world, this);
+            this.replaceGizmo = new(achievementManager, actorManager, pen, world, this);
         }
 
         internal void Modify(in WorldModificationType worldModificationType, in InputState inputState)

@@ -54,7 +54,6 @@ namespace StardustSandbox.Core.Managers
         {
             this.assetDatabase = assetDatabase;
             this.gameLaunchOptions = gameLaunchOptions;
-
             this.currentVolumeSettings = SettingsSerializer.Load<VolumeSettings>();
             ApplyFinalVolume();
         }
@@ -152,7 +151,7 @@ namespace StardustSandbox.Core.Managers
             ApplyFinalVolume();
         }
 
-        internal void StartGameplayMusicCycle()
+        internal void StartGameplayMusicCycle(GameHandler gameHandler)
         {
             if (this.gameplayMusicTask != null && !this.gameplayMusicTask.IsCompleted)
             {
@@ -176,7 +175,7 @@ namespace StardustSandbox.Core.Managers
                         break;
                     }
 
-                    while (!GameHandler.HasState(GameStates.IsFocused) && !token.IsCancellationRequested)
+                    while (!gameHandler.HasState(GameStates.IsFocused) && !token.IsCancellationRequested)
                     {
                         await Task.Delay(TimeSpan.FromSeconds(1), token);
                     }

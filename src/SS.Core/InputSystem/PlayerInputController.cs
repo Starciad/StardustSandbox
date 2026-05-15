@@ -53,6 +53,7 @@ namespace StardustSandbox.Core.InputSystem
         }
 
         internal void Initialize(
+            AchievementManager achievementManager,
             ActorManager actorManager,
             Camera2D camera,
             GameHandler gameHandler,
@@ -62,7 +63,7 @@ namespace StardustSandbox.Core.InputSystem
             World world
         )
         {
-            this.worldHandler = new(actorManager, camera, this.pen, this.player, toolDatabase, world);
+            this.worldHandler = new(achievementManager, actorManager, camera, this.pen, this.player, toolDatabase, world);
 
             ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
 

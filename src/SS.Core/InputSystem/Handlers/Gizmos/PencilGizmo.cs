@@ -38,12 +38,12 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
     {
         private readonly ToolDatabase toolDatabase;
 
-        internal PencilGizmo(ActorManager actorManager, Pen pen, ToolDatabase toolDatabase, World world, WorldHandler worldHandler) : base(actorManager, pen, world, worldHandler)
+        internal PencilGizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, ToolDatabase toolDatabase, World world, WorldHandler worldHandler) : base(achievementManager, actorManager, pen, world, worldHandler)
         {
             this.toolDatabase = toolDatabase;
         }
 
-        internal override void Execute(in WorldModificationType worldModificationType, in InputState inputState, in ItemContentType contentType, int contentIndex, Point position)
+        internal override void Execute(WorldModificationType worldModificationType, InputState inputState, ItemContentType contentType, int contentIndex, Point position)
         {
             switch (contentType)
             {
@@ -51,12 +51,12 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
                     switch (worldModificationType)
                     {
                         case WorldModificationType.Adding:
-                            DrawElements((ElementIndex)contentIndex, this.pen.GetShapePoints(position));
-                            AchievementManager.Unlock(AchievementIndex.ACH_001);
+                            DrawElements((ElementIndex)contentIndex, this.Pen.GetShapePoints(position));
+                            this.AchievementManager.Unlock(AchievementIndex.ACH_001);
                             break;
 
                         case WorldModificationType.Removing:
-                            EraseElements(this.pen.GetShapePoints(position));
+                            EraseElements(this.Pen.GetShapePoints(position));
                             break;
 
                         default:
@@ -69,11 +69,11 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
                     switch (worldModificationType)
                     {
                         case WorldModificationType.Adding:
-                            ExecuteTool((ToolIndex)contentIndex, this.pen.GetShapePoints(position));
+                            ExecuteTool((ToolIndex)contentIndex, this.Pen.GetShapePoints(position));
                             break;
 
                         case WorldModificationType.Removing:
-                            EraseElements(this.pen.GetShapePoints(position));
+                            EraseElements(this.Pen.GetShapePoints(position));
                             break;
 
                         default:
@@ -88,13 +88,13 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
                         case WorldModificationType.Adding:
                             if (inputState is InputState.Started)
                             {
-                                DrawActor((ActorIndex)contentIndex, this.pen.GetShapePoints(position));
+                                DrawActor((ActorIndex)contentIndex, this.Pen.GetShapePoints(position));
                             }
 
                             break;
 
                         case WorldModificationType.Removing:
-                            EraseActors(this.pen.GetShapePoints(position));
+                            EraseActors(this.Pen.GetShapePoints(position));
                             break;
 
                         default:
@@ -114,7 +114,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                _ = this.world.TryInstantiateElementIndex(position, this.pen.Layer, elementIndex);
+                _ = this.World.TryInstantiateElementIndex(position, this.Pen.Layer, elementIndex);
             }
         }
 
@@ -122,7 +122,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                this.world.RemoveElement(position, this.pen.Layer);
+                this.World.RemoveElement(position, this.Pen.Layer);
             }
         }
 
@@ -132,8 +132,8 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                this.worldHandler.ToolContext.Update(position, this.pen.Layer);
-                this.toolDatabase.GetTool(toolIndex).Execute(this.worldHandler.ToolContext);
+                this.WorldHandler.ToolContext.Update(position, this.Pen.Layer);
+                this.toolDatabase.GetTool(toolIndex).Execute(this.WorldHandler.ToolContext);
             }
         }
 
@@ -143,7 +143,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                if (this.actorManager.TryCreate(actorIndex, out Actor actor))
+                if (this.ActorManager.TryCreate(actorIndex, out Actor actor))
                 {
                     actor.SetPosition(position);
                 }
@@ -154,11 +154,11 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                foreach (Actor actor in this.actorManager.GetActors())
+                foreach (Actor actor in this.ActorManager.GetActors())
                 {
                     if (actor.Position == position)
                     {
-                        this.actorManager.Destroy(actor);
+                        this.ActorManager.Destroy(actor);
                     }
                 }
             }

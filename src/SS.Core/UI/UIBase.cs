@@ -37,16 +37,17 @@ namespace StardustSandbox.Core.UI
             {
                 CanDraw = false,
                 CanUpdate = false,
-                Size = GameScreen.GetViewport()
             };
         }
 
-        internal void Initialize()
+        internal void Initialize(GameScreen gameScreen)
         {
             if (this.IsInitialized)
             {
                 throw new InvalidOperationException($"{GetType().Name} is already initialized.");
             }
+
+            this.Root.Size = gameScreen.GetViewport();
 
             OnBuild(this.Root);
             this.Root.Initialize();

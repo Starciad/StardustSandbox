@@ -38,19 +38,19 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             switch (this.direction)
             {
                 case PusherDirection.Up:
-                    PusherUtility.PushingNeighborsUp(context, neighbors);
+                    PusherUtility.PushingNeighborsUp(context, neighbors, this.StatisticsManager);
                     break;
 
                 case PusherDirection.Right:
-                    PusherUtility.PushingNeighborsRight(context, neighbors);
+                    PusherUtility.PushingNeighborsRight(context, neighbors, this.StatisticsManager);
                     break;
 
                 case PusherDirection.Down:
-                    PusherUtility.PushingNeighborsDown(context, neighbors);
+                    PusherUtility.PushingNeighborsDown(context, neighbors, this.StatisticsManager);
                     break;
 
                 case PusherDirection.Left:
-                    PusherUtility.PushingNeighborsLeft(context, neighbors);
+                    PusherUtility.PushingNeighborsLeft(context, neighbors, this.StatisticsManager);
                     break;
 
                 default:

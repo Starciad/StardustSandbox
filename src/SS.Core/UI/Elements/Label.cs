@@ -62,16 +62,6 @@ namespace StardustSandbox.Core.UI.Elements
             }
         }
 
-        internal SpriteFontIndex SpriteFontIndex
-        {
-            get => this.spriteFontIndex;
-            set
-            {
-                this.spriteFontIndex = value;
-                this.spriteFont = AssetDatabase.GetSpriteFont(value);
-            }
-        }
-
         internal Color Color { get; set; }
 
         internal LabelBorderDirection BorderDirections { get; set; } = LabelBorderDirection.None;

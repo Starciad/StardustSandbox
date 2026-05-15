@@ -138,7 +138,7 @@ namespace StardustSandbox.Core
             this.camera.Reset();
 
             this.songManager.StopGameplayMusicCycle();
-            this.songManager.StartGameplayMusicCycle();
+            this.songManager.StartGameplayMusicCycle(this);
 
             ((HudUI)this.uiDatabase.GetUI(UIIndex.Hud)).Setup();
             ((ItemExplorerUI)this.uiDatabase.GetUI(UIIndex.ItemExplorer)).Setup();

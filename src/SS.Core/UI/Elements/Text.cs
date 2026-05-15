@@ -53,15 +53,6 @@ namespace StardustSandbox.Core.UI.Elements
         internal float LineHeight { get; set; } = 1.0f;
         internal float WordSpacing { get; set; } = 0.0f;
         internal int LineCount => this.wrappedLines.Count;
-        internal SpriteFontIndex SpriteFontIndex
-        {
-            get => this.spriteFontIndex;
-            set
-            {
-                this.spriteFontIndex = value;
-                this.spriteFont = AssetDatabase.GetSpriteFont(value);
-            }
-        }
         internal string TextContent
         {
             get => this.textContent;
