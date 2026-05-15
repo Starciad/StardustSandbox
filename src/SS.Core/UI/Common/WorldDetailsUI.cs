@@ -51,26 +51,28 @@ namespace StardustSandbox.Core.UI.Common
         private readonly Label[] worldButtonLabels;
         private readonly ButtonInfo[] worldButtonInfos;
 
+        private readonly GameScreen gameScreen;
+        private readonly SoundEffectManager soundEffectManager;
+
         internal WorldDetailsUI(
-            ActorManager actorManager,
-            AmbientManager ambientManager,
-            Camera2D camera,
-            HudUI hudUI,
-            ItemExplorerUI itemExplorerUI,
-            PlayerInputController playerInputController,
-            UIManager uiManager,
-            World world
+            GameHandler gameHandler,
+            GameScreen gameScreen,
+            SoundEffectManager soundEffectManager,
+            UIManager uiManager
         ) : base()
         {
+            this.gameScreen = gameScreen;
+            this.soundEffectManager = soundEffectManager;
+
             this.worldButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Return, string.Empty, () =>
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Delete, string.Empty, () =>
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     SavingSerializer.Delete(this.saveFile.Metadata.Name);
                     uiManager.CloseUI();
                 }),
@@ -80,18 +82,9 @@ namespace StardustSandbox.Core.UI.Common
                     uiManager.OpenUI(UIIndex.Main);
                     uiManager.OpenUI(UIIndex.Hud);
 
-                    GameHandler.StartGame(
-                        actorManager,
-                        ambientManager,
-                        camera,
-                        hudUI,
-                        itemExplorerUI,
-                        playerInputController,
-                        uiManager,
-                        world
-                    );
-                    GameHandler.LoadSaveFile(actorManager, world, this.saveFile.Metadata.Name);
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_World_Loaded);
+                    gameHandler.StartGame();
+                    gameHandler.LoadSaveFile(this.saveFile.Metadata.Name);
+                    soundEffectManager.Play(SoundEffectIndex.GUI_World_Loaded);
                 }),
             ];
 
@@ -114,7 +107,7 @@ namespace StardustSandbox.Core.UI.Common
             this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = GameScreen.GetViewport(),
+                Scale = gameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
@@ -129,7 +122,7 @@ namespace StardustSandbox.Core.UI.Common
             {
                 TextureIndex = TextureIndex.Pixel,
                 Color = new(AAP64ColorPalette.DarkGray, 196),
-                Scale = new(GameScreen.GetViewport().X, 96.0f),
+                Scale = new(gameScreen.GetViewport().X, 96.0f),
                 Size = Vector2.One,
             };
 
@@ -244,7 +237,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slotInfoElement))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slotInfoElement))
