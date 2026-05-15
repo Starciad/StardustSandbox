@@ -34,12 +34,18 @@ namespace StardustSandbox.Core.UI.Common
         private Text message;
         private Label continueButtonLabel;
 
+        private readonly GameHandler gameHandler;
+        private readonly GameScreen gameScreen;
         private readonly UIManager uiManager;
 
         internal MessageUI(
+            GameHandler gameHandler,
+            GameScreen gameScreen,
             UIManager uiManager
         ) : base()
         {
+            this.gameHandler = gameHandler;
+            this.gameScreen = gameScreen;
             this.uiManager = uiManager;
         }
 
@@ -55,7 +61,7 @@ namespace StardustSandbox.Core.UI.Common
             this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = GameScreen.GetViewport(),
+                Scale = this.gameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
@@ -119,12 +125,12 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnOpened()
         {
-            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 
         protected override void OnClosed()
         {
-            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }
