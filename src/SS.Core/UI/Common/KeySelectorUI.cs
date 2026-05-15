@@ -37,18 +37,27 @@ namespace StardustSandbox.Core.UI.Common
         private Image shadowBackground;
         private Text message;
 
+        private readonly GameHandler gameHandler;
+        private readonly GameScreen gameScreen;
         private readonly GameWindow gameWindow;
         private readonly PlayerInputController playerInputController;
+        private readonly SoundEffectManager soundEffectManager;
         private readonly UIManager uiManager;
 
         internal KeySelectorUI(
+            GameHandler gameHandler,
+            GameScreen gameScreen,
             GameWindow gameWindow,
             PlayerInputController playerInputController,
+            SoundEffectManager soundEffectManager,
             UIManager uiManager
         ) : base()
         {
+            this.gameHandler = gameHandler;
+            this.gameScreen = gameScreen;
             this.gameWindow = gameWindow;
             this.playerInputController = playerInputController;
+            this.soundEffectManager = soundEffectManager;
             this.uiManager = uiManager;
         }
 
@@ -69,7 +78,7 @@ namespace StardustSandbox.Core.UI.Common
             this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = GameScreen.GetViewport(),
+                Scale = this.gameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
@@ -99,7 +108,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnOpened()
         {
-            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
             this.playerInputController.Disable();
 
             this.gameWindow.KeyDown += OnKeyDown;
@@ -107,7 +116,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnClosed()
         {
-            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
             this.playerInputController.Enable();
 
             this.gameWindow.KeyDown -= OnKeyDown;
@@ -115,7 +124,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void OnKeyDown(object sender, InputKeyEventArgs inputKeyEventArgs)
         {
-            SoundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
+            this.soundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
 
             this.uiManager.CloseUI();
             this.keySelectionCallback?.Invoke(inputKeyEventArgs.Key);
