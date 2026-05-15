@@ -63,19 +63,29 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SelectorUI.IChoice[] availableGameCulturesChoices;
         private readonly SelectorUI.IChoice[] resolutionChoices;
 
+        private readonly GameHandler gameHandler;
+        private readonly GameScreen gameScreen;
+        private readonly SoundEffectManager soundEffectManager;
+
         internal OptionsUI(
             ColorPickerUI colorPickerUI,
             CursorManager cursorManager,
+            GameHandler gameHandler,
+            GameScreen gameScreen,
             KeySelectorUI keySelectorUI,
             PlayerInputController playerInputController,
             SelectorUI selectorUI,
             SliderUI sliderUI,
+            SongManager songManager,
+            SoundEffectManager soundEffectManager,
             StardustSandboxGame stardustSandboxGame,
             TooltipBox tooltipBox,
             UIManager uiManager,
             VideoManager videoManager
         ) : base()
         {
+            this.gameHandler = gameHandler;
+            this.gameScreen = gameScreen;
             this.tooltipBox = tooltipBox;
 
             ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
@@ -356,8 +366,8 @@ namespace StardustSandbox.Core.UI.Common
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
-                                    SongManager.ApplyVolumeSettings(volumeSettings);
-                                    SoundEffectManager.ApplyVolumeSettings(volumeSettings);
+                                    songManager.ApplyVolumeSettings(volumeSettings);
+                                    soundEffectManager.ApplyVolumeSettings(volumeSettings);
                                 }
                             );
 
@@ -387,7 +397,7 @@ namespace StardustSandbox.Core.UI.Common
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
-                                    SongManager.ApplyVolumeSettings(volumeSettings);
+                                    songManager.ApplyVolumeSettings(volumeSettings);
                                 }
                             );
 
@@ -417,7 +427,7 @@ namespace StardustSandbox.Core.UI.Common
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
-                                    SoundEffectManager.ApplyVolumeSettings(volumeSettings);
+                                    soundEffectManager.ApplyVolumeSettings(volumeSettings);
                                 }
                             );
 
@@ -1070,7 +1080,7 @@ namespace StardustSandbox.Core.UI.Common
             this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = GameScreen.GetViewport(),
+                Scale = this.gameScreen.GetViewport(),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
@@ -1273,12 +1283,12 @@ namespace StardustSandbox.Core.UI.Common
         {
             if (Interaction.OnMouseEnter(this.exitButtonSlotInfo.Background))
             {
-                SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseLeftClick(this.exitButtonSlotInfo.Background))
             {
-                SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                 this.exitButtonInfo.ClickAction?.Invoke();
             }
 
@@ -1306,12 +1316,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slotInfo.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slotInfo.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     SelectCategory(i);
                     break;
                 }
@@ -1339,12 +1349,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     option.SetValue(slot);
                     break;
                 }
@@ -1371,12 +1381,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     this.paginationButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -1387,12 +1397,12 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnOpened()
         {
-            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 
         protected override void OnClosed()
         {
-            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }
