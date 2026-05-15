@@ -33,11 +33,8 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
-using StardustSandbox.Core.WorldSystem;
 
 using System;
 
@@ -57,16 +54,17 @@ namespace StardustSandbox.Core.UI.Common
         private Image simulationPausedBackground;
         private SlotInfo[] leftPanelBottomButtonSlotInfos, leftPanelTopButtonSlotInfos, rightPanelBottomButtonSlotInfos, rightPanelTopButtonSlotInfos;
 
-        private readonly NotificationBox notificationBox;
-        private readonly TooltipBox tooltipBox;
-
         private readonly SlotInfo[] toolbarSlots = new SlotInfo[UIConstants.HUD_ELEMENT_BUTTONS_LENGTH];
         private readonly ButtonInfo[] leftPanelTopButtonInfos, leftPanelBottomButtonInfos, rightPanelTopButtonInfos, rightPanelBottomButtonInfos;
 
+        private readonly AchievementManager achievementManager;
+        private readonly CatalogDatabase catalogDatabase;
+        private readonly GameHandler gameHandler;
+        private readonly NotificationBox notificationBox;
         private readonly PlayerInputController playerInputController;
+        private readonly SoundEffectManager soundEffectManager;
+        private readonly TooltipBox tooltipBox;
         private readonly UIManager uiManager;
-
-        private readonly SystemInformationSettings systemInformationSettings;
 
         private readonly Rectangle[] speedIconRectangles = [
             new(192, 128, 32, 32),
@@ -80,21 +78,25 @@ namespace StardustSandbox.Core.UI.Common
         ];
 
         internal HudUI(
-            ActorManager actorManager,
+            AchievementManager achievementManager,
+            CatalogDatabase catalogDatabase,
             ConfirmUI confirmUI,
+            GameHandler gameHandler,
             NotificationBox notificationBox,
             PlayerInputController playerInputController,
+            SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
-            UIManager uiManager,
-            World world
+            UIManager uiManager
         ) : base()
         {
-            this.playerInputController = playerInputController;
-            this.uiManager = uiManager;
+            this.achievementManager = achievementManager;
+            this.catalogDatabase = catalogDatabase;
+            this.gameHandler = gameHandler;
             this.notificationBox = notificationBox;
+            this.playerInputController = playerInputController;
+            this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
-
-            this.systemInformationSettings = SettingsSerializer.Load<SystemInformationSettings>();
+            this.uiManager = uiManager;
 
             this.leftPanelTopButtonInfos = [
                 new(TextureIndex.IconUI, new(64, 0, 32, 32), Localization_GUIs.HUD_EnvironmentSettings_Name, Localization_GUIs.HUD_EnvironmentSettings_Description, () => this.uiManager.OpenUI(UIIndex.EnvironmentSettings)),
@@ -104,15 +106,15 @@ namespace StardustSandbox.Core.UI.Common
             ];
 
             this.leftPanelBottomButtonInfos = [
-                new(TextureIndex.IconUI, this.pauseAndResumeRectangles[0], Localization_GUIs.HUD_PauseSimulation_Name, Localization_GUIs.HUD_PauseSimulation_Description, () => GameHandler.ToggleState(GameStates.IsSimulationPaused)),
+                new(TextureIndex.IconUI, this.pauseAndResumeRectangles[0], Localization_GUIs.HUD_PauseSimulation_Name, Localization_GUIs.HUD_PauseSimulation_Description, () => gameHandler.ToggleState(GameStates.IsSimulationPaused)),
                 new(TextureIndex.IconUI, this.speedIconRectangles[0], Localization_GUIs.HUD_Speed_Name, Localization_GUIs.HUD_Speed_Description, () =>
                 {
                     SimulationSpeed speed =
-                        GameHandler.SimulationSpeed is SimulationSpeed.Normal ? SimulationSpeed.Fast :
-                        GameHandler.SimulationSpeed is SimulationSpeed.Fast ? SimulationSpeed.VeryFast :
+                        gameHandler.SimulationSpeed is SimulationSpeed.Normal ? SimulationSpeed.Fast :
+                        gameHandler.SimulationSpeed is SimulationSpeed.Fast ? SimulationSpeed.VeryFast :
                         SimulationSpeed.Normal;
 
-                    GameHandler.SetSpeed(speed, actorManager, world);
+                    gameHandler.SetSpeed(speed);
                 }),
             ];
 
@@ -124,7 +126,7 @@ namespace StardustSandbox.Core.UI.Common
             this.rightPanelBottomButtonInfos = [
                 new(TextureIndex.IconUI, new(224, 96, 32, 32), Localization_GUIs.HUD_EraseEverything_Name, Localization_GUIs.HUD_EraseEverything_Description, () =>
                 {
-                    GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+                    gameHandler.SetState(GameStates.IsCriticalMenuOpen);
                     confirmUI.Setup(
                         Localization_Messages.Confirm_Simulation_EraseEverything_Title,
                         Localization_Messages.Confirm_Simulation_EraseEverything_Description,
@@ -132,17 +134,17 @@ namespace StardustSandbox.Core.UI.Common
                         {
                             if (status is ConfirmStatus.Confirmed)
                             {
-                                GameHandler.Reset(actorManager, world);
+                                gameHandler.Reset();
                             }
 
-                            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
+                            gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
                         }
                     );
                     this.uiManager.OpenUI(UIIndex.Confirm);
                 }),
                 new(TextureIndex.IconUI, new(160, 192, 32, 32), Localization_GUIs.HUD_ReloadSimulation_Name, Localization_GUIs.HUD_ReloadSimulation_Description, () =>
                 {
-                    GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+                    gameHandler.SetState(GameStates.IsCriticalMenuOpen);
                     confirmUI.Setup(
                         Localization_Messages.Confirm_Simulation_Reload_Title,
                         Localization_Messages.Confirm_Simulation_Reload_Description,
@@ -150,10 +152,10 @@ namespace StardustSandbox.Core.UI.Common
                         {
                             if (status is ConfirmStatus.Confirmed)
                             {
-                                GameHandler.ReloadSaveFile(actorManager, world);
+                                gameHandler.ReloadSaveFile();
                             }
 
-                            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
+                            gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
                         }
                     );
                     this.uiManager.OpenUI(UIIndex.Confirm);
@@ -169,7 +171,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void SelectItemSlot(int slotIndex, byte categoryIndex, byte subcategoryIndex, byte itemIndex)
         {
-            SelectItemSlot(slotIndex, CatalogDatabase.GetItem(categoryIndex, subcategoryIndex, itemIndex));
+            SelectItemSlot(slotIndex, this.catalogDatabase.GetItem(categoryIndex, subcategoryIndex, itemIndex));
         }
 
         private void RefreshToolbarItems()
@@ -197,7 +199,7 @@ namespace StardustSandbox.Core.UI.Common
 
             SelectItemSlot(0, 0, 0, 0);
 
-            this.toolbarItems = CatalogDatabase.GetItems(UIConstants.HUD_ELEMENT_BUTTONS_LENGTH);
+            this.toolbarItems = this.catalogDatabase.GetItems(UIConstants.HUD_ELEMENT_BUTTONS_LENGTH);
             RefreshToolbarItems();
         }
 
@@ -466,7 +468,7 @@ namespace StardustSandbox.Core.UI.Common
 
             UpdateDrawerButtons();
 
-            this.simulationPausedBackground.CanDraw = GameHandler.HasState(GameStates.IsSimulationPaused);
+            this.simulationPausedBackground.CanDraw = this.gameHandler.HasState(GameStates.IsSimulationPaused);
         }
 
         private void UpdatePlayerInteractionOnToolbarHover()
@@ -486,11 +488,11 @@ namespace StardustSandbox.Core.UI.Common
 
         private void UpdateSimulationControlIcons()
         {
-            this.leftPanelBottomButtonSlotInfos[0].Icon.SourceRectangle = GameHandler.HasState(GameStates.IsSimulationPaused)
+            this.leftPanelBottomButtonSlotInfos[0].Icon.SourceRectangle = this.gameHandler.HasState(GameStates.IsSimulationPaused)
                 ? this.pauseAndResumeRectangles[1] // Resume
                 : this.pauseAndResumeRectangles[0]; // Pause
 
-            this.leftPanelBottomButtonSlotInfos[1].Icon.SourceRectangle = GameHandler.SimulationSpeed switch
+            this.leftPanelBottomButtonSlotInfos[1].Icon.SourceRectangle = this.gameHandler.SimulationSpeed switch
             {
                 SimulationSpeed.Fast => this.speedIconRectangles[1],
                 SimulationSpeed.VeryFast => this.speedIconRectangles[2],
@@ -526,7 +528,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             if (Interaction.OnMouseEnter(this.toolbarCurrentlySelectedToolIcon))
             {
-                SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseOver(this.toolbarCurrentlySelectedToolIcon))
@@ -577,13 +579,13 @@ namespace StardustSandbox.Core.UI.Common
 
             if (Interaction.OnMouseLeftClick(this.toolbarCurrentlySelectedToolIcon))
             {
-                SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                 this.playerInputController.Pen.Tool = this.playerInputController.Pen.Tool.Next();
             }
 
             if (Interaction.OnMouseRightClick(this.toolbarCurrentlySelectedToolIcon))
             {
-                SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                 this.playerInputController.Pen.Tool = this.playerInputController.Pen.Tool.Previous();
             }
         }
@@ -597,12 +599,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     SelectItemSlot(i, this.toolbarItems[i]);
                     break;
                 }
@@ -633,7 +635,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             if (Interaction.OnMouseEnter(this.toolbarSearchButton))
             {
-                SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseOver(this.toolbarSearchButton))
@@ -653,7 +655,7 @@ namespace StardustSandbox.Core.UI.Common
 
             if (Interaction.OnMouseLeftClick(this.toolbarSearchButton))
             {
-                SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                 this.uiManager.OpenUI(UIIndex.ItemExplorer);
             }
         }
@@ -672,7 +674,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -694,23 +696,23 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     button.ClickAction?.Invoke();
                     break;
                 }
             }
         }
 
-        private static void UpdateDrawerButton(Image image, ref bool expanded)
+        private void UpdateDrawerButton(Image image, ref bool expanded)
         {
             if (Interaction.OnMouseEnter(image))
             {
-                SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseLeftClick(image))
             {
-                SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                 expanded = !expanded;
             }
         }
@@ -724,12 +726,12 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnOpened()
         {
-            AchievementManager.AchievementUnlocked += OnAchievementUnlocked;
+            this.achievementManager.AchievementUnlocked += OnAchievementUnlocked;
         }
 
         protected override void OnClosed()
         {
-            AchievementManager.AchievementUnlocked -= OnAchievementUnlocked;
+            this.achievementManager.AchievementUnlocked -= OnAchievementUnlocked;
         }
 
         private void OnAchievementUnlocked(Achievement achievement)
