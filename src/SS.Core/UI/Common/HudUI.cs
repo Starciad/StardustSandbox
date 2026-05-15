@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Achievements;
-using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
@@ -527,7 +526,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             if (Interaction.OnMouseEnter(this.toolbarCurrentlySelectedToolIcon))
             {
-                SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
+                SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseOver(this.toolbarCurrentlySelectedToolIcon))
@@ -578,13 +577,13 @@ namespace StardustSandbox.Core.UI.Common
 
             if (Interaction.OnMouseLeftClick(this.toolbarCurrentlySelectedToolIcon))
             {
-                SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
+                SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
                 this.playerInputController.Pen.Tool = this.playerInputController.Pen.Tool.Next();
             }
 
             if (Interaction.OnMouseRightClick(this.toolbarCurrentlySelectedToolIcon))
             {
-                SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
+                SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
                 this.playerInputController.Pen.Tool = this.playerInputController.Pen.Tool.Previous();
             }
         }
@@ -598,12 +597,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     SelectItemSlot(i, this.toolbarItems[i]);
                     break;
                 }
@@ -634,7 +633,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             if (Interaction.OnMouseEnter(this.toolbarSearchButton))
             {
-                SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
+                SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseOver(this.toolbarSearchButton))
@@ -654,7 +653,7 @@ namespace StardustSandbox.Core.UI.Common
 
             if (Interaction.OnMouseLeftClick(this.toolbarSearchButton))
             {
-                SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
+                SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
                 this.uiManager.OpenUI(UIIndex.ItemExplorer);
             }
         }
@@ -673,7 +672,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseOver(slot.Background))
@@ -695,7 +694,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     button.ClickAction?.Invoke();
                     break;
                 }
@@ -706,12 +705,12 @@ namespace StardustSandbox.Core.UI.Common
         {
             if (Interaction.OnMouseEnter(image))
             {
-                SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
+                SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseLeftClick(image))
             {
-                SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
+                SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
                 expanded = !expanded;
             }
         }
@@ -725,12 +724,12 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnOpened()
         {
-            AchievementSystem.AchievementUnlocked += OnAchievementUnlocked;
+            AchievementManager.AchievementUnlocked += OnAchievementUnlocked;
         }
 
         protected override void OnClosed()
         {
-            AchievementSystem.AchievementUnlocked -= OnAchievementUnlocked;
+            AchievementManager.AchievementUnlocked -= OnAchievementUnlocked;
         }
 
         private void OnAchievementUnlocked(Achievement achievement)

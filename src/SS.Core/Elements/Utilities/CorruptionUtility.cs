@@ -19,6 +19,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem;
 
 using System.Collections.Generic;
@@ -133,7 +134,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             }
 
             context.SetStoredElementIndex(slotTarget.Slot.Position, slotTarget.Layer, targetElement.Index);
-            GameStatistics.IncrementWorldElementsConsumedByCorruption();
+            StatisticsManager.IncrementWorldElementsConsumedByCorruption();
         }
     }
 }

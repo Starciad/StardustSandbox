@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Constants;
@@ -36,6 +35,7 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.Collections;
+using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Saving;
@@ -77,7 +77,7 @@ namespace StardustSandbox.Core.WorldSystem
 
         private readonly Queue<Explosion> instantiatedExplosions;
 
-        private readonly AchievementSystem achievementSystem;
+        private readonly AchievementManager achievementManager;
         private readonly AssetDatabase assetDatabase;
         private readonly ElementNeighbors elementNeighbors;
         private readonly ElementDatabase elementDatabase;
@@ -94,7 +94,7 @@ namespace StardustSandbox.Core.WorldSystem
             set => this.slots[point.X, point.Y] = value;
         }
 
-        internal World(AchievementSystem achievementSystem, AssetDatabase assetDatabase, ElementDatabase elementDatabase, PlayerInputController playerInputController)
+        internal World(AchievementManager achievementManager, AssetDatabase assetDatabase, ElementDatabase elementDatabase, PlayerInputController playerInputController)
         {
             this.assetDatabase = assetDatabase;
             this.elementDatabase = elementDatabase;
@@ -121,7 +121,7 @@ namespace StardustSandbox.Core.WorldSystem
             this.Name = string.Empty;
             this.Description = string.Empty;
 
-            GameStatistics.ResetWorldStatistics();
+            StatisticsManager.ResetWorldStatistics();
 
             this.chunking.Reset();
             this.temperature.Reset();
@@ -351,7 +351,7 @@ namespace StardustSandbox.Core.WorldSystem
             element.SetContext(this.worldElementContext);
             element.Instantiate();
 
-            GameStatistics.RegisterInstantiatedElement(index);
+            StatisticsManager.RegisterInstantiatedElement(index);
 
             return true;
         }
@@ -936,7 +936,7 @@ namespace StardustSandbox.Core.WorldSystem
                 InstantiateElementIndex(point, explosion.Layer, explosion.ExplosionResidues.GetRandomItem());
             }
 
-            this.achievementSystem.Unlock(AchievementIndex.ACH_016);
+            this.achievementManager.Unlock(AchievementIndex.ACH_016);
         }
 
         private void TryAffectSlotLayer(SlotLayer slotLayer, Layer layer, Point targetPosition, Explosion explosion)

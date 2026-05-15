@@ -31,9 +31,9 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace StardustSandbox.Core.Audio
+namespace StardustSandbox.Core.Managers
 {
-    internal sealed class SongSystem
+    internal sealed class SongManager
     {
         internal Song CurrentSong { get; private set; }
         internal SongIndex CurrentSongIndex { get; private set; }
@@ -50,7 +50,7 @@ namespace StardustSandbox.Core.Audio
         private readonly GameLaunchOptions gameLaunchOptions;
         private readonly Queue<SongIndex> gameplaySongDeck = [];
 
-        internal SongSystem(AssetDatabase assetDatabase, GameLaunchOptions gameLaunchOptions)
+        internal SongManager(AssetDatabase assetDatabase, GameLaunchOptions gameLaunchOptions)
         {
             this.assetDatabase = assetDatabase;
             this.gameLaunchOptions = gameLaunchOptions;

@@ -15,7 +15,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
@@ -66,7 +65,7 @@ namespace StardustSandbox.Core.InputSystem
                         KeyboardBinding = controlSettings.ScreenshotKeyboardBinding,
                         OnStarted = _ =>
                         {
-                            SoundEffectSystem.Play(SoundEffectIndex.GUI_Accepted);
+                            SoundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
                             stardustSandboxGame.RequestScreenshot();
                         },
                     },

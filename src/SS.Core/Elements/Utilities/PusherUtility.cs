@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Managers;
 
 using System;
 
@@ -129,7 +130,7 @@ namespace StardustSandbox.Core.Elements.Utilities
 
                 if (wasPushed)
                 {
-                    GameStatistics.IncrementWorldPushedElements();
+                    StatisticsManager.IncrementWorldPushedElements();
                 }
 
                 if (context.TryUpdateElementPosition(currentNeighborPosition, targetNeighborPosition))

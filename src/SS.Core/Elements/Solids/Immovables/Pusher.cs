@@ -17,9 +17,9 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Managers;
 
 namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         private readonly PusherDirection direction;
 
-        internal Pusher(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, PusherDirection direction, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        internal Pusher(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, PusherDirection direction, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
         {
             this.direction = direction;
             this.BaseDensity = 2.0f;

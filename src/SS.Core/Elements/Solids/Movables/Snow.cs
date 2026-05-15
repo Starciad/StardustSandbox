@@ -17,14 +17,14 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Managers;
 
 namespace StardustSandbox.Core.Elements.Solids.Movables
 {
     internal sealed class Snow : MovableSolid
     {
-        internal Snow(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        internal Snow(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
         {
             this.InitialTemperature = -15.0f;
             this.BaseDensity = 0.1f;

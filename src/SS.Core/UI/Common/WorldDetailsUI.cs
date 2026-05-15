@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
@@ -66,12 +65,12 @@ namespace StardustSandbox.Core.UI.Common
             this.worldButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Return, string.Empty, () =>
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Delete, string.Empty, () =>
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     SavingSerializer.Delete(this.saveFile.Metadata.Name);
                     uiManager.CloseUI();
                 }),
@@ -92,7 +91,7 @@ namespace StardustSandbox.Core.UI.Common
                         world
                     );
                     GameHandler.LoadSaveFile(actorManager, world, this.saveFile.Metadata.Name);
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_World_Loaded);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_World_Loaded);
                 }),
             ];
 
@@ -245,7 +244,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slotInfoElement))
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slotInfoElement))

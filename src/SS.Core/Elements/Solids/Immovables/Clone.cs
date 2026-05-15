@@ -17,10 +17,10 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem;
 
 using System.Collections.Generic;
@@ -32,7 +32,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         private static readonly List<Point> positionScratch = [];
         private static readonly List<SlotLayer> layerScratch = [];
 
-        internal Clone(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        internal Clone(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
         {
             this.BaseDensity = 3.0f;
         }
@@ -48,7 +48,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             }
 
             context.InstantiateElementIndex(validPosition, context.CurrentLayer, stored);
-            GameStatistics.IncrementWorldClonedElements();
+            StatisticsManager.IncrementWorldClonedElements();
         }
 
         private static void TryAddEmptyPosition(ElementContext context, Point position)

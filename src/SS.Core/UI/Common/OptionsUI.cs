@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Assets;
@@ -357,8 +356,8 @@ namespace StardustSandbox.Core.UI.Common
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
-                                    SongSystem.ApplyVolumeSettings(volumeSettings);
-                                    SoundEffectSystem.ApplyVolumeSettings(volumeSettings);
+                                    SongManager.ApplyVolumeSettings(volumeSettings);
+                                    SoundEffectManager.ApplyVolumeSettings(volumeSettings);
                                 }
                             );
 
@@ -388,7 +387,7 @@ namespace StardustSandbox.Core.UI.Common
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
-                                    SongSystem.ApplyVolumeSettings(volumeSettings);
+                                    SongManager.ApplyVolumeSettings(volumeSettings);
                                 }
                             );
 
@@ -418,7 +417,7 @@ namespace StardustSandbox.Core.UI.Common
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
-                                    SoundEffectSystem.ApplyVolumeSettings(volumeSettings);
+                                    SoundEffectManager.ApplyVolumeSettings(volumeSettings);
                                 }
                             );
 
@@ -1274,12 +1273,12 @@ namespace StardustSandbox.Core.UI.Common
         {
             if (Interaction.OnMouseEnter(this.exitButtonSlotInfo.Background))
             {
-                SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
+                SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseLeftClick(this.exitButtonSlotInfo.Background))
             {
-                SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
+                SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
                 this.exitButtonInfo.ClickAction?.Invoke();
             }
 
@@ -1307,12 +1306,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slotInfo.Background))
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slotInfo.Background))
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     SelectCategory(i);
                     break;
                 }
@@ -1340,12 +1339,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     option.SetValue(slot);
                     break;
                 }
@@ -1372,12 +1371,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     this.paginationButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }

@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Actors;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Achievements;
@@ -53,7 +52,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
                     {
                         case WorldModificationType.Adding:
                             DrawElements((ElementIndex)contentIndex, this.pen.GetShapePoints(position));
-                            AchievementSystem.Unlock(AchievementIndex.ACH_001);
+                            AchievementManager.Unlock(AchievementIndex.ACH_001);
                             break;
 
                         case WorldModificationType.Removing:

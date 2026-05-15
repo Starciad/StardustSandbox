@@ -15,24 +15,23 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Audio;
+using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Achievements;
-using StardustSandbox.Core.Enums.Assets;
-using StardustSandbox.Core.Interfaces.Notifiers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 
-namespace StardustSandbox.Core.Achievements
+namespace StardustSandbox.Core.Managers
 {
-    internal sealed class AchievementSystem
+    internal sealed class AchievementManager
     {
         internal delegate void AchievementUnlockedHandler(Achievement achievement);
+
         internal event AchievementUnlockedHandler AchievementUnlocked;
 
         private readonly AchievementDatabase achievementDatabase;
 
-        internal AchievementSystem(AchievementDatabase achievementDatabase)
+        internal AchievementManager(AchievementDatabase achievementDatabase)
         {
             this.achievementDatabase = achievementDatabase;
         }

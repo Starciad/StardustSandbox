@@ -17,15 +17,15 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Managers;
 
 namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Heater : ImmovableSolid
     {
-        internal Heater(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        internal Heater(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
         {
             this.InitialTemperature = 0.0f;
             this.BaseDensity = 1.5f;

@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
@@ -54,12 +53,12 @@ namespace StardustSandbox.Core.UI.Common
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Returning);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Returning);
                     uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Accepted);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
                     uiManager.CloseUI();
                     this.sendCallback?.Invoke(this.value);
                 }),

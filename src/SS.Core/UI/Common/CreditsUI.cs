@@ -19,7 +19,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
@@ -345,7 +344,7 @@ namespace StardustSandbox.Core.UI.Common
             this.world.CanUpdate = false;
             this.world.CanDraw = false;
 
-            SongSystem.Play(SongIndex.Volume_01_Track_02);
+            SongManager.Play(SongIndex.Volume_01_Track_02);
 
             this.rootContainer.Margin = new(0.0f, GameScreen.GetViewportCenter().Y / 2.0f);
 

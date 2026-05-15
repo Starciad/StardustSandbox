@@ -17,11 +17,11 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.WorldSystem;
 
@@ -40,7 +40,7 @@ namespace StardustSandbox.Core.Elements
         internal Point TextureOriginOffset { get; }
         internal Color ReferenceColor { get; }
 
-        protected AchievementSystem AchievementSystem { get; }
+        protected AchievementManager AchievementSystem { get; }
 
         public float BaseDensity { get; protected init; }
         public int BaseDispersionRate { get; protected init; }
@@ -52,7 +52,7 @@ namespace StardustSandbox.Core.Elements
 
         private ElementContext context;
 
-        internal Element(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem)
+        internal Element(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager)
         {
             this.Index = index;
             this.Category = category;
@@ -61,7 +61,7 @@ namespace StardustSandbox.Core.Elements
             this.TextureOriginOffset = textureOriginOffset;
             this.ReferenceColor = referenceColor;
 
-            this.AchievementSystem = achievementSystem;
+            this.AchievementSystem = achievementManager;
 
             this.BaseDensity = 0.0f;
             this.BaseDispersionRate = 1;

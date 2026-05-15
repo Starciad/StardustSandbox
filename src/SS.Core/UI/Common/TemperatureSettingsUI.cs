@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Assets;
@@ -191,12 +190,12 @@ namespace StardustSandbox.Core.UI.Common
         {
             if (Interaction.OnMouseEnter(this.exitButtonSlotInfo.Background))
             {
-                SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
+                SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseLeftClick(this.exitButtonSlotInfo.Background))
             {
-                SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
+                SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
                 this.exitButtonInfo.ClickAction?.Invoke();
             }
 
@@ -228,12 +227,12 @@ namespace StardustSandbox.Core.UI.Common
 
                     if (Interaction.OnMouseEnter(buttonSlot.Background))
                     {
-                        SoundEffectSystem.Play(SoundEffectIndex.GUI_Hover);
+                        SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                     }
 
                     if (Interaction.OnMouseLeftClick(buttonSlot.Background))
                     {
-                        SoundEffectSystem.Play(SoundEffectIndex.GUI_Accepted);
+                        SoundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
                         buttonInfo.ClickAction?.Invoke();
                         break;
                     }

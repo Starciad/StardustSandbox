@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
@@ -77,7 +76,7 @@ namespace StardustSandbox.Core.UI.Common
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Click);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
@@ -91,14 +90,14 @@ namespace StardustSandbox.Core.UI.Common
 
                         if (validationState.Status is ValidationStatus.Failure)
                         {
-                            SoundEffectSystem.Play(SoundEffectIndex.GUI_Error);
+                            SoundEffectManager.Play(SoundEffectIndex.GUI_Error);
                             messageUI.SetContent(validationState.Message);
                             uiManager.OpenUI(UIIndex.Message);
                             return;
                         }
                     }
 
-                    SoundEffectSystem.Play(SoundEffectIndex.GUI_Accepted);
+                    SoundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
                     uiManager.CloseUI();
                 }),
             ];
@@ -305,7 +304,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private static void PlayTypingSound()
         {
-            SoundEffectSystem.Play((SoundEffectIndex)Randomness.Random.Range((int)SoundEffectIndex.GUI_Typing_1, (int)SoundEffectIndex.GUI_Typing_5));
+            SoundEffectManager.Play((SoundEffectIndex)Randomness.Random.Range((int)SoundEffectIndex.GUI_Typing_1, (int)SoundEffectIndex.GUI_Typing_5));
         }
 
         private void OnKeyDown(object sender, InputKeyEventArgs inputKeyEventArgs)

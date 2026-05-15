@@ -17,11 +17,11 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Randomness;
 using StardustSandbox.Core.WorldSystem;
 
@@ -29,7 +29,7 @@ namespace StardustSandbox.Core.Elements.Energies
 {
     internal sealed class Fire : Energy
     {
-        internal Fire(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        internal Fire(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
         {
             this.InitialTemperature = 500.0f;
             this.BaseDensity = 0.0f;

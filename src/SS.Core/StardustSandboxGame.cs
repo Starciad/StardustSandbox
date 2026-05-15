@@ -20,7 +20,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Core.Achievements;
-using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
@@ -46,11 +45,11 @@ namespace StardustSandbox.Core
 
         private SpriteBatch spriteBatch;
 
+        private readonly GraphicsDeviceManager graphicsDeviceManager;
         private readonly GameLaunchOptions gameLaunchOptions;
 
-        private readonly AchievementSystem achievementSystem;
-        private readonly SongSystem songSystem;
-        private readonly SoundEffectSystem soundEffectSystem;
+        private readonly GameHandler gameHandler;
+        private readonly GameScreen gameScreen;
 
         private readonly AchievementDatabase achievementDatabase;
         private readonly ActorDatabase actorDatabase;
@@ -61,20 +60,22 @@ namespace StardustSandbox.Core
         private readonly ToolDatabase toolDatabase;
         private readonly UIDatabase uiDatabase;
 
-        private readonly World world;
-        private readonly PlayerInputController playerInputController;
-        private readonly Camera2D camera;
-
+        private readonly AchievementManager achievementManager;
         private readonly ActorManager actorManager;
         private readonly AmbientManager ambientManager;
         private readonly CursorManager cursorManager;
         private readonly EffectsManager effectsManager;
+        private readonly SongManager songManager;
+        private readonly SoundEffectManager soundEffectManager;
+        private readonly StatisticsManager statisticsManager;
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
 
-        private readonly VideoSettings videoSettings;
+        private readonly World world;
+        private readonly PlayerInputController playerInputController;
+        private readonly Camera2D camera;
 
-        private readonly GraphicsDeviceManager graphicsDeviceManager;
+        private readonly VideoSettings videoSettings;
 
         public StardustSandboxGame(GameLaunchOptions options)
         {
@@ -126,13 +127,14 @@ namespace StardustSandbox.Core
             this.uiDatabase = new();
 
             // System
-            this.songSystem = new(this.assetDatabase, gameLaunchOptions);
-            this.soundEffectSystem = new(this.assetDatabase);
-            this.achievementSystem = new(this.achievementDatabase);
+            this.songManager = new(this.assetDatabase, gameLaunchOptions);
+            this.soundEffectManager = new(this.assetDatabase);
+            this.achievementManager = new(this.achievementDatabase);
+            this.statisticsManager = new(this.achievementManager);
 
             // Core
             this.playerInputController = new();
-            this.world = new(this.achievementSystem, this.assetDatabase, this.elementDatabase, this.playerInputController);
+            this.world = new(this.achievementManager, this.assetDatabase, this.elementDatabase, this.playerInputController);
             this.camera = new();
 
             // Managers
@@ -141,6 +143,21 @@ namespace StardustSandbox.Core
             this.cursorManager = new();
             this.ambientManager = new();
             this.actorManager = new(this.world);
+
+            // Others
+            this.gameHandler = new(
+                this.actorManager,
+                this.ambientManager,
+                this.camera,
+                this.Window,
+                this.playerInputController,
+                this.songManager,
+                this.uiDatabase,
+                this.uiManager,
+                this.world
+            );
+
+            this.gameScreen = new(this.graphicsDeviceManager);
         }
 
         internal void SetFrameRate(float framerate)
@@ -148,20 +165,26 @@ namespace StardustSandbox.Core
             this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / framerate);
         }
 
-        protected override void Initialize()
+        private void ResolveServices()
         {
             this.achievementNotifier = this.Services.GetService<IAchievementNotifier>();
             this.gameNotifier = this.Services.GetService<IGameNotifier>();
+        }
 
+        private void RegisterAchievementEvents()
+        {
             if (this.achievementNotifier is not null)
             {
-                this.achievementSystem.AchievementUnlocked += this.achievementNotifier.OnAchievementUnlocked;
+                this.achievementManager.AchievementUnlocked += this.achievementNotifier.OnAchievementUnlocked;
             }
 
-            this.achievementSystem.AchievementUnlocked += OnAchievementUnlocked;
+            this.achievementManager.AchievementUnlocked += OnAchievementUnlocked;
+        }
 
-            GameScreen.Initialize(this.GraphicsDevice);
-            GameHandler.Initialize(this.Window);
+        protected override void Initialize()
+        {
+            ResolveServices();
+            RegisterAchievementEvents();
 
             base.Initialize();
         }
@@ -173,7 +196,7 @@ namespace StardustSandbox.Core
             this.actorDatabase.Load(this.actorManager, this.assetDatabase, this.elementDatabase, this.world);
             this.backgroundDatabase.Load();
             this.uiDatabase.Load(this.actorManager, this.ambientManager, this.camera, this.catalogDatabase, this.cursorManager, this.Window, this.GraphicsDevice, this.playerInputController, this, this.uiManager, this.videoManager, this.world);
-            this.elementDatabase.Load(this.achievementSystem);
+            this.elementDatabase.Load(this.achievementManager);
 
             // Managers
             this.effectsManager.Initialize();
@@ -204,21 +227,12 @@ namespace StardustSandbox.Core
                 throw new Exception("This is a test exception created by the --create-exception parameter.");
             }
 
-            GameHandler.RemoveState(GameStates.IsPaused);
-            GameHandler.RemoveState(GameStates.IsSimulationPaused);
+            this.gameHandler.RemoveState(GameStates.IsPaused);
+            this.gameHandler.RemoveState(GameStates.IsSimulationPaused);
 
             if (this.gameLaunchOptions.SkipIntro)
             {
-                GameHandler.StartGame(
-                    this.actorManager,
-                    this.ambientManager,
-                    this.camera,
-                    (HudUI)this.uiDatabase.GetUI(UIIndex.Hud),
-                    (ItemExplorerUI)this.uiDatabase.GetUI(UIIndex.ItemExplorer),
-                    this.playerInputController,
-                    this.uiManager,
-                    this.world
-                );
+                this.gameHandler.StartGame();
             }
             else
             {
@@ -226,14 +240,15 @@ namespace StardustSandbox.Core
             }
 
             this.gameNotifier?.OnBeginRun();
-            this.uiDatabase.ResizeUIs(GameScreen.GetViewport());
+            this.uiDatabase.ResizeUIs(this.gameScreen.GetViewport());
         }
 
         protected override void Update(GameTime gameTime)
         {
             this.gameNotifier?.OnUpdate();
 
-            if (!GameHandler.HasState(GameStates.IsFocused) || GameHandler.HasState(GameStates.IsPaused))
+            if (!this.gameHandler.HasState(GameStates.IsFocused) ||
+                 this.gameHandler.HasState(GameStates.IsPaused))
             {
                 base.Update(gameTime);
                 return;
@@ -255,7 +270,8 @@ namespace StardustSandbox.Core
             this.uiManager.Update(gameTime);
             this.cursorManager.Update();
 
-            if (!GameHandler.HasState(GameStates.IsSimulationPaused) && !GameHandler.HasState(GameStates.IsCriticalMenuOpen))
+            if (!this.gameHandler.HasState(GameStates.IsSimulationPaused) &&
+                !this.gameHandler.HasState(GameStates.IsCriticalMenuOpen))
             {
                 this.world.Update(gameTime);
                 this.actorManager.Update(gameTime);
@@ -275,14 +291,14 @@ namespace StardustSandbox.Core
         protected override void OnActivated(object sender, EventArgs args)
         {
             base.OnActivated(sender, args);
-            GameHandler.SetState(GameStates.IsFocused);
+            this.gameHandler.SetState(GameStates.IsFocused);
             MediaPlayer.Resume();
         }
 
         protected override void OnDeactivated(object sender, EventArgs args)
         {
             base.OnDeactivated(sender, args);
-            GameHandler.RemoveState(GameStates.IsFocused);
+            this.gameHandler.RemoveState(GameStates.IsFocused);
             MediaPlayer.Pause();
         }
 
@@ -295,7 +311,7 @@ namespace StardustSandbox.Core
 
         private void OnAchievementUnlocked(Achievement achievement)
         {
-            this.soundEffectSystem.Play(SoundEffectIndex.GUI_World_Saved);
+            this.soundEffectManager.Play(SoundEffectIndex.GUI_World_Saved);
         }
 
         private void OnClientSizeChanged(object sender, EventArgs args)
@@ -320,7 +336,7 @@ namespace StardustSandbox.Core
                 this.graphicsDeviceManager.ApplyChanges();
             }
 
-            this.uiDatabase.ResizeUIs(GameScreen.GetViewport());
+            this.uiDatabase.ResizeUIs(this.gameScreen.GetViewport());
         }
     }
 }

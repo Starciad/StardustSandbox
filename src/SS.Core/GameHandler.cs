@@ -16,17 +16,17 @@
 */
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Media;
 
-using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Backgrounds;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.InputSystem;
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Common;
 using StardustSandbox.Core.WorldSystem;
@@ -35,155 +35,172 @@ using System;
 
 namespace StardustSandbox.Core
 {
-    internal static class GameHandler
+    internal sealed class GameHandler : IResettable
     {
-        internal static SimulationSpeed SimulationSpeed { get; private set; }
-        internal static bool HasSaveFileLoaded => !string.IsNullOrWhiteSpace(loadedSaveFileName);
-        internal static string LoadedSaveFileName => loadedSaveFileName;
+        internal SimulationSpeed SimulationSpeed => this.simulationSpeed;
+        internal bool HasSaveFileLoaded => !string.IsNullOrWhiteSpace(this.loadedSaveFileName);
+        internal string LoadedSaveFileName => this.loadedSaveFileName;
 
-        private static GameStates states;
-        private static string loadedSaveFileName;
-        private static GameWindow gameWindow;
+        private GameStates states;
+        private SimulationSpeed simulationSpeed;
+        private string loadedSaveFileName;
 
-        internal static void Initialize(GameWindow gameWindow)
-        {
-            GameHandler.gameWindow = gameWindow;
-        }
+        private readonly ActorManager actorManager;
+        private readonly AmbientManager ambientManager;
+        private readonly Camera2D camera;
+        private readonly GameWindow gameWindow;
+        private readonly PlayerInputController playerInputController;
+        private readonly SongManager songManager;
+        private readonly UIDatabase uiDatabase;
+        private readonly UIManager uiManager;
+        private readonly World world;
 
-        internal static void StartGame(
+        internal GameHandler(
             ActorManager actorManager,
             AmbientManager ambientManager,
             Camera2D camera,
-            HudUI hudUI,
-            ItemExplorerUI itemExplorerUI,
+            GameWindow gameWindow,
             PlayerInputController playerInputController,
+            SongManager songManager,
+            UIDatabase uiDatabase,
             UIManager uiManager,
             World world
         )
         {
-            camera.Reset();
-            MediaPlayer.Stop();
-            SongSystem.StartGameplayMusicCycle();
-
-            hudUI.Setup();
-            itemExplorerUI.Setup();
-
-            uiManager.OpenUI(UIIndex.Hud);
-
-            ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Ocean);
-
-            Reset(actorManager, world);
-            world.StartNew(WorldConstants.WORLD_SIZES_TEMPLATE[0]);
-
-            world.CanUpdate = true;
-            world.CanDraw = true;
-
-            actorManager.CanDraw = true;
-            actorManager.CanUpdate = true;
-
-            SetSpeed(SimulationSpeed.Normal, actorManager, world);
-
-            camera.SetPosition(camera.WorldToScreen(Vector2.Zero));
-
-            playerInputController.Pen.Tool = PenTool.Pencil;
-            playerInputController.Enable();
+            this.actorManager = actorManager;
+            this.ambientManager = ambientManager;
+            this.camera = camera;
+            this.gameWindow = gameWindow;
+            this.playerInputController = playerInputController;
+            this.songManager = songManager;
+            this.uiDatabase = uiDatabase;
+            this.uiManager = uiManager;
+            this.world = world;
         }
 
-        internal static void StopGame(
-            ActorManager actorManager,
-            PlayerInputController playerInputController,
-            World world
-        )
+        internal void DefineLoadedSaveFile(string saveFileName)
         {
-            UnloadSaveFile();
-            SongSystem.StopGameplayMusicCycle();
+            this.loadedSaveFileName = saveFileName;
 
-            playerInputController.Pen.Tool = PenTool.Visualization;
-            playerInputController.Disable();
-
-            world.CanDraw = false;
-            world.CanUpdate = false;
-
-            actorManager.CanDraw = false;
-            actorManager.CanUpdate = false;
-
-            SetSpeed(SimulationSpeed.Normal, actorManager, world);
-
-            RemoveState(GameStates.IsPaused);
-            RemoveState(GameStates.IsSimulationPaused);
-            RemoveState(GameStates.IsCriticalMenuOpen);
-
-            world.Time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES;
-            world.Time.IsFrozen = false;
-        }
-
-        internal static void SetSpeed(SimulationSpeed speed, ActorManager actorManager, World world)
-        {
-            SimulationSpeed = speed;
-
-            world.SetSpeed(speed);
-            actorManager.SetSpeed(speed);
-        }
-
-        internal static void DefineLoadedSaveFile(string saveFileName)
-        {
-            loadedSaveFileName = saveFileName;
-
-            gameWindow.Title = string.IsNullOrWhiteSpace(saveFileName)
+            this.gameWindow.Title = string.IsNullOrWhiteSpace(saveFileName)
                 ? GameConstants.GetTitleAndVersionString()
                 : string.Concat(saveFileName, " — ", GameConstants.GetTitleAndVersionString());
         }
 
-        internal static void LoadSaveFile(ActorManager actorManager, World world, string saveFileName)
+        internal void LoadSaveFile(string saveFileName)
         {
             if (string.IsNullOrWhiteSpace(saveFileName))
             {
                 throw new ArgumentException("Save file name cannot be null or whitespace.", nameof(saveFileName));
             }
 
-            actorManager.Deserialize(saveFileName);
-            world.Deserialize(saveFileName);
+            this.actorManager.Deserialize(saveFileName);
+            this.world.Deserialize(saveFileName);
 
             DefineLoadedSaveFile(saveFileName);
         }
 
-        internal static void UnloadSaveFile()
+        internal void UnloadSaveFile()
         {
             DefineLoadedSaveFile(string.Empty);
         }
 
-        internal static void ReloadSaveFile(ActorManager actorManager, World world)
-        {
-            actorManager.Reload();
-            world.Reload();
-        }
-
-        internal static void Reset(ActorManager actorManager, World world)
+        public void Reset()
         {
             UnloadSaveFile();
 
-            actorManager.Reset();
-            world.Reset();
+            this.actorManager.Reset();
+            this.world.Reset();
         }
 
-        internal static bool HasState(GameStates value)
+        internal void StartGame()
         {
-            return states.HasFlag(value);
+            this.camera.Reset();
+
+            this.songManager.StopGameplayMusicCycle();
+            this.songManager.StartGameplayMusicCycle();
+
+            ((HudUI)this.uiDatabase.GetUI(UIIndex.Hud)).Setup();
+            ((ItemExplorerUI)this.uiDatabase.GetUI(UIIndex.ItemExplorer)).Setup();
+
+            this.uiManager.OpenUI(UIIndex.Hud);
+
+            this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Ocean);
+
+            Reset();
+            this.world.StartNew(WorldConstants.WORLD_SIZES_TEMPLATE[0]);
+
+            this.world.CanUpdate = true;
+            this.world.CanDraw = true;
+
+            this.actorManager.CanDraw = true;
+            this.actorManager.CanUpdate = true;
+
+            SetSpeed(SimulationSpeed.Normal);
+
+            this.camera.SetPosition(this.camera.WorldToScreen(Vector2.Zero));
+
+            this.playerInputController.Pen.Tool = PenTool.Pencil;
+            this.playerInputController.Enable();
         }
 
-        internal static void SetState(GameStates value)
+        internal void StopGame()
         {
-            states |= value;
+            UnloadSaveFile();
+
+            this.songManager.StopGameplayMusicCycle();
+
+            this.playerInputController.Pen.Tool = PenTool.Visualization;
+            this.playerInputController.Disable();
+
+            this.world.CanDraw = false;
+            this.world.CanUpdate = false;
+
+            this.actorManager.CanDraw = false;
+            this.actorManager.CanUpdate = false;
+
+            SetSpeed(SimulationSpeed.Normal);
+
+            RemoveState(GameStates.IsPaused);
+            RemoveState(GameStates.IsSimulationPaused);
+            RemoveState(GameStates.IsCriticalMenuOpen);
+
+            this.world.Time.InGameSecondsPerRealSecond = TimeConstants.DEFAULT_VERY_FAST_SECONDS_PER_FRAMES;
+            this.world.Time.IsFrozen = false;
         }
 
-        internal static void RemoveState(GameStates value)
+        internal void SetSpeed(SimulationSpeed speed)
         {
-            states &= ~value;
+            this.simulationSpeed = speed;
+
+            this.world.SetSpeed(speed);
+            this.actorManager.SetSpeed(speed);
         }
 
-        internal static void ToggleState(GameStates value)
+        internal void ReloadSaveFile()
         {
-            states ^= value;
+            this.actorManager.Reload();
+            this.world.Reload();
+        }
+
+        internal bool HasState(GameStates value)
+        {
+            return this.states.HasFlag(value);
+        }
+
+        internal void SetState(GameStates value)
+        {
+            this.states |= value;
+        }
+
+        internal void RemoveState(GameStates value)
+        {
+            this.states &= ~value;
+        }
+
+        internal void ToggleState(GameStates value)
+        {
+            this.states ^= value;
         }
     }
 }

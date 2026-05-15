@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Core.Audio;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
@@ -116,7 +115,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void OnKeyDown(object sender, InputKeyEventArgs inputKeyEventArgs)
         {
-            SoundEffectSystem.Play(SoundEffectIndex.GUI_Accepted);
+            SoundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
 
             this.uiManager.CloseUI();
             this.keySelectionCallback?.Invoke(inputKeyEventArgs.Key);

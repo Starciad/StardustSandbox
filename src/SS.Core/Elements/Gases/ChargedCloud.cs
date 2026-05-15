@@ -17,9 +17,9 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Randomness;
 
@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Gases
 {
     internal sealed class ChargedCloud : Gas
     {
-        internal ChargedCloud(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        internal ChargedCloud(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
         {
             this.InitialTemperature = 10.0f;
             this.BaseFlammabilityResistance = 10.0f;

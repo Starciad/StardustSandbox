@@ -30,16 +30,16 @@ using System;
 using SharpDX.Multimedia;
 #endif
 
-namespace StardustSandbox.Core.Audio
+namespace StardustSandbox.Core.Managers
 {
-    internal sealed class SoundEffectSystem
+    internal sealed class SoundEffectManager
     {
         private float masterVolume = 1.0f;
 
         private readonly SoundEffectInstance[] activeInstances = new SoundEffectInstance[SoundEffectConstants.MAX_CONCURRENT_INSTANCES];
         private readonly AssetDatabase assetDatabase;
 
-        internal SoundEffectSystem(AssetDatabase assetDatabase)
+        internal SoundEffectManager(AssetDatabase assetDatabase)
         {
             this.assetDatabase = assetDatabase;
             ApplyVolumeSettings(SettingsSerializer.Load<VolumeSettings>());
