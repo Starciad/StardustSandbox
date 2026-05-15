@@ -195,7 +195,27 @@ namespace StardustSandbox.Core
             this.assetDatabase.Load();
             this.actorDatabase.Load(this.actorManager, this.assetDatabase, this.elementDatabase, this.world);
             this.backgroundDatabase.Load();
-            this.uiDatabase.Load(this.actorManager, this.ambientManager, this.camera, this.catalogDatabase, this.cursorManager, this.Window, this.GraphicsDevice, this.playerInputController, this, this.uiManager, this.videoManager, this.world);
+            this.uiDatabase.Load(
+                this.achievementDatabase,
+                this.achievementManager,
+                this.actorManager,
+                this.ambientManager,
+                this.assetDatabase,
+                this.camera,
+                this.catalogDatabase,
+                this.cursorManager,
+                this.gameHandler,
+                this.gameScreen,
+                this.Window,
+                this.GraphicsDevice,
+                this.playerInputController,
+                this.songManager,
+                this.soundEffectManager,
+                this,
+                this.uiManager,
+                this.videoManager,
+                this.world
+            );
             this.elementDatabase.Load(this.achievementManager);
 
             // Managers

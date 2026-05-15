@@ -78,7 +78,6 @@ namespace StardustSandbox.Core.UI.Common
             SliderUI sliderUI,
             SongManager songManager,
             SoundEffectManager soundEffectManager,
-            StardustSandboxGame stardustSandboxGame,
             TooltipBox tooltipBox,
             UIManager uiManager,
             VideoManager videoManager
@@ -465,7 +464,7 @@ namespace StardustSandbox.Core.UI.Common
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
-                                    stardustSandboxGame.SetFrameRate(videoSettings.Framerate);
+                                    gameHandler.SetFrameRate(videoSettings.Framerate);
                                 }
                             );
                             uiManager.OpenUI(UIIndex.Slider);

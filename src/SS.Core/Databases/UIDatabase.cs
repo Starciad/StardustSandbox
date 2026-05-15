@@ -37,15 +37,20 @@ namespace StardustSandbox.Core.Databases
         private bool isLoaded;
 
         internal void Load(
+            AchievementDatabase achievementDatabase,
+            AchievementManager achievementManager,
             ActorManager actorManager,
             AmbientManager ambientManager,
-            Camera2D camera,
+            AssetDatabase assetDatabase,
             CatalogDatabase catalogDatabase,
             CursorManager cursorManager,
+            GameHandler gameHandler,
+            GameScreen gameScreen,
             GameWindow gameWindow,
             GraphicsDevice graphicsDevice,
             PlayerInputController playerInputController,
-            StardustSandboxGame stardustSandboxGame,
+            SongManager songManager,
+            SoundEffectManager soundEffectManager,
             UIManager uiManager,
             VideoManager videoManager,
             World world
@@ -63,21 +68,33 @@ namespace StardustSandbox.Core.Databases
             };
 
             ColorPickerUI colorPickerUI = new(
+                gameHandler,
+                gameScreen,
+                soundEffectManager,
                 tooltipBox,
                 uiManager
             );
 
             ConfirmUI confirmUI = new(
+                gameHandler,
+                gameScreen,
+                soundEffectManager,
                 uiManager
             );
 
             CreditsUI creditsUI = new(
+                assetDatabase,
                 ambientManager,
+                gameScreen,
+                songManager,
                 uiManager,
                 world
             );
 
             EnvironmentSettingsUI environmentSettingsUI = new(
+                gameHandler,
+                gameScreen,
+                soundEffectManager,
                 tooltipBox,
                 uiManager,
                 world
@@ -86,133 +103,172 @@ namespace StardustSandbox.Core.Databases
             GeneratorSettingsUI generatorSettingsUI = new(
                 actorManager,
                 confirmUI,
+                gameHandler,
+                gameScreen,
+                soundEffectManager,
                 tooltipBox,
                 uiManager,
                 world
             );
 
             HudUI hudUI = new(
-                actorManager,
+                achievementManager,
+                catalogDatabase,
                 confirmUI,
+                gameHandler,
                 notificationBox,
                 playerInputController,
+                soundEffectManager,
                 tooltipBox,
-                uiManager,
-                world
+                uiManager
             );
 
             InformationUI informationUI = new(
                 actorManager,
+                gameHandler,
+                gameScreen,
+                soundEffectManager,
                 tooltipBox,
                 uiManager,
                 world
             );
 
             ItemSearchUI itemSearchUI = new(
+                catalogDatabase,
+                gameHandler,
+                gameScreen,
                 gameWindow,
                 playerInputController,
+                soundEffectManager,
                 tooltipBox,
                 uiManager
             );
 
             ItemExplorerUI itemExplorerUI = new(
+                assetDatabase,
                 catalogDatabase,
+                gameHandler,
+                gameScreen,
                 hudUI,
                 itemSearchUI,
+                soundEffectManager,
                 tooltipBox,
                 uiManager
             );
 
             KeySelectorUI keySelectorUI = new(
+                gameHandler,
+                gameScreen,
                 gameWindow,
                 playerInputController,
+                soundEffectManager,
                 uiManager
             );
 
             MessageUI messageUI = new(
+                gameHandler,
+                gameScreen,
                 uiManager
             );
 
             SliderUI sliderUI = new(
+                gameHandler,
+                gameScreen,
+                soundEffectManager,
                 uiManager
             );
 
             SelectorUI selectorUI = new(
+                gameHandler,
+                gameScreen,
+                soundEffectManager,
                 uiManager
             );
 
             OptionsUI optionsUI = new(
                 colorPickerUI,
                 cursorManager,
+                gameHandler,
+                gameScreen,
                 keySelectorUI,
                 playerInputController,
                 selectorUI,
                 sliderUI,
-                stardustSandboxGame,
+                songManager,
+                soundEffectManager,
                 tooltipBox,
                 uiManager,
                 videoManager
             );
 
             MainUI mainUI = new(
-                actorManager,
                 ambientManager,
-                camera,
-                hudUI,
-                itemExplorerUI,
+                gameHandler,
+                gameScreen,
                 optionsUI,
-                playerInputController,
-                stardustSandboxGame,
+                songManager,
+                soundEffectManager,
                 uiManager,
                 world
             );
 
             PauseUI pauseUI = new(
                 confirmUI,
+                gameHandler,
+                gameScreen,
                 optionsUI,
+                soundEffectManager,
                 uiManager
             );
 
             PenSettingsUI penSettingsUI = new(
+                gameHandler,
+                gameScreen,
                 hudUI,
                 playerInputController,
+                soundEffectManager,
                 tooltipBox,
                 uiManager,
                 world
             );
 
             WorldDetailsUI worldDetailsUI = new(
-                actorManager,
-                ambientManager,
-                camera,
-                hudUI,
-                itemExplorerUI,
-                playerInputController,
-                uiManager,
-                world
+                gameHandler,
+                gameScreen,
+                soundEffectManager,
+                uiManager
             );
 
             WorldExplorerUI worldExplorerUI = new(
                 graphicsDevice,
+                soundEffectManager,
                 uiManager,
                 worldDetailsUI
             );
 
             PlayUI playUI = new(
+                gameScreen,
+                soundEffectManager,
                 uiManager,
                 worldExplorerUI
             );
 
             TextInputUI textInputUI = new(
+                gameHandler,
+                gameScreen,
                 gameWindow,
                 messageUI,
                 playerInputController,
+                soundEffectManager,
                 uiManager
             );
 
             SaveUI saveSettingsUI = new(
                 actorManager,
+                gameHandler,
+                gameScreen,
                 graphicsDevice,
+                soundEffectManager,
                 textInputUI,
                 tooltipBox,
                 uiManager,
@@ -220,6 +276,9 @@ namespace StardustSandbox.Core.Databases
             );
 
             TemperatureSettingsUI temperatureSettingsUI = new(
+                gameHandler,
+                gameScreen,
+                soundEffectManager,
                 tooltipBox,
                 uiManager,
                 world
@@ -235,7 +294,9 @@ namespace StardustSandbox.Core.Databases
             );
 
             AchievementsUI achievementsUI = new(
+                achievementDatabase,
                 ambientManager,
+                soundEffectManager,
                 tooltipBox,
                 uiManager
             );

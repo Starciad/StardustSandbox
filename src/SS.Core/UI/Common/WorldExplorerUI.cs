@@ -54,21 +54,21 @@ namespace StardustSandbox.Core.UI.Common
         private readonly List<SaveFile> loadedSaveFiles = [];
 
         private readonly GraphicsDevice graphicsDevice;
-        private SoundEffectManager soundEffectManager;
+        private readonly SoundEffectManager soundEffectManager;
         private readonly UIManager uiManager;
-        private readonly WorldDetailsUI worldDetailsMenuUI;
+        private readonly WorldDetailsUI worldDetailsUI;
 
         internal WorldExplorerUI(
             GraphicsDevice graphicsDevice,
             SoundEffectManager soundEffectManager,
             UIManager uiManager,
-            WorldDetailsUI worldDetailsMenuUI
+            WorldDetailsUI worldDetailsUI
         ) : base()
         {
             this.graphicsDevice = graphicsDevice;
             this.soundEffectManager = soundEffectManager;
             this.uiManager = uiManager;
-            this.worldDetailsMenuUI = worldDetailsMenuUI;
+            this.worldDetailsUI = worldDetailsUI;
 
             this.menuButtonInfos = [
                 new(TextureIndex.IconUI, new(192, 0, 32, 32), Localization_Statements.Exit, string.Empty, this.uiManager.CloseUI),
@@ -362,7 +362,7 @@ namespace StardustSandbox.Core.UI.Common
                 if (Interaction.OnMouseLeftClick(slotInfoElement.Background))
                 {
                     this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
-                    this.worldDetailsMenuUI.SetSaveFile(this.graphicsDevice, saveFile.Metadata.Name);
+                    this.worldDetailsUI.SetSaveFile(this.graphicsDevice, saveFile.Metadata.Name);
                     this.uiManager.OpenUI(UIIndex.WorldDetails);
                     break;
                 }

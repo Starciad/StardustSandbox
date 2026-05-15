@@ -51,6 +51,7 @@ namespace StardustSandbox.Core
         private readonly GameWindow gameWindow;
         private readonly PlayerInputController playerInputController;
         private readonly SongManager songManager;
+        private readonly StardustSandboxGame stardustSandboxGame;
         private readonly UIDatabase uiDatabase;
         private readonly UIManager uiManager;
         private readonly World world;
@@ -62,6 +63,7 @@ namespace StardustSandbox.Core
             GameWindow gameWindow,
             PlayerInputController playerInputController,
             SongManager songManager,
+            StardustSandboxGame stardustSandboxGame,
             UIDatabase uiDatabase,
             UIManager uiManager,
             World world
@@ -73,9 +75,20 @@ namespace StardustSandbox.Core
             this.gameWindow = gameWindow;
             this.playerInputController = playerInputController;
             this.songManager = songManager;
+            this.stardustSandboxGame = stardustSandboxGame;
             this.uiDatabase = uiDatabase;
             this.uiManager = uiManager;
             this.world = world;
+        }
+
+        internal void Exit()
+        {
+            this.stardustSandboxGame.Exit();
+        }
+
+        internal void SetFrameRate(float framerate)
+        {
+            this.stardustSandboxGame.SetFrameRate(framerate);
         }
 
         internal void DefineLoadedSaveFile(string saveFileName)

@@ -64,7 +64,6 @@ namespace StardustSandbox.Core.UI.Common
             OptionsUI optionsUI,
             SongManager songManager,
             SoundEffectManager soundEffectManager,
-            StardustSandboxGame stardustSandboxGame,
             UIManager uiManager,
             World world
         ) : base()
@@ -94,7 +93,7 @@ namespace StardustSandbox.Core.UI.Common
                     this.uiManager.OpenUI(UIIndex.Options);
                 }),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Credits, string.Empty, () => this.uiManager.OpenUI(UIIndex.Credits)),
-                new(TextureIndex.None, null, Localization_GUIs.Main_Quit, string.Empty, stardustSandboxGame.Exit)
+                new(TextureIndex.None, null, Localization_GUIs.Main_Quit, string.Empty, gameHandler.Exit)
             ];
 
             this.topButtonInfos = [
