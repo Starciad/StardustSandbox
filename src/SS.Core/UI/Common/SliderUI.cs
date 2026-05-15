@@ -46,19 +46,28 @@ namespace StardustSandbox.Core.UI.Common
         private readonly Label[] menuButtonLabels;
         private readonly ButtonInfo[] menuButtonInfos;
 
+        private readonly GameHandler gameHandler;
+        private readonly GameScreen gameScreen;
+
         internal SliderUI(
+            GameHandler gameHandler,
+            GameScreen gameScreen,
+            SoundEffectManager soundEffectManager,
             UIManager uiManager
         ) : base()
         {
+            this.gameHandler = gameHandler;
+            this.gameScreen = gameScreen;
+
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Returning);
+                    soundEffectManager.Play(SoundEffectIndex.GUI_Returning);
                     uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
+                    soundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
                     uiManager.CloseUI();
                     this.sendCallback?.Invoke(this.value);
                 }),
@@ -86,7 +95,7 @@ namespace StardustSandbox.Core.UI.Common
             this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = GameScreen.GetViewport(),
+                Scale = this.gameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
@@ -173,7 +182,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnScreenResize(Vector2 newSize)
         {
-            this.shadowBackground.Scale = GameScreen.GetViewport();
+            this.shadowBackground.Scale = this.gameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)
@@ -227,12 +236,12 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnOpened()
         {
-            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 
         protected override void OnClosed()
         {
-            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }
