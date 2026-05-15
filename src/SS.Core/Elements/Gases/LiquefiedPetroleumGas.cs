@@ -26,7 +26,10 @@ namespace StardustSandbox.Core.Elements.Gases
     {
         internal LiquefiedPetroleumGas(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            InitialTemperature = -42.0f;
+            BaseFlammabilityResistance = 1.0f;
+            BaseDensity = 0.25f;
+            BaseExplosionResistance = 0.2f;
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)

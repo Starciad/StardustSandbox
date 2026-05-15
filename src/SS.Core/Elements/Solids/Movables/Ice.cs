@@ -26,7 +26,9 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
     {
         internal Ice(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.BaseDensity = 0.92f;
+            this.BaseExplosionResistance = 1.2f;
+            this.InitialTemperature = -25.0f;
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)

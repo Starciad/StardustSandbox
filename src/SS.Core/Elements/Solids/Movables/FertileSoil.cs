@@ -26,7 +26,9 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
     {
         internal FertileSoil(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 20.0f;
+            this.BaseDensity = 1.4f;
+            this.BaseExplosionResistance = 0.4f;
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)

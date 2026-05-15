@@ -52,6 +52,9 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
         internal Devourer(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
+            this.InitialTemperature = 35.0f;
+            this.BaseDensity = 3.5f;
+            this.BaseExplosionResistance = 1.5f;
         }
 
         protected override void OnDestroyed(ElementContext context)

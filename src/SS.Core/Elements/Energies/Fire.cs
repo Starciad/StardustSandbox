@@ -31,7 +31,8 @@ namespace StardustSandbox.Core.Elements.Energies
     {
         internal Fire(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 500.0f;
+            this.BaseDensity = 0.0f;
         }
 
         private static bool TryIgniteElement(ElementContext context, Slot slot, SlotLayer slotLayer, Layer layer)
@@ -53,7 +54,7 @@ namespace StardustSandbox.Core.Elements.Energies
                 }
 
                 // Attempt combustion based on flammabilityResistance
-                if (Random.Chance(combustionChance, 100.0f + slotLayer.Element.DefaultFlammabilityResistance))
+                if (Random.Chance(combustionChance, 100.0f + slotLayer.Element.BaseFlammabilityResistance))
                 {
                     context.ReplaceElementIndex(slot.Position, layer, ElementIndex.Fire);
                     return true;

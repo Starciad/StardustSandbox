@@ -29,7 +29,10 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         internal MountingBlock(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 20.0f;
+            this.BaseFlammabilityResistance = 150.0f;
+            this.BaseDensity = 1.8f;
+            this.BaseExplosionResistance = 1.5f;
         }
 
         protected override void OnInstantiated(ElementContext context)

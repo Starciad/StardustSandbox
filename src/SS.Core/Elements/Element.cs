@@ -42,11 +42,11 @@ namespace StardustSandbox.Core.Elements
 
         protected AchievementSystem AchievementSystem { get; }
 
-        internal int DefaultDispersionRate { get; init; }
-        internal float DefaultTemperature { get; init; }
-        internal float DefaultFlammabilityResistance { get; init; }
-        internal float DefaultDensity { get; init; }
-        internal float DefaultExplosionResistance { get; init; }
+        public float BaseDensity { get; protected init; }
+        public int BaseDispersionRate { get; protected init; }
+        public float BaseExplosionResistance { get; protected init; }
+        public float BaseFlammabilityResistance { get; protected init; }
+        public float InitialTemperature { get; protected init; }
 
         #endregion
 
@@ -63,11 +63,11 @@ namespace StardustSandbox.Core.Elements
 
             this.AchievementSystem = achievementSystem;
 
-            this.DefaultDispersionRate = 1;
-            this.DefaultTemperature = 25.0f;
-            this.DefaultFlammabilityResistance = 25.0f;
-            this.DefaultDensity = 0.0f;
-            this.DefaultExplosionResistance = 0.5f;
+            this.BaseDensity = 0.0f;
+            this.BaseDispersionRate = 1;
+            this.BaseExplosionResistance = 0.5f;
+            this.BaseFlammabilityResistance = 25.0f;
+            this.InitialTemperature = 25.0f;
         }
 
         internal void SetContext(ElementContext context)

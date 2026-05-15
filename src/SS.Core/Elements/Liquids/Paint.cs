@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Achievements;
+using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 
@@ -27,9 +28,12 @@ namespace StardustSandbox.Core.Elements.Liquids
     {
         private readonly Color dyeingColor;
 
-        internal Paint(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, Color dyeingColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
+        internal Paint(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-            this.dyeingColor = dyeingColor;
+            this.dyeingColor = referenceColor;
+            this.InitialTemperature = 20.0f;
+            this.BaseDensity = 1.2f;
+            this.BaseExplosionResistance = 0.3f;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

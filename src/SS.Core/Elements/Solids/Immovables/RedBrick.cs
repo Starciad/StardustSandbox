@@ -26,7 +26,9 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         internal RedBrick(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 25.0f;
+            this.BaseDensity = 2.4f;
+            this.BaseExplosionResistance = 2.5f;
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)

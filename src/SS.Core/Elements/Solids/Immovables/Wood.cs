@@ -27,7 +27,10 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         internal Wood(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 20.0f;
+            this.BaseFlammabilityResistance = 35.0f;
+            this.BaseDensity = 0.7f;
+            this.BaseExplosionResistance = 1.5f;
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)

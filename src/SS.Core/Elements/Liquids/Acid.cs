@@ -28,7 +28,9 @@ namespace StardustSandbox.Core.Elements.Liquids
     {
         internal Acid(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 10.0f;
+            this.BaseDensity = 1.2f;
+            this.BaseExplosionResistance = 0.2f;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

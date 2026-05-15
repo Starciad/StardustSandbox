@@ -34,7 +34,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
         internal Clone(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.BaseDensity = 3.0f;
         }
 
         // Instantiate the stored element into a random valid adjacent empty slot

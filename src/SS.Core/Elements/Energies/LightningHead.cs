@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Achievements;
+using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Generators;
 
@@ -27,7 +28,8 @@ namespace StardustSandbox.Core.Elements.Energies
     {
         internal LightningHead(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = TemperatureConstants.MAX_CELSIUS_VALUE;
+            this.BaseDensity = 0.0f;
         }
 
         protected override void OnInstantiated(ElementContext context)

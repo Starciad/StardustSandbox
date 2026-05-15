@@ -73,7 +73,7 @@ namespace StardustSandbox.Core.Elements.Liquids
             bool canSwap = belowLayer.Element.Category switch
             {
                 ElementCategory.Gas => true,
-                ElementCategory.Liquid when belowLayer.Element.DefaultDensity < this.DefaultDensity => true,
+                ElementCategory.Liquid when belowLayer.Element.BaseDensity < this.BaseDensity => true,
                 _ => false
             };
 
@@ -142,7 +142,7 @@ namespace StardustSandbox.Core.Elements.Liquids
             Point checkPos = context.CurrentSlot.Position;
             int steps = 0;
 
-            while (steps < this.DefaultDispersionRate)
+            while (steps < this.BaseDispersionRate)
             {
                 Point nextPosition = new(checkPos.X + direction, checkPos.Y);
 

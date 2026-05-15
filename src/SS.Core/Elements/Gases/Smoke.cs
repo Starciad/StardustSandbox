@@ -27,7 +27,8 @@ namespace StardustSandbox.Core.Elements.Gases
     {
         internal Smoke(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 350.0f;
+            this.BaseDensity = 0.002f;
         }
 
         protected override void OnStep(ElementContext context)

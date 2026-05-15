@@ -951,7 +951,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return;
             }
 
-            if (slotLayer.Element.DefaultExplosionResistance >= explosion.Power)
+            if (slotLayer.Element.BaseExplosionResistance >= explosion.Power)
             {
                 slotLayer.Temperature += explosion.Heat;
             }

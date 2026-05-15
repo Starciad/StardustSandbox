@@ -45,7 +45,9 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 
         internal Tnt(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 22.0f;
+            this.BaseDensity = 2.8f;
+            this.BaseExplosionResistance = 0.35f;
         }
 
         protected override void OnDestroyed(ElementContext context)

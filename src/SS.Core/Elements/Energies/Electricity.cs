@@ -29,7 +29,10 @@ namespace StardustSandbox.Core.Elements.Energies
     {
         internal Electricity(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 20.0f;
+            this.BaseDensity = 0.0f;
+            this.BaseExplosionResistance = 0.0f;
+            this.BaseDispersionRate = 8;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

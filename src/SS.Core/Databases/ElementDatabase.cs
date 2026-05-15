@@ -37,7 +37,9 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Dirt(
                     ElementIndex.Dirt,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible | ElementCharacteristics.IsPushable,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(0, 0),
                     AAP64ColorPalette.Clay,
@@ -48,7 +50,9 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Mud(
                     ElementIndex.Mud,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible | ElementCharacteristics.IsPushable,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(0, 32),
                     new(87, 44, 45),
@@ -59,7 +63,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Water(
                     ElementIndex.Water,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors | ElementCharacteristics.HasTemperature | ElementCharacteristics.IsCorruptible | ElementCharacteristics.IsPushable,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(0, 64),
                     new(8, 120, 184),
@@ -67,1533 +74,1260 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [003] Stone
-                new Elements.Solids.Movables.Stone()
-                {
-                    Index = ElementIndex.Stone,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(0, 96),
-                    ReferenceColor = new(66, 65, 65),
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 2.5f,
-                    DefaultExplosionResistance = 0.5f,
-                },
+                new Elements.Solids.Movables.Stone(
+                    ElementIndex.Stone,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(0, 96),
+                    new(66, 65, 65),
+                    achievementSystem
+                ),
 
                 // [004] Grass
-                new Elements.Solids.Movables.Grass()
-                {
-                    Index = ElementIndex.Grass,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(0, 128),
-                    ReferenceColor = new(69, 110, 55),
-                    DefaultTemperature = 22.0f,
-                    DefaultFlammabilityResistance = 10.0f,
-                    DefaultDensity = 0.1f,
-                    DefaultExplosionResistance = 0.5f,
-                },
+                new Elements.Solids.Movables.Grass(
+                    ElementIndex.Grass,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(0, 128),
+                    new(69, 110, 55),
+                    achievementSystem
+                ),
                 
                 // [005] Ice
-                new Elements.Solids.Movables.Ice()
-                {
-                    Index = ElementIndex.Ice,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(0, 160),
-                    ReferenceColor = new(34, 112, 255),
-                    DefaultTemperature = -25.0f,
-                    DefaultDensity = 0.92f,
-                    DefaultExplosionResistance = 1.2f,
-                },
+                new Elements.Solids.Movables.Ice(
+                    ElementIndex.Ice,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(0, 160),
+                    new(34, 112, 255),
+                    achievementSystem
+                ),
 
                 // [006] Sand
-                new Elements.Solids.Movables.Sand()
-                {
-                    Index = ElementIndex.Sand,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(0, 192),
-                    ReferenceColor = new(248, 246, 68),
-                    DefaultTemperature = 22.0f,
-                    DefaultDensity = 1.5f,
-                    DefaultExplosionResistance = 0.5f,
-                },
+                new Elements.Solids.Movables.Sand(
+                    ElementIndex.Sand,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(0, 192),
+                    new(248, 246, 68),
+                    achievementSystem
+                ),
 
                 // [007] Snow
-                new Elements.Solids.Movables.Snow()
-                {
-                    Index = ElementIndex.Snow,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(0, 224),
-                    ReferenceColor = new(189, 237, 246),
-                    DefaultTemperature = -15.0f,
-                    DefaultDensity = 0.1f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Solids.Movables.Snow(
+                    ElementIndex.Snow,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(0, 224),
+                    new(189, 237, 246),
+                    achievementSystem
+                ),
 
                 // [008] Movable Corruption
-                new Elements.Solids.Movables.MovableCorruption()
-                {
-                    Index = ElementIndex.MovableCorruption,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruption |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(0, 256),
-                    ReferenceColor = AAP64ColorPalette.PurpleGray,
-                    DefaultDensity = 1.4f,
-                    DefaultExplosionResistance = 0.8f,
-                },
+                new Elements.Solids.Movables.MovableCorruption(
+                    ElementIndex.MovableCorruption,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruption |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(0, 256),
+                    AAP64ColorPalette.PurpleGray,
+                    achievementSystem
+                ),
                 
                 // [009] Lava
-                new Elements.Liquids.Lava()
-                {
-                    Index = ElementIndex.Lava,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(0, 288),
-                    ReferenceColor = AAP64ColorPalette.OrangeRed,
-                    DefaultTemperature = 1500.0f,
-                    DefaultDensity = 2.7f,
-                    DefaultExplosionResistance = 0.4f,
-                },
+                new Elements.Liquids.Lava(
+                    ElementIndex.Lava,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(0, 288),
+                    AAP64ColorPalette.OrangeRed,
+                    achievementSystem
+                ),
 
                 // [010] Acid
-                new Elements.Liquids.Acid()
-                {
-                    Index = ElementIndex.Acid,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(160, 0),
-                    ReferenceColor = new(59, 167, 5),
-                    DefaultTemperature = 10.0f,
-                    DefaultDensity = 1.2f,
-                    DefaultExplosionResistance = 0.2f,
-                },
+                new Elements.Liquids.Acid(
+                    ElementIndex.Acid,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(160, 0),
+                    new(59, 167, 5),
+                    achievementSystem
+                ),
 
                 // [011] Glass
-                new Elements.Solids.Immovables.Glass()
-                {
-                    Index = ElementIndex.Glass,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(160, 32),
-                    ReferenceColor = AAP64ColorPalette.White,
-                    DefaultTemperature = 25.0f,
-                    DefaultDensity = 2.5f,
-                    DefaultExplosionResistance = 0.5f,
-                },
+                new Elements.Solids.Immovables.Glass(
+                    ElementIndex.Glass,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(160, 32),
+                    AAP64ColorPalette.White,
+                    achievementSystem
+                ),
 
                 // [012] Iron
-                new Elements.Solids.Immovables.Iron()
-                {
-                    Index = ElementIndex.Iron,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(160, 64),
-                    ReferenceColor = new(66, 66, 66),
-                    DefaultTemperature = 30.0f,
-                    DefaultDensity = 7.8f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Solids.Immovables.Iron(
+                    ElementIndex.Iron,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(160, 64),
+                    new(66, 66, 66),
+                    achievementSystem
+                ),
 
                 // [013] Wall
-                new Elements.Solids.Immovables.Wall()
-                {
-                    Index = ElementIndex.Wall,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.IsExplosionImmune,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(160, 96),
-                    ReferenceColor = new(22, 99, 50),
-
-                    DefaultDensity = 2.2f,
-                },
+                new Elements.Solids.Immovables.Wall(
+                    ElementIndex.Wall,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.IsExplosionImmune,
+                    ElementRenderingType.Blob,
+                    new(160, 96),
+                    new(22, 99, 50),
+                    achievementSystem
+                ),
 
                 // [014] Wood
-                new Elements.Solids.Immovables.Wood()
-                {
-                    Index = ElementIndex.Wood,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(160, 128),
-                    ReferenceColor = new(92, 62, 0),
-                    DefaultTemperature = 20.0f,
-                    DefaultFlammabilityResistance = 35.0f,
-                    DefaultDensity = 0.7f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.Wood(
+                    ElementIndex.Wood,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(160, 128),
+                    new(92, 62, 0),
+                    achievementSystem
+                ),
 
                 // [015] Gas Corruption
-                new Elements.Gases.GasCorruption()
-                {
-                    Index = ElementIndex.GasCorruption,
-                    Category = ElementCategory.Gas,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruption |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(160, 160),
-                    ReferenceColor = AAP64ColorPalette.PurpleGray,
-                    DefaultDensity = 0.005f,
-                },
+                new Elements.Gases.GasCorruption(
+                    ElementIndex.GasCorruption,
+                    ElementCategory.Gas,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruption |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(160, 160),
+                    AAP64ColorPalette.PurpleGray,
+                    achievementSystem
+                ),
 
                 // [016] Liquid Corruption
-                new Elements.Liquids.LiquidCorruption()
-                {
-                    Index = ElementIndex.LiquidCorruption,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruption |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(160, 192),
-                    ReferenceColor = AAP64ColorPalette.PurpleGray,
-                    DefaultDensity = 1.05f,
-                    DefaultExplosionResistance = 0.1f,
-                },
+                new Elements.Liquids.LiquidCorruption(
+                    ElementIndex.LiquidCorruption,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruption |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(160, 192),
+                    AAP64ColorPalette.PurpleGray,
+                    achievementSystem
+                ),
 
                 // [017] Immovable Corruption
-                new Elements.Solids.Immovables.ImmovableCorruption()
-                {
-                    Index = ElementIndex.ImmovableCorruption,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruption |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(160, 224),
-                    ReferenceColor = AAP64ColorPalette.PurpleGray,
-                    DefaultDensity = 1.6f,
-                    DefaultExplosionResistance = 1.2f,
-                },
+                new Elements.Solids.Immovables.ImmovableCorruption(
+                    ElementIndex.ImmovableCorruption,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruption |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(160, 224),
+                    AAP64ColorPalette.PurpleGray,
+                    achievementSystem
+                ),
 
                 // [018] Steam
-                new Elements.Gases.Steam()
-                {
-                    Index = ElementIndex.Steam,
-                    Category = ElementCategory.Gas,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(160, 256),
-                    ReferenceColor = new(171, 208, 218),
-                    DefaultTemperature = 200.0f,
-                    DefaultDensity = 0.0006f,
-                },
+                new Elements.Gases.Steam(
+                    ElementIndex.Steam,
+                    ElementCategory.Gas,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(160, 256),
+                    new(171, 208, 218),
+                    achievementSystem
+                ),
 
                 // [019] Smoke
-                new Elements.Gases.Smoke()
-                {
-                    Index = ElementIndex.Smoke,
-                    Category = ElementCategory.Gas,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(160, 288),
-                    ReferenceColor = new(48, 48, 48),
-                    DefaultTemperature = 350.0f,
-                    DefaultDensity = 0.002f,
-                },
+                new Elements.Gases.Smoke(
+                    ElementIndex.Smoke,
+                    ElementCategory.Gas,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(160, 288),
+                    new(48, 48, 48),
+                    achievementSystem
+                ),
 
                 // [020] Red Brick
-                new Elements.Solids.Immovables.RedBrick()
-                {
-                    Index = ElementIndex.RedBrick,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(320, 0),
-                    ReferenceColor = AAP64ColorPalette.Crimson,
-                    DefaultTemperature = 25.0f,
-                    DefaultDensity = 2.4f,
-                    DefaultExplosionResistance = 2.5f,
-                },
+                new Elements.Solids.Immovables.RedBrick(
+                    ElementIndex.RedBrick,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(320, 0),
+                    AAP64ColorPalette.Crimson,
+                    achievementSystem
+                ),
 
                 // [021] Tree Leaf
-                new Elements.Solids.Immovables.TreeLeaf()
-                {
-                    Index = ElementIndex.TreeLeaf,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(320, 32),
-                    ReferenceColor = AAP64ColorPalette.MossGreen,
-                    DefaultTemperature = 22.0f,
-                    DefaultFlammabilityResistance = 5.0f,
-                    DefaultDensity = 0.04f,
-                    DefaultExplosionResistance = 0.1f,
-                },
+                new Elements.Solids.Immovables.TreeLeaf(
+                    ElementIndex.TreeLeaf,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(320, 32),
+                    AAP64ColorPalette.MossGreen,
+                    achievementSystem
+                ),
 
                 // [022] Mounting Block
-                new Elements.Solids.Immovables.MountingBlock()
-                {
-                    Index = ElementIndex.MountingBlock,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(0, 320),
-                    ReferenceColor = AAP64ColorPalette.White,
-                    DefaultTemperature = 20.0f,
-                    DefaultFlammabilityResistance = 150.0f,
-                    DefaultDensity = 1.8f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.MountingBlock(
+                    ElementIndex.MountingBlock,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Single,
+                    new(0, 320),
+                    AAP64ColorPalette.White,
+                    achievementSystem
+                ),
 
                 // [023] Fire
-                new Elements.Energies.Fire()
-                {
-                    Index = ElementIndex.Fire,
-                    Category = ElementCategory.Energy,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsExplosionImmune |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(32, 320),
-                    ReferenceColor = AAP64ColorPalette.Amber,
-                    DefaultTemperature = 500.0f,
-                    DefaultDensity = 0.0f,
-                },
+                new Elements.Energies.Fire(
+                    ElementIndex.Fire,
+                    ElementCategory.Energy,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsExplosionImmune |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Single,
+                    new(32, 320),
+                    AAP64ColorPalette.Amber,
+                    achievementSystem
+                ),
 
                 // [024] Lamp On
-                new Elements.Solids.Immovables.LampOn()
-                {
-                    Index = ElementIndex.LampOn,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(64, 320),
-                    ReferenceColor = AAP64ColorPalette.Sand,
-                    DefaultTemperature = 26.0f,
-                    DefaultDensity = 2.8f,
-                },
+                new Elements.Solids.Immovables.LampOn(
+                    ElementIndex.LampOn,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Single,
+                    new(64, 320),
+                    AAP64ColorPalette.Sand,
+                    achievementSystem
+                ),
 
                 // [025] Void
-                new Elements.Solids.Immovables.Void()
-                {
-                    Index = ElementIndex.Void,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.IsExplosionImmune,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(320, 64),
-                    ReferenceColor = AAP64ColorPalette.DarkGray,
-                    DefaultDensity = 0.001f,
-                },
+                new Elements.Solids.Immovables.Void(
+                    ElementIndex.Void,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.IsExplosionImmune,
+                    ElementRenderingType.Blob,
+                    new(320, 64),
+                    AAP64ColorPalette.DarkGray,
+                    achievementSystem
+                ),
 
                 // [026] Clone
-                new Elements.Solids.Immovables.Clone()
-                {
-                    Index = ElementIndex.Clone,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.IsExplosionImmune,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(320, 96),
-                    ReferenceColor = AAP64ColorPalette.Amber,
-                    DefaultDensity = 3.0f,
-                },
+                new Elements.Solids.Immovables.Clone(
+                    ElementIndex.Clone,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.IsExplosionImmune,
+                    ElementRenderingType.Blob,
+                    new(320, 96),
+                    AAP64ColorPalette.Amber,
+                    achievementSystem
+                ),
 
                 // [027] Oil
-                new Elements.Liquids.Oil()
-                {
-                    Index = ElementIndex.Oil,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(320, 128),
-                    ReferenceColor = AAP64ColorPalette.DarkGray,
-                    DefaultFlammabilityResistance = 5.0f,
-                    DefaultDensity = 0.92f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Liquids.Oil(
+                    ElementIndex.Oil,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(320, 128),
+                    AAP64ColorPalette.DarkGray,
+                    achievementSystem
+                ),
 
                 // [028] Salt
-                new Elements.Solids.Movables.Salt()
-                {
-                    Index = ElementIndex.Salt,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(320, 160),
-                    ReferenceColor = AAP64ColorPalette.White,
-                    DefaultTemperature = 22.0f,
-                    DefaultDensity = 2.2f,
-                    DefaultExplosionResistance = 0.7f,
-                },
+                new Elements.Solids.Movables.Salt(
+                    ElementIndex.Salt,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(320, 160),
+                    AAP64ColorPalette.White,
+                    achievementSystem
+                ),
 
                 // [029] Saltwater
-                new Elements.Liquids.Saltwater()
-                {
-                    Index = ElementIndex.Saltwater,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(320, 192),
-                    ReferenceColor = new(69, 188, 255),
-                    DefaultDispersionRate = 3,
-                    DefaultTemperature = 25.0f,
-                    DefaultDensity = 1.03f,
-                    DefaultExplosionResistance = 0.2f,
-                },
+                new Elements.Liquids.Saltwater(
+                    ElementIndex.Saltwater,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(320, 192),
+                    new(69, 188, 255),
+                    achievementSystem
+                ),
 
                 // [030] Bomb
-                new Elements.Solids.Movables.Explosives.Bomb()
-                {
-                    Index = ElementIndex.Bomb,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(96, 320),
-                    ReferenceColor = AAP64ColorPalette.DarkGray,
-                    DefaultTemperature = 25.0f,
-                    DefaultDensity = 3.5f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Solids.Movables.Bomb(
+                    ElementIndex.Bomb,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Single,
+                    new(96, 320),
+                    AAP64ColorPalette.DarkGray,
+                    achievementSystem
+                ),
 
                 // [031] Dynamite
-                new Elements.Solids.Movables.Explosives.Dynamite()
-                {
-                    Index = ElementIndex.Dynamite,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(128, 320),
-                    ReferenceColor = AAP64ColorPalette.Crimson.Darken(0.05f),
-                    DefaultTemperature = 22.0f,
-                    DefaultDensity = 2.4f,
-                    DefaultExplosionResistance = 0.5f,
-                },
+                new Elements.Solids.Movables.Dynamite(
+                    ElementIndex.Dynamite,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Single,
+                    new(128, 320),
+                    AAP64ColorPalette.Crimson.Darken(0.05f),
+                    achievementSystem
+                ),
 
                 // [032] TNT
-                new Elements.Solids.Movables.Explosives.Tnt()
-                {
-                    Index = ElementIndex.Tnt,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsExplosive |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(160, 320),
-                    ReferenceColor = AAP64ColorPalette.Crimson.Darken(0.1f),
-                    DefaultTemperature = 22.0f,
-                    DefaultDensity = 2.8f,
-                    DefaultExplosionResistance = 0.35f,
-                },
+                new Elements.Solids.Movables.Tnt(
+                    ElementIndex.Tnt,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsExplosive |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Single,
+                    new(160, 320),
+                    AAP64ColorPalette.Crimson.Darken(0.1f),
+                    achievementSystem
+                ),
 
                 // [033] Dry Sponge
-                new Elements.Solids.Immovables.DrySponge()
-                {
-                    Index = ElementIndex.DrySponge,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(320, 224),
-                    ReferenceColor = AAP64ColorPalette.Amber,
-                    DefaultTemperature = 25.0f,
-                    DefaultFlammabilityResistance = 10.0f,
-                    DefaultDensity = 0.055f,
-                    DefaultExplosionResistance = 0.5f,
-                },
+                new Elements.Solids.Immovables.DrySponge(
+                    ElementIndex.DrySponge,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(320, 224),
+                    AAP64ColorPalette.Amber,
+                    achievementSystem
+                ),
 
                 // [034] Wet Sponge
-                new Elements.Solids.Immovables.WetSponge()
-                {
-                    Index = ElementIndex.WetSponge,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(320, 256),
-                    ReferenceColor = AAP64ColorPalette.Amber.Darken(0.1f),
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 1.2f,
-                    DefaultExplosionResistance = 0.8f,
-                },
+                new Elements.Solids.Immovables.WetSponge(
+                    ElementIndex.WetSponge,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(320, 256),
+                    AAP64ColorPalette.Amber.Darken(0.1f),
+                    achievementSystem
+                ),
 
                 // [035] Gold
-                new Elements.Solids.Immovables.Gold()
-                {
-                    Index = ElementIndex.Gold,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(192, 320),
-                    ReferenceColor = AAP64ColorPalette.LemonYellow,
-                    DefaultTemperature = 22.0f,
-                    DefaultDensity = 19.3f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Solids.Immovables.Gold(
+                    ElementIndex.Gold,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Single,
+                    new(192, 320),
+                    AAP64ColorPalette.LemonYellow,
+                    achievementSystem
+                ),
 
                 // [036] Heater
-                new Elements.Solids.Immovables.Heater()
-                {
-                    Index = ElementIndex.Heater,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(224, 320),
-                    ReferenceColor = AAP64ColorPalette.DarkRed,
-                    DefaultTemperature = 0.0f,
-                    DefaultDensity = 1.5f,
-                    DefaultExplosionResistance = 2.5f,
-                },
+                new Elements.Solids.Immovables.Heater(
+                    ElementIndex.Heater,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Single,
+                    new(224, 320),
+                    AAP64ColorPalette.DarkRed,
+                    achievementSystem
+                ),
 
                 // [037] Freezer
-                new Elements.Solids.Immovables.Freezer()
-                {
-                    Index = ElementIndex.Freezer,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(256, 320),
-                    ReferenceColor = AAP64ColorPalette.NavyBlue,
-                    DefaultTemperature = 0.0f,
-                    DefaultDensity = 1.5f,
-                },
+                new Elements.Solids.Immovables.Freezer(
+                    ElementIndex.Freezer,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Single,
+                    new(256, 320),
+                    AAP64ColorPalette.NavyBlue,
+                    achievementSystem
+                ),
 
                 // [038] Ash
-                new Elements.Solids.Movables.Ash()
-                {
-                    Index = ElementIndex.Ash,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(320, 288),
-                    ReferenceColor = new(30, 33, 38),
-                    DefaultTemperature = 40.0f,
-                    DefaultDensity = 0.35f,
-                    DefaultExplosionResistance = 0.0f,
-                },
+                new Elements.Solids.Movables.Ash(
+                    ElementIndex.Ash,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(320, 288),
+                    new(30, 33, 38),
+                    achievementSystem
+                ),
 
                 // [039] Anti-Corruption
-                new Elements.Gases.AntiCorruption()
-                {
-                    Index = ElementIndex.AntiCorruption,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 0),
-                    ReferenceColor = AAP64ColorPalette.Crimson,
-                    DefaultDensity = 0.5f,
-                },
+                new Elements.Gases.AntiCorruption(
+                    ElementIndex.AntiCorruption,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(480, 0),
+                    AAP64ColorPalette.Crimson,
+                    achievementSystem
+                ),
 
                 // [040] Devourer
-                new Elements.Solids.Immovables.Devourer()
-                {
-                    Index = ElementIndex.Devourer,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(288, 320),
-                    ReferenceColor = AAP64ColorPalette.Coal,
-                    DefaultTemperature = 35.0f,
-                    DefaultDensity = 3.5f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.Devourer(
+                    ElementIndex.Devourer,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Single,
+                    new(288, 320),
+                    AAP64ColorPalette.Coal,
+                    achievementSystem
+                ),
 
                 // [041] Upward Pusher
-                new Elements.Solids.Immovables.Pusher()
-                {
-                    Index = ElementIndex.UpwardPusher,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.IsCorruptible,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(320, 320),
-                    ReferenceColor = AAP64ColorPalette.Rust,
-                    direction = PusherDirection.Up,
-                    DefaultDensity = 2.0f,
-                },
+                new Elements.Solids.Immovables.Pusher(
+                    ElementIndex.UpwardPusher,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.IsCorruptible,
+                    ElementRenderingType.Single,
+                    PusherDirection.Up,
+                    new(320, 320),
+                    AAP64ColorPalette.Rust,
+                    achievementSystem
+                ),
 
                 // [042] Rightward Pusher
-                new Elements.Solids.Immovables.Pusher()
-                {
-                    Index = ElementIndex.RightwardPusher,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.IsCorruptible,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(352, 320),
-                    ReferenceColor = AAP64ColorPalette.Rust,
-                    direction = PusherDirection.Right,
-                    DefaultDensity = 2.0f,
-                },
+                new Elements.Solids.Immovables.Pusher(
+                    ElementIndex.RightwardPusher,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.IsCorruptible,
+                    ElementRenderingType.Single,
+                    PusherDirection.Right,
+                    new(352, 320),
+                    AAP64ColorPalette.Rust,
+                    achievementSystem
+                ),
 
                 // [043] Downward Pusher
-                new Elements.Solids.Immovables.Pusher()
-                {
-                    Index = ElementIndex.DownwardPusher,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.IsCorruptible,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(384, 320),
-                    ReferenceColor = AAP64ColorPalette.Rust,
-                    direction = PusherDirection.Down,
-                    DefaultDensity = 2.0f,
-                },
+                new Elements.Solids.Immovables.Pusher(
+                    ElementIndex.DownwardPusher,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.IsCorruptible,
+                    ElementRenderingType.Single,
+                    PusherDirection.Down,
+                    new(384, 320),
+                    AAP64ColorPalette.Rust,
+                    achievementSystem
+                ),
 
                 // [044] Leftward Pusher
-                new Elements.Solids.Immovables.Pusher()
-                {
-                    Index = ElementIndex.LeftwardPusher,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.IsCorruptible,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(416, 320),
-                    ReferenceColor = AAP64ColorPalette.Rust,
-                    direction = PusherDirection.Left,
-                    DefaultDensity = 2.0f,
-                },
+                new Elements.Solids.Immovables.Pusher(
+                    ElementIndex.LeftwardPusher,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.IsCorruptible,
+                    ElementRenderingType.Single,
+                    PusherDirection.Left,
+                    new(416, 320),
+                    AAP64ColorPalette.Rust,
+                    achievementSystem
+                ),
 
                 // [045] Cloud
-                new Elements.Gases.Cloud()
-                {
-                    Index = ElementIndex.Cloud,
-                    Category = ElementCategory.Gas,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 32),
-                    ReferenceColor = AAP64ColorPalette.LightGrayBlue,
-                    DefaultTemperature = 15.0f,
-                    DefaultFlammabilityResistance = 10.0f,
-                    DefaultDensity = 0.15f,
-                    DefaultExplosionResistance = 0.5f,
-                },
+                new Elements.Gases.Cloud(
+                    ElementIndex.Cloud,
+                    ElementCategory.Gas,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(480, 32),
+                    AAP64ColorPalette.LightGrayBlue,
+                    achievementSystem
+                ),
 
                 // [046] Charged Cloud
-                new Elements.Gases.ChargedCloud()
-                {
-                    Index = ElementIndex.ChargedCloud,
-                    Category = ElementCategory.Gas,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 64),
-                    ReferenceColor = AAP64ColorPalette.Slate,
-                    DefaultTemperature = 10.0f,
-                    DefaultFlammabilityResistance = 10.0f,
-                    DefaultDensity = 0.2f,
-                    DefaultExplosionResistance = 0.7f,
-                },
+                new Elements.Gases.ChargedCloud(
+                    ElementIndex.ChargedCloud,
+                    ElementCategory.Gas,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(480, 64),
+                    AAP64ColorPalette.Slate,
+                    achievementSystem
+                ),
 
                 // [047] Lightning Head
-                new Elements.Energies.LightningHead()
-                {
-                    Index = ElementIndex.LightningHead,
-                    Category = ElementCategory.Energy,
-                    Characteristics = ElementCharacteristics.None,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(448, 320),
-                    ReferenceColor = AAP64ColorPalette.White,
-                    DefaultTemperature = TemperatureConstants.MAX_CELSIUS_VALUE,
-                    DefaultDensity = 0.0f,
-                },
+                new Elements.Energies.LightningHead(
+                    ElementIndex.LightningHead,
+                    ElementCategory.Energy,
+                    ElementCharacteristics.None,
+                    ElementRenderingType.Single,
+                    new(448, 320),
+                    AAP64ColorPalette.White,
+                    achievementSystem
+                ),
 
                 // [048] Lightning Body
-                new Elements.Energies.LightningBody()
-                {
-                    Index = ElementIndex.LightningBody,
-                    Category = ElementCategory.Energy,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
+                new Elements.Energies.LightningBody(
+                    ElementIndex.LightningBody,
+                    ElementCategory.Energy,
+                    ElementCharacteristics.AffectsNeighbors |
                                       ElementCharacteristics.HasTemperature |
                                       ElementCharacteristics.IsExplosionImmune,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(448, 320),
-                    ReferenceColor = AAP64ColorPalette.White,
-                    DefaultTemperature = TemperatureConstants.MAX_CELSIUS_VALUE,
-                    DefaultDensity = 0.0f,
-                },
+                    ElementRenderingType.Single,
+                    new(448, 320),
+                    AAP64ColorPalette.White,
+                    achievementSystem
+                ),
 
                 // [049] Dry Wool (Black)
-                new Elements.Solids.Immovables.DryWool()
-                {
-                    Index = ElementIndex.DryBlackWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 96),
-                    ReferenceColor = AAP64ColorPalette.DarkGray,
-                    wetWoolIndex = ElementIndex.WetBlackWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultFlammabilityResistance = 35.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryBlackWool,
+                    ElementIndex.WetBlackWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(480, 96),
+                    AAP64ColorPalette.DarkGray,
+                    achievementSystem
+                ),
 
                 // [050] Dry Wool (White)
-                new Elements.Solids.Immovables.DryWool()
-                {
-                    Index = ElementIndex.DryWhiteWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 128),
-                    ReferenceColor = AAP64ColorPalette.White,
-                    wetWoolIndex = ElementIndex.WetWhiteWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultFlammabilityResistance = 35.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryWhiteWool,
+                    ElementIndex.WetWhiteWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(480, 128),
+                    AAP64ColorPalette.White,
+                    achievementSystem
+                ),
 
                 // [051] Dry Wool (Red)
-                new Elements.Solids.Immovables.DryWool()
-                {
-                    Index = ElementIndex.DryRedWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 160),
-                    ReferenceColor = AAP64ColorPalette.Crimson,
-                    wetWoolIndex = ElementIndex.WetRedWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultFlammabilityResistance = 35.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryRedWool,
+                    ElementIndex.WetRedWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(480, 160),
+                    AAP64ColorPalette.Crimson,
+                    achievementSystem
+                ),
 
                 // [052] Dry Wool (Orange)
-                new Elements.Solids.Immovables.DryWool()
-                {
-                    Index = ElementIndex.DryOrangeWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 192),
-                    ReferenceColor = AAP64ColorPalette.Orange,
-                    wetWoolIndex = ElementIndex.WetOrangeWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultFlammabilityResistance = 35.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryOrangeWool,
+                    ElementIndex.WetOrangeWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(480, 192),
+                    AAP64ColorPalette.Orange,
+                    achievementSystem
+                ),
 
                 // [053] Dry Wool (Yellow)
-                new Elements.Solids.Immovables.DryWool()
-                {
-                    Index = ElementIndex.DryYellowWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 224),
-                    ReferenceColor = AAP64ColorPalette.Gold,
-                    wetWoolIndex = ElementIndex.WetYellowWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultFlammabilityResistance = 35.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryYellowWool,
+                    ElementIndex.WetYellowWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(480, 224),
+                    AAP64ColorPalette.Gold,
+                    achievementSystem
+                ),
 
                 // [054] Dry Wool (Green)
-                new Elements.Solids.Immovables.DryWool()
-                {
-                    Index = ElementIndex.DryGreenWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 256),
-                    ReferenceColor = AAP64ColorPalette.ForestGreen,
-                    wetWoolIndex = ElementIndex.WetGreenWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultFlammabilityResistance = 35.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryGreenWool,
+                    ElementIndex.WetGreenWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(480, 256),
+                    AAP64ColorPalette.ForestGreen,
+                    achievementSystem
+                ),
 
                 // [055] Dry Wool (Gray)
-                new Elements.Solids.Immovables.DryWool()
-                {
-                    Index = ElementIndex.DryGrayWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(480, 288),
-                    ReferenceColor = AAP64ColorPalette.Gunmetal,
-                    wetWoolIndex = ElementIndex.WetGrayWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultFlammabilityResistance = 35.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryGrayWool,
+                    ElementIndex.WetGrayWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(480, 288),
+                    AAP64ColorPalette.Gunmetal,
+                    achievementSystem
+                ),
 
                 // [056] Dry Wool (Blue)
-                new Elements.Solids.Immovables.DryWool()
-                {
-                    Index = ElementIndex.DryBlueWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(640, 0),
-                    ReferenceColor = AAP64ColorPalette.Cyan,
-                    wetWoolIndex = ElementIndex.WetBlueWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultFlammabilityResistance = 35.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryBlueWool,
+                    ElementIndex.WetBlueWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(640, 0),
+                    AAP64ColorPalette.Cyan,
+                    achievementSystem
+                ),
 
                 // [057] Dry Wool (Violet)
-                new Elements.Solids.Immovables.DryWool()
-                {
-                    Index = ElementIndex.DryVioletWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(640, 32),
-                    ReferenceColor = AAP64ColorPalette.Violet,
-                    wetWoolIndex = ElementIndex.WetVioletWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultFlammabilityResistance = 35.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryVioletWool,
+                    ElementIndex.WetVioletWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(640, 32),
+                    AAP64ColorPalette.Violet,
+                    achievementSystem
+                ),
 
                 // [058] Dry Wool (Brown)
-                new Elements.Solids.Immovables.DryWool()
-                {
-                    Index = ElementIndex.DryBrownWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(640, 64),
-                    ReferenceColor = AAP64ColorPalette.Brown,
-                    wetWoolIndex = ElementIndex.WetBrownWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultFlammabilityResistance = 35.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryBrownWool,
+                    ElementIndex.WetBrownWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(640, 64),
+                    AAP64ColorPalette.Brown,
+                    achievementSystem
+                ),
 
                 // [059] Wet Wool (Black)
-                new Elements.Solids.Immovables.WetWool()
-                {
-                    Index = ElementIndex.WetBlackWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(640, 96),
-                    ReferenceColor = AAP64ColorPalette.DarkGray.Darken(0.65f),
-                    dryWoolIndex = ElementIndex.DryBlackWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetBlackWool,
+                    ElementIndex.DryBlackWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(640, 96),
+                    AAP64ColorPalette.DarkGray.Darken(0.65f),
+                    achievementSystem
+                ),
 
                 // [060] Wet Wool (White)
-                new Elements.Solids.Immovables.WetWool()
-                {
-                    Index = ElementIndex.WetWhiteWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(640, 128),
-                    ReferenceColor = AAP64ColorPalette.White.Darken(0.65f),
-                    dryWoolIndex = ElementIndex.DryWhiteWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetWhiteWool,
+                    ElementIndex.DryWhiteWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(640, 128),
+                    AAP64ColorPalette.White.Darken(0.65f),
+                    achievementSystem
+                ),
 
                 // [061] Wet Wool (Red)
-                new Elements.Solids.Immovables.WetWool()
-                {
-                    Index = ElementIndex.WetRedWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(640, 160),
-                    ReferenceColor = AAP64ColorPalette.Crimson.Darken(0.65f),
-                    dryWoolIndex = ElementIndex.DryRedWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetRedWool,
+                    ElementIndex.DryRedWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(640, 160),
+                    AAP64ColorPalette.Crimson.Darken(0.65f),
+                    achievementSystem
+                ),
 
                 // [062] Wet Wool (Orange)
-                new Elements.Solids.Immovables.WetWool()
-                {
-                    Index = ElementIndex.WetOrangeWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(640, 192),
-                    ReferenceColor = AAP64ColorPalette.Orange.Darken(0.65f),
-                    dryWoolIndex = ElementIndex.DryOrangeWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetOrangeWool,
+                    ElementIndex.DryOrangeWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(640, 192),
+                    AAP64ColorPalette.Orange.Darken(0.65f),
+                    achievementSystem
+                ),
 
                 // [063] Wet Wool (Yellow)
-                new Elements.Solids.Immovables.WetWool()
-                {
-                    Index = ElementIndex.WetYellowWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(640, 224),
-                    ReferenceColor = AAP64ColorPalette.Gold.Darken(0.65f),
-                    dryWoolIndex = ElementIndex.DryYellowWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetYellowWool,
+                    ElementIndex.DryYellowWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(640, 224),
+                    AAP64ColorPalette.Gold.Darken(0.65f),
+                    achievementSystem
+                ),
 
                 // [064] Wet Wool (Green)
-                new Elements.Solids.Immovables.WetWool()
-                {
-                    Index = ElementIndex.WetGreenWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(640, 256),
-                    ReferenceColor = AAP64ColorPalette.ForestGreen.Darken(0.65f),
-                    dryWoolIndex = ElementIndex.DryGreenWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetGreenWool,
+                    ElementIndex.DryGreenWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(640, 256),
+                    AAP64ColorPalette.ForestGreen.Darken(0.65f),
+                    achievementSystem
+                ),
 
                 // [065] Wet Wool (Gray)
-                new Elements.Solids.Immovables.WetWool()
-                {
-                    Index = ElementIndex.WetGrayWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(640, 288),
-                    ReferenceColor = AAP64ColorPalette.Gunmetal.Darken(0.65f),
-                    dryWoolIndex = ElementIndex.DryGrayWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetGrayWool,
+                    ElementIndex.DryGrayWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(640, 288),
+                    AAP64ColorPalette.Gunmetal.Darken(0.65f),
+                    achievementSystem
+                ),
 
                 // [066] Wet Wool (Blue)
-                new Elements.Solids.Immovables.WetWool()
-                {
-                    Index = ElementIndex.WetBlueWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(800, 0),
-                    ReferenceColor = AAP64ColorPalette.Cyan.Darken(0.65f),
-                    dryWoolIndex = ElementIndex.DryBlueWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetBlueWool,
+                    ElementIndex.DryBlueWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(800, 0),
+                    AAP64ColorPalette.Cyan.Darken(0.65f),
+                    achievementSystem
+                ),
 
                 // [067] Wet Wool (Violet)
-                new Elements.Solids.Immovables.WetWool()
-                {
-                    Index = ElementIndex.WetVioletWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(800, 32),
-                    ReferenceColor = AAP64ColorPalette.Violet.Darken(0.65f),
-                    dryWoolIndex = ElementIndex.DryVioletWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetVioletWool,
+                    ElementIndex.DryVioletWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(800, 32),
+                    AAP64ColorPalette.Violet.Darken(0.65f),
+                    achievementSystem
+                ),
 
                 // [068] Wet Wool (Brown)
-                new Elements.Solids.Immovables.WetWool()
-                {
-                    Index = ElementIndex.WetBrownWool,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(800, 64),
-                    ReferenceColor = AAP64ColorPalette.Brown.Darken(0.65f),
-                    dryWoolIndex = ElementIndex.DryBrownWool,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 0.6f,
-                    DefaultExplosionResistance = 1.5f,
-                },
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetBrownWool,
+                    ElementIndex.DryBrownWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(800, 64),
+                    AAP64ColorPalette.Brown.Darken(0.65f),
+                    achievementSystem
+                ),
 
                 // [069] Fertile Soil
-                new Elements.Solids.Movables.FertileSoil()
-                {
-                    Index = ElementIndex.FertileSoil,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(800, 96),
-                    ReferenceColor = AAP64ColorPalette.Burgundy,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 1.4f,
-                    DefaultExplosionResistance = 0.4f,
-                },
+                new Elements.Solids.Movables.FertileSoil(
+                    ElementIndex.FertileSoil,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(800, 96),
+                    AAP64ColorPalette.Burgundy,
+                    achievementSystem
+                ),
 
                 // [070] Seed
-                new Elements.Solids.Movables.Seed()
-                {
-                    Index = ElementIndex.Seed,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(480, 320),
-                    ReferenceColor = AAP64ColorPalette.DarkGreen,
-                    DefaultTemperature = 25.0f,
-                    DefaultFlammabilityResistance = 5.0f,
-                    DefaultDensity = 0.05f,
-                    DefaultExplosionResistance = 0.2f,
-                },
+                new Elements.Solids.Movables.Seed(
+                    ElementIndex.Seed,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Single,
+                    new(480, 320),
+                    AAP64ColorPalette.DarkGreen,
+                    achievementSystem
+                ),
 
                 // [071] Sapling
-                new Elements.Solids.Movables.Sapling()
-                {
-                    Index = ElementIndex.Sapling,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(512, 320),
-                    ReferenceColor = AAP64ColorPalette.DarkTeal,
-                    DefaultTemperature = 25.0f,
-                    DefaultFlammabilityResistance = 15.0f,
-                    DefaultDensity = 0.3f,
-                    DefaultExplosionResistance = 0.5f,
-                },
+                new Elements.Solids.Movables.Sapling(
+                    ElementIndex.Sapling,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Single,
+                    new(512, 320),
+                    AAP64ColorPalette.DarkTeal,
+                    achievementSystem
+                ),
 
                 // [072] Moss
-                new Elements.Solids.Immovables.Moss()
-                {
-                    Index = ElementIndex.Moss,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(800, 128),
-                    ReferenceColor = AAP64ColorPalette.PineGreen,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 0.4f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Solids.Immovables.Moss(
+                    ElementIndex.Moss,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(800, 128),
+                    AAP64ColorPalette.PineGreen,
+                    achievementSystem
+                ),
 
                 // [073] Gunpowder
-                new Elements.Solids.Movables.Explosives.Gunpowder()
-                {
-                    Index = ElementIndex.Gunpowder,
-                    Category = ElementCategory.MovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(800, 160),
-                    ReferenceColor = AAP64ColorPalette.Graphite,
-                    DefaultTemperature = 22.0f,
-                    DefaultFlammabilityResistance = 5.0f,
-                    DefaultDensity = 0.9f,
-                    DefaultExplosionResistance = 0.1f,
-                },
+                new Elements.Solids.Movables.Gunpowder(
+                    ElementIndex.Gunpowder,
+                    ElementCategory.MovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(800, 160),
+                    AAP64ColorPalette.Graphite,
+                    achievementSystem
+                ),
 
                 // [074] Liquefied Petroleum Gas
-                new Elements.Gases.LiquefiedPetroleumGas()
-                {
-                    Index = ElementIndex.LiquefiedPetroleumGas,
-                    Category = ElementCategory.Gas,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsFlammable |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(800, 192),
-                    ReferenceColor = AAP64ColorPalette.Amber,
-                    DefaultTemperature = -42.0f,
-                    DefaultFlammabilityResistance = 1.0f,
-                    DefaultDensity = 0.25f,
-                    DefaultExplosionResistance = 0.2f,
-                },
+                new Elements.Gases.LiquefiedPetroleumGas(
+                    ElementIndex.LiquefiedPetroleumGas,
+                    ElementCategory.Gas,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsFlammable |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Blob,
+                    new(800, 192),
+                    AAP64ColorPalette.Amber,
+                    achievementSystem
+                ),
 
                 // [075] Obsidian
-                new Elements.Solids.Immovables.Obsidian()
-                {
-                    Index = ElementIndex.Obsidian,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsExplosionImmune,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(800, 224),
-                    ReferenceColor = AAP64ColorPalette.DarkGray,
-                    DefaultTemperature = 35.0f,
-                    DefaultDensity = 2.4f,
-                },
+                new Elements.Solids.Immovables.Obsidian(
+                    ElementIndex.Obsidian,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsExplosionImmune,
+                    ElementRenderingType.Blob,
+                    new(800, 224),
+                    AAP64ColorPalette.DarkGray,
+                    achievementSystem
+                ),
 
                 // [076] Paint (Black)
-                new Elements.Liquids.Paint()
-                {
-                    Index = ElementIndex.BlackPaint,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsFlammable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(800, 256),
-                    ReferenceColor = AAP64ColorPalette.DarkGray,
-                    DyeingColor = AAP64ColorPalette.DarkGray,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 1.2f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Liquids.Paint(
+                    ElementIndex.BlackPaint,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsFlammable,
+                    ElementRenderingType.Blob,
+                    new(800, 256),
+                    AAP64ColorPalette.DarkGray,
+                    achievementSystem
+                ),
 
                 // [077] Paint (White)
-                new Elements.Liquids.Paint()
-                {
-                    Index = ElementIndex.WhitePaint,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsFlammable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(800, 288),
-                    ReferenceColor = AAP64ColorPalette.White,
-                    DyeingColor = AAP64ColorPalette.White,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 1.2f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Liquids.Paint(
+                    ElementIndex.WhitePaint,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsFlammable,
+                    ElementRenderingType.Blob,
+                    new(800, 288),
+                    AAP64ColorPalette.White,
+                    achievementSystem
+                ),
 
                 // [078] Paint (Red)
-                new Elements.Liquids.Paint()
-                {
-                    Index = ElementIndex.RedPaint,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsFlammable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(960, 0),
-                    ReferenceColor = AAP64ColorPalette.Crimson,
-                    DyeingColor = AAP64ColorPalette.Crimson,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 1.2f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Liquids.Paint(
+                    ElementIndex.RedPaint,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsFlammable,
+                    ElementRenderingType.Blob,
+                    new(960, 0),
+                    AAP64ColorPalette.Crimson,
+                    achievementSystem
+                ),
 
                 // [079] Paint (Orange)
-                new Elements.Liquids.Paint()
-                {
-                    Index = ElementIndex.OrangePaint,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsFlammable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(960, 32),
-                    ReferenceColor = AAP64ColorPalette.Orange,
-                    DyeingColor = AAP64ColorPalette.Orange,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 1.2f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Liquids.Paint(
+                    ElementIndex.OrangePaint,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsFlammable,
+                    ElementRenderingType.Blob,
+                    new(960, 32),
+                    AAP64ColorPalette.Orange,
+                    achievementSystem
+                ),
 
                 // [080] Paint (Yellow)
-                new Elements.Liquids.Paint()
-                {
-                    Index = ElementIndex.YellowPaint,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsFlammable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(960, 64),
-                    ReferenceColor = AAP64ColorPalette.Gold,
-                    DyeingColor = AAP64ColorPalette.Gold,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 1.2f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Liquids.Paint(
+                    ElementIndex.YellowPaint,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsFlammable,
+                    ElementRenderingType.Blob,
+                    new(960, 64),
+                    AAP64ColorPalette.Gold,
+                    achievementSystem
+                ),
 
                 // [081] Paint (Green)
-                new Elements.Liquids.Paint()
-                {
-                    Index = ElementIndex.GreenPaint,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsFlammable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(960, 96),
-                    ReferenceColor = AAP64ColorPalette.ForestGreen,
-                    DyeingColor = AAP64ColorPalette.ForestGreen,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 1.2f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Liquids.Paint(
+                    ElementIndex.GreenPaint,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsFlammable,
+                    ElementRenderingType.Blob,
+                    new(960, 96),
+                    AAP64ColorPalette.ForestGreen,
+                    achievementSystem
+                ),
 
                 // [082] Paint (Cyan)
-                new Elements.Liquids.Paint()
-                {
-                    Index = ElementIndex.CyanPaint,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsFlammable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(960, 128),
-                    ReferenceColor = AAP64ColorPalette.Cyan,
-                    DyeingColor = AAP64ColorPalette.Cyan,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 1.2f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Liquids.Paint(
+                    ElementIndex.CyanPaint,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsFlammable,
+                    ElementRenderingType.Blob,
+                    new(960, 128),
+                    AAP64ColorPalette.Cyan,
+                    achievementSystem
+                ),
 
                 // [083] Paint (Gray)
-                new Elements.Liquids.Paint()
-                {
-                    Index = ElementIndex.GrayPaint,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsFlammable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(960, 160),
-                    ReferenceColor = AAP64ColorPalette.Gunmetal,
-                    DyeingColor = AAP64ColorPalette.Gunmetal,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 1.2f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Liquids.Paint(
+                    ElementIndex.GrayPaint,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsFlammable,
+                    ElementRenderingType.Blob,
+                    new(960, 160),
+                    AAP64ColorPalette.Gunmetal,
+                    achievementSystem
+                ),
 
                 // [084] Paint (Violet)
-                new Elements.Liquids.Paint()
-                {
-                    Index = ElementIndex.VioletPaint,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsFlammable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(960, 192),
-                    ReferenceColor = AAP64ColorPalette.Violet,
-                    DyeingColor = AAP64ColorPalette.Violet,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 1.2f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Liquids.Paint(
+                    ElementIndex.VioletPaint,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsFlammable,
+                    ElementRenderingType.Blob,
+                    new(960, 192),
+                    AAP64ColorPalette.Violet,
+                    achievementSystem
+                ),
 
                 // [085] Paint (Brown)
-                new Elements.Liquids.Paint()
-                {
-                    Index = ElementIndex.BrownPaint,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsFlammable,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(960, 224),
-                    ReferenceColor = AAP64ColorPalette.Brown,
-                    DyeingColor = AAP64ColorPalette.Brown,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 1.2f,
-                    DefaultExplosionResistance = 0.3f,
-                },
+                new Elements.Liquids.Paint(
+                    ElementIndex.BrownPaint,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsFlammable,
+                    ElementRenderingType.Blob,
+                    new(960, 224),
+                    AAP64ColorPalette.Brown,
+                    achievementSystem
+                ),
 
                 // [086] Mercury
-                new Elements.Liquids.Mercury()
-                {
-                    Index = ElementIndex.Mercury,
-                    Category = ElementCategory.Liquid,
-                    Characteristics = ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsConductive,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(960, 256),
-                    ReferenceColor = AAP64ColorPalette.Slate,
-                    DefaultTemperature = 10.0f,
-                    DefaultDensity = 13.5f,
-                    DefaultExplosionResistance = 0.5f,
-                    DefaultDispersionRate = 3,
-                },
+                new Elements.Liquids.Mercury(
+                    ElementIndex.Mercury,
+                    ElementCategory.Liquid,
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsConductive,
+                    ElementRenderingType.Blob,
+                    new(960, 256),
+                    AAP64ColorPalette.Slate,
+                    achievementSystem
+                ),
 
                 // [087] Electricity
-                new Elements.Energies.Electricity()
-                {
-                    Index = ElementIndex.Electricity,
-                    Category = ElementCategory.Energy,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsElectrified,
-                    RenderingType = ElementRenderingType.Blob,
-                    TextureOriginOffset = new(960, 288),
-                    ReferenceColor = AAP64ColorPalette.Gold,
-                    DefaultTemperature = 20.0f,
-                    DefaultDensity = 0.0f,
-                    DefaultExplosionResistance = 0.0f,
-                    DefaultDispersionRate = 8,
-                },
+                new Elements.Energies.Electricity(
+                    ElementIndex.Electricity,
+                    ElementCategory.Energy,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsElectrified,
+                    ElementRenderingType.Blob,
+                    new(960, 288),
+                    AAP64ColorPalette.Gold,
+                    achievementSystem
+                ),
 
                 // [088] Battery
-                new Elements.Solids.Immovables.Battery()
-                {
-                    Index = ElementIndex.Battery,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable |
-                                      ElementCharacteristics.IsElectrified,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(576, 320),
-                    ReferenceColor = AAP64ColorPalette.Orange,
-                    DefaultTemperature = 20.0f,
-                    DefaultFlammabilityResistance = 25.0f,
-                    DefaultDensity = 1.2f,
-                    DefaultExplosionResistance = 1.0f,
-                },
+                new Elements.Solids.Immovables.Battery(
+                    ElementIndex.Battery,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable |
+                    ElementCharacteristics.IsElectrified,
+                    ElementRenderingType.Single,
+                    new(576, 320),
+                    AAP64ColorPalette.Orange,
+                    achievementSystem
+                ),
 
                 // [089] Lamp (Off)
-                new Elements.Solids.Immovables.LampOff()
-                {
-                    Index = ElementIndex.LampOff,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(544, 320),
-                    ReferenceColor = AAP64ColorPalette.Brown,
-                    DefaultTemperature = 20.0f,
-                    DefaultFlammabilityResistance = 20.0f,
-                    DefaultDensity = 1.0f,
-                    DefaultExplosionResistance = 0.5f,
-                },
+                new Elements.Solids.Immovables.LampOff(
+                    ElementIndex.LampOff,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Single,
+                    new(544, 320),
+                    AAP64ColorPalette.Brown,
+                    achievementSystem
+                ),
 
                 // [090] Energy Transmitter
-                new Elements.Solids.Immovables.EnergyTransmitter()
-                {
-                    Index = ElementIndex.EnergyTransmitter,
-                    Category = ElementCategory.ImmovableSolid,
-                    Characteristics = ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsCorruptible |
-                                      ElementCharacteristics.IsPushable,
-                    RenderingType = ElementRenderingType.Single,
-                    TextureOriginOffset = new(608, 320),
-                    ReferenceColor = AAP64ColorPalette.Brown,
-                    DefaultTemperature = 25.0f,
-                    DefaultFlammabilityResistance = 30.0f,
-                    DefaultDensity = 1.3f,
-                    DefaultExplosionResistance = 1.2f,
-                }
+                new Elements.Solids.Immovables.EnergyTransmitter(
+                    ElementIndex.EnergyTransmitter,
+                    ElementCategory.ImmovableSolid,
+                    ElementCharacteristics.AffectsNeighbors |
+                    ElementCharacteristics.HasTemperature |
+                    ElementCharacteristics.IsCorruptible |
+                    ElementCharacteristics.IsPushable,
+                    ElementRenderingType.Single,
+                    new(608, 320),
+                    AAP64ColorPalette.Brown,
+                    achievementSystem
+                )
             ];
         }
 

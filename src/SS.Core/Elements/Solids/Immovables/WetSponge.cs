@@ -27,7 +27,9 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         internal WetSponge(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            InitialTemperature = 20.0f;
+            BaseDensity = 1.2f;
+            BaseExplosionResistance = 0.8f;
         }
 
         protected override void OnStep(ElementContext context)

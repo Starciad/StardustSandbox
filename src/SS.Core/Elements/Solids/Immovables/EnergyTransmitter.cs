@@ -31,7 +31,10 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         internal EnergyTransmitter(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 25.0f;
+            this.BaseFlammabilityResistance = 30.0f;
+            this.BaseDensity = 1.3f;
+            this.BaseExplosionResistance = 1.2f;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

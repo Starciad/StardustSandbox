@@ -27,7 +27,9 @@ namespace StardustSandbox.Core.Elements.Liquids
     {
         internal Lava(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 1500.0f;
+            this.BaseDensity = 2.7f;
+            this.BaseExplosionResistance = 0.4f;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

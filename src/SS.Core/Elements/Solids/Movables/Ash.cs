@@ -27,7 +27,9 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
     {
         internal Ash(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 40.0f;
+            this.BaseDensity = 0.35f;
+            this.BaseExplosionResistance = 0.0f;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

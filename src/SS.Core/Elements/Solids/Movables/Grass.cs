@@ -27,7 +27,10 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
     {
         internal Grass(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.BaseDensity = 0.1f;
+            this.BaseExplosionResistance = 0.5f;
+            this.BaseFlammabilityResistance = 10.0f;
+            this.InitialTemperature = 22.0f;
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)

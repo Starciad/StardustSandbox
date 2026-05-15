@@ -27,7 +27,9 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         internal Heater(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 0.0f;
+            this.BaseDensity = 1.5f;
+            this.BaseExplosionResistance = 2.5f;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

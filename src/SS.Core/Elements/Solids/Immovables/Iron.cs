@@ -26,7 +26,9 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         internal Iron(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 30.0f;
+            this.BaseDensity = 7.8f;
+            this.BaseExplosionResistance = 0.3f;
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)

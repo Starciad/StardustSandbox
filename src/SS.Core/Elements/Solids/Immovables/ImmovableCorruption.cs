@@ -30,7 +30,8 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         internal ImmovableCorruption(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.BaseDensity = 1.6f;
+            this.BaseExplosionResistance = 1.2f;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

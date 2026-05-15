@@ -45,7 +45,10 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 
         internal Gunpowder(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 22.0f;
+            this.BaseFlammabilityResistance = 5.0f;
+            this.BaseDensity = 0.9f;
+            this.BaseExplosionResistance = 0.1f;
         }
 
         protected override void OnDestroyed(ElementContext context)

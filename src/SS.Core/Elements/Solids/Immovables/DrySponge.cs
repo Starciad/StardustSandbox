@@ -29,6 +29,10 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         internal DrySponge(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
+            this.InitialTemperature = 25.0f;
+            this.BaseFlammabilityResistance = 10.0f;
+            this.BaseDensity = 0.055f;
+            this.BaseExplosionResistance = 0.5f;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

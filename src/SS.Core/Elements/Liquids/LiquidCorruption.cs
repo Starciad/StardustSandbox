@@ -30,7 +30,8 @@ namespace StardustSandbox.Core.Elements.Liquids
     {
         internal LiquidCorruption(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.BaseDensity = 1.05f;
+            this.BaseExplosionResistance = 0.1f;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

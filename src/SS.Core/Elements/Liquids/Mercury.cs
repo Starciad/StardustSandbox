@@ -26,7 +26,10 @@ namespace StardustSandbox.Core.Elements.Liquids
     {
         internal Mercury(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 10.0f;
+            this.BaseDensity = 13.5f;
+            this.BaseExplosionResistance = 0.5f;
+            this.BaseDispersionRate = 3;
         }
     }
 }

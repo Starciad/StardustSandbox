@@ -26,9 +26,9 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
     {
         internal Dirt(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-            this.DefaultTemperature = 20.0f;
-            this.DefaultDensity = 1.6f;
-            this.DefaultExplosionResistance = 1.0f;
+            this.InitialTemperature = 20.0f;
+            this.BaseDensity = 1.6f;
+            this.BaseExplosionResistance = 1.0f;
         }
     }
 }

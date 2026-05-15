@@ -30,6 +30,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         internal Pusher(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, PusherDirection direction, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
             this.direction = direction;
+            this.BaseDensity = 2.0f;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

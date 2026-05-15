@@ -45,7 +45,9 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 
         internal Bomb(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 25.0f;
+            this.BaseDensity = 3.5f;
+            this.BaseExplosionResistance = 0.3f;
         }
 
         protected override void OnDestroyed(ElementContext context)

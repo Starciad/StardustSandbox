@@ -47,7 +47,7 @@ namespace StardustSandbox.Core.Elements.Gases
 
                 if (slotLayer.Element.Category is ElementCategory.Gas or ElementCategory.Liquid)
                 {
-                    if ((slotLayer.ElementIndex == this.Index && slotLayer.Temperature > context.CurrentSlotLayer.Temperature) || this.DefaultDensity > slotLayer.Element.DefaultDensity)
+                    if ((slotLayer.ElementIndex == this.Index && slotLayer.Temperature > context.CurrentSlotLayer.Temperature) || this.BaseDensity > slotLayer.Element.BaseDensity)
                     {
                         availablePositions.Add(position);
                     }

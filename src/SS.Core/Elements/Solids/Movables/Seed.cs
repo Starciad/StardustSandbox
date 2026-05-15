@@ -29,7 +29,10 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
     {
         internal Seed(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementSystem achievementSystem) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementSystem)
         {
-
+            this.InitialTemperature = 25.0f;
+            this.BaseFlammabilityResistance = 5.0f;
+            this.BaseDensity = 0.05f;
+            this.BaseExplosionResistance = 0.2f;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

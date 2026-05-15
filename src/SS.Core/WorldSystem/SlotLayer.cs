@@ -57,7 +57,7 @@ namespace StardustSandbox.Core.WorldSystem
             this.ElementIndex = index;
             this.StepCycleFlag = UpdateCycleFlag.None;
             this.StoredElementIndex = Enums.Elements.ElementIndex.None;
-            this.Temperature = this.Element.DefaultTemperature;
+            this.Temperature = this.Element.InitialTemperature;
         }
         internal void Destroy()
         {
