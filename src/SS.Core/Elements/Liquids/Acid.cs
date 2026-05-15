@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.Elements.Liquids
 {
     internal sealed class Acid : Liquid
     {
-        internal Acid(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal Acid(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 10.0f;
             this.BaseDensity = 1.2f;
@@ -62,7 +62,7 @@ namespace StardustSandbox.Core.Elements.Liquids
                 {
                     context.DestroyElement(neighbors.GetNeighborPosition(i), context.CurrentLayer);
                     context.DestroyElement();
-                    StatisticsManager.IncrementWorldCorrodedElements();
+                    this.StatisticsManager.IncrementWorldCorrodedElements();
                 }
             }
         }

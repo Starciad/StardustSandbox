@@ -25,7 +25,7 @@ namespace StardustSandbox.Core.Elements.Liquids
 {
     internal sealed class Oil : Liquid
     {
-        internal Oil(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal Oil(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.BaseFlammabilityResistance = 5.0f;
             this.BaseDensity = 0.92f;

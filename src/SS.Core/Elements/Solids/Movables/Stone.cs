@@ -25,7 +25,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 {
     internal sealed class Stone : MovableSolid
     {
-        internal Stone(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal Stone(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 20.0f;
             this.BaseDensity = 2.5f;
@@ -37,7 +37,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             if (currentValue > 600.0f)
             {
                 context.ReplaceElementIndex(ElementIndex.Lava);
-                this.AchievementSystem.Unlock(AchievementIndex.ACH_020);
+                this.AchievementManager.Unlock(AchievementIndex.ACH_020);
             }
         }
     }

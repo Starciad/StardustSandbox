@@ -32,13 +32,13 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         private static readonly List<Point> positionScratch = [];
         private static readonly List<SlotLayer> layerScratch = [];
 
-        internal Clone(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal Clone(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.BaseDensity = 3.0f;
         }
 
         // Instantiate the stored element into a random valid adjacent empty slot
-        private static void TryInstantiateStoredElement(ElementContext context)
+        private void TryInstantiateStoredElement(ElementContext context)
         {
             ElementIndex stored = context.GetStoredElementIndex();
 
@@ -48,7 +48,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             }
 
             context.InstantiateElementIndex(validPosition, context.CurrentLayer, stored);
-            StatisticsManager.IncrementWorldClonedElements();
+            this.StatisticsManager.IncrementWorldClonedElements();
         }
 
         private static void TryAddEmptyPosition(ElementContext context, Point position)

@@ -29,7 +29,7 @@ namespace StardustSandbox.Core.Elements.Energies
 {
     internal sealed class Fire : Energy
     {
-        internal Fire(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal Fire(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 500.0f;
             this.BaseDensity = 0.0f;
@@ -100,7 +100,7 @@ namespace StardustSandbox.Core.Elements.Energies
             // Unlock achievement if 4 or more elements were burned and there were at least 4 elements around
             if (burnedElements >= 4 && aroundElements >= 4)
             {
-                this.AchievementSystem.Unlock(AchievementIndex.ACH_023);
+                this.AchievementManager.Unlock(AchievementIndex.ACH_023);
             }
         }
 

@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Gases
 {
     internal sealed class ChargedCloud : Gas
     {
-        internal ChargedCloud(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal ChargedCloud(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 10.0f;
             this.BaseFlammabilityResistance = 10.0f;
@@ -49,7 +49,7 @@ namespace StardustSandbox.Core.Elements.Gases
                     else
                     {
                         context.ReplaceElementIndex(ElementIndex.LightningHead);
-                        this.AchievementSystem.Unlock(AchievementIndex.ACH_015);
+                        this.AchievementManager.Unlock(AchievementIndex.ACH_015);
                     }
                 }
                 else

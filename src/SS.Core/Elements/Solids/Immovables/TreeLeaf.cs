@@ -25,7 +25,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class TreeLeaf : ImmovableSolid
     {
-        internal TreeLeaf(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal TreeLeaf(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 22.0f;
             this.BaseFlammabilityResistance = 5.0f;

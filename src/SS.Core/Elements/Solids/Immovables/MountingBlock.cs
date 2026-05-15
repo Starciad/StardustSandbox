@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class MountingBlock : ImmovableSolid
     {
-        internal MountingBlock(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal MountingBlock(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 20.0f;
             this.BaseFlammabilityResistance = 150.0f;

@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         private readonly PusherDirection direction;
 
-        internal Pusher(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, PusherDirection direction, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal Pusher(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, PusherDirection direction, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.direction = direction;
             this.BaseDensity = 2.0f;

@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Liquids
 {
     internal sealed class Water : Liquid
     {
-        internal Water(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal Water(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.BaseDispersionRate = 3;
             this.InitialTemperature = 25.0f;
@@ -77,12 +77,12 @@ namespace StardustSandbox.Core.Elements.Liquids
             if (currentValue <= 0.0f)
             {
                 context.ReplaceElementIndex(ElementIndex.Ice);
-                this.AchievementSystem.Unlock(AchievementIndex.ACH_021);
+                this.AchievementManager.Unlock(AchievementIndex.ACH_021);
             }
             else if (currentValue >= 100.0f)
             {
                 context.ReplaceElementIndex(ElementIndex.Steam);
-                this.AchievementSystem.Unlock(AchievementIndex.ACH_005);
+                this.AchievementManager.Unlock(AchievementIndex.ACH_005);
             }
         }
     }

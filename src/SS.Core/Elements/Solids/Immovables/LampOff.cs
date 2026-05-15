@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class LampOff : ImmovableSolid
     {
-        internal LampOff(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal LampOff(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             InitialTemperature = 20.0f;
             BaseFlammabilityResistance = 20.0f;

@@ -40,7 +40,8 @@ namespace StardustSandbox.Core.Elements
         internal Point TextureOriginOffset { get; }
         internal Color ReferenceColor { get; }
 
-        protected AchievementManager AchievementSystem { get; }
+        protected AchievementManager AchievementManager { get; }
+        protected StatisticsManager StatisticsManager { get; }
 
         public float BaseDensity { get; protected init; }
         public int BaseDispersionRate { get; protected init; }
@@ -52,7 +53,7 @@ namespace StardustSandbox.Core.Elements
 
         private ElementContext context;
 
-        internal Element(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager)
+        internal Element(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager)
         {
             this.Index = index;
             this.Category = category;
@@ -61,7 +62,8 @@ namespace StardustSandbox.Core.Elements
             this.TextureOriginOffset = textureOriginOffset;
             this.ReferenceColor = referenceColor;
 
-            this.AchievementSystem = achievementManager;
+            this.AchievementManager = achievementManager;
+            this.StatisticsManager = statisticsManager;
 
             this.BaseDensity = 0.0f;
             this.BaseDispersionRate = 1;
@@ -194,11 +196,11 @@ namespace StardustSandbox.Core.Elements
 
             if (this.context.CurrentSlotLayer.Temperature == TemperatureConstants.MAX_CELSIUS_VALUE)
             {
-                AchievementSystem.Unlock(AchievementIndex.ACH_009);
+                AchievementManager.Unlock(AchievementIndex.ACH_009);
             }
             else if (this.context.CurrentSlotLayer.Temperature == TemperatureConstants.MIN_CELSIUS_VALUE)
             {
-                AchievementSystem.Unlock(AchievementIndex.ACH_010);
+                AchievementManager.Unlock(AchievementIndex.ACH_010);
             }
 
             OnTemperatureChanged(this.context, this.context.CurrentSlotLayer.Temperature);

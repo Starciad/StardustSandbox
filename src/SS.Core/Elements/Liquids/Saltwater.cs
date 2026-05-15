@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Liquids
 {
     internal sealed class Saltwater : Liquid
     {
-        internal Saltwater(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal Saltwater(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.BaseDispersionRate = 3;
             this.InitialTemperature = 25.0f;
@@ -77,14 +77,14 @@ namespace StardustSandbox.Core.Elements.Liquids
             {
                 context.ReplaceElementIndex(ElementIndex.Ice);
                 context.SetStoredElementIndex(ElementIndex.Saltwater);
-                this.AchievementSystem.Unlock(AchievementIndex.ACH_021);
+                this.AchievementManager.Unlock(AchievementIndex.ACH_021);
             }
             else if (currentValue >= 110.0f)
             {
                 if (Random.GetBool())
                 {
                     context.ReplaceElementIndex(ElementIndex.Steam);
-                    this.AchievementSystem.Unlock(AchievementIndex.ACH_005);
+                    this.AchievementManager.Unlock(AchievementIndex.ACH_005);
                 }
                 else
                 {

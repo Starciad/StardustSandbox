@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 {
     internal sealed class Salt : MovableSolid
     {
-        internal Salt(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal Salt(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 22.0f;
             this.BaseDensity = 2.2f;
@@ -49,7 +49,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
                     case ElementIndex.Snow:
                         context.DestroyElement();
                         context.ReplaceElementIndex(neighbors.GetNeighborPosition(i), context.CurrentLayer, ElementIndex.Saltwater);
-                        this.AchievementSystem.Unlock(AchievementIndex.ACH_024);
+                        this.AchievementManager.Unlock(AchievementIndex.ACH_024);
                         break;
 
                     default:

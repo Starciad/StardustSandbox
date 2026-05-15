@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class DrySponge : ImmovableSolid
     {
-        internal DrySponge(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal DrySponge(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 25.0f;
             this.BaseFlammabilityResistance = 10.0f;
@@ -62,7 +62,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             if (shouldBecomeWet)
             {
                 context.ReplaceElementIndex(ElementIndex.WetSponge);
-                this.AchievementSystem.Unlock(AchievementIndex.ACH_003);
+                this.AchievementManager.Unlock(AchievementIndex.ACH_003);
             }
         }
 

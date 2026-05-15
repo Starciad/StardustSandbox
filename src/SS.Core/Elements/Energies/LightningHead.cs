@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.Elements.Energies
 {
     internal sealed class LightningHead : Energy
     {
-        internal LightningHead(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal LightningHead(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = TemperatureConstants.MAX_CELSIUS_VALUE;
             this.BaseDensity = 0.0f;

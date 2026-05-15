@@ -41,19 +41,21 @@ namespace StardustSandbox.Core.UI.Elements
         private readonly Text description;
 
         private readonly CursorManager cursorManager;
+        private readonly GameScreen gameScreen;
         private readonly InterfaceSettings interfaceSettings;
 
-        internal TooltipBox(CursorManager cursorManager)
+        internal TooltipBox(AssetDatabase assetDatabase, CursorManager cursorManager, GameScreen gameScreen)
         {
             this.CanDraw = true;
             this.CanUpdate = true;
 
             this.cursorManager = cursorManager;
+            this.gameScreen = gameScreen;
             this.Margin = new(60f);
 
             this.background = new SliceImage
             {
-                Texture = AssetDatabase.GetTexture(TextureIndex.ShapeSquares),
+                Texture = assetDatabase.GetTexture(TextureIndex.ShapeSquares),
                 Color = AAP64ColorPalette.DarkPurple,
                 Alignment = UIDirection.Center,
                 Size = new(48f),
@@ -81,7 +83,7 @@ namespace StardustSandbox.Core.UI.Elements
             AddChild(this.background);
 
             this.MinimumSize = new(48f, 48f);
-            this.MaximumSize = GameScreen.GetViewport();
+            this.MaximumSize = gameScreen.GetViewport();
 
             this.interfaceSettings = SettingsSerializer.Load<InterfaceSettings>();
         }
@@ -154,7 +156,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         private void UpdatePosition()
         {
-            Vector2 viewport = GameScreen.GetViewport();
+            Vector2 viewport = this.gameScreen.GetViewport();
 
             Vector2 mousePosition = InputEngine.GetCurrentMousePosition();
             Vector2 spacing = new(this.cursorManager.Scale * 16.0f);

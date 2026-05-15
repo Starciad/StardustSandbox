@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.Elements.Gases
 {
     internal sealed class LiquefiedPetroleumGas : Gas
     {
-        internal LiquefiedPetroleumGas(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal LiquefiedPetroleumGas(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             InitialTemperature = -42.0f;
             BaseFlammabilityResistance = 1.0f;

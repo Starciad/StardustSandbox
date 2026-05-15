@@ -25,7 +25,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 {
     internal sealed class Sand : MovableSolid
     {
-        internal Sand(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal Sand(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 22.0f;
             this.BaseDensity = 1.5f;
@@ -37,7 +37,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             if (currentValue >= 1500.0f)
             {
                 context.ReplaceElementIndex(ElementIndex.Glass);
-                this.AchievementSystem.Unlock(AchievementIndex.ACH_013);
+                this.AchievementManager.Unlock(AchievementIndex.ACH_013);
             }
         }
     }

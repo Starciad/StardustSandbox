@@ -28,7 +28,7 @@ namespace StardustSandbox.Core.Elements.Gases
 {
     internal sealed class GasCorruption : Gas
     {
-        internal GasCorruption(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal GasCorruption(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.BaseDensity = 0.005f;
         }
@@ -45,7 +45,7 @@ namespace StardustSandbox.Core.Elements.Gases
 
             if (Random.Chance(ElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD))
             {
-                context.InfectNeighboringElements(neighbors);
+                context.InfectNeighboringElements(neighbors, this.StatisticsManager);
             }
         }
     }
