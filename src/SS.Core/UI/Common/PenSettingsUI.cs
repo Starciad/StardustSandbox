@@ -41,26 +41,32 @@ namespace StardustSandbox.Core.UI.Common
         private Label menuTitle, brushSectionTitle, toolsSectionTitle, layerSectionTitle, shapeSectionTitle;
         private SlotInfo[] menuButtonSlotInfos, toolButtonSlotInfos, layerButtonSlotInfos, layerVisibilitySlotInfos, shapeButtonSlotInfos;
 
-        private readonly TooltipBox tooltipBox;
-
         private readonly Rectangle[] brushSizeSliderSourceRectangles;
-
         private readonly ButtonInfo[] menuButtonInfos, toolButtonInfos, layerButtonInfos, layerVisibility, shapeButtonInfos;
 
+        private readonly GameHandler gameHandler;
+        private readonly GameScreen gameScreen;
         private readonly HudUI hudUI;
-
         private readonly PlayerInputController playerInputController;
+        private readonly SoundEffectManager soundEffectManager;
+        private readonly TooltipBox tooltipBox;
         private readonly World world;
 
         internal PenSettingsUI(
+            GameHandler gameHandler,
+            GameScreen gameScreen,
             HudUI hudUI,
             PlayerInputController playerInputController,
+            SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
         ) : base()
         {
+            this.gameHandler = gameHandler;
+            this.gameScreen = gameScreen;
             this.playerInputController = playerInputController;
+            this.soundEffectManager = soundEffectManager;
             this.hudUI = hudUI;
             this.tooltipBox = tooltipBox;
             this.world = world;
@@ -149,7 +155,7 @@ namespace StardustSandbox.Core.UI.Common
             this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = GameScreen.GetViewport(),
+                Scale = this.gameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
@@ -317,12 +323,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     this.menuButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -347,7 +353,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             if (Interaction.OnMouseEnter(this.brushSizeSlider))
             {
-                SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
             }
 
             for (int i = 0; i < this.brushSizeSliderSourceRectangles.Length; i++)
@@ -381,12 +387,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
                     this.toolButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -414,12 +420,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
                     this.layerButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -444,12 +450,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
                     this.layerVisibility[i].ClickAction?.Invoke();
                     break;
                 }
@@ -485,12 +491,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
                     this.shapeButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -526,13 +532,12 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnOpened()
         {
-            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
         }
 
         protected override void OnClosed()
         {
-            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }
-
