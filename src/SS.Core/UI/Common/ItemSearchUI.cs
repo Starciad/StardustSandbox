@@ -56,23 +56,33 @@ namespace StardustSandbox.Core.UI.Common
         private readonly List<SearchIndexEntry> searchResults;
         private readonly List<SearchMatch> matchesBuffer;
 
+        private readonly GameHandler gameHandler;
+        private readonly GameScreen gameScreen;
         private readonly GameWindow gameWindow;
-        private readonly TooltipBox tooltipBox;
         private readonly PlayerInputController playerInputController;
+        private readonly SoundEffectManager soundEffectManager;
+        private readonly TooltipBox tooltipBox;
         private readonly UIManager uiManager;
 
         private static readonly StringBuilder normalizeBuilder = new(256);
 
         internal ItemSearchUI(
+            CatalogDatabase catalogDatabase,
+            GameHandler gameHandler,
+            GameScreen gameScreen,
             GameWindow gameWindow,
             PlayerInputController playerInputController,
+            SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
             UIManager uiManager
         ) : base()
         {
+            this.gameHandler = gameHandler;
+            this.gameScreen = gameScreen;
             this.gameWindow = gameWindow;
             this.tooltipBox = tooltipBox;
             this.playerInputController = playerInputController;
+            this.soundEffectManager = soundEffectManager;
             this.uiManager = uiManager;
 
             this.itemButtonSlotInfos = new SlotInfo[UIConstants.ITEM_SEARCH_ITEMS_PER_PAGE];
@@ -85,7 +95,7 @@ namespace StardustSandbox.Core.UI.Common
             this.matchesBuffer = new List<SearchMatch>(UIConstants.ITEM_SERACH_EXPECTED_ITEMS);
 
             // Build index once at startup
-            foreach (Item item in CatalogDatabase.GetAllItems())
+            foreach (Item item in catalogDatabase.GetAllItems())
             {
                 if (item is not null)
                 {
@@ -99,9 +109,9 @@ namespace StardustSandbox.Core.UI.Common
             this.itemSelectionCallback = itemSelectionCallback;
         }
 
-        private static void PlayTypingSound()
+        private void PlayTypingSound()
         {
-            SoundEffectManager.Play((SoundEffectIndex)Randomness.Random.Range((int)SoundEffectIndex.GUI_Typing_1, (int)SoundEffectIndex.GUI_Typing_5));
+            this.soundEffectManager.Play((SoundEffectIndex)Randomness.Random.Range((int)SoundEffectIndex.GUI_Typing_1, (int)SoundEffectIndex.GUI_Typing_5));
         }
 
         // Normalize + remove diacritics + lower invariant
@@ -282,7 +292,7 @@ namespace StardustSandbox.Core.UI.Common
             this.shadowBackground = new()
             {
                 TextureIndex = TextureIndex.Pixel,
-                Scale = GameScreen.GetViewport(),
+                Scale = this.gameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
@@ -392,12 +402,12 @@ namespace StardustSandbox.Core.UI.Common
         {
             if (Interaction.OnMouseEnter(this.exitButtonSlotInfo.Background))
             {
-                SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseLeftClick(this.exitButtonSlotInfo.Background))
             {
-                SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                 this.exitButtonInfo.ClickAction?.Invoke();
             }
 
@@ -431,7 +441,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
@@ -459,7 +469,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnOpened()
         {
-            GameHandler.SetState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
 
             this.searchResults.Clear();
             _ = this.searchQueryStringBuilder.Clear();
@@ -476,7 +486,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnClosed()
         {
-            GameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
+            this.gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
 
             this.playerInputController.Enable();
 
