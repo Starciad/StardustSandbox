@@ -55,17 +55,23 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo[] paginationButtonInfos;
 
         private readonly AchievementSettings achievementSettings;
-
         private readonly TooltipBox tooltipBox;
+
+        private readonly AchievementDatabase achievementDatabase;
         private readonly AmbientManager ambientManager;
+        private readonly SoundEffectManager soundEffectManager;
 
         internal AchievementsUI(
+            AchievementDatabase achievementDatabase,
             AmbientManager ambientManager,
+            SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
             UIManager uiManager
         ) : base()
         {
+            this.achievementDatabase = achievementDatabase;
             this.ambientManager = ambientManager;
+            this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
 
             this.achievementSettings = SettingsSerializer.Load<AchievementSettings>();
@@ -112,7 +118,7 @@ namespace StardustSandbox.Core.UI.Common
                 this.currentPageIndex * UIConstants.ACHIEVEMENTS_PER_PAGE,
                 Math.Min(
                     (this.totalPages * UIConstants.ACHIEVEMENTS_PER_PAGE) + UIConstants.ACHIEVEMENTS_PER_PAGE,
-                    AchievementDatabase.Length
+                    this.achievementDatabase.Length
                 )
             );
 
@@ -127,7 +133,7 @@ namespace StardustSandbox.Core.UI.Common
                     image.CanDraw = true;
                     image.TextureIndex = TextureIndex.Achievements;
 
-                    Achievement achievement = AchievementDatabase.GetAchievement((AchievementIndex)(this.achievementsRange.Start.Value + i));
+                    Achievement achievement = this.achievementDatabase.GetAchievement((AchievementIndex)(this.achievementsRange.Start.Value + i));
 
                     image.SourceRectangle = this.achievementSettings.IsUnlocked((AchievementIndex)(this.achievementsRange.Start.Value + i))
                         ? achievement.AchievedIconSourceRectangle
@@ -306,12 +312,12 @@ namespace StardustSandbox.Core.UI.Common
         {
             if (Interaction.OnMouseEnter(this.exitButtonSlotInfo.Background))
             {
-                SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
             }
 
             if (Interaction.OnMouseLeftClick(this.exitButtonSlotInfo.Background))
             {
-                SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                 this.exitButtonInfo.ClickAction?.Invoke();
             }
 
@@ -335,7 +341,7 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = this.achievementsRange.Start.Value; i < this.achievementsRange.End.Value; i++)
             {
                 Image image = this.achievementImages[i % UIConstants.ACHIEVEMENTS_PER_PAGE];
-                Achievement achievement = AchievementDatabase.GetAchievement((AchievementIndex)i);
+                Achievement achievement = this.achievementDatabase.GetAchievement((AchievementIndex)i);
 
                 if (Interaction.OnMouseOver(image))
                 {
@@ -361,12 +367,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (Interaction.OnMouseEnter(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Hover);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
                 }
 
                 if (Interaction.OnMouseLeftClick(slot.Background))
                 {
-                    SoundEffectManager.Play(SoundEffectIndex.GUI_Click);
+                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
                     this.paginationButtonInfos[i].ClickAction?.Invoke();
                     break;
                 }
@@ -381,7 +387,7 @@ namespace StardustSandbox.Core.UI.Common
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Credits);
 
             this.currentPageIndex = 0;
-            this.totalPages = (int)MathF.Max(1.0f, MathF.Ceiling(AchievementDatabase.Length / (float)UIConstants.ACHIEVEMENTS_PER_PAGE));
+            this.totalPages = (int)MathF.Max(1.0f, MathF.Ceiling(this.achievementDatabase.Length / (float)UIConstants.ACHIEVEMENTS_PER_PAGE));
 
             RefreshContent();
         }
