@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Colors.Palettes;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -38,24 +39,25 @@ namespace StardustSandbox.Core.UI.Common
 
         private readonly ButtonInfo[] menuButtonInfos, timeStateButtonInfos, timeButtonInfos;
 
+        private readonly AssetDatabase assetDatabase;
         private readonly GameHandler gameHandler;
-        private readonly GameScreen gameScreen;
         private readonly SoundEffectManager soundEffectManager;
         private readonly TooltipBox tooltipBox;
         private readonly UIManager uiManager;
         private readonly World world;
 
         internal EnvironmentSettingsUI(
+            AssetDatabase assetDatabase,
             GameHandler gameHandler,
             GameScreen gameScreen,
             SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
-        ) : base()
+        ) : base(gameScreen)
         {
+            this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
-            this.gameScreen = gameScreen;
             this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
@@ -98,16 +100,16 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.shadowBackground = new()
             {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = this.gameScreen.GetViewport(),
+                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
+                Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
 
             this.panelBackground = new()
             {
+                Texture =  this.assetDatabase.GetTexture(TextureIndex.UIBackgroundEnvironmentSettings),
                 Alignment = UIDirection.Center,
-                TextureIndex = TextureIndex.UIBackgroundEnvironmentSettings,
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -119,7 +121,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.menuTitle = new()
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
                 TextContent = Localization_GUIs.EnvironmentSettings_Title,
@@ -142,9 +144,9 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.timeStateSectionTitle = new()
             {
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = Localization_GUIs.EnvironmentSettings_TimeState_Title
             };
 
@@ -157,10 +159,10 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.timeSectionTitle = new()
             {
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.1f),
                 Margin = new(this.timeStateSectionTitle.GetLayoutBounds().Size.X + 32.0f, 0.0f),
                 Color = AAP64ColorPalette.White,
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = Localization_GUIs.EnvironmentSettings_TimeOfDay_Title
             };
 
@@ -169,9 +171,9 @@ namespace StardustSandbox.Core.UI.Common
             this.timeButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(this.timeSectionTitle, this.timeButtonInfos, new(0.0f, 52.0f), 80.0f, UIDirection.Southwest);
         }
 
-        protected override void OnScreenResize(Vector2 newSize)
+        protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = newSize;
+            this.shadowBackground.Scale = this.GameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)

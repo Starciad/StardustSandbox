@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -41,8 +42,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo[] buttonInfos;
 
         private readonly ActorManager actorManager;
+        private readonly AssetDatabase assetDatabase;
         private readonly GameHandler gameHandler;
-        private readonly GameScreen gameScreen;
         private readonly SoundEffectManager soundEffectManager;
         private readonly TooltipBox tooltipBox;
         private readonly UIManager uiManager;
@@ -50,17 +51,18 @@ namespace StardustSandbox.Core.UI.Common
 
         internal InformationUI(
             ActorManager actorManager,
+            AssetDatabase assetDatabase,
             GameHandler gameHandler,
             GameScreen gameScreen,
             SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
-        ) : base()
+        ) : base(gameScreen)
         {
             this.actorManager = actorManager;
+            this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
-            this.gameScreen = gameScreen;
             this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
@@ -88,8 +90,8 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.shadowBackground = new()
             {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = this.gameScreen.GetViewport(),
+                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
+                Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
@@ -97,7 +99,7 @@ namespace StardustSandbox.Core.UI.Common
             this.panelBackground = new()
             {
                 Alignment = UIDirection.Center,
-                TextureIndex = TextureIndex.UIBackgroundInformation,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.UIBackgroundInformation),
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -109,7 +111,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.menuTitle = new()
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
                 Color = AAP64ColorPalette.White,
@@ -147,7 +149,7 @@ namespace StardustSandbox.Core.UI.Common
             {
                 Label label = new()
                 {
-                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                    SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                     Scale = new(0.1f),
                     Alignment = UIDirection.Northwest,
                     Margin = new(32.0f, 128.0f + (i * 56.0f)),
@@ -165,20 +167,20 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        private static SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
+        private SlotInfo CreateButtonSlot(Vector2 margin, ButtonInfo button)
         {
             Image background = new()
             {
-                TextureIndex = TextureIndex.UIButtons,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.0f),
                 Size = new(32.0f),
-                Margin = margin,
+                Margin = margin
             };
 
             Image icon = new()
             {
-                TextureIndex = button.TextureIndex,
+                Texture = this.assetDatabase.GetTexture(button.TextureIndex),
                 SourceRectangle = button.TextureSourceRectangle,
                 Scale = new(1.5f),
                 Size = new(32.0f)
@@ -187,9 +189,9 @@ namespace StardustSandbox.Core.UI.Common
             return new(background, icon);
         }
 
-        protected override void OnScreenResize(Vector2 newSize)
+        protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = newSize;
+            this.shadowBackground.Scale = this.gameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)

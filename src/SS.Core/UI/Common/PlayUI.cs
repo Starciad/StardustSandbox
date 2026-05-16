@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Colors.Palettes;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.UI;
@@ -35,7 +36,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly Label[] menuButtonLabels;
         private readonly ButtonInfo[] menuButtonInfos;
 
-        private readonly GameScreen gameScreen;
+        private readonly AssetDatabase assetDatabase;
         private readonly SoundEffectManager soundEffectManager;
         private readonly UIManager uiManager;
 
@@ -44,7 +45,7 @@ namespace StardustSandbox.Core.UI.Common
             SoundEffectManager soundEffectManager,
             UIManager uiManager,
             WorldExplorerUI worldExplorerUI
-        ) : base()
+        ) : base(gameScreen)
         {
             this.gameScreen = gameScreen;
             this.soundEffectManager = soundEffectManager;
@@ -131,7 +132,7 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        protected override void OnScreenResize(Vector2 newSize)
+        protected override void OnScreenResize()
         {
             this.shadowBackground.Scale = new(newSize.X, this.shadowBackground.Scale.Y);
         }

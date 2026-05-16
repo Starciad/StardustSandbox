@@ -258,7 +258,7 @@ namespace StardustSandbox.Core.Actors.Common
 
             if (this.elementsPlacedCount >= 100)
             {
-                AchievementManager.Unlock(AchievementIndex.ACH_007);
+                this.AchievementManager.Unlock(AchievementIndex.ACH_007);
             }
         }
 

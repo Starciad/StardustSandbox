@@ -20,8 +20,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.UI.Elements.TextSystem;
 
@@ -31,6 +29,7 @@ namespace StardustSandbox.Core.UI.Elements
 {
     internal sealed class Label : UIElement
     {
+        internal SpriteFont SpriteFont { get; set; }
         internal override Vector2 Size
         {
             get
@@ -68,9 +67,6 @@ namespace StardustSandbox.Core.UI.Elements
         internal float BorderThickness { get; set; }
         internal float BorderOffset { get; set; }
         internal Color BorderColor { get; set; }
-
-        private SpriteFontIndex spriteFontIndex;
-        private SpriteFont spriteFont;
 
         private string textContent;
 
@@ -114,7 +110,7 @@ namespace StardustSandbox.Core.UI.Elements
                     {
                         float scale = (t + 1) / this.BorderThickness;
                         Vector2 offset = borderDirectionOffset.Offset * this.BorderOffset * scale;
-                        spriteBatch.DrawString(this.spriteFont, this.textContent, position + offset, this.BorderColor, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
+                        spriteBatch.DrawString(this.SpriteFont, this.textContent, position + offset, this.BorderColor, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
                     }
                 }
             }
@@ -130,13 +126,13 @@ namespace StardustSandbox.Core.UI.Elements
                 DrawBorders(spriteBatch, position);
 
                 // Draw main text
-                spriteBatch.DrawString(this.spriteFont, this.textContent, position, this.Color, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
+                spriteBatch.DrawString(this.SpriteFont, this.textContent, position, this.Color, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
             }
         }
 
         private Vector2 MeasureText()
         {
-            return string.IsNullOrWhiteSpace(this.textContent) ? Vector2.Zero : this.spriteFont.MeasureString(this.textContent) * this.Scale;
+            return string.IsNullOrWhiteSpace(this.textContent) ? Vector2.Zero : this.SpriteFont.MeasureString(this.textContent) * this.Scale;
         }
     }
 }

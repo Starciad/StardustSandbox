@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
@@ -56,12 +55,12 @@ namespace StardustSandbox.Core.Databases
             World world
         )
         {
-            if (isLoaded)
+            if (this.isLoaded)
             {
                 throw new InvalidOperationException($"{nameof(UIDatabase)} has already been loaded.");
             }
 
-            NotificationBox notificationBox = new();
+            NotificationBox notificationBox = new(assetDatabase, gameScreen);
             TooltipBox tooltipBox = new(assetDatabase, cursorManager, gameScreen)
             {
                 MinimumSize = new(500f, 0f),
@@ -308,7 +307,7 @@ namespace StardustSandbox.Core.Databases
                 uiManager
             );
 
-            uis = [
+            this.uis = [
                 achievementsUI,
                 colorPickerUI,
                 confirmUI,
@@ -337,22 +336,22 @@ namespace StardustSandbox.Core.Databases
                 worldSettingsUI,
             ];
 
-            for (int i = 0; i < uis.Length; i++)
+            for (int i = 0; i < this.uis.Length; i++)
             {
-                uis[i].Initialize(gameScreen);
+                this.uis[i].Initialize();
             }
 
-            isLoaded = true;
+            this.isLoaded = true;
         }
 
         internal UIBase GetUI(UIIndex index)
         {
-            return uis[(int)index];
+            return this.uis[(int)index];
         }
 
         internal void ResizeUIs(Vector2 newSize)
         {
-            foreach (UIBase ui in uis)
+            foreach (UIBase ui in this.uis)
             {
                 ui.Resize(newSize);
             }

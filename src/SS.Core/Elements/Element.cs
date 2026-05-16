@@ -196,11 +196,11 @@ namespace StardustSandbox.Core.Elements
 
             if (this.context.CurrentSlotLayer.Temperature == TemperatureConstants.MAX_CELSIUS_VALUE)
             {
-                AchievementManager.Unlock(AchievementIndex.ACH_009);
+                this.AchievementManager.Unlock(AchievementIndex.ACH_009);
             }
             else if (this.context.CurrentSlotLayer.Temperature == TemperatureConstants.MIN_CELSIUS_VALUE)
             {
-                AchievementManager.Unlock(AchievementIndex.ACH_010);
+                this.AchievementManager.Unlock(AchievementIndex.ACH_010);
             }
 
             OnTemperatureChanged(this.context, this.context.CurrentSlotLayer.Temperature);

@@ -31,7 +31,6 @@ using StardustSandbox.Core.Interfaces.Notifiers;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
-using StardustSandbox.Core.UI.Common;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
@@ -116,6 +115,8 @@ namespace StardustSandbox.Core
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
 
+            this.gameScreen = new(this.graphicsDeviceManager);
+
             // Database
             this.achievementDatabase = new();
             this.actorDatabase = new();
@@ -131,7 +132,6 @@ namespace StardustSandbox.Core
             this.soundEffectManager = new(this.assetDatabase);
             this.achievementManager = new(this.achievementDatabase);
             this.statisticsManager = new(this.achievementManager);
-            this.gameScreen = new(this.graphicsDeviceManager);
 
             // Core
             this.playerInputController = new();

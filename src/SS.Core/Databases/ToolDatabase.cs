@@ -22,8 +22,6 @@ using StardustSandbox.Core.Tools;
 using StardustSandbox.Core.Tools.Environment;
 using StardustSandbox.Core.Tools.Inks;
 
-using System;
-
 namespace StardustSandbox.Core.Databases
 {
     internal sealed class ToolDatabase
@@ -32,7 +30,7 @@ namespace StardustSandbox.Core.Databases
 
         internal void Load(AchievementManager achievementManager)
         {
-            tools = [
+            this.tools = [
                 // [000] Heat Tool
                 new HeatTool(ToolIndex.HeatTool, achievementManager),
 
@@ -73,7 +71,7 @@ namespace StardustSandbox.Core.Databases
 
         internal Tool GetTool(ToolIndex toolIndex)
         {
-            return tools[(int)toolIndex];
+            return this.tools[(int)toolIndex];
         }
     }
 }

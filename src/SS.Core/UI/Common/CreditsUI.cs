@@ -43,22 +43,22 @@ namespace StardustSandbox.Core.UI.Common
         private readonly CreditSection[] creditSections;
 
         private readonly AmbientManager ambientManager;
-        private readonly GameScreen gameScreen;
+        private readonly AssetDatabase assetDatabase;
         private readonly SongManager songManager;
         private readonly UIManager uiManager;
         private readonly World world;
 
         internal CreditsUI(
-            AssetDatabase assetDatabase,
             AmbientManager ambientManager,
+            AssetDatabase assetDatabase,
             GameScreen gameScreen,
             SongManager songManager,
             UIManager uiManager,
             World world
-        ) : base()
+        ) : base(gameScreen)
         {
             this.ambientManager = ambientManager;
-            this.gameScreen = gameScreen;
+            this.assetDatabase = assetDatabase;
             this.songManager = songManager;
             this.uiManager = uiManager;
             this.world = world;
@@ -251,7 +251,7 @@ namespace StardustSandbox.Core.UI.Common
             Label sectionTitleElement = new()
             {
                 Scale = new(0.25f),
-                SpriteFontIndex = SpriteFontIndex.DigitalDisco,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                 Margin = margin,
                 Alignment = UIDirection.South,
                 TextContent = section.Title
@@ -267,7 +267,7 @@ namespace StardustSandbox.Core.UI.Common
             Label contentTitleElement = new()
             {
                 Scale = new(0.2f),
-                SpriteFontIndex = SpriteFontIndex.DigitalDisco,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                 Margin = margin + content.Margin,
                 Alignment = UIDirection.South,
                 TextContent = content.Text
@@ -283,7 +283,7 @@ namespace StardustSandbox.Core.UI.Common
             Label contentText = new()
             {
                 Scale = new(0.15f),
-                SpriteFontIndex = SpriteFontIndex.DigitalDisco,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                 Margin = margin + content.Margin,
                 Alignment = UIDirection.South,
                 TextContent = content.Text
@@ -352,7 +352,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.songManager.Play(SongIndex.Volume_01_Track_02);
 
-            this.rootContainer.Margin = new(0.0f, this.gameScreen.GetViewportCenter().Y / 2.0f);
+            this.rootContainer.Margin = new(0.0f, this.GameScreen.GetViewportCenter().Y / 2.0f);
 
             this.lastElement ??= this.rootContainer.LastChild;
         }

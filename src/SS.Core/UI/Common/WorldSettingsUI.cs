@@ -211,7 +211,7 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        protected override void OnScreenResize(Vector2 newSize)
+        protected override void OnScreenResize()
         {
             this.shadowBackground.Scale = newSize;
         }

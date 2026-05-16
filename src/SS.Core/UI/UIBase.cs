@@ -20,44 +20,34 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.UI.Elements;
 
-using System;
-
 namespace StardustSandbox.Core.UI
 {
     internal abstract class UIBase
     {
         internal bool IsActive { get; private set; }
-        internal bool IsInitialized { get; private set; }
 
+        protected GameScreen GameScreen { get; }
         protected Container Root { get; }
 
-        protected UIBase()
+        protected UIBase(GameScreen gameScreen)
         {
+            this.GameScreen = gameScreen;
             this.Root = new()
             {
                 CanDraw = false,
                 CanUpdate = false,
+                Size = gameScreen.GetViewport()
             };
         }
 
-        internal void Initialize(GameScreen gameScreen)
+        internal void Initialize()
         {
-            if (this.IsInitialized)
-            {
-                throw new InvalidOperationException($"{GetType().Name} is already initialized.");
-            }
-
-            this.Root.Size = gameScreen.GetViewport();
-
             OnBuild(this.Root);
             this.Root.Initialize();
-            this.IsInitialized = true;
         }
 
         internal void Open()
         {
-            EnsureInitialized();
-
             if (this.IsActive)
             {
                 return;
@@ -108,27 +98,17 @@ namespace StardustSandbox.Core.UI
             this.Root.Draw(spriteBatch);
         }
 
-        internal void Resize(Vector2 newSize)
+        internal void Resize()
         {
-            this.Root.Size = newSize;
-            OnScreenResize(newSize);
+            this.Root.Size = this.GameScreen.GetViewport();
+            OnScreenResize();
         }
 
         protected abstract void OnBuild(Container root);
         protected virtual void OnOpened() { }
         protected virtual void OnClosed() { }
         protected virtual void OnUpdate(GameTime gameTime) { }
-        protected virtual void OnScreenResize(Vector2 newSize) { }
-
-        private void EnsureInitialized()
-        {
-            if (!this.IsInitialized)
-            {
-                throw new InvalidOperationException(
-                    $"{GetType().Name} must be initialized before being opened."
-                );
-            }
-        }
+        protected virtual void OnScreenResize() { }
     }
 }
 

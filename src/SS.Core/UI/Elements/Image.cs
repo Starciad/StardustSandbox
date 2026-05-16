@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 
 namespace StardustSandbox.Core.UI.Elements
@@ -30,11 +29,7 @@ namespace StardustSandbox.Core.UI.Elements
         internal Texture2D Texture
         {
             get => this.texture;
-            set
-            {
-                this.textureIndex = TextureIndex.None;
-                this.texture = value;
-            }
+            set => this.texture = value;
         }
         internal Rectangle? SourceRectangle
         {
@@ -47,7 +42,6 @@ namespace StardustSandbox.Core.UI.Elements
             set => this.color = value;
         }
 
-        private TextureIndex textureIndex;
         private Texture2D texture;
         private Color color;
         private Rectangle? sourceRectangle;

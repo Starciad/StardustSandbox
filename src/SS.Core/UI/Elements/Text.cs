@@ -20,8 +20,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.UI.Elements.TextSystem;
 
@@ -33,6 +31,7 @@ namespace StardustSandbox.Core.UI.Elements
 {
     internal sealed class Text : UIElement
     {
+        internal SpriteFont SpriteFont { get; set; }
         internal override Vector2 Size
         {
             get
@@ -75,9 +74,6 @@ namespace StardustSandbox.Core.UI.Elements
         internal float BorderThickness { get; set; }
         internal float BorderOffset { get; set; }
         internal Color BorderColor { get; set; }
-
-        private SpriteFontIndex spriteFontIndex;
-        private SpriteFont spriteFont;
 
         private string textContent;
 
@@ -125,7 +121,7 @@ namespace StardustSandbox.Core.UI.Elements
                     {
                         float scale = (t + 1) / this.BorderThickness;
                         Vector2 offset = borderDirectionOffset.Offset * this.BorderOffset * scale;
-                        spriteBatch.DrawString(this.spriteFont, this.textContent, position + offset, this.BorderColor, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
+                        spriteBatch.DrawString(this.SpriteFont, this.textContent, position + offset, this.BorderColor, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
                     }
                 }
             }
@@ -142,9 +138,9 @@ namespace StardustSandbox.Core.UI.Elements
                     position.X = this.Position.X;
 
                     DrawBorders(spriteBatch, position);
-                    spriteBatch.DrawString(this.spriteFont, line, position, this.Color, 0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0f);
+                    spriteBatch.DrawString(this.SpriteFont, line, position, this.Color, 0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0f);
 
-                    position.Y += this.LineHeight * this.spriteFont.LineSpacing * this.Scale.Y;
+                    position.Y += this.LineHeight * this.SpriteFont.LineSpacing * this.Scale.Y;
                 }
             }
         }
@@ -160,11 +156,11 @@ namespace StardustSandbox.Core.UI.Elements
             string[] words = value.Split(WordSplitSeparators, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
             StringBuilder lineBuilder = new();
-            float spaceWidth = this.spriteFont.MeasureString(" ").X * this.Scale.X;
+            float spaceWidth = this.SpriteFont.MeasureString(" ").X * this.Scale.X;
 
             foreach (string word in words)
             {
-                float measureString = this.spriteFont.MeasureString(lineBuilder + word).X * this.Scale.X;
+                float measureString = this.SpriteFont.MeasureString(lineBuilder + word).X * this.Scale.X;
 
                 if (measureString + spaceWidth >= this.TextAreaSize.X)
                 {
@@ -189,11 +185,11 @@ namespace StardustSandbox.Core.UI.Elements
             }
 
             float maxWidth = 0f;
-            float totalHeight = this.LineHeight * this.spriteFont.LineSpacing * this.Scale.Y * this.wrappedLines.Count;
+            float totalHeight = this.LineHeight * this.SpriteFont.LineSpacing * this.Scale.Y * this.wrappedLines.Count;
 
             foreach (string line in this.wrappedLines)
             {
-                float lineWidth = this.spriteFont.MeasureString(line).X * this.Scale.X;
+                float lineWidth = this.SpriteFont.MeasureString(line).X * this.Scale.X;
 
                 if (lineWidth > maxWidth)
                 {

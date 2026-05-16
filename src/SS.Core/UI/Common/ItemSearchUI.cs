@@ -56,8 +56,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly List<SearchIndexEntry> searchResults;
         private readonly List<SearchMatch> matchesBuffer;
 
+        private readonly AssetDatabase assetDatabase;
         private readonly GameHandler gameHandler;
-        private readonly GameScreen gameScreen;
         private readonly GameWindow gameWindow;
         private readonly PlayerInputController playerInputController;
         private readonly SoundEffectManager soundEffectManager;
@@ -67,6 +67,7 @@ namespace StardustSandbox.Core.UI.Common
         private static readonly StringBuilder normalizeBuilder = new(256);
 
         internal ItemSearchUI(
+            AssetDatabase assetDatabase,
             CatalogDatabase catalogDatabase,
             GameHandler gameHandler,
             GameScreen gameScreen,
@@ -75,10 +76,10 @@ namespace StardustSandbox.Core.UI.Common
             SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
             UIManager uiManager
-        ) : base()
+        ) : base(gameScreen)
         {
+            this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
-            this.gameScreen = gameScreen;
             this.gameWindow = gameWindow;
             this.tooltipBox = tooltipBox;
             this.playerInputController = playerInputController;
@@ -267,7 +268,7 @@ namespace StardustSandbox.Core.UI.Common
                         continue;
                     }
 
-                    itemSlot.Icon.TextureIndex = item.TextureIndex;
+                    itemSlot.Icon.Texture = this.assetDatabase.GetTexture(item.TextureIndex);
                     itemSlot.Icon.SourceRectangle = item.SourceRectangle;
                 }
                 else
@@ -291,15 +292,15 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.shadowBackground = new()
             {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = this.gameScreen.GetViewport(),
+                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
+                Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
 
             this.panelBackground = new()
             {
-                TextureIndex = TextureIndex.UIBackgroundItemSearch,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.UIBackgroundItemSearch),
                 Size = new(542.0f, 540.0f),
                 Alignment = UIDirection.Center,
             };
@@ -319,7 +320,7 @@ namespace StardustSandbox.Core.UI.Common
                     SlotInfo slot = new(
                         new()
                         {
-                            TextureIndex = TextureIndex.UIButtons,
+                            Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
                             SourceRectangle = new(320, 140, 32, 32),
                             Alignment = UIDirection.Northwest,
                             Scale = new(2.0f),
@@ -330,7 +331,7 @@ namespace StardustSandbox.Core.UI.Common
                         new()
                         {
                             Alignment = UIDirection.Center,
-                            TextureIndex = TextureIndex.IconElements,
+                            Texture = this.assetDatabase.GetTexture(TextureIndex.IconElements),
                             SourceRectangle = new(0, 0, 32, 32),
                             Scale = new(1.5f),
                             Size = new(32.0f)
@@ -351,7 +352,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.placeholderLabel = new()
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.1f),
                 TextContent = Localization_GUIs.ItemSearch_Placeholder,
                 Color = AAP64ColorPalette.White,
@@ -361,7 +362,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.searchQueryLabel = new()
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.1f),
                 Color = AAP64ColorPalette.White,
                 Alignment = UIDirection.Northwest,
@@ -385,9 +386,9 @@ namespace StardustSandbox.Core.UI.Common
             this.exitButtonSlotInfo = slot;
         }
 
-        protected override void OnScreenResize(Vector2 newSize)
+        protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = newSize;
+            this.shadowBackground.Scale = this.GameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)

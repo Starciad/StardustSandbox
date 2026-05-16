@@ -24,8 +24,6 @@ using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 
-using System;
-
 #if SS_WINDOWS
 using SharpDX.Multimedia;
 #endif
@@ -57,15 +55,15 @@ namespace StardustSandbox.Core.Managers
 
         private void RegisterInstance(SoundEffectInstance instance)
         {
-            for (int i = 0; i < activeInstances.Length; i++)
+            for (int i = 0; i < this.activeInstances.Length; i++)
             {
-                if (activeInstances[i] == null || activeInstances[i].State == SoundState.Stopped)
+                if (this.activeInstances[i] == null || this.activeInstances[i].State == SoundState.Stopped)
                 {
                     // Dispose old if present
-                    activeInstances[i]?.Dispose();
-                    activeInstances[i] = null;
+                    this.activeInstances[i]?.Dispose();
+                    this.activeInstances[i] = null;
 
-                    activeInstances[i] = instance;
+                    this.activeInstances[i] = instance;
                     return;
                 }
             }

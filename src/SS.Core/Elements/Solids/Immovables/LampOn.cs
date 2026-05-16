@@ -28,8 +28,8 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         internal LampOn(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
-            InitialTemperature = 26.0f;
-            BaseDensity = 2.8f;
+            this.InitialTemperature = 26.0f;
+            this.BaseDensity = 2.8f;
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)

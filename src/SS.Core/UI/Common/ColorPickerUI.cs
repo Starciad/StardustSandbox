@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -45,22 +46,23 @@ namespace StardustSandbox.Core.UI.Common
 
         private readonly ColorSlotInfo[] colorButtonSlotInfos;
 
+        private readonly AssetDatabase assetDatabase;
         private readonly GameHandler gameHandler;
-        private readonly GameScreen gameScreen;
         private readonly SoundEffectManager soundEffectManager;
         private readonly TooltipBox tooltipBox;
         private readonly UIManager uiManager;
 
         internal ColorPickerUI(
+            AssetDatabase assetDatabase,
             GameHandler gameHandler,
             GameScreen gameScreen,
             SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
             UIManager uiManager
-        ) : base()
+        ) : base(gameScreen)
         {
+            this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
-            this.gameScreen = gameScreen;
             this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
@@ -162,8 +164,8 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.shadowBackground = new()
             {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = this.gameScreen.GetViewport(),
+                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
+                Scale = this.GameScreen.GetViewport(),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
@@ -179,7 +181,7 @@ namespace StardustSandbox.Core.UI.Common
                 Margin = new(0.0f, 96.0f),
                 LineHeight = 1.25f,
                 TextAreaSize = new(850.0f, 1000.0f),
-                SpriteFontIndex = SpriteFontIndex.PixelOperator,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
                 Alignment = UIDirection.North,
                 TextContent = Localization_GUIs.Tools_ColorPicker_Title,
             };
@@ -207,7 +209,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 Image background = new()
                 {
-                    TextureIndex = TextureIndex.UIButtons,
+                    Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(386, 0, 40, 22),
                     Scale = new(2.0f),
                     Size = textureSize,
@@ -217,7 +219,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 Image borderElement = new()
                 {
-                    TextureIndex = TextureIndex.UIButtons,
+                    Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(386, 22, 40, 22),
                     Scale = new(2.0f),
                     Size = textureSize,
@@ -234,7 +236,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.exitButtonLabel = new()
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.125f),
                 Margin = new(0.0f, -48.0f),
                 Alignment = UIDirection.South,
@@ -249,9 +251,9 @@ namespace StardustSandbox.Core.UI.Common
             root.AddChild(this.exitButtonLabel);
         }
 
-        protected override void OnScreenResize(Vector2 newSize)
+        protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = newSize;
+            this.shadowBackground.Scale = this.GameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)

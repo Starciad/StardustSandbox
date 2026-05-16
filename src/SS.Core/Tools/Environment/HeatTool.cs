@@ -46,7 +46,7 @@ namespace StardustSandbox.Core.Tools.Environment
             }
 
             context.World.SetElementTemperature(context.Position, context.Layer, TemperatureMath.Clamp(slotLayer.Temperature + ToolConstants.DEFAULT_HEAT_VALUE));
-            AchievementManager.Unlock(AchievementIndex.ACH_012);
+            this.AchievementManager.Unlock(AchievementIndex.ACH_012);
         }
     }
 }

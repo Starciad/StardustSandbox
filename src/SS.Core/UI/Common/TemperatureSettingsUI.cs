@@ -37,7 +37,7 @@ namespace StardustSandbox.Core.UI.Common
         private Label menuTitle;
 
         private SlotInfo exitButtonSlotInfo;
-        
+
         private readonly ButtonInfo exitButtonInfo;
         private readonly Section[] sections;
 
@@ -181,7 +181,7 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        protected override void OnScreenResize(Vector2 newSize)
+        protected override void OnScreenResize()
         {
             this.shadowBackground.Scale = newSize;
         }

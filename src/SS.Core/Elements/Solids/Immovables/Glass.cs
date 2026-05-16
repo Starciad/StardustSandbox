@@ -28,7 +28,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         {
             this.InitialTemperature = 25.0f;
             this.BaseDensity = 2.5f;
-            this.BaseExplosionResistance = 0.5f;                    
+            this.BaseExplosionResistance = 0.5f;
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)

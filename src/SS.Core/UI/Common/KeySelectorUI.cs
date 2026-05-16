@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Core.Colors.Palettes;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -37,24 +38,25 @@ namespace StardustSandbox.Core.UI.Common
         private Image shadowBackground;
         private Text message;
 
+        private readonly AssetDatabase assetDatabase;
         private readonly GameHandler gameHandler;
-        private readonly GameScreen gameScreen;
         private readonly GameWindow gameWindow;
         private readonly PlayerInputController playerInputController;
         private readonly SoundEffectManager soundEffectManager;
         private readonly UIManager uiManager;
 
         internal KeySelectorUI(
+            AssetDatabase assetDatabase,
             GameHandler gameHandler,
             GameScreen gameScreen,
             GameWindow gameWindow,
             PlayerInputController playerInputController,
             SoundEffectManager soundEffectManager,
             UIManager uiManager
-        ) : base()
+        ) : base(gameScreen)
         {
+            this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
-            this.gameScreen = gameScreen;
             this.gameWindow = gameWindow;
             this.playerInputController = playerInputController;
             this.soundEffectManager = soundEffectManager;
@@ -77,8 +79,8 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.shadowBackground = new()
             {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = this.gameScreen.GetViewport(),
+                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
+                Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
@@ -94,16 +96,16 @@ namespace StardustSandbox.Core.UI.Common
                 Margin = new(0.0f, 96.0f),
                 LineHeight = 1.25f,
                 TextAreaSize = new(850.0f, 1000.0f),
-                SpriteFontIndex = SpriteFontIndex.PixelOperator,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
                 Alignment = UIDirection.North,
             };
 
             root.AddChild(this.message);
         }
 
-        protected override void OnScreenResize(Vector2 newSize)
+        protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = newSize;
+            this.shadowBackground.Scale = this.GameScreen.GetViewport();
         }
 
         protected override void OnOpened()

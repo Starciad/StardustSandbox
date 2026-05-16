@@ -51,7 +51,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                 }
 
                 context.DestroyElement(neighbors.GetNeighborPosition(i), context.CurrentLayer);
-                StatisticsManager.IncrementWorldElementsConsumedByVoid();
+                this.StatisticsManager.IncrementWorldElementsConsumedByVoid();
             }
         }
     }

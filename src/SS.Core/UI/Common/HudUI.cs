@@ -58,6 +58,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo[] leftPanelTopButtonInfos, leftPanelBottomButtonInfos, rightPanelTopButtonInfos, rightPanelBottomButtonInfos;
 
         private readonly AchievementManager achievementManager;
+        private readonly AssetDatabase assetDatabase;
         private readonly CatalogDatabase catalogDatabase;
         private readonly GameHandler gameHandler;
         private readonly NotificationBox notificationBox;
@@ -79,17 +80,20 @@ namespace StardustSandbox.Core.UI.Common
 
         internal HudUI(
             AchievementManager achievementManager,
+            AssetDatabase assetDatabase,
             CatalogDatabase catalogDatabase,
             ConfirmUI confirmUI,
             GameHandler gameHandler,
+            GameScreen gameScreen,
             NotificationBox notificationBox,
             PlayerInputController playerInputController,
             SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
             UIManager uiManager
-        ) : base()
+        ) : base(gameScreen)
         {
             this.achievementManager = achievementManager;
+            this.assetDatabase = assetDatabase;
             this.catalogDatabase = catalogDatabase;
             this.gameHandler = gameHandler;
             this.notificationBox = notificationBox;
@@ -181,7 +185,7 @@ namespace StardustSandbox.Core.UI.Common
                 Item item = this.toolbarItems[i];
                 SlotInfo slot = this.toolbarSlots[i];
 
-                slot.Icon.TextureIndex = item.TextureIndex;
+                slot.Icon.Texture = this.assetDatabase.GetTexture(item.TextureIndex);
                 slot.Icon.SourceRectangle = item.SourceRectangle;
             }
         }
@@ -282,14 +286,14 @@ namespace StardustSandbox.Core.UI.Common
             BuildSimulationPausedOverlay(root);
         }
 
-        private static void BuildToolbar(ref Container container, ref Image background, Container root, Vector2 size, TextureIndex textureIndex, Rectangle? sourceRectangle, UIDirection alignment, Action<Container> buildContent)
+        private void BuildToolbar(ref Container container, ref Image background, Container root, Vector2 size, TextureIndex textureIndex, Rectangle? sourceRectangle, UIDirection alignment, Action<Container> buildContent)
         {
             container = new() { Size = size, Alignment = alignment };
             root.AddChild(container);
 
             background = new()
             {
-                TextureIndex = textureIndex,
+                Texture = this.assetDatabase.GetTexture(textureIndex),
                 SourceRectangle = sourceRectangle,
                 Size = size,
             };
@@ -312,11 +316,11 @@ namespace StardustSandbox.Core.UI.Common
                 UIBuilderUtility.BuildVerticalButtonLine(container, buttonInfos, new(0.0f, -32.0f), -80.0f, alignment);
         }
 
-        private static void BuildDrawerButton(ref Image drawerButton, Container container, Rectangle srcRect, Vector2 size, Vector2 margin, UIDirection alignment)
+        private void BuildDrawerButton(ref Image drawerButton, Container container, Rectangle srcRect, Vector2 size, Vector2 margin, UIDirection alignment)
         {
             drawerButton = new()
             {
-                TextureIndex = TextureIndex.UIButtons,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = srcRect,
                 Size = size,
                 Margin = margin,
@@ -331,7 +335,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             Image slotSearchBackground = new()
             {
-                TextureIndex = TextureIndex.UIButtons,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.45f),
                 Alignment = UIDirection.West,
@@ -341,7 +345,7 @@ namespace StardustSandbox.Core.UI.Common
 
             Image icon = new()
             {
-                TextureIndex = TextureIndex.IconUI,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.IconUI),
                 SourceRectangle = new(64, 32, 32, 32),
                 Alignment = UIDirection.Center,
                 Scale = new(2.0f),
@@ -376,7 +380,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             Image slotSearchBackground = new()
             {
-                TextureIndex = TextureIndex.UIButtons,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
                 SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.45f),
                 Alignment = UIDirection.East,
@@ -386,7 +390,7 @@ namespace StardustSandbox.Core.UI.Common
 
             Image icon = new()
             {
-                TextureIndex = TextureIndex.IconUI,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.IconUI),
                 SourceRectangle = new(0, 0, 32, 32),
                 Alignment = UIDirection.Center,
                 Scale = new(2.0f),
@@ -403,7 +407,7 @@ namespace StardustSandbox.Core.UI.Common
             this.simulationPausedBackground = new()
             {
                 CanDraw = false,
-                TextureIndex = TextureIndex.Pixel,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 120),
                 Alignment = UIDirection.Center,
@@ -411,7 +415,7 @@ namespace StardustSandbox.Core.UI.Common
 
             Label pauseLabel = new()
             {
-                SpriteFontIndex = SpriteFontIndex.VcrOsdMono1001,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.VcrOsdMono1001),
                 Color = AAP64ColorPalette.White,
                 Scale = new(0.08f),
                 Alignment = UIDirection.Center,
@@ -427,9 +431,9 @@ namespace StardustSandbox.Core.UI.Common
             root.AddChild(this.simulationPausedBackground);
         }
 
-        protected override void OnScreenResize(Vector2 newSize)
+        protected override void OnScreenResize()
         {
-            this.notificationBox.OnScreenResize(newSize);
+            this.notificationBox.OnScreenResize(this.GameScreen.GetViewport());
         }
 
         protected override void OnUpdate(GameTime gameTime)

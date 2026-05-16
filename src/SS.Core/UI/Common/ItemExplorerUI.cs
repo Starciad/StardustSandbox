@@ -47,21 +47,16 @@ namespace StardustSandbox.Core.UI.Common
         private Label menuTitle, pageIndexLabel;
         private SlotInfo[] menuButtonSlotInfos;
 
-        private readonly TooltipBox tooltipBox;
-
         private readonly ButtonInfo[] buttonInfos, paginationButtonInfos;
         private readonly SlotInfo[] itemButtonSlotInfos, categoryButtonSlotInfos, subcategoryButtonSlotInfos, paginationButtonSlotInfos;
 
-        private readonly GameHandler gameHandler;
-        private readonly GameScreen gameScreen;
-
         private readonly AssetDatabase assetDatabase;
         private readonly CatalogDatabase catalogDatabase;
-
+        private readonly GameHandler gameHandler;
         private readonly HudUI hudUI;
         private readonly ItemSearchUI itemSearchUI;
-
         private readonly SoundEffectManager soundEffectManager;
+        private readonly TooltipBox tooltipBox;
         private readonly UIManager uiManager;
 
         internal ItemExplorerUI(
@@ -74,17 +69,16 @@ namespace StardustSandbox.Core.UI.Common
             SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
             UIManager uiManager
-        ) : base()
+        ) : base(gameScreen)
         {
             this.assetDatabase = assetDatabase;
             this.catalogDatabase = catalogDatabase;
             this.gameHandler = gameHandler;
-            this.gameScreen = gameScreen;
-            this.uiManager = uiManager;
             this.hudUI = hudUI;
             this.itemSearchUI = itemSearchUI;
             this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
+            this.uiManager = uiManager;
 
             this.buttonInfos = [
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI),
@@ -208,7 +202,7 @@ namespace StardustSandbox.Core.UI.Common
                     Item item = this.selectedSubcategory[this.selectedItemsRange.Start.Value + i];
 
                     slot.Background.CanDraw = true;
-                    slot.Icon.TextureIndex = item.TextureIndex;
+                    slot.Icon.Texture = this.assetDatabase.GetTexture(item.TextureIndex);
                     slot.Icon.SourceRectangle = item.SourceRectangle;
                 }
                 else
@@ -240,15 +234,15 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.shadowBackground = new()
             {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = this.gameScreen.GetViewport(),
+                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
+                Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
 
             this.panelBackground = new()
             {
-                TextureIndex = TextureIndex.UIBackgroundItemExplorer,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.UIBackgroundItemExplorer),
                 Size = new(1084.0f, 607.0f),
                 Margin = new(0.0f, 32.0f),
                 Alignment = UIDirection.Center,
@@ -262,7 +256,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.menuTitle = new()
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.12f),
                 Margin = new(32.0f, 40.0f),
                 Color = AAP64ColorPalette.White,
@@ -297,7 +291,7 @@ namespace StardustSandbox.Core.UI.Common
                 SlotInfo slot = new(
                     new()
                     {
-                        TextureIndex = TextureIndex.UIButtons,
+                        Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(320, 140, 32, 32),
                         Alignment = UIDirection.Northwest,
                         Scale = new(2.0f),
@@ -337,7 +331,7 @@ namespace StardustSandbox.Core.UI.Common
                     SlotInfo slot = new(
                         new()
                         {
-                            TextureIndex = TextureIndex.UIButtons,
+                            Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
                             SourceRectangle = new(320, 140, 32, 32),
                             Alignment = positionAnchor,
                             Scale = new(2.0f),
@@ -347,7 +341,7 @@ namespace StardustSandbox.Core.UI.Common
 
                         new()
                         {
-                            TextureIndex = TextureIndex.IconElements,
+                            Texture = this.assetDatabase.GetTexture(TextureIndex.IconElements),
                             SourceRectangle = new(0, 0, 32, 32),
                             Alignment = UIDirection.Center,
                             Scale = new(1.5f),
@@ -372,7 +366,7 @@ namespace StardustSandbox.Core.UI.Common
                     SlotInfo slot = new(
                         new()
                         {
-                            TextureIndex = TextureIndex.UIButtons,
+                            Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
                             SourceRectangle = new(320, 140, 32, 32),
                             Alignment = UIDirection.Northwest,
                             Scale = new(2.0f),
@@ -383,7 +377,7 @@ namespace StardustSandbox.Core.UI.Common
                         new()
                         {
                             Alignment = UIDirection.Center,
-                            TextureIndex = TextureIndex.IconElements,
+                            Texture = this.assetDatabase.GetTexture(TextureIndex.IconElements),
                             SourceRectangle = new(0, 0, 32, 32),
                             Scale = new(1.5f),
                             Size = new(32.0f)
@@ -403,7 +397,7 @@ namespace StardustSandbox.Core.UI.Common
             this.pageIndexLabel = new()
             {
                 Scale = new(0.1f),
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Alignment = UIDirection.South,
                 Margin = new(0.0f, -12.0f),
                 TextContent = "1 / 1",
@@ -421,7 +415,7 @@ namespace StardustSandbox.Core.UI.Common
                 SlotInfo slot = new(
                     new()
                     {
-                        TextureIndex = TextureIndex.UIButtons,
+                        Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(320, 140, 32, 32),
                         Scale = new(1.6f),
                         Size = new(32.0f),
@@ -429,7 +423,7 @@ namespace StardustSandbox.Core.UI.Common
 
                     new()
                     {
-                        TextureIndex = this.paginationButtonInfos[i].TextureIndex,
+                        Texture = this.assetDatabase.GetTexture(this.paginationButtonInfos[i].TextureIndex),
                         SourceRectangle = this.paginationButtonInfos[i].TextureSourceRectangle,
                         Alignment = UIDirection.Center,
                         Size = new(32.0f)
@@ -461,9 +455,9 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        protected override void OnScreenResize(Vector2 newSize)
+        protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = newSize;
+            this.shadowBackground.Scale = this.GameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)

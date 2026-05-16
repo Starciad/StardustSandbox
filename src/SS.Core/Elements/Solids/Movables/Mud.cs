@@ -26,9 +26,9 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
     {
         internal Mud(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
-            InitialTemperature = 18.0f;
-            BaseDensity = 1.5f;
-            BaseExplosionResistance = 0.6f;
+            this.InitialTemperature = 18.0f;
+            this.BaseDensity = 1.5f;
+            this.BaseExplosionResistance = 0.6f;
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)

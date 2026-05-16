@@ -23,7 +23,7 @@ namespace StardustSandbox.Core.Tools
     internal abstract class Tool
     {
         internal ToolIndex Index { get; }
-        
+
         protected AchievementManager AchievementManager { get; }
 
         internal Tool(ToolIndex index, AchievementManager achievementManager)

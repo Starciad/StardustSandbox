@@ -20,11 +20,11 @@ using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Backgrounds;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
@@ -50,6 +50,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo[] menuButtonInfos, topButtonInfos;
 
         private readonly AmbientManager ambientManager;
+        private readonly AssetDatabase assetDatabase;
         private readonly GameHandler gameHandler;
         private readonly GameScreen gameScreen;
         private readonly SongManager songManager;
@@ -59,6 +60,7 @@ namespace StardustSandbox.Core.UI.Common
 
         internal MainUI(
             AmbientManager ambientManager,
+            AssetDatabase assetDatabase,
             GameHandler gameHandler,
             GameScreen gameScreen,
             OptionsUI optionsUI,
@@ -66,11 +68,11 @@ namespace StardustSandbox.Core.UI.Common
             SoundEffectManager soundEffectManager,
             UIManager uiManager,
             World world
-        ) : base()
+        ) : base(gameScreen)
         {
             this.ambientManager = ambientManager;
+            this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
-            this.gameScreen = gameScreen;
             this.songManager = songManager;
             this.soundEffectManager = soundEffectManager;
             this.uiManager = uiManager;
@@ -118,7 +120,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.shadowBackground = new()
             {
-                TextureIndex = TextureIndex.Pixel,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(487.0f, viewport.Y),
                 Color = new(AAP64ColorPalette.DarkGray, 80),
                 Size = Vector2.One,
@@ -126,7 +128,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.theatricalCurtains = new()
             {
-                TextureIndex = TextureIndex.MiscellaneousTheatricalCurtains,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.MiscellaneousTheatricalCurtains),
                 Size = new(640.0f, 360.0f),
                 Scale = new(
                     viewport.X / 640.0f,
@@ -136,7 +138,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.gameTitle = new()
             {
-                TextureIndex = TextureIndex.GameTitle,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.GameTitle),
                 Scale = new(1.5f),
                 Size = new(292.0f, 112.0f),
                 Margin = new(0.0f, 32.0f),
@@ -149,7 +151,7 @@ namespace StardustSandbox.Core.UI.Common
             this.shadowBackground.AddChild(this.gameTitle);
         }
 
-        private static void BuildInfos(Container root)
+        private void BuildInfos(Container root)
         {
             Label versionLabel = new()
             {
@@ -157,7 +159,7 @@ namespace StardustSandbox.Core.UI.Common
                 Scale = new(0.08f),
                 Color = AAP64ColorPalette.White,
                 Alignment = UIDirection.Southeast,
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 TextContent = $"Ver. {GameConstants.VERSION}",
             };
 
@@ -167,7 +169,7 @@ namespace StardustSandbox.Core.UI.Common
                 Scale = new(0.08f),
                 Color = AAP64ColorPalette.White,
                 Alignment = UIDirection.South,
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 TextContent = $"(c) {GameConstants.YEAR} {GameConstants.AUTHOR}",
             };
 
@@ -187,7 +189,7 @@ namespace StardustSandbox.Core.UI.Common
                     Color = AAP64ColorPalette.White,
                     Margin = new(0.0f, i * 75.0f),
                     Alignment = UIDirection.Center,
-                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                    SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                     TextContent = info.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,
@@ -212,8 +214,10 @@ namespace StardustSandbox.Core.UI.Common
             );
         }
 
-        protected override void OnScreenResize(Vector2 newSize)
+        protected override void OnScreenResize()
         {
+            Vector2 newSize = this.gameScreen.GetViewport();
+
             this.shadowBackground.Scale = new(487.0f, newSize.Y);
             this.theatricalCurtains.Scale = new(
                 newSize.X / 640.0f,

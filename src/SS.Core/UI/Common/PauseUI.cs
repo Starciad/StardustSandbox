@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Colors.Palettes;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -38,24 +39,25 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo[] menuButtonInfos;
         private readonly SlotInfo[] menuButtonSlotInfos;
 
+        private readonly AssetDatabase assetDatabase;
         private readonly ConfirmUI confirmUI;
         private readonly GameHandler gameHandler;
-        private readonly GameScreen gameScreen;
         private readonly SoundEffectManager soundEffectManager;
         private readonly UIManager uiManager;
 
         internal PauseUI(
+            AssetDatabase assetDatabase,
             ConfirmUI confirmUI,
             GameHandler gameHandler,
             GameScreen gameScreen,
             OptionsUI optionsUI,
             SoundEffectManager soundEffectManager,
             UIManager uiManager
-        ) : base()
+        ) : base(gameScreen)
         {
+            this.assetDatabase = assetDatabase;
             this.confirmUI = confirmUI;
             this.gameHandler = gameHandler;
-            this.gameScreen = gameScreen;
             this.soundEffectManager = soundEffectManager;
             this.uiManager = uiManager;
 
@@ -100,15 +102,15 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.shadowBackground = new()
             {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = this.gameScreen.GetViewport(),
+                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
+                Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
 
             this.panelBackground = new()
             {
-                TextureIndex = TextureIndex.UIBackgroundPause,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.UIBackgroundPause),
                 Size = new(542.0f, 540.0f),
                 Alignment = UIDirection.Center,
             };
@@ -121,7 +123,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.menuTitle = new()
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.12f),
                 Alignment = UIDirection.North,
                 Margin = new(0.0f, 10.0f),
@@ -145,7 +147,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 Image background = new()
                 {
-                    TextureIndex = TextureIndex.UIButtons,
+                    Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
                     SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320.0f, 80.0f),
@@ -157,7 +159,7 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     Scale = new(0.1f),
                     Color = AAP64ColorPalette.White,
-                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                    SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                     Alignment = UIDirection.Center,
                     TextContent = button.Name,
 
@@ -174,9 +176,9 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        protected override void OnScreenResize(Vector2 newSize)
+        protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = newSize;
+            this.shadowBackground.Scale = this.GameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)

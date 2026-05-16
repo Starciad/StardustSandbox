@@ -58,18 +58,22 @@ namespace StardustSandbox.Core.UI.Common
         private readonly TooltipBox tooltipBox;
 
         private readonly AchievementDatabase achievementDatabase;
+        private readonly AssetDatabase assetDatabase;
         private readonly AmbientManager ambientManager;
         private readonly SoundEffectManager soundEffectManager;
 
         internal AchievementsUI(
             AchievementDatabase achievementDatabase,
+            AssetDatabase assetDatabase,
             AmbientManager ambientManager,
+            GameScreen gameScreen,
             SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
             UIManager uiManager
-        ) : base()
+        ) : base(gameScreen)
         {
             this.achievementDatabase = achievementDatabase;
+            this.assetDatabase = assetDatabase;
             this.ambientManager = ambientManager;
             this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
@@ -131,7 +135,7 @@ namespace StardustSandbox.Core.UI.Common
                 if (i < length)
                 {
                     image.CanDraw = true;
-                    image.TextureIndex = TextureIndex.Achievements;
+                    image.Texture = assetDatabase.GetTexture(TextureIndex.Achievements);
 
                     Achievement achievement = this.achievementDatabase.GetAchievement((AchievementIndex)(this.achievementsRange.Start.Value + i));
 
@@ -162,14 +166,14 @@ namespace StardustSandbox.Core.UI.Common
             this.panelBackground = new()
             {
                 Alignment = UIDirection.Center,
-                TextureIndex = TextureIndex.UIBackgroundAchievements,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.UIBackgroundAchievements),
                 Size = new(420.0f, 568.0f),
             };
 
             // Title
             this.title = new()
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.1f),
                 Margin = new(16.0f, 4.0f),
                 TextContent = Localization_GUIs.Achievements_Title,
@@ -182,7 +186,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.progress = new()
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.05f),
                 Margin = new(0.0f, 40.0f),
                 TextContent = "100%",
@@ -223,7 +227,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 Image image = new()
                 {
-                    TextureIndex = TextureIndex.Achievements,
+                    Texture = this.assetDatabase.GetTexture(TextureIndex.Achievements),
                     SourceRectangle = new(0, 0, 32, 32),
                     Alignment = UIDirection.Northwest,
                     Scale = new(2.0f),
@@ -241,7 +245,7 @@ namespace StardustSandbox.Core.UI.Common
             this.pageIndexLabel = new()
             {
                 Scale = new(0.1f),
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Alignment = UIDirection.South,
                 Margin = new(0.0f, -12.0f),
                 TextContent = "1 / 1",
@@ -259,7 +263,7 @@ namespace StardustSandbox.Core.UI.Common
                 SlotInfo slot = new(
                     new()
                     {
-                        TextureIndex = TextureIndex.UIButtons,
+                        Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(320, 140, 32, 32),
                         Scale = new(1.6f),
                         Size = new(32.0f),
@@ -267,7 +271,7 @@ namespace StardustSandbox.Core.UI.Common
 
                     new()
                     {
-                        TextureIndex = this.paginationButtonInfos[i].TextureIndex,
+                        Texture = this.assetDatabase.GetTexture(this.paginationButtonInfos[i].TextureIndex),
                         SourceRectangle = this.paginationButtonInfos[i].TextureSourceRectangle,
                         Alignment = UIDirection.Center,
                         Size = new(32.0f)

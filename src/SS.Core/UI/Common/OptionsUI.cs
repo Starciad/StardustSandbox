@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -56,18 +57,18 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo exitButtonInfo;
         private readonly ButtonInfo[] categoryButtonInfos, paginationButtonInfos;
 
-        private readonly TooltipBox tooltipBox;
-
         private readonly Category[] categories;
 
         private readonly SelectorUI.IChoice[] availableGameCulturesChoices;
         private readonly SelectorUI.IChoice[] resolutionChoices;
 
+        private readonly AssetDatabase assetDatabase;
         private readonly GameHandler gameHandler;
-        private readonly GameScreen gameScreen;
         private readonly SoundEffectManager soundEffectManager;
+        private readonly TooltipBox tooltipBox;
 
         internal OptionsUI(
+            AssetDatabase assetDatabase,
             ColorPickerUI colorPickerUI,
             CursorManager cursorManager,
             GameHandler gameHandler,
@@ -81,10 +82,10 @@ namespace StardustSandbox.Core.UI.Common
             TooltipBox tooltipBox,
             UIManager uiManager,
             VideoManager videoManager
-        ) : base()
+        ) : base(gameScreen)
         {
+            this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
-            this.gameScreen = gameScreen;
             this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
 
@@ -1079,8 +1080,8 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.shadowBackground = new()
             {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = this.gameScreen.GetViewport(),
+                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
+                Scale = this.GameScreen.GetViewport(),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
@@ -1088,7 +1089,7 @@ namespace StardustSandbox.Core.UI.Common
             this.panelBackground = new()
             {
                 Alignment = UIDirection.Center,
-                TextureIndex = TextureIndex.UIBackgroundOptions,
+                Texture = this.assetDatabase.GetTexture(TextureIndex.UIBackgroundOptions),
                 Size = new(1084.0f, 607.0f),
             };
 
@@ -1100,7 +1101,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.title = new()
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.12f),
                 Margin = new(96.0f, 10.0f),
                 TextContent = "Options",
@@ -1156,7 +1157,7 @@ namespace StardustSandbox.Core.UI.Common
 
                     Image background = new()
                     {
-                        TextureIndex = TextureIndex.UIButtons,
+                        Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(0, 300, 477, 61),
                         Size = size,
                         Alignment = UIDirection.Northwest,
@@ -1165,7 +1166,7 @@ namespace StardustSandbox.Core.UI.Common
 
                     Label title = new()
                     {
-                        SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                        SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                         Scale = new(0.065f),
                         Margin = new(16.0f, 0.0f),
                         TextContent = "Title",
@@ -1179,7 +1180,7 @@ namespace StardustSandbox.Core.UI.Common
 
                     Label value = new()
                     {
-                        SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                        SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                         Scale = new(0.065f),
                         Margin = new(-16.0f, 0.0f),
                         TextContent = "Value",
@@ -1206,7 +1207,7 @@ namespace StardustSandbox.Core.UI.Common
             this.pageIndexLabel = new()
             {
                 Scale = new(0.1f),
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
+                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Alignment = UIDirection.South,
                 Margin = new(0.0f, -12.0f),
                 TextContent = "1 / 1",
@@ -1224,7 +1225,7 @@ namespace StardustSandbox.Core.UI.Common
                 SlotInfo slot = new(
                     new()
                     {
-                        TextureIndex = TextureIndex.UIButtons,
+                        Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
                         SourceRectangle = new(320, 140, 32, 32),
                         Scale = new(1.6f),
                         Size = new(32.0f),
@@ -1232,7 +1233,7 @@ namespace StardustSandbox.Core.UI.Common
 
                     new()
                     {
-                        TextureIndex = this.paginationButtonInfos[i].TextureIndex,
+                        Texture = this.assetDatabase.GetTexture(this.paginationButtonInfos[i].TextureIndex),
                         SourceRectangle = this.paginationButtonInfos[i].TextureSourceRectangle,
                         Alignment = UIDirection.Center,
                         Size = new(32.0f)
@@ -1264,9 +1265,9 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        protected override void OnScreenResize(Vector2 newSize)
+        protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = newSize;
+            this.shadowBackground.Scale = this.GameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)

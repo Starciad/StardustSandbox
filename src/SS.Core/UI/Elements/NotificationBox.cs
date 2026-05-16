@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 
@@ -44,6 +45,10 @@ namespace StardustSandbox.Core.UI.Elements
             Hiding
         }
 
+        // State machine
+        private DisplayState state = DisplayState.Idle;
+        private float stateTimerSeconds;
+
         // UI children
         private readonly Image background;
         private readonly Image icon;
@@ -53,21 +58,21 @@ namespace StardustSandbox.Core.UI.Elements
         private readonly Queue<NotificationEntry> notifications = new();
         private readonly object queueLock = new();
 
-        // State machine
-        private DisplayState state = DisplayState.Idle;
-        private float stateTimerSeconds;
+        // Dependencies
+        private readonly AssetDatabase assetDatabase;
 
         // Visual / timing configuration
         private static readonly Vector2 HIDDEN_MARGIN = new(0.0f, 96.0f);
         private static readonly Vector2 VISIBLE_MARGIN = new(0.0f, -48.0f);
 
-        internal NotificationBox(GameScreen gameScreen)
+        internal NotificationBox(AssetDatabase assetDatabase, GameScreen gameScreen)
         {
+            this.assetDatabase = assetDatabase;
             this.Size = gameScreen.GetViewport();
 
             this.background = new()
             {
-                TextureIndex = TextureIndex.Pixel,
+                Texture = assetDatabase.GetTexture(TextureIndex.Pixel),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 120),
                 Alignment = UIDirection.South,
@@ -85,7 +90,7 @@ namespace StardustSandbox.Core.UI.Elements
             this.label = new()
             {
                 Scale = new(0.11f),
-                SpriteFontIndex = SpriteFontIndex.DigitalDisco,
+                SpriteFont = assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                 Color = AAP64ColorPalette.White,
                 Alignment = UIDirection.West,
                 Margin = new(this.icon.Size.X + this.icon.Margin.X + 16.0f, 0.0f),
@@ -177,10 +182,10 @@ namespace StardustSandbox.Core.UI.Elements
             }
         }
 
-        private void StartNotification(in NotificationEntry entry)
+        private void StartNotification(NotificationEntry entry)
         {
             // Apply UI values immediately on the game/main thread
-            this.icon.TextureIndex = entry.IconTextureIndex;
+            this.icon.Texture = this.assetDatabase.GetTexture(entry.IconTextureIndex);
             this.icon.SourceRectangle = entry.IconSourceRectangle;
             this.label.TextContent = entry.Message;
 

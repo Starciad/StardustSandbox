@@ -16,13 +16,10 @@
 */
 
 using StardustSandbox.Core.Colors.Palettes;
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Managers;
-
-using System;
 
 namespace StardustSandbox.Core.Databases
 {
@@ -32,7 +29,7 @@ namespace StardustSandbox.Core.Databases
 
         internal void Load(AchievementManager achievementManager, StatisticsManager statisticsManager)
         {
-            elements = [
+            this.elements = [
                 // [000] Dirt
                 new Elements.Solids.Movables.Dirt(
                     ElementIndex.Dirt,
@@ -1424,7 +1421,7 @@ namespace StardustSandbox.Core.Databases
 
         internal Element GetElement(ElementIndex index)
         {
-            return elements[(int)index];
+            return this.elements[(int)index];
         }
     }
 }
