@@ -37,14 +37,14 @@ namespace StardustSandbox.Core.UI
         internal SlotInfo BuildButtonSlot(Vector2 margin, TextureIndex iconTextureIndex, Rectangle? iconTextureSourceRectangle)
         {
             return new(
-                background: new(assetDatabase.GetTexture(TextureIndex.UIButtons), new(320, 140, 32, 32))
+                background: new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(320, 140, 32, 32))
                 {
                     Scale = new(2.0f),
                     Size = new(32.0f),
                     Margin = margin,
                 },
 
-                icon: new(assetDatabase.GetTexture(iconTextureIndex), iconTextureSourceRectangle)
+                icon: new(this.assetDatabase.GetTexture(iconTextureIndex), iconTextureSourceRectangle)
                 {
                     Alignment = UIDirection.Center,
                     Scale = new(1.5f),

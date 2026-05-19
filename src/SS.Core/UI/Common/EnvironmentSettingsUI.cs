@@ -134,7 +134,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildMenuButtons()
         {
-            this.menuButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(this.panelBackground, this.menuButtonInfos, new(-32.0f, -72.0f), -80.0f, UIDirection.Northeast);
+            this.menuButtonSlotInfos = this.ElementFactory.BuildHorizontalButtonLine(this.panelBackground, this.menuButtonInfos, new(-32.0f, -72.0f), -80.0f, UIDirection.Northeast);
         }
 
         private void BuildTimeStateSection()
@@ -148,7 +148,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.panelBackground.AddChild(this.timeStateSectionTitle);
 
-            this.timeStateButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(this.timeStateSectionTitle, this.timeStateButtonInfos, new(0.0f, 52.0f), 80.0f, UIDirection.Southwest);
+            this.timeStateButtonSlotInfos = this.ElementFactory.BuildHorizontalButtonLine(this.timeStateSectionTitle, this.timeStateButtonInfos, new(0.0f, 52.0f), 80.0f, UIDirection.Southwest);
         }
 
         private void BuildTimeSection()
@@ -163,7 +163,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.timeStateSectionTitle.AddChild(this.timeSectionTitle);
 
-            this.timeButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(this.timeSectionTitle, this.timeButtonInfos, new(0.0f, 52.0f), 80.0f, UIDirection.Southwest);
+            this.timeButtonSlotInfos = this.ElementFactory.BuildHorizontalButtonLine(this.timeSectionTitle, this.timeButtonInfos, new(0.0f, 52.0f), 80.0f, UIDirection.Southwest);
         }
 
         protected override void OnScreenResize()

@@ -169,7 +169,7 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
-                SlotInfo slot = ElementFactory.BuildButtonSlot(new(-32.0f - (i * 80.0f), -72.0f), button);
+                SlotInfo slot = this.ElementFactory.BuildButtonSlot(new(-32.0f - (i * 80.0f), -72.0f), button);
 
                 slot.Background.Alignment = UIDirection.Northeast;
                 slot.Icon.Alignment = UIDirection.Center;
@@ -197,7 +197,7 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = 0; i < this.sizeButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.sizeButtonInfos[i];
-                SlotInfo slot = ElementFactory.BuildButtonSlot(new(i * 80.0f, 52.0f), button);
+                SlotInfo slot = this.ElementFactory.BuildButtonSlot(new(i * 80.0f, 52.0f), button);
 
                 slot.Background.Alignment = UIDirection.Southwest;
                 slot.Icon.Alignment = UIDirection.Center;

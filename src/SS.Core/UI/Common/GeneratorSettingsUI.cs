@@ -231,7 +231,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildExitButton()
         {
-            SlotInfo slot = ElementFactory.BuildButtonSlot(new(-32.0f, -72.0f), this.exitButtonInfo);
+            SlotInfo slot = this.ElementFactory.BuildButtonSlot(new(-32.0f, -72.0f), this.exitButtonInfo);
 
             slot.Background.Alignment = UIDirection.Northeast;
             slot.Icon.Alignment = UIDirection.Center;
@@ -290,7 +290,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.panelBackground.AddChild(this.themeSectionTitle);
 
-            this.themeButtonSlotInfos = ElementFactory.BuildGridButtons(
+            this.themeButtonSlotInfos = this.ElementFactory.BuildGridButtons(
                 this.themeSectionTitle,
                 this.themeButtonInfos,
                 3,
@@ -313,7 +313,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.panelBackground.AddChild(this.settingsSectionTitle);
 
-            this.settingsButtonSlotInfos = ElementFactory.BuildGridButtons(
+            this.settingsButtonSlotInfos = this.ElementFactory.BuildGridButtons(
                 this.settingsSectionTitle,
                 this.settingsButtonInfos,
                 3,
@@ -336,7 +336,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.panelBackground.AddChild(this.contentsSectionTitle);
 
-            this.contentsButtonSlotInfos = ElementFactory.BuildGridButtons(
+            this.contentsButtonSlotInfos = this.ElementFactory.BuildGridButtons(
                 this.contentsSectionTitle,
                 this.contentsButtonInfos,
                 3,

@@ -190,7 +190,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildMenuButtons()
         {
-            this.menuButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(
+            this.menuButtonSlotInfos = this.ElementFactory.BuildHorizontalButtonLine(
                 this.panelBackground,
                 this.menuButtonInfos,
                 new(-32.0f, -72.0f),
@@ -232,7 +232,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.brushSectionTitle.AddChild(this.toolsSectionTitle);
 
-            this.toolButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(
+            this.toolButtonSlotInfos = this.ElementFactory.BuildHorizontalButtonLine(
                 this.toolsSectionTitle,
                 this.toolButtonInfos,
                 new(0.0f, 52.0f),
@@ -253,7 +253,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.toolsSectionTitle.AddChild(this.layerSectionTitle);
 
-            this.layerButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(
+            this.layerButtonSlotInfos = this.ElementFactory.BuildHorizontalButtonLine(
                 this.layerSectionTitle,
                 this.layerButtonInfos,
                 new(0.0f, 52.0f),
@@ -261,7 +261,7 @@ namespace StardustSandbox.Core.UI.Common
                 UIDirection.Southwest
             );
 
-            this.layerVisibilitySlotInfos = ElementFactory.BuildHorizontalButtonLine(
+            this.layerVisibilitySlotInfos = this.ElementFactory.BuildHorizontalButtonLine(
                 this.layerSectionTitle,
                 this.layerVisibility,
                 new(0.0f, 132.0f),
@@ -282,7 +282,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.layerSectionTitle.AddChild(this.shapeSectionTitle);
 
-            this.shapeButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(
+            this.shapeButtonSlotInfos = this.ElementFactory.BuildHorizontalButtonLine(
                 this.shapeSectionTitle,
                 this.shapeButtonInfos,
                 new(0.0f, 52.0f),

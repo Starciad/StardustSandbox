@@ -135,7 +135,7 @@ namespace StardustSandbox.Core.UI.Common
                 if (i < length)
                 {
                     image.CanDraw = true;
-                    image.Texture = assetDatabase.GetTexture(TextureIndex.Achievements);
+                    image.Texture = this.assetDatabase.GetTexture(TextureIndex.Achievements);
 
                     Achievement achievement = this.achievementDatabase.GetAchievement((AchievementIndex)(this.achievementsRange.Start.Value + i));
 
@@ -201,7 +201,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildExitButton()
         {
-            SlotInfo slot = ElementFactory.BuildButtonSlot(new(-4.0f, 6.5f), this.exitButtonInfo);
+            SlotInfo slot = this.ElementFactory.BuildButtonSlot(new(-4.0f, 6.5f), this.exitButtonInfo);
 
             slot.Background.Alignment = UIDirection.Northeast;
             slot.Icon.Alignment = UIDirection.Center;

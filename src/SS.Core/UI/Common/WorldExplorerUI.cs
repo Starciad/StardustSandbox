@@ -205,7 +205,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildMenuButtons()
         {
-            this.menuButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(
+            this.menuButtonSlotInfos = this.ElementFactory.BuildHorizontalButtonLine(
                 this.panelBackground,
                 this.menuButtonInfos,
                 new(-4.0f, 6.5f),

@@ -1114,7 +1114,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildExitButton()
         {
-            SlotInfo slot = ElementFactory.BuildButtonSlot(new(-4.0f, 6.5f), this.exitButtonInfo);
+            SlotInfo slot = this.ElementFactory.BuildButtonSlot(new(-4.0f, 6.5f), this.exitButtonInfo);
 
             slot.Background.Alignment = UIDirection.Northeast;
             slot.Icon.Alignment = UIDirection.Center;
@@ -1127,7 +1127,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildCategoryButtons()
         {
-            this.categoryButtonSlotInfos = ElementFactory.BuildVerticalButtonLine(
+            this.categoryButtonSlotInfos = this.ElementFactory.BuildVerticalButtonLine(
                 this.panelBackground,
                 this.categoryButtonInfos,
                 new(8.0f, 8.0f),

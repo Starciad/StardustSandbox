@@ -198,7 +198,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildTopButtons(Container root)
         {
-            this.topButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(
+            this.topButtonSlotInfos = this.ElementFactory.BuildHorizontalButtonLine(
                 root,
                 this.topButtonInfos,
                 new(-16.0f, 16.0f),

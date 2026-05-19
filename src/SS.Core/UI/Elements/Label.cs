@@ -83,7 +83,7 @@ namespace StardustSandbox.Core.UI.Elements
         {
             this.SpriteFont = spriteFont;
         }
-        
+
         private void DrawBorders(SpriteBatch spriteBatch, Vector2 position)
         {
             if (this.BorderDirections == LabelBorderDirection.None)
