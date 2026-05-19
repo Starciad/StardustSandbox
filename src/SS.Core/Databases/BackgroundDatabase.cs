@@ -27,8 +27,6 @@ namespace StardustSandbox.Core.Databases
     {
         private Background[] backgrounds;
 
-        private bool isLoaded = false;
-
         private readonly AssetDatabase assetDatabase;
 
         internal BackgroundDatabase(AssetDatabase assetDatabase)
@@ -38,11 +36,6 @@ namespace StardustSandbox.Core.Databases
 
         internal void Load()
         {
-            if (this.isLoaded)
-            {
-                throw new InvalidOperationException($"{nameof(BackgroundDatabase)} has already been loaded.");
-            }
-
             this.backgrounds = [
                 // [0] Main Menu
                 new()
@@ -123,13 +116,16 @@ namespace StardustSandbox.Core.Databases
                     ],
                 },
             ];
-
-            this.isLoaded = true;
         }
 
         internal Background GetBackground(BackgroundIndex index)
         {
-            return this.backgrounds[(int)index];
+            if (index is BackgroundIndex.None)
+            {
+                throw new ArgumentException("The background index cannot be None.", nameof(index));
+            }
+
+            return this.backgrounds[((byte)index) - 1];
         }
     }
 }

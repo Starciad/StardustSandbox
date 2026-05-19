@@ -17,9 +17,9 @@
 
 namespace StardustSandbox.Core.Enums.Assets
 {
-    internal enum SongIndex : sbyte
+    internal enum SongIndex : byte
     {
-        None = -1,
+        None,
 
         // Volume 01
         Volume_01_Track_01,

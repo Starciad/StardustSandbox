@@ -22,6 +22,8 @@ using StardustSandbox.Core.Tools;
 using StardustSandbox.Core.Tools.Environment;
 using StardustSandbox.Core.Tools.Inks;
 
+using System;
+
 namespace StardustSandbox.Core.Databases
 {
     internal sealed class ToolDatabase
@@ -71,7 +73,12 @@ namespace StardustSandbox.Core.Databases
 
         internal Tool GetTool(ToolIndex toolIndex)
         {
-            return this.tools[(int)toolIndex];
+            if (toolIndex is ToolIndex.None)
+            {
+                throw new ArgumentException("Tool index cannot be None.", nameof(toolIndex));
+            }
+
+            return this.tools[((byte)toolIndex) - 1];
         }
     }
 }

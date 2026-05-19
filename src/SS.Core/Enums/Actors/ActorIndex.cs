@@ -17,10 +17,9 @@
 
 namespace StardustSandbox.Core.Enums.Actors
 {
-    public enum ActorIndex : sbyte
+    public enum ActorIndex : byte
     {
-        None = -1,
-
-        Gul = 0,
+        None,
+        Gul,
     }
 }

@@ -17,9 +17,9 @@
 
 namespace StardustSandbox.Core.Enums.Backgrounds
 {
-    internal enum BackgroundIndex : sbyte
+    internal enum BackgroundIndex : byte
     {
-        None = -1,
+        None,
         MainMenu,
         Ocean,
         Credits

@@ -17,9 +17,9 @@
 
 namespace StardustSandbox.Core.Enums.Assets
 {
-    internal enum TextureIndex : sbyte
+    internal enum TextureIndex : byte
     {
-        None = -1,
+        None,
 
         #region General
 

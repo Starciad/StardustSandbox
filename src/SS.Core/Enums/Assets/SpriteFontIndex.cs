@@ -17,9 +17,9 @@
 
 namespace StardustSandbox.Core.Enums.Assets
 {
-    internal enum SpriteFontIndex : sbyte
+    internal enum SpriteFontIndex : byte
     {
-        None = -1,
+        None,
         Arial,
         BigApple3pm,
         ComicSansMS,

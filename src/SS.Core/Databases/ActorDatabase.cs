@@ -22,6 +22,8 @@ using StardustSandbox.Core.Interfaces.Actors;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem;
 
+using System;
+
 namespace StardustSandbox.Core.Databases
 {
     internal sealed class ActorDatabase
@@ -43,7 +45,12 @@ namespace StardustSandbox.Core.Databases
 
         internal IActorDescriptor GetDescriptor(ActorIndex index)
         {
-            return this.descriptors[(byte)index];
+            if (index is ActorIndex.None)
+            {
+                throw new ArgumentException($"The provided {nameof(ActorIndex)} is invalid.", nameof(index));
+            }
+
+            return this.descriptors[((byte)index) - 1];
         }
     }
 }

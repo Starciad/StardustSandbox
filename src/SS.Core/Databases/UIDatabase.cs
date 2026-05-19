@@ -33,7 +33,6 @@ namespace StardustSandbox.Core.Databases
     internal sealed class UIDatabase
     {
         private UIBase[] uis;
-        private bool isLoaded;
 
         internal void Load(
             AchievementDatabase achievementDatabase,
@@ -55,11 +54,6 @@ namespace StardustSandbox.Core.Databases
             World world
         )
         {
-            if (this.isLoaded)
-            {
-                throw new InvalidOperationException($"{nameof(UIDatabase)} has already been loaded.");
-            }
-
             NotificationBox notificationBox = new(assetDatabase, gameScreen);
             TooltipBox tooltipBox = new(assetDatabase, cursorManager, gameScreen)
             {
@@ -367,13 +361,16 @@ namespace StardustSandbox.Core.Databases
             {
                 this.uis[i].Initialize();
             }
-
-            this.isLoaded = true;
         }
 
         internal UIBase GetUI(UIIndex index)
         {
-            return this.uis[(int)index];
+            if (index is UIIndex.None)
+            {
+                throw new ArgumentException($"The provided {nameof(UIIndex)} is invalid.", nameof(index));
+            }
+
+            return this.uis[((byte)index) - 1];
         }
 
         internal void ResizeUIs()

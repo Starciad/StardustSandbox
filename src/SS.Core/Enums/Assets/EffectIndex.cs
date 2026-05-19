@@ -17,9 +17,9 @@
 
 namespace StardustSandbox.Core.Enums.Assets
 {
-    internal enum EffectIndex : sbyte
+    internal enum EffectIndex : byte
     {
-        None = -1,
+        None,
         GradientTransition,
     }
 }

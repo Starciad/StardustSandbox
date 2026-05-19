@@ -30,8 +30,6 @@ namespace StardustSandbox.Core.Databases
 {
     internal sealed class AssetDatabase
     {
-        private bool isLoaded = false;
-
         private Texture2D pixelTexture;
 
         private Texture2D[] textures;
@@ -51,11 +49,6 @@ namespace StardustSandbox.Core.Databases
 
         internal void Load()
         {
-            if (this.isLoaded)
-            {
-                throw new InvalidOperationException($"{nameof(AssetDatabase)} has already been loaded.");
-            }
-
             this.pixelTexture = new(this.graphicsDeviceManager.GraphicsDevice, 1, 1);
             this.pixelTexture.SetData([Color.White]);
 
@@ -149,8 +142,6 @@ namespace StardustSandbox.Core.Databases
                 this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "text_input_ornament")),
                 this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "tutorial")),
             ];
-
-            this.isLoaded = true;
         }
 
         internal void Unload()
@@ -160,17 +151,32 @@ namespace StardustSandbox.Core.Databases
 
         internal Texture2D GetTexture(TextureIndex index)
         {
-            return this.textures[(int)index];
+            if (index is TextureIndex.None)
+            {
+                throw new ArgumentException("The provided texture index is invalid.", nameof(index));
+            }
+
+            return this.textures[((byte)index) - 1];
         }
 
         internal SpriteFont GetSpriteFont(SpriteFontIndex index)
         {
-            return this.fonts[(int)index];
+            if (index is SpriteFontIndex.None)
+            {
+                throw new ArgumentException("The provided sprite font index is invalid.", nameof(index));
+            }
+
+            return this.fonts[((byte)index) - 1];
         }
 
         internal Song GetSong(SongIndex index)
         {
-            return this.songs[(int)index];
+            if (index is SongIndex.None)
+            {
+                throw new ArgumentException("The provided song index is invalid.", nameof(index));
+            }
+
+            return this.songs[((byte)index) - 1];
         }
 
         internal Effect[] GetEffects()
@@ -180,12 +186,22 @@ namespace StardustSandbox.Core.Databases
 
         internal Effect GetEffect(EffectIndex index)
         {
-            return this.effects[(int)index];
+            if (index is EffectIndex.None)
+            {
+                throw new ArgumentException("The provided effect index is invalid.", nameof(index));
+            }
+
+            return this.effects[((byte)index) - 1];
         }
 
         internal SoundEffect GetSoundEffect(SoundEffectIndex index)
         {
-            return this.soundEffects[(int)index];
+            if (index is SoundEffectIndex.None)
+            {
+                throw new ArgumentException("The provided sound effect index is invalid.", nameof(index));
+            }
+
+            return this.soundEffects[((byte)index) - 1];
         }
     }
 }

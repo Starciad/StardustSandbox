@@ -21,6 +21,8 @@ using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Managers;
 
+using System;
+
 namespace StardustSandbox.Core.Databases
 {
     internal sealed class ElementDatabase
@@ -1421,7 +1423,12 @@ namespace StardustSandbox.Core.Databases
 
         internal Element GetElement(ElementIndex index)
         {
-            return this.elements[(int)index];
+            if (index is ElementIndex.None)
+            {
+                throw new ArgumentException("Element index cannot be None.", nameof(index));
+            }
+
+            return this.elements[((byte)index) - 1];
         }
     }
 }

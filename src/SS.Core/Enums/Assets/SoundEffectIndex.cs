@@ -17,9 +17,9 @@
 
 namespace StardustSandbox.Core.Enums.Assets
 {
-    internal enum SoundEffectIndex : sbyte
+    internal enum SoundEffectIndex : byte
     {
-        None = -1,
+        None,
 
         #region GUIs
 

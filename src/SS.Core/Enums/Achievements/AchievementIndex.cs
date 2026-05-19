@@ -17,9 +17,9 @@
 
 namespace StardustSandbox.Core.Enums.Achievements
 {
-    public enum AchievementIndex : sbyte
+    public enum AchievementIndex : byte
     {
-        None = -1,
+        None,
         ACH_001,
         ACH_002,
         ACH_003,

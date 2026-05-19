@@ -17,9 +17,9 @@
 
 namespace StardustSandbox.Core.Enums.UI
 {
-    internal enum UIIndex : sbyte
+    internal enum UIIndex : byte
     {
-        None = -1,
+        None,
 
         Achievements,
         ColorPicker,
