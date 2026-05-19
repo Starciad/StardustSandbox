@@ -222,10 +222,8 @@ namespace StardustSandbox.Core.UI.Common
                 int row = i % rows;
                 int column = i / rows;
 
-                Image image = new()
+                Image image = new(this.assetDatabase.GetTexture(TextureIndex.Achievements), new(0, 0, 32, 32))
                 {
-                    Texture = this.assetDatabase.GetTexture(TextureIndex.Achievements),
-                    SourceRectangle = new(0, 0, 32, 32),
                     Alignment = UIDirection.Northwest,
                     Scale = new(2.0f),
                     Size = new(32.0f),
@@ -257,18 +255,14 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = 0; i < this.paginationButtonInfos.Length; i++)
             {
                 SlotInfo slot = new(
-                    new()
+                    new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(320, 140, 32, 32))
                     {
-                        Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
-                        SourceRectangle = new(320, 140, 32, 32),
                         Scale = new(1.6f),
                         Size = new(32.0f),
                     },
 
-                    new()
+                    new(this.assetDatabase.GetTexture(this.paginationButtonInfos[i].TextureIndex), this.paginationButtonInfos[i].TextureSourceRectangle)
                     {
-                        Texture = this.assetDatabase.GetTexture(this.paginationButtonInfos[i].TextureIndex),
-                        SourceRectangle = this.paginationButtonInfos[i].TextureSourceRectangle,
                         Alignment = UIDirection.Center,
                         Size = new(32.0f)
                     }

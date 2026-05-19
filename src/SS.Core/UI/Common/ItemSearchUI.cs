@@ -290,17 +290,15 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildBackground(Container root)
         {
-            this.shadowBackground = new()
+            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
 
-            this.panelBackground = new()
+            this.panelBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIBackgroundItemSearch))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.UIBackgroundItemSearch),
                 Size = new(542.0f, 540.0f),
                 Alignment = UIDirection.Center,
             };
@@ -318,21 +316,17 @@ namespace StardustSandbox.Core.UI.Common
                     Vector2 margin = new(38.0f + (column * 80.0f), 114.0f + (row * 80.0f));
 
                     SlotInfo slot = new(
-                        new()
+                        new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(320, 140, 32, 32))
                         {
-                            Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
-                            SourceRectangle = new(320, 140, 32, 32),
                             Alignment = UIDirection.Northwest,
                             Scale = new(2.0f),
                             Size = new(32.0f),
                             Margin = margin
                         },
 
-                        new()
+                        new(this.assetDatabase.GetTexture(TextureIndex.IconElements), new(0, 0, 32, 32))
                         {
                             Alignment = UIDirection.Center,
-                            Texture = this.assetDatabase.GetTexture(TextureIndex.IconElements),
-                            SourceRectangle = new(0, 0, 32, 32),
                             Scale = new(1.5f),
                             Size = new(32.0f)
                         }
@@ -350,9 +344,8 @@ namespace StardustSandbox.Core.UI.Common
         {
             Vector2 margin = new(96.0f, 16.0f);
 
-            this.placeholderLabel = new()
+            this.placeholderLabel = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.1f),
                 TextContent = Localization_GUIs.ItemSearch_Placeholder,
                 Color = AAP64ColorPalette.White,
@@ -360,9 +353,8 @@ namespace StardustSandbox.Core.UI.Common
                 Margin = margin,
             };
 
-            this.searchQueryLabel = new()
+            this.searchQueryLabel = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.1f),
                 Color = AAP64ColorPalette.White,
                 Alignment = UIDirection.Northwest,

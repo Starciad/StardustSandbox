@@ -154,18 +154,16 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildBackground(Container root)
         {
-            this.shadowBackground = new()
+            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
 
-            this.panelBackground = new()
+            this.panelBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIBackgroundPenSettings))
             {
                 Alignment = UIDirection.Center,
-                Texture = this.assetDatabase.GetTexture(TextureIndex.UIBackgroundPenSettings),
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -175,9 +173,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildTitle()
         {
-            this.menuTitle = new()
+            this.menuTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
                 TextContent = Localization_GUIs.PenSettings_Title,
@@ -204,18 +201,15 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildBrushSizeSection()
         {
-            this.brushSectionTitle = new()
+            this.brushSectionTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 TextContent = Localization_GUIs.PenSettings_BrushSize_Title,
             };
 
-            this.brushSizeSlider = new()
+            this.brushSizeSlider = new(this.assetDatabase.GetTexture(TextureIndex.UISizeSlider), new(0, 0, 326, 38))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.UISizeSlider),
-                SourceRectangle = new(new(0, 0), new(326, 38)),
                 Size = new(326.0f, 38.0f),
                 Scale = new(2.0f),
                 Margin = new(0.0f, 48.0f),
@@ -228,12 +222,11 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildToolSection()
         {
-            this.toolsSectionTitle = new()
+            this.toolsSectionTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Scale = new(0.1f),
                 Margin = new(0.0f, 144.0f),
                 Color = AAP64ColorPalette.White,
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 TextContent = Localization_GUIs.PenSettings_Tool_Title
             };
 
@@ -250,11 +243,10 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildLayerSection()
         {
-            this.layerSectionTitle = new()
+            this.layerSectionTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Scale = new(0.1f),
                 Color = AAP64ColorPalette.White,
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Margin = new(this.toolsSectionTitle.GetLayoutBounds().Size.X + 32.0f, 0.0f),
                 TextContent = Localization_GUIs.PenSettings_Layer_Title,
             };
@@ -280,11 +272,10 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildShapeSection()
         {
-            this.shapeSectionTitle = new()
+            this.shapeSectionTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Scale = new(0.1f),
                 Color = AAP64ColorPalette.White,
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Margin = new(this.layerSectionTitle.GetLayoutBounds().Size.X + 32.0f, 0.0f),
                 TextContent = Localization_GUIs.PenSettings_Shape_Title
             };

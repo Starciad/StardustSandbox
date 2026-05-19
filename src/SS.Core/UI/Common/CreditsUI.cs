@@ -248,10 +248,9 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildSectionTitleElement(CreditSection section, ref Vector2 margin)
         {
-            Label sectionTitleElement = new()
+            Label sectionTitleElement = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco))
             {
                 Scale = new(0.25f),
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                 Margin = margin,
                 Alignment = UIDirection.South,
                 TextContent = section.Title
@@ -264,10 +263,9 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildTextContentElement(CreditContent content, ref Vector2 margin)
         {
-            Label contentTitleElement = new()
+            Label contentTitleElement = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco))
             {
                 Scale = new(0.2f),
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                 Margin = margin + content.Margin,
                 Alignment = UIDirection.South,
                 TextContent = content.Text
@@ -280,10 +278,9 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildTitleContentElement(CreditContent content, ref Vector2 margin)
         {
-            Label contentText = new()
+            Label contentText = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco))
             {
                 Scale = new(0.15f),
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                 Margin = margin + content.Margin,
                 Alignment = UIDirection.South,
                 TextContent = content.Text
@@ -297,11 +294,10 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildImageContentElement(CreditContent content, ref Vector2 margin)
         {
-            Image contentImage = new()
+            Image contentImage = new(content.Texture)
             {
                 Scale = content.TextureScale,
                 Size = content.Texture.GetSize().ToVector2(),
-                Texture = content.Texture,
                 Alignment = UIDirection.South,
                 Margin = margin + content.Margin
             };

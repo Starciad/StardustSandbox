@@ -194,17 +194,15 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildBackground(Container root)
         {
-            this.shadowBackground = new()
+            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
 
-            this.panelBackground = new()
+            this.panelBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIBackgroundGeneratorSettings))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.UIBackgroundGeneratorSettings),
                 Alignment = UIDirection.Center,
                 Size = new(1084.0f, 540.0f),
             };
@@ -215,9 +213,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildTitle()
         {
-            this.menuTitle = new()
+            this.menuTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
                 Color = AAP64ColorPalette.White,
@@ -248,10 +245,8 @@ namespace StardustSandbox.Core.UI.Common
         private void BuildGenerateButton()
         {
             this.generateButtonSlotInfo = new(
-                new()
+                new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(0, 140, 320, 80))
                 {
-                    Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
-                    SourceRectangle = new(0, 140, 320, 80),
                     Size = new(320.0f, 80.0f),
                     Margin = new(0.0f, -32.0f),
                     Alignment = UIDirection.South,
@@ -259,11 +254,10 @@ namespace StardustSandbox.Core.UI.Common
 
                 null,
 
-                new()
+                new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
                 {
                     Scale = new(0.1f),
                     Color = AAP64ColorPalette.White,
-                    SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                     Alignment = UIDirection.Center,
                     TextContent = this.generateButtonInfo.Name,
 
@@ -287,11 +281,10 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildThemeSection()
         {
-            this.themeSectionTitle = new()
+            this.themeSectionTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 TextContent = Localization_GUIs.GeneratorSettings_Theme_Title
             };
 
@@ -309,13 +302,12 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildSettingsSection()
         {
-            this.settingsSectionTitle = new()
+            this.settingsSectionTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Alignment = UIDirection.North,
                 Scale = new(0.1f),
                 Margin = new(-56.0f, 128.0f),
                 Color = AAP64ColorPalette.White,
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 TextContent = Localization_GUIs.GeneratorSettings_Settings_Title
             };
 
@@ -333,13 +325,12 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildContentsSection()
         {
-            this.contentsSectionTitle = new()
+            this.contentsSectionTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Alignment = UIDirection.Northeast,
                 Scale = new(0.1f),
                 Margin = new(-32.0f, 128.0f),
                 Color = AAP64ColorPalette.White,
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 TextContent = Localization_GUIs.GeneratorSettings_Contents_Title
             };
 

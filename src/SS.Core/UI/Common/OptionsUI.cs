@@ -1078,18 +1078,16 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildBackground(Container root)
         {
-            this.shadowBackground = new()
+            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = this.GameScreen.GetViewport(),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
-            this.panelBackground = new()
+            this.panelBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIBackgroundOptions))
             {
                 Alignment = UIDirection.Center,
-                Texture = this.assetDatabase.GetTexture(TextureIndex.UIBackgroundOptions),
                 Size = new(1084.0f, 607.0f),
             };
 
@@ -1099,9 +1097,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildTitle()
         {
-            this.title = new()
+            this.title = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.12f),
                 Margin = new(96.0f, 10.0f),
                 TextContent = "Options",
@@ -1155,18 +1152,15 @@ namespace StardustSandbox.Core.UI.Common
                     Vector2 margin = column % 2 == 0 ? firstColumnMargin : secondColumnMargin;
                     margin.Y = firstColumnMargin.Y + (row * (size.Y + spacing.Y));
 
-                    Image background = new()
+                    Image background = new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(0, 300, 477, 61))
                     {
-                        Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
-                        SourceRectangle = new(0, 300, 477, 61),
                         Size = size,
                         Alignment = UIDirection.Northwest,
                         Margin = margin,
                     };
 
-                    Label title = new()
+                    Label title = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
                     {
-                        SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                         Scale = new(0.065f),
                         Margin = new(16.0f, 0.0f),
                         TextContent = "Title",
@@ -1178,9 +1172,8 @@ namespace StardustSandbox.Core.UI.Common
                         BorderThickness = 2.0f,
                     };
 
-                    Label value = new()
+                    Label value = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
                     {
-                        SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                         Scale = new(0.065f),
                         Margin = new(-16.0f, 0.0f),
                         TextContent = "Value",
@@ -1204,10 +1197,9 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildPagination()
         {
-            this.pageIndexLabel = new()
+            this.pageIndexLabel = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Scale = new(0.1f),
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Alignment = UIDirection.South,
                 Margin = new(0.0f, -12.0f),
                 TextContent = "1 / 1",
@@ -1223,18 +1215,14 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = 0; i < this.paginationButtonInfos.Length; i++)
             {
                 SlotInfo slot = new(
-                    new()
+                    new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(320, 140, 32, 32))
                     {
-                        Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
-                        SourceRectangle = new(320, 140, 32, 32),
                         Scale = new(1.6f),
                         Size = new(32.0f),
                     },
 
-                    new()
+                    new(this.assetDatabase.GetTexture(this.paginationButtonInfos[i].TextureIndex), this.paginationButtonInfos[i].TextureSourceRectangle)
                     {
-                        Texture = this.assetDatabase.GetTexture(this.paginationButtonInfos[i].TextureIndex),
-                        SourceRectangle = this.paginationButtonInfos[i].TextureSourceRectangle,
                         Alignment = UIDirection.Center,
                         Size = new(32.0f)
                     }

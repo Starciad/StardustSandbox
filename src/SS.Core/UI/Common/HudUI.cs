@@ -291,10 +291,8 @@ namespace StardustSandbox.Core.UI.Common
             container = new() { Size = size, Alignment = alignment };
             root.AddChild(container);
 
-            background = new()
+            background = new(this.assetDatabase.GetTexture(textureIndex), sourceRectangle)
             {
-                Texture = this.assetDatabase.GetTexture(textureIndex),
-                SourceRectangle = sourceRectangle,
                 Size = size,
             };
 
@@ -318,10 +316,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildDrawerButton(ref Image drawerButton, Container container, Rectangle srcRect, Vector2 size, Vector2 margin, UIDirection alignment)
         {
-            drawerButton = new()
+            drawerButton = new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), srcRect)
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
-                SourceRectangle = srcRect,
                 Size = size,
                 Margin = margin,
                 Scale = new(2.0f),
@@ -333,20 +329,16 @@ namespace StardustSandbox.Core.UI.Common
 
         private void CreateTopToolbarCurrentlySelectedToolSlot()
         {
-            Image slotSearchBackground = new()
+            Image slotSearchBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(320, 140, 32, 32))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
-                SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.45f),
                 Alignment = UIDirection.West,
                 Size = new(32.0f),
                 Margin = new(32.0f, 0.0f),
             };
 
-            Image icon = new()
+            Image icon = new(this.assetDatabase.GetTexture(TextureIndex.IconUI), new(64, 32, 32, 32))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.IconUI),
-                SourceRectangle = new(64, 32, 32, 32),
                 Alignment = UIDirection.Center,
                 Scale = new(2.0f),
                 Size = new(32.0f),
@@ -378,20 +370,16 @@ namespace StardustSandbox.Core.UI.Common
 
         private void CreateTopToolbarSearchSlot()
         {
-            Image slotSearchBackground = new()
+            Image slotSearchBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(320, 140, 32, 32))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.UIButtons),
-                SourceRectangle = new(320, 140, 32, 32),
                 Scale = new(2.45f),
                 Alignment = UIDirection.East,
                 Size = new(32.0f),
                 Margin = new(-32.0f, 0.0f),
             };
 
-            Image icon = new()
+            Image icon = new(this.assetDatabase.GetTexture(TextureIndex.IconUI), new(0, 0, 32, 32))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.IconUI),
-                SourceRectangle = new(0, 0, 32, 32),
                 Alignment = UIDirection.Center,
                 Scale = new(2.0f),
                 Size = new(32.0f),
@@ -404,18 +392,16 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildSimulationPausedOverlay(Container root)
         {
-            this.simulationPausedBackground = new()
+            this.simulationPausedBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
                 CanDraw = false,
-                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 120),
                 Alignment = UIDirection.Center,
             };
 
-            Label pauseLabel = new()
+            Label pauseLabel = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.VcrOsdMono1001))
             {
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.VcrOsdMono1001),
                 Color = AAP64ColorPalette.White,
                 Scale = new(0.08f),
                 Alignment = UIDirection.Center,

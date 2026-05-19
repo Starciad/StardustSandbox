@@ -87,19 +87,17 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnBuild(Container root)
         {
-            this.shadowBackground = new()
+            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = this.GameScreen.GetViewport(),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
-            this.caption = new()
+            this.caption = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Scale = new(0.1f),
                 Margin = new(0.0f, 64.0f),
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Alignment = UIDirection.North,
 
                 BorderColor = AAP64ColorPalette.DarkGray,
@@ -108,13 +106,12 @@ namespace StardustSandbox.Core.UI.Common
                 BorderThickness = 2.0f,
             };
 
-            this.message = new()
+            this.message = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator))
             {
                 Scale = new(0.1f),
                 LineHeight = 1.25f,
                 Margin = new(0.0f, -32.0f),
                 TextAreaSize = new(850.0f, 1000.0f),
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
                 Alignment = UIDirection.Center,
             };
 
@@ -131,9 +128,8 @@ namespace StardustSandbox.Core.UI.Common
             {
                 ButtonInfo button = this.buttonInfos[i];
 
-                Label label = new()
+                Label label = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
                 {
-                    SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                     Scale = new(0.125f),
                     Margin = new(0.0f, -64.0f - (i * 72.0f)),
                     Alignment = UIDirection.South,

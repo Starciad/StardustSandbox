@@ -60,9 +60,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildBackground(Container root)
         {
-            this.shadowBackground = new()
+            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
@@ -73,13 +72,12 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildMessage(Container root)
         {
-            this.message = new()
+            this.message = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator))
             {
                 Scale = new(0.1f),
                 Margin = new(0.0f, 96.0f),
                 LineHeight = 1.25f,
                 TextAreaSize = new(850.0f, 1000.0f),
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator),
                 Alignment = UIDirection.North,
             };
 
@@ -88,9 +86,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildButton(Container root)
         {
-            this.continueButtonLabel = new()
+            this.continueButtonLabel = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.13f),
                 Margin = new(0.0f, -96.0f),
                 Alignment = UIDirection.South,

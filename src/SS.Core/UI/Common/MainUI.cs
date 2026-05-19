@@ -117,17 +117,15 @@ namespace StardustSandbox.Core.UI.Common
         {
             Vector2 viewport = this.GameScreen.GetViewport();
 
-            this.shadowBackground = new()
+            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = new(487.0f, viewport.Y),
                 Color = new(AAP64ColorPalette.DarkGray, 80),
                 Size = Vector2.One,
             };
 
-            this.theatricalCurtains = new()
+            this.theatricalCurtains = new(this.assetDatabase.GetTexture(TextureIndex.MiscellaneousTheatricalCurtains))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.MiscellaneousTheatricalCurtains),
                 Size = new(640.0f, 360.0f),
                 Scale = new(
                     viewport.X / 640.0f,
@@ -135,9 +133,8 @@ namespace StardustSandbox.Core.UI.Common
                 ),
             };
 
-            this.gameTitle = new()
+            this.gameTitle = new(this.assetDatabase.GetTexture(TextureIndex.GameTitle))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.GameTitle),
                 Scale = new(1.5f),
                 Size = new(292.0f, 112.0f),
                 Margin = new(0.0f, 32.0f),
@@ -152,23 +149,21 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildInfos(Container root)
         {
-            Label versionLabel = new()
+            Label versionLabel = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Margin = new(-32.0f, -32.0f),
                 Scale = new(0.08f),
                 Color = AAP64ColorPalette.White,
                 Alignment = UIDirection.Southeast,
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 TextContent = $"Ver. {GameConstants.VERSION}",
             };
 
-            Label copyrightLabel = new()
+            Label copyrightLabel = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Margin = new(0.0f, -32.0f),
                 Scale = new(0.08f),
                 Color = AAP64ColorPalette.White,
                 Alignment = UIDirection.South,
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 TextContent = $"(c) {GameConstants.YEAR} {GameConstants.AUTHOR}",
             };
 
@@ -182,13 +177,12 @@ namespace StardustSandbox.Core.UI.Common
             {
                 ButtonInfo info = this.menuButtonInfos[i];
 
-                Label label = new()
+                Label label = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
                 {
                     Scale = new(0.15f),
                     Color = AAP64ColorPalette.White,
                     Margin = new(0.0f, i * 75.0f),
                     Alignment = UIDirection.Center,
-                    SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                     TextContent = info.Name,
 
                     BorderColor = AAP64ColorPalette.DarkGray,

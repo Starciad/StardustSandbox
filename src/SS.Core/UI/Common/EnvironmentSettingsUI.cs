@@ -98,17 +98,15 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildBackground(Container root)
         {
-            this.shadowBackground = new()
+            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                Texture = this.assetDatabase.GetTexture(TextureIndex.Pixel),
                 Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
 
-            this.panelBackground = new()
+            this.panelBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIBackgroundEnvironmentSettings))
             {
-                Texture =  this.assetDatabase.GetTexture(TextureIndex.UIBackgroundEnvironmentSettings),
                 Alignment = UIDirection.Center,
                 Size = new(1084.0f, 540.0f),
             };
@@ -119,9 +117,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildTitle()
         {
-            this.menuTitle = new()
+            this.menuTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
                 TextContent = Localization_GUIs.EnvironmentSettings_Title,
@@ -142,9 +139,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildTimeStateSection()
         {
-            this.timeStateSectionTitle = new()
+            this.timeStateSectionTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
                 TextContent = Localization_GUIs.EnvironmentSettings_TimeState_Title
@@ -157,9 +153,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildTimeSection()
         {
-            this.timeSectionTitle = new()
+            this.timeSectionTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.1f),
                 Margin = new(this.timeStateSectionTitle.GetLayoutBounds().Size.X + 32.0f, 0.0f),
                 Color = AAP64ColorPalette.White,
