@@ -39,7 +39,7 @@ namespace StardustSandbox.Core.UI
             {
                 CanDraw = false,
                 CanUpdate = false,
-                Size = gameScreen.Viewport
+                Size = this.GameScreen.Viewport,
             };
         }
 

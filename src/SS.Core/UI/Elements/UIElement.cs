@@ -188,20 +188,11 @@ namespace StardustSandbox.Core.UI.Elements
         private void RepositionRelativeToElement(in RectangleF targetRectangle)
         {
             this.position = GetAnchoredPosition(this.Bounds, targetRectangle, this.Alignment, this.Margin);
-            RepositionChildren();
         }
 
         private void RepositionRelativeToElement(UIElement targetElement)
         {
             RepositionRelativeToElement(targetElement.Bounds);
-        }
-
-        protected void RepositionRelativeToParent()
-        {
-            if (this.Parent != null)
-            {
-                RepositionRelativeToElement(this.Parent);
-            }
         }
 
         private void RepositionChildren()
@@ -210,6 +201,16 @@ namespace StardustSandbox.Core.UI.Elements
             {
                 child.RepositionRelativeToParent();
             }
+        }
+
+        protected void RepositionRelativeToParent()
+        {
+            if (this.Parent != null)
+            {
+                RepositionRelativeToElement(this.Parent);
+            }
+
+            RepositionChildren();
         }
 
         private static RectangleF CalculateTotalBounds(UIElement element)
