@@ -39,7 +39,7 @@ namespace StardustSandbox.Core.UI
             {
                 CanDraw = false,
                 CanUpdate = false,
-                Size = gameScreen.GetViewport()
+                Size = gameScreen.Viewport
             };
         }
 
@@ -103,7 +103,7 @@ namespace StardustSandbox.Core.UI
 
         internal void Resize()
         {
-            this.Root.Size = this.GameScreen.GetViewport();
+            this.Root.Size = this.GameScreen.Viewport;
             OnScreenResize();
         }
 

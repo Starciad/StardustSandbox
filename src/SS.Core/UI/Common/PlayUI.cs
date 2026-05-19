@@ -75,7 +75,7 @@ namespace StardustSandbox.Core.UI.Common
             this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
                 Color = new(AAP64ColorPalette.DarkGray, 196),
-                Scale = new(this.GameScreen.GetViewport().X, 128.0f),
+                Scale = new(this.GameScreen.Viewport.X, 128.0f),
                 Size = Vector2.One,
             };
 
@@ -130,7 +130,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = new(this.GameScreen.GetViewport().X, this.shadowBackground.Scale.Y);
+            this.shadowBackground.Scale = new(this.GameScreen.Viewport.X, this.shadowBackground.Scale.Y);
         }
 
         protected override void OnUpdate(GameTime gameTime)

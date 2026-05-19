@@ -79,7 +79,7 @@ namespace StardustSandbox.Core.Backgrounds
                 return;
             }
 
-            Vector2 viewport = gameScreen.GetViewport();
+            Vector2 viewport = gameScreen.Viewport;
             Vector2 cameraEffect = camera.Position * this.ParallaxSpeed;
 
             if (this.IsFixedHorizontally)

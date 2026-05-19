@@ -79,7 +79,7 @@ namespace StardustSandbox.Core.UI.Elements
             AddChild(this.background);
 
             this.MinimumSize = new(48f, 48f);
-            this.MaximumSize = gameScreen.GetViewport();
+            this.MaximumSize = gameScreen.Viewport;
 
             this.interfaceSettings = SettingsSerializer.Load<InterfaceSettings>();
         }
@@ -142,7 +142,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         private void UpdatePosition()
         {
-            Vector2 viewport = this.gameScreen.GetViewport();
+            Vector2 viewport = this.gameScreen.Viewport;
 
             Vector2 mousePosition = InputEngine.GetCurrentMousePosition();
             Vector2 spacing = new(this.cursorManager.Scale * 16.0f);

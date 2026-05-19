@@ -348,7 +348,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.songManager.Play(SongIndex.Volume_01_Track_02);
 
-            this.rootContainer.Margin = new(0.0f, this.GameScreen.GetViewportCenter().Y / 2.0f);
+            this.rootContainer.Margin = new(0.0f, this.GameScreen.ViewportCenter.Y / 2.0f);
 
             this.lastElement ??= this.rootContainer.LastChild;
         }

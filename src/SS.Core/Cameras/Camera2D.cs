@@ -120,7 +120,7 @@ namespace StardustSandbox.Core.Cameras
 
         private Matrix GetVirtualViewMatrix()
         {
-            Vector2 viewportCenter = this.gameScreen.GetViewportCenter();
+            Vector2 viewportCenter = this.gameScreen.ViewportCenter;
 
             return
                 Matrix.CreateTranslation(-this.Position.X, -this.Position.Y, 0f) *
@@ -145,7 +145,7 @@ namespace StardustSandbox.Core.Cameras
 
         internal RectangleF GetViewBounds()
         {
-            Vector2 viewportSize = this.gameScreen.GetViewport();
+            Vector2 viewportSize = this.gameScreen.Viewport;
 
             Vector2 topLeft = ScreenToWorld(Vector2.Zero);
             Vector2 bottomRight = ScreenToWorld(viewportSize);

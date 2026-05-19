@@ -153,7 +153,7 @@ namespace StardustSandbox.Core.UI.Common
             // Shadow
             this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                Scale = this.GameScreen.GetViewport(),
+                Scale = this.GameScreen.Viewport,
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
@@ -241,7 +241,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = this.GameScreen.GetViewport();
+            this.shadowBackground.Scale = this.GameScreen.Viewport;
         }
 
         protected override void OnUpdate(GameTime gameTime)
@@ -268,7 +268,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void UpdateElementPositionAccordingToUserInput()
         {
-            float screenCenterYPosition = this.GameScreen.GetViewportCenter().Y + (this.userInput.Size.Y / 2.0f);
+            float screenCenterYPosition = this.GameScreen.ViewportCenter.Y + (this.userInput.Size.Y / 2.0f);
 
             // Background
             this.userInputBackgroundElementPosition.X = this.userInputBackground.Position.X;

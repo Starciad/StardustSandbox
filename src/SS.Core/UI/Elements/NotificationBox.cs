@@ -67,7 +67,7 @@ namespace StardustSandbox.Core.UI.Elements
         internal NotificationBox(AssetDatabase assetDatabase, GameScreen gameScreen)
         {
             this.assetDatabase = assetDatabase;
-            this.Size = gameScreen.GetViewport();
+            this.Size = gameScreen.Viewport;
 
             this.background = new(assetDatabase.GetTexture(TextureIndex.Pixel))
             {

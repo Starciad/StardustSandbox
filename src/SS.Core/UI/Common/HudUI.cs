@@ -419,7 +419,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnScreenResize()
         {
-            this.notificationBox.OnScreenResize(this.GameScreen.GetViewport());
+            this.notificationBox.OnScreenResize(this.GameScreen.Viewport);
         }
 
         protected override void OnUpdate(GameTime gameTime)

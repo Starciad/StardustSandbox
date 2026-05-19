@@ -115,7 +115,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildBackground(Container root)
         {
-            Vector2 viewport = this.GameScreen.GetViewport();
+            Vector2 viewport = this.GameScreen.Viewport;
 
             this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
@@ -209,7 +209,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnScreenResize()
         {
-            Vector2 newSize = this.GameScreen.GetViewport();
+            Vector2 newSize = this.GameScreen.Viewport;
 
             this.shadowBackground.Scale = new(487.0f, newSize.Y);
             this.theatricalCurtains.Scale = new(
