@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.UI.Elements;
 
 namespace StardustSandbox.Core.UI
@@ -26,11 +27,13 @@ namespace StardustSandbox.Core.UI
     {
         internal bool IsActive { get; private set; }
 
+        protected UIElementFactory ElementFactory { get; }
         protected GameScreen GameScreen { get; }
         protected Container Root { get; }
 
-        protected UIBase(GameScreen gameScreen)
+        protected UIBase(AssetDatabase assetDatabase, GameScreen gameScreen)
         {
+            this.ElementFactory = new(assetDatabase);
             this.GameScreen = gameScreen;
             this.Root = new()
             {

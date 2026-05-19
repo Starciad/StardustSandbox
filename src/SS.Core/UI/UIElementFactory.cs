@@ -17,6 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.UI.Elements;
@@ -24,37 +25,40 @@ using StardustSandbox.Core.UI.Information;
 
 namespace StardustSandbox.Core.UI
 {
-    internal static class UIBuilderUtility
+    internal sealed class UIElementFactory
     {
-        internal static SlotInfo BuildButtonSlot(Vector2 margin, TextureIndex iconTextureIndex, Rectangle? iconTextureSourceRectangle)
+        private readonly AssetDatabase assetDatabase;
+
+        internal UIElementFactory(AssetDatabase assetDatabase)
+        {
+            this.assetDatabase = assetDatabase;
+        }
+
+        internal SlotInfo BuildButtonSlot(Vector2 margin, TextureIndex iconTextureIndex, Rectangle? iconTextureSourceRectangle)
         {
             return new(
-                background: new()
+                background: new(assetDatabase.GetTexture(TextureIndex.UIButtons), new(320, 140, 32, 32))
                 {
-                    TextureIndex = TextureIndex.UIButtons,
-                    SourceRectangle = new(320, 140, 32, 32),
                     Scale = new(2.0f),
                     Size = new(32.0f),
                     Margin = margin,
                 },
 
-                icon: new()
+                icon: new(assetDatabase.GetTexture(iconTextureIndex), iconTextureSourceRectangle)
                 {
                     Alignment = UIDirection.Center,
-                    TextureIndex = iconTextureIndex,
-                    SourceRectangle = iconTextureSourceRectangle,
                     Scale = new(1.5f),
                     Size = new(32.0f)
                 }
             );
         }
 
-        internal static SlotInfo BuildButtonSlot(Vector2 margin, ButtonInfo button)
+        internal SlotInfo BuildButtonSlot(Vector2 margin, ButtonInfo button)
         {
             return BuildButtonSlot(margin, button.TextureIndex, button.TextureSourceRectangle);
         }
 
-        internal static SlotInfo[] BuildGridButtons(UIElement parent, ButtonInfo[] buttonInfo, int itemsPerRow, Vector2 start, Vector2 spacing, UIDirection backgroundAlignment)
+        internal SlotInfo[] BuildGridButtons(UIElement parent, ButtonInfo[] buttonInfo, int itemsPerRow, Vector2 start, Vector2 spacing, UIDirection backgroundAlignment)
         {
             SlotInfo[] slots = new SlotInfo[buttonInfo.Length];
 
@@ -78,7 +82,7 @@ namespace StardustSandbox.Core.UI
             return slots;
         }
 
-        internal static SlotInfo[] BuildHorizontalButtonLine(UIElement parent, ButtonInfo[] buttonInfo, Vector2 start, float spacingX, UIDirection backgroundAlignment)
+        internal SlotInfo[] BuildHorizontalButtonLine(UIElement parent, ButtonInfo[] buttonInfo, Vector2 start, float spacingX, UIDirection backgroundAlignment)
         {
             SlotInfo[] slots = new SlotInfo[buttonInfo.Length];
 
@@ -103,7 +107,7 @@ namespace StardustSandbox.Core.UI
             return slots;
         }
 
-        internal static SlotInfo[] BuildVerticalButtonLine(UIElement parent, ButtonInfo[] buttonInfo, Vector2 start, float spacingY, UIDirection backgroundAlignment)
+        internal SlotInfo[] BuildVerticalButtonLine(UIElement parent, ButtonInfo[] buttonInfo, Vector2 start, float spacingY, UIDirection backgroundAlignment)
         {
             SlotInfo[] slots = new SlotInfo[buttonInfo.Length];
 

@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -41,23 +42,24 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo exitButtonInfo;
         private readonly Section[] sections;
 
+        private readonly AssetDatabase assetDatabase;
         private readonly GameHandler gameHandler;
-        private readonly GameScreen gameScreen;
         private readonly SoundEffectManager soundEffectManager;
         private readonly TooltipBox tooltipBox;
         private readonly World world;
 
         internal TemperatureSettingsUI(
+            AssetDatabase assetDatabase,
             GameHandler gameHandler,
             GameScreen gameScreen,
             SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
-        ) : base()
+        ) : base(assetDatabase, gameScreen)
         {
+            this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
-            this.gameScreen = gameScreen;
             this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
             this.world = world;
@@ -66,14 +68,14 @@ namespace StardustSandbox.Core.UI.Common
 
             this.sections =
             [
-                new(Localization_GUIs.TemperatureSettings_TimeOfDay_LateNight, new(0, 0, 0), new(3, 0, 0), world),
-                new(Localization_GUIs.TemperatureSettings_TimeOfDay_EarlyMorning, new(3, 0, 0), new(6, 0, 0), world),
-                new(Localization_GUIs.TemperatureSettings_TimeOfDay_Dawn, new(6, 0, 0), new(8, 0, 0), world),
-                new(Localization_GUIs.TemperatureSettings_TimeOfDay_Morning, new(8, 0, 0), new(12, 0, 0), world),
-                new(Localization_GUIs.TemperatureSettings_TimeOfDay_EarlyAfternoon, new(12, 0, 0), new(15, 0, 0), world),
-                new(Localization_GUIs.TemperatureSettings_TimeOfDay_Afternoon, new(15, 0, 0), new(18, 0, 0), world),
-                new(Localization_GUIs.TemperatureSettings_TimeOfDay_Evening, new(18, 0, 0), new(20, 0, 0), world),
-                new(Localization_GUIs.TemperatureSettings_TimeOfDay_Night, new(20, 0, 0), new(24, 0, 0), world),
+                new(assetDatabase, this.ElementFactory, Localization_GUIs.TemperatureSettings_TimeOfDay_LateNight, new(0, 0, 0), new(3, 0, 0), world),
+                new(assetDatabase, this.ElementFactory, Localization_GUIs.TemperatureSettings_TimeOfDay_EarlyMorning, new(3, 0, 0), new(6, 0, 0), world),
+                new(assetDatabase, this.ElementFactory, Localization_GUIs.TemperatureSettings_TimeOfDay_Dawn, new(6, 0, 0), new(8, 0, 0), world),
+                new(assetDatabase, this.ElementFactory, Localization_GUIs.TemperatureSettings_TimeOfDay_Morning, new(8, 0, 0), new(12, 0, 0), world),
+                new(assetDatabase, this.ElementFactory, Localization_GUIs.TemperatureSettings_TimeOfDay_EarlyAfternoon, new(12, 0, 0), new(15, 0, 0), world),
+                new(assetDatabase, this.ElementFactory, Localization_GUIs.TemperatureSettings_TimeOfDay_Afternoon, new(15, 0, 0), new(18, 0, 0), world),
+                new(assetDatabase, this.ElementFactory, Localization_GUIs.TemperatureSettings_TimeOfDay_Evening, new(18, 0, 0), new(20, 0, 0), world),
+                new(assetDatabase, this.ElementFactory, Localization_GUIs.TemperatureSettings_TimeOfDay_Night, new(20, 0, 0), new(24, 0, 0), world),
             ];
         }
 
@@ -89,18 +91,16 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildBackground(Container root)
         {
-            this.shadowBackground = new()
+            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = this.gameScreen.GetViewport(),
+                Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
 
-            this.panelBackground = new()
+            this.panelBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIBackgroundTemperatureSettings))
             {
                 Alignment = UIDirection.Center,
-                TextureIndex = TextureIndex.UIBackgroundTemperatureSettings,
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -110,9 +110,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildTitle()
         {
-            this.menuTitle = new()
+            this.menuTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
                 TextContent = Localization_GUIs.TemperatureSettings_Name,
@@ -128,7 +127,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildExitButton()
         {
-            SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(-32.0f, -72.0f), this.exitButtonInfo);
+            SlotInfo slot = ElementFactory.BuildButtonSlot(new(-32.0f, -72.0f), this.exitButtonInfo);
 
             slot.Background.Alignment = UIDirection.Northeast;
             slot.Icon.Alignment = UIDirection.Center;
@@ -145,9 +144,8 @@ namespace StardustSandbox.Core.UI.Common
             {
                 Section section = this.sections[i];
 
-                Label sectionTitle = new()
+                Label sectionTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
                 {
-                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.1f),
                     Margin = new(32.0f, 80.0f + (i * 112.0f)),
                     TextContent = string.Format("{0} ({1:00}:{2:00} - {3:00}:{4:00})",
@@ -183,7 +181,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = newSize;
+            this.shadowBackground.Scale = this.GameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)

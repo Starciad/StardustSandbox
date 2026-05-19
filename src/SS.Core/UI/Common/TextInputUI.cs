@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Core.Colors.Palettes;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -60,13 +61,14 @@ namespace StardustSandbox.Core.UI.Common
         private readonly StringBuilder userInputStringBuilder = new();
         private readonly StringBuilder userInputPasswordMaskedStringBuilder = new();
 
+        private readonly AssetDatabase assetDatabase;
         private readonly GameHandler gameHandler;
-        private readonly GameScreen gameScreen;
         private readonly GameWindow gameWindow;
         private readonly PlayerInputController playerInputController;
         private readonly SoundEffectManager soundEffectManager;
 
         internal TextInputUI(
+            AssetDatabase assetDatabase,
             GameHandler gameHandler,
             GameScreen gameScreen,
             GameWindow gameWindow,
@@ -74,10 +76,10 @@ namespace StardustSandbox.Core.UI.Common
             PlayerInputController playerInputController,
             SoundEffectManager soundEffectManager,
             UIManager uiManager
-        ) : base()
+        ) : base(assetDatabase, gameScreen)
         {
+            this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
-            this.gameScreen = gameScreen;
             this.gameWindow = gameWindow;
             this.playerInputController = playerInputController;
             this.soundEffectManager = soundEffectManager;
@@ -149,10 +151,9 @@ namespace StardustSandbox.Core.UI.Common
         protected override void OnBuild(Container root)
         {
             // Shadow
-            this.shadowBackground = new()
+            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = this.gameScreen.GetViewport(),
+                Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
@@ -167,13 +168,12 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildSynopsis(Container root)
         {
-            this.synopsis = new()
+            this.synopsis = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator))
             {
                 Scale = new(0.1f),
                 Margin = new(0.0f, 128.0f),
                 LineHeight = 1.25f,
                 TextAreaSize = new(850.0f, 1000.0f),
-                SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = UIDirection.North,
             };
 
@@ -182,18 +182,16 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildUserInput(Container root)
         {
-            this.userInput = new()
+            this.userInput = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator))
             {
-                SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Scale = new(0.085f),
                 TextAreaSize = new(1000.0f, 1000.0f),
                 Margin = new(0.0f, -32.0f),
                 Alignment = UIDirection.Center,
             };
 
-            this.userInputBackground = new()
+            this.userInputBackground = new(this.assetDatabase.GetTexture(TextureIndex.UITextInputOrnament))
             {
-                TextureIndex = TextureIndex.UITextInputOrnament,
                 Scale = new(1.5f),
                 Size = new(632.0f, 50.0f),
                 Margin = new(0.0f, 64.0f),
@@ -206,9 +204,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildCharacterCount(Container root)
         {
-            this.characterCount = new()
+            this.characterCount = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator))
             {
-                SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Scale = new(0.08f),
                 Margin = new(-212.0f, -16.0f),
                 Alignment = UIDirection.East,
@@ -223,9 +220,8 @@ namespace StardustSandbox.Core.UI.Common
             {
                 ButtonInfo button = this.menuButtonInfos[i];
 
-                Label label = new()
+                Label label = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
                 {
-                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.125f),
                     Margin = new(0.0f, -48.0f - (i * 72.0f)),
                     Alignment = UIDirection.South,
@@ -245,7 +241,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = newSize;
+            this.shadowBackground.Scale = this.GameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)
@@ -272,7 +268,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void UpdateElementPositionAccordingToUserInput()
         {
-            float screenCenterYPosition = this.gameScreen.GetViewportCenter().Y + (this.userInput.Size.Y / 2.0f);
+            float screenCenterYPosition = this.GameScreen.GetViewportCenter().Y + (this.userInput.Size.Y / 2.0f);
 
             // Background
             this.userInputBackgroundElementPosition.X = this.userInputBackground.Position.X;

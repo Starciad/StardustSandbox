@@ -67,6 +67,7 @@ namespace StardustSandbox.Core.Databases
             };
 
             ColorPickerUI colorPickerUI = new(
+                assetDatabase,
                 gameHandler,
                 gameScreen,
                 soundEffectManager,
@@ -75,6 +76,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             ConfirmUI confirmUI = new(
+                assetDatabase,
                 gameHandler,
                 gameScreen,
                 soundEffectManager,
@@ -82,8 +84,8 @@ namespace StardustSandbox.Core.Databases
             );
 
             CreditsUI creditsUI = new(
-                assetDatabase,
                 ambientManager,
+                assetDatabase,
                 gameScreen,
                 songManager,
                 uiManager,
@@ -91,6 +93,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             EnvironmentSettingsUI environmentSettingsUI = new(
+                assetDatabase,
                 gameHandler,
                 gameScreen,
                 soundEffectManager,
@@ -100,6 +103,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             GeneratorSettingsUI generatorSettingsUI = new(
+                assetDatabase,
                 confirmUI,
                 gameHandler,
                 gameScreen,
@@ -111,9 +115,11 @@ namespace StardustSandbox.Core.Databases
 
             HudUI hudUI = new(
                 achievementManager,
+                assetDatabase,
                 catalogDatabase,
                 confirmUI,
                 gameHandler,
+                gameScreen,
                 notificationBox,
                 playerInputController,
                 soundEffectManager,
@@ -123,6 +129,7 @@ namespace StardustSandbox.Core.Databases
 
             InformationUI informationUI = new(
                 actorManager,
+                assetDatabase,
                 gameHandler,
                 gameScreen,
                 soundEffectManager,
@@ -132,6 +139,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             ItemSearchUI itemSearchUI = new(
+                assetDatabase,
                 catalogDatabase,
                 gameHandler,
                 gameScreen,
@@ -155,6 +163,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             KeySelectorUI keySelectorUI = new(
+                assetDatabase,
                 gameHandler,
                 gameScreen,
                 gameWindow,
@@ -164,12 +173,14 @@ namespace StardustSandbox.Core.Databases
             );
 
             MessageUI messageUI = new(
+                assetDatabase,
                 gameHandler,
                 gameScreen,
                 uiManager
             );
 
             SliderUI sliderUI = new(
+                assetDatabase,
                 gameHandler,
                 gameScreen,
                 soundEffectManager,
@@ -177,6 +188,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             SelectorUI selectorUI = new(
+                assetDatabase,
                 gameHandler,
                 gameScreen,
                 soundEffectManager,
@@ -184,6 +196,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             OptionsUI optionsUI = new(
+                assetDatabase,
                 colorPickerUI,
                 cursorManager,
                 gameHandler,
@@ -201,6 +214,7 @@ namespace StardustSandbox.Core.Databases
 
             MainUI mainUI = new(
                 ambientManager,
+                assetDatabase,
                 gameHandler,
                 gameScreen,
                 optionsUI,
@@ -211,6 +225,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             PauseUI pauseUI = new(
+                assetDatabase,
                 confirmUI,
                 gameHandler,
                 gameScreen,
@@ -220,6 +235,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             PenSettingsUI penSettingsUI = new(
+                assetDatabase,
                 gameHandler,
                 gameScreen,
                 hudUI,
@@ -231,6 +247,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             WorldDetailsUI worldDetailsUI = new(
+                assetDatabase,
                 gameHandler,
                 gameScreen,
                 soundEffectManager,
@@ -238,6 +255,8 @@ namespace StardustSandbox.Core.Databases
             );
 
             WorldExplorerUI worldExplorerUI = new(
+                assetDatabase,
+                gameScreen,
                 graphicsDevice,
                 soundEffectManager,
                 uiManager,
@@ -245,6 +264,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             PlayUI playUI = new(
+                assetDatabase,
                 gameScreen,
                 soundEffectManager,
                 uiManager,
@@ -252,6 +272,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             TextInputUI textInputUI = new(
+                assetDatabase,
                 gameHandler,
                 gameScreen,
                 gameWindow,
@@ -263,6 +284,7 @@ namespace StardustSandbox.Core.Databases
 
             SaveUI saveSettingsUI = new(
                 actorManager,
+                assetDatabase,
                 gameHandler,
                 gameScreen,
                 graphicsDevice,
@@ -274,6 +296,7 @@ namespace StardustSandbox.Core.Databases
             );
 
             TemperatureSettingsUI temperatureSettingsUI = new(
+                assetDatabase,
                 gameHandler,
                 gameScreen,
                 soundEffectManager,
@@ -284,6 +307,7 @@ namespace StardustSandbox.Core.Databases
 
             WorldSettingsUI worldSettingsUI = new(
                 actorManager,
+                assetDatabase,
                 confirmUI,
                 gameHandler,
                 gameScreen,
@@ -296,13 +320,16 @@ namespace StardustSandbox.Core.Databases
 
             AchievementsUI achievementsUI = new(
                 achievementDatabase,
+                assetDatabase,
                 ambientManager,
+                gameScreen,
                 soundEffectManager,
                 tooltipBox,
                 uiManager
             );
 
             TutorialUI tutorialUI = new(
+                assetDatabase,
                 gameScreen,
                 uiManager
             );
@@ -349,12 +376,9 @@ namespace StardustSandbox.Core.Databases
             return this.uis[(int)index];
         }
 
-        internal void ResizeUIs(Vector2 newSize)
+        internal void ResizeUIs()
         {
-            foreach (UIBase ui in this.uis)
-            {
-                ui.Resize(newSize);
-            }
+            Array.ForEach(this.uis, x => x.Resize());
         }
     }
 }

@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Colors.Palettes;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -45,8 +46,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo[] menuButtonInfos, fieldButtonInfos, footerButtonInfos;
         private readonly SlotInfo[] fieldButtonSlotInfos, footerButtonSlotInfos;
 
+        private readonly AssetDatabase assetDatabase;
         private readonly GameHandler gameHandler;
-        private readonly GameScreen gameScreen;
         private readonly SoundEffectManager soundEffectManager;
         private readonly TextInputUI textInputUI;
         private readonly TooltipBox tooltipBox;
@@ -57,6 +58,7 @@ namespace StardustSandbox.Core.UI.Common
 
         internal SaveUI(
             ActorManager actorManager,
+            AssetDatabase assetDatabase,
             GameHandler gameHandler,
             GameScreen gameScreen,
             GraphicsDevice graphicsDevice,
@@ -65,10 +67,10 @@ namespace StardustSandbox.Core.UI.Common
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
-        ) : base()
+        ) : base(assetDatabase, gameScreen)
         {
+            this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
-            this.gameScreen = gameScreen;
             this.graphicsDevice = graphicsDevice;
             this.soundEffectManager = soundEffectManager;
             this.textInputUI = textInputUI;
@@ -168,18 +170,16 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildBackground(Container root)
         {
-            this.shadowBackground = new()
+            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = this.gameScreen.GetViewport(),
+                Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
 
-            this.panelBackground = new()
+            this.panelBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIBackgroundSave))
             {
                 Alignment = UIDirection.Center,
-                TextureIndex = TextureIndex.UIBackgroundSave,
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -189,9 +189,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildTitle()
         {
-            this.menuTitle = new()
+            this.menuTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
                 TextContent = Localization_GUIs.Save_Title,
@@ -207,7 +206,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildMenuButtons()
         {
-            this.menuButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+            this.menuButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(
                 this.panelBackground,
                 this.menuButtonInfos,
                 new(-32.0f, -72.0f),
@@ -218,29 +217,25 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildNameSection()
         {
-            this.nameSectionTitle = new()
+            this.nameSectionTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = Localization_GUIs.Save_Name_Title,
             };
 
-            this.titleInputField = new()
+            this.titleInputField = new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(0, 220, 163, 38))
             {
                 Alignment = UIDirection.Southwest,
-                TextureIndex = TextureIndex.UIButtons,
-                SourceRectangle = new(0, 220, 163, 38),
                 Scale = new(2.0f),
                 Size = new(163.0f, 38.0f),
                 Margin = new(0.0f, 48.0f),
             };
 
-            this.titleTextualContent = new()
+            this.titleTextualContent = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator))
             {
                 Scale = new(0.1f),
                 Margin = new(16.0f, 0.0f),
-                SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = UIDirection.West,
             };
 
@@ -253,29 +248,25 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildDescriptionSection()
         {
-            this.descriptionSectionTitle = new()
+            this.descriptionSectionTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Scale = new(0.1f),
                 Margin = new(0.0f, 96.0f),
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 TextContent = Localization_GUIs.Save_Description_Title,
             };
 
-            this.descriptionInputField = new()
+            this.descriptionInputField = new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(0, 220, 163, 38))
             {
                 Alignment = UIDirection.Southwest,
-                TextureIndex = TextureIndex.UIButtons,
-                SourceRectangle = new(0, 220, 163, 38),
                 Scale = new(2.0f),
                 Size = new(163.0f, 38.0f),
                 Margin = new(0.0f, 48.0f),
             };
 
-            this.descriptionTextualContent = new()
+            this.descriptionTextualContent = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator))
             {
                 Scale = new(0.1f),
                 Margin = new(16.0f, 0.0f),
-                SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = UIDirection.West,
             };
 
@@ -288,11 +279,10 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildThumbnailSection()
         {
-            this.thumbnailSectionTitle = new()
+            this.thumbnailSectionTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Scale = new(0.1f),
                 Margin = new(-176.0f, 128.0f),
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = UIDirection.Northeast,
                 TextContent = Localization_GUIs.Save_Thumbnail_Title
             };
@@ -314,21 +304,18 @@ namespace StardustSandbox.Core.UI.Common
             {
                 ButtonInfo button = this.footerButtonInfos[i];
 
-                Image background = new()
+                Image background = new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(0, 140, 320, 80))
                 {
-                    TextureIndex = TextureIndex.UIButtons,
-                    SourceRectangle = new(0, 140, 320, 80),
                     Color = AAP64ColorPalette.PurpleGray,
                     Size = new(320.0f, 80.0f),
                     Margin = new(32.0f + (i * 352.0f), -32.0f),
                     Alignment = UIDirection.Southwest,
                 };
 
-                Label label = new()
+                Label label = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
                 {
                     Scale = new(0.1f),
                     Color = AAP64ColorPalette.White,
-                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Alignment = UIDirection.Center,
                     TextContent = button.Name,
 
@@ -347,7 +334,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = newSize;
+            this.shadowBackground.Scale = this.GameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)

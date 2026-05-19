@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Colors.Palettes;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -46,18 +47,19 @@ namespace StardustSandbox.Core.UI.Common
         private readonly Label[] menuButtonLabels;
         private readonly ButtonInfo[] menuButtonInfos;
 
+        private readonly AssetDatabase assetDatabase;
         private readonly GameHandler gameHandler;
-        private readonly GameScreen gameScreen;
 
         internal SliderUI(
+            AssetDatabase assetDatabase,
             GameHandler gameHandler,
             GameScreen gameScreen,
             SoundEffectManager soundEffectManager,
             UIManager uiManager
-        ) : base()
+        ) : base(assetDatabase, gameScreen)
         {
+            this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
-            this.gameScreen = gameScreen;
 
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
@@ -92,10 +94,9 @@ namespace StardustSandbox.Core.UI.Common
         protected override void OnBuild(Container root)
         {
             // Shadow
-            this.shadowBackground = new()
+            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = this.gameScreen.GetViewport(),
+                Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
@@ -109,13 +110,12 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildSynopsis(Container root)
         {
-            this.synopsis = new()
+            this.synopsis = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator))
             {
                 Scale = new(0.1f),
                 Margin = new(0.0f, 128.0f),
                 LineHeight = 1.25f,
                 TextAreaSize = new(850.0f, 1000.0f),
-                SpriteFontIndex = SpriteFontIndex.PixelOperator,
                 Alignment = UIDirection.North,
             };
 
@@ -124,24 +124,19 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildSlider(Container root)
         {
-            this.sliderBackground = new()
+            this.sliderBackground = new(this.assetDatabase.GetTexture(TextureIndex.UISliderInputOrnament), new(0, 0, 630, 32))
             {
-                TextureIndex = TextureIndex.UISliderInputOrnament,
-                SourceRectangle = new(0, 0, 630, 32),
                 Size = new(630.0f, 32.0f),
                 Alignment = UIDirection.Center,
             };
 
-            this.sliderButton = new()
+            this.sliderButton = new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(320, 172, 32, 32))
             {
-                TextureIndex = TextureIndex.UIButtons,
-                SourceRectangle = new(320, 172, 32, 32),
                 Size = new(32.0f, 32.0f),
             };
 
-            this.valueLabel = new()
+            this.valueLabel = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.125f),
                 Margin = new(0.0f, 48.0f),
                 Alignment = UIDirection.Center,
@@ -160,9 +155,8 @@ namespace StardustSandbox.Core.UI.Common
             {
                 ButtonInfo button = this.menuButtonInfos[i];
 
-                Label label = new()
+                Label label = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
                 {
-                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Scale = new(0.125f),
                     Margin = new(0.0f, -48.0f - (i * 72)),
                     Alignment = UIDirection.South,
@@ -182,7 +176,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = this.gameScreen.GetViewport();
+            this.shadowBackground.Scale = this.GameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)

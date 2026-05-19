@@ -69,7 +69,7 @@ namespace StardustSandbox.Core.UI.Common
             SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
             UIManager uiManager
-        ) : base(gameScreen)
+        ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;
             this.catalogDatabase = catalogDatabase;
@@ -273,7 +273,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildMenuButtons()
         {
-            this.menuButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+            this.menuButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(
                 this.panelBackground,
                 this.buttonInfos,
                 new(-32.0f, -72.0f),

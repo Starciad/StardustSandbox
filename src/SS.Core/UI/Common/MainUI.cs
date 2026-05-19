@@ -52,7 +52,6 @@ namespace StardustSandbox.Core.UI.Common
         private readonly AmbientManager ambientManager;
         private readonly AssetDatabase assetDatabase;
         private readonly GameHandler gameHandler;
-        private readonly GameScreen gameScreen;
         private readonly SongManager songManager;
         private readonly SoundEffectManager soundEffectManager;
         private readonly UIManager uiManager;
@@ -68,7 +67,7 @@ namespace StardustSandbox.Core.UI.Common
             SoundEffectManager soundEffectManager,
             UIManager uiManager,
             World world
-        ) : base(gameScreen)
+        ) : base(assetDatabase, gameScreen)
         {
             this.ambientManager = ambientManager;
             this.assetDatabase = assetDatabase;
@@ -116,7 +115,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildBackground(Container root)
         {
-            Vector2 viewport = this.gameScreen.GetViewport();
+            Vector2 viewport = this.GameScreen.GetViewport();
 
             this.shadowBackground = new()
             {
@@ -205,7 +204,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildTopButtons(Container root)
         {
-            this.topButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+            this.topButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(
                 root,
                 this.topButtonInfos,
                 new(-16.0f, 16.0f),
@@ -216,7 +215,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnScreenResize()
         {
-            Vector2 newSize = this.gameScreen.GetViewport();
+            Vector2 newSize = this.GameScreen.GetViewport();
 
             this.shadowBackground.Scale = new(487.0f, newSize.Y);
             this.theatricalCurtains.Scale = new(

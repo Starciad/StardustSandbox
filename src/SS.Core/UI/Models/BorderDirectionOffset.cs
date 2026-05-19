@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.UI;
 
-namespace StardustSandbox.Core.UI.Elements.TextSystem
+namespace StardustSandbox.Core.UI.Models
 {
     internal readonly struct BorderDirectionOffset(LabelBorderDirection direction, Vector2 offset)
     {

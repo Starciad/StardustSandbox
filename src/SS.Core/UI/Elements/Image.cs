@@ -18,63 +18,45 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Enums.Assets;
-
 namespace StardustSandbox.Core.UI.Elements
 {
     internal sealed class Image : UIElement
     {
-        internal bool HasTexture => this.texture != null;
+        internal bool HasTexture => this.Texture != null;
 
-        internal Texture2D Texture
-        {
-            get => this.texture;
-            set => this.texture = value;
-        }
-        internal Rectangle? SourceRectangle
-        {
-            get => this.sourceRectangle;
-            set => this.sourceRectangle = value;
-        }
-        internal Color Color
-        {
-            get => this.color;
-            set => this.color = value;
-        }
-
-        private Texture2D texture;
-        private Color color;
-        private Rectangle? sourceRectangle;
+        internal Texture2D Texture { get; set; }
+        internal Rectangle? SourceRectangle { get; set; }
+        internal Color Color { get; set; }
 
         internal Image()
         {
             this.CanDraw = true;
             this.CanUpdate = true;
 
-            this.color = Color.White;
+            this.Color = Color.White;
+        }
+
+        internal Image(Texture2D texture) : this()
+        {
+            this.Texture = texture;
+        }
+
+        internal Image(Texture2D texture, Rectangle? sourceRectangle) : this(texture)
+        {
+            this.SourceRectangle = sourceRectangle;
         }
 
         internal void DisposeTexture()
         {
-            this.texture?.Dispose();
-            this.texture = null;
-        }
-
-        protected override void OnInitialize()
-        {
-            return;
-        }
-
-        protected override void OnUpdate(GameTime gameTime)
-        {
-            return;
+            this.Texture?.Dispose();
+            this.Texture = null;
         }
 
         protected override void OnDraw(SpriteBatch spriteBatch)
         {
             if (this.HasTexture)
             {
-                spriteBatch.Draw(this.texture, this.Position, this.sourceRectangle, this.color, 0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0f);
+                spriteBatch.Draw(this.Texture, this.Position, this.SourceRectangle, this.Color, 0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0f);
             }
         }
     }

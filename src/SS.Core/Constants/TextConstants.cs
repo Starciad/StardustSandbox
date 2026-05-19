@@ -16,7 +16,7 @@
 */
 
 using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.UI.Elements.TextSystem;
+using StardustSandbox.Core.UI.Models;
 
 namespace StardustSandbox.Core.Constants
 {

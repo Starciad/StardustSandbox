@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -51,20 +52,21 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo exitButtonInfo;
         private readonly ButtonInfo[] paginationButtonInfos;
 
+        private readonly AssetDatabase assetDatabase;
         private readonly GameHandler gameHandler;
-        private readonly GameScreen gameScreen;
         private readonly SoundEffectManager soundEffectManager;
         private readonly UIManager uiManager;
 
         internal SelectorUI(
+            AssetDatabase assetDatabase,
             GameHandler gameHandler,
             GameScreen gameScreen,
             SoundEffectManager soundEffectManager,
             UIManager uiManager
-        ) : base()
+        ) : base(assetDatabase, gameScreen)
         {
+            this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
-            this.gameScreen = gameScreen;
             this.soundEffectManager = soundEffectManager;
             this.uiManager = uiManager;
 
@@ -158,18 +160,16 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildBackground(Container root)
         {
-            this.shadowBackground = new()
+            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = this.gameScreen.GetViewport(),
+                Scale = this.GameScreen.GetViewport(),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
-            this.panelBackground = new()
+            this.panelBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIBackgroundSelector))
             {
                 Alignment = UIDirection.Center,
-                TextureIndex = TextureIndex.UIBackgroundSelector,
                 Size = new(396.0f, 506.0f),
             };
 
@@ -179,9 +179,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildTitle()
         {
-            this.title = new()
+            this.title = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Margin = new(16.0f, 10.0f),
                 TextContent = "Selector",
@@ -197,7 +196,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildExitButton()
         {
-            SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(-4.0f, 6.5f), this.exitButtonInfo);
+            SlotInfo slot = ElementFactory.BuildButtonSlot(new(-4.0f, 6.5f), this.exitButtonInfo);
 
             slot.Background.Alignment = UIDirection.Northeast;
             slot.Icon.Alignment = UIDirection.Center;
@@ -212,19 +211,16 @@ namespace StardustSandbox.Core.UI.Common
         {
             for (int i = 0; i < this.choiceButtonSlotInfos.Length; i++)
             {
-                Image background = new()
+                Image background = new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(0, 361, 396, 91))
                 {
-                    TextureIndex = TextureIndex.UIButtons,
-                    SourceRectangle = new(0, 361, 396, 91),
                     Size = new(396.0f, 89.0f),
                     Alignment = UIDirection.Northwest,
                     Margin = new(0.0f, 74.0f + (i * 89.0f)),
                 };
 
-                Label label = new()
+                Label label = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
                 {
                     Scale = new(0.075f),
-                    SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                     Alignment = UIDirection.Center,
                     TextContent = "Content",
 
@@ -243,10 +239,9 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildPagination()
         {
-            this.pageIndexLabel = new()
+            this.pageIndexLabel = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Scale = new(0.1f),
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = UIDirection.South,
                 Margin = new(0.0f, -12.0f),
                 TextContent = "1 / 1",
@@ -262,18 +257,14 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = 0; i < this.paginationButtonInfos.Length; i++)
             {
                 SlotInfo slot = new(
-                    new()
+                    new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(320, 140, 32, 32))
                     {
-                        TextureIndex = TextureIndex.UIButtons,
-                        SourceRectangle = new(320, 140, 32, 32),
                         Scale = new(1.6f),
                         Size = new(32.0f),
                     },
 
-                    new()
+                    new(this.assetDatabase.GetTexture(this.paginationButtonInfos[i].TextureIndex), this.paginationButtonInfos[i].TextureSourceRectangle)
                     {
-                        TextureIndex = this.paginationButtonInfos[i].TextureIndex,
-                        SourceRectangle = this.paginationButtonInfos[i].TextureSourceRectangle,
                         Alignment = UIDirection.Center,
                         Size = new(32.0f)
                     }
@@ -306,7 +297,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = newSize;
+            this.shadowBackground.Scale = this.GameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)

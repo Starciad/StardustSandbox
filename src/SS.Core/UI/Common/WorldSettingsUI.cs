@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.States;
@@ -43,9 +44,9 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SlotInfo[] menuButtonSlotInfos, sizeButtonSlotInfos;
 
         private readonly ActorManager actorManager;
+        private readonly AssetDatabase assetDatabase;
         private readonly ConfirmUI confirmUI;
         private readonly GameHandler gameHandler;
-        private readonly GameScreen gameScreen;
         private readonly MessageUI messageUI;
         private readonly SoundEffectManager soundEffectManager;
         private readonly TooltipBox tooltipBox;
@@ -54,6 +55,7 @@ namespace StardustSandbox.Core.UI.Common
 
         internal WorldSettingsUI(
             ActorManager actorManager,
+            AssetDatabase assetDatabase,
             ConfirmUI confirmUI,
             GameHandler gameHandler,
             GameScreen gameScreen,
@@ -62,12 +64,12 @@ namespace StardustSandbox.Core.UI.Common
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
-        ) : base()
+        ) : base(assetDatabase, gameScreen)
         {
             this.actorManager = actorManager;
+            this.assetDatabase = assetDatabase;
             this.confirmUI = confirmUI;
             this.gameHandler = gameHandler;
-            this.gameScreen = gameScreen;
             this.messageUI = messageUI;
             this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
@@ -128,18 +130,16 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildBackground(Container root)
         {
-            this.shadowBackground = new()
+            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = this.gameScreen.GetViewport(),
+                Scale = this.GameScreen.GetViewport(),
                 Color = new(AAP64ColorPalette.DarkGray, 160),
                 Size = Vector2.One,
             };
 
-            this.panelBackground = new()
+            this.panelBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIBackgroundWorldSettings))
             {
                 Alignment = UIDirection.Center,
-                TextureIndex = TextureIndex.UIBackgroundWorldSettings,
                 Size = new(1084.0f, 540.0f),
             };
 
@@ -149,9 +149,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildTitle()
         {
-            this.menuTitle = new()
+            this.menuTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.12f),
                 Margin = new(24.0f, 10.0f),
                 TextContent = Localization_GUIs.WorldSettings_Title,
@@ -170,7 +169,7 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = 0; i < this.menuButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.menuButtonInfos[i];
-                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(-32.0f - (i * 80.0f), -72.0f), button);
+                SlotInfo slot = ElementFactory.BuildButtonSlot(new(-32.0f - (i * 80.0f), -72.0f), button);
 
                 slot.Background.Alignment = UIDirection.Northeast;
                 slot.Icon.Alignment = UIDirection.Center;
@@ -186,9 +185,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildSizeSection()
         {
-            this.sizeSectionTitle = new()
+            this.sizeSectionTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.1f),
                 Margin = new(32.0f, 128.0f),
                 TextContent = Localization_GUIs.WorldSettings_Size_Title
@@ -199,7 +197,7 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = 0; i < this.sizeButtonInfos.Length; i++)
             {
                 ButtonInfo button = this.sizeButtonInfos[i];
-                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(i * 80.0f, 52.0f), button);
+                SlotInfo slot = ElementFactory.BuildButtonSlot(new(i * 80.0f, 52.0f), button);
 
                 slot.Background.Alignment = UIDirection.Southwest;
                 slot.Icon.Alignment = UIDirection.Center;
@@ -213,7 +211,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = newSize;
+            this.shadowBackground.Scale = this.GameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)

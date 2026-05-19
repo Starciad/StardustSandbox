@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.UI.Common
             OptionsUI optionsUI,
             SoundEffectManager soundEffectManager,
             UIManager uiManager
-        ) : base(gameScreen)
+        ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;
             this.confirmUI = confirmUI;

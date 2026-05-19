@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Serialization;
@@ -53,18 +54,22 @@ namespace StardustSandbox.Core.UI.Common
 
         private readonly List<SaveFile> loadedSaveFiles = [];
 
+        private readonly AssetDatabase assetDatabase;
         private readonly GraphicsDevice graphicsDevice;
         private readonly SoundEffectManager soundEffectManager;
         private readonly UIManager uiManager;
         private readonly WorldDetailsUI worldDetailsUI;
 
         internal WorldExplorerUI(
+            AssetDatabase assetDatabase,
+            GameScreen gameScreen,
             GraphicsDevice graphicsDevice,
             SoundEffectManager soundEffectManager,
             UIManager uiManager,
             WorldDetailsUI worldDetailsUI
-        ) : base()
+        ) : base(assetDatabase, gameScreen)
         {
+            this.assetDatabase = assetDatabase;
             this.graphicsDevice = graphicsDevice;
             this.soundEffectManager = soundEffectManager;
             this.uiManager = uiManager;
@@ -175,17 +180,15 @@ namespace StardustSandbox.Core.UI.Common
         private void BuildBackground(Container root)
         {
             // Background
-            this.panelBackground = new()
+            this.panelBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIBackgroundWorldExplorer))
             {
                 Alignment = UIDirection.Center,
-                TextureIndex = TextureIndex.UIBackgroundWorldExplorer,
                 Size = new(823.0f, 629.0f),
             };
 
             // Title
-            this.title = new()
+            this.title = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.1f),
                 Margin = new(16.0f, 15.0f),
                 TextContent = Localization_GUIs.WorldExplorer_Title,
@@ -202,7 +205,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildMenuButtons()
         {
-            this.menuButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+            this.menuButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(
                 this.panelBackground,
                 this.menuButtonInfos,
                 new(-4.0f, 6.5f),
@@ -217,10 +220,8 @@ namespace StardustSandbox.Core.UI.Common
             {
                 for (int column = 0; column < UIConstants.WORLD_EXPLORER_ITEMS_PER_COLUMN; column++)
                 {
-                    Image background = new()
+                    Image background = new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(0, 0, 386, 140))
                     {
-                        TextureIndex = TextureIndex.UIButtons,
-                        SourceRectangle = new(0, 0, 386, 140),
                         Size = new(386.0f, 140.0f),
                         Margin = new(17.0f + (column * 402.0f), 91.0f + (row * 156.0f))
                     };
@@ -233,9 +234,8 @@ namespace StardustSandbox.Core.UI.Common
                         Margin = new(11.5f, 0.0f),
                     };
 
-                    Label title = new()
+                    Label title = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
                     {
-                        SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                         Scale = new(0.1f),
                         Margin = new((WorldConstants.WORLD_THUMBNAIL_SIZE.X * thumbnail.Scale.X) + 22.0f, 5.0f),
                         TextContent = "Title",
@@ -257,10 +257,9 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildPagination()
         {
-            this.pageIndexLabel = new()
+            this.pageIndexLabel = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Scale = new(0.1f),
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Alignment = UIDirection.South,
                 Margin = new(0.0f, -12.0f),
                 TextContent = "1 / 1",
@@ -276,18 +275,14 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = 0; i < this.paginationButtonInfos.Length; i++)
             {
                 SlotInfo slot = new(
-                    new()
+                    new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(320, 140, 32, 32))
                     {
-                        TextureIndex = TextureIndex.UIButtons,
-                        SourceRectangle = new(320, 140, 32, 32),
                         Scale = new(1.6f),
                         Size = new(32.0f),
                     },
 
-                    new()
+                    new(this.assetDatabase.GetTexture(this.paginationButtonInfos[i].TextureIndex), this.paginationButtonInfos[i].TextureSourceRectangle)
                     {
-                        TextureIndex = this.paginationButtonInfos[i].TextureIndex,
-                        SourceRectangle = this.paginationButtonInfos[i].TextureSourceRectangle,
                         Alignment = UIDirection.Center,
                         Size = new(32.0f)
                     }

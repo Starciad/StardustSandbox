@@ -16,6 +16,7 @@
 */
 
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Localization;
@@ -57,7 +58,7 @@ namespace StardustSandbox.Core.UI.Common
             private readonly TimeSpan startTime;
             private readonly TimeSpan endTime;
 
-            internal Section(string title, TimeSpan startTime, TimeSpan endTime, World world)
+            internal Section(AssetDatabase assetDatabase, UIElementFactory elementFactory, string title, TimeSpan startTime, TimeSpan endTime, World world)
             {
                 this.title = title;
                 this.startTime = startTime;
@@ -106,12 +107,12 @@ namespace StardustSandbox.Core.UI.Common
 
                 for (int i = 0; i < this.buttonInfos.Length; i++)
                 {
-                    SlotInfo buttonSlotInfo = UIBuilderUtility.BuildButtonSlot(new(0, 0), this.buttonInfos[i]);
+                    SlotInfo buttonSlotInfo = elementFactory.BuildButtonSlot(new(0, 0), this.buttonInfos[i]);
 
                     buttonSlotInfo.Background.Alignment = UIDirection.Southwest;
                     buttonSlotInfo.Icon.Alignment = UIDirection.Center;
 
-                    buttonSlotInfo.Icon.TextureIndex = this.buttonInfos[i].TextureIndex;
+                    buttonSlotInfo.Icon.Texture = assetDatabase.GetTexture(this.buttonInfos[i].TextureIndex);
                     buttonSlotInfo.Icon.SourceRectangle = this.buttonInfos[i].TextureSourceRectangle;
 
                     buttonSlotInfo.Background.AddChild(buttonSlotInfo.Icon);

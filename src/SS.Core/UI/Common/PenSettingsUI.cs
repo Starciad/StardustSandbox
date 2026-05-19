@@ -63,7 +63,7 @@ namespace StardustSandbox.Core.UI.Common
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
-        ) : base(gameScreen)
+        ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
@@ -193,7 +193,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildMenuButtons()
         {
-            this.menuButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+            this.menuButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(
                 this.panelBackground,
                 this.menuButtonInfos,
                 new(-32.0f, -72.0f),
@@ -239,7 +239,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.brushSectionTitle.AddChild(this.toolsSectionTitle);
 
-            this.toolButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+            this.toolButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(
                 this.toolsSectionTitle,
                 this.toolButtonInfos,
                 new(0.0f, 52.0f),
@@ -261,7 +261,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.toolsSectionTitle.AddChild(this.layerSectionTitle);
 
-            this.layerButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+            this.layerButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(
                 this.layerSectionTitle,
                 this.layerButtonInfos,
                 new(0.0f, 52.0f),
@@ -269,7 +269,7 @@ namespace StardustSandbox.Core.UI.Common
                 UIDirection.Southwest
             );
 
-            this.layerVisibilitySlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+            this.layerVisibilitySlotInfos = ElementFactory.BuildHorizontalButtonLine(
                 this.layerSectionTitle,
                 this.layerVisibility,
                 new(0.0f, 132.0f),
@@ -291,7 +291,7 @@ namespace StardustSandbox.Core.UI.Common
 
             this.layerSectionTitle.AddChild(this.shapeSectionTitle);
 
-            this.shapeButtonSlotInfos = UIBuilderUtility.BuildHorizontalButtonLine(
+            this.shapeButtonSlotInfos = ElementFactory.BuildHorizontalButtonLine(
                 this.shapeSectionTitle,
                 this.shapeButtonInfos,
                 new(0.0f, 52.0f),

@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Colors.Palettes;
+using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Localization;
@@ -46,15 +47,16 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SystemInformationSettings systemInformationSettings;
         private readonly TutorialContent[] contents;
 
-        private readonly GameScreen gameScreen;
+        private readonly AssetDatabase assetDatabase;
         private readonly UIManager uiManager;
 
         internal TutorialUI(
+            AssetDatabase assetDatabase,
             GameScreen gameScreen,
             UIManager uiManager
-        ) : base()
+        ) : base(assetDatabase, gameScreen)
         {
-            this.gameScreen = gameScreen;
+            this.assetDatabase = assetDatabase;
             this.uiManager = uiManager;
 
             ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
@@ -159,18 +161,16 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildBackground(Container root)
         {
-            this.shadowBackground = new()
+            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                TextureIndex = TextureIndex.Pixel,
-                Scale = this.gameScreen.GetViewport(),
+                Scale = this.GameScreen.GetViewport(),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 160)
             };
 
-            this.panelBackground = new()
+            this.panelBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIBackgroundTutorial))
             {
                 Alignment = UIDirection.Center,
-                TextureIndex = TextureIndex.UIBackgroundTutorial,
                 Size = new(406.0f, 520.0f),
             };
 
@@ -180,19 +180,17 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildContent()
         {
-            this.title = new()
+            this.title = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Alignment = UIDirection.North,
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.1f),
                 Margin = new(0.0f, 24.0f),
                 TextContent = "Title",
                 Color = AAP64ColorPalette.Umber,
             };
 
-            this.contentText = new()
+            this.contentText = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.055f),
                 Margin = new(24.0f, 74.0f),
                 LineHeight = 1.5f,
@@ -201,19 +199,16 @@ namespace StardustSandbox.Core.UI.Common
                 Color = AAP64ColorPalette.Umber,
             };
 
-            this.contentImage = new()
+            this.contentImage = new(this.assetDatabase.GetTexture(TextureIndex.UITutorial), new(0, 0, 360, 120))
             {
                 Alignment = UIDirection.South,
-                TextureIndex = TextureIndex.UITutorial,
-                SourceRectangle = new(0, 0, 360, 120),
                 Size = new(360.0f, 120.0f),
                 Margin = new(0.0f, -64.0f),
             };
 
-            this.clickToContinue = new()
+            this.clickToContinue = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Alignment = UIDirection.South,
-                SpriteFontIndex = SpriteFontIndex.BigApple3pm,
                 Scale = new(0.05f),
                 Margin = new(0.0f, -32.0f),
                 TextContent = Localization_GUIs.Tutorial_ClickToContinue,
@@ -228,7 +223,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = newSize;
+            this.shadowBackground.Scale = this.GameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)

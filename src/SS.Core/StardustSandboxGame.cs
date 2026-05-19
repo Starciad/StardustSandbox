@@ -273,7 +273,7 @@ namespace StardustSandbox.Core
             }
 
             this.gameNotifier?.OnBeginRun();
-            this.uiDatabase.ResizeUIs(this.gameScreen.GetViewport());
+            this.uiDatabase.ResizeUIs();
         }
 
         protected override void Update(GameTime gameTime)
@@ -369,7 +369,7 @@ namespace StardustSandbox.Core
                 this.graphicsDeviceManager.ApplyChanges();
             }
 
-            this.uiDatabase.ResizeUIs(this.gameScreen.GetViewport());
+            this.uiDatabase.ResizeUIs();
         }
     }
 }

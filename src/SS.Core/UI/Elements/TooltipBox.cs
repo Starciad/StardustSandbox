@@ -16,7 +16,6 @@
 */
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Databases;
@@ -53,9 +52,8 @@ namespace StardustSandbox.Core.UI.Elements
             this.gameScreen = gameScreen;
             this.Margin = new(60f);
 
-            this.background = new SliceImage
+            this.background = new(assetDatabase.GetTexture(TextureIndex.ShapeSquares))
             {
-                Texture = assetDatabase.GetTexture(TextureIndex.ShapeSquares),
                 Color = AAP64ColorPalette.DarkPurple,
                 Alignment = UIDirection.Center,
                 Size = new(48f),
@@ -63,19 +61,17 @@ namespace StardustSandbox.Core.UI.Elements
                 Origin = new(0, 32)
             };
 
-            this.title = new Label
+            this.title = new(assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco))
             {
                 Scale = new(0.12f),
-                SpriteFontIndex = SpriteFontIndex.DigitalDisco,
                 Margin = Vector2.Zero
             };
 
-            this.description = new Text
+            this.description = new(assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator))
             {
                 Scale = new(0.078f),
                 Margin = new(0f, 64f),
                 LineHeight = 1.25f,
-                SpriteFontIndex = SpriteFontIndex.PixelOperator
             };
 
             this.background.AddChild(this.title);
@@ -98,11 +94,6 @@ namespace StardustSandbox.Core.UI.Elements
             this.description.TextContent = value;
         }
 
-        protected override void OnInitialize()
-        {
-
-        }
-
         protected override void OnUpdate(GameTime gameTime)
         {
             bool shouldShowTooltip = this.interfaceSettings.ShowTooltip;
@@ -113,11 +104,6 @@ namespace StardustSandbox.Core.UI.Elements
 
             UpdateSize();
             UpdatePosition();
-        }
-
-        protected override void OnDraw(SpriteBatch spriteBatch)
-        {
-            return;
         }
 
         private void UpdateSize()

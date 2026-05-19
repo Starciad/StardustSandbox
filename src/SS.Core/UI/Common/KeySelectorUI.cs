@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.UI.Common
             PlayerInputController playerInputController,
             SoundEffectManager soundEffectManager,
             UIManager uiManager
-        ) : base(gameScreen)
+        ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;

@@ -70,9 +70,8 @@ namespace StardustSandbox.Core.UI.Elements
             this.assetDatabase = assetDatabase;
             this.Size = gameScreen.GetViewport();
 
-            this.background = new()
+            this.background = new(assetDatabase.GetTexture(TextureIndex.Pixel))
             {
-                Texture = assetDatabase.GetTexture(TextureIndex.Pixel),
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 120),
                 Alignment = UIDirection.South,
@@ -87,10 +86,9 @@ namespace StardustSandbox.Core.UI.Elements
                 Margin = new(16.0f, 0.0f),
             };
 
-            this.label = new()
+            this.label = new(assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco))
             {
                 Scale = new(0.11f),
-                SpriteFont = assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco),
                 Color = AAP64ColorPalette.White,
                 Alignment = UIDirection.West,
                 Margin = new(this.icon.Size.X + this.icon.Margin.X + 16.0f, 0.0f),
@@ -99,11 +97,6 @@ namespace StardustSandbox.Core.UI.Elements
             AddChild(this.background);
             this.background.AddChild(this.icon);
             this.background.AddChild(this.label);
-        }
-
-        protected override void OnInitialize()
-        {
-            return;
         }
 
         protected override void OnUpdate(GameTime gameTime)
@@ -160,11 +153,6 @@ namespace StardustSandbox.Core.UI.Elements
                     // nothing to do
                     break;
             }
-        }
-
-        protected override void OnDraw(SpriteBatch spriteBatch)
-        {
-            return;
         }
 
         internal void EnqueueNotification(TextureIndex iconTextureIndex, Rectangle? sourceRectangle, string message)

@@ -55,7 +55,7 @@ namespace StardustSandbox.Core.UI.Common
             SongManager songManager,
             UIManager uiManager,
             World world
-        ) : base(gameScreen)
+        ) : base(assetDatabase, gameScreen)
         {
             this.ambientManager = ambientManager;
             this.assetDatabase = assetDatabase;

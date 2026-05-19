@@ -90,7 +90,7 @@ namespace StardustSandbox.Core.UI.Common
             SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
             UIManager uiManager
-        ) : base(gameScreen)
+        ) : base(assetDatabase, gameScreen)
         {
             this.achievementManager = achievementManager;
             this.assetDatabase = assetDatabase;
@@ -309,11 +309,11 @@ namespace StardustSandbox.Core.UI.Common
             CreateTopToolbarSearchSlot();
         }
 
-        private static SlotInfo[] BuildPanelToolbarContent(Container container, ButtonInfo[] buttonInfos, UIDirection alignment, bool isTop)
+        private SlotInfo[] BuildPanelToolbarContent(Container container, ButtonInfo[] buttonInfos, UIDirection alignment, bool isTop)
         {
             return isTop ?
-                UIBuilderUtility.BuildVerticalButtonLine(container, buttonInfos, new(0.0f, 32.0f), 80.0f, alignment) :
-                UIBuilderUtility.BuildVerticalButtonLine(container, buttonInfos, new(0.0f, -32.0f), -80.0f, alignment);
+                ElementFactory.BuildVerticalButtonLine(container, buttonInfos, new(0.0f, 32.0f), 80.0f, alignment) :
+                ElementFactory.BuildVerticalButtonLine(container, buttonInfos, new(0.0f, -32.0f), -80.0f, alignment);
         }
 
         private void BuildDrawerButton(ref Image drawerButton, Container container, Rectangle srcRect, Vector2 size, Vector2 margin, UIDirection alignment)
@@ -365,7 +365,7 @@ namespace StardustSandbox.Core.UI.Common
 
             for (int i = 0; i < UIConstants.HUD_ELEMENT_BUTTONS_LENGTH; i++)
             {
-                SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(startMarginX + (i * 80.0f), 0.0f), TextureIndex.IconElements, new(0, 0, 32, 32));
+                SlotInfo slot = ElementFactory.BuildButtonSlot(new(startMarginX + (i * 80.0f), 0.0f), TextureIndex.IconElements, new(0, 0, 32, 32));
 
                 slot.Background.Alignment = UIDirection.Center;
 

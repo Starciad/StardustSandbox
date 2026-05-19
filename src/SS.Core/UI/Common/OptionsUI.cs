@@ -82,7 +82,7 @@ namespace StardustSandbox.Core.UI.Common
             TooltipBox tooltipBox,
             UIManager uiManager,
             VideoManager videoManager
-        ) : base(gameScreen)
+        ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
@@ -1117,7 +1117,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildExitButton()
         {
-            SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(-4.0f, 6.5f), this.exitButtonInfo);
+            SlotInfo slot = ElementFactory.BuildButtonSlot(new(-4.0f, 6.5f), this.exitButtonInfo);
 
             slot.Background.Alignment = UIDirection.Northeast;
             slot.Icon.Alignment = UIDirection.Center;
@@ -1130,7 +1130,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildCategoryButtons()
         {
-            this.categoryButtonSlotInfos = UIBuilderUtility.BuildVerticalButtonLine(
+            this.categoryButtonSlotInfos = ElementFactory.BuildVerticalButtonLine(
                 this.panelBackground,
                 this.categoryButtonInfos,
                 new(8.0f, 8.0f),

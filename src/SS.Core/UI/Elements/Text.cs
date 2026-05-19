@@ -18,10 +18,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.UI.Elements.TextSystem;
+using StardustSandbox.Core.UI.Models;
 
 using System;
 using System.Collections.Generic;
@@ -47,7 +46,6 @@ namespace StardustSandbox.Core.UI.Elements
 
             set => throw new InvalidOperationException("Cannot set Size of Text directly. Size is determined by the text content and wrapping.");
         }
-
         internal Vector2 TextAreaSize { get; set; }
         internal float LineHeight { get; set; } = 1.0f;
         internal float WordSpacing { get; set; } = 0.0f;
@@ -69,7 +67,6 @@ namespace StardustSandbox.Core.UI.Elements
             }
         }
         internal Color Color { get; set; }
-
         internal LabelBorderDirection BorderDirections { get; set; }
         internal float BorderThickness { get; set; }
         internal float BorderOffset { get; set; }
@@ -91,17 +88,12 @@ namespace StardustSandbox.Core.UI.Elements
 
             this.textContent = string.Empty;
 
-            this.Color = AAP64ColorPalette.White;
+            this.Color = Color.White;
         }
 
-        protected override void OnInitialize()
+        internal Text(SpriteFont spriteFont) : this()
         {
-            return;
-        }
-
-        protected override void OnUpdate(GameTime gameTime)
-        {
-            return;
+            this.SpriteFont = spriteFont;
         }
 
         private void DrawBorders(SpriteBatch spriteBatch, Vector2 position)

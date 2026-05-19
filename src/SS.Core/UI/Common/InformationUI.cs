@@ -58,7 +58,7 @@ namespace StardustSandbox.Core.UI.Common
             TooltipBox tooltipBox,
             UIManager uiManager,
             World world
-        ) : base(gameScreen)
+        ) : base(assetDatabase, gameScreen)
         {
             this.actorManager = actorManager;
             this.assetDatabase = assetDatabase;
@@ -191,7 +191,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnScreenResize()
         {
-            this.shadowBackground.Scale = this.gameScreen.GetViewport();
+            this.shadowBackground.Scale = this.GameScreen.GetViewport();
         }
 
         protected override void OnUpdate(GameTime gameTime)

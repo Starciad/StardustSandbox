@@ -18,10 +18,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.UI.Elements.TextSystem;
+using StardustSandbox.Core.UI.Models;
 
 using System;
 
@@ -45,7 +44,6 @@ namespace StardustSandbox.Core.UI.Elements
 
             set => throw new InvalidOperationException("Cannot set Size of Label directly. Size is determined by the text content.");
         }
-
         internal string TextContent
         {
             get => this.textContent;
@@ -60,9 +58,7 @@ namespace StardustSandbox.Core.UI.Elements
                 }
             }
         }
-
         internal Color Color { get; set; }
-
         internal LabelBorderDirection BorderDirections { get; set; } = LabelBorderDirection.None;
         internal float BorderThickness { get; set; }
         internal float BorderOffset { get; set; }
@@ -80,19 +76,14 @@ namespace StardustSandbox.Core.UI.Elements
 
             this.textContent = string.Empty;
 
-            this.Color = AAP64ColorPalette.White;
+            this.Color = Color.White;
         }
 
-        protected override void OnInitialize()
+        internal Label(SpriteFont spriteFont) : this()
         {
-            return;
+            this.SpriteFont = spriteFont;
         }
-
-        protected override void OnUpdate(GameTime gameTime)
-        {
-            return;
-        }
-
+        
         private void DrawBorders(SpriteBatch spriteBatch, Vector2 position)
         {
             if (this.BorderDirections == LabelBorderDirection.None)

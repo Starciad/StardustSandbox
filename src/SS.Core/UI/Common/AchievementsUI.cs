@@ -70,7 +70,7 @@ namespace StardustSandbox.Core.UI.Common
             SoundEffectManager soundEffectManager,
             TooltipBox tooltipBox,
             UIManager uiManager
-        ) : base(gameScreen)
+        ) : base(assetDatabase, gameScreen)
         {
             this.achievementDatabase = achievementDatabase;
             this.assetDatabase = assetDatabase;
@@ -163,17 +163,15 @@ namespace StardustSandbox.Core.UI.Common
         private void BuildBackground(Container root)
         {
             // Background
-            this.panelBackground = new()
+            this.panelBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIBackgroundAchievements))
             {
                 Alignment = UIDirection.Center,
-                Texture = this.assetDatabase.GetTexture(TextureIndex.UIBackgroundAchievements),
                 Size = new(420.0f, 568.0f),
             };
 
             // Title
-            this.title = new()
+            this.title = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.1f),
                 Margin = new(16.0f, 4.0f),
                 TextContent = Localization_GUIs.Achievements_Title,
@@ -184,9 +182,8 @@ namespace StardustSandbox.Core.UI.Common
                 BorderThickness = 3.0f,
             };
 
-            this.progress = new()
+            this.progress = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Scale = new(0.05f),
                 Margin = new(0.0f, 40.0f),
                 TextContent = "100%",
@@ -204,7 +201,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildExitButton()
         {
-            SlotInfo slot = UIBuilderUtility.BuildButtonSlot(new(-4.0f, 6.5f), this.exitButtonInfo);
+            SlotInfo slot = ElementFactory.BuildButtonSlot(new(-4.0f, 6.5f), this.exitButtonInfo);
 
             slot.Background.Alignment = UIDirection.Northeast;
             slot.Icon.Alignment = UIDirection.Center;
@@ -242,10 +239,9 @@ namespace StardustSandbox.Core.UI.Common
 
         private void BuildPagination()
         {
-            this.pageIndexLabel = new()
+            this.pageIndexLabel = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {
                 Scale = new(0.1f),
-                SpriteFont = this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm),
                 Alignment = UIDirection.South,
                 Margin = new(0.0f, -12.0f),
                 TextContent = "1 / 1",

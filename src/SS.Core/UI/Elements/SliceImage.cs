@@ -67,6 +67,11 @@ namespace StardustSandbox.Core.UI.Elements
             this.slices = new SliceInfo[9];
         }
 
+        internal SliceImage(Texture2D texture) : this()
+        {
+            this.Texture = texture;
+        }
+
         protected override void OnInitialize()
         {
             int originX = this.Origin.X;

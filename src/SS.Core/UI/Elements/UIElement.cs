@@ -293,9 +293,9 @@ namespace StardustSandbox.Core.UI.Elements
             }
         }
 
-        protected abstract void OnInitialize();
-        protected abstract void OnUpdate(GameTime gameTime);
-        protected abstract void OnDraw(SpriteBatch spriteBatch);
+        protected virtual void OnInitialize() { return; }
+        protected virtual void OnUpdate(GameTime gameTime) { return; }
+        protected virtual void OnDraw(SpriteBatch spriteBatch) { return; }
     }
 }
 
