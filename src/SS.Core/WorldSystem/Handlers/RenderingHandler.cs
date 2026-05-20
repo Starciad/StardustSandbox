@@ -30,12 +30,13 @@ using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
+using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
 
-namespace StardustSandbox.Core.WorldSystem
+namespace StardustSandbox.Core.WorldSystem.Handlers
 {
-    internal sealed class WorldRendering(AssetDatabase assetDatabase, PlayerInputController playerInputController, World world)
+    internal sealed class RenderingHandler(AssetDatabase assetDatabase, PlayerInputController playerInputController, World world)
     {
         internal bool DrawForegroundElements { get; set; } = true;
         internal bool DrawBackgroundElements { get; set; } = true;
@@ -44,8 +45,77 @@ namespace StardustSandbox.Core.WorldSystem
         private readonly PlayerInputController playerInputController = playerInputController;
         private readonly World world = world;
 
+        private void DrawWorldBorder(SpriteBatch spriteBatch, AssetDatabase assetDatabase)
+        {
+            int left = -1;
+            int top = -1;
+            int right = world.Tile.X;
+            int bottom = Size.Y;
+
+            Texture2D texture = assetDatabase.GetTexture(TextureIndex.Frames);
+            int gridSize = WorldConstants.TILE_SIZE;
+
+            // Top line
+            for (int x = left; x <= right; x++)
+            {
+                FrameSlice slice =
+                    x == left ? FrameSlice.Northwest :
+                    x == right ? FrameSlice.Northeast :
+                    FrameSlice.North;
+
+                spriteBatch.Draw(
+                    texture,
+                    new Rectangle(x * gridSize, top * gridSize, gridSize, gridSize),
+                    WorldConstants.FRAME_SLICES[(byte)slice],
+                    Color.White
+                );
+            }
+
+            // Bottom line
+            if (bottom != top)
+            {
+                for (int x = left; x <= right; x++)
+                {
+                    FrameSlice slice =
+                        x == left ? FrameSlice.Southwest :
+                        x == right ? FrameSlice.Southeast :
+                        FrameSlice.South;
+
+                    spriteBatch.Draw(
+                        texture,
+                        new Rectangle(x * gridSize, bottom * gridSize, gridSize, gridSize),
+                        WorldConstants.FRAME_SLICES[(byte)slice],
+                        Color.White
+                    );
+                }
+            }
+
+            // Sides (excluding corners)
+            for (int y = top + 1; y <= bottom - 1; y++)
+            {
+                spriteBatch.Draw(
+                    texture,
+                    new Rectangle(left * gridSize, y * gridSize, gridSize, gridSize),
+                    WorldConstants.FRAME_SLICES[(byte)FrameSlice.West],
+                    Color.White
+                );
+
+                if (right != left)
+                {
+                    spriteBatch.Draw(
+                        texture,
+                        new Rectangle(right * gridSize, y * gridSize, gridSize, gridSize),
+                        WorldConstants.FRAME_SLICES[(byte)FrameSlice.East],
+                        Color.White
+                    );
+                }
+            }
+        }
+
         internal void Draw(SpriteBatch spriteBatch, AssetDatabase assetDatabase, Camera2D camera)
         {
+            DrawWorldBorder(spriteBatch);
+
             RectangleF viewBounds = camera.GetViewBounds();
 
             // Converts the visible world area to tile indexes

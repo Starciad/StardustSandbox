@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.WorldSystem.Handlers;
 
 namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
@@ -27,7 +28,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         private readonly ElementIndex wetWoolIndex;
 
-        internal DryWool(ElementIndex index, ElementIndex wetWoolIndex, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal DryWool(ElementIndex index, ElementIndex wetWoolIndex, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsHandler statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.wetWoolIndex = wetWoolIndex;
             this.InitialTemperature = 20.0f;

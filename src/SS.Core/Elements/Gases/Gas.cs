@@ -20,7 +20,8 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Handlers;
+using StardustSandbox.Core.WorldSystem.Slots;
 
 using System.Collections.Generic;
 
@@ -30,7 +31,7 @@ namespace StardustSandbox.Core.Elements.Gases
     {
         private static readonly List<Point> availablePositions = [];
 
-        internal Gas(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Gas(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsHandler statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
 
         }

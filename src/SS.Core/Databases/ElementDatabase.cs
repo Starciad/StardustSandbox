@@ -20,6 +20,7 @@ using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.WorldSystem.Handlers;
 
 using System;
 
@@ -29,7 +30,7 @@ namespace StardustSandbox.Core.Databases
     {
         private Element[] elements;
 
-        internal void Load(AchievementManager achievementManager, StatisticsManager statisticsManager)
+        internal void Load(AchievementManager achievementManager, StatisticsHandler statisticsManager)
         {
             this.elements = [
                 // [000] Dirt
@@ -1065,7 +1066,7 @@ namespace StardustSandbox.Core.Databases
         {
             if (index is ElementIndex.None)
             {
-                throw new ArgumentException("Element index cannot be None.", nameof(index));
+                return null;
             }
 
             return this.elements[((byte)index) - 1];

@@ -25,6 +25,7 @@ using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Saving.Data;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
 

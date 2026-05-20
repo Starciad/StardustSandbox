@@ -62,7 +62,7 @@ namespace StardustSandbox.Core.Databases
         {
             if (index is AchievementIndex.None)
             {
-                throw new ArgumentException("The achievement index cannot be None.", nameof(index));
+                return null;
             }
 
             return this.achievements[((byte)index) - 1];

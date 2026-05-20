@@ -122,7 +122,7 @@ namespace StardustSandbox.Core.Databases
         {
             if (index is BackgroundIndex.None)
             {
-                throw new ArgumentException("The background index cannot be None.", nameof(index));
+                return null;
             }
 
             return this.backgrounds[((byte)index) - 1];

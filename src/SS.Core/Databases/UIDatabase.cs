@@ -367,7 +367,7 @@ namespace StardustSandbox.Core.Databases
         {
             if (index is UIIndex.None)
             {
-                throw new ArgumentException($"The provided {nameof(UIIndex)} is invalid.", nameof(index));
+                return null;
             }
 
             return this.uis[((byte)index) - 1];

@@ -22,7 +22,7 @@ using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Mathematics;
 
-namespace StardustSandbox.Core.WorldSystem
+namespace StardustSandbox.Core.WorldSystem.Slots
 {
     internal sealed class SlotLayer
     {
@@ -40,6 +40,7 @@ namespace StardustSandbox.Core.WorldSystem
         internal float Temperature { get => this.temperature; set => this.temperature = TemperatureMath.Clamp(value); }
 
         private float temperature;
+
         private readonly ElementDatabase elementDatabase;
 
         internal SlotLayer(ElementDatabase elementDatabase)
@@ -48,35 +49,36 @@ namespace StardustSandbox.Core.WorldSystem
             Reset();
         }
 
-        // Lifecycle Management
+        #region Lifecycle Management
+
         internal void Instantiate(ElementIndex index)
         {
-            ClearStates();
-
+            this.States = ElementStates.None;
             this.ColorModifier = Color.White;
             this.ElementIndex = index;
             this.StepCycleFlag = UpdateCycleFlag.None;
-            this.StoredElementIndex = Enums.Elements.ElementIndex.None;
+            this.StoredElementIndex = ElementIndex.None;
             this.Temperature = this.Element.InitialTemperature;
         }
+
         internal void Destroy()
         {
-            ClearStates();
-
+            this.States = ElementStates.None;
             this.ColorModifier = Color.White;
             this.ElementIndex = ElementIndex.None;
             this.StepCycleFlag = UpdateCycleFlag.None;
-            this.StoredElementIndex = Enums.Elements.ElementIndex.None;
+            this.StoredElementIndex = ElementIndex.None;
             this.Temperature = 0;
         }
-        internal void Copy(in SlotLayer valueToCopy)
+
+        internal void Copy(SlotLayer target)
         {
-            this.ColorModifier = valueToCopy.ColorModifier;
-            this.ElementIndex = valueToCopy.ElementIndex;
-            this.States = valueToCopy.States;
-            this.StepCycleFlag = valueToCopy.StepCycleFlag;
-            this.StoredElementIndex = valueToCopy.StoredElementIndex;
-            this.Temperature = valueToCopy.Temperature;
+            this.ColorModifier = target.ColorModifier;
+            this.ElementIndex = target.ElementIndex;
+            this.States = target.States;
+            this.StepCycleFlag = target.StepCycleFlag;
+            this.StoredElementIndex = target.StoredElementIndex;
+            this.Temperature = target.Temperature;
         }
 
         internal void Reset()
@@ -84,27 +86,31 @@ namespace StardustSandbox.Core.WorldSystem
             Destroy();
         }
 
-        // States Management
-        internal void ClearStates()
-        {
-            this.States = ElementStates.None;
-        }
+        #endregion
+
+        #region States Management
+
         internal bool HasState(ElementStates value)
         {
             return this.States.HasFlag(value);
         }
+
         internal void RemoveState(ElementStates value)
         {
             this.States &= ~value;
         }
+
         internal void SetState(ElementStates value)
         {
             this.States |= value;
         }
+
         internal void ToggleState(ElementStates value)
         {
             this.States ^= value;
         }
+
+        #endregion
     }
 }
 

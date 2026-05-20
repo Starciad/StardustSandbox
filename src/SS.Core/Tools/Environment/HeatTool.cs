@@ -20,7 +20,7 @@ using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Tools;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics;
-using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Tools.Environment
 {

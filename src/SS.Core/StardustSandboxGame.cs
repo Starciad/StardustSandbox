@@ -32,6 +32,7 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Handlers;
 
 using System;
 
@@ -66,7 +67,7 @@ namespace StardustSandbox.Core
         private readonly EffectsManager effectsManager;
         private readonly SongManager songManager;
         private readonly SoundEffectManager soundEffectManager;
-        private readonly StatisticsManager statisticsManager;
+        private readonly StatisticsHandler statisticsManager;
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
 

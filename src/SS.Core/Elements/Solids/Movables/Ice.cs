@@ -19,12 +19,13 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.WorldSystem.Handlers;
 
 namespace StardustSandbox.Core.Elements.Solids.Movables
 {
     internal sealed class Ice : MovableSolid
     {
-        internal Ice(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Ice(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsHandler statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.BaseDensity = 0.92f;
             this.BaseExplosionResistance = 1.2f;

@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
 
-namespace StardustSandbox.Core.WorldSystem
+namespace StardustSandbox.Core.WorldSystem.Models
 {
     internal sealed class Chunk(Point position)
     {

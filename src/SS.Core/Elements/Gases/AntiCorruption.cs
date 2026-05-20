@@ -20,13 +20,14 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Handlers;
+using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Elements.Gases
 {
     internal sealed class AntiCorruption : Gas
     {
-        internal AntiCorruption(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal AntiCorruption(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsHandler statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.BaseDensity = 0.5f;
 

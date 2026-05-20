@@ -22,7 +22,7 @@ using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Collections;
 
-namespace StardustSandbox.Core.WorldSystem
+namespace StardustSandbox.Core.WorldSystem.Slots
 {
     internal sealed class Slot : IPoolableObject
     {

@@ -30,6 +30,7 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Saving.Data;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
 using System.Collections.Generic;

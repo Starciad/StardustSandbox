@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
-using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Elements.Utilities
 {

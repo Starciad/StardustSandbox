@@ -21,6 +21,8 @@ using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Explosions;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Information;
+using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Elements
 {

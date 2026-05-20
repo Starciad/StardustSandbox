@@ -17,10 +17,11 @@
 
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Serialization.Saving.Data;
+using StardustSandbox.Core.WorldSystem.Models;
 
 using System;
 
-namespace StardustSandbox.Core.WorldSystem
+namespace StardustSandbox.Core.WorldSystem.Information
 {
     internal sealed class Temperature : IResettable
     {

@@ -24,25 +24,33 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.WorldSystem.Components;
+using StardustSandbox.Core.WorldSystem.Models;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.WorldSystem
+namespace StardustSandbox.Core.WorldSystem.Handlers
 {
-    internal sealed class WorldChunking : IResettable
+    internal sealed class ChunkHandler : IResettable
     {
         private int worldChunkWidth;
         private int worldChunkHeight;
 
         private Chunk[,] chunks;
 
-        private readonly World world;
+        private readonly TileMap tileMap;
+
+        internal ChunkHandler(TileMap tileMap)
+        {
+            this.tileMap = tileMap;
+            Reset();
+        }
 
         public void Reset()
         {
             this.chunks = new Chunk[
-                (this.world.Size.X / WorldConstants.CHUNK_SCALE) + 1,
-                (this.world.Size.Y / WorldConstants.CHUNK_SCALE) + 1
+                this.tileMap.Width / WorldConstants.CHUNK_SCALE + 1,
+                this.tileMap.Height / WorldConstants.CHUNK_SCALE + 1
             ];
 
             this.worldChunkWidth = this.chunks.GetLength(0);
@@ -57,12 +65,6 @@ namespace StardustSandbox.Core.WorldSystem
             }
         }
 
-        internal WorldChunking(World world)
-        {
-            this.world = world;
-
-            Reset();
-        }
 
         internal void Update()
         {
@@ -116,6 +118,11 @@ namespace StardustSandbox.Core.WorldSystem
             return true;
         }
 
+        internal void GetChunkUpdateState(Point position, out bool result)
+        {
+            _ = TryGetChunkUpdateState(position, out result);
+        }
+
         internal int GetActiveChunksCount()
         {
             int result = 0;
@@ -164,6 +171,12 @@ namespace StardustSandbox.Core.WorldSystem
 
             return false;
         }
+
+        internal void NotifyChunk(Point position)
+        {
+            _ = TryNotifyChunk(position);
+        }
+
         private void TryNotifyNeighboringChunks(Point ePos, Point cPos)
         {
             if (ePos.X % WorldConstants.CHUNK_SCALE == 0 && IsWithinChunkBoundaries(new(cPos.X - 1, cPos.Y)))

@@ -23,7 +23,7 @@ using StardustSandbox.Core.Interfaces;
 
 using System;
 
-namespace StardustSandbox.Core.WorldSystem
+namespace StardustSandbox.Core.WorldSystem.Information
 {
     internal sealed class Time : IResettable
     {

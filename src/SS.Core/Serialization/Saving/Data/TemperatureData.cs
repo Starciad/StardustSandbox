@@ -17,7 +17,7 @@
 
 using MessagePack;
 
-using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Models;
 
 using System;
 

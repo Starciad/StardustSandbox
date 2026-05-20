@@ -21,7 +21,7 @@ using StardustSandbox.Core.Mathematics;
 
 using System;
 
-namespace StardustSandbox.Core.WorldSystem
+namespace StardustSandbox.Core.WorldSystem.Models
 {
     internal sealed class TemperatureRange(TimeSpan startTime, TimeSpan endTime) : IResettable
     {

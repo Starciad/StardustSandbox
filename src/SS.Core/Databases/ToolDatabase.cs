@@ -75,7 +75,7 @@ namespace StardustSandbox.Core.Databases
         {
             if (toolIndex is ToolIndex.None)
             {
-                throw new ArgumentException("Tool index cannot be None.", nameof(toolIndex));
+                return null;
             }
 
             return this.tools[((byte)toolIndex) - 1];

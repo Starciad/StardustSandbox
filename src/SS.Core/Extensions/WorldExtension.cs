@@ -22,6 +22,7 @@ using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Extensions
 {

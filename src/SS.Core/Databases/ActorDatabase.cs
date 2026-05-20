@@ -47,7 +47,7 @@ namespace StardustSandbox.Core.Databases
         {
             if (index is ActorIndex.None)
             {
-                throw new ArgumentException($"The provided {nameof(ActorIndex)} is invalid.", nameof(index));
+                return null;
             }
 
             return this.descriptors[((byte)index) - 1];

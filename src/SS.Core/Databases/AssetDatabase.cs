@@ -153,7 +153,7 @@ namespace StardustSandbox.Core.Databases
         {
             if (index is TextureIndex.None)
             {
-                throw new ArgumentException("The provided texture index is invalid.", nameof(index));
+                return null;
             }
 
             return this.textures[((byte)index) - 1];
@@ -163,7 +163,7 @@ namespace StardustSandbox.Core.Databases
         {
             if (index is SpriteFontIndex.None)
             {
-                throw new ArgumentException("The provided sprite font index is invalid.", nameof(index));
+                return null;
             }
 
             return this.fonts[((byte)index) - 1];
@@ -173,7 +173,7 @@ namespace StardustSandbox.Core.Databases
         {
             if (index is SongIndex.None)
             {
-                throw new ArgumentException("The provided song index is invalid.", nameof(index));
+                return null;
             }
 
             return this.songs[((byte)index) - 1];
@@ -188,7 +188,7 @@ namespace StardustSandbox.Core.Databases
         {
             if (index is EffectIndex.None)
             {
-                throw new ArgumentException("The provided effect index is invalid.", nameof(index));
+                return null;
             }
 
             return this.effects[((byte)index) - 1];
@@ -198,7 +198,7 @@ namespace StardustSandbox.Core.Databases
         {
             if (index is SoundEffectIndex.None)
             {
-                throw new ArgumentException("The provided sound effect index is invalid.", nameof(index));
+                return null;
             }
 
             return this.soundEffects[((byte)index) - 1];

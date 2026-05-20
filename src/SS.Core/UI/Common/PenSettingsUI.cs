@@ -115,8 +115,8 @@ namespace StardustSandbox.Core.UI.Common
             ];
 
             this.layerVisibility = [
-                new(TextureIndex.IconUI, new(), Localization_GUIs.PenSettings_LayerVisibility_ShowOrHideForegroundLayer_Name, Localization_GUIs.PenSettings_LayerVisibility_ShowOrHideForegroundLayer_Description, () => world.Rendering.DrawForegroundElements = !world.Rendering.DrawForegroundElements),
-                new(TextureIndex.IconUI, new(), Localization_GUIs.PenSettings_LayerVisibility_ShowOrHideBackgroundLayer_Name, Localization_GUIs.PenSettings_LayerVisibility_ShowOrHideBackgroundLayer_Description, () => world.Rendering.DrawBackgroundElements = !world.Rendering.DrawBackgroundElements),
+                new(TextureIndex.IconUI, new(), Localization_GUIs.PenSettings_LayerVisibility_ShowOrHideForegroundLayer_Name, Localization_GUIs.PenSettings_LayerVisibility_ShowOrHideForegroundLayer_Description, () => world.RenderingHandler.DrawForegroundElements = !world.RenderingHandler.DrawForegroundElements),
+                new(TextureIndex.IconUI, new(), Localization_GUIs.PenSettings_LayerVisibility_ShowOrHideBackgroundLayer_Name, Localization_GUIs.PenSettings_LayerVisibility_ShowOrHideBackgroundLayer_Description, () => world.RenderingHandler.DrawBackgroundElements = !world.RenderingHandler.DrawBackgroundElements),
             ];
 
             this.shapeButtonInfos = [
@@ -467,11 +467,11 @@ namespace StardustSandbox.Core.UI.Common
             }
 
             // Update Layer Visibility Icons
-            this.layerVisibilitySlotInfos[0].Icon.SourceRectangle = this.world.Rendering.DrawForegroundElements
+            this.layerVisibilitySlotInfos[0].Icon.SourceRectangle = this.world.RenderingHandler.DrawForegroundElements
                 ? new(192, 32, 32, 32)
                 : new(192, 192, 32, 32);
 
-            this.layerVisibilitySlotInfos[1].Icon.SourceRectangle = this.world.Rendering.DrawBackgroundElements
+            this.layerVisibilitySlotInfos[1].Icon.SourceRectangle = this.world.RenderingHandler.DrawBackgroundElements
                 ? new(224, 32, 32, 32)
                 : new(192, 192, 32, 32);
         }

@@ -18,12 +18,13 @@
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Managers;
 
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.Managers
+namespace StardustSandbox.Core.WorldSystem.Handlers
 {
-    internal sealed class StatisticsManager : IResettable
+    internal sealed class StatisticsHandler : IResettable
     {
         private uint worldClonedElements;
         private uint worldCorrodedElements;
@@ -35,7 +36,7 @@ namespace StardustSandbox.Core.Managers
         private readonly HashSet<ElementIndex> worldUniqueInstantiatedElements = [];
         private readonly AchievementManager achievementManager;
 
-        internal StatisticsManager(AchievementManager achievementManager)
+        internal StatisticsHandler(AchievementManager achievementManager)
         {
             this.achievementManager = achievementManager;
         }

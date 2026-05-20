@@ -20,7 +20,7 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Elements;
-using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.WorldSystem.Handlers;
 
 using System;
 
@@ -30,7 +30,7 @@ namespace StardustSandbox.Core.Elements.Utilities
     {
         private delegate Point DirectionSelector(Point neighborPosition);
 
-        internal static void PushingNeighborsUp(ElementContext context, ElementNeighbors neighbors, StatisticsManager statisticsManager)
+        internal static void PushingNeighborsUp(ElementContext context, ElementNeighbors neighbors, StatisticsHandler statisticsManager)
         {
             PushNeighbors(context, neighbors, statisticsManager,
                 frontDirection: p => new(p.X, p.Y - 1),
@@ -40,7 +40,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             );
         }
 
-        internal static void PushingNeighborsRight(ElementContext context, ElementNeighbors neighbors, StatisticsManager statisticsManager)
+        internal static void PushingNeighborsRight(ElementContext context, ElementNeighbors neighbors, StatisticsHandler statisticsManager)
         {
             PushNeighbors(context, neighbors, statisticsManager,
                 frontDirection: p => new(p.X + 1, p.Y),
@@ -50,7 +50,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             );
         }
 
-        internal static void PushingNeighborsDown(ElementContext context, ElementNeighbors neighbors, StatisticsManager statisticsManager)
+        internal static void PushingNeighborsDown(ElementContext context, ElementNeighbors neighbors, StatisticsHandler statisticsManager)
         {
             PushNeighbors(context, neighbors, statisticsManager,
                 frontDirection: p => new(p.X, p.Y + 1),
@@ -60,7 +60,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             );
         }
 
-        internal static void PushingNeighborsLeft(ElementContext context, ElementNeighbors neighbors, StatisticsManager statisticsManager)
+        internal static void PushingNeighborsLeft(ElementContext context, ElementNeighbors neighbors, StatisticsHandler statisticsManager)
         {
             PushNeighbors(context, neighbors, statisticsManager,
                 frontDirection: p => new(p.X - 1, p.Y),
@@ -73,7 +73,7 @@ namespace StardustSandbox.Core.Elements.Utilities
         private static void PushNeighbors(
             ElementContext context,
             ElementNeighbors neighbors,
-            StatisticsManager statisticsManager,
+            StatisticsHandler statisticsManager,
             DirectionSelector frontDirection,
             DirectionSelector leftDirection,
             DirectionSelector rightDirection,
