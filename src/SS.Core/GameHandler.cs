@@ -16,6 +16,7 @@
 */
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Constants;
@@ -136,6 +137,8 @@ namespace StardustSandbox.Core
         internal void StartGame()
         {
             this.camera.Reset();
+
+            MediaPlayer.Stop();
 
             this.songManager.StopGameplayMusicCycle();
             this.songManager.StartGameplayMusicCycle(this);
