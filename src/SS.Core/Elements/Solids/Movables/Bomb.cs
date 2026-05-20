@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 {
     internal sealed class Bomb : MovableSolid
     {
-        private static readonly ExplosionBuilder explosionBuilder = new()
+        private readonly ExplosionBuilder explosionBuilder = new()
         {
             Radius = 4.0f,
             Power = 2.5f,
@@ -43,11 +43,16 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             ]
         };
 
-        internal Bomb(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Bomb(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 25.0f;
             this.BaseDensity = 3.5f;
             this.BaseExplosionResistance = 0.3f;
+
+            this.HasNeighborInteractions = true;
+            this.HasTemperature = true;
+            this.IsCorruptible = true;
+            this.IsPushable = true;
         }
 
         protected override void OnDestroyed(ElementContext context)

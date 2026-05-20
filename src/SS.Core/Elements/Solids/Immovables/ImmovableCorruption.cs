@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Elements.Gases;
 using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
@@ -28,10 +29,15 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class ImmovableCorruption : ImmovableSolid
     {
-        internal ImmovableCorruption(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal ImmovableCorruption(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.BaseDensity = 1.6f;
             this.BaseExplosionResistance = 1.2f;
+
+            this.HasNeighborInteractions = true;
+            this.HasTemperature = true;
+            this.IsCorruption = true;
+            this.IsPushable = true;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

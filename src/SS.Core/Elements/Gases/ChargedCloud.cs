@@ -27,12 +27,18 @@ namespace StardustSandbox.Core.Elements.Gases
 {
     internal sealed class ChargedCloud : Gas
     {
-        internal ChargedCloud(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal ChargedCloud(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 10.0f;
             this.BaseFlammabilityResistance = 10.0f;
             this.BaseDensity = 0.2f;
             this.BaseExplosionResistance = 0.7f;
+
+            this.HasNeighborInteractions = true;
+            this.HasTemperature = true;
+            this.IsCorruptible = true;
+            this.IsPushable = true;
+            this.IsConductive = true;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

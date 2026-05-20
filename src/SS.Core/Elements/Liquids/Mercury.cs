@@ -24,12 +24,17 @@ namespace StardustSandbox.Core.Elements.Liquids
 {
     internal sealed class Mercury : Liquid
     {
-        internal Mercury(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Mercury(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 10.0f;
             this.BaseDensity = 13.5f;
             this.BaseExplosionResistance = 0.5f;
             this.BaseDispersionRate = 3;
+
+            this.HasTemperature = true;
+            this.IsCorruptible = true;
+            this.IsPushable = true;
+            this.IsConductive = true;
         }
     }
 }

@@ -29,10 +29,16 @@ namespace StardustSandbox.Core.Elements.Energies
 {
     internal sealed class Fire : Energy
     {
-        internal Fire(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Fire(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 500.0f;
             this.BaseDensity = 0.0f;
+
+            this.HasNeighborInteractions = true;
+            this.HasTemperature = true;
+            this.IsExplosionImmune = true;
+            this.IsCorruptible = true;
+            this.IsPushable = true;
         }
 
         private static bool TryIgniteElement(ElementContext context, Slot slot, SlotLayer slotLayer, Layer layer)
@@ -41,7 +47,7 @@ namespace StardustSandbox.Core.Elements.Energies
             context.SetElementTemperature(slotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE);
 
             // Check if the element is flammable
-            if (slotLayer.Element.HasCharacteristic(ElementCharacteristics.IsFlammable))
+            if (slotLayer.Element.IsFlammable)
             {
                 // Adjust combustion chance based on the element's flammability resistance
                 int combustionChance = ElementConstants.CHANCE_OF_COMBUSTION;

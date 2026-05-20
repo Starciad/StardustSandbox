@@ -55,7 +55,7 @@ namespace StardustSandbox.Core.Elements.Utilities
                     continue;
                 }
 
-                if (element.HasCharacteristic(ElementCharacteristics.IsCorruption))
+                if (element.IsCorruption)
                 {
                     corruptNeighboringElements++;
                 }
@@ -72,7 +72,7 @@ namespace StardustSandbox.Core.Elements.Utilities
 
             void ProcessLayer(Slot slot, Layer layer, Element element)
             {
-                if (element.HasCharacteristic(ElementCharacteristics.IsCorruptible))
+                if (element.IsCorruptible)
                 {
                     targets.Add(new(slot, layer));
                 }

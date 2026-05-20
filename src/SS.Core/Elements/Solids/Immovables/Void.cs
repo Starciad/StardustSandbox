@@ -25,9 +25,12 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Void : ImmovableSolid
     {
-        internal Void(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Void(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.BaseDensity = 0.001f;
+
+            this.HasNeighborInteractions = true;
+            this.IsExplosionImmune = true;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

@@ -26,9 +26,12 @@ namespace StardustSandbox.Core.Elements.Gases
 {
     internal sealed class AntiCorruption : Gas
     {
-        internal AntiCorruption(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal AntiCorruption(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.BaseDensity = 0.5f;
+
+            this.HasNeighborInteractions = true;
+            this.IsPushable = true;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
@@ -56,9 +59,7 @@ namespace StardustSandbox.Core.Elements.Gases
                 Slot slot = neighbors.GetSlot(i);
                 SlotLayer layer = slot.GetLayer(context.CurrentLayer);
 
-                if (!layer.IsEmpty &&
-                    layer.ElementIndex is not ElementIndex.AntiCorruption &&
-                    layer.Element.HasCharacteristic(ElementCharacteristics.IsCorruption))
+                if (!layer.IsEmpty && layer.ElementIndex is not ElementIndex.AntiCorruption && layer.Element.IsCorruption)
                 {
                     ElementIndex originalElementIndex = layer.StoredElementIndex;
 

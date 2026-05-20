@@ -477,7 +477,7 @@ namespace StardustSandbox.Core.Databases
 
                     // [5] Red Brick
                     new Item(
-                        contentIndex: (int)ElementIndex.RedBrick,
+                        contentIndex: (int)ElementIndex.Brick,
                         name: Localization_Elements.Solid_Immovable_RedBrick_Name,
                         description: Localization_Elements.Solid_Immovable_RedBrick_Description,
                         contentType: ItemContentType.Element,
@@ -487,7 +487,7 @@ namespace StardustSandbox.Core.Databases
 
                     // [6] Tree Leaf
                     new Item(
-                        contentIndex: (int)ElementIndex.TreeLeaf,
+                        contentIndex: (int)ElementIndex.Leaf,
                         name: Localization_Elements.Solid_Immovable_TreeLeaf_Name,
                         description: Localization_Elements.Solid_Immovable_TreeLeaf_Description,
                         contentType: ItemContentType.Element,

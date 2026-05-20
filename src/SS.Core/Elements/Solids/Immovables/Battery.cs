@@ -27,12 +27,18 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Battery : ImmovableSolid
     {
-        internal Battery(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Battery(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 20.0f;
             this.BaseFlammabilityResistance = 25.0f;
             this.BaseDensity = 1.2f;
             this.BaseExplosionResistance = 1.0f;
+
+            this.HasNeighborInteractions = true;
+            this.HasTemperature = true;
+            this.IsCorruptible = true;
+            this.IsPushable = true;
+            this.IsElectrified = true;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

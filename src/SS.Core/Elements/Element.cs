@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Elements.Gases;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
@@ -31,11 +32,8 @@ namespace StardustSandbox.Core.Elements
 {
     internal abstract class Element
     {
-        #region Properties
-
         internal ElementIndex Index { get; }
         internal ElementCategory Category { get; }
-        internal ElementCharacteristics Characteristics { get; }
         internal ElementRenderingType RenderingType { get; }
         internal Point TextureOriginOffset { get; }
         internal Color ReferenceColor { get; }
@@ -44,42 +42,38 @@ namespace StardustSandbox.Core.Elements
         protected StatisticsManager StatisticsManager { get; }
 
         public float BaseDensity { get; protected init; }
-        public int BaseDispersionRate { get; protected init; }
         public float BaseExplosionResistance { get; protected init; }
         public float BaseFlammabilityResistance { get; protected init; }
         public float InitialTemperature { get; protected init; }
+        public int BaseDispersionRate { get; protected init; }
 
-        #endregion
+        public bool HasNeighborInteractions { get; protected init; }
+        public bool HasTemperature { get; protected init; }
+        public bool IsConductive { get; protected init; }
+        public bool IsCorruptible { get; protected init; }
+        public bool IsCorruption { get; protected init; }
+        public bool IsElectrified { get; protected init; }
+        public bool IsExplosive { get; protected init; }
+        public bool IsExplosionImmune { get; protected init; }
+        public bool IsFlammable { get; protected init; }
+        public bool IsPushable { get; protected init; }
 
         private ElementContext context;
 
-        internal Element(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager)
+        internal Element(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager)
         {
             this.Index = index;
             this.Category = category;
-            this.Characteristics = characteristics;
             this.RenderingType = renderingType;
             this.TextureOriginOffset = textureOriginOffset;
             this.ReferenceColor = referenceColor;
-
             this.AchievementManager = achievementManager;
             this.StatisticsManager = statisticsManager;
-
-            this.BaseDensity = 0.0f;
-            this.BaseDispersionRate = 1;
-            this.BaseExplosionResistance = 0.5f;
-            this.BaseFlammabilityResistance = 25.0f;
-            this.InitialTemperature = 25.0f;
         }
 
         internal void SetContext(ElementContext context)
         {
             this.context = context;
-        }
-
-        internal bool HasCharacteristic(ElementCharacteristics characteristic)
-        {
-            return this.Characteristics.HasFlag(characteristic);
         }
 
         #region Virtual Methods
@@ -106,27 +100,23 @@ namespace StardustSandbox.Core.Elements
 
         internal void Steps(GameTime gameTime)
         {
-            bool hasTemperature = HasCharacteristic(ElementCharacteristics.HasTemperature);
-            bool affectsNeighbors = HasCharacteristic(ElementCharacteristics.AffectsNeighbors);
-            bool isPushable = HasCharacteristic(ElementCharacteristics.IsPushable);
-
-            bool anyCharacteristic = hasTemperature || affectsNeighbors || isPushable;
-
-            if (isPushable && this.context.HasElementState(ElementStates.WasPushed))
+            if (this.IsPushable && this.context.HasElementState(ElementStates.WasPushed))
             {
                 this.context.RemoveElementState(ElementStates.WasPushed);
             }
+
+            bool anyCharacteristic = this.HasTemperature || this.HasNeighborInteractions || this.IsPushable;
 
             if (anyCharacteristic)
             {
                 ElementNeighbors neighbors = this.context.GetNeighboringSlots();
 
-                if (hasTemperature)
+                if (this.HasTemperature)
                 {
                     UpdateTemperature(gameTime, neighbors);
                 }
 
-                if (affectsNeighbors)
+                if (this.HasNeighborInteractions)
                 {
                     OnNeighbors(this.context, neighbors);
                 }
@@ -147,7 +137,7 @@ namespace StardustSandbox.Core.Elements
 
             float CalculateHeatTransfer(SlotLayer slotLayer)
             {
-                if (!slotLayer.IsEmpty && slotLayer.Element.HasCharacteristic(ElementCharacteristics.HasTemperature))
+                if (!slotLayer.IsEmpty && slotLayer.Element.HasTemperature)
                 {
                     float neighborTemp = slotLayer.Temperature;
                     return TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;

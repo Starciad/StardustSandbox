@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 {
     internal sealed class Gunpowder : MovableSolid
     {
-        private static readonly ExplosionBuilder explosionBuilder = new()
+        private readonly ExplosionBuilder explosionBuilder = new()
         {
             Radius = 4.0f,
             Power = 3.0f,
@@ -43,12 +43,18 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             ]
         };
 
-        internal Gunpowder(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Gunpowder(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 22.0f;
             this.BaseFlammabilityResistance = 5.0f;
             this.BaseDensity = 0.9f;
             this.BaseExplosionResistance = 0.1f;
+
+            this.HasNeighborInteractions = true;
+            this.HasTemperature = true;
+            this.IsFlammable = true;
+            this.IsCorruptible = true;
+            this.IsPushable = true;
         }
 
         protected override void OnDestroyed(ElementContext context)

@@ -25,11 +25,15 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 {
     internal sealed class Stone : MovableSolid
     {
-        internal Stone(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Stone(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 20.0f;
             this.BaseDensity = 2.5f;
             this.BaseExplosionResistance = 0.5f;
+
+            this.HasTemperature = true;
+            this.IsCorruptible = true;
+            this.IsPushable = true;
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)

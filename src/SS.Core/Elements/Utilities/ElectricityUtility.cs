@@ -32,7 +32,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             if (slotLayer is null ||
                 slotLayer.IsEmpty ||
                 slotLayer.ElementIndex is ElementIndex.Electricity ||
-                !slotLayer.Element.HasCharacteristic(ElementCharacteristics.IsConductive))
+                !slotLayer.Element.IsConductive)
             {
                 return;
             }

@@ -24,11 +24,16 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Gold : ImmovableSolid
     {
-        internal Gold(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Gold(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 22.0f;
             this.BaseDensity = 19.3f;
             this.BaseExplosionResistance = 0.3f;
+
+            this.HasTemperature = true;
+            this.IsCorruptible = true;
+            this.IsPushable = true;
+            this.IsConductive = true;
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)

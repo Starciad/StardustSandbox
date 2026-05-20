@@ -26,11 +26,17 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 {
     internal sealed class Salt : MovableSolid
     {
-        internal Salt(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Salt(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 22.0f;
             this.BaseDensity = 2.2f;
             this.BaseExplosionResistance = 0.7f;
+
+            this.HasTemperature = true;
+            this.HasNeighborInteractions = true;
+            this.IsCorruptible = true;
+            this.IsPushable = true;
+            this.IsConductive = true;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

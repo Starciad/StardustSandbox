@@ -31,7 +31,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Devourer : ImmovableSolid
     {
-        private static readonly ExplosionBuilder explosionBuilder = new()
+        private static ExplosionBuilder explosionBuilder = new()
         {
             Radius = 4,
             Power = 2.5f,
@@ -50,11 +50,14 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
         private static readonly List<Slot> cachedNeighborSlots = [];
 
-        internal Devourer(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Devourer(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 35.0f;
             this.BaseDensity = 3.5f;
             this.BaseExplosionResistance = 1.5f;
+
+            this.HasNeighborInteractions = true;
+            this.IsPushable = true;
         }
 
         protected override void OnDestroyed(ElementContext context)
@@ -100,7 +103,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
                 this.StatisticsManager.IncrementWorldElementsConsumedByDevourer();
             }
-            else if (Random.Chance(15))
+            else if (Random.Chance(5))
             {
                 context.DestroyElement();
             }

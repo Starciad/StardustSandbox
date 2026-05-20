@@ -85,8 +85,8 @@ namespace StardustSandbox.Core.Actors.Common
                 ElementIndex.Glass or
                 ElementIndex.Iron or
                 ElementIndex.Wood or
-                ElementIndex.RedBrick or
-                ElementIndex.TreeLeaf or
+                ElementIndex.Brick or
+                ElementIndex.Leaf or
                 ElementIndex.MountingBlock or
                 ElementIndex.LampOn or
                 ElementIndex.Salt or

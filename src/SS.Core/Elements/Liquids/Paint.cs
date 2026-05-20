@@ -27,12 +27,18 @@ namespace StardustSandbox.Core.Elements.Liquids
     {
         private readonly Color dyeingColor;
 
-        internal Paint(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Paint(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.dyeingColor = referenceColor;
             this.InitialTemperature = 20.0f;
             this.BaseDensity = 1.2f;
             this.BaseExplosionResistance = 0.3f;
+
+            this.HasNeighborInteractions = true;
+            this.HasTemperature = true;
+            this.IsCorruptible = true;
+            this.IsPushable = true;
+            this.IsFlammable = true;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

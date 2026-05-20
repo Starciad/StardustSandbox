@@ -29,12 +29,17 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class EnergyTransmitter : ImmovableSolid
     {
-        internal EnergyTransmitter(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal EnergyTransmitter(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 25.0f;
             this.BaseFlammabilityResistance = 30.0f;
             this.BaseDensity = 1.3f;
             this.BaseExplosionResistance = 1.2f;
+
+            this.HasNeighborInteractions = true;
+            this.HasTemperature = true;
+            this.IsCorruptible = true;
+            this.IsPushable = true;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
@@ -50,7 +55,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
                 SlotLayer layer = neighbors.GetSlotLayer(i, context.CurrentLayer);
 
-                if (!layer.IsEmpty && layer.Element.HasCharacteristic(ElementCharacteristics.IsElectrified))
+                if (!layer.IsEmpty && layer.Element.IsElectrified)
                 {
                     electrifiedNeighborFound = true;
                     break;

@@ -36,9 +36,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Dirt(
                     ElementIndex.Dirt,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(0, 0),
                     AAP64ColorPalette.Clay,
@@ -50,9 +47,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Mud(
                     ElementIndex.Mud,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(0, 32),
                     new(87, 44, 45),
@@ -64,10 +58,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Water(
                     ElementIndex.Water,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(0, 64),
                     new(8, 120, 184),
@@ -79,9 +69,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Stone(
                     ElementIndex.Stone,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(0, 96),
                     new(66, 65, 65),
@@ -93,10 +80,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Grass(
                     ElementIndex.Grass,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(0, 128),
                     new(69, 110, 55),
@@ -108,9 +91,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Ice(
                     ElementIndex.Ice,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(0, 160),
                     new(34, 112, 255),
@@ -122,9 +102,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Sand(
                     ElementIndex.Sand,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(0, 192),
                     new(248, 246, 68),
@@ -136,9 +113,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Snow(
                     ElementIndex.Snow,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(0, 224),
                     new(189, 237, 246),
@@ -150,10 +124,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.MovableCorruption(
                     ElementIndex.MovableCorruption,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruption |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(0, 256),
                     AAP64ColorPalette.PurpleGray,
@@ -165,10 +135,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Lava(
                     ElementIndex.Lava,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(0, 288),
                     AAP64ColorPalette.OrangeRed,
@@ -180,10 +146,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Acid(
                     ElementIndex.Acid,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(160, 0),
                     new(59, 167, 5),
@@ -195,9 +157,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.Glass(
                     ElementIndex.Glass,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(160, 32),
                     AAP64ColorPalette.White,
@@ -209,10 +168,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.Iron(
                     ElementIndex.Iron,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(160, 64),
                     new(66, 66, 66),
@@ -224,7 +179,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.Wall(
                     ElementIndex.Wall,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.IsExplosionImmune,
                     ElementRenderingType.Blob,
                     new(160, 96),
                     new(22, 99, 50),
@@ -236,10 +190,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.Wood(
                     ElementIndex.Wood,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(160, 128),
                     new(92, 62, 0),
@@ -251,10 +201,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Gases.GasCorruption(
                     ElementIndex.GasCorruption,
                     ElementCategory.Gas,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruption |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(160, 160),
                     AAP64ColorPalette.PurpleGray,
@@ -266,10 +212,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.LiquidCorruption(
                     ElementIndex.LiquidCorruption,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruption |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(160, 192),
                     AAP64ColorPalette.PurpleGray,
@@ -281,10 +223,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.ImmovableCorruption(
                     ElementIndex.ImmovableCorruption,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruption |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(160, 224),
                     AAP64ColorPalette.PurpleGray,
@@ -296,10 +234,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Gases.Steam(
                     ElementIndex.Steam,
                     ElementCategory.Gas,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(160, 256),
                     new(171, 208, 218),
@@ -311,9 +245,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Gases.Smoke(
                     ElementIndex.Smoke,
                     ElementCategory.Gas,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(160, 288),
                     new(48, 48, 48),
@@ -321,13 +252,10 @@ namespace StardustSandbox.Core.Databases
                     statisticsManager
                 ),
 
-                // [020] Red Brick
-                new Elements.Solids.Immovables.RedBrick(
-                    ElementIndex.RedBrick,
+                // [020] Brick
+                new Elements.Solids.Immovables.Brick(
+                    ElementIndex.Brick,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(320, 0),
                     AAP64ColorPalette.Crimson,
@@ -335,14 +263,10 @@ namespace StardustSandbox.Core.Databases
                     statisticsManager
                 ),
 
-                // [021] Tree Leaf
-                new Elements.Solids.Immovables.TreeLeaf(
-                    ElementIndex.TreeLeaf,
+                // [021] Leaf
+                new Elements.Solids.Immovables.Leaf(
+                    ElementIndex.Leaf,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(320, 32),
                     AAP64ColorPalette.MossGreen,
@@ -354,10 +278,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.MountingBlock(
                     ElementIndex.MountingBlock,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Single,
                     new(0, 320),
                     AAP64ColorPalette.White,
@@ -369,11 +289,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Energies.Fire(
                     ElementIndex.Fire,
                     ElementCategory.Energy,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsExplosionImmune |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Single,
                     new(32, 320),
                     AAP64ColorPalette.Amber,
@@ -385,10 +300,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.LampOn(
                     ElementIndex.LampOn,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Single,
                     new(64, 320),
                     AAP64ColorPalette.Sand,
@@ -400,8 +311,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.Void(
                     ElementIndex.Void,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.IsExplosionImmune,
                     ElementRenderingType.Blob,
                     new(320, 64),
                     AAP64ColorPalette.DarkGray,
@@ -413,8 +322,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.Clone(
                     ElementIndex.Clone,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.IsExplosionImmune,
                     ElementRenderingType.Blob,
                     new(320, 96),
                     AAP64ColorPalette.Amber,
@@ -426,11 +333,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Oil(
                     ElementIndex.Oil,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(320, 128),
                     AAP64ColorPalette.DarkGray,
@@ -442,11 +344,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Salt(
                     ElementIndex.Salt,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(320, 160),
                     AAP64ColorPalette.White,
@@ -458,11 +355,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Saltwater(
                     ElementIndex.Saltwater,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(320, 192),
                     new(69, 188, 255),
@@ -474,10 +366,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Bomb(
                     ElementIndex.Bomb,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Single,
                     new(96, 320),
                     AAP64ColorPalette.DarkGray,
@@ -489,10 +377,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Dynamite(
                     ElementIndex.Dynamite,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Single,
                     new(128, 320),
                     AAP64ColorPalette.Crimson.Darken(0.05f),
@@ -504,11 +388,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Tnt(
                     ElementIndex.Tnt,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsExplosive |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Single,
                     new(160, 320),
                     AAP64ColorPalette.Crimson.Darken(0.1f),
@@ -520,11 +399,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.DrySponge(
                     ElementIndex.DrySponge,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(320, 224),
                     AAP64ColorPalette.Amber,
@@ -536,10 +410,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.WetSponge(
                     ElementIndex.WetSponge,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(320, 256),
                     AAP64ColorPalette.Amber.Darken(0.1f),
@@ -551,10 +421,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.Gold(
                     ElementIndex.Gold,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Single,
                     new(192, 320),
                     AAP64ColorPalette.LemonYellow,
@@ -563,13 +429,10 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [036] Heater
-                new Elements.Solids.Immovables.Heater(
+                new Elements.Solids.Immovables.TemperatureModifier(
                     ElementIndex.Heater,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
+                    TemperatureModifierMode.Warming,
                     ElementRenderingType.Single,
                     new(224, 320),
                     AAP64ColorPalette.DarkRed,
@@ -578,13 +441,10 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [037] Freezer
-                new Elements.Solids.Immovables.Freezer(
+                new Elements.Solids.Immovables.TemperatureModifier(
                     ElementIndex.Freezer,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
+                    TemperatureModifierMode.Cooling,
                     ElementRenderingType.Single,
                     new(256, 320),
                     AAP64ColorPalette.NavyBlue,
@@ -596,10 +456,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Ash(
                     ElementIndex.Ash,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(320, 288),
                     new(30, 33, 38),
@@ -611,8 +467,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Gases.AntiCorruption(
                     ElementIndex.AntiCorruption,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(480, 0),
                     AAP64ColorPalette.Crimson,
@@ -624,8 +478,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.Devourer(
                     ElementIndex.Devourer,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Single,
                     new(288, 320),
                     AAP64ColorPalette.Coal,
@@ -637,8 +489,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.Pusher(
                     ElementIndex.UpwardPusher,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.IsCorruptible,
                     ElementRenderingType.Single,
                     PusherDirection.Up,
                     new(320, 320),
@@ -651,8 +501,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.Pusher(
                     ElementIndex.RightwardPusher,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.IsCorruptible,
                     ElementRenderingType.Single,
                     PusherDirection.Right,
                     new(352, 320),
@@ -665,8 +513,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.Pusher(
                     ElementIndex.DownwardPusher,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.IsCorruptible,
                     ElementRenderingType.Single,
                     PusherDirection.Down,
                     new(384, 320),
@@ -679,8 +525,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.Pusher(
                     ElementIndex.LeftwardPusher,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.IsCorruptible,
                     ElementRenderingType.Single,
                     PusherDirection.Left,
                     new(416, 320),
@@ -693,10 +537,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Gases.Cloud(
                     ElementIndex.Cloud,
                     ElementCategory.Gas,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(480, 32),
                     AAP64ColorPalette.LightGrayBlue,
@@ -708,11 +548,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Gases.ChargedCloud(
                     ElementIndex.ChargedCloud,
                     ElementCategory.Gas,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(480, 64),
                     AAP64ColorPalette.Slate,
@@ -724,7 +559,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Energies.LightningHead(
                     ElementIndex.LightningHead,
                     ElementCategory.Energy,
-                    ElementCharacteristics.None,
                     ElementRenderingType.Single,
                     new(448, 320),
                     AAP64ColorPalette.White,
@@ -736,9 +570,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Energies.LightningBody(
                     ElementIndex.LightningBody,
                     ElementCategory.Energy,
-                    ElementCharacteristics.AffectsNeighbors |
-                                      ElementCharacteristics.HasTemperature |
-                                      ElementCharacteristics.IsExplosionImmune,
                     ElementRenderingType.Single,
                     new(448, 320),
                     AAP64ColorPalette.White,
@@ -751,11 +582,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryBlackWool,
                     ElementIndex.WetBlackWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(480, 96),
                     AAP64ColorPalette.DarkGray,
@@ -768,11 +594,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryWhiteWool,
                     ElementIndex.WetWhiteWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(480, 128),
                     AAP64ColorPalette.White,
@@ -785,11 +606,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryRedWool,
                     ElementIndex.WetRedWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(480, 160),
                     AAP64ColorPalette.Crimson,
@@ -802,11 +618,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryOrangeWool,
                     ElementIndex.WetOrangeWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(480, 192),
                     AAP64ColorPalette.Orange,
@@ -819,11 +630,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryYellowWool,
                     ElementIndex.WetYellowWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(480, 224),
                     AAP64ColorPalette.Gold,
@@ -836,11 +642,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryGreenWool,
                     ElementIndex.WetGreenWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(480, 256),
                     AAP64ColorPalette.ForestGreen,
@@ -853,11 +654,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryGrayWool,
                     ElementIndex.WetGrayWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(480, 288),
                     AAP64ColorPalette.Gunmetal,
@@ -870,11 +666,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryBlueWool,
                     ElementIndex.WetBlueWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(640, 0),
                     AAP64ColorPalette.Cyan,
@@ -887,11 +678,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryVioletWool,
                     ElementIndex.WetVioletWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(640, 32),
                     AAP64ColorPalette.Violet,
@@ -904,11 +690,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryBrownWool,
                     ElementIndex.WetBrownWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(640, 64),
                     AAP64ColorPalette.Brown,
@@ -921,10 +702,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetBlackWool,
                     ElementIndex.DryBlackWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(640, 96),
                     AAP64ColorPalette.DarkGray.Darken(0.65f),
@@ -937,10 +714,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetWhiteWool,
                     ElementIndex.DryWhiteWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(640, 128),
                     AAP64ColorPalette.White.Darken(0.65f),
@@ -953,10 +726,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetRedWool,
                     ElementIndex.DryRedWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(640, 160),
                     AAP64ColorPalette.Crimson.Darken(0.65f),
@@ -969,10 +738,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetOrangeWool,
                     ElementIndex.DryOrangeWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(640, 192),
                     AAP64ColorPalette.Orange.Darken(0.65f),
@@ -985,10 +750,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetYellowWool,
                     ElementIndex.DryYellowWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(640, 224),
                     AAP64ColorPalette.Gold.Darken(0.65f),
@@ -1001,10 +762,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetGreenWool,
                     ElementIndex.DryGreenWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(640, 256),
                     AAP64ColorPalette.ForestGreen.Darken(0.65f),
@@ -1017,10 +774,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetGrayWool,
                     ElementIndex.DryGrayWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(640, 288),
                     AAP64ColorPalette.Gunmetal.Darken(0.65f),
@@ -1033,10 +786,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetBlueWool,
                     ElementIndex.DryBlueWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(800, 0),
                     AAP64ColorPalette.Cyan.Darken(0.65f),
@@ -1049,10 +798,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetVioletWool,
                     ElementIndex.DryVioletWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(800, 32),
                     AAP64ColorPalette.Violet.Darken(0.65f),
@@ -1065,10 +810,6 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetBrownWool,
                     ElementIndex.DryBrownWool,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(800, 64),
                     AAP64ColorPalette.Brown.Darken(0.65f),
@@ -1080,9 +821,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.FertileSoil(
                     ElementIndex.FertileSoil,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(800, 96),
                     AAP64ColorPalette.Burgundy,
@@ -1094,11 +832,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Seed(
                     ElementIndex.Seed,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Single,
                     new(480, 320),
                     AAP64ColorPalette.DarkGreen,
@@ -1110,11 +843,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Sapling(
                     ElementIndex.Sapling,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Single,
                     new(512, 320),
                     AAP64ColorPalette.DarkTeal,
@@ -1126,11 +854,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.Moss(
                     ElementIndex.Moss,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(800, 128),
                     AAP64ColorPalette.PineGreen,
@@ -1142,11 +865,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Movables.Gunpowder(
                     ElementIndex.Gunpowder,
                     ElementCategory.MovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(800, 160),
                     AAP64ColorPalette.Graphite,
@@ -1158,11 +876,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Gases.LiquefiedPetroleumGas(
                     ElementIndex.LiquefiedPetroleumGas,
                     ElementCategory.Gas,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsFlammable |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Blob,
                     new(800, 192),
                     AAP64ColorPalette.Amber,
@@ -1174,9 +887,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.Obsidian(
                     ElementIndex.Obsidian,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsExplosionImmune,
                     ElementRenderingType.Blob,
                     new(800, 224),
                     AAP64ColorPalette.DarkGray,
@@ -1188,11 +898,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Paint(
                     ElementIndex.BlackPaint,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsFlammable,
                     ElementRenderingType.Blob,
                     new(800, 256),
                     AAP64ColorPalette.DarkGray,
@@ -1204,11 +909,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Paint(
                     ElementIndex.WhitePaint,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsFlammable,
                     ElementRenderingType.Blob,
                     new(800, 288),
                     AAP64ColorPalette.White,
@@ -1220,11 +920,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Paint(
                     ElementIndex.RedPaint,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsFlammable,
                     ElementRenderingType.Blob,
                     new(960, 0),
                     AAP64ColorPalette.Crimson,
@@ -1236,11 +931,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Paint(
                     ElementIndex.OrangePaint,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsFlammable,
                     ElementRenderingType.Blob,
                     new(960, 32),
                     AAP64ColorPalette.Orange,
@@ -1252,11 +942,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Paint(
                     ElementIndex.YellowPaint,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsFlammable,
                     ElementRenderingType.Blob,
                     new(960, 64),
                     AAP64ColorPalette.Gold,
@@ -1268,11 +953,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Paint(
                     ElementIndex.GreenPaint,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsFlammable,
                     ElementRenderingType.Blob,
                     new(960, 96),
                     AAP64ColorPalette.ForestGreen,
@@ -1284,11 +964,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Paint(
                     ElementIndex.CyanPaint,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsFlammable,
                     ElementRenderingType.Blob,
                     new(960, 128),
                     AAP64ColorPalette.Cyan,
@@ -1300,11 +975,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Paint(
                     ElementIndex.GrayPaint,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsFlammable,
                     ElementRenderingType.Blob,
                     new(960, 160),
                     AAP64ColorPalette.Gunmetal,
@@ -1316,11 +986,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Paint(
                     ElementIndex.VioletPaint,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsFlammable,
                     ElementRenderingType.Blob,
                     new(960, 192),
                     AAP64ColorPalette.Violet,
@@ -1332,11 +997,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Paint(
                     ElementIndex.BrownPaint,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsFlammable,
                     ElementRenderingType.Blob,
                     new(960, 224),
                     AAP64ColorPalette.Brown,
@@ -1348,10 +1008,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Liquids.Mercury(
                     ElementIndex.Mercury,
                     ElementCategory.Liquid,
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsConductive,
                     ElementRenderingType.Blob,
                     new(960, 256),
                     AAP64ColorPalette.Slate,
@@ -1363,9 +1019,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Energies.Electricity(
                     ElementIndex.Electricity,
                     ElementCategory.Energy,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsElectrified,
                     ElementRenderingType.Blob,
                     new(960, 288),
                     AAP64ColorPalette.Gold,
@@ -1377,11 +1030,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.Battery(
                     ElementIndex.Battery,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable |
-                    ElementCharacteristics.IsElectrified,
                     ElementRenderingType.Single,
                     new(576, 320),
                     AAP64ColorPalette.Orange,
@@ -1393,10 +1041,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.LampOff(
                     ElementIndex.LampOff,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Single,
                     new(544, 320),
                     AAP64ColorPalette.Brown,
@@ -1408,10 +1052,6 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Solids.Immovables.EnergyTransmitter(
                     ElementIndex.EnergyTransmitter,
                     ElementCategory.ImmovableSolid,
-                    ElementCharacteristics.AffectsNeighbors |
-                    ElementCharacteristics.HasTemperature |
-                    ElementCharacteristics.IsCorruptible |
-                    ElementCharacteristics.IsPushable,
                     ElementRenderingType.Single,
                     new(608, 320),
                     AAP64ColorPalette.Brown,

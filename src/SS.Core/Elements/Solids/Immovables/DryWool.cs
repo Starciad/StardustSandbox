@@ -27,13 +27,19 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         private readonly ElementIndex wetWoolIndex;
 
-        internal DryWool(ElementIndex index, ElementIndex wetWoolIndex, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal DryWool(ElementIndex index, ElementIndex wetWoolIndex, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.wetWoolIndex = wetWoolIndex;
             this.InitialTemperature = 20.0f;
             this.BaseFlammabilityResistance = 35.0f;
             this.BaseDensity = 0.6f;
             this.BaseExplosionResistance = 1.5f;
+
+            this.HasNeighborInteractions = true;
+            this.HasTemperature = true;
+            this.IsFlammable = true;
+            this.IsCorruptible = true;
+            this.IsPushable = true;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

@@ -947,12 +947,7 @@ namespace StardustSandbox.Core.WorldSystem
 
         private void TryAffectSlotLayer(SlotLayer slotLayer, Layer layer, Point targetPosition, Explosion explosion)
         {
-            if (slotLayer.IsEmpty)
-            {
-                return;
-            }
-
-            if (slotLayer.Element.HasCharacteristic(ElementCharacteristics.IsExplosionImmune))
+            if (slotLayer.IsEmpty || slotLayer.Element.IsExplosionImmune)
             {
                 return;
             }

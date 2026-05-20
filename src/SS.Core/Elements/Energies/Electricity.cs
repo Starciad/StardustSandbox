@@ -27,12 +27,16 @@ namespace StardustSandbox.Core.Elements.Energies
 {
     internal sealed class Electricity : Energy
     {
-        internal Electricity(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Electricity(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 20.0f;
             this.BaseDensity = 0.0f;
             this.BaseExplosionResistance = 0.0f;
             this.BaseDispersionRate = 8;
+
+            this.HasNeighborInteractions = true;
+            this.IsCorruptible = true;
+            this.IsElectrified = true;
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

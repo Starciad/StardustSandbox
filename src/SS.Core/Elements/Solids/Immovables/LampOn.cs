@@ -26,10 +26,15 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class LampOn : ImmovableSolid
     {
-        internal LampOn(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal LampOn(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.InitialTemperature = 26.0f;
             this.BaseDensity = 2.8f;
+
+            this.HasNeighborInteractions = true;
+            this.HasTemperature = true;
+            this.IsCorruptible = true;
+            this.IsPushable = true;
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)
@@ -53,7 +58,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
                 SlotLayer layer = neighbors.GetSlotLayer(i, context.CurrentLayer);
 
-                if (!layer.IsEmpty && layer.Element.HasCharacteristic(ElementCharacteristics.IsElectrified))
+                if (!layer.IsEmpty && layer.Element.IsElectrified)
                 {
                     electrifiedNeighborFound = true;
                     break;

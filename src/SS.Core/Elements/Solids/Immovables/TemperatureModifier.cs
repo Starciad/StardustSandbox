@@ -21,15 +21,19 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Managers;
 
-namespace StardustSandbox.Core.Elements.Solids.Movables
+namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
-    internal sealed class Ash : MovableSolid
+    internal sealed class TemperatureModifier : ImmovableSolid
     {
-        internal Ash(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        private readonly TemperatureModifierMode temperatureModifierMode;
+
+        internal TemperatureModifier(ElementIndex index, ElementCategory category, TemperatureModifierMode temperatureModifierMode, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
-            this.InitialTemperature = 40.0f;
-            this.BaseDensity = 0.35f;
-            this.BaseExplosionResistance = 0.0f;
+            this.temperatureModifierMode = temperatureModifierMode;
+
+            this.InitialTemperature = 0.0f;
+            this.BaseDensity = 1.5f;
+            this.BaseExplosionResistance = 2.5f;
 
             this.HasNeighborInteractions = true;
             this.HasTemperature = true;
@@ -41,22 +45,29 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer) ||
+                    !neighbors.GetSlotLayer(i, context.CurrentLayer).Element.HasTemperature)
                 {
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex)
+                float result = neighbors.GetSlotLayer(i, context.CurrentLayer).Temperature;
+
+                switch (temperatureModifierMode)
                 {
-                    case ElementIndex.Water:
-                    case ElementIndex.Saltwater:
-                    case ElementIndex.Lava:
-                        context.DestroyElement();
+                    case TemperatureModifierMode.Warming:
+                        result += ToolConstants.DEFAULT_HEAT_VALUE;
+                        break;
+
+                    case TemperatureModifierMode.Cooling:
+                        result += ToolConstants.DEFAULT_FREEZE_VALUE;
                         break;
 
                     default:
                         break;
                 }
+
+                context.SetElementTemperature(neighbors.GetNeighborPosition(i), context.CurrentLayer, result);
             }
         }
     }

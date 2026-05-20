@@ -57,11 +57,11 @@ namespace StardustSandbox.Core.Generators
 
                         if (context.IsEmptySlotLayer(position, context.CurrentLayer))
                         {
-                            context.InstantiateElementIndex(position, context.CurrentLayer, ElementIndex.TreeLeaf);
+                            context.InstantiateElementIndex(position, context.CurrentLayer, ElementIndex.Leaf);
                         }
                         else
                         {
-                            context.ReplaceElementIndex(position, context.CurrentLayer, ElementIndex.TreeLeaf);
+                            context.ReplaceElementIndex(position, context.CurrentLayer, ElementIndex.Leaf);
                         }
                     }
                 }

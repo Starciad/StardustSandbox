@@ -32,9 +32,12 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         private static readonly List<Point> positionScratch = [];
         private static readonly List<SlotLayer> layerScratch = [];
 
-        internal Clone(ElementIndex index, ElementCategory category, ElementCharacteristics characteristics, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, characteristics, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Clone(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsManager statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
         {
             this.BaseDensity = 3.0f;
+
+            this.HasNeighborInteractions = true;
+            this.IsExplosionImmune = true;
         }
 
         // Instantiate the stored element into a random valid adjacent empty slot
