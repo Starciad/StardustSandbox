@@ -22,21 +22,22 @@ using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Components;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Extensions
 {
     internal static class WorldExtension
     {
-        internal static Texture2D CreateThumbnail(this World world, GraphicsDevice graphicsDevice)
+        internal static Texture2D CreateThumbnail(this TileMap tileMap, GraphicsDevice graphicsDevice)
         {
             // Thumbnail dimensions
             int thumbnailWidth = WorldConstants.WORLD_THUMBNAIL_SIZE.X;
             int thumbnailHeight = WorldConstants.WORLD_THUMBNAIL_SIZE.Y;
 
             // Scale factor for spacing
-            float pixelSpacingX = world.Size.X / (float)thumbnailWidth;
-            float pixelSpacingY = world.Size.Y / (float)thumbnailHeight;
+            float pixelSpacingX = tileMap.Width / (float)thumbnailWidth;
+            float pixelSpacingY = tileMap.Height / (float)thumbnailHeight;
 
             // Create texture for the thumbnail
             Texture2D thumbnailTexture = new(graphicsDevice, thumbnailWidth, thumbnailHeight, false, SurfaceFormat.Color);
@@ -55,7 +56,7 @@ namespace StardustSandbox.Core.Extensions
                     int index = (y * thumbnailWidth) + x;
 
                     // Determines color based on world element
-                    if (world.IsEmptySlot(worldPosition))
+                    if (tileMap.IsEmptySlot(worldPosition))
                     {
                         // This color represents the thumbnail's background
                         data[index] = AAP64ColorPalette.Cerulean.Vary(5);
@@ -63,15 +64,15 @@ namespace StardustSandbox.Core.Extensions
                     else
                     {
                         // This color represents the currently selected element
-                        Slot slot = world.GetSlot(worldPosition);
+                        Slot slot = tileMap.GetSlot(worldPosition);
 
                         if (!slot.Foreground.IsEmpty)
                         {
-                            data[index] = world.GetElement(worldPosition, Layer.Foreground).ReferenceColor.Vary(5);
+                            data[index] = tileMap.GetElement(worldPosition, Layer.Foreground).ReferenceColor.Vary(5);
                         }
                         else if (!slot.Background.IsEmpty)
                         {
-                            data[index] = world.GetElement(worldPosition, Layer.Background).ReferenceColor.Vary(5).Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
+                            data[index] = tileMap.GetElement(worldPosition, Layer.Background).ReferenceColor.Vary(5).Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
                         }
                     }
                 }

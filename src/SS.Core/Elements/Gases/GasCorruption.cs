@@ -29,7 +29,7 @@ namespace StardustSandbox.Core.Elements.Gases
 {
     internal sealed class GasCorruption : Gas
     {
-        internal GasCorruption(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsHandler statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal GasCorruption(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager)
         {
             this.BaseDensity = 0.005f;
 

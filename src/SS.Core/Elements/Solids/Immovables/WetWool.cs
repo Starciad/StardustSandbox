@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         private readonly ElementIndex dryWoolIndex;
 
-        internal WetWool(ElementIndex index, ElementIndex dryWoolIndex, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsHandler statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal WetWool(ElementIndex index, ElementIndex dryWoolIndex, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsHandler statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager)
         {
             this.dryWoolIndex = dryWoolIndex;
             this.InitialTemperature = 20.0f;

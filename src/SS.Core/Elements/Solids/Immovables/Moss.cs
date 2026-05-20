@@ -45,7 +45,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         private readonly HashSet<Point> eligiblePositions = [];
         private readonly List<Point> availablePositions = [];
 
-        internal Moss(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsHandler statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Moss(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager)
         {
             this.InitialTemperature = 20.0f;
             this.BaseDensity = 0.4f;

@@ -21,7 +21,9 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Elements;
+using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Simulation;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Managers;
@@ -35,7 +37,6 @@ namespace StardustSandbox.Core.WorldSystem
     {
         internal string Name { get; set; }
         internal string Description { get; set; }
-        internal Point Size { get; set; }
 
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
@@ -44,7 +45,11 @@ namespace StardustSandbox.Core.WorldSystem
         internal TileMap TileMap => this.tileMap;
         internal Time Time => this.time;
 
+        internal ChunkHandler ChunkHandler => this.chunkHandler;
+        internal ExplosionHandler ExplosionHandler => this.explosionHandler;
         internal RenderingHandler RenderingHandler => this.renderingHandler;
+        
+        internal WorldSerializer Serializer => this.serializer;
 
         private readonly Simulation simulation;
         private readonly Temperature temperature;
@@ -57,10 +62,11 @@ namespace StardustSandbox.Core.WorldSystem
         private readonly StatisticsHandler statisticsHandler;
         private readonly UpdateHandler updateHandler;
 
-        private readonly ElementContext worldElementContext;
-        private readonly WorldSerializer worldSerializer;
+        private readonly ElementContext elementContext;
+        private readonly WorldSerializer serializer;
 
         private readonly AssetDatabase assetDatabase;
+        private readonly ElementDatabase elementDatabase;
 
         internal World(
             AchievementManager achievementManager,
@@ -70,6 +76,7 @@ namespace StardustSandbox.Core.WorldSystem
         )
         {
             this.assetDatabase = assetDatabase;
+            this.elementDatabase = elementDatabase;
 
             this.simulation = new();
             this.time = new();
@@ -83,51 +90,87 @@ namespace StardustSandbox.Core.WorldSystem
             this.statisticsHandler = new(achievementManager);
             this.updateHandler = new(this);
 
-            this.worldElementContext = new(this);
-            this.worldSerializer = new(this);
+            this.elementContext = new(this);
+            this.serializer = new(this);
 
-            InitializeEvents();
+            RegisterEvents();
         }
 
-        private void InitializeEvents()
+        private void RegisterEvents()
         {
-            this.tileMap.OnElementInstantiatedHandler += (position, layer, index) =>
-            {
-                this.chunkHandler.NotifyChunk(position);
-            };
-
-            this.tileMap.OnElementPositionUpdatedHandler += (oldPosition, newPosition, layer) =>
-            {
-                this.chunkHandler.NotifyChunk(oldPosition);
-                this.chunkHandler.NotifyChunk(newPosition);
-            };
-
-            this.tileMap.OnElementSwappedHandler += (position1, position2, layer) =>
-            {
-                this.chunkHandler.NotifyChunk(position1);
-                this.chunkHandler.NotifyChunk(position2);
-            };
-
-            this.tileMap.OnElementDestroyedHandler += (position, layer) =>
-            {
-                this.chunkHandler.NotifyChunk(position);
-            };
-
-            this.tileMap.OnElementRemovedHandler += (position, layer) =>
-            {
-                this.chunkHandler.NotifyChunk(position);
-            };
-
-            this.tileMap.OnElementReplacedHandler += (position, layer, oldIndex, index) =>
-            {
-                this.chunkHandler.NotifyChunk(position);
-            };
-
-            this.tileMap.OnElementTemperatureChangedHandler += (position, layer, temperature) =>
-            {
-                this.chunkHandler.NotifyChunk(position);
-            };
+            this.tileMap.OnElementInstantiated += OnElementInstantiated;
+            this.tileMap.OnElementPositionUpdated += OnElementPositionUpdated;
+            this.tileMap.OnElementSwapped += OnElementSwapped;
+            this.tileMap.OnElementDestroyed += OnElementDestroyed;
+            this.tileMap.OnElementRemoved += OnElementRemoved;
+            this.tileMap.OnElementReplaced += OnElementReplaced;
+            this.tileMap.OnElementTemperatureChanged += OnElementTemperatureChanged;
         }
+
+        #region EVENTS
+
+        private void OnElementInstantiated(Point position, Layer layer, ElementIndex index)
+        {
+            // Chunk System
+            this.chunkHandler.NotifyChunk(position);
+
+            // Statistics System
+            this.statisticsHandler.RegisterInstantiatedElement(index);
+
+            // Element Context
+            this.elementContext.Initialize(position, layer);
+
+            Element element = this.elementDatabase.GetElement(index);
+            element.SetContext(this.elementContext);
+            element.Instantiate();
+        }
+
+        private void OnElementPositionUpdated(Point oldPosition, Point newPosition, Layer layer)
+        {
+            // Chunk System
+            this.chunkHandler.NotifyChunk(oldPosition);
+            this.chunkHandler.NotifyChunk(newPosition);
+        }
+
+        private void OnElementSwapped(Point position1, Point position2, Layer layer)
+        {
+            // Chunk System
+            this.chunkHandler.NotifyChunk(position1);
+            this.chunkHandler.NotifyChunk(position2);
+        }
+
+        private void OnElementDestroyed(Point position, Layer layer, ElementIndex index)
+        {
+            // Chunk System
+            this.chunkHandler.NotifyChunk(position);
+
+            // Element Context
+            this.elementContext.Initialize(position, layer);
+
+            Element element = this.elementDatabase.GetElement(index);
+            element.SetContext(this.elementContext);
+            element.Destroy();
+        }
+
+        private void OnElementRemoved(Point position, Layer layer)
+        {
+            // Chunk System
+            this.chunkHandler.NotifyChunk(position);
+        }
+
+        private void OnElementReplaced(Point position, Layer layer, ElementIndex oldIndex, ElementIndex index)
+        {
+            // Chunk System
+            this.chunkHandler.NotifyChunk(position);
+        }
+
+        private void OnElementTemperatureChanged(Point position, Layer layer, float temperature)
+        {
+            // Chunk System
+            this.chunkHandler.NotifyChunk(position);
+        }
+
+        #endregion
 
         public void Reset()
         {
@@ -148,7 +191,7 @@ namespace StardustSandbox.Core.WorldSystem
             this.CanUpdate = true;
             this.CanDraw = true;
 
-            if (this.Size != size)
+            if (this.tileMap.Size != size)
             {
                 this.tileMap.Resize(size);
             }
@@ -158,14 +201,14 @@ namespace StardustSandbox.Core.WorldSystem
 
         internal void StartNew()
         {
-            StartNew(this.Size);
+            StartNew(this.tileMap.Size);
         }
 
         internal void Reload(bool hasSaveFileLoaded, string loadedSaveFileName)
         {
             if (hasSaveFileLoaded)
             {
-                this.worldSerializer.Deserialize(loadedSaveFileName);
+                this.serializer.Deserialize(loadedSaveFileName);
                 return;
             }
 

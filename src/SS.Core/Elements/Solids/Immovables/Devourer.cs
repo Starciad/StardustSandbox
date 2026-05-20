@@ -51,7 +51,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
         private static readonly List<Slot> cachedNeighborSlots = [];
 
-        internal Devourer(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsHandler statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Devourer(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager)
         {
             this.InitialTemperature = 35.0f;
             this.BaseDensity = 3.5f;

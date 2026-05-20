@@ -30,7 +30,7 @@ namespace StardustSandbox.Core.Databases
     {
         private Element[] elements;
 
-        internal void Load(AchievementManager achievementManager, StatisticsHandler statisticsManager)
+        internal void Load(AchievementManager achievementManager)
         {
             this.elements = [
                 // [000] Dirt
@@ -40,8 +40,7 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(0, 0),
                     AAP64ColorPalette.Clay,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
                 ),
 
                 // [001] Mud
@@ -51,8 +50,7 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(0, 32),
                     new(87, 44, 45),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
                 ),
 
                 // [002] Water
@@ -62,8 +60,7 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(0, 64),
                     new(8, 120, 184),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
                 ),
 
                 // [003] Stone
@@ -73,8 +70,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(0, 96),
                     new(66, 65, 65),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [004] Grass
@@ -84,8 +81,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(0, 128),
                     new(69, 110, 55),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
                 
                 // [005] Ice
@@ -95,8 +92,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(0, 160),
                     new(34, 112, 255),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [006] Sand
@@ -106,8 +103,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(0, 192),
                     new(248, 246, 68),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [007] Snow
@@ -117,8 +114,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(0, 224),
                     new(189, 237, 246),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [008] Movable Corruption
@@ -128,8 +125,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(0, 256),
                     AAP64ColorPalette.PurpleGray,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
                 
                 // [009] Lava
@@ -139,8 +136,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(0, 288),
                     AAP64ColorPalette.OrangeRed,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [010] Acid
@@ -150,8 +147,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(160, 0),
                     new(59, 167, 5),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [011] Glass
@@ -161,8 +158,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(160, 32),
                     AAP64ColorPalette.White,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [012] Iron
@@ -172,8 +169,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(160, 64),
                     new(66, 66, 66),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [013] Wall
@@ -183,8 +180,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(160, 96),
                     new(22, 99, 50),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [014] Wood
@@ -194,8 +191,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(160, 128),
                     new(92, 62, 0),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [015] Gas Corruption
@@ -205,8 +202,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(160, 160),
                     AAP64ColorPalette.PurpleGray,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [016] Liquid Corruption
@@ -216,8 +213,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(160, 192),
                     AAP64ColorPalette.PurpleGray,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [017] Immovable Corruption
@@ -227,8 +224,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(160, 224),
                     AAP64ColorPalette.PurpleGray,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [018] Steam
@@ -238,8 +235,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(160, 256),
                     new(171, 208, 218),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [019] Smoke
@@ -249,8 +246,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(160, 288),
                     new(48, 48, 48),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [020] Brick
@@ -260,8 +257,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(320, 0),
                     AAP64ColorPalette.Crimson,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [021] Leaf
@@ -271,8 +268,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(320, 32),
                     AAP64ColorPalette.MossGreen,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [022] Mounting Block
@@ -282,8 +279,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(0, 320),
                     AAP64ColorPalette.White,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [023] Fire
@@ -293,8 +290,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(32, 320),
                     AAP64ColorPalette.Amber,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [024] Lamp On
@@ -304,8 +301,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(64, 320),
                     AAP64ColorPalette.Sand,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [025] Void
@@ -315,8 +312,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(320, 64),
                     AAP64ColorPalette.DarkGray,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [026] Clone
@@ -326,8 +323,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(320, 96),
                     AAP64ColorPalette.Amber,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [027] Oil
@@ -337,8 +334,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(320, 128),
                     AAP64ColorPalette.DarkGray,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [028] Salt
@@ -348,8 +345,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(320, 160),
                     AAP64ColorPalette.White,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [029] Saltwater
@@ -359,8 +356,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(320, 192),
                     new(69, 188, 255),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [030] Bomb
@@ -370,8 +367,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(96, 320),
                     AAP64ColorPalette.DarkGray,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [031] Dynamite
@@ -381,8 +378,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(128, 320),
                     AAP64ColorPalette.Crimson.Darken(0.05f),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [032] TNT
@@ -392,8 +389,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(160, 320),
                     AAP64ColorPalette.Crimson.Darken(0.1f),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [033] Dry Sponge
@@ -403,8 +400,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(320, 224),
                     AAP64ColorPalette.Amber,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [034] Wet Sponge
@@ -414,8 +411,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(320, 256),
                     AAP64ColorPalette.Amber.Darken(0.1f),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [035] Gold
@@ -425,8 +422,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(192, 320),
                     AAP64ColorPalette.LemonYellow,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [036] Heater
@@ -437,8 +434,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(224, 320),
                     AAP64ColorPalette.DarkRed,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [037] Freezer
@@ -449,8 +446,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(256, 320),
                     AAP64ColorPalette.NavyBlue,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [038] Ash
@@ -460,8 +457,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(320, 288),
                     new(30, 33, 38),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [039] Anti-Corruption
@@ -471,8 +468,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(480, 0),
                     AAP64ColorPalette.Crimson,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [040] Devourer
@@ -482,8 +479,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(288, 320),
                     AAP64ColorPalette.Coal,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [041] Upward Pusher
@@ -494,8 +491,8 @@ namespace StardustSandbox.Core.Databases
                     PusherDirection.Up,
                     new(320, 320),
                     AAP64ColorPalette.Rust,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [042] Rightward Pusher
@@ -506,8 +503,8 @@ namespace StardustSandbox.Core.Databases
                     PusherDirection.Right,
                     new(352, 320),
                     AAP64ColorPalette.Rust,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [043] Downward Pusher
@@ -518,8 +515,8 @@ namespace StardustSandbox.Core.Databases
                     PusherDirection.Down,
                     new(384, 320),
                     AAP64ColorPalette.Rust,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [044] Leftward Pusher
@@ -530,8 +527,8 @@ namespace StardustSandbox.Core.Databases
                     PusherDirection.Left,
                     new(416, 320),
                     AAP64ColorPalette.Rust,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [045] Cloud
@@ -541,8 +538,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(480, 32),
                     AAP64ColorPalette.LightGrayBlue,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [046] Charged Cloud
@@ -552,8 +549,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(480, 64),
                     AAP64ColorPalette.Slate,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [047] Lightning Head
@@ -563,8 +560,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(448, 320),
                     AAP64ColorPalette.White,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [048] Lightning Body
@@ -574,8 +571,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(448, 320),
                     AAP64ColorPalette.White,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [049] Dry Wool (Black)
@@ -586,8 +583,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(480, 96),
                     AAP64ColorPalette.DarkGray,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [050] Dry Wool (White)
@@ -598,8 +595,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(480, 128),
                     AAP64ColorPalette.White,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [051] Dry Wool (Red)
@@ -610,8 +607,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(480, 160),
                     AAP64ColorPalette.Crimson,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [052] Dry Wool (Orange)
@@ -622,8 +619,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(480, 192),
                     AAP64ColorPalette.Orange,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [053] Dry Wool (Yellow)
@@ -634,8 +631,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(480, 224),
                     AAP64ColorPalette.Gold,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [054] Dry Wool (Green)
@@ -646,8 +643,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(480, 256),
                     AAP64ColorPalette.ForestGreen,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [055] Dry Wool (Gray)
@@ -658,8 +655,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(480, 288),
                     AAP64ColorPalette.Gunmetal,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [056] Dry Wool (Blue)
@@ -670,8 +667,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(640, 0),
                     AAP64ColorPalette.Cyan,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [057] Dry Wool (Violet)
@@ -682,8 +679,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(640, 32),
                     AAP64ColorPalette.Violet,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [058] Dry Wool (Brown)
@@ -694,8 +691,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(640, 64),
                     AAP64ColorPalette.Brown,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [059] Wet Wool (Black)
@@ -706,8 +703,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(640, 96),
                     AAP64ColorPalette.DarkGray.Darken(0.65f),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [060] Wet Wool (White)
@@ -718,8 +715,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(640, 128),
                     AAP64ColorPalette.White.Darken(0.65f),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [061] Wet Wool (Red)
@@ -730,8 +727,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(640, 160),
                     AAP64ColorPalette.Crimson.Darken(0.65f),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [062] Wet Wool (Orange)
@@ -742,8 +739,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(640, 192),
                     AAP64ColorPalette.Orange.Darken(0.65f),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [063] Wet Wool (Yellow)
@@ -754,8 +751,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(640, 224),
                     AAP64ColorPalette.Gold.Darken(0.65f),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [064] Wet Wool (Green)
@@ -766,8 +763,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(640, 256),
                     AAP64ColorPalette.ForestGreen.Darken(0.65f),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [065] Wet Wool (Gray)
@@ -778,8 +775,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(640, 288),
                     AAP64ColorPalette.Gunmetal.Darken(0.65f),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [066] Wet Wool (Blue)
@@ -790,8 +787,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(800, 0),
                     AAP64ColorPalette.Cyan.Darken(0.65f),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [067] Wet Wool (Violet)
@@ -802,8 +799,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(800, 32),
                     AAP64ColorPalette.Violet.Darken(0.65f),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [068] Wet Wool (Brown)
@@ -814,8 +811,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(800, 64),
                     AAP64ColorPalette.Brown.Darken(0.65f),
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [069] Fertile Soil
@@ -825,8 +822,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(800, 96),
                     AAP64ColorPalette.Burgundy,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [070] Seed
@@ -836,8 +833,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(480, 320),
                     AAP64ColorPalette.DarkGreen,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [071] Sapling
@@ -847,8 +844,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(512, 320),
                     AAP64ColorPalette.DarkTeal,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [072] Moss
@@ -858,8 +855,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(800, 128),
                     AAP64ColorPalette.PineGreen,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [073] Gunpowder
@@ -869,8 +866,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(800, 160),
                     AAP64ColorPalette.Graphite,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [074] Liquefied Petroleum Gas
@@ -880,8 +877,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(800, 192),
                     AAP64ColorPalette.Amber,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [075] Obsidian
@@ -891,8 +888,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(800, 224),
                     AAP64ColorPalette.DarkGray,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [076] Paint (Black)
@@ -902,8 +899,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(800, 256),
                     AAP64ColorPalette.DarkGray,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [077] Paint (White)
@@ -913,8 +910,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(800, 288),
                     AAP64ColorPalette.White,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [078] Paint (Red)
@@ -924,8 +921,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(960, 0),
                     AAP64ColorPalette.Crimson,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [079] Paint (Orange)
@@ -935,8 +932,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(960, 32),
                     AAP64ColorPalette.Orange,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [080] Paint (Yellow)
@@ -946,8 +943,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(960, 64),
                     AAP64ColorPalette.Gold,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [081] Paint (Green)
@@ -957,8 +954,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(960, 96),
                     AAP64ColorPalette.ForestGreen,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [082] Paint (Cyan)
@@ -968,8 +965,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(960, 128),
                     AAP64ColorPalette.Cyan,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [083] Paint (Gray)
@@ -979,8 +976,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(960, 160),
                     AAP64ColorPalette.Gunmetal,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [084] Paint (Violet)
@@ -990,8 +987,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(960, 192),
                     AAP64ColorPalette.Violet,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [085] Paint (Brown)
@@ -1001,8 +998,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(960, 224),
                     AAP64ColorPalette.Brown,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [086] Mercury
@@ -1012,8 +1009,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(960, 256),
                     AAP64ColorPalette.Slate,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [087] Electricity
@@ -1023,8 +1020,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Blob,
                     new(960, 288),
                     AAP64ColorPalette.Gold,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [088] Battery
@@ -1034,8 +1031,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(576, 320),
                     AAP64ColorPalette.Orange,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [089] Lamp (Off)
@@ -1045,8 +1042,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(544, 320),
                     AAP64ColorPalette.Brown,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 ),
 
                 // [090] Energy Transmitter
@@ -1056,8 +1053,8 @@ namespace StardustSandbox.Core.Databases
                     ElementRenderingType.Single,
                     new(608, 320),
                     AAP64ColorPalette.Brown,
-                    achievementManager,
-                    statisticsManager
+                    achievementManager
+                    
                 )
             ];
         }

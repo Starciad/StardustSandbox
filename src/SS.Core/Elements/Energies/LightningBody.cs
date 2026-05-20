@@ -45,7 +45,7 @@ namespace StardustSandbox.Core.Elements.Energies
             ]
         };
 
-        internal LightningBody(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsHandler statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal LightningBody(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager)
         {
             this.InitialTemperature = TemperatureConstants.MAX_CELSIUS_VALUE;
             this.BaseDensity = 0.0f;

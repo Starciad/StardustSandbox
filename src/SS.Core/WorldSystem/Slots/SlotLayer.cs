@@ -90,6 +90,11 @@ namespace StardustSandbox.Core.WorldSystem.Slots
 
         #region States Management
 
+        internal void ClearStates()
+        {
+            this.States = ElementStates.None;
+        }
+
         internal bool HasState(ElementStates value)
         {
             return this.States.HasFlag(value);

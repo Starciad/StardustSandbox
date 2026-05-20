@@ -40,7 +40,6 @@ namespace StardustSandbox.Core.Elements
         internal Color ReferenceColor { get; }
 
         protected AchievementManager AchievementManager { get; }
-        protected StatisticsHandler StatisticsManager { get; }
 
         public float BaseDensity { get; protected init; }
         public float BaseExplosionResistance { get; protected init; }
@@ -61,7 +60,7 @@ namespace StardustSandbox.Core.Elements
 
         private ElementContext context;
 
-        internal Element(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsHandler statisticsManager)
+        internal Element(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager)
         {
             this.Index = index;
             this.Category = category;
@@ -69,7 +68,6 @@ namespace StardustSandbox.Core.Elements
             this.TextureOriginOffset = textureOriginOffset;
             this.ReferenceColor = referenceColor;
             this.AchievementManager = achievementManager;
-            this.StatisticsManager = statisticsManager;
         }
 
         internal void SetContext(ElementContext context)
@@ -86,8 +84,6 @@ namespace StardustSandbox.Core.Elements
         protected virtual void OnTemperatureChanged(ElementContext context, float currentValue) { return; }
 
         #endregion
-
-        #region Routines
 
         internal void Instantiate()
         {
@@ -196,7 +192,5 @@ namespace StardustSandbox.Core.Elements
 
             OnTemperatureChanged(this.context, this.context.CurrentSlotLayer.Temperature);
         }
-
-        #endregion
     }
 }

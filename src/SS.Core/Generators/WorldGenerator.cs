@@ -23,176 +23,198 @@ using StardustSandbox.Core.Enums.Generators;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Components;
 
 using System;
 
 namespace StardustSandbox.Core.Generators
 {
-    internal static class WorldGenerator
+    internal sealed class WorldGenerator
     {
-        private static ElementContext context;
+        internal WorldGenerationTheme Theme { get; set; }
+        internal WorldGenerationSettings Settings { get; set; }
+        internal WorldGenerationContents Contents { get; set; }
 
-        internal static void Start(GameHandler gameHandler, World world, in WorldGenerationTheme theme, in WorldGenerationSettings settings, in WorldGenerationContents contents)
+        private int[] heightMap;
+
+        private Range amplitudeRange;
+        private int smoothness;
+
+        private int width;
+        private int height;
+
+        private readonly ElementContext elementContext;
+        private readonly GameHandler gameHandler;
+        private readonly TileMap tileMap;
+
+        internal WorldGenerator(GameHandler gameHandler, World world)
         {
-            context ??= new(world);
+            this.elementContext = new(world);
+            this.gameHandler = gameHandler;
+            this.tileMap = world.TileMap;
+        }
 
-            int width = world.Size.X;
-            int height = world.Size.Y;
+        internal void Start()
+        {
+            this.width = this.tileMap.Width;
+            this.height = this.tileMap.Height;
 
-            gameHandler.Reset();
+            this.gameHandler.Reset();
 
-            Range amplitudeRange;
-            int smoothness;
+            ConfigureThemeParameters();
 
-            switch (theme)
+            if (this.Settings.HasFlag(WorldGenerationSettings.GenerateForeground))
+            {
+                GenerateHeightMap();
+                StartGenerationProcess(Layer.Foreground);
+            }
+
+            if (this.Settings.HasFlag(WorldGenerationSettings.GenerateBackground))
+            {
+                GenerateHeightMap();
+                StartGenerationProcess(Layer.Background);
+            }
+        }
+
+        private void ConfigureThemeParameters()
+        {
+            switch (this.Theme)
             {
                 case WorldGenerationTheme.Plain:
-                    amplitudeRange = new(
-                        (int)PercentageMath.PercentageOfValue(height, 25.0f),
-                        (int)PercentageMath.PercentageOfValue(height, 45.0f)
+                    this.amplitudeRange = new(
+                        (int)PercentageMath.PercentageOfValue(this.height, 25.0f),
+                        (int)PercentageMath.PercentageOfValue(this.height, 45.0f)
                     );
-                    smoothness = 4;
+                    this.smoothness = 4;
                     break;
 
                 case WorldGenerationTheme.Desert:
-                    amplitudeRange = new(
-                        (int)PercentageMath.PercentageOfValue(height, 20.0f),
-                        (int)PercentageMath.PercentageOfValue(height, 50.0f)
+                    this.amplitudeRange = new(
+                        (int)PercentageMath.PercentageOfValue(this.height, 20.0f),
+                        (int)PercentageMath.PercentageOfValue(this.height, 50.0f)
                     );
-                    smoothness = 5;
+                    this.smoothness = 5;
                     break;
 
                 case WorldGenerationTheme.Snow:
-                    amplitudeRange = new(
-                        (int)PercentageMath.PercentageOfValue(height, 40.0f),
-                        (int)PercentageMath.PercentageOfValue(height, 70.0f)
+                    this.amplitudeRange = new(
+                        (int)PercentageMath.PercentageOfValue(this.height, 40.0f),
+                        (int)PercentageMath.PercentageOfValue(this.height, 70.0f)
                     );
-                    smoothness = 3;
+                    this.smoothness = 3;
                     break;
 
                 case WorldGenerationTheme.Volcanic:
-                    amplitudeRange = new(
-                        (int)PercentageMath.PercentageOfValue(height, 10.0f),
-                        (int)PercentageMath.PercentageOfValue(height, 40.0f)
+                    this.amplitudeRange = new(
+                        (int)PercentageMath.PercentageOfValue(this.height, 10.0f),
+                        (int)PercentageMath.PercentageOfValue(this.height, 40.0f)
                     );
-                    smoothness = 2;
+                    this.smoothness = 2;
                     break;
 
                 case WorldGenerationTheme.Ocean:
-                    amplitudeRange = new(
-                        (int)PercentageMath.PercentageOfValue(height, 30.0f),
-                        (int)PercentageMath.PercentageOfValue(height, 50.0f)
+                    this.amplitudeRange = new(
+                        (int)PercentageMath.PercentageOfValue(this.height, 30.0f),
+                        (int)PercentageMath.PercentageOfValue(this.height, 50.0f)
                     );
-                    smoothness = 1;
+                    this.smoothness = 1;
                     break;
 
                 default:
-                    amplitudeRange = new(
-                        (int)PercentageMath.PercentageOfValue(height, 30.0f),
-                        (int)PercentageMath.PercentageOfValue(height, 60.0f)
+                    this.amplitudeRange = new(
+                        (int)PercentageMath.PercentageOfValue(this.height, 30.0f),
+                        (int)PercentageMath.PercentageOfValue(this.height, 60.0f)
                     );
-                    smoothness = 4;
+                    this.smoothness = 4;
                     break;
             }
+        }
 
-            // Create a coherent height map first (single pass) and share it between generators.
-            if (settings.HasFlag(WorldGenerationSettings.GenerateForeground))
+        private void StartGenerationProcess(Layer layer)
+        {
+            GenerateTerrain(layer);
+
+            if (this.Contents.HasFlag(WorldGenerationContents.HasOceans))
             {
-                StartGenerationProcess(world, GenerateHeightMap(width, height, amplitudeRange, smoothness), contents, theme, Layer.Foreground);
+                GenerateOceans(layer);
             }
 
-            if (settings.HasFlag(WorldGenerationSettings.GenerateBackground))
+            if (this.Contents.HasFlag(WorldGenerationContents.HasVegetation))
             {
-                StartGenerationProcess(world, GenerateHeightMap(width, height, amplitudeRange, smoothness), contents, theme, Layer.Background);
+                GenerateTrees(layer);
+            }
+
+            if (this.Contents.HasFlag(WorldGenerationContents.HasClouds))
+            {
+                GenerateClouds(layer);
             }
         }
 
-        private static void StartGenerationProcess(World world, int[] heightMap, WorldGenerationContents contents, WorldGenerationTheme theme, Layer layer)
+        private void GenerateHeightMap()
         {
-            GenerateTerrain(world, heightMap, theme, layer);
+            this.heightMap = new int[this.width];
 
-            if (contents.HasFlag(WorldGenerationContents.HasOceans))
-            {
-                GenerateOceans(world, heightMap, layer);
-            }
+            int baseline = (int)PercentageMath.PercentageOfValue(this.height, 60.0f);
+            this.heightMap[0] = baseline;
 
-            if (contents.HasFlag(WorldGenerationContents.HasVegetation))
-            {
-                GenerateTrees(world, heightMap, layer);
-            }
-
-            if (contents.HasFlag(WorldGenerationContents.HasClouds))
-            {
-                GenerateClouds(world, heightMap, layer);
-            }
-        }
-
-        private static int[] GenerateHeightMap(int width, int height, in Range amplitudeRange, int smoothness)
-        {
-            int[] heights = new int[width];
-            int baseline = (int)PercentageMath.PercentageOfValue(height, 60.0f);
-            heights[0] = baseline;
-
-            for (int x = 1; x < width; x++)
+            for (int x = 1; x < this.width; x++)
             {
                 int delta = Randomness.Random.Range(-2, 2);
-                int candidate = heights[x - 1] + delta;
+                int candidate = this.heightMap[x - 1] + delta;
 
-                if (candidate < amplitudeRange.Start.Value)
+                if (candidate < this.amplitudeRange.Start.Value)
                 {
-                    candidate = amplitudeRange.Start.Value;
+                    candidate = this.amplitudeRange.Start.Value;
                 }
-                else if (candidate > amplitudeRange.End.Value)
+                else if (candidate > this.amplitudeRange.End.Value)
                 {
-                    candidate = amplitudeRange.End.Value;
+                    candidate = this.amplitudeRange.End.Value;
                 }
 
-                heights[x] = candidate;
+                this.heightMap[x] = candidate;
             }
 
             // Apply a few smoothing passes (moving average) to remove jitter
-            for (int pass = 0; pass < smoothness; pass++)
+            for (int pass = 0; pass < this.smoothness; pass++)
             {
-                int[] temp = new int[width];
+                int[] temp = new int[this.width];
 
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < this.width; x++)
                 {
-                    int left = (x - 1 >= 0) ? heights[x - 1] : heights[x];
-                    int right = (x + 1 < width) ? heights[x + 1] : heights[x];
+                    int left = (x - 1 >= 0) ? this.heightMap[x - 1] : this.heightMap[x];
+                    int right = (x + 1 < this.width) ? this.heightMap[x + 1] : this.heightMap[x];
 
                     // weighted average: center*2 + left + right
-                    int smoothed = ((2 * heights[x]) + left + right) / 4;
+                    int smoothed = ((2 * this.heightMap[x]) + left + right) / 4;
 
-                    if (smoothed < amplitudeRange.Start.Value)
+                    if (smoothed < this.amplitudeRange.Start.Value)
                     {
-                        smoothed = amplitudeRange.Start.Value;
+                        smoothed = this.amplitudeRange.Start.Value;
                     }
-                    else if (smoothed > amplitudeRange.End.Value)
+                    else if (smoothed > this.amplitudeRange.End.Value)
                     {
-                        smoothed = amplitudeRange.End.Value;
+                        smoothed = this.amplitudeRange.End.Value;
                     }
 
                     temp[x] = smoothed;
                 }
 
                 // copy back
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < this.width; x++)
                 {
-                    heights[x] = temp[x];
+                    this.heightMap[x] = temp[x];
                 }
             }
-
-            return heights;
         }
 
-        private static void GenerateTerrain(World world, int[] heightMap, WorldGenerationTheme theme, Layer layer)
+        private void GenerateTerrain(Layer layer)
         {
-            int width = heightMap.Length;
-            int height = world.Size.Y;
+            int width = this.heightMap.Length;
+            int height = this.tileMap.Height;
 
             for (int x = 0; x < width; x++)
             {
-                int startY = heightMap[x];
+                int startY = this.heightMap[x];
 
                 // Randomize layer thickness per column but keep it bounded
                 int surfaceThickness = Randomness.Random.Range(2, 4);
@@ -207,7 +229,7 @@ namespace StardustSandbox.Core.Generators
                 ElementIndex rockElement;
                 ElementIndex abyssElement;
 
-                switch (theme)
+                switch (this.Theme)
                 {
                     case WorldGenerationTheme.Desert:
                         surfaceElement = ElementIndex.Sand;
@@ -254,15 +276,15 @@ namespace StardustSandbox.Core.Generators
                         : relativeDepth <= subsurfaceThickness ? subsurfaceElement
                         : relativeDepth <= deepThreshold ? rockElement : abyssElement;
 
-                    world.InstantiateElementIndex(new(x, y), layer, chosen);
+                    this.tileMap.InstantiateElementIndex(new(x, y), layer, chosen);
                 }
             }
         }
 
-        private static void GenerateOceans(World world, int[] heightMap, Layer layer)
+        private void GenerateOceans(Layer layer)
         {
-            int width = heightMap.Length;
-            int height = world.Size.Y;
+            int width = this.heightMap.Length;
+            int height = this.tileMap.Height;
 
             int leftOceanPointX = (int)PercentageMath.PercentageOfValue(width, 5.0f);
             int rightOceanPointX = (int)PercentageMath.PercentageOfValue(width, 95.0f);
@@ -270,8 +292,8 @@ namespace StardustSandbox.Core.Generators
             int oceansRadius = (int)PercentageMath.PercentageOfValue(height, 20.0f);
             int sandRadius = oceansRadius + (int)PercentageMath.PercentageOfValue(height, 10.0f);
 
-            int leftStartTerrainIndex = heightMap[leftOceanPointX];
-            int rightStartTerrainIndex = heightMap[rightOceanPointX];
+            int leftStartTerrainIndex = this.heightMap[leftOceanPointX];
+            int rightStartTerrainIndex = this.heightMap[rightOceanPointX];
 
             Point leftCenter = new(leftOceanPointX, leftStartTerrainIndex);
             Point rightCenter = new(rightOceanPointX, rightStartTerrainIndex);
@@ -279,46 +301,46 @@ namespace StardustSandbox.Core.Generators
             // Generate sand band first (keeps shoreline consistent)
             foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(leftCenter, sandRadius))
             {
-                if (world.IsWithinBounds(point))
+                if (this.tileMap.IsWithinBounds(point))
                 {
-                    world.ReplaceElementIndex(point, layer, ElementIndex.Sand);
+                    this.tileMap.ReplaceElementIndex(point, layer, ElementIndex.Sand);
                 }
             }
 
             foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(rightCenter, sandRadius))
             {
-                if (world.IsWithinBounds(point))
+                if (this.tileMap.IsWithinBounds(point))
                 {
-                    world.ReplaceElementIndex(point, layer, ElementIndex.Sand);
+                    this.tileMap.ReplaceElementIndex(point, layer, ElementIndex.Sand);
                 }
             }
 
             // Generate water inside the sand band
             foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(leftCenter, oceansRadius))
             {
-                if (world.IsWithinBounds(point))
+                if (this.tileMap.IsWithinBounds(point))
                 {
-                    world.ReplaceElementIndex(point, layer, ElementIndex.Saltwater);
+                    this.tileMap.ReplaceElementIndex(point, layer, ElementIndex.Saltwater);
                 }
             }
 
             foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(rightCenter, oceansRadius))
             {
-                if (world.IsWithinBounds(point))
+                if (this.tileMap.IsWithinBounds(point))
                 {
-                    world.ReplaceElementIndex(point, layer, ElementIndex.Saltwater);
+                    this.tileMap.ReplaceElementIndex(point, layer, ElementIndex.Saltwater);
                 }
             }
         }
 
-        private static void GenerateTrees(World world, int[] heightMap, Layer layer)
+        private void GenerateTrees(Layer layer)
         {
-            int width = heightMap.Length;
-            int height = world.Size.Y;
+            int width = this.heightMap.Length;
+            int height = this.tileMap.Height;
 
             for (int x = 0; x < width; x++)
             {
-                int surfaceY = heightMap[x];
+                int surfaceY = this.heightMap[x];
 
                 // Ensure we are in world bounds
                 if (surfaceY <= 0 || surfaceY >= height)
@@ -327,24 +349,24 @@ namespace StardustSandbox.Core.Generators
                 }
 
                 // Confirm top element is grass
-                if (Randomness.Random.Chance(25) && world.TryGetElementIndex(new(x, surfaceY), layer, out ElementIndex index) && index is ElementIndex.Grass)
+                if (Randomness.Random.Chance(25) && this.tileMap.TryGetElementIndex(new(x, surfaceY), layer, out ElementIndex index) && index is ElementIndex.Grass)
                 {
                     Point origin = new(x, surfaceY - 1);
                     int trunkHeight = Randomness.Random.Range(6, 12);
                     int trunkThickness = 1;
                     int crownRadius = Randomness.Random.Range(2, 4);
 
-                    context.Initialize(origin, layer);
+                    this.elementContext.Initialize(origin, layer);
 
-                    TreeGenerator.Start(context, trunkHeight, trunkThickness, crownRadius);
+                    TreeGenerator.Start(this.elementContext, trunkHeight, trunkThickness, crownRadius);
                 }
             }
         }
 
-        private static void GenerateClouds(World world, int[] heightMap, Layer layer)
+        private void GenerateClouds(Layer layer)
         {
-            int width = heightMap.Length;
-            int height = world.Size.Y;
+            int width = this.heightMap.Length;
+            int height = this.tileMap.Height;
             int cloudBaseY = (int)PercentageMath.PercentageOfValue(height, 15.0f);
 
             for (int x = 0; x < width; x++)
@@ -355,7 +377,7 @@ namespace StardustSandbox.Core.Generators
 
                     foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(origin, Randomness.Random.Range(3, 6)))
                     {
-                        world.InstantiateElementIndex(point, layer, ElementIndex.Cloud);
+                        this.tileMap.InstantiateElementIndex(point, layer, ElementIndex.Cloud);
                     }
                 }
             }

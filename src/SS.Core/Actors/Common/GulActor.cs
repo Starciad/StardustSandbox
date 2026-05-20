@@ -166,12 +166,12 @@ namespace StardustSandbox.Core.Actors.Common
 
         private bool IsBeingSuffocated(Point position)
         {
-            return !this.World.IsEmptySlotLayer(position, Layer.Foreground);
+            return !this.TileMap.IsEmptySlotLayer(position, Layer.Foreground);
         }
 
         private bool IsOnTopMortalElement(Point position)
         {
-            return this.World.TryGetSlotLayer(new(position.X, position.Y + 1), Layer.Foreground, out SlotLayer slotLayer) && !slotLayer.IsEmpty &&
+            return this.TileMap.TryGetSlotLayer(new(position.X, position.Y + 1), Layer.Foreground, out SlotLayer slotLayer) && !slotLayer.IsEmpty &&
                    (IsMortalElement(slotLayer.ElementIndex) || slotLayer.Temperature < -15.0f || slotLayer.Temperature > 48.0f);
         }
 
@@ -196,7 +196,7 @@ namespace StardustSandbox.Core.Actors.Common
 
         private bool CanWalkTo(Point position)
         {
-            return this.World.IsEmptySlotLayer(position, Layer.Foreground) &&
+            return this.TileMap.IsEmptySlotLayer(position, Layer.Foreground) &&
                    IsInsideWorldBounds(position) &&
                    IsGrounded(position) &&
                    !IsOnTopMortalElement(position);
@@ -204,7 +204,7 @@ namespace StardustSandbox.Core.Actors.Common
 
         private bool TryWalk()
         {
-            SetFrontPositions(point => !this.World.IsEmptySlotLayer(point, Layer.Foreground) || !IsGrounded(point));
+            SetFrontPositions(point => !this.TileMap.IsEmptySlotLayer(point, Layer.Foreground) || !IsGrounded(point));
 
             while (possiblePositions.Count > 0)
             {
@@ -226,8 +226,8 @@ namespace StardustSandbox.Core.Actors.Common
         private bool TryGrabElement()
         {
             SetFrontPositions(point =>
-                this.World.IsEmptySlotLayer(point, Layer.Foreground) ||
-                !IsGrabbableElement(this.World.GetElementIndex(point, Layer.Foreground)) ||
+                this.TileMap.IsEmptySlotLayer(point, Layer.Foreground) ||
+                !IsGrabbableElement(this.TileMap.GetElementIndex(point, Layer.Foreground)) ||
                 HasEntityAbove(point)
             );
 
@@ -235,14 +235,14 @@ namespace StardustSandbox.Core.Actors.Common
             {
                 Point position = possiblePositions.GetRandomItem();
 
-                if (this.World.TryGetElementIndex(position, Layer.Foreground, out ElementIndex index) && IsOnTopMortalElement(new(position.X, position.Y - 1)))
+                if (this.TileMap.TryGetElementIndex(position, Layer.Foreground, out ElementIndex index) && IsOnTopMortalElement(new(position.X, position.Y - 1)))
                 {
                     _ = possiblePositions.Remove(position);
                     continue;
                 }
 
                 this.grabbedElementIndex = index;
-                this.World.RemoveElement(position, Layer.Foreground);
+                this.TileMap.RemoveElement(position, Layer.Foreground);
 
                 return true;
             }
@@ -266,7 +266,7 @@ namespace StardustSandbox.Core.Actors.Common
         private bool TryPlaceElement()
         {
             SetFrontPositions(point =>
-                !this.World.IsEmptySlotLayer(point, Layer.Foreground) ||
+                !this.TileMap.IsEmptySlotLayer(point, Layer.Foreground) ||
                 this.ActorManager.HasEntityAtPosition(point) ||
                 point == this.positionElementPlaced
             );
@@ -275,7 +275,7 @@ namespace StardustSandbox.Core.Actors.Common
             {
                 Point position = possiblePositions.GetRandomItem();
 
-                if (!this.World.TryInstantiateElementIndex(position, Layer.Foreground, this.grabbedElementIndex))
+                if (!this.TileMap.TryInstantiateElementIndex(position, Layer.Foreground, this.grabbedElementIndex))
                 {
                     _ = possiblePositions.Remove(position);
                     continue;

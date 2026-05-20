@@ -25,6 +25,7 @@ using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Saving.Data;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Components;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
@@ -71,6 +72,7 @@ namespace StardustSandbox.Core.Actors
         protected ActorManager ActorManager { get; }
         protected AchievementManager AchievementManager { get; }
         protected World World { get; }
+        protected TileMap TileMap => this.World.TileMap;
 
         private int positionX;
         private int positionY;
@@ -94,8 +96,8 @@ namespace StardustSandbox.Core.Actors
 
         private Point ClampPositionToWorld(Point position, Point size)
         {
-            int maxX = Math.Max(0, this.World.Size.X - size.X);
-            int maxY = Math.Max(0, this.World.Size.Y - size.Y);
+            int maxX = Math.Max(0, this.World.TileMap.Width - size.X);
+            int maxY = Math.Max(0, this.World.TileMap.Height - size.Y);
 
             if (position.X < 0)
             {
@@ -122,8 +124,8 @@ namespace StardustSandbox.Core.Actors
         {
             return rectangle.Left >= 0
                 && rectangle.Top >= 0
-                && rectangle.Right <= this.World.Size.X
-                && rectangle.Bottom <= this.World.Size.Y;
+                && rectangle.Right <= this.World.TileMap.Width
+                && rectangle.Bottom <= this.World.TileMap.Height;
         }
 
         internal bool IsInsideWorldBounds(Point position, Point size)
@@ -244,7 +246,7 @@ namespace StardustSandbox.Core.Actors
                 }
 
                 // Only query the layer if it is within the limits.
-                if (this.World.TryGetSlotLayer(belowPosition, Layer.Foreground, out SlotLayer slotLayer))
+                if (this.World.TileMap.TryGetSlotLayer(belowPosition, Layer.Foreground, out SlotLayer slotLayer))
                 {
                     ElementCategory category = slotLayer.Element.Category;
 

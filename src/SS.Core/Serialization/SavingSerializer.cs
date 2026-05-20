@@ -56,7 +56,7 @@ namespace StardustSandbox.Core.Serialization
             using FileStream fs = new(filename, FileMode.Create, FileAccess.Write);
             using ZipArchive zip = new(fs, ZipArchiveMode.Create);
 
-            Write(zip, IOConstants.SAVE_ENTRY_THUMBNAIL, new Texture2DData(world.CreateThumbnail(graphicsDevice)));
+            Write(zip, IOConstants.SAVE_ENTRY_THUMBNAIL, new Texture2DData(world.TileMap.CreateThumbnail(graphicsDevice)));
             Write(zip, IOConstants.SAVE_ENTRY_METADATA, CreateMetadata(world));
             Write(zip, IOConstants.SAVE_ENTRY_MANIFEST, CreateManifest());
             Write(zip, IOConstants.SAVE_ENTRY_PROPERTIES, CreateProperties(world));
@@ -154,8 +154,8 @@ namespace StardustSandbox.Core.Serialization
         {
             return new()
             {
-                Width = world.Size.X,
-                Height = world.Size.Y
+                Width = world.TileMap.Width,
+                Height = world.TileMap.Height
             };
         }
 
@@ -173,7 +173,7 @@ namespace StardustSandbox.Core.Serialization
         {
             return new()
             {
-                Slots = world.Serialize(),
+                Slots = world.Serializer.Serialize(),
                 Actors = actorManager.Serialize(),
             };
         }

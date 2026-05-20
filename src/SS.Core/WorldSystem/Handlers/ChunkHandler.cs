@@ -118,9 +118,10 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
             return true;
         }
 
-        internal void GetChunkUpdateState(Point position, out bool result)
+        internal bool GetChunkUpdateState(Point position)
         {
-            _ = TryGetChunkUpdateState(position, out result);
+            _ = TryGetChunkUpdateState(position, out bool result);
+            return result;
         }
 
         internal int GetActiveChunksCount()

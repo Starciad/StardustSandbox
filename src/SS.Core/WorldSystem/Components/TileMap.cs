@@ -32,24 +32,25 @@ namespace StardustSandbox.Core.WorldSystem.Components
 {
     internal sealed class TileMap
     {
+        internal Point Size => new(this.width, this.height);
         internal int Width => this.width;
         internal int Height => this.height;
 
         internal delegate void ElementInstantiatedHandler(Point position, Layer layer, ElementIndex index);
         internal delegate void ElementPositionUpdatedHandler(Point oldPosition, Point newPosition, Layer layer);
         internal delegate void ElementSwappedHandler(Point element1Position, Point element2Position, Layer layer);
-        internal delegate void ElementDestroyedHandler(Point position, Layer layer);
+        internal delegate void ElementDestroyedHandler(Point position, Layer layer, ElementIndex index);
         internal delegate void ElementRemovedHandler(Point position, Layer layer);
         internal delegate void ElementReplacedHandler(Point position, Layer layer, ElementIndex oldIndex, ElementIndex newIndex);
         internal delegate void ElementTemperatureChangedHandler(Point position, Layer layer, float newTemperature);
 
-        internal event ElementInstantiatedHandler OnElementInstantiatedHandler;
-        internal event ElementPositionUpdatedHandler OnElementPositionUpdatedHandler;
-        internal event ElementSwappedHandler OnElementSwappedHandler;
-        internal event ElementDestroyedHandler OnElementDestroyedHandler;
-        internal event ElementRemovedHandler OnElementRemovedHandler;
-        internal event ElementReplacedHandler OnElementReplacedHandler;
-        internal event ElementTemperatureChangedHandler OnElementTemperatureChangedHandler;
+        internal event ElementInstantiatedHandler OnElementInstantiated;
+        internal event ElementPositionUpdatedHandler OnElementPositionUpdated;
+        internal event ElementSwappedHandler OnElementSwapped;
+        internal event ElementDestroyedHandler OnElementDestroyed;
+        internal event ElementRemovedHandler OnElementRemoved;
+        internal event ElementReplacedHandler OnElementReplaced;
+        internal event ElementTemperatureChangedHandler OnElementTemperatureChanged;
 
         private int width;
         private int height;
@@ -188,16 +189,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             slot.Position = position;
             slot.Instantiate(layer, index);
 
-            // this.worldElementContext.Initialize(position, layer);
-            // 
-            // Element element = this.elementDatabase.GetElement(index);
-            // 
-            // element.SetContext(this.worldElementContext);
-            // element.Instantiate();
-
-            // this.statisticsManager.RegisterInstantiatedElement(index);
-
-            this.OnElementInstantiatedHandler?.Invoke(position, layer, index);
+            this.OnElementInstantiated?.Invoke(position, layer, index);
 
             return true;
         }
@@ -217,7 +209,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             this[newPosition].Position = newPosition;
             this[oldPosition].Destroy(layer);
 
-            this.OnElementPositionUpdatedHandler?.Invoke(oldPosition, newPosition, layer);
+            this.OnElementPositionUpdated?.Invoke(oldPosition, newPosition, layer);
 
             return true;
         }
@@ -245,7 +237,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             this.slotObjectPool.Enqueue(tempSlot);
 
-            this.OnElementSwappedHandler?.Invoke(element1Position, element2Position, layer);
+            this.OnElementSwapped?.Invoke(element1Position, element2Position, layer);
 
             return true;
         }
@@ -259,12 +251,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             SlotLayer slotLayer = this[position].GetLayer(layer);
 
-            // this.worldElementContext.Initialize(position, layer);
-            // slotLayer.Element.SetContext(this.worldElementContext);
-            slotLayer.Element.Destroy();
+            ElementIndex index = slotLayer.ElementIndex;
             slotLayer.Destroy();
 
-            this.OnElementDestroyedHandler?.Invoke(position, layer);
+            this.OnElementDestroyed?.Invoke(position, layer, index);
 
             return true;
         }
@@ -277,7 +267,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             }
 
             this[position].Destroy(layer);
-            this.OnElementRemovedHandler?.Invoke(position, layer);
+            this.OnElementRemoved?.Invoke(position, layer);
 
             return true;
         }
@@ -304,7 +294,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             slotLayer.Destroy();
             slotLayer.Instantiate(index);
 
-            this.OnElementReplacedHandler?.Invoke(position, layer, oldIndex, index);
+            this.OnElementReplaced?.Invoke(position, layer, oldIndex, index);
 
             return true;
         }
@@ -386,7 +376,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             if (slotLayer.Temperature != value)
             {
                 slotLayer.Temperature = value;
-                this.OnElementTemperatureChangedHandler?.Invoke(position, layer, value);
+                this.OnElementTemperatureChanged?.Invoke(position, layer, value);
             }
 
             return true;

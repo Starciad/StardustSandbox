@@ -67,7 +67,6 @@ namespace StardustSandbox.Core
         private readonly EffectsManager effectsManager;
         private readonly SongManager songManager;
         private readonly SoundEffectManager soundEffectManager;
-        private readonly StatisticsHandler statisticsManager;
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
 
@@ -132,7 +131,6 @@ namespace StardustSandbox.Core
             this.songManager = new(this.assetDatabase, this.gameLaunchOptions);
             this.soundEffectManager = new(this.assetDatabase);
             this.achievementManager = new(this.achievementDatabase);
-            this.statisticsManager = new(this.achievementManager);
 
             // Core
             this.playerInputController = new();
@@ -140,8 +138,7 @@ namespace StardustSandbox.Core
                 this.achievementManager,
                 this.assetDatabase,
                 this.elementDatabase,
-                this.playerInputController,
-                this.statisticsManager
+                this.playerInputController
             );
             this.camera = new(this.gameScreen);
 
@@ -221,7 +218,7 @@ namespace StardustSandbox.Core
                 this.videoManager,
                 this.world
             );
-            this.elementDatabase.Load(this.achievementManager, this.statisticsManager);
+            this.elementDatabase.Load(this.achievementManager);
 
             // Managers
             this.effectsManager.Initialize();

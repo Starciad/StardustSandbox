@@ -44,7 +44,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             ]
         };
 
-        internal Gunpowder(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsHandler statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager, statisticsManager)
+        internal Gunpowder(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager)
         {
             this.InitialTemperature = 22.0f;
             this.BaseFlammabilityResistance = 5.0f;
