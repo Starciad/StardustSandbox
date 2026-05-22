@@ -20,7 +20,7 @@ namespace StardustSandbox.Core.Enums.Elements
     public enum ElementIndex : byte
     {
         None,
-        
+
         Dirt,
         Mud,
         Water,

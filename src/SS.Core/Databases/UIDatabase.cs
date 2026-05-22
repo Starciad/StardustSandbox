@@ -365,12 +365,7 @@ namespace StardustSandbox.Core.Databases
 
         internal UIBase GetUI(UIIndex index)
         {
-            if (index is UIIndex.None)
-            {
-                return null;
-            }
-
-            return this.uis[((byte)index) - 1];
+            return index is UIIndex.None ? null : this.uis[((byte)index) - 1];
         }
 
         internal void ResizeUIs()

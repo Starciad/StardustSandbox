@@ -23,7 +23,6 @@ using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.Items;
 using StardustSandbox.Core.InputSystem.Simulation;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.WorldSystem;
 using StardustSandbox.Core.WorldSystem.Components;
 
 using System.Collections.Generic;
@@ -176,7 +175,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
 
         private IEnumerable<Point> GetNeighbors(Point position)
         {
-            foreach (Point offset in offsets)
+            foreach (Point offset in this.offsets)
             {
                 Point neighborPosition = new(position.X + offset.X, position.Y + offset.Y);
                 if (this.TileMap.IsWithinBounds(neighborPosition))

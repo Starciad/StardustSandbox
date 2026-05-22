@@ -20,7 +20,6 @@ using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Localization;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Databases
@@ -60,12 +59,7 @@ namespace StardustSandbox.Core.Databases
 
         internal Achievement GetAchievement(AchievementIndex index)
         {
-            if (index is AchievementIndex.None)
-            {
-                return null;
-            }
-
-            return this.achievements[((byte)index) - 1];
+            return index is AchievementIndex.None ? null : this.achievements[((byte)index) - 1];
         }
 
         public IEnumerable<Achievement> GetAchievements()

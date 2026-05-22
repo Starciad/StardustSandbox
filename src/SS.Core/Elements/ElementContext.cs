@@ -68,7 +68,7 @@ namespace StardustSandbox.Core.Elements
 
         internal Temperature GetWorldTemperature()
         {
-            return world.Temperature;
+            return this.world.Temperature;
         }
 
         #endregion
@@ -92,7 +92,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryInstantiateElementIndex(Point position, Layer layer, ElementIndex index)
         {
-            return tileMap.TryInstantiateElementIndex(position, layer, index);
+            return this.tileMap.TryInstantiateElementIndex(position, layer, index);
         }
         internal bool TryInstantiateElementIndex(Point position, ElementIndex index)
         {
@@ -105,7 +105,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryUpdateElementPosition(Point oldPosition, Point newPosition, Layer layer)
         {
-            return tileMap.TryUpdateElementPosition(oldPosition, newPosition, layer);
+            return this.tileMap.TryUpdateElementPosition(oldPosition, newPosition, layer);
         }
         internal bool TryUpdateElementPosition(Point oldPosition, Point newPosition)
         {
@@ -118,7 +118,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TrySwappingElements(Point element1Position, Point element2Position, Layer layer)
         {
-            return tileMap.TrySwappingElements(element1Position, element2Position, layer);
+            return this.tileMap.TrySwappingElements(element1Position, element2Position, layer);
         }
         internal bool TrySwappingElements(Point element1Position, Point element2Position)
         {
@@ -131,7 +131,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryDestroyElement(Point position, Layer layer)
         {
-            return tileMap.TryDestroyElement(position, layer);
+            return this.tileMap.TryDestroyElement(position, layer);
         }
         internal bool TryDestroyElement(Point position)
         {
@@ -144,7 +144,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryRemoveElement(Point position, Layer layer)
         {
-            return tileMap.TryRemoveElement(position, layer);
+            return this.tileMap.TryRemoveElement(position, layer);
         }
         internal bool TryRemoveElement(Point position)
         {
@@ -157,7 +157,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryReplaceElementIndex(Point position, Layer layer, ElementIndex index)
         {
-            return tileMap.TryReplaceElementIndex(position, layer, index);
+            return this.tileMap.TryReplaceElementIndex(position, layer, index);
         }
         internal bool TryReplaceElementIndex(Point position, ElementIndex index)
         {
@@ -170,7 +170,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryGetElementIndex(Point position, Layer layer, out ElementIndex index)
         {
-            return tileMap.TryGetElementIndex(position, layer, out index);
+            return this.tileMap.TryGetElementIndex(position, layer, out index);
         }
         internal bool TryGetElementIndex(Point position, out ElementIndex index)
         {
@@ -183,7 +183,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryGetElement(Point position, Layer layer, out Element element)
         {
-            return tileMap.TryGetElement(position, layer, out element);
+            return this.tileMap.TryGetElement(position, layer, out element);
         }
         internal bool TryGetElement(Point position, out Element element)
         {
@@ -196,7 +196,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryGetSlot(Point position, out Slot value)
         {
-            return tileMap.TryGetSlot(position, out value);
+            return this.tileMap.TryGetSlot(position, out value);
         }
         internal bool TryGetSlot(out Slot value)
         {
@@ -205,7 +205,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryGetSlotLayer(Point position, Layer layer, out SlotLayer value)
         {
-            return tileMap.TryGetSlotLayer(position, layer, out value);
+            return this.tileMap.TryGetSlotLayer(position, layer, out value);
         }
         internal bool TryGetSlotLayer(Point position, out SlotLayer value)
         {
@@ -218,7 +218,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TrySetElementTemperature(Point position, Layer layer, float value)
         {
-            return tileMap.TrySetElementTemperature(position, layer, value);
+            return this.tileMap.TrySetElementTemperature(position, layer, value);
         }
         internal bool TrySetElementTemperature(Point position, float value)
         {
@@ -231,7 +231,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TrySetElementColorModifier(Point position, Layer layer, Color value)
         {
-            return tileMap.TrySetElementColorModifier(position, layer, value);
+            return this.tileMap.TrySetElementColorModifier(position, layer, value);
         }
         internal bool TrySetElementColorModifier(Point position, Color value)
         {
@@ -244,7 +244,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryHasStoredElement(Point position, Layer layer, out bool value)
         {
-            return tileMap.TryHasStoredElement(position, layer, out value);
+            return this.tileMap.TryHasStoredElement(position, layer, out value);
         }
         internal bool TryHasStoredElement(Point position, out bool value)
         {
@@ -257,7 +257,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TrySetStoredElementIndex(Point position, Layer layer, ElementIndex index)
         {
-            return tileMap.TrySetStoredElementIndex(position, layer, index);
+            return this.tileMap.TrySetStoredElementIndex(position, layer, index);
         }
         internal bool TrySetStoredElementIndex(Point position, ElementIndex index)
         {
@@ -270,7 +270,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryGetStoredElementIndex(Point position, Layer layer, out ElementIndex index)
         {
-            return tileMap.TryGetStoredElementIndex(position, layer, out index);
+            return this.tileMap.TryGetStoredElementIndex(position, layer, out index);
         }
         internal bool TryGetStoredElementIndex(Point position, out ElementIndex index)
         {
@@ -283,7 +283,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryGetStoredElement(Point position, Layer layer, out Element element)
         {
-            return tileMap.TryGetStoredElement(position, layer, out element);
+            return this.tileMap.TryGetStoredElement(position, layer, out element);
         }
         internal bool TryGetStoredElement(Point position, out Element element)
         {
@@ -296,7 +296,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool TryHasElementState(Point position, Layer layer, ElementStates state, out bool value)
         {
-            return tileMap.TryHasElementState(position, layer, state, out value);
+            return this.tileMap.TryHasElementState(position, layer, state, out value);
         }
         internal bool TryHasElementState(Point position, ElementStates state, out bool value)
         {
@@ -308,7 +308,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal bool TrySetElementState(Point position, Layer layer, ElementStates state)
         {
-            return tileMap.TrySetElementState(position, layer, state);
+            return this.tileMap.TrySetElementState(position, layer, state);
         }
         internal bool TrySetElementState(Point position, ElementStates state)
         {
@@ -320,7 +320,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal bool TryRemoveElementState(Point position, Layer layer, ElementStates state)
         {
-            return tileMap.TryRemoveElementState(position, layer, state);
+            return this.tileMap.TryRemoveElementState(position, layer, state);
         }
         internal bool TryRemoveElementState(Point position, ElementStates state)
         {
@@ -332,7 +332,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal bool TryClearElementStates(Point position, Layer layer)
         {
-            return tileMap.TryClearElementStates(position, layer);
+            return this.tileMap.TryClearElementStates(position, layer);
         }
         internal bool TryClearElementStates(Point position)
         {
@@ -344,7 +344,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal bool TryToggleElementState(Point position, Layer layer, ElementStates state)
         {
-            return tileMap.TryToggleElementState(position, layer, state);
+            return this.tileMap.TryToggleElementState(position, layer, state);
         }
         internal bool TryToggleElementState(Point position, ElementStates state)
         {
@@ -366,7 +366,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void InstantiateElementIndex(Point position, Layer layer, ElementIndex index)
         {
-            tileMap.InstantiateElementIndex(position, layer, index);
+            this.tileMap.InstantiateElementIndex(position, layer, index);
         }
         internal void InstantiateElementIndex(Point position, ElementIndex index)
         {
@@ -379,7 +379,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void UpdateElementPosition(Point oldPosition, Point newPosition, Layer layer)
         {
-            tileMap.UpdateElementPosition(oldPosition, newPosition, layer);
+            this.tileMap.UpdateElementPosition(oldPosition, newPosition, layer);
         }
         internal void UpdateElementPosition(Point oldPosition, Point newPosition)
         {
@@ -405,7 +405,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void DestroyElement(Point position, Layer layer)
         {
-            tileMap.DestroyElement(position, layer);
+            this.tileMap.DestroyElement(position, layer);
         }
         internal void DestroyElement(Point position)
         {
@@ -431,7 +431,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void ReplaceElementIndex(Point position, Layer layer, ElementIndex index)
         {
-            tileMap.ReplaceElementIndex(position, layer, index);
+            this.tileMap.ReplaceElementIndex(position, layer, index);
         }
         internal void ReplaceElementIndex(Point position, ElementIndex index)
         {
@@ -444,7 +444,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void SetElementTemperature(Point position, Layer layer, float value)
         {
-            tileMap.SetElementTemperature(position, layer, value);
+            this.tileMap.SetElementTemperature(position, layer, value);
         }
         internal void SetElementTemperature(Point position, float value)
         {
@@ -457,7 +457,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void SetElementColorModifier(Point position, Layer layer, Color value)
         {
-            tileMap.SetElementColorModifier(position, layer, value);
+            this.tileMap.SetElementColorModifier(position, layer, value);
         }
         internal void SetElementColorModifier(Point position, Color value)
         {
@@ -470,7 +470,7 @@ namespace StardustSandbox.Core.Elements
 
         internal void SetStoredElementIndex(Point position, Layer layer, ElementIndex index)
         {
-            tileMap.SetStoredElementIndex(position, layer, index);
+            this.tileMap.SetStoredElementIndex(position, layer, index);
         }
         internal void SetStoredElementIndex(Point position, ElementIndex index)
         {
@@ -483,7 +483,7 @@ namespace StardustSandbox.Core.Elements
 
         internal ElementIndex GetStoredElementIndex(Point position, Layer layer)
         {
-            return tileMap.GetStoredElementIndex(position, layer);
+            return this.tileMap.GetStoredElementIndex(position, layer);
         }
         internal ElementIndex GetStoredElementIndex(Point position)
         {
@@ -496,7 +496,7 @@ namespace StardustSandbox.Core.Elements
 
         internal Element GetStoredElement(Point position, Layer layer)
         {
-            return tileMap.GetStoredElement(position, layer);
+            return this.tileMap.GetStoredElement(position, layer);
         }
         internal Element GetStoredElement(Point position)
         {
@@ -509,7 +509,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool HasStoredElement(Point position, Layer layer)
         {
-            return tileMap.HasStoredElement(position, layer);
+            return this.tileMap.HasStoredElement(position, layer);
         }
         internal bool HasStoredElement(Point position)
         {
@@ -522,7 +522,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool HasElementState(Point position, Layer layer, ElementStates state)
         {
-            return tileMap.HasElementState(position, layer, state);
+            return this.tileMap.HasElementState(position, layer, state);
         }
         internal bool HasElementState(Point position, ElementStates state)
         {
@@ -534,7 +534,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal void SetElementState(Point position, Layer layer, ElementStates state)
         {
-            tileMap.SetElementState(position, layer, state);
+            this.tileMap.SetElementState(position, layer, state);
         }
         internal void SetElementState(Point position, ElementStates state)
         {
@@ -546,7 +546,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal void RemoveElementState(Point position, Layer layer, ElementStates state)
         {
-            tileMap.RemoveElementState(position, layer, state);
+            this.tileMap.RemoveElementState(position, layer, state);
         }
         internal void RemoveElementState(Point position, ElementStates state)
         {
@@ -558,7 +558,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal void ClearElementStates(Point position, Layer layer)
         {
-            tileMap.ClearElementStates(position, layer);
+            this.tileMap.ClearElementStates(position, layer);
         }
         internal void ClearElementStates(Point position)
         {
@@ -570,7 +570,7 @@ namespace StardustSandbox.Core.Elements
         }
         internal void ToggleElementState(Point position, Layer layer, ElementStates state)
         {
-            tileMap.ToggleElementState(position, layer, state);
+            this.tileMap.ToggleElementState(position, layer, state);
         }
         internal void ToggleElementState(Point position, ElementStates state)
         {
@@ -583,7 +583,7 @@ namespace StardustSandbox.Core.Elements
 
         internal ElementIndex GetElementIndex(Point position, Layer layer)
         {
-            return tileMap.GetElementIndex(position, layer);
+            return this.tileMap.GetElementIndex(position, layer);
         }
         internal ElementIndex GetElementIndex(Point position)
         {
@@ -596,7 +596,7 @@ namespace StardustSandbox.Core.Elements
 
         internal Element GetElement(Point position, Layer layer)
         {
-            return tileMap.GetElement(position, layer);
+            return this.tileMap.GetElement(position, layer);
         }
         internal Element GetElement(Point position)
         {
@@ -609,7 +609,7 @@ namespace StardustSandbox.Core.Elements
 
         internal Slot GetSlot(Point position)
         {
-            return tileMap.GetSlot(position);
+            return this.tileMap.GetSlot(position);
         }
         internal Slot GetSlot()
         {
@@ -618,7 +618,7 @@ namespace StardustSandbox.Core.Elements
 
         internal SlotLayer GetSlotLayer(Point position, Layer layer)
         {
-            return tileMap.GetSlotLayer(position, layer);
+            return this.tileMap.GetSlotLayer(position, layer);
         }
         internal SlotLayer GetSlotLayer(Point position)
         {
@@ -631,7 +631,7 @@ namespace StardustSandbox.Core.Elements
 
         internal ElementNeighbors GetNeighboringSlots(Point position)
         {
-            return tileMap.GetNeighboringSlots(position);
+            return this.tileMap.GetNeighboringSlots(position);
         }
         internal ElementNeighbors GetNeighboringSlots()
         {
@@ -640,7 +640,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool IsEmptySlot(Point position)
         {
-            return tileMap.IsEmptySlot(position);
+            return this.tileMap.IsEmptySlot(position);
         }
         internal bool IsEmptySlot()
         {
@@ -649,7 +649,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool IsEmptySlotLayer(Point position, Layer layer)
         {
-            return tileMap.IsEmptySlotLayer(position, layer);
+            return this.tileMap.IsEmptySlotLayer(position, layer);
         }
         internal bool IsEmptySlotLayer(Point position)
         {
@@ -662,15 +662,15 @@ namespace StardustSandbox.Core.Elements
 
         internal uint GetTotalElementCount()
         {
-            return tileMap.GetTotalElementCount();
+            return this.tileMap.GetTotalElementCount();
         }
         internal uint GetTotalForegroundElementCount()
         {
-            return tileMap.GetTotalForegroundElementCount();
+            return this.tileMap.GetTotalForegroundElementCount();
         }
         internal uint GetTotalBackgroundElementCount()
         {
-            return tileMap.GetTotalBackgroundElementCount();
+            return this.tileMap.GetTotalBackgroundElementCount();
         }
 
         #endregion

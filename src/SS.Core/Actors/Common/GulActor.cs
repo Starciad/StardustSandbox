@@ -21,7 +21,6 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Elements;
-using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Actors;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Elements;

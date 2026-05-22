@@ -19,8 +19,6 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
-using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.WorldSystem.Handlers;
 
 namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
@@ -54,7 +52,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
                 float result = neighbors.GetSlotLayer(i, context.CurrentLayer).Temperature;
 
-                switch (temperatureModifierMode)
+                switch (this.temperatureModifierMode)
                 {
                     case TemperatureModifierMode.Warming:
                         result += ToolConstants.DEFAULT_HEAT_VALUE;

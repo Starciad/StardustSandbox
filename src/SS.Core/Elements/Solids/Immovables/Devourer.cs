@@ -22,9 +22,7 @@ using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Explosions;
 using StardustSandbox.Core.Extensions;
-using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Randomness;
-using StardustSandbox.Core.WorldSystem.Handlers;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 using System.Collections.Generic;
@@ -64,12 +62,12 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
         protected override void OnDestroyed(ElementContext context)
         {
-            context.InstantiateExplosion(explosionBuilder);
+            context.InstantiateExplosion(this.explosionBuilder);
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
-            cachedNeighborSlots.Clear();
+            this.cachedNeighborSlots.Clear();
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
@@ -90,12 +88,12 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                         break;
                 }
 
-                cachedNeighborSlots.Add(neighbors.GetSlot(i));
+                this.cachedNeighborSlots.Add(neighbors.GetSlot(i));
             }
 
-            if (cachedNeighborSlots.Count > 0)
+            if (this.cachedNeighborSlots.Count > 0)
             {
-                Slot neighborSlot = cachedNeighborSlots.GetRandomItem();
+                Slot neighborSlot = this.cachedNeighborSlots.GetRandomItem();
 
                 Point oldPosition = context.CurrentSlot.Position;
                 Point newPosition = neighborSlot.Position;

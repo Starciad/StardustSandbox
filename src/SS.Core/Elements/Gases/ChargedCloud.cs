@@ -17,13 +17,10 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Events.Elements;
-using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Randomness;
-using StardustSandbox.Core.WorldSystem.Handlers;
 
 namespace StardustSandbox.Core.Elements.Gases
 {

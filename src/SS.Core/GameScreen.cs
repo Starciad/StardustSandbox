@@ -21,24 +21,12 @@ namespace StardustSandbox.Core
 {
     internal sealed class GameScreen
     {
-        internal Vector2 Viewport
-        {
-            get
-            {
-                return new(
+        internal Vector2 Viewport => new(
                     this.graphicsDeviceManager.GraphicsDevice.Viewport.Width,
                     this.graphicsDeviceManager.GraphicsDevice.Viewport.Height
                 );
-            }
-        }
 
-        internal Vector2 ViewportCenter
-        {
-            get
-            {
-                return this.Viewport / 2.0f;
-            }
-        }
+        internal Vector2 ViewportCenter => this.Viewport / 2.0f;
 
         private readonly GraphicsDeviceManager graphicsDeviceManager;
 

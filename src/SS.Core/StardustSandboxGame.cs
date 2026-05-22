@@ -32,7 +32,6 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.WorldSystem;
-using StardustSandbox.Core.WorldSystem.Handlers;
 
 using System;
 

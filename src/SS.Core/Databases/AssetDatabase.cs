@@ -23,7 +23,6 @@ using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Core.Enums.Assets;
 
-using System;
 using System.IO;
 
 namespace StardustSandbox.Core.Databases
@@ -151,32 +150,17 @@ namespace StardustSandbox.Core.Databases
 
         internal Texture2D GetTexture(TextureIndex index)
         {
-            if (index is TextureIndex.None)
-            {
-                return null;
-            }
-
-            return this.textures[((byte)index) - 1];
+            return index is TextureIndex.None ? null : this.textures[((byte)index) - 1];
         }
 
         internal SpriteFont GetSpriteFont(SpriteFontIndex index)
         {
-            if (index is SpriteFontIndex.None)
-            {
-                return null;
-            }
-
-            return this.fonts[((byte)index) - 1];
+            return index is SpriteFontIndex.None ? null : this.fonts[((byte)index) - 1];
         }
 
         internal Song GetSong(SongIndex index)
         {
-            if (index is SongIndex.None)
-            {
-                return null;
-            }
-
-            return this.songs[((byte)index) - 1];
+            return index is SongIndex.None ? null : this.songs[((byte)index) - 1];
         }
 
         internal Effect[] GetEffects()
@@ -186,22 +170,12 @@ namespace StardustSandbox.Core.Databases
 
         internal Effect GetEffect(EffectIndex index)
         {
-            if (index is EffectIndex.None)
-            {
-                return null;
-            }
-
-            return this.effects[((byte)index) - 1];
+            return index is EffectIndex.None ? null : this.effects[((byte)index) - 1];
         }
 
         internal SoundEffect GetSoundEffect(SoundEffectIndex index)
         {
-            if (index is SoundEffectIndex.None)
-            {
-                return null;
-            }
-
-            return this.soundEffects[((byte)index) - 1];
+            return index is SoundEffectIndex.None ? null : this.soundEffects[((byte)index) - 1];
         }
     }
 }

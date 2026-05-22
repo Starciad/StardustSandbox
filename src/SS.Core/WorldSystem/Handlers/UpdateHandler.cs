@@ -89,8 +89,8 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
                 {
                     for (int x = 0; x < WorldConstants.CHUNK_SCALE; x++)
                     {
-                        Point position = new(chunk.Position.X / WorldConstants.TILE_SIZE + x,
-                                             chunk.Position.Y / WorldConstants.TILE_SIZE + y);
+                        Point position = new((chunk.Position.X / WorldConstants.TILE_SIZE) + x,
+                                             (chunk.Position.Y / WorldConstants.TILE_SIZE) + y);
 
                         if (!TryUpdateRow(position))
                         {
@@ -102,8 +102,8 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
                 {
                     for (int x = WorldConstants.CHUNK_SCALE - 1; x >= 0; x--)
                     {
-                        Point position = new(chunk.Position.X / WorldConstants.TILE_SIZE + x,
-                                             chunk.Position.Y / WorldConstants.TILE_SIZE + y);
+                        Point position = new((chunk.Position.X / WorldConstants.TILE_SIZE) + x,
+                                             (chunk.Position.Y / WorldConstants.TILE_SIZE) + y);
 
                         if (!TryUpdateRow(position))
                         {

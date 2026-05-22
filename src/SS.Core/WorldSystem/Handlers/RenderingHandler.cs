@@ -30,7 +30,6 @@ using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
-using StardustSandbox.Core.WorldSystem.Components;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
@@ -50,8 +49,8 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
         {
             int left = -1;
             int top = -1;
-            int right = world.TileMap.Width;
-            int bottom = world.TileMap.Height;
+            int right = this.world.TileMap.Width;
+            int bottom = this.world.TileMap.Height;
 
             Texture2D texture = assetDatabase.GetTexture(TextureIndex.Frames);
             int gridSize = WorldConstants.TILE_SIZE;

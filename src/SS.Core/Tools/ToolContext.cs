@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.World;
-using StardustSandbox.Core.WorldSystem;
 using StardustSandbox.Core.WorldSystem.Components;
 
 namespace StardustSandbox.Core.Tools

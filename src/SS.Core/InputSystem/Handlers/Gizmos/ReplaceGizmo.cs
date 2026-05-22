@@ -23,7 +23,6 @@ using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.Items;
 using StardustSandbox.Core.InputSystem.Simulation;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.WorldSystem;
 using StardustSandbox.Core.WorldSystem.Components;
 
 using System.Collections.Generic;

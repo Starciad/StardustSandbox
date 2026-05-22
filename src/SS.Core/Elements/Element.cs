@@ -18,14 +18,10 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Elements.Gases;
-using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Events.Elements;
-using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics;
-using StardustSandbox.Core.WorldSystem.Handlers;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;

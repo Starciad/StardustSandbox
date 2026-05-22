@@ -47,7 +47,7 @@ namespace StardustSandbox.Core.WorldSystem
         internal ChunkHandler ChunkHandler => this.chunkHandler;
         internal ExplosionHandler ExplosionHandler => this.explosionHandler;
         internal RenderingHandler RenderingHandler => this.renderingHandler;
-        
+
         internal WorldSerializer Serializer => this.serializer;
 
         private readonly Simulation simulation;

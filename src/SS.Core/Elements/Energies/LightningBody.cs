@@ -20,8 +20,6 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Explosions;
-using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.WorldSystem.Handlers;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Elements.Energies

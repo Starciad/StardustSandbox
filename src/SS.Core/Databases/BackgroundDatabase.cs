@@ -19,8 +19,6 @@ using StardustSandbox.Core.Backgrounds;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Backgrounds;
 
-using System;
-
 namespace StardustSandbox.Core.Databases
 {
     internal sealed class BackgroundDatabase
@@ -120,12 +118,7 @@ namespace StardustSandbox.Core.Databases
 
         internal Background GetBackground(BackgroundIndex index)
         {
-            if (index is BackgroundIndex.None)
-            {
-                return null;
-            }
-
-            return this.backgrounds[((byte)index) - 1];
+            return index is BackgroundIndex.None ? null : this.backgrounds[((byte)index) - 1];
         }
     }
 }

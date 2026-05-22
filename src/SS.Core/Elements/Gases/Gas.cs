@@ -19,8 +19,6 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Extensions;
-using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.WorldSystem.Handlers;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 using System.Collections.Generic;

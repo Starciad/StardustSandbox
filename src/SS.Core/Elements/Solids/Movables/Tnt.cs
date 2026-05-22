@@ -20,8 +20,6 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Explosions;
-using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.WorldSystem.Handlers;
 
 namespace StardustSandbox.Core.Elements.Solids.Movables
 {
@@ -59,7 +57,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 
         protected override void OnDestroyed(ElementContext context)
         {
-            context.InstantiateExplosion(explosionBuilder);
+            context.InstantiateExplosion(this.explosionBuilder);
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

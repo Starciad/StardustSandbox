@@ -20,8 +20,6 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Extensions;
-using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.WorldSystem.Handlers;
 
 using System.Collections.Generic;
 
@@ -60,8 +58,8 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
-            eligiblePositions.Clear();
-            availablePositions.Clear();
+            this.eligiblePositions.Clear();
+            this.availablePositions.Clear();
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
@@ -105,7 +103,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                         // For each valid neighbor, add the two eligible positions.
                         for (int j = 0; j < 2; j++)
                         {
-                            _ = eligiblePositions.Add(context.CurrentPosition + eligibleSpreadPositions[i][j]);
+                            _ = this.eligiblePositions.Add(context.CurrentPosition + this.eligibleSpreadPositions[i][j]);
                         }
 
                         break;
@@ -115,25 +113,25 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                 }
             }
 
-            if (eligiblePositions.Count == 0)
+            if (this.eligiblePositions.Count == 0)
             {
                 return;
             }
 
-            foreach (Point eligiblePosition in eligiblePositions)
+            foreach (Point eligiblePosition in this.eligiblePositions)
             {
                 if (context.IsEmptySlotLayer(eligiblePosition))
                 {
-                    availablePositions.Add(eligiblePosition);
+                    this.availablePositions.Add(eligiblePosition);
                 }
             }
 
-            if (availablePositions.Count == 0)
+            if (this.availablePositions.Count == 0)
             {
                 return;
             }
 
-            context.InstantiateElementIndex(availablePositions.GetRandomItem(), context.CurrentLayer, ElementIndex.Moss);
+            context.InstantiateElementIndex(this.availablePositions.GetRandomItem(), context.CurrentLayer, ElementIndex.Moss);
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)

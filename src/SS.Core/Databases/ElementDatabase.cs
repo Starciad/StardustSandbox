@@ -19,10 +19,6 @@ using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Extensions;
-using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.WorldSystem.Handlers;
-
-using System;
 
 namespace StardustSandbox.Core.Databases
 {
@@ -32,7 +28,7 @@ namespace StardustSandbox.Core.Databases
 
         internal void Load(GameEvents gameEvents)
         {
-            elements = [
+            this.elements = [
                 // [000] Dirt
                 new Elements.Solids.Movables.Dirt(
                     ElementIndex.Dirt,
@@ -973,12 +969,7 @@ namespace StardustSandbox.Core.Databases
 
         internal Element GetElement(ElementIndex index)
         {
-            if (index is ElementIndex.None)
-            {
-                return null;
-            }
-
-            return this.elements[((byte)index) - 1];
+            return index is ElementIndex.None ? null : this.elements[((byte)index) - 1];
         }
     }
 }

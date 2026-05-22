@@ -49,8 +49,8 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
         public void Reset()
         {
             this.chunks = new Chunk[
-                this.tileMap.Width / WorldConstants.CHUNK_SCALE + 1,
-                this.tileMap.Height / WorldConstants.CHUNK_SCALE + 1
+                (this.tileMap.Width / WorldConstants.CHUNK_SCALE) + 1,
+                (this.tileMap.Height / WorldConstants.CHUNK_SCALE) + 1
             ];
 
             this.worldChunkWidth = this.chunks.GetLength(0);
@@ -64,7 +64,6 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
                 }
             }
         }
-
 
         internal void Update()
         {

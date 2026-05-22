@@ -18,8 +18,6 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.Elements;
-using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.WorldSystem.Handlers;
 
 namespace StardustSandbox.Core.Elements.Solids.Immovables
 {

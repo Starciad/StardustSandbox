@@ -22,8 +22,6 @@ using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
-using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.WorldSystem.Handlers;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Elements.Solids.Immovables
