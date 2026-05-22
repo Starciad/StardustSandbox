@@ -218,7 +218,6 @@ namespace StardustSandbox.Core
                 this.videoManager,
                 this.world
             );
-            this.elementDatabase.Load(this.achievementManager);
 
             // Managers
             this.effectsManager.Initialize();
@@ -293,7 +292,7 @@ namespace StardustSandbox.Core
 
             if (this.world.CanUpdate || this.world.CanDraw)
             {
-                this.camera.ClampTargetPositionToBounds(new(0, 0, this.world.Size.X * WorldConstants.TILE_SIZE, this.world.Size.Y * WorldConstants.TILE_SIZE));
+                this.camera.ClampTargetPositionToBounds(new(0, 0, this.world.TileMap.Width * WorldConstants.TILE_SIZE, this.world.TileMap.Height * WorldConstants.TILE_SIZE));
             }
 
             // Managers

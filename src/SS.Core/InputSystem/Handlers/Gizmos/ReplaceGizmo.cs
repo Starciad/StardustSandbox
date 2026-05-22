@@ -24,6 +24,7 @@ using StardustSandbox.Core.Enums.Items;
 using StardustSandbox.Core.InputSystem.Simulation;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Components;
 
 using System.Collections.Generic;
 
@@ -31,7 +32,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
 {
     internal sealed class ReplaceGizmo : Gizmo
     {
-        internal ReplaceGizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, World world, WorldHandler worldHandler) : base(achievementManager, actorManager, pen, world, worldHandler)
+        internal ReplaceGizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, TileMap tileMap, WorldHandler worldHandler) : base(achievementManager, actorManager, pen, tileMap, worldHandler)
         {
 
         }
@@ -70,7 +71,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                this.World.TileMap.ReplaceElementIndex(position, this.Pen.Layer, elementIndex);
+                this.TileMap.ReplaceElementIndex(position, this.Pen.Layer, elementIndex);
             }
         }
 
@@ -78,7 +79,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                this.World.TileMap.RemoveElement(position, this.Pen.Layer);
+                this.TileMap.RemoveElement(position, this.Pen.Layer);
             }
         }
     }

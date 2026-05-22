@@ -39,8 +39,6 @@ namespace StardustSandbox.Core.Elements
         internal Point TextureOriginOffset { get; }
         internal Color ReferenceColor { get; }
 
-        protected AchievementManager AchievementManager { get; }
-
         public float BaseDensity { get; protected init; }
         public float BaseExplosionResistance { get; protected init; }
         public float BaseFlammabilityResistance { get; protected init; }
@@ -60,14 +58,13 @@ namespace StardustSandbox.Core.Elements
 
         private ElementContext context;
 
-        internal Element(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager)
+        internal Element(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor)
         {
             this.Index = index;
             this.Category = category;
             this.RenderingType = renderingType;
             this.TextureOriginOffset = textureOriginOffset;
             this.ReferenceColor = referenceColor;
-            this.AchievementManager = achievementManager;
         }
 
         internal void SetContext(ElementContext context)

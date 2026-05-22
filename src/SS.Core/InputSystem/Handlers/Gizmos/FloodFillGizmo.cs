@@ -24,6 +24,7 @@ using StardustSandbox.Core.Enums.Items;
 using StardustSandbox.Core.InputSystem.Simulation;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Components;
 
 using System.Collections.Generic;
 
@@ -31,7 +32,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
 {
     internal sealed class FloodFillGizmo : Gizmo
     {
-        private static readonly Point[] offsets =
+        private readonly Point[] offsets =
         [
             new(0, -1),
             new(0, 1),
@@ -42,7 +43,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         private readonly Queue<Point> floodFillQueue = [];
         private readonly HashSet<Point> floodFillVisited = [];
 
-        internal FloodFillGizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, World world, WorldHandler worldHandler) : base(achievementManager, actorManager, pen, world, worldHandler)
+        internal FloodFillGizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, TileMap tileMap, WorldHandler worldHandler) : base(achievementManager, actorManager, pen, tileMap, worldHandler)
         {
 
         }
@@ -90,7 +91,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
             _ = this.floodFillVisited.Add(position);
 
             // Determines the initial target
-            ElementIndex targetElement = this.World.TileMap.IsEmptySlotLayer(position, this.Pen.Layer) ? ElementIndex.None : this.World.TileMap.GetElementIndex(position, this.Pen.Layer);
+            ElementIndex targetElement = this.TileMap.IsEmptySlotLayer(position, this.Pen.Layer) ? ElementIndex.None : this.TileMap.GetElementIndex(position, this.Pen.Layer);
 
             while (this.floodFillQueue.Count > 0)
             {
@@ -117,8 +118,8 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         private bool IsValidStart(Point position, ElementIndex elementIndex, bool isErasing)
         {
             return isErasing
-                ? !this.World.TileMap.IsEmptySlotLayer(position, this.Pen.Layer)
-                : this.World.TileMap.IsEmptySlotLayer(position, this.Pen.Layer) || this.World.TileMap.GetElementIndex(position, this.Pen.Layer) != elementIndex;
+                ? !this.TileMap.IsEmptySlotLayer(position, this.Pen.Layer)
+                : this.TileMap.IsEmptySlotLayer(position, this.Pen.Layer) || this.TileMap.GetElementIndex(position, this.Pen.Layer) != elementIndex;
         }
 
         private bool IsValidNeighbor(Point neighborPosition, ElementIndex targetElementIndex, bool isErasing)
@@ -126,17 +127,17 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
             if (isErasing)
             {
                 // Valid neighborPosition to delete: must contain the same target element
-                return !this.World.TileMap.IsEmptySlotLayer(neighborPosition, this.Pen.Layer) && this.World.TileMap.GetElementIndex(neighborPosition, this.Pen.Layer) == targetElementIndex;
+                return !this.TileMap.IsEmptySlotLayer(neighborPosition, this.Pen.Layer) && this.TileMap.GetElementIndex(neighborPosition, this.Pen.Layer) == targetElementIndex;
             }
 
             if (targetElementIndex is ElementIndex.None)
             {
                 // Valid neighborPosition to fill empty area
-                return this.World.TileMap.IsEmptySlotLayer(neighborPosition, this.Pen.Layer);
+                return this.TileMap.IsEmptySlotLayer(neighborPosition, this.Pen.Layer);
             }
 
             // Valid neighborPosition to replace: must contain the same target element
-            return !this.World.TileMap.IsEmptySlotLayer(neighborPosition, this.Pen.Layer) && this.World.TileMap.GetElementIndex(neighborPosition, this.Pen.Layer) == targetElementIndex;
+            return !this.TileMap.IsEmptySlotLayer(neighborPosition, this.Pen.Layer) && this.TileMap.GetElementIndex(neighborPosition, this.Pen.Layer) == targetElementIndex;
         }
 
         private bool ShouldProcessPosition(Point position, ElementIndex targetElementIndex, bool isErasing)
@@ -144,32 +145,32 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
             if (isErasing)
             {
                 // Erase: The slot must contain the same target element
-                return !this.World.TileMap.IsEmptySlotLayer(position, this.Pen.Layer) && this.World.TileMap.GetElementIndex(position, this.Pen.Layer) == targetElementIndex;
+                return !this.TileMap.IsEmptySlotLayer(position, this.Pen.Layer) && this.TileMap.GetElementIndex(position, this.Pen.Layer) == targetElementIndex;
             }
 
             if (targetElementIndex is ElementIndex.None)
             {
                 // Fill empty areas
-                return this.World.TileMap.IsEmptySlotLayer(position, this.Pen.Layer);
+                return this.TileMap.IsEmptySlotLayer(position, this.Pen.Layer);
             }
 
             // Replace elements that match the target
-            return !this.World.TileMap.IsEmptySlotLayer(position, this.Pen.Layer) && this.World.TileMap.GetElementIndex(position, this.Pen.Layer) == targetElementIndex;
+            return !this.TileMap.IsEmptySlotLayer(position, this.Pen.Layer) && this.TileMap.GetElementIndex(position, this.Pen.Layer) == targetElementIndex;
         }
 
         private void ProcessPosition(Point position, ElementIndex index, bool isErasing)
         {
             if (isErasing)
             {
-                _ = this.World.TileMap.TryRemoveElement(position, this.Pen.Layer); // Remove the element
+                _ = this.TileMap.TryRemoveElement(position, this.Pen.Layer); // Remove the element
             }
-            else if (this.World.TileMap.IsEmptySlotLayer(position, this.Pen.Layer))
+            else if (this.TileMap.IsEmptySlotLayer(position, this.Pen.Layer))
             {
-                this.World.TileMap.InstantiateElementIndex(position, this.Pen.Layer, index); // Insert new element
+                this.TileMap.InstantiateElementIndex(position, this.Pen.Layer, index); // Insert new element
             }
             else
             {
-                this.World.TileMap.ReplaceElementIndex(position, this.Pen.Layer, index); // Replace the element
+                this.TileMap.ReplaceElementIndex(position, this.Pen.Layer, index); // Replace the element
             }
         }
 
@@ -178,7 +179,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
             foreach (Point offset in offsets)
             {
                 Point neighborPosition = new(position.X + offset.X, position.Y + offset.Y);
-                if (this.World.TileMap.IsWithinBounds(neighborPosition))
+                if (this.TileMap.IsWithinBounds(neighborPosition))
                 {
                     yield return neighborPosition;
                 }

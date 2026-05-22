@@ -23,6 +23,7 @@ using StardustSandbox.Core.Enums.Items;
 using StardustSandbox.Core.InputSystem.Simulation;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Components;
 
 namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
 {
@@ -31,15 +32,15 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         protected AchievementManager AchievementManager { get; }
         protected ActorManager ActorManager { get; }
         protected Pen Pen { get; }
-        protected World World { get; }
+        protected TileMap TileMap { get; }
         protected WorldHandler WorldHandler { get; }
 
-        internal Gizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, World world, WorldHandler worldHandler)
+        internal Gizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, TileMap tileMap, WorldHandler worldHandler)
         {
             this.AchievementManager = achievementManager;
             this.ActorManager = actorManager;
             this.Pen = pen;
-            this.World = world;
+            this.TileMap = tileMap;
             this.WorldHandler = worldHandler;
         }
 

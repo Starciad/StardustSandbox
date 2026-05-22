@@ -66,7 +66,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             return corruptNeighboringElements == count;
         }
 
-        internal static void InfectNeighboringElements(this ElementContext context, ElementNeighbors neighbors, StatisticsHandler statisticsManager)
+        internal static void InfectNeighboringElements(this ElementContext context, ElementNeighbors neighbors)
         {
             targets.Clear();
 
@@ -101,10 +101,10 @@ namespace StardustSandbox.Core.Elements.Utilities
                 return;
             }
 
-            InfectSlotLayer(context, statisticsManager, targets.GetRandomItem());
+            InfectSlotLayer(context, targets.GetRandomItem());
         }
 
-        private static void InfectSlotLayer(ElementContext context, StatisticsHandler statisticsManager, SlotTarget slotTarget)
+        private static void InfectSlotLayer(ElementContext context, SlotTarget slotTarget)
         {
             Element targetElement = slotTarget.Layer is Layer.Foreground
                 ? slotTarget.Slot.Foreground.Element
@@ -134,7 +134,6 @@ namespace StardustSandbox.Core.Elements.Utilities
             }
 
             context.SetStoredElementIndex(slotTarget.Slot.Position, slotTarget.Layer, targetElement.Index);
-            statisticsManager.IncrementWorldElementsConsumedByCorruption();
         }
     }
 }

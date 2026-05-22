@@ -29,6 +29,7 @@ using StardustSandbox.Core.Enums.Tools;
 using StardustSandbox.Core.InputSystem.Simulation;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Components;
 
 using System.Collections.Generic;
 
@@ -38,7 +39,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
     {
         private readonly ToolDatabase toolDatabase;
 
-        internal PencilGizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, ToolDatabase toolDatabase, World world, WorldHandler worldHandler) : base(achievementManager, actorManager, pen, world, worldHandler)
+        internal PencilGizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, ToolDatabase toolDatabase, TileMap tileMap, WorldHandler worldHandler) : base(achievementManager, actorManager, pen, tileMap, worldHandler)
         {
             this.toolDatabase = toolDatabase;
         }
@@ -114,7 +115,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                _ = this.World.TileMap.TryInstantiateElementIndex(position, this.Pen.Layer, elementIndex);
+                _ = this.TileMap.TryInstantiateElementIndex(position, this.Pen.Layer, elementIndex);
             }
         }
 
@@ -122,7 +123,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                this.World.TileMap.RemoveElement(position, this.Pen.Layer);
+                this.TileMap.RemoveElement(position, this.Pen.Layer);
             }
         }
 

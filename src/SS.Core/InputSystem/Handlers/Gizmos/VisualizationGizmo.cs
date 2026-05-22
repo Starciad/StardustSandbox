@@ -23,12 +23,13 @@ using StardustSandbox.Core.Enums.Items;
 using StardustSandbox.Core.InputSystem.Simulation;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Components;
 
 namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
 {
     internal sealed class VisualizationGizmo : Gizmo
     {
-        internal VisualizationGizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, World world, WorldHandler worldHandler) : base(achievementManager, actorManager, pen, world, worldHandler)
+        internal VisualizationGizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, TileMap tileMap, WorldHandler worldHandler) : base(achievementManager, actorManager, pen, tileMap, worldHandler)
         {
 
         }

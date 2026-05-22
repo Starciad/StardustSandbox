@@ -19,12 +19,13 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Components;
 
 namespace StardustSandbox.Core.Tools
 {
-    internal sealed class ToolContext(World world)
+    internal sealed class ToolContext(TileMap tileMap)
     {
-        internal World World => world;
+        internal TileMap TileMap => tileMap;
         internal Point Position => this.position;
         internal Layer Layer => this.layer;
 

@@ -25,7 +25,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Iron : ImmovableSolid
     {
-        internal Iron(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager) : base(index, category, renderingType, textureOriginOffset, referenceColor, achievementManager)
+        internal Iron(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
         {
             this.InitialTemperature = 30.0f;
             this.BaseDensity = 7.8f;

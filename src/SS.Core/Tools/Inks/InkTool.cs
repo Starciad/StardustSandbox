@@ -35,13 +35,13 @@ namespace StardustSandbox.Core.Tools.Inks
 
         internal override void Execute(ToolContext context)
         {
-            if (!context.World.TryGetSlot(context.Position, out Slot slot) ||
+            if (!context.TileMap.TryGetSlot(context.Position, out Slot slot) ||
                 slot.GetLayer(context.Layer).IsEmpty)
             {
                 return;
             }
 
-            context.World.SetElementColorModifier(context.Position, context.Layer, this.inkColor);
+            context.TileMap.SetElementColorModifier(context.Position, context.Layer, this.inkColor);
             this.AchievementManager.Unlock(AchievementIndex.ACH_008);
         }
     }

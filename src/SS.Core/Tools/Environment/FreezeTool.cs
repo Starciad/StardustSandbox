@@ -33,7 +33,7 @@ namespace StardustSandbox.Core.Tools.Environment
 
         internal override void Execute(ToolContext context)
         {
-            if (!context.World.TileMap.TryGetSlot(context.Position, out Slot slot))
+            if (!context.TileMap.TileMap.TryGetSlot(context.Position, out Slot slot))
             {
                 return;
             }
@@ -45,7 +45,7 @@ namespace StardustSandbox.Core.Tools.Environment
                 return;
             }
 
-            context.World.TileMap.SetElementTemperature(context.Position, context.Layer, TemperatureMath.Clamp(slotLayer.Temperature + ToolConstants.DEFAULT_FREEZE_VALUE));
+            context.TileMap.TileMap.SetElementTemperature(context.Position, context.Layer, TemperatureMath.Clamp(slotLayer.Temperature + ToolConstants.DEFAULT_FREEZE_VALUE));
             this.AchievementManager.Unlock(AchievementIndex.ACH_011);
         }
     }

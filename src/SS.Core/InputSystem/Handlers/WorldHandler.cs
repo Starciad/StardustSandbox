@@ -27,6 +27,7 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Tools;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Components;
 
 namespace StardustSandbox.Core.InputSystem.Handlers
 {
@@ -44,23 +45,23 @@ namespace StardustSandbox.Core.InputSystem.Handlers
         private readonly FloodFillGizmo floodFillGizmo;
         private readonly ReplaceGizmo replaceGizmo;
 
-        private readonly World world;
+        private readonly TileMap tileMap;
 
-        internal WorldHandler(AchievementManager achievementManager, ActorManager actorManager, Camera2D camera, Pen pen, Player player, ToolDatabase toolDatabase, World world)
+        internal WorldHandler(AchievementManager achievementManager, ActorManager actorManager, Camera2D camera, Pen pen, Player player, TileMap tileMap, ToolDatabase toolDatabase)
         {
-            this.world = world;
+            this.tileMap = tileMap;
 
-            this.ToolContext = new(world);
+            this.ToolContext = new(tileMap);
 
             this.player = player;
             this.pen = pen;
             this.camera = camera;
 
-            this.visualizationGizmo = new(achievementManager, actorManager, pen, world, this);
-            this.pencilGizmo = new(achievementManager, actorManager, pen, toolDatabase, world, this);
-            this.eraserGizmo = new(achievementManager, actorManager, pen, world, this);
-            this.floodFillGizmo = new(achievementManager, actorManager, pen, world, this);
-            this.replaceGizmo = new(achievementManager, actorManager, pen, world, this);
+            this.visualizationGizmo = new(achievementManager, actorManager, pen, tileMap, this);
+            this.pencilGizmo = new(achievementManager, actorManager, pen, toolDatabase, tileMap, this);
+            this.eraserGizmo = new(achievementManager, actorManager, pen, tileMap, this);
+            this.floodFillGizmo = new(achievementManager, actorManager, pen, tileMap, this);
+            this.replaceGizmo = new(achievementManager, actorManager, pen, tileMap, this);
         }
 
         internal void Modify(in WorldModificationType worldModificationType, in InputState inputState)
