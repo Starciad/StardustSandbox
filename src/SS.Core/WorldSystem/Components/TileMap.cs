@@ -22,6 +22,7 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Events.TileMap;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.WorldSystem.Slots;
 
@@ -36,21 +37,21 @@ namespace StardustSandbox.Core.WorldSystem.Components
         internal int Width => this.width;
         internal int Height => this.height;
 
-        internal delegate void ElementInstantiatedHandler(Point position, Layer layer, ElementIndex index);
-        internal delegate void ElementPositionUpdatedHandler(Point oldPosition, Point newPosition, Layer layer);
-        internal delegate void ElementSwappedHandler(Point element1Position, Point element2Position, Layer layer);
-        internal delegate void ElementDestroyedHandler(Point position, Layer layer, ElementIndex index);
-        internal delegate void ElementRemovedHandler(Point position, Layer layer);
-        internal delegate void ElementReplacedHandler(Point position, Layer layer, ElementIndex oldIndex, ElementIndex newIndex);
-        internal delegate void ElementTemperatureChangedHandler(Point position, Layer layer, float newTemperature);
-
-        internal event ElementInstantiatedHandler OnElementInstantiated;
-        internal event ElementPositionUpdatedHandler OnElementPositionUpdated;
-        internal event ElementSwappedHandler OnElementSwapped;
-        internal event ElementDestroyedHandler OnElementDestroyed;
-        internal event ElementRemovedHandler OnElementRemoved;
-        internal event ElementReplacedHandler OnElementReplaced;
-        internal event ElementTemperatureChangedHandler OnElementTemperatureChanged;
+        // internal delegate void ElementInstantiatedHandler(Point position, Layer layer, ElementIndex index);
+        // internal delegate void ElementPositionUpdatedHandler(Point oldPosition, Point newPosition, Layer layer);
+        // internal delegate void ElementSwappedHandler(Point element1Position, Point element2Position, Layer layer);
+        // internal delegate void ElementDestroyedHandler(Point position, Layer layer, ElementIndex index);
+        // internal delegate void ElementRemovedHandler(Point position, Layer layer);
+        // internal delegate void ElementReplacedHandler(Point position, Layer layer, ElementIndex oldIndex, ElementIndex newIndex);
+        // internal delegate void ElementTemperatureChangedHandler(Point position, Layer layer, float newTemperature);
+        // 
+        // internal event ElementInstantiatedHandler OnElementInstantiated;
+        // internal event ElementPositionUpdatedHandler OnElementPositionUpdated;
+        // internal event ElementSwappedHandler OnElementSwapped;
+        // internal event ElementDestroyedHandler OnElementDestroyed;
+        // internal event ElementRemovedHandler OnElementRemoved;
+        // internal event ElementReplacedHandler OnElementReplaced;
+        // internal event ElementTemperatureChangedHandler OnElementTemperatureChanged;
 
         private int width;
         private int height;
@@ -58,6 +59,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
         private Slot[,] slots;
 
         private readonly ElementDatabase elementDatabase;
+        private readonly GameEvents gameEvents;
         private readonly ElementNeighbors elementNeighbors = new();
         private readonly ObjectPool slotObjectPool = new();
 
@@ -73,9 +75,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
             set => this.slots[point.X, point.Y] = value;
         }
 
-        internal TileMap(ElementDatabase elementDatabase)
+        internal TileMap(ElementDatabase elementDatabase, GameEvents gameEvents)
         {
             this.elementDatabase = elementDatabase;
+            this.gameEvents = gameEvents;
         }
 
         internal void Clear()
@@ -189,7 +192,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             slot.Position = position;
             slot.Instantiate(layer, index);
 
-            this.OnElementInstantiated?.Invoke(position, layer, index);
+            this.gameEvents.Publish(new ElementInstantiatedEvent(position, layer, index));
 
             return true;
         }
@@ -209,7 +212,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             this[newPosition].Position = newPosition;
             this[oldPosition].Destroy(layer);
 
-            this.OnElementPositionUpdated?.Invoke(oldPosition, newPosition, layer);
+            this.gameEvents.Publish(new ElementPositionUpdatedEvent(oldPosition, newPosition, layer));
 
             return true;
         }
@@ -237,7 +240,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             this.slotObjectPool.Enqueue(tempSlot);
 
-            this.OnElementSwapped?.Invoke(element1Position, element2Position, layer);
+            this.gameEvents.Publish(new ElementSwappedEvent(element1Position, element2Position, layer));
 
             return true;
         }
@@ -254,7 +257,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             ElementIndex index = slotLayer.ElementIndex;
             slotLayer.Destroy();
 
-            this.OnElementDestroyed?.Invoke(position, layer, index);
+            this.gameEvents.Publish(new ElementDestroyedEvent(position, layer, index));
 
             return true;
         }
@@ -267,12 +270,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
             }
 
             this[position].Destroy(layer);
-            this.OnElementRemoved?.Invoke(position, layer);
+            this.gameEvents.Publish(new ElementRemovedEvent(position, layer));
 
             return true;
         }
 
-        internal bool TryReplaceElementIndex(Point position, Layer layer, ElementIndex index)
+        internal bool TryReplaceElementIndex(Point position, Layer layer, ElementIndex newIndex)
         {
             if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
             {
@@ -282,19 +285,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
             SlotLayer slotLayer = this[position].GetLayer(layer);
             ElementIndex oldIndex = slotLayer.ElementIndex;
 
-            // this.worldElementContext.Initialize(position, layer);
-            // 
-            // Element newElement = this.elementDatabase.GetElement(index);
-            // newElement.SetContext(this.worldElementContext);
-            // newElement.Instantiate();
-            // 
-            // slotLayer.Element.Destroy();
-            // slotLayer.Replace(index, newElement);
-
             slotLayer.Destroy();
-            slotLayer.Instantiate(index);
+            slotLayer.Instantiate(newIndex);
 
-            this.OnElementReplaced?.Invoke(position, layer, oldIndex, index);
+            this.gameEvents.Publish(new ElementReplacedEvent(position, layer, oldIndex, newIndex));
 
             return true;
         }
@@ -376,7 +370,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             if (slotLayer.Temperature != value)
             {
                 slotLayer.Temperature = value;
-                this.OnElementTemperatureChanged?.Invoke(position, layer, value);
+                this.gameEvents.Publish(new ElementTemperatureChangedEvent(position, layer, value));
             }
 
             return true;

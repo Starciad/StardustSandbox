@@ -26,17 +26,42 @@ namespace StardustSandbox.Core.Managers
     internal sealed class AchievementManager
     {
         internal delegate void AchievementUnlockedHandler(Achievement achievement);
-
         internal event AchievementUnlockedHandler AchievementUnlocked;
 
         private readonly AchievementDatabase achievementDatabase;
 
-        internal AchievementManager(AchievementDatabase achievementDatabase)
+        internal AchievementManager(AchievementDatabase achievementDatabase, GameEvents gameEvents)
         {
             this.achievementDatabase = achievementDatabase;
+
+            // ACH 001
+            // ACH 002
+            // ACH 003
+            // ACH 004
+            // ACH 005
+            // ACH 006
+            // ACH 007
+            // ACH 008
+            // ACH 009
+            // ACH 010
+            // ACH 011
+            // ACH 012
+            // ACH 013
+            // ACH 014
+            // ACH 015
+            // ACH 016
+            // ACH 017
+            // ACH 018
+            // ACH 019
+            // ACH 020
+            // ACH 021
+            // ACH 022
+            // ACH 023
+            // ACH 024
+            // ACH 025
         }
 
-        internal void Unlock(AchievementIndex index)
+        private void Unlock(AchievementIndex index)
         {
             Achievement achievement = this.achievementDatabase.GetAchievement(index);
             AchievementSettings achievementSettings = SettingsSerializer.Load<AchievementSettings>();

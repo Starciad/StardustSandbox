@@ -28,16 +28,16 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
 {
     internal abstract class Gizmo
     {
-        protected AchievementManager AchievementManager { get; }
         protected ActorManager ActorManager { get; }
+        protected GameEvents GameEvents { get; }
         protected Pen Pen { get; }
         protected TileMap TileMap { get; }
         protected WorldHandler WorldHandler { get; }
 
-        internal Gizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, TileMap tileMap, WorldHandler worldHandler)
+        internal Gizmo(ActorManager actorManager, GameEvents gameEvents, Pen pen, TileMap tileMap, WorldHandler worldHandler)
         {
-            this.AchievementManager = achievementManager;
             this.ActorManager = actorManager;
+            this.GameEvents = gameEvents;
             this.Pen = pen;
             this.TileMap = tileMap;
             this.WorldHandler = worldHandler;

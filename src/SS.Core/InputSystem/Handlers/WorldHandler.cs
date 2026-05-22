@@ -46,7 +46,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers
 
         private readonly TileMap tileMap;
 
-        internal WorldHandler(AchievementManager achievementManager, ActorManager actorManager, Camera2D camera, Pen pen, Player player, TileMap tileMap, ToolDatabase toolDatabase)
+        internal WorldHandler(ActorManager actorManager, Camera2D camera, GameEvents gameEvents, Pen pen, Player player, TileMap tileMap, ToolDatabase toolDatabase)
         {
             this.tileMap = tileMap;
 
@@ -56,11 +56,11 @@ namespace StardustSandbox.Core.InputSystem.Handlers
             this.pen = pen;
             this.camera = camera;
 
-            this.visualizationGizmo = new(achievementManager, actorManager, pen, tileMap, this);
-            this.pencilGizmo = new(achievementManager, actorManager, pen, toolDatabase, tileMap, this);
-            this.eraserGizmo = new(achievementManager, actorManager, pen, tileMap, this);
-            this.floodFillGizmo = new(achievementManager, actorManager, pen, tileMap, this);
-            this.replaceGizmo = new(achievementManager, actorManager, pen, tileMap, this);
+            this.visualizationGizmo = new(actorManager, gameEvents, pen, tileMap, this);
+            this.pencilGizmo = new(actorManager, gameEvents, pen, toolDatabase, tileMap, this);
+            this.eraserGizmo = new(actorManager, gameEvents, pen, tileMap, this);
+            this.floodFillGizmo = new(actorManager, gameEvents, pen, tileMap, this);
+            this.replaceGizmo = new(actorManager, gameEvents, pen, tileMap, this);
         }
 
         internal void Modify(in WorldModificationType worldModificationType, in InputState inputState)

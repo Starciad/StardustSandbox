@@ -28,7 +28,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
 {
     internal sealed class VisualizationGizmo : Gizmo
     {
-        internal VisualizationGizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, TileMap tileMap, WorldHandler worldHandler) : base(achievementManager, actorManager, pen, tileMap, worldHandler)
+        internal VisualizationGizmo(ActorManager actorManager, GameEvents gameEvents, Pen pen, TileMap tileMap, WorldHandler worldHandler) : base(actorManager, gameEvents, pen, tileMap, worldHandler)
         {
 
         }

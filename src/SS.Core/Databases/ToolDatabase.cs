@@ -28,44 +28,44 @@ namespace StardustSandbox.Core.Databases
     {
         private Tool[] tools;
 
-        internal void Load(AchievementManager achievementManager)
+        internal void Load(GameEvents gameEvents)
         {
             this.tools = [
                 // [000] Heat Tool
-                new HeatTool(ToolIndex.HeatTool, achievementManager),
+                new HeatTool(ToolIndex.HeatTool, gameEvents),
 
                 // [001] Freeze Tool
-                new FreezeTool(ToolIndex.FreezeTool, achievementManager),
+                new FreezeTool(ToolIndex.FreezeTool, gameEvents),
 
                 // [002] Ink Tool (Black)
-                new InkTool(ToolIndex.BlackInkTool, AAP64ColorPalette.DarkGray, achievementManager),
+                new InkTool(ToolIndex.BlackInkTool, AAP64ColorPalette.DarkGray, gameEvents),
 
                 // [003] Ink Tool (White)
-                new InkTool(ToolIndex.WhiteInkTool, AAP64ColorPalette.White, achievementManager),
+                new InkTool(ToolIndex.WhiteInkTool, AAP64ColorPalette.White, gameEvents),
 
                 // [004] Ink Tool (Red)
-                new InkTool(ToolIndex.RedInkTool, AAP64ColorPalette.Crimson, achievementManager),
+                new InkTool(ToolIndex.RedInkTool, AAP64ColorPalette.Crimson, gameEvents),
 
                 // [005] Ink Tool (Orange)
-                new InkTool(ToolIndex.OrangeInkTool, AAP64ColorPalette.Orange, achievementManager),
+                new InkTool(ToolIndex.OrangeInkTool, AAP64ColorPalette.Orange, gameEvents),
 
                 // [006] Ink Tool (Yellow)
-                new InkTool(ToolIndex.YellowInkTool, AAP64ColorPalette.Gold, achievementManager),
+                new InkTool(ToolIndex.YellowInkTool, AAP64ColorPalette.Gold, gameEvents),
 
                 // [007] Ink Tool (Green)
-                new InkTool(ToolIndex.GreenInkTool, AAP64ColorPalette.GrassGreen, achievementManager),
+                new InkTool(ToolIndex.GreenInkTool, AAP64ColorPalette.GrassGreen, gameEvents),
 
                 // [008] Ink Tool (Blue)
-                new InkTool(ToolIndex.BlueInkTool, AAP64ColorPalette.RoyalBlue, achievementManager),
+                new InkTool(ToolIndex.BlueInkTool, AAP64ColorPalette.RoyalBlue, gameEvents),
 
                 // [009] Ink Tool (Gray)
-                new InkTool(ToolIndex.GrayInkTool, AAP64ColorPalette.Slate, achievementManager),
+                new InkTool(ToolIndex.GrayInkTool, AAP64ColorPalette.Slate, gameEvents),
 
                 // [010] Ink Tool (Violet)
-                new InkTool(ToolIndex.VioletInkTool, AAP64ColorPalette.Violet, achievementManager),
+                new InkTool(ToolIndex.VioletInkTool, AAP64ColorPalette.Violet, gameEvents),
 
                 // [011] Ink Tool (Brown)
-                new InkTool(ToolIndex.BrownInkTool, AAP64ColorPalette.Brown, achievementManager),
+                new InkTool(ToolIndex.BrownInkTool, AAP64ColorPalette.Brown, gameEvents),
             ];
         }
 

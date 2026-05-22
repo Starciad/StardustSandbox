@@ -16,9 +16,7 @@
 */
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Tools;
-using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.WorldSystem.Slots;
 
@@ -26,7 +24,7 @@ namespace StardustSandbox.Core.Tools.Environment
 {
     internal sealed class FreezeTool : Tool
     {
-        internal FreezeTool(ToolIndex index, AchievementManager achievementManager) : base(index, achievementManager)
+        internal FreezeTool(ToolIndex index, GameEvents gameEvents) : base(index, gameEvents)
         {
 
         }
@@ -46,7 +44,6 @@ namespace StardustSandbox.Core.Tools.Environment
             }
 
             context.TileMap.SetElementTemperature(context.Position, context.Layer, TemperatureMath.Clamp(slotLayer.Temperature + ToolConstants.DEFAULT_FREEZE_VALUE));
-            this.AchievementManager.Unlock(AchievementIndex.ACH_011);
         }
     }
 }

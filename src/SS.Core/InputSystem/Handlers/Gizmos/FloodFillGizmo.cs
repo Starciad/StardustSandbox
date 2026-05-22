@@ -42,7 +42,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         private readonly Queue<Point> floodFillQueue = [];
         private readonly HashSet<Point> floodFillVisited = [];
 
-        internal FloodFillGizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, TileMap tileMap, WorldHandler worldHandler) : base(achievementManager, actorManager, pen, tileMap, worldHandler)
+        internal FloodFillGizmo(ActorManager actorManager, GameEvents gameEvents, Pen pen, TileMap tileMap, WorldHandler worldHandler) : base(actorManager, gameEvents, pen, tileMap, worldHandler)
         {
 
         }

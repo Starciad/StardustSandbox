@@ -24,6 +24,7 @@ using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Events.TileMap;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Managers;
@@ -58,7 +59,6 @@ namespace StardustSandbox.Core.WorldSystem
         private readonly ChunkHandler chunkHandler;
         private readonly ExplosionHandler explosionHandler;
         private readonly RenderingHandler renderingHandler;
-        private readonly StatisticsHandler statisticsHandler;
         private readonly UpdateHandler updateHandler;
 
         private readonly ElementContext elementContext;
@@ -68,7 +68,6 @@ namespace StardustSandbox.Core.WorldSystem
         private readonly ElementDatabase elementDatabase;
 
         internal World(
-            AchievementManager achievementManager,
             AssetDatabase assetDatabase,
             ElementDatabase elementDatabase,
             GameEvents gameEvents,
@@ -82,92 +81,88 @@ namespace StardustSandbox.Core.WorldSystem
             this.time = new();
             this.temperature = new(this.time);
 
-            this.tileMap = new(elementDatabase);
+            this.tileMap = new(elementDatabase, gameEvents);
 
             this.chunkHandler = new(this.TileMap);
             this.explosionHandler = new(gameEvents, this.tileMap);
             this.renderingHandler = new(assetDatabase, playerInputController, this);
-            this.statisticsHandler = new(achievementManager);
             this.updateHandler = new(this);
 
             this.elementContext = new(this);
             this.serializer = new(this);
 
-            RegisterEvents();
+            RegisterEvents(gameEvents);
         }
 
-        private void RegisterEvents()
+        private void RegisterEvents(GameEvents gameEvents)
         {
-            this.tileMap.OnElementInstantiated += OnElementInstantiated;
-            this.tileMap.OnElementPositionUpdated += OnElementPositionUpdated;
-            this.tileMap.OnElementSwapped += OnElementSwapped;
-            this.tileMap.OnElementDestroyed += OnElementDestroyed;
-            this.tileMap.OnElementRemoved += OnElementRemoved;
-            this.tileMap.OnElementReplaced += OnElementReplaced;
-            this.tileMap.OnElementTemperatureChanged += OnElementTemperatureChanged;
+            gameEvents.Subscribe<ElementDestroyedEvent>(OnElementDestroyed);
+            gameEvents.Subscribe<ElementInstantiatedEvent>(OnElementInstantiated);
+            gameEvents.Subscribe<ElementPositionUpdatedEvent>(OnElementPositionUpdated);
+            gameEvents.Subscribe<ElementRemovedEvent>(OnElementRemoved);
+            gameEvents.Subscribe<ElementReplacedEvent>(OnElementReplaced);
+            gameEvents.Subscribe<ElementSwappedEvent>(OnElementSwapped);
+            gameEvents.Subscribe<ElementTemperatureChangedEvent>(OnElementTemperatureChanged);
         }
 
         #region EVENTS
 
-        private void OnElementInstantiated(Point position, Layer layer, ElementIndex index)
+        private void OnElementDestroyed(ElementDestroyedEvent e)
         {
             // Chunk System
-            this.chunkHandler.NotifyChunk(position);
-
-            // Statistics System
-            this.statisticsHandler.RegisterInstantiatedElement(index);
+            this.chunkHandler.NotifyChunk(e.Position);
 
             // Element Context
-            this.elementContext.Initialize(position, layer);
+            this.elementContext.Initialize(e.Position, e.Layer);
 
-            Element element = this.elementDatabase.GetElement(index);
-            element.SetContext(this.elementContext);
-            element.Instantiate();
-        }
-
-        private void OnElementPositionUpdated(Point oldPosition, Point newPosition, Layer layer)
-        {
-            // Chunk System
-            this.chunkHandler.NotifyChunk(oldPosition);
-            this.chunkHandler.NotifyChunk(newPosition);
-        }
-
-        private void OnElementSwapped(Point position1, Point position2, Layer layer)
-        {
-            // Chunk System
-            this.chunkHandler.NotifyChunk(position1);
-            this.chunkHandler.NotifyChunk(position2);
-        }
-
-        private void OnElementDestroyed(Point position, Layer layer, ElementIndex index)
-        {
-            // Chunk System
-            this.chunkHandler.NotifyChunk(position);
-
-            // Element Context
-            this.elementContext.Initialize(position, layer);
-
-            Element element = this.elementDatabase.GetElement(index);
+            Element element = this.elementDatabase.GetElement(e.Index);
             element.SetContext(this.elementContext);
             element.Destroy();
         }
-
-        private void OnElementRemoved(Point position, Layer layer)
+        private void OnElementInstantiated(ElementInstantiatedEvent e)
         {
             // Chunk System
-            this.chunkHandler.NotifyChunk(position);
+            this.chunkHandler.NotifyChunk(e.Position);
+
+            // Element Context
+            this.elementContext.Initialize(e.Position, e.Layer);
+
+            Element element = this.elementDatabase.GetElement(e.Index);
+            element.SetContext(this.elementContext);
+            element.Instantiate();
         }
-
-        private void OnElementReplaced(Point position, Layer layer, ElementIndex oldIndex, ElementIndex index)
+        private void OnElementPositionUpdated(ElementPositionUpdatedEvent e)
         {
             // Chunk System
-            this.chunkHandler.NotifyChunk(position);
+            this.chunkHandler.NotifyChunk(e.OldPosition);
+            this.chunkHandler.NotifyChunk(e.NewPosition);
         }
-
-        private void OnElementTemperatureChanged(Point position, Layer layer, float temperature)
+        private void OnElementRemoved(ElementRemovedEvent e)
         {
             // Chunk System
-            this.chunkHandler.NotifyChunk(position);
+            this.chunkHandler.NotifyChunk(e.Position);
+        }
+        private void OnElementReplaced(ElementReplacedEvent e)
+        {
+            // Chunk System
+            this.chunkHandler.NotifyChunk(e.Position);
+
+            this.elementContext.Initialize(e.Position, e.Layer);
+            
+            Element newElement = this.elementDatabase.GetElement(e.NewIndex);
+            newElement.SetContext(this.elementContext);
+            newElement.Instantiate();
+        }
+        private void OnElementSwapped(ElementSwappedEvent e)
+        {
+            // Chunk System
+            this.chunkHandler.NotifyChunk(e.Position1);
+            this.chunkHandler.NotifyChunk(e.Position2);
+        }
+        private void OnElementTemperatureChanged(ElementTemperatureChangedEvent e)
+        {
+            // Chunk System
+            this.chunkHandler.NotifyChunk(e.Position);
         }
 
         #endregion
@@ -181,8 +176,6 @@ namespace StardustSandbox.Core.WorldSystem
         {
             this.Name = string.Empty;
             this.Description = string.Empty;
-
-            this.statisticsHandler.ResetWorldStatistics();
 
             this.chunkHandler.Reset();
             this.temperature.Reset();

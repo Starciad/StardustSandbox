@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,22 +15,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Enums.Tools;
+using Microsoft.Xna.Framework;
 
-namespace StardustSandbox.Core.Tools
+using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Interfaces.Events;
+
+namespace StardustSandbox.Core.Events.TileMap
 {
-    internal abstract class Tool
+    internal sealed class ElementPositionUpdatedEvent(Point oldPosition, Point newPosition, Layer layer) : IGameEvent
     {
-        internal ToolIndex Index { get; }
-        protected GameEvents GameEvents { get; }
-
-        internal Tool(ToolIndex index, GameEvents gameEvents)
-        {
-            this.Index = index;
-            this.GameEvents = gameEvents;
-        }
-
-        internal abstract void Execute(ToolContext context);
+        internal Point OldPosition => oldPosition;
+        internal Point NewPosition => newPosition;
+        internal Layer Layer => layer;
     }
 }
-

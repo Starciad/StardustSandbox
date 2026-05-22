@@ -19,7 +19,6 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Tools;
-using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Tools.Inks
@@ -28,21 +27,19 @@ namespace StardustSandbox.Core.Tools.Inks
     {
         private readonly Color inkColor;
 
-        internal InkTool(ToolIndex index, Color inkColor, AchievementManager achievementManager) : base(index, achievementManager)
+        internal InkTool(ToolIndex index, Color inkColor, GameEvents gameEvents) : base(index, gameEvents)
         {
             this.inkColor = inkColor;
         }
 
         internal override void Execute(ToolContext context)
         {
-            if (!context.TileMap.TryGetSlot(context.Position, out Slot slot) ||
-                slot.GetLayer(context.Layer).IsEmpty)
+            if (!context.TileMap.TryGetSlot(context.Position, out Slot slot) || slot.GetLayer(context.Layer).IsEmpty)
             {
                 return;
             }
 
             context.TileMap.SetElementColorModifier(context.Position, context.Layer, this.inkColor);
-            this.AchievementManager.Unlock(AchievementIndex.ACH_008);
         }
     }
 }

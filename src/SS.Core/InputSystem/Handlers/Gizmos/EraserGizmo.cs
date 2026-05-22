@@ -31,7 +31,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
 {
     internal sealed class EraserGizmo : Gizmo
     {
-        internal EraserGizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, TileMap tileMap, WorldHandler worldHandler) : base(achievementManager, actorManager, pen, tileMap, worldHandler)
+        internal EraserGizmo(ActorManager actorManager, GameEvents gameEvents, Pen pen, TileMap tileMap, WorldHandler worldHandler) : base(actorManager, gameEvents, pen, tileMap, worldHandler)
         {
 
         }

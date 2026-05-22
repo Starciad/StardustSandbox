@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
     {
         private readonly ToolDatabase toolDatabase;
 
-        internal PencilGizmo(AchievementManager achievementManager, ActorManager actorManager, Pen pen, ToolDatabase toolDatabase, TileMap tileMap, WorldHandler worldHandler) : base(achievementManager, actorManager, pen, tileMap, worldHandler)
+        internal PencilGizmo(ActorManager actorManager, GameEvents gameEvents, Pen pen, ToolDatabase toolDatabase, TileMap tileMap, WorldHandler worldHandler) : base(actorManager, gameEvents, pen, tileMap, worldHandler)
         {
             this.toolDatabase = toolDatabase;
         }
@@ -52,7 +52,6 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
                     {
                         case WorldModificationType.Adding:
                             DrawElements((ElementIndex)contentIndex, this.Pen.GetShapePoints(position));
-                            this.AchievementManager.Unlock(AchievementIndex.ACH_001);
                             break;
 
                         case WorldModificationType.Removing:
