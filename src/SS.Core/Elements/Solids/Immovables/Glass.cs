@@ -25,7 +25,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Glass : ImmovableSolid
     {
-        internal Glass(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal Glass(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.InitialTemperature = 25.0f;
             this.BaseDensity = 2.5f;

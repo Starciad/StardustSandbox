@@ -31,7 +31,7 @@ namespace StardustSandbox.Core.Elements.Gases
     {
         private static readonly List<Point> availablePositions = [];
 
-        internal Gas(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal Gas(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
 
         }

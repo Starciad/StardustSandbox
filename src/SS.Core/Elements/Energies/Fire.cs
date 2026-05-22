@@ -21,6 +21,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Events.Common;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Randomness;
 using StardustSandbox.Core.WorldSystem.Handlers;
@@ -30,7 +31,7 @@ namespace StardustSandbox.Core.Elements.Energies
 {
     internal sealed class Fire : Energy
     {
-        internal Fire(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal Fire(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.InitialTemperature = 500.0f;
             this.BaseDensity = 0.0f;
@@ -104,11 +105,7 @@ namespace StardustSandbox.Core.Elements.Energies
                 }
             }
 
-            // Unlock achievement if 4 or more elements were burned and there were at least 4 elements around
-            if (burnedElements >= 4 && aroundElements >= 4)
-            {
-                this.AchievementManager.Unlock(AchievementIndex.ACH_023);
-            }
+            this.GameEvents.Publish(new ElementFireSpreadEvent());
         }
 
         protected override void OnStep(ElementContext context)

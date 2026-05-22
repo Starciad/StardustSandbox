@@ -22,6 +22,7 @@ using StardustSandbox.Core.Elements.Gases;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.WorldSystem.Handlers;
@@ -38,6 +39,8 @@ namespace StardustSandbox.Core.Elements
         internal ElementRenderingType RenderingType { get; }
         internal Point TextureOriginOffset { get; }
         internal Color ReferenceColor { get; }
+
+        protected GameEvents GameEvents { get; }
 
         public float BaseDensity { get; protected init; }
         public float BaseExplosionResistance { get; protected init; }
@@ -58,13 +61,14 @@ namespace StardustSandbox.Core.Elements
 
         private ElementContext context;
 
-        internal Element(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor)
+        internal Element(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents)
         {
             this.Index = index;
             this.Category = category;
             this.RenderingType = renderingType;
             this.TextureOriginOffset = textureOriginOffset;
             this.ReferenceColor = referenceColor;
+            this.GameEvents = gameEvents;
         }
 
         internal void SetContext(ElementContext context)
@@ -180,11 +184,13 @@ namespace StardustSandbox.Core.Elements
 
             if (this.context.CurrentSlotLayer.Temperature == TemperatureConstants.MAX_CELSIUS_VALUE)
             {
-                this.AchievementManager.Unlock(AchievementIndex.ACH_009);
+                // this.AchievementManager.Unlock(AchievementIndex.ACH_009);
+                this.GameEvents.Publish(new ElementReachedMaxTemperatureEvent());
             }
             else if (this.context.CurrentSlotLayer.Temperature == TemperatureConstants.MIN_CELSIUS_VALUE)
             {
-                this.AchievementManager.Unlock(AchievementIndex.ACH_010);
+                // this.AchievementManager.Unlock(AchievementIndex.ACH_010);
+                this.GameEvents.Publish(new ElementReachedMinTemperatureEvent());
             }
 
             OnTemperatureChanged(this.context, this.context.CurrentSlotLayer.Temperature);

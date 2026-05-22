@@ -29,7 +29,6 @@ using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem.Components;
 using StardustSandbox.Core.WorldSystem.Handlers;
-using StardustSandbox.Core.WorldSystem.Information;
 
 namespace StardustSandbox.Core.WorldSystem
 {

@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Randomness;
 using StardustSandbox.Core.WorldSystem.Handlers;
@@ -28,7 +29,7 @@ namespace StardustSandbox.Core.Elements.Liquids
 {
     internal sealed class Saltwater : Liquid
     {
-        internal Saltwater(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal Saltwater(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.BaseDispersionRate = 3;
             this.InitialTemperature = 25.0f;
@@ -84,14 +85,14 @@ namespace StardustSandbox.Core.Elements.Liquids
             {
                 context.ReplaceElementIndex(ElementIndex.Ice);
                 context.SetStoredElementIndex(ElementIndex.Saltwater);
-                this.AchievementManager.Unlock(AchievementIndex.ACH_021);
+                this.GameEvents.Publish(new ElementStateChangedEvent());
             }
             else if (currentValue >= 110.0f)
             {
                 if (Random.GetBool())
                 {
                     context.ReplaceElementIndex(ElementIndex.Steam);
-                    this.AchievementManager.Unlock(AchievementIndex.ACH_005);
+                    this.GameEvents.Publish(new ElementStateChangedEvent());
                 }
                 else
                 {

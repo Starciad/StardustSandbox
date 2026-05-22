@@ -44,7 +44,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             ]
         };
 
-        internal Tnt(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal Tnt(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.InitialTemperature = 22.0f;
             this.BaseDensity = 2.8f;

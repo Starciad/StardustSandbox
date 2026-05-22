@@ -26,6 +26,7 @@ using StardustSandbox.Core.Enums.Actors;
 using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Events.Common;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Saving.Data;
@@ -51,14 +52,13 @@ namespace StardustSandbox.Core.Actors.Common
         private Direction direction;
         private ElementIndex grabbedElementIndex;
         private Point positionElementPlaced;
-        private uint elementsPlacedCount;
 
         private readonly AssetDatabase assetDatabase;
         private readonly ElementDatabase elementDatabase;
 
         private static readonly List<Point> possiblePositions = [];
 
-        internal GulActor(ActorIndex index, ActorManager actorManager, AchievementManager achievementManager, AssetDatabase assetDatabase, ElementDatabase elementDatabase, World world) : base(index, actorManager, achievementManager, world)
+        internal GulActor(ActorIndex index, ActorManager actorManager, AssetDatabase assetDatabase, ElementDatabase elementDatabase, GameEvents gameEvents, World world) : base(index, actorManager, gameEvents, world)
         {
             this.assetDatabase = assetDatabase;
             this.elementDatabase = elementDatabase;
@@ -250,19 +250,6 @@ namespace StardustSandbox.Core.Actors.Common
             return false;
         }
 
-        private void IncrementElementsPlacedCount()
-        {
-            this.elementsPlacedCount =
-                this.elementsPlacedCount == uint.MaxValue
-                    ? uint.MaxValue
-                    : this.elementsPlacedCount + 1;
-
-            if (this.elementsPlacedCount >= 100)
-            {
-                this.AchievementManager.Unlock(AchievementIndex.ACH_007);
-            }
-        }
-
         private bool TryPlaceElement()
         {
             SetFrontPositions(point =>
@@ -284,7 +271,7 @@ namespace StardustSandbox.Core.Actors.Common
                 this.grabbedElementIndex = ElementIndex.None;
                 this.positionElementPlaced = position;
 
-                IncrementElementsPlacedCount();
+                this.GameEvents.Publish(new GulPlacedElementEvent());
 
                 return true;
             }

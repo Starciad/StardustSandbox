@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Gases
 {
     internal sealed class Cloud : Gas
     {
-        internal Cloud(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal Cloud(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.InitialTemperature = 15.0f;
             this.BaseFlammabilityResistance = 10.0f;

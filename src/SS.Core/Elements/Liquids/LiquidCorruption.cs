@@ -30,7 +30,7 @@ namespace StardustSandbox.Core.Elements.Liquids
 {
     internal sealed class LiquidCorruption : Liquid
     {
-        internal LiquidCorruption(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal LiquidCorruption(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.BaseDensity = 1.05f;
             this.BaseExplosionResistance = 0.1f;
@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.Elements.Liquids
 
             if (Random.Chance(ElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD))
             {
-                context.InfectNeighboringElements(neighbors);
+                context.InfectNeighboringElements(neighbors, this.GameEvents);
             }
         }
     }

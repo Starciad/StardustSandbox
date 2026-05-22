@@ -30,10 +30,10 @@ namespace StardustSandbox.Core.Databases
     {
         private IActorDescriptor[] descriptors;
 
-        internal void Load(AchievementManager achievementManager, ActorManager actorManager, AssetDatabase assetDatabase, ElementDatabase elementDatabase, World world)
+        internal void Load(ActorManager actorManager, AssetDatabase assetDatabase, ElementDatabase elementDatabase, GameEvents gameEvents, World world)
         {
             this.descriptors = [
-                new ActorDescriptor<GulActor>(ActorIndex.Gul, () => new(ActorIndex.Gul, actorManager, achievementManager, assetDatabase, elementDatabase, world)
+                new ActorDescriptor<GulActor>(ActorIndex.Gul, () => new(ActorIndex.Gul, actorManager, assetDatabase, elementDatabase, gameEvents, world)
                 {
                     CanDraw = true,
                     CanUpdate = true,

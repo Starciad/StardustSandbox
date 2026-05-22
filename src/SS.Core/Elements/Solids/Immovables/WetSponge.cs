@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem.Handlers;
 
@@ -26,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class WetSponge : ImmovableSolid
     {
-        internal WetSponge(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal WetSponge(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.InitialTemperature = 20.0f;
             this.BaseDensity = 1.2f;
@@ -61,7 +62,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             if (currentValue >= 60.0f)
             {
                 context.ReplaceElementIndex(ElementIndex.DrySponge);
-                this.AchievementManager.Unlock(AchievementIndex.ACH_019);
+                this.GameEvents.Publish(new ElementStateChangedEvent());
             }
         }
     }

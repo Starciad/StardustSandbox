@@ -21,7 +21,7 @@ using StardustSandbox.Core.WorldSystem.Models;
 
 using System;
 
-namespace StardustSandbox.Core.WorldSystem.Information
+namespace StardustSandbox.Core.WorldSystem.Components
 {
     internal sealed class Temperature : IResettable
     {

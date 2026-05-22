@@ -48,6 +48,7 @@ namespace StardustSandbox.Core
         private readonly GraphicsDeviceManager graphicsDeviceManager;
         private readonly GameLaunchOptions gameLaunchOptions;
 
+        private readonly GameEvents gameEvents;
         private readonly GameHandler gameHandler;
         private readonly GameScreen gameScreen;
 
@@ -115,6 +116,7 @@ namespace StardustSandbox.Core
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
 
+            this.gameEvents = new();
             this.gameScreen = new(this.graphicsDeviceManager);
 
             // Database
@@ -197,7 +199,8 @@ namespace StardustSandbox.Core
         {
             // Databases
             this.assetDatabase.Load();
-            this.actorDatabase.Load(this.achievementManager, this.actorManager, this.assetDatabase, this.elementDatabase, this.world);
+            this.actorDatabase.Load(this.actorManager, this.assetDatabase, this.elementDatabase, this.gameEvents, this.world);
+            this.elementDatabase.Load(this.gameEvents);
             this.backgroundDatabase.Load();
             this.uiDatabase.Load(
                 this.achievementDatabase,

@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem.Handlers;
 
@@ -26,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Void : ImmovableSolid
     {
-        internal Void(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal Void(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.BaseDensity = 0.001f;
 
@@ -55,7 +56,8 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                 }
 
                 context.DestroyElement(neighbors.GetNeighborPosition(i), context.CurrentLayer);
-                this.StatisticsManager.IncrementWorldElementsConsumedByVoid();
+
+                this.GameEvents.Publish(new ElementConsumedByVoidEvent());
             }
         }
     }

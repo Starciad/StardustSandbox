@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Explosions;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Managers;
@@ -32,7 +33,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Devourer : ImmovableSolid
     {
-        private static ExplosionBuilder explosionBuilder = new()
+        private readonly ExplosionBuilder explosionBuilder = new()
         {
             Radius = 4,
             Power = 2.5f,
@@ -49,9 +50,9 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             ]
         };
 
-        private static readonly List<Slot> cachedNeighborSlots = [];
+        private readonly List<Slot> cachedNeighborSlots = [];
 
-        internal Devourer(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal Devourer(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.InitialTemperature = 35.0f;
             this.BaseDensity = 3.5f;
@@ -102,7 +103,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                 context.SwappingElements(oldPosition, newPosition, context.CurrentLayer);
                 context.RemoveElement(oldPosition);
 
-                this.StatisticsManager.IncrementWorldElementsConsumedByDevourer();
+                this.GameEvents.Publish(new ElementConsumedByDevourerEvent());
             }
             else if (Random.Chance(5))
             {

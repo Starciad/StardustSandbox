@@ -23,7 +23,6 @@ using StardustSandbox.Core.Explosions;
 using StardustSandbox.Core.WorldSystem;
 using StardustSandbox.Core.WorldSystem.Components;
 using StardustSandbox.Core.WorldSystem.Handlers;
-using StardustSandbox.Core.WorldSystem.Information;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Elements

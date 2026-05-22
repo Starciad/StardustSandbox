@@ -25,7 +25,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Gold : ImmovableSolid
     {
-        internal Gold(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal Gold(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.InitialTemperature = 22.0f;
             this.BaseDensity = 19.3f;

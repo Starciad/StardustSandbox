@@ -25,7 +25,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Wall : ImmovableSolid
     {
-        internal Wall(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal Wall(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.BaseDensity = 2.2f;
             this.IsExplosionImmune = true;

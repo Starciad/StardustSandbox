@@ -16,7 +16,7 @@
 */
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.WorldSystem.Information;
+using StardustSandbox.Core.WorldSystem.Components;
 
 using System;
 

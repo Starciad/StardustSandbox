@@ -28,1031 +28,948 @@ namespace StardustSandbox.Core.Databases
 {
     internal sealed class ElementDatabase
     {
-        private readonly Element[] elements = [
-            // [000] Dirt
-            new Elements.Solids.Movables.Dirt(
-                ElementIndex.Dirt,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Blob,
-                new(0, 0),
-                AAP64ColorPalette.Clay,
-                
-            ),
-
-            // [001] Mud
-            new Elements.Solids.Movables.Mud(
-                ElementIndex.Mud,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Blob,
-                new(0, 32),
-                new(87, 44, 45),
-                
-            ),
-
-            // [002] Water
-            new Elements.Liquids.Water(
-                ElementIndex.Water,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(0, 64),
-                new(8, 120, 184),
-                
-            ),
-
-            // [003] Stone
-            new Elements.Solids.Movables.Stone(
-                ElementIndex.Stone,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Blob,
-                new(0, 96),
-                new(66, 65, 65),
-                
-
-            ),
-
-            // [004] Grass
-            new Elements.Solids.Movables.Grass(
-                ElementIndex.Grass,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Blob,
-                new(0, 128),
-                new(69, 110, 55),
-                
-
-            ),
-            
-            // [005] Ice
-            new Elements.Solids.Movables.Ice(
-                ElementIndex.Ice,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Blob,
-                new(0, 160),
-                new(34, 112, 255),
-                
-
-            ),
-
-            // [006] Sand
-            new Elements.Solids.Movables.Sand(
-                ElementIndex.Sand,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Blob,
-                new(0, 192),
-                new(248, 246, 68),
-                
-
-            ),
-
-            // [007] Snow
-            new Elements.Solids.Movables.Snow(
-                ElementIndex.Snow,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Blob,
-                new(0, 224),
-                new(189, 237, 246),
-                
-
-            ),
-
-            // [008] Movable Corruption
-            new Elements.Solids.Movables.MovableCorruption(
-                ElementIndex.MovableCorruption,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Blob,
-                new(0, 256),
-                AAP64ColorPalette.PurpleGray,
-                
-
-            ),
-            
-            // [009] Lava
-            new Elements.Liquids.Lava(
-                ElementIndex.Lava,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(0, 288),
-                AAP64ColorPalette.OrangeRed,
-                
-
-            ),
-
-            // [010] Acid
-            new Elements.Liquids.Acid(
-                ElementIndex.Acid,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(160, 0),
-                new(59, 167, 5),
-                
-
-            ),
-
-            // [011] Glass
-            new Elements.Solids.Immovables.Glass(
-                ElementIndex.Glass,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(160, 32),
-                AAP64ColorPalette.White,
-                
-
-            ),
-
-            // [012] Iron
-            new Elements.Solids.Immovables.Iron(
-                ElementIndex.Iron,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(160, 64),
-                new(66, 66, 66),
-                
-
-            ),
-
-            // [013] Wall
-            new Elements.Solids.Immovables.Wall(
-                ElementIndex.Wall,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(160, 96),
-                new(22, 99, 50),
-                
-
-            ),
-
-            // [014] Wood
-            new Elements.Solids.Immovables.Wood(
-                ElementIndex.Wood,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(160, 128),
-                new(92, 62, 0),
-                
-
-            ),
-
-            // [015] Gas Corruption
-            new Elements.Gases.GasCorruption(
-                ElementIndex.GasCorruption,
-                ElementCategory.Gas,
-                ElementRenderingType.Blob,
-                new(160, 160),
-                AAP64ColorPalette.PurpleGray,
-                
-
-            ),
-
-            // [016] Liquid Corruption
-            new Elements.Liquids.LiquidCorruption(
-                ElementIndex.LiquidCorruption,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(160, 192),
-                AAP64ColorPalette.PurpleGray,
-                
-
-            ),
-
-            // [017] Immovable Corruption
-            new Elements.Solids.Immovables.ImmovableCorruption(
-                ElementIndex.ImmovableCorruption,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(160, 224),
-                AAP64ColorPalette.PurpleGray,
-                
-
-            ),
-
-            // [018] Steam
-            new Elements.Gases.Steam(
-                ElementIndex.Steam,
-                ElementCategory.Gas,
-                ElementRenderingType.Blob,
-                new(160, 256),
-                new(171, 208, 218),
-                
-
-            ),
-
-            // [019] Smoke
-            new Elements.Gases.Smoke(
-                ElementIndex.Smoke,
-                ElementCategory.Gas,
-                ElementRenderingType.Blob,
-                new(160, 288),
-                new(48, 48, 48),
-                
-
-            ),
-
-            // [020] Brick
-            new Elements.Solids.Immovables.Brick(
-                ElementIndex.Brick,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(320, 0),
-                AAP64ColorPalette.Crimson,
-                
-
-            ),
-
-            // [021] Leaf
-            new Elements.Solids.Immovables.Leaf(
-                ElementIndex.Leaf,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(320, 32),
-                AAP64ColorPalette.MossGreen,
-                
-
-            ),
-
-            // [022] Mounting Block
-            new Elements.Solids.Immovables.MountingBlock(
-                ElementIndex.MountingBlock,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Single,
-                new(0, 320),
-                AAP64ColorPalette.White,
-                
-
-            ),
-
-            // [023] Fire
-            new Elements.Energies.Fire(
-                ElementIndex.Fire,
-                ElementCategory.Energy,
-                ElementRenderingType.Single,
-                new(32, 320),
-                AAP64ColorPalette.Amber,
-                
-
-            ),
-
-            // [024] Lamp On
-            new Elements.Solids.Immovables.LampOn(
-                ElementIndex.LampOn,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Single,
-                new(64, 320),
-                AAP64ColorPalette.Sand,
-                
-
-            ),
-
-            // [025] Void
-            new Elements.Solids.Immovables.Void(
-                ElementIndex.Void,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(320, 64),
-                AAP64ColorPalette.DarkGray,
-                
-
-            ),
-
-            // [026] Clone
-            new Elements.Solids.Immovables.Clone(
-                ElementIndex.Clone,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(320, 96),
-                AAP64ColorPalette.Amber,
-                
-
-            ),
-
-            // [027] Oil
-            new Elements.Liquids.Oil(
-                ElementIndex.Oil,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(320, 128),
-                AAP64ColorPalette.DarkGray,
-                
-
-            ),
-
-            // [028] Salt
-            new Elements.Solids.Movables.Salt(
-                ElementIndex.Salt,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Blob,
-                new(320, 160),
-                AAP64ColorPalette.White,
-                
-
-            ),
-
-            // [029] Saltwater
-            new Elements.Liquids.Saltwater(
-                ElementIndex.Saltwater,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(320, 192),
-                new(69, 188, 255),
-                
-
-            ),
-
-            // [030] Bomb
-            new Elements.Solids.Movables.Bomb(
-                ElementIndex.Bomb,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Single,
-                new(96, 320),
-                AAP64ColorPalette.DarkGray,
-                
-
-            ),
-
-            // [031] Dynamite
-            new Elements.Solids.Movables.Dynamite(
-                ElementIndex.Dynamite,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Single,
-                new(128, 320),
-                AAP64ColorPalette.Crimson.Darken(0.05f),
-                
-
-            ),
-
-            // [032] TNT
-            new Elements.Solids.Movables.Tnt(
-                ElementIndex.Tnt,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Single,
-                new(160, 320),
-                AAP64ColorPalette.Crimson.Darken(0.1f),
-                
-
-            ),
-
-            // [033] Dry Sponge
-            new Elements.Solids.Immovables.DrySponge(
-                ElementIndex.DrySponge,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(320, 224),
-                AAP64ColorPalette.Amber,
-                
-
-            ),
-
-            // [034] Wet Sponge
-            new Elements.Solids.Immovables.WetSponge(
-                ElementIndex.WetSponge,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(320, 256),
-                AAP64ColorPalette.Amber.Darken(0.1f),
-                
-
-            ),
-
-            // [035] Gold
-            new Elements.Solids.Immovables.Gold(
-                ElementIndex.Gold,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Single,
-                new(192, 320),
-                AAP64ColorPalette.LemonYellow,
-                
-
-            ),
-
-            // [036] Heater
-            new Elements.Solids.Immovables.TemperatureModifier(
-                ElementIndex.Heater,
-                ElementCategory.ImmovableSolid,
-                TemperatureModifierMode.Warming,
-                ElementRenderingType.Single,
-                new(224, 320),
-                AAP64ColorPalette.DarkRed,
-                
-
-            ),
-
-            // [037] Freezer
-            new Elements.Solids.Immovables.TemperatureModifier(
-                ElementIndex.Freezer,
-                ElementCategory.ImmovableSolid,
-                TemperatureModifierMode.Cooling,
-                ElementRenderingType.Single,
-                new(256, 320),
-                AAP64ColorPalette.NavyBlue,
-                
-
-            ),
-
-            // [038] Ash
-            new Elements.Solids.Movables.Ash(
-                ElementIndex.Ash,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Blob,
-                new(320, 288),
-                new(30, 33, 38),
-                
-
-            ),
-
-            // [039] Anti-Corruption
-            new Elements.Gases.AntiCorruption(
-                ElementIndex.AntiCorruption,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(480, 0),
-                AAP64ColorPalette.Crimson,
-                
-
-            ),
-
-            // [040] Devourer
-            new Elements.Solids.Immovables.Devourer(
-                ElementIndex.Devourer,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Single,
-                new(288, 320),
-                AAP64ColorPalette.Coal,
-                
-
-            ),
-
-            // [041] Upward Pusher
-            new Elements.Solids.Immovables.Pusher(
-                ElementIndex.UpwardPusher,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Single,
-                PusherDirection.Up,
-                new(320, 320),
-                AAP64ColorPalette.Rust,
-                
-
-            ),
-
-            // [042] Rightward Pusher
-            new Elements.Solids.Immovables.Pusher(
-                ElementIndex.RightwardPusher,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Single,
-                PusherDirection.Right,
-                new(352, 320),
-                AAP64ColorPalette.Rust,
-                
-
-            ),
-
-            // [043] Downward Pusher
-            new Elements.Solids.Immovables.Pusher(
-                ElementIndex.DownwardPusher,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Single,
-                PusherDirection.Down,
-                new(384, 320),
-                AAP64ColorPalette.Rust,
-                
-
-            ),
-
-            // [044] Leftward Pusher
-            new Elements.Solids.Immovables.Pusher(
-                ElementIndex.LeftwardPusher,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Single,
-                PusherDirection.Left,
-                new(416, 320),
-                AAP64ColorPalette.Rust,
-                
-
-            ),
-
-            // [045] Cloud
-            new Elements.Gases.Cloud(
-                ElementIndex.Cloud,
-                ElementCategory.Gas,
-                ElementRenderingType.Blob,
-                new(480, 32),
-                AAP64ColorPalette.LightGrayBlue,
-                
-
-            ),
-
-            // [046] Charged Cloud
-            new Elements.Gases.ChargedCloud(
-                ElementIndex.ChargedCloud,
-                ElementCategory.Gas,
-                ElementRenderingType.Blob,
-                new(480, 64),
-                AAP64ColorPalette.Slate,
-                
-
-            ),
-
-            // [047] Lightning Head
-            new Elements.Energies.LightningHead(
-                ElementIndex.LightningHead,
-                ElementCategory.Energy,
-                ElementRenderingType.Single,
-                new(448, 320),
-                AAP64ColorPalette.White,
-                
-
-            ),
-
-            // [048] Lightning Body
-            new Elements.Energies.LightningBody(
-                ElementIndex.LightningBody,
-                ElementCategory.Energy,
-                ElementRenderingType.Single,
-                new(448, 320),
-                AAP64ColorPalette.White,
-                
-
-            ),
-
-            // [049] Dry Wool (Black)
-            new Elements.Solids.Immovables.DryWool(
-                ElementIndex.DryBlackWool,
-                ElementIndex.WetBlackWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(480, 96),
-                AAP64ColorPalette.DarkGray,
-                
-
-            ),
-
-            // [050] Dry Wool (White)
-            new Elements.Solids.Immovables.DryWool(
-                ElementIndex.DryWhiteWool,
-                ElementIndex.WetWhiteWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(480, 128),
-                AAP64ColorPalette.White,
-                
-
-            ),
-
-            // [051] Dry Wool (Red)
-            new Elements.Solids.Immovables.DryWool(
-                ElementIndex.DryRedWool,
-                ElementIndex.WetRedWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(480, 160),
-                AAP64ColorPalette.Crimson,
-                
-
-            ),
-
-            // [052] Dry Wool (Orange)
-            new Elements.Solids.Immovables.DryWool(
-                ElementIndex.DryOrangeWool,
-                ElementIndex.WetOrangeWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(480, 192),
-                AAP64ColorPalette.Orange,
-                
-
-            ),
-
-            // [053] Dry Wool (Yellow)
-            new Elements.Solids.Immovables.DryWool(
-                ElementIndex.DryYellowWool,
-                ElementIndex.WetYellowWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(480, 224),
-                AAP64ColorPalette.Gold,
-                
-
-            ),
-
-            // [054] Dry Wool (Green)
-            new Elements.Solids.Immovables.DryWool(
-                ElementIndex.DryGreenWool,
-                ElementIndex.WetGreenWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(480, 256),
-                AAP64ColorPalette.ForestGreen,
-                
-
-            ),
-
-            // [055] Dry Wool (Gray)
-            new Elements.Solids.Immovables.DryWool(
-                ElementIndex.DryGrayWool,
-                ElementIndex.WetGrayWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(480, 288),
-                AAP64ColorPalette.Gunmetal,
-                
-
-            ),
-
-            // [056] Dry Wool (Blue)
-            new Elements.Solids.Immovables.DryWool(
-                ElementIndex.DryBlueWool,
-                ElementIndex.WetBlueWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(640, 0),
-                AAP64ColorPalette.Cyan,
-                
-
-            ),
-
-            // [057] Dry Wool (Violet)
-            new Elements.Solids.Immovables.DryWool(
-                ElementIndex.DryVioletWool,
-                ElementIndex.WetVioletWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(640, 32),
-                AAP64ColorPalette.Violet,
-                
-
-            ),
-
-            // [058] Dry Wool (Brown)
-            new Elements.Solids.Immovables.DryWool(
-                ElementIndex.DryBrownWool,
-                ElementIndex.WetBrownWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(640, 64),
-                AAP64ColorPalette.Brown,
-                
-
-            ),
-
-            // [059] Wet Wool (Black)
-            new Elements.Solids.Immovables.WetWool(
-                ElementIndex.WetBlackWool,
-                ElementIndex.DryBlackWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(640, 96),
-                AAP64ColorPalette.DarkGray.Darken(0.65f),
-                
-
-            ),
-
-            // [060] Wet Wool (White)
-            new Elements.Solids.Immovables.WetWool(
-                ElementIndex.WetWhiteWool,
-                ElementIndex.DryWhiteWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(640, 128),
-                AAP64ColorPalette.White.Darken(0.65f),
-                
-
-            ),
-
-            // [061] Wet Wool (Red)
-            new Elements.Solids.Immovables.WetWool(
-                ElementIndex.WetRedWool,
-                ElementIndex.DryRedWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(640, 160),
-                AAP64ColorPalette.Crimson.Darken(0.65f),
-                
-
-            ),
-
-            // [062] Wet Wool (Orange)
-            new Elements.Solids.Immovables.WetWool(
-                ElementIndex.WetOrangeWool,
-                ElementIndex.DryOrangeWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(640, 192),
-                AAP64ColorPalette.Orange.Darken(0.65f),
-                
-
-            ),
-
-            // [063] Wet Wool (Yellow)
-            new Elements.Solids.Immovables.WetWool(
-                ElementIndex.WetYellowWool,
-                ElementIndex.DryYellowWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(640, 224),
-                AAP64ColorPalette.Gold.Darken(0.65f),
-                
-
-            ),
-
-            // [064] Wet Wool (Green)
-            new Elements.Solids.Immovables.WetWool(
-                ElementIndex.WetGreenWool,
-                ElementIndex.DryGreenWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(640, 256),
-                AAP64ColorPalette.ForestGreen.Darken(0.65f),
-                
-
-            ),
-
-            // [065] Wet Wool (Gray)
-            new Elements.Solids.Immovables.WetWool(
-                ElementIndex.WetGrayWool,
-                ElementIndex.DryGrayWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(640, 288),
-                AAP64ColorPalette.Gunmetal.Darken(0.65f),
-                
-
-            ),
-
-            // [066] Wet Wool (Blue)
-            new Elements.Solids.Immovables.WetWool(
-                ElementIndex.WetBlueWool,
-                ElementIndex.DryBlueWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(800, 0),
-                AAP64ColorPalette.Cyan.Darken(0.65f),
-                
-
-            ),
-
-            // [067] Wet Wool (Violet)
-            new Elements.Solids.Immovables.WetWool(
-                ElementIndex.WetVioletWool,
-                ElementIndex.DryVioletWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(800, 32),
-                AAP64ColorPalette.Violet.Darken(0.65f),
-                
-
-            ),
-
-            // [068] Wet Wool (Brown)
-            new Elements.Solids.Immovables.WetWool(
-                ElementIndex.WetBrownWool,
-                ElementIndex.DryBrownWool,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(800, 64),
-                AAP64ColorPalette.Brown.Darken(0.65f),
-                
-
-            ),
-
-            // [069] Fertile Soil
-            new Elements.Solids.Movables.FertileSoil(
-                ElementIndex.FertileSoil,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Blob,
-                new(800, 96),
-                AAP64ColorPalette.Burgundy,
-                
-
-            ),
-
-            // [070] Seed
-            new Elements.Solids.Movables.Seed(
-                ElementIndex.Seed,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Single,
-                new(480, 320),
-                AAP64ColorPalette.DarkGreen,
-                
-
-            ),
-
-            // [071] Sapling
-            new Elements.Solids.Movables.Sapling(
-                ElementIndex.Sapling,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Single,
-                new(512, 320),
-                AAP64ColorPalette.DarkTeal,
-                
-
-            ),
-
-            // [072] Moss
-            new Elements.Solids.Immovables.Moss(
-                ElementIndex.Moss,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(800, 128),
-                AAP64ColorPalette.PineGreen,
-                
-
-            ),
-
-            // [073] Gunpowder
-            new Elements.Solids.Movables.Gunpowder(
-                ElementIndex.Gunpowder,
-                ElementCategory.MovableSolid,
-                ElementRenderingType.Blob,
-                new(800, 160),
-                AAP64ColorPalette.Graphite,
-                
-
-            ),
-
-            // [074] Liquefied Petroleum Gas
-            new Elements.Gases.LiquefiedPetroleumGas(
-                ElementIndex.LiquefiedPetroleumGas,
-                ElementCategory.Gas,
-                ElementRenderingType.Blob,
-                new(800, 192),
-                AAP64ColorPalette.Amber,
-                
-
-            ),
-
-            // [075] Obsidian
-            new Elements.Solids.Immovables.Obsidian(
-                ElementIndex.Obsidian,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Blob,
-                new(800, 224),
-                AAP64ColorPalette.DarkGray,
-                
-
-            ),
-
-            // [076] Paint (Black)
-            new Elements.Liquids.Paint(
-                ElementIndex.BlackPaint,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(800, 256),
-                AAP64ColorPalette.DarkGray,
-                
-
-            ),
-
-            // [077] Paint (White)
-            new Elements.Liquids.Paint(
-                ElementIndex.WhitePaint,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(800, 288),
-                AAP64ColorPalette.White,
-                
-
-            ),
-
-            // [078] Paint (Red)
-            new Elements.Liquids.Paint(
-                ElementIndex.RedPaint,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(960, 0),
-                AAP64ColorPalette.Crimson,
-                
-
-            ),
-
-            // [079] Paint (Orange)
-            new Elements.Liquids.Paint(
-                ElementIndex.OrangePaint,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(960, 32),
-                AAP64ColorPalette.Orange,
-                
-
-            ),
-
-            // [080] Paint (Yellow)
-            new Elements.Liquids.Paint(
-                ElementIndex.YellowPaint,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(960, 64),
-                AAP64ColorPalette.Gold,
-                
-
-            ),
-
-            // [081] Paint (Green)
-            new Elements.Liquids.Paint(
-                ElementIndex.GreenPaint,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(960, 96),
-                AAP64ColorPalette.ForestGreen,
-                
-
-            ),
-
-            // [082] Paint (Cyan)
-            new Elements.Liquids.Paint(
-                ElementIndex.CyanPaint,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(960, 128),
-                AAP64ColorPalette.Cyan,
-                
-
-            ),
-
-            // [083] Paint (Gray)
-            new Elements.Liquids.Paint(
-                ElementIndex.GrayPaint,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(960, 160),
-                AAP64ColorPalette.Gunmetal,
-                
-
-            ),
-
-            // [084] Paint (Violet)
-            new Elements.Liquids.Paint(
-                ElementIndex.VioletPaint,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(960, 192),
-                AAP64ColorPalette.Violet,
-                
-
-            ),
-
-            // [085] Paint (Brown)
-            new Elements.Liquids.Paint(
-                ElementIndex.BrownPaint,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(960, 224),
-                AAP64ColorPalette.Brown,
-                
-
-            ),
-
-            // [086] Mercury
-            new Elements.Liquids.Mercury(
-                ElementIndex.Mercury,
-                ElementCategory.Liquid,
-                ElementRenderingType.Blob,
-                new(960, 256),
-                AAP64ColorPalette.Slate,
-                
-
-            ),
-
-            // [087] Electricity
-            new Elements.Energies.Electricity(
-                ElementIndex.Electricity,
-                ElementCategory.Energy,
-                ElementRenderingType.Blob,
-                new(960, 288),
-                AAP64ColorPalette.Gold,
-                
-
-            ),
-
-            // [088] Battery
-            new Elements.Solids.Immovables.Battery(
-                ElementIndex.Battery,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Single,
-                new(576, 320),
-                AAP64ColorPalette.Orange,
-                
-
-            ),
-
-            // [089] Lamp (Off)
-            new Elements.Solids.Immovables.LampOff(
-                ElementIndex.LampOff,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Single,
-                new(544, 320),
-                AAP64ColorPalette.Brown,
-                
-
-            ),
-
-            // [090] Energy Transmitter
-            new Elements.Solids.Immovables.EnergyTransmitter(
-                ElementIndex.EnergyTransmitter,
-                ElementCategory.ImmovableSolid,
-                ElementRenderingType.Single,
-                new(608, 320),
-                AAP64ColorPalette.Brown,
-                
-
-            )
-        ];
+        private Element[] elements;
+
+        internal void Load(GameEvents gameEvents)
+        {
+            elements = [
+                // [000] Dirt
+                new Elements.Solids.Movables.Dirt(
+                    ElementIndex.Dirt,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Blob,
+                    new(0, 0),
+                    AAP64ColorPalette.Clay,
+                    gameEvents
+                ),
+
+                // [001] Mud
+                new Elements.Solids.Movables.Mud(
+                    ElementIndex.Mud,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Blob,
+                    new(0, 32),
+                    new(87, 44, 45),
+                    gameEvents
+                ),
+
+                // [002] Water
+                new Elements.Liquids.Water(
+                    ElementIndex.Water,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(0, 64),
+                    new(8, 120, 184),
+                    gameEvents
+                ),
+
+                // [003] Stone
+                new Elements.Solids.Movables.Stone(
+                    ElementIndex.Stone,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Blob,
+                    new(0, 96),
+                    new(66, 65, 65),
+                    gameEvents
+                ),
+
+                // [004] Grass
+                new Elements.Solids.Movables.Grass(
+                    ElementIndex.Grass,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Blob,
+                    new(0, 128),
+                    new(69, 110, 55),
+                    gameEvents
+                ),
+                
+                // [005] Ice
+                new Elements.Solids.Movables.Ice(
+                    ElementIndex.Ice,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Blob,
+                    new(0, 160),
+                    new(34, 112, 255),
+                    gameEvents
+                ),
+
+                // [006] Sand
+                new Elements.Solids.Movables.Sand(
+                    ElementIndex.Sand,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Blob,
+                    new(0, 192),
+                    new(248, 246, 68),
+                    gameEvents
+                ),
+
+                // [007] Snow
+                new Elements.Solids.Movables.Snow(
+                    ElementIndex.Snow,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Blob,
+                    new(0, 224),
+                    new(189, 237, 246),
+                    gameEvents
+                ),
+
+                // [008] Movable Corruption
+                new Elements.Solids.Movables.MovableCorruption(
+                    ElementIndex.MovableCorruption,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Blob,
+                    new(0, 256),
+                    AAP64ColorPalette.PurpleGray,
+                    gameEvents
+                ),
+                
+                // [009] Lava
+                new Elements.Liquids.Lava(
+                    ElementIndex.Lava,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(0, 288),
+                    AAP64ColorPalette.OrangeRed,
+                    gameEvents
+                ),
+
+                // [010] Acid
+                new Elements.Liquids.Acid(
+                    ElementIndex.Acid,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(160, 0),
+                    new(59, 167, 5),
+                    gameEvents
+                ),
+
+                // [011] Glass
+                new Elements.Solids.Immovables.Glass(
+                    ElementIndex.Glass,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(160, 32),
+                    AAP64ColorPalette.White,
+                    gameEvents
+                ),
+
+                // [012] Iron
+                new Elements.Solids.Immovables.Iron(
+                    ElementIndex.Iron,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(160, 64),
+                    new(66, 66, 66),
+                    gameEvents
+                ),
+
+                // [013] Wall
+                new Elements.Solids.Immovables.Wall(
+                    ElementIndex.Wall,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(160, 96),
+                    new(22, 99, 50),
+                    gameEvents
+                ),
+
+                // [014] Wood
+                new Elements.Solids.Immovables.Wood(
+                    ElementIndex.Wood,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(160, 128),
+                    new(92, 62, 0),
+                    gameEvents
+                ),
+
+                // [015] Gas Corruption
+                new Elements.Gases.GasCorruption(
+                    ElementIndex.GasCorruption,
+                    ElementCategory.Gas,
+                    ElementRenderingType.Blob,
+                    new(160, 160),
+                    AAP64ColorPalette.PurpleGray,
+                    gameEvents
+                ),
+
+                // [016] Liquid Corruption
+                new Elements.Liquids.LiquidCorruption(
+                    ElementIndex.LiquidCorruption,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(160, 192),
+                    AAP64ColorPalette.PurpleGray,
+                    gameEvents
+                ),
+
+                // [017] Immovable Corruption
+                new Elements.Solids.Immovables.ImmovableCorruption(
+                    ElementIndex.ImmovableCorruption,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(160, 224),
+                    AAP64ColorPalette.PurpleGray,
+                    gameEvents
+                ),
+
+                // [018] Steam
+                new Elements.Gases.Steam(
+                    ElementIndex.Steam,
+                    ElementCategory.Gas,
+                    ElementRenderingType.Blob,
+                    new(160, 256),
+                    new(171, 208, 218),
+                    gameEvents
+                ),
+
+                // [019] Smoke
+                new Elements.Gases.Smoke(
+                    ElementIndex.Smoke,
+                    ElementCategory.Gas,
+                    ElementRenderingType.Blob,
+                    new(160, 288),
+                    new(48, 48, 48),
+                    gameEvents
+                ),
+
+                // [020] Brick
+                new Elements.Solids.Immovables.Brick(
+                    ElementIndex.Brick,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(320, 0),
+                    AAP64ColorPalette.Crimson,
+                    gameEvents
+                ),
+
+                // [021] Leaf
+                new Elements.Solids.Immovables.Leaf(
+                    ElementIndex.Leaf,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(320, 32),
+                    AAP64ColorPalette.MossGreen,
+                    gameEvents
+                ),
+
+                // [022] Mounting Block
+                new Elements.Solids.Immovables.MountingBlock(
+                    ElementIndex.MountingBlock,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Single,
+                    new(0, 320),
+                    AAP64ColorPalette.White,
+                    gameEvents
+                ),
+
+                // [023] Fire
+                new Elements.Energies.Fire(
+                    ElementIndex.Fire,
+                    ElementCategory.Energy,
+                    ElementRenderingType.Single,
+                    new(32, 320),
+                    AAP64ColorPalette.Amber,
+                    gameEvents
+                ),
+
+                // [024] Lamp On
+                new Elements.Solids.Immovables.LampOn(
+                    ElementIndex.LampOn,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Single,
+                    new(64, 320),
+                    AAP64ColorPalette.Sand,
+                    gameEvents
+                ),
+
+                // [025] Void
+                new Elements.Solids.Immovables.Void(
+                    ElementIndex.Void,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(320, 64),
+                    AAP64ColorPalette.DarkGray,
+                    gameEvents
+                ),
+
+                // [026] Clone
+                new Elements.Solids.Immovables.Clone(
+                    ElementIndex.Clone,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(320, 96),
+                    AAP64ColorPalette.Amber,
+                    gameEvents
+                ),
+
+                // [027] Oil
+                new Elements.Liquids.Oil(
+                    ElementIndex.Oil,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(320, 128),
+                    AAP64ColorPalette.DarkGray,
+                    gameEvents
+                ),
+
+                // [028] Salt
+                new Elements.Solids.Movables.Salt(
+                    ElementIndex.Salt,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Blob,
+                    new(320, 160),
+                    AAP64ColorPalette.White,
+                    gameEvents
+                ),
+
+                // [029] Saltwater
+                new Elements.Liquids.Saltwater(
+                    ElementIndex.Saltwater,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(320, 192),
+                    new(69, 188, 255),
+                    gameEvents
+                ),
+
+                // [030] Bomb
+                new Elements.Solids.Movables.Bomb(
+                    ElementIndex.Bomb,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Single,
+                    new(96, 320),
+                    AAP64ColorPalette.DarkGray,
+                    gameEvents
+                ),
+
+                // [031] Dynamite
+                new Elements.Solids.Movables.Dynamite(
+                    ElementIndex.Dynamite,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Single,
+                    new(128, 320),
+                    AAP64ColorPalette.Crimson.Darken(0.05f),
+                    gameEvents
+                ),
+
+                // [032] TNT
+                new Elements.Solids.Movables.Tnt(
+                    ElementIndex.Tnt,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Single,
+                    new(160, 320),
+                    AAP64ColorPalette.Crimson.Darken(0.1f),
+                    gameEvents
+                ),
+
+                // [033] Dry Sponge
+                new Elements.Solids.Immovables.DrySponge(
+                    ElementIndex.DrySponge,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(320, 224),
+                    AAP64ColorPalette.Amber,
+                    gameEvents
+                ),
+
+                // [034] Wet Sponge
+                new Elements.Solids.Immovables.WetSponge(
+                    ElementIndex.WetSponge,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(320, 256),
+                    AAP64ColorPalette.Amber.Darken(0.1f),
+                    gameEvents
+                ),
+
+                // [035] Gold
+                new Elements.Solids.Immovables.Gold(
+                    ElementIndex.Gold,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Single,
+                    new(192, 320),
+                    AAP64ColorPalette.LemonYellow,
+                    gameEvents
+                ),
+
+                // [036] Heater
+                new Elements.Solids.Immovables.TemperatureModifier(
+                    ElementIndex.Heater,
+                    ElementCategory.ImmovableSolid,
+                    TemperatureModifierMode.Warming,
+                    ElementRenderingType.Single,
+                    new(224, 320),
+                    AAP64ColorPalette.DarkRed,
+                    gameEvents
+                ),
+
+                // [037] Freezer
+                new Elements.Solids.Immovables.TemperatureModifier(
+                    ElementIndex.Freezer,
+                    ElementCategory.ImmovableSolid,
+                    TemperatureModifierMode.Cooling,
+                    ElementRenderingType.Single,
+                    new(256, 320),
+                    AAP64ColorPalette.NavyBlue,
+                    gameEvents
+                ),
+
+                // [038] Ash
+                new Elements.Solids.Movables.Ash(
+                    ElementIndex.Ash,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Blob,
+                    new(320, 288),
+                    new(30, 33, 38),
+                    gameEvents
+                ),
+
+                // [039] Anti-Corruption
+                new Elements.Gases.AntiCorruption(
+                    ElementIndex.AntiCorruption,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(480, 0),
+                    AAP64ColorPalette.Crimson,
+                    gameEvents
+                ),
+
+                // [040] Devourer
+                new Elements.Solids.Immovables.Devourer(
+                    ElementIndex.Devourer,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Single,
+                    new(288, 320),
+                    AAP64ColorPalette.Coal,
+                    gameEvents
+                ),
+
+                // [041] Upward Pusher
+                new Elements.Solids.Immovables.Pusher(
+                    ElementIndex.UpwardPusher,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Single,
+                    PusherDirection.Up,
+                    new(320, 320),
+                    AAP64ColorPalette.Rust,
+                    gameEvents
+                ),
+
+                // [042] Rightward Pusher
+                new Elements.Solids.Immovables.Pusher(
+                    ElementIndex.RightwardPusher,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Single,
+                    PusherDirection.Right,
+                    new(352, 320),
+                    AAP64ColorPalette.Rust,
+                    gameEvents
+                ),
+
+                // [043] Downward Pusher
+                new Elements.Solids.Immovables.Pusher(
+                    ElementIndex.DownwardPusher,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Single,
+                    PusherDirection.Down,
+                    new(384, 320),
+                    AAP64ColorPalette.Rust,
+                    gameEvents
+                ),
+
+                // [044] Leftward Pusher
+                new Elements.Solids.Immovables.Pusher(
+                    ElementIndex.LeftwardPusher,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Single,
+                    PusherDirection.Left,
+                    new(416, 320),
+                    AAP64ColorPalette.Rust,
+                    gameEvents
+                ),
+
+                // [045] Cloud
+                new Elements.Gases.Cloud(
+                    ElementIndex.Cloud,
+                    ElementCategory.Gas,
+                    ElementRenderingType.Blob,
+                    new(480, 32),
+                    AAP64ColorPalette.LightGrayBlue,
+                    gameEvents
+                ),
+
+                // [046] Charged Cloud
+                new Elements.Gases.ChargedCloud(
+                    ElementIndex.ChargedCloud,
+                    ElementCategory.Gas,
+                    ElementRenderingType.Blob,
+                    new(480, 64),
+                    AAP64ColorPalette.Slate,
+                    gameEvents
+                ),
+
+                // [047] Lightning Head
+                new Elements.Energies.LightningHead(
+                    ElementIndex.LightningHead,
+                    ElementCategory.Energy,
+                    ElementRenderingType.Single,
+                    new(448, 320),
+                    AAP64ColorPalette.White,
+                    gameEvents
+                ),
+
+                // [048] Lightning Body
+                new Elements.Energies.LightningBody(
+                    ElementIndex.LightningBody,
+                    ElementCategory.Energy,
+                    ElementRenderingType.Single,
+                    new(448, 320),
+                    AAP64ColorPalette.White,
+                    gameEvents
+                ),
+
+                // [049] Dry Wool (Black)
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryBlackWool,
+                    ElementIndex.WetBlackWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(480, 96),
+                    AAP64ColorPalette.DarkGray,
+                    gameEvents
+                ),
+
+                // [050] Dry Wool (White)
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryWhiteWool,
+                    ElementIndex.WetWhiteWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(480, 128),
+                    AAP64ColorPalette.White,
+                    gameEvents
+                ),
+
+                // [051] Dry Wool (Red)
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryRedWool,
+                    ElementIndex.WetRedWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(480, 160),
+                    AAP64ColorPalette.Crimson,
+                    gameEvents
+                ),
+
+                // [052] Dry Wool (Orange)
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryOrangeWool,
+                    ElementIndex.WetOrangeWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(480, 192),
+                    AAP64ColorPalette.Orange,
+                    gameEvents
+                ),
+
+                // [053] Dry Wool (Yellow)
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryYellowWool,
+                    ElementIndex.WetYellowWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(480, 224),
+                    AAP64ColorPalette.Gold,
+                    gameEvents
+                ),
+
+                // [054] Dry Wool (Green)
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryGreenWool,
+                    ElementIndex.WetGreenWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(480, 256),
+                    AAP64ColorPalette.ForestGreen,
+                    gameEvents
+                ),
+
+                // [055] Dry Wool (Gray)
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryGrayWool,
+                    ElementIndex.WetGrayWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(480, 288),
+                    AAP64ColorPalette.Gunmetal,
+                    gameEvents
+                ),
+
+                // [056] Dry Wool (Blue)
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryBlueWool,
+                    ElementIndex.WetBlueWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(640, 0),
+                    AAP64ColorPalette.Cyan,
+                    gameEvents
+                ),
+
+                // [057] Dry Wool (Violet)
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryVioletWool,
+                    ElementIndex.WetVioletWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(640, 32),
+                    AAP64ColorPalette.Violet,
+                    gameEvents
+                ),
+
+                // [058] Dry Wool (Brown)
+                new Elements.Solids.Immovables.DryWool(
+                    ElementIndex.DryBrownWool,
+                    ElementIndex.WetBrownWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(640, 64),
+                    AAP64ColorPalette.Brown,
+                    gameEvents
+                ),
+
+                // [059] Wet Wool (Black)
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetBlackWool,
+                    ElementIndex.DryBlackWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(640, 96),
+                    AAP64ColorPalette.DarkGray.Darken(0.65f),
+                    gameEvents
+                ),
+
+                // [060] Wet Wool (White)
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetWhiteWool,
+                    ElementIndex.DryWhiteWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(640, 128),
+                    AAP64ColorPalette.White.Darken(0.65f),
+                    gameEvents
+                ),
+
+                // [061] Wet Wool (Red)
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetRedWool,
+                    ElementIndex.DryRedWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(640, 160),
+                    AAP64ColorPalette.Crimson.Darken(0.65f),
+                    gameEvents
+                ),
+
+                // [062] Wet Wool (Orange)
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetOrangeWool,
+                    ElementIndex.DryOrangeWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(640, 192),
+                    AAP64ColorPalette.Orange.Darken(0.65f),
+                    gameEvents
+                ),
+
+                // [063] Wet Wool (Yellow)
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetYellowWool,
+                    ElementIndex.DryYellowWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(640, 224),
+                    AAP64ColorPalette.Gold.Darken(0.65f),
+                    gameEvents
+                ),
+
+                // [064] Wet Wool (Green)
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetGreenWool,
+                    ElementIndex.DryGreenWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(640, 256),
+                    AAP64ColorPalette.ForestGreen.Darken(0.65f),
+                    gameEvents
+                ),
+
+                // [065] Wet Wool (Gray)
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetGrayWool,
+                    ElementIndex.DryGrayWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(640, 288),
+                    AAP64ColorPalette.Gunmetal.Darken(0.65f),
+                    gameEvents
+                ),
+
+                // [066] Wet Wool (Blue)
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetBlueWool,
+                    ElementIndex.DryBlueWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(800, 0),
+                    AAP64ColorPalette.Cyan.Darken(0.65f),
+                    gameEvents
+                ),
+
+                // [067] Wet Wool (Violet)
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetVioletWool,
+                    ElementIndex.DryVioletWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(800, 32),
+                    AAP64ColorPalette.Violet.Darken(0.65f),
+                    gameEvents
+                ),
+
+                // [068] Wet Wool (Brown)
+                new Elements.Solids.Immovables.WetWool(
+                    ElementIndex.WetBrownWool,
+                    ElementIndex.DryBrownWool,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(800, 64),
+                    AAP64ColorPalette.Brown.Darken(0.65f),
+                    gameEvents
+                ),
+
+                // [069] Fertile Soil
+                new Elements.Solids.Movables.FertileSoil(
+                    ElementIndex.FertileSoil,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Blob,
+                    new(800, 96),
+                    AAP64ColorPalette.Burgundy,
+                    gameEvents
+                ),
+
+                // [070] Seed
+                new Elements.Solids.Movables.Seed(
+                    ElementIndex.Seed,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Single,
+                    new(480, 320),
+                    AAP64ColorPalette.DarkGreen,
+                    gameEvents
+                ),
+
+                // [071] Sapling
+                new Elements.Solids.Movables.Sapling(
+                    ElementIndex.Sapling,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Single,
+                    new(512, 320),
+                    AAP64ColorPalette.DarkTeal,
+                    gameEvents
+                ),
+
+                // [072] Moss
+                new Elements.Solids.Immovables.Moss(
+                    ElementIndex.Moss,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(800, 128),
+                    AAP64ColorPalette.PineGreen,
+                    gameEvents
+                ),
+
+                // [073] Gunpowder
+                new Elements.Solids.Movables.Gunpowder(
+                    ElementIndex.Gunpowder,
+                    ElementCategory.MovableSolid,
+                    ElementRenderingType.Blob,
+                    new(800, 160),
+                    AAP64ColorPalette.Graphite,
+                    gameEvents
+                ),
+
+                // [074] Liquefied Petroleum Gas
+                new Elements.Gases.LiquefiedPetroleumGas(
+                    ElementIndex.LiquefiedPetroleumGas,
+                    ElementCategory.Gas,
+                    ElementRenderingType.Blob,
+                    new(800, 192),
+                    AAP64ColorPalette.Amber,
+                    gameEvents
+                ),
+
+                // [075] Obsidian
+                new Elements.Solids.Immovables.Obsidian(
+                    ElementIndex.Obsidian,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Blob,
+                    new(800, 224),
+                    AAP64ColorPalette.DarkGray,
+                    gameEvents
+                ),
+
+                // [076] Paint (Black)
+                new Elements.Liquids.Paint(
+                    ElementIndex.BlackPaint,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(800, 256),
+                    AAP64ColorPalette.DarkGray,
+                    gameEvents
+                ),
+
+                // [077] Paint (White)
+                new Elements.Liquids.Paint(
+                    ElementIndex.WhitePaint,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(800, 288),
+                    AAP64ColorPalette.White,
+                    gameEvents
+                ),
+
+                // [078] Paint (Red)
+                new Elements.Liquids.Paint(
+                    ElementIndex.RedPaint,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(960, 0),
+                    AAP64ColorPalette.Crimson,
+                    gameEvents
+                ),
+
+                // [079] Paint (Orange)
+                new Elements.Liquids.Paint(
+                    ElementIndex.OrangePaint,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(960, 32),
+                    AAP64ColorPalette.Orange,
+                    gameEvents
+                ),
+
+                // [080] Paint (Yellow)
+                new Elements.Liquids.Paint(
+                    ElementIndex.YellowPaint,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(960, 64),
+                    AAP64ColorPalette.Gold,
+                    gameEvents
+                ),
+
+                // [081] Paint (Green)
+                new Elements.Liquids.Paint(
+                    ElementIndex.GreenPaint,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(960, 96),
+                    AAP64ColorPalette.ForestGreen,
+                    gameEvents
+                ),
+
+                // [082] Paint (Cyan)
+                new Elements.Liquids.Paint(
+                    ElementIndex.CyanPaint,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(960, 128),
+                    AAP64ColorPalette.Cyan,
+                    gameEvents
+                ),
+
+                // [083] Paint (Gray)
+                new Elements.Liquids.Paint(
+                    ElementIndex.GrayPaint,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(960, 160),
+                    AAP64ColorPalette.Gunmetal,
+                    gameEvents
+                ),
+
+                // [084] Paint (Violet)
+                new Elements.Liquids.Paint(
+                    ElementIndex.VioletPaint,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(960, 192),
+                    AAP64ColorPalette.Violet,
+                    gameEvents
+                ),
+
+                // [085] Paint (Brown)
+                new Elements.Liquids.Paint(
+                    ElementIndex.BrownPaint,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(960, 224),
+                    AAP64ColorPalette.Brown,
+                    gameEvents
+                ),
+
+                // [086] Mercury
+                new Elements.Liquids.Mercury(
+                    ElementIndex.Mercury,
+                    ElementCategory.Liquid,
+                    ElementRenderingType.Blob,
+                    new(960, 256),
+                    AAP64ColorPalette.Slate,
+                    gameEvents
+                ),
+
+                // [087] Electricity
+                new Elements.Energies.Electricity(
+                    ElementIndex.Electricity,
+                    ElementCategory.Energy,
+                    ElementRenderingType.Blob,
+                    new(960, 288),
+                    AAP64ColorPalette.Gold,
+                    gameEvents
+                ),
+
+                // [088] Battery
+                new Elements.Solids.Immovables.Battery(
+                    ElementIndex.Battery,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Single,
+                    new(576, 320),
+                    AAP64ColorPalette.Orange,
+                    gameEvents
+                ),
+
+                // [089] Lamp (Off)
+                new Elements.Solids.Immovables.LampOff(
+                    ElementIndex.LampOff,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Single,
+                    new(544, 320),
+                    AAP64ColorPalette.Brown,
+                    gameEvents
+                ),
+
+                // [090] Energy Transmitter
+                new Elements.Solids.Immovables.EnergyTransmitter(
+                    ElementIndex.EnergyTransmitter,
+                    ElementCategory.ImmovableSolid,
+                    ElementRenderingType.Single,
+                    new(608, 320),
+                    AAP64ColorPalette.Brown,
+                    gameEvents
+                )
+            ];
+        }
 
         internal Element GetElement(ElementIndex index)
         {

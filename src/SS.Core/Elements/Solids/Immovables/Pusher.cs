@@ -28,7 +28,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         private readonly PusherDirection direction;
 
-        internal Pusher(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, PusherDirection direction, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsHandler statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal Pusher(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, PusherDirection direction, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.direction = direction;
             this.BaseDensity = 2.0f;
@@ -42,19 +42,19 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             switch (this.direction)
             {
                 case PusherDirection.Up:
-                    PusherUtility.PushingNeighborsUp(context, neighbors, this.StatisticsManager);
+                    PusherUtility.PushingNeighborsUp(context, neighbors, this.GameEvents);
                     break;
 
                 case PusherDirection.Right:
-                    PusherUtility.PushingNeighborsRight(context, neighbors, this.StatisticsManager);
+                    PusherUtility.PushingNeighborsRight(context, neighbors, this.GameEvents);
                     break;
 
                 case PusherDirection.Down:
-                    PusherUtility.PushingNeighborsDown(context, neighbors, this.StatisticsManager);
+                    PusherUtility.PushingNeighborsDown(context, neighbors, this.GameEvents);
                     break;
 
                 case PusherDirection.Left:
-                    PusherUtility.PushingNeighborsLeft(context, neighbors, this.StatisticsManager);
+                    PusherUtility.PushingNeighborsLeft(context, neighbors, this.GameEvents);
                     break;
 
                 default:

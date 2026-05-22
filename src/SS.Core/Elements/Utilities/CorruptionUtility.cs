@@ -18,6 +18,7 @@
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Events.Common;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.WorldSystem.Handlers;
 using StardustSandbox.Core.WorldSystem.Slots;
@@ -66,7 +67,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             return corruptNeighboringElements == count;
         }
 
-        internal static void InfectNeighboringElements(this ElementContext context, ElementNeighbors neighbors)
+        internal static void InfectNeighboringElements(this ElementContext context, ElementNeighbors neighbors, GameEvents gameEvents)
         {
             targets.Clear();
 
@@ -101,10 +102,10 @@ namespace StardustSandbox.Core.Elements.Utilities
                 return;
             }
 
-            InfectSlotLayer(context, targets.GetRandomItem());
+            InfectSlotLayer(context, targets.GetRandomItem(), gameEvents);
         }
 
-        private static void InfectSlotLayer(ElementContext context, SlotTarget slotTarget)
+        private static void InfectSlotLayer(ElementContext context, SlotTarget slotTarget, GameEvents gameEvents)
         {
             Element targetElement = slotTarget.Layer is Layer.Foreground
                 ? slotTarget.Slot.Foreground.Element
@@ -134,6 +135,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             }
 
             context.SetStoredElementIndex(slotTarget.Slot.Position, slotTarget.Layer, targetElement.Index);
+            gameEvents.Publish(new ElementCorruptedEvent());
         }
     }
 }

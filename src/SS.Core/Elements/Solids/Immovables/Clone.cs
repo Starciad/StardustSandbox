@@ -19,9 +19,8 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Extensions;
-using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.WorldSystem.Handlers;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 using System.Collections.Generic;
@@ -30,10 +29,10 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Clone : ImmovableSolid
     {
-        private static readonly List<Point> positionScratch = [];
-        private static readonly List<SlotLayer> layerScratch = [];
+        private readonly List<Point> positionScratch = [];
+        private readonly List<SlotLayer> layerScratch = [];
 
-        internal Clone(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal Clone(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.BaseDensity = 3.0f;
 
@@ -52,19 +51,19 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             }
 
             context.InstantiateElementIndex(validPosition, context.CurrentLayer, stored);
-            this.StatisticsManager.IncrementWorldClonedElements();
+            this.GameEvents.Publish(new ElementClonedEvent());
         }
 
-        private static void TryAddEmptyPosition(ElementContext context, Point position)
+        private void TryAddEmptyPosition(ElementContext context, Point position)
         {
             if (context.IsEmptySlotLayer(position, context.CurrentLayer))
             {
-                positionScratch.Add(position);
+                this.positionScratch.Add(position);
             }
         }
 
         // Collect neighboring empty positions and pick one at random
-        private static bool TryGetValidPosition(ElementContext context, out Point validPosition)
+        private bool TryGetValidPosition(ElementContext context, out Point validPosition)
         {
             int centerX = context.CurrentSlot.Position.X;
             int centerY = context.CurrentSlot.Position.Y;
@@ -82,18 +81,18 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                 }
             }
 
-            if (positionScratch.Count == 0)
+            if (this.positionScratch.Count == 0)
             {
                 validPosition = Point.Zero;
                 return false;
             }
 
-            validPosition = positionScratch.GetRandomItem();
+            validPosition = this.positionScratch.GetRandomItem();
             return true;
         }
 
         // Define the stored element based on the first valid neighboring element found
-        private static void TryDefineStoredElement(ElementContext context, ElementNeighbors neighbors)
+        private void TryDefineStoredElement(ElementContext context, ElementNeighbors neighbors)
         {
             if (context.GetStoredElementIndex() is not ElementIndex.None)
             {
@@ -121,19 +120,19 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                         continue;
 
                     default:
-                        layerScratch.Add(neighborLayer);
+                        this.layerScratch.Add(neighborLayer);
                         break;
                 }
 
-                layerScratch.Add(neighborLayer);
+                this.layerScratch.Add(neighborLayer);
             }
 
-            if (layerScratch.Count == 0)
+            if (this.layerScratch.Count == 0)
             {
                 return;
             }
 
-            context.SetStoredElementIndex(layerScratch.GetRandomItem().ElementIndex);
+            context.SetStoredElementIndex(this.layerScratch.GetRandomItem().ElementIndex);
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
@@ -143,8 +142,8 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
         protected override void OnStep(ElementContext context)
         {
-            positionScratch.Clear();
-            layerScratch.Clear();
+            this.positionScratch.Clear();
+            this.layerScratch.Clear();
 
             TryInstantiateStoredElement(context);
         }

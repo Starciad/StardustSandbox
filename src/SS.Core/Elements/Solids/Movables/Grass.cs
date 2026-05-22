@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 {
     internal sealed class Grass : MovableSolid
     {
-        internal Grass(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal Grass(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.BaseDensity = 0.1f;
             this.BaseExplosionResistance = 0.5f;

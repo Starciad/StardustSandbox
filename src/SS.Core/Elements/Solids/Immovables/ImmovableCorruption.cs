@@ -30,7 +30,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class ImmovableCorruption : ImmovableSolid
     {
-        internal ImmovableCorruption(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal ImmovableCorruption(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.BaseDensity = 1.6f;
             this.BaseExplosionResistance = 1.2f;
@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             if (Random.Chance(ElementConstants.CHANCE_OF_CORRUPTION_TO_SPREAD))
             {
-                context.InfectNeighboringElements(neighbors, this.StatisticsManager);
+                context.InfectNeighboringElements(neighbors, this.GameEvents);
             }
         }
     }

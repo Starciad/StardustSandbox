@@ -70,7 +70,7 @@ namespace StardustSandbox.Core.Actors
         internal ActorState State { get; set; }
 
         protected ActorManager ActorManager { get; }
-        protected AchievementManager AchievementManager { get; }
+        protected GameEvents GameEvents { get; }
         protected World World { get; }
         protected TileMap TileMap => this.World.TileMap;
 
@@ -79,11 +79,11 @@ namespace StardustSandbox.Core.Actors
         private int width;
         private int height;
 
-        internal Actor(ActorIndex index, ActorManager actorManager, AchievementManager achievementManager, World world)
+        internal Actor(ActorIndex index, ActorManager actorManager, GameEvents gameEvents, World world)
         {
             this.Index = index;
             this.ActorManager = actorManager;
-            this.AchievementManager = achievementManager;
+            this.GameEvents = gameEvents;
             this.World = world;
         }
 

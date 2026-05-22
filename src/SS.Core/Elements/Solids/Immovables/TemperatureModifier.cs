@@ -28,7 +28,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
     {
         private readonly TemperatureModifierMode temperatureModifierMode;
 
-        internal TemperatureModifier(ElementIndex index, ElementCategory category, TemperatureModifierMode temperatureModifierMode, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, AchievementManager achievementManager, StatisticsHandler statisticsManager) : base(index, category, renderingType, textureOriginOffset, referenceColor)
+        internal TemperatureModifier(ElementIndex index, ElementCategory category, TemperatureModifierMode temperatureModifierMode, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.temperatureModifierMode = temperatureModifierMode;
 
