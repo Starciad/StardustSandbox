@@ -18,8 +18,12 @@
 using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Achievements;
+using StardustSandbox.Core.Events.TileMap;
+using StardustSandbox.Core.Interfaces.Events;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
+using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Components;
 
 namespace StardustSandbox.Core.Managers
 {
@@ -29,13 +33,54 @@ namespace StardustSandbox.Core.Managers
         internal event AchievementUnlockedHandler AchievementUnlocked;
 
         private readonly AchievementDatabase achievementDatabase;
+        private readonly TileMap tileMap;
+        private readonly World world;
 
-        internal AchievementManager(AchievementDatabase achievementDatabase, GameEvents gameEvents)
+        internal AchievementManager(AchievementDatabase achievementDatabase, GameEvents gameEvents, World world)
         {
             this.achievementDatabase = achievementDatabase;
+            this.tileMap = world.TileMap;
+            this.world = world;
 
+            InitializeEvents(gameEvents);
+        }
+
+        private void Unlock(AchievementIndex index)
+        {
+            Achievement achievement = this.achievementDatabase.GetAchievement(index);
+            AchievementSettings achievementSettings = SettingsSerializer.Load<AchievementSettings>();
+
+            if (achievementSettings.IsUnlocked(index))
+            {
+                return;
+            }
+
+            achievementSettings.Unlock(index);
+            SettingsSerializer.Save(achievementSettings);
+
+            AchievementUnlocked?.Invoke(achievement);
+        }
+
+        #region EVENTS
+
+        private void OnElementInstantiated(ElementInstantiatedEvent e)
+        {
+            Unlock(AchievementIndex.ACH_001);
+
+            if (this.tileMap.TotalElementCount > 10)
+            {
+                Unlock(AchievementIndex.ACH_002);
+            }
+        }
+
+        #endregion
+
+        private void InitializeEvents(GameEvents gameEvents)
+        {
             // ACH 001
             // ACH 002
+            gameEvents.Subscribe<ElementInstantiatedEvent>(OnElementInstantiated);
+
             // ACH 003
             // ACH 004
             // ACH 005
@@ -59,22 +104,6 @@ namespace StardustSandbox.Core.Managers
             // ACH 023
             // ACH 024
             // ACH 025
-        }
-
-        private void Unlock(AchievementIndex index)
-        {
-            Achievement achievement = this.achievementDatabase.GetAchievement(index);
-            AchievementSettings achievementSettings = SettingsSerializer.Load<AchievementSettings>();
-
-            if (achievementSettings.IsUnlocked(index))
-            {
-                return;
-            }
-
-            achievementSettings.Unlock(index);
-            SettingsSerializer.Save(achievementSettings);
-
-            AchievementUnlocked?.Invoke(achievement);
         }
     }
 }

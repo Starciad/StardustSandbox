@@ -237,9 +237,9 @@ namespace StardustSandbox.Core.UI.Common
 
             this.infoLabels[0].TextContent = string.Concat(Localization_Statements.Size, ": ", worldSize.X, 'x', worldSize.Y);
             this.infoLabels[1].TextContent = string.Concat(Localization_Statements.Time, ": ", this.world.Time.CurrentTime.ToString(@"hh\:mm\:ss"));
-            this.infoLabels[2].TextContent = string.Concat(Localization_Statements.Elements, ": ", this.world.TileMap.GetTotalElementCount(), '/', limitOfElementsOnTheMap);
-            this.infoLabels[3].TextContent = string.Concat(Localization_GUIs.Information_Field_ForegroundElements, ": ", this.world.TileMap.GetTotalForegroundElementCount(), '/', limitOfElementsPerLayer);
-            this.infoLabels[4].TextContent = string.Concat(Localization_GUIs.Information_Field_BackgroundElements, ": ", this.world.TileMap.GetTotalBackgroundElementCount(), '/', limitOfElementsPerLayer);
+            this.infoLabels[2].TextContent = string.Concat(Localization_Statements.Elements, ": ", this.world.TileMap.TotalElementCount, '/', limitOfElementsOnTheMap);
+            this.infoLabels[3].TextContent = string.Concat(Localization_GUIs.Information_Field_ForegroundElements, ": ", this.world.TileMap.TotalForegroundElementCount, '/', limitOfElementsPerLayer);
+            this.infoLabels[4].TextContent = string.Concat(Localization_GUIs.Information_Field_BackgroundElements, ": ", this.world.TileMap.TotalBackgroundElementCount, '/', limitOfElementsPerLayer);
 
             this.infoLabels[5].TextContent = this.world.Temperature.CanApplyTemperature
                 ? string.Concat(Localization_Statements.Temperature, ": ", this.world.Temperature.CurrentTemperature.ToString("0.00"), " °C")

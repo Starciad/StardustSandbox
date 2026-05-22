@@ -131,8 +131,7 @@ namespace StardustSandbox.Core
             // System
             this.songManager = new(this.assetDatabase, this.gameLaunchOptions);
             this.soundEffectManager = new(this.assetDatabase);
-            this.achievementManager = new(this.achievementDatabase, this.gameEvents);
-
+            
             // Core
             this.playerInputController = new();
             this.world = new(
@@ -144,6 +143,7 @@ namespace StardustSandbox.Core
             this.camera = new(this.gameScreen);
 
             // Managers
+            this.achievementManager = new(this.achievementDatabase, this.gameEvents, this.world);
             this.effectsManager = new(this.assetDatabase);
             this.uiManager = new(this.uiDatabase);
             this.cursorManager = new(this.assetDatabase);

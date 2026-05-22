@@ -27,7 +27,6 @@ using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
-using System.Threading.Tasks;
 
 namespace StardustSandbox.Core.WorldSystem.Components
 {
@@ -36,25 +35,15 @@ namespace StardustSandbox.Core.WorldSystem.Components
         internal Point Size => new(this.width, this.height);
         internal int Width => this.width;
         internal int Height => this.height;
-
-        // internal delegate void ElementInstantiatedHandler(Point position, Layer layer, ElementIndex index);
-        // internal delegate void ElementPositionUpdatedHandler(Point oldPosition, Point newPosition, Layer layer);
-        // internal delegate void ElementSwappedHandler(Point element1Position, Point element2Position, Layer layer);
-        // internal delegate void ElementDestroyedHandler(Point position, Layer layer, ElementIndex index);
-        // internal delegate void ElementRemovedHandler(Point position, Layer layer);
-        // internal delegate void ElementReplacedHandler(Point position, Layer layer, ElementIndex oldIndex, ElementIndex newIndex);
-        // internal delegate void ElementTemperatureChangedHandler(Point position, Layer layer, float newTemperature);
-        // 
-        // internal event ElementInstantiatedHandler OnElementInstantiated;
-        // internal event ElementPositionUpdatedHandler OnElementPositionUpdated;
-        // internal event ElementSwappedHandler OnElementSwapped;
-        // internal event ElementDestroyedHandler OnElementDestroyed;
-        // internal event ElementRemovedHandler OnElementRemoved;
-        // internal event ElementReplacedHandler OnElementReplaced;
-        // internal event ElementTemperatureChangedHandler OnElementTemperatureChanged;
+        internal int TotalForegroundElementCount => this.totalForegroundElementCount;
+        internal int TotalBackgroundElementCount => this.totalBackgroundElementCount;
+        internal int TotalElementCount => this.totalForegroundElementCount + this.totalBackgroundElementCount;
 
         private int width;
         private int height;
+
+        private int totalForegroundElementCount;
+        private int totalBackgroundElementCount;
 
         private Slot[,] slots;
 
@@ -83,11 +72,6 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
         internal void Clear()
         {
-            if (this == null)
-            {
-                return;
-            }
-
             for (int y = 0; y < this.height; y++)
             {
                 for (int x = 0; x < this.width; x++)
@@ -101,6 +85,9 @@ namespace StardustSandbox.Core.WorldSystem.Components
                     RemoveElement(new(x, y), Layer.Background);
                 }
             }
+
+            this.totalForegroundElementCount = 0;
+            this.totalBackgroundElementCount = 0;
         }
 
         private void InstantiateSlots()
@@ -178,6 +165,36 @@ namespace StardustSandbox.Core.WorldSystem.Components
             return IsWithinBounds(position.X, position.Y);
         }
 
+        private void IncrementElementCount(Layer layer)
+        {
+            switch (layer)
+            {
+                case Layer.Foreground:
+                    this.totalForegroundElementCount++;
+                    break;
+                case Layer.Background:
+                    this.totalBackgroundElementCount++;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void DecrementElementCount(Layer layer)
+        {
+            switch (layer)
+            {
+                case Layer.Foreground:
+                    this.totalForegroundElementCount = Math.Max(0, this.totalForegroundElementCount - 1);
+                    break;
+                case Layer.Background:
+                    this.totalBackgroundElementCount = Math.Max(0, this.totalBackgroundElementCount - 1);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         #region ELEMENTS
 
         internal bool TryInstantiateElementIndex(Point position, Layer layer, ElementIndex index)
@@ -192,6 +209,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             slot.Position = position;
             slot.Instantiate(layer, index);
 
+            IncrementElementCount(layer);
             this.gameEvents.Publish(new ElementInstantiatedEvent(position, layer, index));
 
             return true;
@@ -257,6 +275,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             ElementIndex index = slotLayer.ElementIndex;
             slotLayer.Destroy();
 
+            DecrementElementCount(layer);
             this.gameEvents.Publish(new ElementDestroyedEvent(position, layer, index));
 
             return true;
@@ -270,6 +289,8 @@ namespace StardustSandbox.Core.WorldSystem.Components
             }
 
             this[position].Destroy(layer);
+
+            DecrementElementCount(layer);
             this.gameEvents.Publish(new ElementRemovedEvent(position, layer));
 
             return true;
@@ -654,47 +675,6 @@ namespace StardustSandbox.Core.WorldSystem.Components
         internal bool IsEmptySlotLayer(Point position, Layer layer)
         {
             return !IsWithinBounds(position) || this[position].GetLayer(layer).IsEmpty;
-        }
-
-        internal uint GetTotalElementCount()
-        {
-            return GetTotalForegroundElementCount() + GetTotalBackgroundElementCount();
-        }
-
-        internal uint GetTotalForegroundElementCount()
-        {
-            return GetTotalElementCountForLayer(slot => !slot.Foreground.IsEmpty);
-        }
-
-        internal uint GetTotalBackgroundElementCount()
-        {
-            return GetTotalElementCountForLayer(slot => !slot.Background.IsEmpty);
-        }
-
-        private uint GetTotalElementCountForLayer(Func<Slot, bool> predicate)
-        {
-            uint count = 0;
-            object lockObj = new();
-
-            _ = Parallel.For(0, this.height, y =>
-            {
-                uint localCount = 0;
-
-                for (int x = 0; x < this.width; x++)
-                {
-                    if (TryGetSlot(new(x, y), out Slot value) && predicate(value))
-                    {
-                        localCount++;
-                    }
-                }
-
-                lock (lockObj)
-                {
-                    count += localCount;
-                }
-            });
-
-            return count;
         }
 
         #endregion

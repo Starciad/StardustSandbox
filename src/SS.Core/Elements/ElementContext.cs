@@ -660,19 +660,6 @@ namespace StardustSandbox.Core.Elements
             return IsEmptySlotLayer(this.CurrentPosition, this.CurrentLayer);
         }
 
-        internal uint GetTotalElementCount()
-        {
-            return this.tileMap.GetTotalElementCount();
-        }
-        internal uint GetTotalForegroundElementCount()
-        {
-            return this.tileMap.GetTotalForegroundElementCount();
-        }
-        internal uint GetTotalBackgroundElementCount()
-        {
-            return this.tileMap.GetTotalBackgroundElementCount();
-        }
-
         #endregion
 
         #region CHUNKING
