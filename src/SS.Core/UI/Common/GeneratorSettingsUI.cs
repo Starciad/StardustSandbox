@@ -46,6 +46,8 @@ namespace StardustSandbox.Core.UI.Common
         private SlotInfo exitButtonSlotInfo, generateButtonSlotInfo;
         private SlotInfo[] themeButtonSlotInfos, settingsButtonSlotInfos, contentsButtonSlotInfos;
 
+        private readonly WorldGenerator worldGenerator;
+
         private readonly ButtonInfo exitButtonInfo, generateButtonInfo;
         private readonly ButtonInfo[] themeButtonInfos, settingsButtonInfos, contentsButtonInfos;
 
@@ -72,6 +74,8 @@ namespace StardustSandbox.Core.UI.Common
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
 
+            this.worldGenerator = new(gameHandler, world);
+
             this.exitButtonInfo = new(
                 TextureIndex.IconUI,
                 new(224, 0, 32, 32),
@@ -94,13 +98,11 @@ namespace StardustSandbox.Core.UI.Common
                         {
                             if (status is ConfirmStatus.Confirmed)
                             {
-                                WorldGenerator.Start(
-                                    gameHandler,
-                                    world,
-                                    this.selectedTheme,
-                                    this.selectedSettings,
-                                    this.selectedContents
-                                );
+                                this.worldGenerator.Theme = this.selectedTheme;
+                                this.worldGenerator.Settings = this.selectedSettings;
+                                this.worldGenerator.Contents = this.selectedContents;
+
+                                this.worldGenerator.Start();
                             }
 
                             gameHandler.SetState(GameStates.IsCriticalMenuOpen);

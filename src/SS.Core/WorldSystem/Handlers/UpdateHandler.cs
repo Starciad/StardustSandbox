@@ -62,7 +62,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
         {
             bool TryUpdateRow(Point position)
             {
-                if (!this.world.TryGetSlot(position, out Slot slot))
+                if (!this.world.TileMap.TryGetSlot(position, out Slot slot))
                 {
                     return false;
                 }
@@ -118,7 +118,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
         {
             this.horizontalLeftToRight = !this.horizontalLeftToRight;
 
-            foreach (Chunk chunk in this.world.GetActiveChunks())
+            foreach (Chunk chunk in this.world.ChunkHandler.GetActiveChunks())
             {
                 UpdateChunk(gameTime, chunk, this.horizontalLeftToRight);
             }

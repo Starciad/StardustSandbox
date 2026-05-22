@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem.Handlers;
 
@@ -42,7 +43,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             if (currentValue > 600.0f)
             {
                 context.ReplaceElementIndex(ElementIndex.Lava);
-                this.AchievementManager.Unlock(AchievementIndex.ACH_020);
+                this.GameEvents.Publish(new StoneMeltedEvent());
             }
         }
     }

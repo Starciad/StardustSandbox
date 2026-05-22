@@ -21,6 +21,7 @@ using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Events.Explosions;
 using StardustSandbox.Core.Explosions;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Collections;
@@ -38,16 +39,18 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
         private readonly ObjectPool explosionPool = new();
         private readonly Queue<Explosion> instantiatedExplosions = new(ExplosionConstants.MAX_SIMULTANEOUS_EXPLOSIONS);
 
+        private readonly GameEvents gameEvents;
         private readonly TileMap tileMap;
 
-        internal ExplosionHandler(TileMap tileMap)
+        internal ExplosionHandler(GameEvents gameEvents, TileMap tileMap)
         {
-
+            this.gameEvents = gameEvents;
+            this.tileMap = tileMap;
         }
 
         internal bool TryInstantiateExplosion(Point position, Layer layer, ExplosionBuilder explosionBuilder)
         {
-            if (!IsWithinBounds(position) && this.instantiatedExplosions.Count >= ExplosionConstants.MAX_SIMULTANEOUS_EXPLOSIONS)
+            if (!this.tileMap.IsWithinBounds(position) && this.instantiatedExplosions.Count >= ExplosionConstants.MAX_SIMULTANEOUS_EXPLOSIONS)
             {
                 return false;
             }
@@ -71,20 +74,20 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
         {
             foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(explosion.Position, Convert.ToInt32(explosion.Radius)))
             {
-                if (!IsWithinBounds(point))
+                if (!this.tileMap.IsWithinBounds(point))
                 {
                     continue;
                 }
 
-                if (TryGetSlot(point, out Slot slot))
+                if (this.tileMap.TryGetSlot(point, out Slot slot))
                 {
                     TryAffectPoint(slot, point, explosion);
                 }
 
-                InstantiateElementIndex(point, explosion.Layer, explosion.ExplosionResidues.GetRandomItem());
+                this.tileMap.InstantiateElementIndex(point, explosion.Layer, explosion.ExplosionResidues.GetRandomItem());
             }
 
-            this.achievementManager.Unlock(AchievementIndex.ACH_016);
+            this.gameEvents.Publish(new ExplosionEvent());
         }
 
         internal void HandleExplosions()
@@ -109,7 +112,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
             }
             else
             {
-                DestroyElement(targetPosition, layer);
+                this.tileMap.DestroyElement(targetPosition, layer);
             }
         }
 

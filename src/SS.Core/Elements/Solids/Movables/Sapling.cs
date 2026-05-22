@@ -21,6 +21,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Generators;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Randomness;
@@ -76,7 +77,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             {
                 context.DestroyElement();
                 TreeGenerator.Start(context, Random.Range(5, 8), 1, 2);
-                this.AchievementManager.Unlock(AchievementIndex.ACH_006);
+                this.GameEvents.Publish(new SaplingGrewEvent());
             }
         }
 

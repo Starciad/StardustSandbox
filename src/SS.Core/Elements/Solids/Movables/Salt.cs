@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Achievements;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem.Handlers;
 
@@ -56,7 +57,8 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
                     case ElementIndex.Snow:
                         context.DestroyElement();
                         context.ReplaceElementIndex(neighbors.GetNeighborPosition(i), context.CurrentLayer, ElementIndex.Saltwater);
-                        this.AchievementManager.Unlock(AchievementIndex.ACH_024);
+
+                        this.GameEvents.Publish(new SaltDissolvedEvent());
                         break;
 
                     default:

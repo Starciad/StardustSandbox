@@ -140,6 +140,7 @@ namespace StardustSandbox.Core
                 this.achievementManager,
                 this.assetDatabase,
                 this.elementDatabase,
+                this.gameEvents,
                 this.playerInputController
             );
             this.camera = new(this.gameScreen);

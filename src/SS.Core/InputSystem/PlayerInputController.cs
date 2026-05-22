@@ -63,7 +63,7 @@ namespace StardustSandbox.Core.InputSystem
             World world
         )
         {
-            this.worldHandler = new(achievementManager, actorManager, camera, this.pen, this.player, toolDatabase, world);
+            this.worldHandler = new(achievementManager, actorManager, camera, this.pen, this.player, world.TileMap, toolDatabase);
 
             ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
 

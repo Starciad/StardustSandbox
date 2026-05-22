@@ -30,6 +30,7 @@ using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
+using StardustSandbox.Core.WorldSystem.Components;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
@@ -49,8 +50,8 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
         {
             int left = -1;
             int top = -1;
-            int right = world.Tile.X;
-            int bottom = Size.Y;
+            int right = world.TileMap.Width;
+            int bottom = world.TileMap.Height;
 
             Texture2D texture = assetDatabase.GetTexture(TextureIndex.Frames);
             int gridSize = WorldConstants.TILE_SIZE;
@@ -114,15 +115,15 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
 
         internal void Draw(SpriteBatch spriteBatch, AssetDatabase assetDatabase, Camera2D camera)
         {
-            DrawWorldBorder(spriteBatch);
+            DrawWorldBorder(spriteBatch, assetDatabase);
 
             RectangleF viewBounds = camera.GetViewBounds();
 
             // Converts the visible world area to tile indexes
-            int minTileX = (int)Math.Clamp(Math.Floor(viewBounds.Left / WorldConstants.TILE_SIZE), 0, this.world.Size.X);
-            int minTileY = (int)Math.Clamp(Math.Floor(viewBounds.Top / WorldConstants.TILE_SIZE), 0, this.world.Size.Y);
-            int maxTileX = (int)Math.Clamp(Math.Ceiling(viewBounds.Right / WorldConstants.TILE_SIZE), 0, this.world.Size.X);
-            int maxTileY = (int)Math.Clamp(Math.Ceiling(viewBounds.Bottom / WorldConstants.TILE_SIZE), 0, this.world.Size.Y);
+            int minTileX = (int)Math.Clamp(Math.Floor(viewBounds.Left / WorldConstants.TILE_SIZE), 0, this.world.TileMap.Width);
+            int minTileY = (int)Math.Clamp(Math.Floor(viewBounds.Top / WorldConstants.TILE_SIZE), 0, this.world.TileMap.Height);
+            int maxTileX = (int)Math.Clamp(Math.Ceiling(viewBounds.Right / WorldConstants.TILE_SIZE), 0, this.world.TileMap.Width);
+            int maxTileY = (int)Math.Clamp(Math.Ceiling(viewBounds.Bottom / WorldConstants.TILE_SIZE), 0, this.world.TileMap.Height);
 
             GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
 
@@ -137,7 +138,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
                         spriteBatch.Draw(assetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.TILE_SIZE, new(32, 0, 32, 32), new(AAP64ColorPalette.White, gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                     }
 
-                    if (this.world.TryGetSlot(targetPosition.ToPoint(), out Slot slot))
+                    if (this.world.TileMap.TryGetSlot(targetPosition.ToPoint(), out Slot slot))
                     {
                         if (this.DrawBackgroundElements && !slot.Background.IsEmpty)
                         {

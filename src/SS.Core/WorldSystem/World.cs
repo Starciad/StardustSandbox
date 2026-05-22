@@ -71,6 +71,7 @@ namespace StardustSandbox.Core.WorldSystem
             AchievementManager achievementManager,
             AssetDatabase assetDatabase,
             ElementDatabase elementDatabase,
+            GameEvents gameEvents,
             PlayerInputController playerInputController
         )
         {
@@ -84,7 +85,7 @@ namespace StardustSandbox.Core.WorldSystem
             this.tileMap = new(elementDatabase);
 
             this.chunkHandler = new(this.TileMap);
-            this.explosionHandler = new(this.tileMap);
+            this.explosionHandler = new(gameEvents, this.tileMap);
             this.renderingHandler = new(assetDatabase, playerInputController, this);
             this.statisticsHandler = new(achievementManager);
             this.updateHandler = new(this);
@@ -171,6 +172,11 @@ namespace StardustSandbox.Core.WorldSystem
 
         #endregion
 
+        internal void Clear()
+        {
+            this.tileMap.Clear();
+        }
+
         public void Reset()
         {
             this.Name = string.Empty;
@@ -182,7 +188,7 @@ namespace StardustSandbox.Core.WorldSystem
             this.temperature.Reset();
             this.updateHandler.Reset();
 
-            this.tileMap.Clear();
+            Clear();
         }
 
         internal void StartNew(Point size)
@@ -211,7 +217,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return;
             }
 
-            this.tileMap.Clear();
+            Clear();
         }
 
         internal void SetSpeed(SimulationSpeed speed)

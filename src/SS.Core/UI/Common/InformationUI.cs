@@ -230,16 +230,16 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
 
-            Point worldSize = this.world.Size;
+            Point worldSize = this.world.TileMap.Size;
 
             uint limitOfElementsOnTheMap = (uint)(worldSize.X * worldSize.Y * 2);
             uint limitOfElementsPerLayer = (uint)(worldSize.X * worldSize.Y);
 
             this.infoLabels[0].TextContent = string.Concat(Localization_Statements.Size, ": ", worldSize.X, 'x', worldSize.Y);
             this.infoLabels[1].TextContent = string.Concat(Localization_Statements.Time, ": ", this.world.Time.CurrentTime.ToString(@"hh\:mm\:ss"));
-            this.infoLabels[2].TextContent = string.Concat(Localization_Statements.Elements, ": ", this.world.GetTotalElementCount(), '/', limitOfElementsOnTheMap);
-            this.infoLabels[3].TextContent = string.Concat(Localization_GUIs.Information_Field_ForegroundElements, ": ", this.world.GetTotalForegroundElementCount(), '/', limitOfElementsPerLayer);
-            this.infoLabels[4].TextContent = string.Concat(Localization_GUIs.Information_Field_BackgroundElements, ": ", this.world.GetTotalBackgroundElementCount(), '/', limitOfElementsPerLayer);
+            this.infoLabels[2].TextContent = string.Concat(Localization_Statements.Elements, ": ", this.world.TileMap.GetTotalElementCount(), '/', limitOfElementsOnTheMap);
+            this.infoLabels[3].TextContent = string.Concat(Localization_GUIs.Information_Field_ForegroundElements, ": ", this.world.TileMap.GetTotalForegroundElementCount(), '/', limitOfElementsPerLayer);
+            this.infoLabels[4].TextContent = string.Concat(Localization_GUIs.Information_Field_BackgroundElements, ": ", this.world.TileMap.GetTotalBackgroundElementCount(), '/', limitOfElementsPerLayer);
 
             this.infoLabels[5].TextContent = this.world.Temperature.CanApplyTemperature
                 ? string.Concat(Localization_Statements.Temperature, ": ", this.world.Temperature.CurrentTemperature.ToString("0.00"), " °C")

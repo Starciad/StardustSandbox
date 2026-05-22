@@ -436,7 +436,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private void UpdateInfos()
         {
-            this.worldThumbnailTexture = this.world.CreateThumbnail(this.graphicsDevice);
+            this.worldThumbnailTexture = this.world.TileMap.CreateThumbnail(this.graphicsDevice);
             this.thumbnailPreviewElement.Texture = this.worldThumbnailTexture;
 
             this.titleTextualContent.TextContent = this.world.Name.Truncate(19);
