@@ -15,17 +15,12 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
-using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Events;
 
-namespace StardustSandbox.Core.Events.TileMap
+namespace StardustSandbox.Core.Events.Elements
 {
-    internal sealed class ElementTemperatureChangedEvent(Point position, Layer layer, float temperature) : IGameEvent
+    internal sealed class WaterVaporizedEvent : IGameEvent
     {
-        internal Point Position => position;
-        internal Layer Layer => layer;
-        internal float Temperature => temperature;
+
     }
 }

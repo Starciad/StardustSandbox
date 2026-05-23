@@ -18,8 +18,7 @@
 using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Achievements;
-using StardustSandbox.Core.Events.TileMap;
-using StardustSandbox.Core.Interfaces.Events;
+using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.WorldSystem;
@@ -31,6 +30,8 @@ namespace StardustSandbox.Core.Managers
     {
         internal delegate void AchievementUnlockedHandler(Achievement achievement);
         internal event AchievementUnlockedHandler AchievementUnlocked;
+
+        private int clonedElementCount = 0;
 
         private readonly AchievementDatabase achievementDatabase;
         private readonly TileMap tileMap;
@@ -63,6 +64,16 @@ namespace StardustSandbox.Core.Managers
 
         #region EVENTS
 
+        private void OnElementClonedEvent(ElementClonedEvent e)
+        {
+            if (this.clonedElementCount >= 35)
+            {
+                Unlock(AchievementIndex.ACH_003);
+                return;
+            }
+
+            this.clonedElementCount++;
+        }
         private void OnElementInstantiated(ElementInstantiatedEvent e)
         {
             Unlock(AchievementIndex.ACH_001);
@@ -71,6 +82,14 @@ namespace StardustSandbox.Core.Managers
             {
                 Unlock(AchievementIndex.ACH_002);
             }
+        }
+        private void OnSaplingGrewEvent(SaplingGrewEvent e)
+        {
+            Unlock(AchievementIndex.ACH_005);
+        }
+        private void OnWaterVaporizedEvent(WaterVaporizedEvent e)
+        {
+            Unlock(AchievementIndex.ACH_004);
         }
 
         #endregion
@@ -82,8 +101,14 @@ namespace StardustSandbox.Core.Managers
             gameEvents.Subscribe<ElementInstantiatedEvent>(OnElementInstantiated);
 
             // ACH 003
+            gameEvents.Subscribe<ElementClonedEvent>(OnElementClonedEvent);
+
             // ACH 004
+            gameEvents.Subscribe<WaterVaporizedEvent>(OnWaterVaporizedEvent);
+
             // ACH 005
+            gameEvents.Subscribe<SaplingGrewEvent>(OnSaplingGrewEvent);
+
             // ACH 006
             // ACH 007
             // ACH 008
@@ -93,17 +118,6 @@ namespace StardustSandbox.Core.Managers
             // ACH 012
             // ACH 013
             // ACH 014
-            // ACH 015
-            // ACH 016
-            // ACH 017
-            // ACH 018
-            // ACH 019
-            // ACH 020
-            // ACH 021
-            // ACH 022
-            // ACH 023
-            // ACH 024
-            // ACH 025
         }
     }
 }

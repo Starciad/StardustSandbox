@@ -17,16 +17,14 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Events;
 
-namespace StardustSandbox.Core.Events.TileMap
+namespace StardustSandbox.Core.Events.Elements
 {
-    internal sealed class ElementInstantiatedEvent(Point position, Layer layer, ElementIndex index) : IGameEvent
+    internal sealed class ElementRemovedEvent(Point position, Layer layer) : IGameEvent
     {
         internal Point Position => position;
         internal Layer Layer => layer;
-        internal ElementIndex Index => index;
     }
 }

@@ -15,17 +15,12 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
-using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Events;
 
-namespace StardustSandbox.Core.Events.TileMap
+namespace StardustSandbox.Core.Events.Elements
 {
-    internal sealed class ElementPositionUpdatedEvent(Point oldPosition, Point newPosition, Layer layer) : IGameEvent
+    internal sealed class WaterFrozenEvent : IGameEvent
     {
-        internal Point OldPosition => oldPosition;
-        internal Point NewPosition => newPosition;
-        internal Layer Layer => layer;
+
     }
 }

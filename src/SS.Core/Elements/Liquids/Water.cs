@@ -81,12 +81,12 @@ namespace StardustSandbox.Core.Elements.Liquids
             if (currentValue <= 0.0f)
             {
                 context.ReplaceElementIndex(ElementIndex.Ice);
-                this.GameEvents.Publish(new ElementStateChangedEvent());
+                this.GameEvents.Publish(new WaterFrozenEvent());
             }
             else if (currentValue >= 100.0f)
             {
                 context.ReplaceElementIndex(ElementIndex.Steam);
-                this.GameEvents.Publish(new ElementStateChangedEvent());
+                this.GameEvents.Publish(new WaterVaporizedEvent());
             }
         }
     }
