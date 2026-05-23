@@ -18,7 +18,9 @@
 using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Achievements;
+using StardustSandbox.Core.Events.Actors;
 using StardustSandbox.Core.Events.Elements;
+using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.WorldSystem;
@@ -32,16 +34,19 @@ namespace StardustSandbox.Core.Managers
         internal event AchievementUnlockedHandler AchievementUnlocked;
 
         private int clonedElementCount = 0;
+        private int devourerConsumedElementCount = 0;
+        private int voidConsumedElementCount = 0;
+        private int gulPlacedElementCount = 0;
+        private int pushedElementsCount = 0;
+        private int corrodedElementCount = 0;
 
         private readonly AchievementDatabase achievementDatabase;
         private readonly TileMap tileMap;
-        private readonly World world;
 
-        internal AchievementManager(AchievementDatabase achievementDatabase, GameEvents gameEvents, World world)
+        internal AchievementManager(AchievementDatabase achievementDatabase, GameEvents gameEvents, TileMap tileMap)
         {
             this.achievementDatabase = achievementDatabase;
-            this.tileMap = world.TileMap;
-            this.world = world;
+            this.tileMap = tileMap;
 
             InitializeEvents(gameEvents);
         }
@@ -64,9 +69,42 @@ namespace StardustSandbox.Core.Managers
 
         #region EVENTS
 
+        // ACTORS
+        private void OnGulPlacedElementEvent(GulPlacedElementEvent e)
+        {
+            if (this.gulPlacedElementCount >= 100)
+            {
+                Unlock(AchievementIndex.ACH_006);
+                return;
+            }
+
+            this.gulPlacedElementCount++;
+        }
+
+        // ELEMENTS
+        private void OnElementConsumedByDevourerEvent(ElementConsumedByDevourerEvent e)
+        {
+            if (this.devourerConsumedElementCount >= 100)
+            {
+                Unlock(AchievementIndex.ACH_009);
+                return;
+            }
+
+            this.devourerConsumedElementCount++;
+        }
+        private void OnElementConsumedByVoidEvent(ElementConsumedByVoidEvent e)
+        {
+            if (this.voidConsumedElementCount >= 1000)
+            {
+                Unlock(AchievementIndex.ACH_010);
+                return;
+            }
+
+            this.voidConsumedElementCount++;
+        }
         private void OnElementClonedEvent(ElementClonedEvent e)
         {
-            if (this.clonedElementCount >= 35)
+            if (this.clonedElementCount >= 150)
             {
                 Unlock(AchievementIndex.ACH_003);
                 return;
@@ -74,13 +112,56 @@ namespace StardustSandbox.Core.Managers
 
             this.clonedElementCount++;
         }
+        private void OnElementCorruptedEvent(ElementCorruptedEvent e)
+        {
+            // This achievement is unlocked when the percentage of corrupted elements in the tile map reaches or exceeds 50%.
+            if (PercentageMath.PercentageFromValue(this.tileMap.MaxTotalElementCapacity, this.tileMap.ActiveCorruptedElementCount) >= 50.0f)
+            {
+                Unlock(AchievementIndex.ACH_011);
+            }
+        }
+        private void OnElementCorrodedEvent(ElementCorrodedEvent e)
+        {
+            if (this.corrodedElementCount >= 100)
+            {
+                Unlock(AchievementIndex.ACH_014);
+                return;
+            }
+
+            this.corrodedElementCount++;
+        }
         private void OnElementInstantiated(ElementInstantiatedEvent e)
         {
             Unlock(AchievementIndex.ACH_001);
 
-            if (this.tileMap.TotalElementCount > 10)
+            if (this.tileMap.UniqueActiveElementCount > 10)
             {
                 Unlock(AchievementIndex.ACH_002);
+            }
+        }
+        private void OnElementPushedEvent(ElementPushedEvent e)
+        {
+            if (this.pushedElementsCount >= 1000)
+            {
+                Unlock(AchievementIndex.ACH_012);
+                return;
+            }
+
+            this.pushedElementsCount++;
+        }
+        private void OnElementReachedMaxTemperatureEvent(ElementReachedMaxTemperatureEvent e)
+        {
+            Unlock(AchievementIndex.ACH_007);
+        }
+        private void OnElementReachedMinTemperatureEvent(ElementReachedMinTemperatureEvent e)
+        {
+            Unlock(AchievementIndex.ACH_008);
+        }
+        private void OnFireSpreadEvent(FireSpreadEvent e)
+        {
+            if (e.AroundElements >= 5 && e.BurnedElements >= 4)
+            {
+                Unlock(AchievementIndex.ACH_013);
             }
         }
         private void OnSaplingGrewEvent(SaplingGrewEvent e)
@@ -96,8 +177,7 @@ namespace StardustSandbox.Core.Managers
 
         private void InitializeEvents(GameEvents gameEvents)
         {
-            // ACH 001
-            // ACH 002
+            // ACH 001 & ACH 002
             gameEvents.Subscribe<ElementInstantiatedEvent>(OnElementInstantiated);
 
             // ACH 003
@@ -110,14 +190,31 @@ namespace StardustSandbox.Core.Managers
             gameEvents.Subscribe<SaplingGrewEvent>(OnSaplingGrewEvent);
 
             // ACH 006
+            gameEvents.Subscribe<GulPlacedElementEvent>(OnGulPlacedElementEvent);
+
             // ACH 007
+            gameEvents.Subscribe<ElementReachedMaxTemperatureEvent>(OnElementReachedMaxTemperatureEvent);
+
             // ACH 008
+            gameEvents.Subscribe<ElementReachedMinTemperatureEvent>(OnElementReachedMinTemperatureEvent);
+
             // ACH 009
+            gameEvents.Subscribe<ElementConsumedByDevourerEvent>(OnElementConsumedByDevourerEvent);
+
             // ACH 010
+            gameEvents.Subscribe<ElementConsumedByVoidEvent>(OnElementConsumedByVoidEvent);
+
             // ACH 011
+            gameEvents.Subscribe<ElementCorruptedEvent>(OnElementCorruptedEvent);
+
             // ACH 012
+            gameEvents.Subscribe<ElementPushedEvent>(OnElementPushedEvent);
+
             // ACH 013
+            gameEvents.Subscribe<FireSpreadEvent>(OnFireSpreadEvent);
+
             // ACH 014
+            gameEvents.Subscribe<ElementCorrodedEvent>(OnElementCorrodedEvent);
         }
     }
 }

@@ -22,11 +22,12 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.World;
-using StardustSandbox.Core.Events.TileMap;
+using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.WorldSystem.Components
 {
@@ -35,15 +36,26 @@ namespace StardustSandbox.Core.WorldSystem.Components
         internal Point Size => new(this.width, this.height);
         internal int Width => this.width;
         internal int Height => this.height;
-        internal int TotalForegroundElementCount => this.totalForegroundElementCount;
-        internal int TotalBackgroundElementCount => this.totalBackgroundElementCount;
-        internal int TotalElementCount => this.totalForegroundElementCount + this.totalBackgroundElementCount;
 
-        private int width;
-        private int height;
+        internal int ActiveForegroundElementCount => this.activeForegroundElementCount;
+        internal int ActiveBackgroundElementCount => this.activeBackgroundElementCount;
+        internal int UniqueActiveElementCount => this.uniqueActiveElements.Count;
+        internal int ActiveCorruptedElementCount => this.activeCorruptedElementCount;
+        internal int TotalActiveElementCount => this.activeForegroundElementCount + this.activeBackgroundElementCount;
+
+        internal int MaxForegroundElementCapacity => this.width * this.height;
+        internal int MaxBackgroundElementCapacity => this.width * this.height;
+        internal int MaxTotalElementCapacity => this.width * this.height * 2;
 
         private int totalForegroundElementCount;
         private int totalBackgroundElementCount;
+        private int activeCorruptedElementCount;
+
+        private int activeForegroundElementCount;
+        private int activeBackgroundElementCount;
+
+        private int width;
+        private int height;
 
         private Slot[,] slots;
 
@@ -51,6 +63,8 @@ namespace StardustSandbox.Core.WorldSystem.Components
         private readonly GameEvents gameEvents;
         private readonly ElementNeighbors elementNeighbors = new();
         private readonly ObjectPool slotObjectPool = new();
+
+        private readonly HashSet<Element> uniqueActiveElements = [];
 
         internal Slot this[int x, int y]
         {
@@ -86,8 +100,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
                 }
             }
 
-            this.totalForegroundElementCount = 0;
-            this.totalBackgroundElementCount = 0;
+            ResetCounts();
         }
 
         private void InstantiateSlots()
@@ -165,30 +178,49 @@ namespace StardustSandbox.Core.WorldSystem.Components
             return IsWithinBounds(position.X, position.Y);
         }
 
-        private void IncrementElementCount(Layer layer)
+        private void ResetCounts()
         {
+            this.totalForegroundElementCount = 0;
+            this.totalBackgroundElementCount = 0;
+            this.activeCorruptedElementCount = 0;
+        }
+        private void IncrementElementCount(Element element, Layer layer)
+        {
+            if (element.IsCorruption)
+            { 
+                this.activeCorruptedElementCount++;
+            }
+
             switch (layer)
             {
                 case Layer.Foreground:
                     this.totalForegroundElementCount++;
+                    this.activeForegroundElementCount++;
                     break;
                 case Layer.Background:
                     this.totalBackgroundElementCount++;
+                    this.activeBackgroundElementCount++;
                     break;
                 default:
                     break;
             }
         }
-
-        private void DecrementElementCount(Layer layer)
+        private void DecrementElementCount(Element element, Layer layer)
         {
+            if (element.IsCorruption)
+            {
+                this.activeCorruptedElementCount = Math.Max(0, this.activeCorruptedElementCount - 1);
+            }
+
             switch (layer)
             {
                 case Layer.Foreground:
                     this.totalForegroundElementCount = Math.Max(0, this.totalForegroundElementCount - 1);
+                    this.activeForegroundElementCount = Math.Max(0, this.activeForegroundElementCount - 1);
                     break;
                 case Layer.Background:
                     this.totalBackgroundElementCount = Math.Max(0, this.totalBackgroundElementCount - 1);
+                    this.activeBackgroundElementCount = Math.Max(0, this.activeBackgroundElementCount - 1);
                     break;
                 default:
                     break;
@@ -205,12 +237,15 @@ namespace StardustSandbox.Core.WorldSystem.Components
             }
 
             Slot slot = this[position];
+            Element element = this.elementDatabase.GetElement(index);
 
             slot.Position = position;
             slot.Instantiate(layer, index);
 
-            IncrementElementCount(layer);
+            IncrementElementCount(element, layer);
             this.gameEvents.Publish(new ElementInstantiatedEvent(position, layer, index));
+
+            _ = this.uniqueActiveElements.Add(element);
 
             return true;
         }
@@ -275,7 +310,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             ElementIndex index = slotLayer.ElementIndex;
             slotLayer.Destroy();
 
-            DecrementElementCount(layer);
+            DecrementElementCount(this.elementDatabase.GetElement(index), layer);
             this.gameEvents.Publish(new ElementDestroyedEvent(position, layer, index));
 
             return true;
@@ -288,9 +323,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
                 return false;
             }
 
-            this[position].Destroy(layer);
+            SlotLayer slotLayer = this[position].GetLayer(layer);
+            slotLayer.Destroy();
 
-            DecrementElementCount(layer);
+            DecrementElementCount(slotLayer.Element, layer);
             this.gameEvents.Publish(new ElementRemovedEvent(position, layer));
 
             return true;

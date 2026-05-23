@@ -19,8 +19,9 @@ using StardustSandbox.Core.Interfaces.Events;
 
 namespace StardustSandbox.Core.Events.Elements
 {
-    internal sealed class ElementStateChangedEvent : IGameEvent
+    internal sealed class FireSpreadEvent(int aroundElements, int burnedElements) : IGameEvent
     {
-
+        internal int AroundElements => aroundElements;
+        internal int BurnedElements => burnedElements;
     }
 }

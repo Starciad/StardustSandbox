@@ -29,6 +29,7 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.WorldSystem;
+using StardustSandbox.Core.WorldSystem.Components;
 
 namespace StardustSandbox.Core.UI.Common
 {
@@ -45,6 +46,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly AssetDatabase assetDatabase;
         private readonly GameHandler gameHandler;
         private readonly SoundEffectManager soundEffectManager;
+        private readonly TileMap tileMap;
         private readonly TooltipBox tooltipBox;
         private readonly UIManager uiManager;
         private readonly World world;
@@ -64,6 +66,7 @@ namespace StardustSandbox.Core.UI.Common
             this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
             this.soundEffectManager = soundEffectManager;
+            this.tileMap = world.TileMap;
             this.tooltipBox = tooltipBox;
             this.uiManager = uiManager;
             this.world = world;
@@ -230,16 +233,11 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
 
-            Point worldSize = this.world.TileMap.Size;
-
-            uint limitOfElementsOnTheMap = (uint)(worldSize.X * worldSize.Y * 2);
-            uint limitOfElementsPerLayer = (uint)(worldSize.X * worldSize.Y);
-
-            this.infoLabels[0].TextContent = string.Concat(Localization_Statements.Size, ": ", worldSize.X, 'x', worldSize.Y);
+            this.infoLabels[0].TextContent = string.Concat(Localization_Statements.Size, ": ", this.tileMap.Width, 'x', this.tileMap.Height);
             this.infoLabels[1].TextContent = string.Concat(Localization_Statements.Time, ": ", this.world.Time.CurrentTime.ToString(@"hh\:mm\:ss"));
-            this.infoLabels[2].TextContent = string.Concat(Localization_Statements.Elements, ": ", this.world.TileMap.TotalElementCount, '/', limitOfElementsOnTheMap);
-            this.infoLabels[3].TextContent = string.Concat(Localization_GUIs.Information_Field_ForegroundElements, ": ", this.world.TileMap.TotalForegroundElementCount, '/', limitOfElementsPerLayer);
-            this.infoLabels[4].TextContent = string.Concat(Localization_GUIs.Information_Field_BackgroundElements, ": ", this.world.TileMap.TotalBackgroundElementCount, '/', limitOfElementsPerLayer);
+            this.infoLabels[2].TextContent = string.Concat(Localization_Statements.Elements, ": ", this.tileMap.TotalActiveElementCount, '/', this.tileMap.MaxTotalElementCapacity);
+            this.infoLabels[3].TextContent = string.Concat(Localization_GUIs.Information_Field_ForegroundElements, ": ", this.tileMap.ActiveForegroundElementCount, '/', this.tileMap.MaxForegroundElementCapacity);
+            this.infoLabels[4].TextContent = string.Concat(Localization_GUIs.Information_Field_BackgroundElements, ": ", this.tileMap.ActiveBackgroundElementCount, '/', this.tileMap.MaxBackgroundElementCapacity);
 
             this.infoLabels[5].TextContent = this.world.Temperature.CanApplyTemperature
                 ? string.Concat(Localization_Statements.Temperature, ": ", this.world.Temperature.CurrentTemperature.ToString("0.00"), " °C")

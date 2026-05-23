@@ -67,7 +67,6 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             if (shouldBecomeWet)
             {
                 context.ReplaceElementIndex(ElementIndex.WetSponge);
-                this.GameEvents.Publish(new ElementStateChangedEvent());
             }
         }
 

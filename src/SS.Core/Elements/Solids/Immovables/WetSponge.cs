@@ -59,7 +59,6 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             if (currentValue >= 60.0f)
             {
                 context.ReplaceElementIndex(ElementIndex.DrySponge);
-                this.GameEvents.Publish(new ElementStateChangedEvent());
             }
         }
     }

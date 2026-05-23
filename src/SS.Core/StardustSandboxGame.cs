@@ -143,7 +143,7 @@ namespace StardustSandbox.Core
             this.camera = new(this.gameScreen);
 
             // Managers
-            this.achievementManager = new(this.achievementDatabase, this.gameEvents, this.world);
+            this.achievementManager = new(this.achievementDatabase, this.gameEvents, this.world.TileMap);
             this.effectsManager = new(this.assetDatabase);
             this.uiManager = new(this.uiDatabase);
             this.cursorManager = new(this.assetDatabase);
