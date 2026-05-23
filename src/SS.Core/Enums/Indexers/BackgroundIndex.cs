@@ -15,19 +15,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Enums.Assets
+namespace StardustSandbox.Core.Enums.Indexers
 {
-    internal enum SpriteFontIndex : byte
+    internal enum BackgroundIndex : byte
     {
         None,
-        Arial,
-        BigApple3pm,
-        ComicSansMS,
-        CooperBits,
-        DePixelBreit,
-        DigitalDisco,
-        PixelOperator,
-        VcrOsdMono1001,
-        WindowsCommandPrompt,
+        MainMenu,
+        Ocean,
+        Credits
     }
 }

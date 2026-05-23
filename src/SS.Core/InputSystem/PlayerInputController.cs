@@ -17,7 +17,7 @@
 
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Assets;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.Inputs;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.States;

@@ -16,7 +16,7 @@
 */
 
 using StardustSandbox.Core.Achievements;
-using StardustSandbox.Core.Enums.Achievements;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Interfaces.Serialization;
 
 using System;

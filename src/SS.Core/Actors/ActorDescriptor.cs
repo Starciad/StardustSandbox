@@ -17,6 +17,7 @@
 
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Enums.Actors;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Interfaces.Actors;
 using StardustSandbox.Core.Interfaces.Collections;
 

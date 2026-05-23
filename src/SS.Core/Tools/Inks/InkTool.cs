@@ -17,8 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Enums.Achievements;
-using StardustSandbox.Core.Enums.Tools;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Tools.Inks

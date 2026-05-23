@@ -19,8 +19,8 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.InputSystem;

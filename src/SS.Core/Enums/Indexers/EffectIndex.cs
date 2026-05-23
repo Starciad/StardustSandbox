@@ -15,31 +15,11 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Enums.Assets
+namespace StardustSandbox.Core.Enums.Indexers
 {
-    internal enum SoundEffectIndex : byte
+    internal enum EffectIndex : byte
     {
         None,
-
-        #region GUIs
-
-        GUI_Accepted,
-        GUI_Click,
-        GUI_Error,
-        GUI_Hover,
-        GUI_Message,
-        GUI_Pause_Ended,
-        GUI_Pause_Started,
-        GUI_Rejected,
-        GUI_Returning,
-        GUI_Typing_1,
-        GUI_Typing_2,
-        GUI_Typing_3,
-        GUI_Typing_4,
-        GUI_Typing_5,
-        GUI_World_Loaded,
-        GUI_World_Saved,
-
-        #endregion
+        GradientTransition,
     }
 }

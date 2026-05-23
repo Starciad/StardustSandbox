@@ -21,9 +21,8 @@ using Microsoft.Xna.Framework.Input;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Assets;
-using StardustSandbox.Core.Enums.Backgrounds;
 using StardustSandbox.Core.Enums.Directions;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;

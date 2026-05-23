@@ -16,8 +16,8 @@
 */
 
 using StardustSandbox.Core.Backgrounds;
-using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Backgrounds;
+using StardustSandbox.Core.Enums.Indexers;
 
 namespace StardustSandbox.Core.Databases
 {

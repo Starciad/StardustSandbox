@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Explosions;
 
 namespace StardustSandbox.Core.Elements.Solids.Movables

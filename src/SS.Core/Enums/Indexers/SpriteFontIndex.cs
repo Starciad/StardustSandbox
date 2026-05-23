@@ -15,24 +15,19 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Enums.Tools
+namespace StardustSandbox.Core.Enums.Indexers
 {
-    internal enum ToolIndex : byte
+    internal enum SpriteFontIndex : byte
     {
         None,
-
-        HeatTool,
-        FreezeTool,
-
-        BlackInkTool,
-        WhiteInkTool,
-        RedInkTool,
-        OrangeInkTool,
-        YellowInkTool,
-        GreenInkTool,
-        BlueInkTool,
-        GrayInkTool,
-        VioletInkTool,
-        BrownInkTool,
+        Arial,
+        BigApple3pm,
+        ComicSansMS,
+        CooperBits,
+        DePixelBreit,
+        DigitalDisco,
+        PixelOperator,
+        VcrOsdMono1001,
+        WindowsCommandPrompt,
     }
 }

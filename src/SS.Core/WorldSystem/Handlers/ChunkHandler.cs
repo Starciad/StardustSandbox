@@ -21,7 +21,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Assets;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.WorldSystem.Components;

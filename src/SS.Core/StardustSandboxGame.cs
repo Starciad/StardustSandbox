@@ -23,9 +23,8 @@ using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Assets;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.States;
-using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces.Notifiers;
 using StardustSandbox.Core.Managers;
@@ -131,7 +130,7 @@ namespace StardustSandbox.Core
             // System
             this.songManager = new(this.assetDatabase, this.gameLaunchOptions);
             this.soundEffectManager = new(this.assetDatabase);
-            
+
             // Core
             this.playerInputController = new();
             this.world = new(

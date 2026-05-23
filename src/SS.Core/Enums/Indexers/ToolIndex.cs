@@ -15,18 +15,24 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Enums.Assets
+namespace StardustSandbox.Core.Enums.Indexers
 {
-    internal enum SongIndex : byte
+    internal enum ToolIndex : byte
     {
         None,
 
-        // Volume 01
-        Volume_01_Track_01,
-        Volume_01_Track_02,
-        Volume_01_Track_03,
-        Volume_01_Track_04,
-        Volume_01_Track_05,
-        Volume_01_Track_06
+        HeatTool,
+        FreezeTool,
+
+        BlackInkTool,
+        WhiteInkTool,
+        RedInkTool,
+        OrangeInkTool,
+        YellowInkTool,
+        GreenInkTool,
+        BlueInkTool,
+        GrayInkTool,
+        VioletInkTool,
+        BrownInkTool,
     }
 }

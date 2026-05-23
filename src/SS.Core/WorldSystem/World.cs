@@ -21,13 +21,10 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Elements;
-using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Simulation;
-using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem.Components;
 using StardustSandbox.Core.WorldSystem.Handlers;
 
@@ -96,13 +93,13 @@ namespace StardustSandbox.Core.WorldSystem
 
         private void RegisterEvents(GameEvents gameEvents)
         {
-            gameEvents.Subscribe<ElementDestroyedEvent>(OnElementDestroyed);
-            gameEvents.Subscribe<ElementInstantiatedEvent>(OnElementInstantiated);
-            gameEvents.Subscribe<ElementPositionUpdatedEvent>(OnElementPositionUpdated);
-            gameEvents.Subscribe<ElementRemovedEvent>(OnElementRemoved);
-            gameEvents.Subscribe<ElementReplacedEvent>(OnElementReplaced);
-            gameEvents.Subscribe<ElementSwappedEvent>(OnElementSwapped);
-            gameEvents.Subscribe<ElementTemperatureChangedEvent>(OnElementTemperatureChanged);
+            _ = gameEvents.Subscribe<ElementDestroyedEvent>(OnElementDestroyed);
+            _ = gameEvents.Subscribe<ElementInstantiatedEvent>(OnElementInstantiated);
+            _ = gameEvents.Subscribe<ElementPositionUpdatedEvent>(OnElementPositionUpdated);
+            _ = gameEvents.Subscribe<ElementRemovedEvent>(OnElementRemoved);
+            _ = gameEvents.Subscribe<ElementReplacedEvent>(OnElementReplaced);
+            _ = gameEvents.Subscribe<ElementSwappedEvent>(OnElementSwapped);
+            _ = gameEvents.Subscribe<ElementTemperatureChangedEvent>(OnElementTemperatureChanged);
         }
 
         #region EVENTS
@@ -148,7 +145,7 @@ namespace StardustSandbox.Core.WorldSystem
             this.chunkHandler.NotifyChunk(e.Position);
 
             this.elementContext.Initialize(e.Position, e.Layer);
-            
+
             Element newElement = this.elementDatabase.GetElement(e.NewIndex);
             newElement.SetContext(this.elementContext);
             newElement.Instantiate();

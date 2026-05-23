@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Randomness;
 
 namespace StardustSandbox.Core.Elements.Solids.Movables

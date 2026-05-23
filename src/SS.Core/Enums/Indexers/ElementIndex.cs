@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Enums.Elements
+namespace StardustSandbox.Core.Enums.Indexers
 {
     public enum ElementIndex : byte
     {

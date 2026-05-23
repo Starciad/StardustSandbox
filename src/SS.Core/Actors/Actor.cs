@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Enums.Actors;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Managers;

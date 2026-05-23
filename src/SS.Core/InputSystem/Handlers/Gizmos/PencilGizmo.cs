@@ -19,13 +19,10 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Actors;
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Achievements;
-using StardustSandbox.Core.Enums.Actors;
-using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.Inputs;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.Items;
-using StardustSandbox.Core.Enums.Tools;
 using StardustSandbox.Core.InputSystem.Simulation;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.WorldSystem.Components;

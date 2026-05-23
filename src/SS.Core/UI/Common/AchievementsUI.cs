@@ -21,10 +21,8 @@ using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Achievements;
-using StardustSandbox.Core.Enums.Assets;
-using StardustSandbox.Core.Enums.Backgrounds;
 using StardustSandbox.Core.Enums.Directions;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
@@ -137,9 +135,11 @@ namespace StardustSandbox.Core.UI.Common
                     image.CanDraw = true;
                     image.Texture = this.assetDatabase.GetTexture(TextureIndex.Achievements);
 
-                    Achievement achievement = this.achievementDatabase.GetAchievement((AchievementIndex)(this.achievementsRange.Start.Value + i));
+                    AchievementIndex index = (AchievementIndex)(this.achievementsRange.Start.Value + i + 1);
 
-                    image.SourceRectangle = this.achievementSettings.IsUnlocked((AchievementIndex)(this.achievementsRange.Start.Value + i))
+                    Achievement achievement = this.achievementDatabase.GetAchievement(index);
+
+                    image.SourceRectangle = this.achievementSettings.IsUnlocked(index)
                         ? achievement.AchievedIconSourceRectangle
                         : achievement.NotAchievedIconSourceRectangle;
                 }
@@ -335,7 +335,7 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = this.achievementsRange.Start.Value; i < this.achievementsRange.End.Value; i++)
             {
                 Image image = this.achievementImages[i % UIConstants.ACHIEVEMENTS_PER_PAGE];
-                Achievement achievement = this.achievementDatabase.GetAchievement((AchievementIndex)i);
+                Achievement achievement = this.achievementDatabase.GetAchievement((AchievementIndex)(i + 1));
 
                 if (Interaction.OnMouseOver(image))
                 {

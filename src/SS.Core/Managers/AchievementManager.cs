@@ -17,13 +17,12 @@
 
 using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Achievements;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Events.Actors;
 using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
-using StardustSandbox.Core.WorldSystem;
 using StardustSandbox.Core.WorldSystem.Components;
 
 namespace StardustSandbox.Core.Managers
@@ -178,43 +177,43 @@ namespace StardustSandbox.Core.Managers
         private void InitializeEvents(GameEvents gameEvents)
         {
             // ACH 001 & ACH 002
-            gameEvents.Subscribe<ElementInstantiatedEvent>(OnElementInstantiated);
+            _ = gameEvents.Subscribe<ElementInstantiatedEvent>(OnElementInstantiated);
 
             // ACH 003
-            gameEvents.Subscribe<ElementClonedEvent>(OnElementClonedEvent);
+            _ = gameEvents.Subscribe<ElementClonedEvent>(OnElementClonedEvent);
 
             // ACH 004
-            gameEvents.Subscribe<WaterVaporizedEvent>(OnWaterVaporizedEvent);
+            _ = gameEvents.Subscribe<WaterVaporizedEvent>(OnWaterVaporizedEvent);
 
             // ACH 005
-            gameEvents.Subscribe<SaplingGrewEvent>(OnSaplingGrewEvent);
+            _ = gameEvents.Subscribe<SaplingGrewEvent>(OnSaplingGrewEvent);
 
             // ACH 006
-            gameEvents.Subscribe<GulPlacedElementEvent>(OnGulPlacedElementEvent);
+            _ = gameEvents.Subscribe<GulPlacedElementEvent>(OnGulPlacedElementEvent);
 
             // ACH 007
-            gameEvents.Subscribe<ElementReachedMaxTemperatureEvent>(OnElementReachedMaxTemperatureEvent);
+            _ = gameEvents.Subscribe<ElementReachedMaxTemperatureEvent>(OnElementReachedMaxTemperatureEvent);
 
             // ACH 008
-            gameEvents.Subscribe<ElementReachedMinTemperatureEvent>(OnElementReachedMinTemperatureEvent);
+            _ = gameEvents.Subscribe<ElementReachedMinTemperatureEvent>(OnElementReachedMinTemperatureEvent);
 
             // ACH 009
-            gameEvents.Subscribe<ElementConsumedByDevourerEvent>(OnElementConsumedByDevourerEvent);
+            _ = gameEvents.Subscribe<ElementConsumedByDevourerEvent>(OnElementConsumedByDevourerEvent);
 
             // ACH 010
-            gameEvents.Subscribe<ElementConsumedByVoidEvent>(OnElementConsumedByVoidEvent);
+            _ = gameEvents.Subscribe<ElementConsumedByVoidEvent>(OnElementConsumedByVoidEvent);
 
             // ACH 011
-            gameEvents.Subscribe<ElementCorruptedEvent>(OnElementCorruptedEvent);
+            _ = gameEvents.Subscribe<ElementCorruptedEvent>(OnElementCorruptedEvent);
 
             // ACH 012
-            gameEvents.Subscribe<ElementPushedEvent>(OnElementPushedEvent);
+            _ = gameEvents.Subscribe<ElementPushedEvent>(OnElementPushedEvent);
 
             // ACH 013
-            gameEvents.Subscribe<FireSpreadEvent>(OnFireSpreadEvent);
+            _ = gameEvents.Subscribe<FireSpreadEvent>(OnFireSpreadEvent);
 
             // ACH 014
-            gameEvents.Subscribe<ElementCorrodedEvent>(OnElementCorrodedEvent);
+            _ = gameEvents.Subscribe<ElementCorrodedEvent>(OnElementCorrodedEvent);
         }
     }
 }

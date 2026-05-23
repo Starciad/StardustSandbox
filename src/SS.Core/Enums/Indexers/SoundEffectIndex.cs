@@ -15,37 +15,31 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Enums.UI
+namespace StardustSandbox.Core.Enums.Indexers
 {
-    internal enum UIIndex : byte
+    internal enum SoundEffectIndex : byte
     {
         None,
 
-        Achievements,
-        ColorPicker,
-        Confirm,
-        Credits,
-        EnvironmentSettings,
-        GeneratorSettings,
-        Hud,
-        Information,
-        ItemExplorer,
-        ItemSearch,
-        KeySelector,
-        Main,
-        Message,
-        Options,
-        Pause,
-        PenSettings,
-        Play,
-        Save,
-        Selector,
-        Slider,
-        TemperatureSettings,
-        TextInput,
-        Tutorial,
-        WorldDetails,
-        WorldExplorer,
-        WorldSettings,
+        #region GUIs
+
+        GUI_Accepted,
+        GUI_Click,
+        GUI_Error,
+        GUI_Hover,
+        GUI_Message,
+        GUI_Pause_Ended,
+        GUI_Pause_Started,
+        GUI_Rejected,
+        GUI_Returning,
+        GUI_Typing_1,
+        GUI_Typing_2,
+        GUI_Typing_3,
+        GUI_Typing_4,
+        GUI_Typing_5,
+        GUI_World_Loaded,
+        GUI_World_Saved,
+
+        #endregion
     }
 }

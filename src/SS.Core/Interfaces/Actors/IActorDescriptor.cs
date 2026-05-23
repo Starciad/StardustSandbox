@@ -16,7 +16,7 @@
 */
 
 using StardustSandbox.Core.Actors;
-using StardustSandbox.Core.Enums.Actors;
+using StardustSandbox.Core.Enums.Indexers;
 
 namespace StardustSandbox.Core.Interfaces.Actors
 {

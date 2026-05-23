@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Enums.Actors
+namespace StardustSandbox.Core.Enums.Indexers
 {
     public enum ActorIndex : byte
     {

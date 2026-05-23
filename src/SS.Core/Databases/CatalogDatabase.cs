@@ -16,11 +16,8 @@
 */
 
 using StardustSandbox.Core.Catalog;
-using StardustSandbox.Core.Enums.Actors;
-using StardustSandbox.Core.Enums.Assets;
-using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.Items;
-using StardustSandbox.Core.Enums.Tools;
 using StardustSandbox.Core.Localization;
 
 using System;

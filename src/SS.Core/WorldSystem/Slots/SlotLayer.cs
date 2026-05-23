@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Mathematics;
 
 namespace StardustSandbox.Core.WorldSystem.Slots

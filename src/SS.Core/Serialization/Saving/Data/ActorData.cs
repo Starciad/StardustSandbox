@@ -17,7 +17,7 @@
 
 using MessagePack;
 
-using StardustSandbox.Core.Enums.Actors;
+using StardustSandbox.Core.Enums.Indexers;
 
 using System;
 using System.Collections.Generic;

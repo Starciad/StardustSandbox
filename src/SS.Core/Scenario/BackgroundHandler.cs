@@ -21,7 +21,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Backgrounds;
 using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Backgrounds;
+using StardustSandbox.Core.Enums.Indexers;
 
 namespace StardustSandbox.Core.Scenario
 {

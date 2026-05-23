@@ -17,8 +17,8 @@
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.WorldSystem;

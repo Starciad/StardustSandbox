@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Enums.Achievements;
+using StardustSandbox.Core.Enums.Indexers;
 
 namespace StardustSandbox.Core.Interfaces.Services
 {

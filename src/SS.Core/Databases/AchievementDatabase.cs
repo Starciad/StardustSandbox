@@ -17,7 +17,7 @@
 */
 
 using StardustSandbox.Core.Achievements;
-using StardustSandbox.Core.Enums.Achievements;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Localization;
 
 using System.Collections.Generic;

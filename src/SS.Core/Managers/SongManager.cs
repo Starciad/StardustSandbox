@@ -20,7 +20,7 @@ using Microsoft.Xna.Framework.Media;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Assets;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Serialization;

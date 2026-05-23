@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.UI;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.UI;
 

@@ -18,6 +18,7 @@
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Extensions;
 
 namespace StardustSandbox.Core.Databases

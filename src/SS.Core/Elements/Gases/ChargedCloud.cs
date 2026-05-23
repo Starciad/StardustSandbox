@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Randomness;

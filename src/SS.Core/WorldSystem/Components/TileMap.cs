@@ -21,6 +21,7 @@ using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Interfaces.Collections;
@@ -187,7 +188,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
         private void IncrementElementCount(Element element, Layer layer)
         {
             if (element.IsCorruption)
-            { 
+            {
                 this.activeCorruptedElementCount++;
             }
 

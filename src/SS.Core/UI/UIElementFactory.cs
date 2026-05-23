@@ -18,8 +18,8 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Assets;
 using StardustSandbox.Core.Enums.Directions;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 

@@ -17,7 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Enums.Achievements;
+using StardustSandbox.Core.Enums.Indexers;
 
 namespace StardustSandbox.Core.Achievements
 {

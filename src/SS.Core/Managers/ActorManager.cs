@@ -23,6 +23,7 @@ using StardustSandbox.Core.Cameras;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Actors;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.Serialization;
 using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Interfaces;

@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Enums.Assets
+namespace StardustSandbox.Core.Enums.Indexers
 {
     internal enum TextureIndex : byte
     {
