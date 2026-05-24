@@ -28,8 +28,6 @@ namespace StardustSandbox.Desktop
 
         private static void BuildAndRun(GameLaunchOptions options)
         {
-            StardustSandboxApplication.Initialize();
-
             stardustSandboxGame = new(options);
             stardustSandboxGame.Run();
         }
