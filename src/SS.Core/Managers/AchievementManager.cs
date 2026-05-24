@@ -40,13 +40,13 @@ namespace StardustSandbox.Core.Managers
         private int corrodedElementCount = 0;
 
         private readonly AchievementDatabase achievementDatabase;
-        private readonly SettingsSerializer settingsSerializer;
+        private readonly ProgressSerializer progressSerializer;
         private readonly TileMap tileMap;
 
-        internal AchievementManager(AchievementDatabase achievementDatabase, GameEvents gameEvents, SettingsSerializer settingsSerializer, TileMap tileMap)
+        internal AchievementManager(AchievementDatabase achievementDatabase, GameEvents gameEvents, ProgressSerializer progressSerializer, TileMap tileMap)
         {
             this.achievementDatabase = achievementDatabase;
-            this.settingsSerializer = settingsSerializer;
+            this.progressSerializer = progressSerializer;
             this.tileMap = tileMap;
 
             InitializeEvents(gameEvents);
@@ -55,16 +55,16 @@ namespace StardustSandbox.Core.Managers
         private void Unlock(AchievementIndex targetIndex)
         {
             Achievement targetAchievement = this.achievementDatabase.GetAchievement(targetIndex);
-            AchievementSettings achievementSettings = this.settingsSerializer.Load<AchievementSettings>();
+            AchievementProgress achievementProgress = this.progressSerializer.Load<AchievementProgress>();
 
             // If the achievement is already unlocked or if the prerequisite achievement is not unlocked, do nothing.
-            if (achievementSettings.IsUnlocked(targetIndex) || (targetAchievement.PrerequisiteAchievementIndex is not AchievementIndex.None && !achievementSettings.IsUnlocked(targetAchievement.PrerequisiteAchievementIndex)))
+            if (achievementProgress.IsUnlocked(targetIndex) || (targetAchievement.PrerequisiteAchievementIndex is not AchievementIndex.None && !achievementProgress.IsUnlocked(targetAchievement.PrerequisiteAchievementIndex)))
             {
                 return;
             }
 
-            achievementSettings.Unlock(targetIndex);
-            this.settingsSerializer.Save(achievementSettings);
+            achievementProgress.Unlock(targetIndex);
+            this.progressSerializer.Save(achievementProgress);
 
             AchievementUnlocked?.Invoke(targetAchievement);
         }

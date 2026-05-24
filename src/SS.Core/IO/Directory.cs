@@ -30,6 +30,8 @@ namespace StardustSandbox.Core.IO
 
         internal static string Logs => Path.Combine(Local, IOConstants.LOCAL_LOGS_DIRECTORY);
         internal static string Screenshots => Path.Combine(Local, IOConstants.LOCAL_SCREENSHOTS_DIRECTORY);
+
+        internal static string Progress => Path.Combine(Root, IOConstants.APPDATA_PROGRESS_DIRECTORY);
         internal static string Settings => Path.Combine(Root, IOConstants.APPDATA_SETTINGS_DIRECTORY);
         internal static string Worlds => Path.Combine(Root, IOConstants.APPDATA_WORLDS_DIRECTORY);
 
@@ -41,6 +43,7 @@ namespace StardustSandbox.Core.IO
 
             // AppData
             _ = System.IO.Directory.CreateDirectory(Root);
+            _ = System.IO.Directory.CreateDirectory(Progress);
             _ = System.IO.Directory.CreateDirectory(Settings);
             _ = System.IO.Directory.CreateDirectory(Worlds);
         }

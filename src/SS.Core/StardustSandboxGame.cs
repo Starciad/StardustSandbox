@@ -161,7 +161,7 @@ namespace StardustSandbox.Core
             this.camera = new(this.gameplaySettings, this.gameScreen);
 
             // Managers
-            this.achievementManager = new(this.achievementDatabase, this.gameEvents, this.settingsSerializer, this.world.TileMap);
+            this.achievementManager = new(this.achievementDatabase, this.gameEvents, this.progressSerializer, this.world.TileMap);
             this.effectsManager = new(this.assetDatabase);
             this.uiManager = new(this.uiDatabase);
             this.cursorManager = new(this.assetDatabase, this.cursorSettings);
@@ -252,6 +252,7 @@ namespace StardustSandbox.Core
                 this.Window,
                 this.GraphicsDevice,
                 this.playerInputController,
+                this.progressSerializer,
                 this.settingsSerializer,
                 this.songManager,
                 this.soundEffectManager,

@@ -22,6 +22,7 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
+using StardustSandbox.Core.Serialization.Progress;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Common;
@@ -49,6 +50,7 @@ namespace StardustSandbox.Core.Databases
             GameWindow gameWindow,
             GraphicsDevice graphicsDevice,
             PlayerInputController playerInputController,
+            ProgressSerializer progressSerializer,
             SettingsSerializer settingsSerializer,
             SongManager songManager,
             SoundEffectManager soundEffectManager,
@@ -58,6 +60,8 @@ namespace StardustSandbox.Core.Databases
             WorldSerializer worldSerializer
         )
         {
+            AchievementProgress achievementProgress = progressSerializer.Load<AchievementProgress>();
+
             ControlSettings controlSettings = settingsSerializer.Load<ControlSettings>();
             InterfaceSettings interfaceSettings = settingsSerializer.Load<InterfaceSettings>();
 
@@ -324,6 +328,7 @@ namespace StardustSandbox.Core.Databases
 
             AchievementsUI achievementsUI = new(
                 achievementDatabase,
+                achievementProgress,
                 assetDatabase,
                 ambientManager,
                 gameScreen,

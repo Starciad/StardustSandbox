@@ -30,6 +30,7 @@ namespace StardustSandbox.Core.Constants
 
         #region APPDATA
 
+        internal const string APPDATA_PROGRESS_DIRECTORY = "progress";
         internal const string APPDATA_SETTINGS_DIRECTORY = "settings";
         internal const string APPDATA_WORLDS_DIRECTORY = "worlds";
 
@@ -116,6 +117,9 @@ namespace StardustSandbox.Core.Constants
         #endregion
 
         #region FILE
+
+        // Progress
+        internal const string ACHIEVEMENT_PROGRESS_FILE = "achievement_progress.bin";
 
         // Settings
         internal const string CONTROL_SETTINGS_FILE = "control_settings.xml";

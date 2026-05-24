@@ -57,10 +57,12 @@ namespace StardustSandbox.Core.UI.Common
         private readonly AchievementDatabase achievementDatabase;
         private readonly AssetDatabase assetDatabase;
         private readonly AmbientManager ambientManager;
+        private readonly AchievementProgress achievementProgress;
         private readonly SoundEffectManager soundEffectManager;
 
         internal AchievementsUI(
             AchievementDatabase achievementDatabase,
+            AchievementProgress achievementProgress,
             AssetDatabase assetDatabase,
             AmbientManager ambientManager,
             GameScreen gameScreen,
@@ -70,6 +72,7 @@ namespace StardustSandbox.Core.UI.Common
         ) : base(assetDatabase, gameScreen)
         {
             this.achievementDatabase = achievementDatabase;
+            this.achievementProgress = achievementProgress;
             this.assetDatabase = assetDatabase;
             this.ambientManager = ambientManager;
             this.soundEffectManager = soundEffectManager;
@@ -137,11 +140,9 @@ namespace StardustSandbox.Core.UI.Common
 
                     Achievement achievement = this.achievementDatabase.GetAchievement(index);
 
-                    // image.SourceRectangle = this.achievementSettings.IsUnlocked(index)
-                    //     ? achievement.AchievedIconSourceRectangle
-                    //     : achievement.NotAchievedIconSourceRectangle;
-
-                    image.SourceRectangle = achievement.AchievedIconSourceRectangle;
+                    image.SourceRectangle = this.achievementProgress.IsUnlocked(index)
+                        ? achievement.AchievedIconSourceRectangle
+                        : achievement.NotAchievedIconSourceRectangle;
                 }
                 else
                 {

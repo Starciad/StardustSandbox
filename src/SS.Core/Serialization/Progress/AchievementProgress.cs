@@ -15,24 +15,23 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Achievements;
+using MessagePack;
+
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Interfaces.Serialization;
 
 using System;
-using System.Collections.Generic;
-using System.Xml.Serialization;
 
 namespace StardustSandbox.Core.Serialization.Progress
 {
     [Serializable]
-    [XmlRoot("Data")]
+    [MessagePackObject]
     public sealed class AchievementProgressData
     {
-        [XmlElement("Index", typeof(AchievementIndex))]
+        [Key("Index")]
         public AchievementIndex Index { get; set; } = AchievementIndex.None;
 
-        [XmlElement("IsUnlocked", typeof(bool))]
+        [Key("IsUnlocked")]
         public bool IsUnlocked { get; set; } = false;
 
         public AchievementProgressData()
@@ -47,33 +46,38 @@ namespace StardustSandbox.Core.Serialization.Progress
     }
 
     [Serializable]
-    [XmlRoot("AchievementSettings")]
-    public sealed class AchievementSettings : ISettingsModule
+    [MessagePackObject]
+    public sealed class AchievementProgress : IProgressModule
     {
-        [XmlArray("Datas")]
-        [XmlArrayItem("Data", typeof(AchievementProgressData))]
-        public List<AchievementProgressData> Datas { get; set; } = [];
+        [Key("Datas")]
+        public AchievementProgressData[] Datas { get => this.datas; set => this.datas = value; }
 
-        public AchievementSettings()
+        private AchievementProgressData[] datas = [];
+
+        public AchievementProgress() { }
+
+        private void EnsureCapacity(int index)
         {
-
+            if (index >= this.Datas.Length)
+            {
+                Array.Resize(ref this.datas, index + 1);
+            }
         }
 
         private AchievementProgressData AddData(AchievementIndex index)
         {
+            int idx = (int)index;
+            EnsureCapacity(idx);
+
             AchievementProgressData data = new(index);
-            this.Datas.Add(data);
+            this.Datas[idx] = data;
             return data;
         }
 
         private AchievementProgressData GetData(AchievementIndex index)
         {
-            return this.Datas.Find(d => d.Index == index);
-        }
-
-        public bool IsUnlocked(Achievement achievement)
-        {
-            return IsUnlocked(achievement.AchievementIndex);
+            int idx = (int)index;
+            return idx >= this.Datas.Length ? null : this.Datas[idx];
         }
 
         public bool IsUnlocked(AchievementIndex index)
@@ -97,9 +101,9 @@ namespace StardustSandbox.Core.Serialization.Progress
         {
             uint count = 0;
 
-            foreach (AchievementProgressData data in this.Datas)
+            for (int i = 0; i < this.Datas.Length; i++)
             {
-                if (data.IsUnlocked)
+                if (this.Datas[i] != null && this.Datas[i].IsUnlocked)
                 {
                     count++;
                 }

@@ -15,10 +15,56 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using MessagePack;
+using MessagePack.Resolvers;
+
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Interfaces.Serialization;
+using StardustSandbox.Core.Serialization.Progress;
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
 namespace StardustSandbox.Core.Serialization
 {
-    internal sealed class ProgressSerializer
+    internal sealed partial class ProgressSerializer
     {
+        private readonly MessagePackSerializerOptions options = MessagePackSerializerOptions.Standard
+            .WithResolver(CompositeResolver.Create(StandardResolver.Instance, ContractlessStandardResolver.Instance))
+            .WithSecurity(MessagePackSecurity.UntrustedData)
+            .WithCompression(MessagePackCompression.Lz4BlockArray);
 
+        private readonly Dictionary<Type, IProgressDescriptor> descriptors;
+
+        internal ProgressSerializer()
+        {
+            this.descriptors = new()
+            {
+                [typeof(AchievementProgress)] = new ProgressDescriptor<AchievementProgress>(IOConstants.ACHIEVEMENT_PROGRESS_FILE, options),
+            };
+
+            _ = Directory.CreateDirectory(IO.Directory.Progress);
+
+            foreach (IProgressDescriptor descriptor in descriptors.Values)
+            {
+                descriptor.Load();
+            }
+        }
+
+        public T Load<T>() where T : IProgressModule, new()
+        {
+            return GetDescriptor<T>().Value;
+        }
+
+        public void Save<T>(T value) where T : IProgressModule, new()
+        {
+            GetDescriptor<T>().Save(value);
+        }
+
+        private ProgressDescriptor<T> GetDescriptor<T>() where T : IProgressModule, new()
+        {
+            return !descriptors.TryGetValue(typeof(T), out IProgressDescriptor raw) ? null : (ProgressDescriptor<T>)raw;
+        }
     }
 }

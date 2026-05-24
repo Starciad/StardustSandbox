@@ -36,12 +36,11 @@ namespace StardustSandbox.Core.Serialization
 {
     internal sealed class WorldSerializer
     {
-        private readonly MessagePackSerializerOptions options =
-            MessagePackSerializerOptions.Standard
-                .WithResolver(CompositeResolver.Create(StandardResolver.Instance, ContractlessStandardResolver.Instance))
-                .WithSecurity(MessagePackSecurity.UntrustedData)
-                .WithCompression(MessagePackCompression.Lz4BlockArray)
-                .WithAllowAssemblyVersionMismatch(true);
+        private readonly MessagePackSerializerOptions options = MessagePackSerializerOptions.Standard
+            .WithResolver(CompositeResolver.Create(StandardResolver.Instance, ContractlessStandardResolver.Instance))
+            .WithSecurity(MessagePackSecurity.UntrustedData)
+            .WithCompression(MessagePackCompression.Lz4BlockArray)
+            .WithAllowAssemblyVersionMismatch(true);
 
         private readonly ActorManager actorManager;
         private readonly GraphicsDeviceManager graphicsDeviceManager;

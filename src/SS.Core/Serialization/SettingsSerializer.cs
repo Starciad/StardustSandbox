@@ -17,7 +17,6 @@
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.Serialization;
-using StardustSandbox.Core.Serialization.Progress;
 using StardustSandbox.Core.Serialization.Settings;
 
 using System;
@@ -64,9 +63,7 @@ namespace StardustSandbox.Core.Serialization
 
         private SettingsDescriptor<T> GetDescriptor<T>() where T : ISettingsModule, new()
         {
-            return !descriptors.TryGetValue(typeof(T), out ISettingsDescriptor raw)
-                ? throw new InvalidOperationException($"Settings type not registered: {typeof(T).FullName}")
-                : (SettingsDescriptor<T>)raw;
+            return !descriptors.TryGetValue(typeof(T), out ISettingsDescriptor raw) ? null : (SettingsDescriptor<T>)raw;
         }
 
         private static void CreateWarningFile()
