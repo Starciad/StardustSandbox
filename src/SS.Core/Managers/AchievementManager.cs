@@ -50,20 +50,21 @@ namespace StardustSandbox.Core.Managers
             InitializeEvents(gameEvents);
         }
 
-        private void Unlock(AchievementIndex index)
+        private void Unlock(AchievementIndex targetIndex)
         {
-            Achievement achievement = this.achievementDatabase.GetAchievement(index);
+            Achievement targetAchievement = this.achievementDatabase.GetAchievement(targetIndex);
             AchievementSettings achievementSettings = SettingsSerializer.Load<AchievementSettings>();
 
-            if (achievementSettings.IsUnlocked(index))
+            // If the achievement is already unlocked or if the prerequisite achievement is not unlocked, do nothing.
+            if (achievementSettings.IsUnlocked(targetIndex) || (targetAchievement.PrerequisiteAchievementIndex is not AchievementIndex.None && !achievementSettings.IsUnlocked(targetAchievement.PrerequisiteAchievementIndex)))
             {
                 return;
             }
 
-            achievementSettings.Unlock(index);
+            achievementSettings.Unlock(targetIndex);
             SettingsSerializer.Save(achievementSettings);
 
-            AchievementUnlocked?.Invoke(achievement);
+            AchievementUnlocked?.Invoke(targetAchievement);
         }
 
         #region EVENTS
@@ -176,44 +177,44 @@ namespace StardustSandbox.Core.Managers
 
         private void InitializeEvents(GameEvents gameEvents)
         {
-            // ACH 001 & ACH 002
-            _ = gameEvents.Subscribe<ElementInstantiatedEvent>(OnElementInstantiated);
+            // ACH 001, 002
+            gameEvents.Subscribe<ElementInstantiatedEvent>(OnElementInstantiated);
 
             // ACH 003
-            _ = gameEvents.Subscribe<ElementClonedEvent>(OnElementClonedEvent);
+            gameEvents.Subscribe<ElementClonedEvent>(OnElementClonedEvent);
 
             // ACH 004
-            _ = gameEvents.Subscribe<WaterVaporizedEvent>(OnWaterVaporizedEvent);
+            gameEvents.Subscribe<WaterVaporizedEvent>(OnWaterVaporizedEvent);
 
             // ACH 005
-            _ = gameEvents.Subscribe<SaplingGrewEvent>(OnSaplingGrewEvent);
+            gameEvents.Subscribe<SaplingGrewEvent>(OnSaplingGrewEvent);
 
             // ACH 006
-            _ = gameEvents.Subscribe<GulPlacedElementEvent>(OnGulPlacedElementEvent);
+            gameEvents.Subscribe<GulPlacedElementEvent>(OnGulPlacedElementEvent);
 
             // ACH 007
-            _ = gameEvents.Subscribe<ElementReachedMaxTemperatureEvent>(OnElementReachedMaxTemperatureEvent);
+            gameEvents.Subscribe<ElementReachedMaxTemperatureEvent>(OnElementReachedMaxTemperatureEvent);
 
             // ACH 008
-            _ = gameEvents.Subscribe<ElementReachedMinTemperatureEvent>(OnElementReachedMinTemperatureEvent);
+            gameEvents.Subscribe<ElementReachedMinTemperatureEvent>(OnElementReachedMinTemperatureEvent);
 
             // ACH 009
-            _ = gameEvents.Subscribe<ElementConsumedByDevourerEvent>(OnElementConsumedByDevourerEvent);
+            gameEvents.Subscribe<ElementConsumedByDevourerEvent>(OnElementConsumedByDevourerEvent);
 
             // ACH 010
-            _ = gameEvents.Subscribe<ElementConsumedByVoidEvent>(OnElementConsumedByVoidEvent);
+            gameEvents.Subscribe<ElementConsumedByVoidEvent>(OnElementConsumedByVoidEvent);
 
             // ACH 011
-            _ = gameEvents.Subscribe<ElementCorruptedEvent>(OnElementCorruptedEvent);
+            gameEvents.Subscribe<ElementCorruptedEvent>(OnElementCorruptedEvent);
 
             // ACH 012
-            _ = gameEvents.Subscribe<ElementPushedEvent>(OnElementPushedEvent);
+            gameEvents.Subscribe<ElementPushedEvent>(OnElementPushedEvent);
 
             // ACH 013
-            _ = gameEvents.Subscribe<FireSpreadEvent>(OnFireSpreadEvent);
+            gameEvents.Subscribe<FireSpreadEvent>(OnFireSpreadEvent);
 
             // ACH 014
-            _ = gameEvents.Subscribe<ElementCorrodedEvent>(OnElementCorrodedEvent);
+            gameEvents.Subscribe<ElementCorrodedEvent>(OnElementCorrodedEvent);
         }
     }
 }

@@ -185,13 +185,22 @@ namespace StardustSandbox.Core.WorldSystem.Components
             this.totalBackgroundElementCount = 0;
             this.activeCorruptedElementCount = 0;
         }
-        private void IncrementElementCount(Element element, Layer layer)
+
+        private void IncrementSpecificElementCount(Element element)
         {
+            if (element is null)
+            {
+                return;
+            }
+
             if (element.IsCorruption)
             {
                 this.activeCorruptedElementCount++;
             }
+        }
 
+        private void IncrementLayerElementCount(Layer layer)
+        {
             switch (layer)
             {
                 case Layer.Foreground:
@@ -206,13 +215,28 @@ namespace StardustSandbox.Core.WorldSystem.Components
                     break;
             }
         }
-        private void DecrementElementCount(Element element, Layer layer)
+
+        private void IncrementElementCount(Element element, Layer layer)
         {
+            IncrementSpecificElementCount(element);
+            IncrementLayerElementCount(layer);
+        }
+
+        private void DecrementSpecificElementCount(Element element)
+        {
+            if (element is null)
+            {
+                return;
+            }
+
             if (element.IsCorruption)
             {
                 this.activeCorruptedElementCount = Math.Max(0, this.activeCorruptedElementCount - 1);
             }
+        }
 
+        private void DecrementLayerElementCount(Layer layer)
+        {
             switch (layer)
             {
                 case Layer.Foreground:
@@ -226,6 +250,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
                 default:
                     break;
             }
+        }
+
+        private void DecrementElementCount(Element element, Layer layer)
+        {
+            DecrementSpecificElementCount(element);
+            DecrementLayerElementCount(layer);
         }
 
         #region ELEMENTS

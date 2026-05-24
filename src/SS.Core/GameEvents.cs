@@ -15,7 +15,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Events;
 using StardustSandbox.Core.Interfaces.Events;
 
 using System;
@@ -27,7 +26,7 @@ namespace StardustSandbox.Core
     {
         private readonly Dictionary<Type, List<Delegate>> subscribers = [];
 
-        public SubscriptionToken Subscribe<T>(Action<T> handler) where T : IGameEvent
+        public void Subscribe<T>(Action<T> handler) where T : IGameEvent
         {
             Type eventType = typeof(T);
 
@@ -38,8 +37,6 @@ namespace StardustSandbox.Core
             }
 
             handlers.Add(handler);
-
-            return new(this, eventType, handler);
         }
 
         public void Publish<T>(T domainEvent) where T : IGameEvent

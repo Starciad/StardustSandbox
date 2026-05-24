@@ -93,13 +93,13 @@ namespace StardustSandbox.Core.WorldSystem
 
         private void RegisterEvents(GameEvents gameEvents)
         {
-            _ = gameEvents.Subscribe<ElementDestroyedEvent>(OnElementDestroyed);
-            _ = gameEvents.Subscribe<ElementInstantiatedEvent>(OnElementInstantiated);
-            _ = gameEvents.Subscribe<ElementPositionUpdatedEvent>(OnElementPositionUpdated);
-            _ = gameEvents.Subscribe<ElementRemovedEvent>(OnElementRemoved);
-            _ = gameEvents.Subscribe<ElementReplacedEvent>(OnElementReplaced);
-            _ = gameEvents.Subscribe<ElementSwappedEvent>(OnElementSwapped);
-            _ = gameEvents.Subscribe<ElementTemperatureChangedEvent>(OnElementTemperatureChanged);
+            gameEvents.Subscribe<ElementDestroyedEvent>(OnElementDestroyed);
+            gameEvents.Subscribe<ElementInstantiatedEvent>(OnElementInstantiated);
+            gameEvents.Subscribe<ElementPositionUpdatedEvent>(OnElementPositionUpdated);
+            gameEvents.Subscribe<ElementRemovedEvent>(OnElementRemoved);
+            gameEvents.Subscribe<ElementReplacedEvent>(OnElementReplaced);
+            gameEvents.Subscribe<ElementSwappedEvent>(OnElementSwapped);
+            gameEvents.Subscribe<ElementTemperatureChangedEvent>(OnElementTemperatureChanged);
         }
 
         #region EVENTS
