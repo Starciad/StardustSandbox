@@ -55,11 +55,13 @@ namespace StardustSandbox.Core.Managers
 
         private readonly ActorDatabase actorDatabase;
         private readonly World world;
+        private readonly WorldSerializer worldSerializer;
 
-        internal ActorManager(ActorDatabase actorDatabase, World world)
+        internal ActorManager(ActorDatabase actorDatabase, World world, WorldSerializer worldSerializer)
         {
             this.actorDatabase = actorDatabase;
             this.world = world;
+            this.worldSerializer = worldSerializer;
         }
 
         internal IEnumerable<Actor> GetActors()
@@ -280,7 +282,7 @@ namespace StardustSandbox.Core.Managers
 
         internal void Deserialize(string saveFileName)
         {
-            Deserialize(WorldSerializer.Load(saveFileName, LoadFlags.Content).Content.Actors);
+            Deserialize(this.worldSerializer.Load(saveFileName, LoadFlags.Content).Content.Actors);
         }
 
         internal void Reload(bool hasSaveFileLoaded, string loadedSaveFileName)

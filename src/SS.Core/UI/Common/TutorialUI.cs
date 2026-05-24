@@ -24,6 +24,7 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
+using StardustSandbox.Core.Serialization.Progress;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI.Elements;
 
@@ -44,7 +45,6 @@ namespace StardustSandbox.Core.UI.Common
         private Label title, clickToContinue;
         private Text contentText;
 
-        private readonly SystemInformationSettings systemInformationSettings;
         private readonly TutorialContent[] contents;
 
         private readonly AssetDatabase assetDatabase;
@@ -52,15 +52,13 @@ namespace StardustSandbox.Core.UI.Common
 
         internal TutorialUI(
             AssetDatabase assetDatabase,
+            ControlSettings controlSettings,
             GameScreen gameScreen,
             UIManager uiManager
         ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;
             this.uiManager = uiManager;
-
-            ControlSettings controlSettings = this.settingsSerializer.Load<ControlSettings>();
-            this.systemInformationSettings = this.settingsSerializer.Load<SystemInformationSettings>();
 
             this.contents =
             [
@@ -235,8 +233,6 @@ namespace StardustSandbox.Core.UI.Common
             if (Interaction.OnMouseLeftClick(this.Root) && !TryNextPage())
             {
                 this.uiManager.CloseUI();
-                this.systemInformationSettings.TutorialDisplayed = true;
-                this.settingsSerializer.Save(this.systemInformationSettings);
             }
         }
 

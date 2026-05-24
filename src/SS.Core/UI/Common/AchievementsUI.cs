@@ -28,7 +28,7 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Settings;
+using StardustSandbox.Core.Serialization.Progress;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 
@@ -62,6 +62,7 @@ namespace StardustSandbox.Core.UI.Common
 
         internal AchievementsUI(
             AchievementDatabase achievementDatabase,
+            AchievementSettings achievementSettings,
             AssetDatabase assetDatabase,
             AmbientManager ambientManager,
             GameScreen gameScreen,
@@ -76,7 +77,7 @@ namespace StardustSandbox.Core.UI.Common
             this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
 
-            this.achievementSettings = this.settingsSerializer.Load<AchievementSettings>();
+            this.achievementSettings = achievementSettings;
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI);
 
             this.paginationButtonInfos =

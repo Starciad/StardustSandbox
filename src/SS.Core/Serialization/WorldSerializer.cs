@@ -100,7 +100,7 @@ namespace StardustSandbox.Core.Serialization
             }
         }
 
-        internal static void Delete(string name)
+        internal void Delete(string name)
         {
             string filename = Path.Combine(IO.Directory.Worlds, string.Concat(name, IOConstants.SAVE_FILE_EXTENSION));
 

@@ -25,6 +25,8 @@ using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Serialization;
+using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.WorldSystem.Components;
 using StardustSandbox.Core.WorldSystem.Handlers;
 
@@ -68,7 +70,9 @@ namespace StardustSandbox.Core.WorldSystem
             AssetDatabase assetDatabase,
             ElementDatabase elementDatabase,
             GameEvents gameEvents,
-            PlayerInputController playerInputController
+            GameplaySettings gameplaySettings,
+            PlayerInputController playerInputController,
+            WorldSerializer worldSerializer
         )
         {
             this.assetDatabase = assetDatabase;
@@ -82,11 +86,11 @@ namespace StardustSandbox.Core.WorldSystem
 
             this.chunkHandler = new(this.TileMap);
             this.explosionHandler = new(gameEvents, this.tileMap);
-            this.renderingHandler = new(assetDatabase, playerInputController, this);
+            this.renderingHandler = new(assetDatabase, gameplaySettings, playerInputController, this);
             this.updateHandler = new(this);
 
             this.elementContext = new(this);
-            this.serializationHelper = new(this);
+            this.serializationHelper = new(this, worldSerializer);
 
             RegisterEvents(gameEvents);
         }

@@ -57,7 +57,6 @@ namespace StardustSandbox.Core.UI.Common
         private readonly GraphicsDevice graphicsDevice;
 
         internal SaveUI(
-            ActorManager actorManager,
             AssetDatabase assetDatabase,
             GameHandler gameHandler,
             GameScreen gameScreen,
@@ -66,7 +65,8 @@ namespace StardustSandbox.Core.UI.Common
             TextInputUI textInputUI,
             TooltipBox tooltipBox,
             UIManager uiManager,
-            World world
+            World world,
+            WorldSerializer worldSerializer
         ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;
@@ -143,7 +143,7 @@ namespace StardustSandbox.Core.UI.Common
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Save_Save_Description, () =>
                 {
                     soundEffectManager.Play(SoundEffectIndex.GUI_World_Saved);
-                    WorldSerializer.Save(actorManager, world, this.graphicsDevice);
+                    worldSerializer.Save();
 
                     gameHandler.DefineLoadedSaveFile(world.Name);
 

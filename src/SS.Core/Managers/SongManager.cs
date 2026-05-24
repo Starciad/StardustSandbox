@@ -39,7 +39,6 @@ namespace StardustSandbox.Core.Managers
         internal SongIndex CurrentSongIndex { get; private set; }
 
         private float fadeFactor = 1f;
-        private VolumeSettings currentVolumeSettings;
 
         private SongIndex lastPlayedGameplaySong;
 
@@ -49,25 +48,25 @@ namespace StardustSandbox.Core.Managers
         private readonly AssetDatabase assetDatabase;
         private readonly GameLaunchOptions gameLaunchOptions;
         private readonly Queue<SongIndex> gameplaySongDeck = [];
+        private readonly VolumeSettings volumeSettings;
 
-        internal SongManager(AssetDatabase assetDatabase, GameLaunchOptions gameLaunchOptions)
+        internal SongManager(AssetDatabase assetDatabase, GameLaunchOptions gameLaunchOptions, VolumeSettings volumeSettings)
         {
             this.assetDatabase = assetDatabase;
             this.gameLaunchOptions = gameLaunchOptions;
-            this.currentVolumeSettings = this.settingsSerializer.Load<VolumeSettings>();
-            ApplyFinalVolume();
-        }
-
-        internal void ApplyVolumeSettings(VolumeSettings volumeSettings)
-        {
-            this.currentVolumeSettings = volumeSettings;
+            this.volumeSettings = volumeSettings;
             ApplyFinalVolume();
         }
 
         private void ApplyFinalVolume()
         {
-            float baseVolume = this.currentVolumeSettings.MusicVolume * this.currentVolumeSettings.MasterVolume;
+            float baseVolume = this.volumeSettings.MusicVolume * this.volumeSettings.MasterVolume;
             MediaPlayer.Volume = baseVolume * this.fadeFactor;
+        }
+
+        internal void ApplyVolumeSettings()
+        {
+            ApplyFinalVolume();
         }
 
         internal void Play(SongIndex songIndex)

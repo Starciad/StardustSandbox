@@ -80,8 +80,10 @@ namespace StardustSandbox.Core
         private readonly Camera2D camera;
 
         private readonly ControlSettings controlSettings;
+        private readonly CursorSettings cursorSettings;
         private readonly GameplaySettings gameplaySettings;
         private readonly VideoSettings videoSettings;
+        private readonly VolumeSettings volumeSettings;
 
         public StardustSandboxGame(GameLaunchOptions options)
         {
@@ -110,8 +112,10 @@ namespace StardustSandbox.Core
             this.settingsSerializer = new();
 
             this.controlSettings = this.settingsSerializer.Load<ControlSettings>();
+            this.cursorSettings = this.settingsSerializer.Load<CursorSettings>();
             this.gameplaySettings = this.settingsSerializer.Load<GameplaySettings>();
             this.videoSettings = this.settingsSerializer.Load<VideoSettings>();
+            this.volumeSettings = this.settingsSerializer.Load<VolumeSettings>();
 
             // Initialize Content
             this.Content.RootDirectory = IOConstants.ASSETS_DIRECTORY;
@@ -141,8 +145,8 @@ namespace StardustSandbox.Core
             this.uiDatabase = new();
 
             // System
-            this.songManager = new(this.assetDatabase, this.gameLaunchOptions);
-            this.soundEffectManager = new(this.assetDatabase);
+            this.songManager = new(this.assetDatabase, this.gameLaunchOptions, this.volumeSettings);
+            this.soundEffectManager = new(this.assetDatabase, this.volumeSettings);
 
             // Core
             this.playerInputController = new();
@@ -150,17 +154,19 @@ namespace StardustSandbox.Core
                 this.assetDatabase,
                 this.elementDatabase,
                 this.gameEvents,
-                this.playerInputController
+                this.gameplaySettings,
+                this.playerInputController,
+                this.worldSerializer
             );
             this.camera = new(this.gameplaySettings, this.gameScreen);
 
             // Managers
-            this.achievementManager = new(this.achievementDatabase, this.gameEvents, this.world.TileMap);
+            this.achievementManager = new(this.achievementDatabase, this.gameEvents, this.settingsSerializer, this.world.TileMap);
             this.effectsManager = new(this.assetDatabase);
             this.uiManager = new(this.uiDatabase);
-            this.cursorManager = new(this.assetDatabase);
+            this.cursorManager = new(this.assetDatabase, this.cursorSettings);
             this.ambientManager = new(this.assetDatabase, this.backgroundDatabase, this.gameScreen, this.world);
-            this.actorManager = new(this.actorDatabase, this.world);
+            this.actorManager = new(this.actorDatabase, this.world, this.worldSerializer);
 
             // Serializers
             this.worldSerializer = new(this.actorManager, this.graphicsDeviceManager, this.world);
@@ -246,16 +252,18 @@ namespace StardustSandbox.Core
                 this.Window,
                 this.GraphicsDevice,
                 this.playerInputController,
+                this.settingsSerializer,
                 this.songManager,
                 this.soundEffectManager,
                 this.uiManager,
                 this.videoManager,
-                this.world
+                this.world,
+                this.worldSerializer
             );
 
             // Managers
+            this.cursorManager.Load();
             this.effectsManager.Initialize();
-            this.cursorManager.Initialize();
             this.ambientManager.Initialize();
 
             // Controllers

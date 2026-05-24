@@ -43,13 +43,14 @@ namespace StardustSandbox.Core.UI.Elements
         private readonly GameScreen gameScreen;
         private readonly InterfaceSettings interfaceSettings;
 
-        internal TooltipBox(AssetDatabase assetDatabase, CursorManager cursorManager, GameScreen gameScreen)
+        internal TooltipBox(AssetDatabase assetDatabase, CursorManager cursorManager, GameScreen gameScreen, InterfaceSettings interfaceSettings)
         {
-            this.CanDraw = true;
-            this.CanUpdate = true;
-
             this.cursorManager = cursorManager;
             this.gameScreen = gameScreen;
+            this.interfaceSettings = interfaceSettings;
+
+            this.CanDraw = true;
+            this.CanUpdate = true;
             this.Margin = new(60f);
 
             this.background = new(assetDatabase.GetTexture(TextureIndex.ShapeSquares))
@@ -80,8 +81,6 @@ namespace StardustSandbox.Core.UI.Elements
 
             this.MinimumSize = new(48f, 48f);
             this.MaximumSize = gameScreen.Viewport;
-
-            this.interfaceSettings = this.settingsSerializer.Load<InterfaceSettings>();
         }
 
         internal void SetTitle(string value)

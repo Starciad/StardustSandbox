@@ -51,17 +51,20 @@ namespace StardustSandbox.Core.UI.Common
 
         private readonly AssetDatabase assetDatabase;
         private readonly SoundEffectManager soundEffectManager;
+        private readonly WorldSerializer worldSerializer;
 
         internal WorldDetailsUI(
             AssetDatabase assetDatabase,
             GameHandler gameHandler,
             GameScreen gameScreen,
             SoundEffectManager soundEffectManager,
-            UIManager uiManager
+            UIManager uiManager,
+            WorldSerializer worldSerializer
         ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;
             this.soundEffectManager = soundEffectManager;
+            this.worldSerializer = worldSerializer;
 
             this.worldButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Return, string.Empty, () =>
@@ -72,7 +75,7 @@ namespace StardustSandbox.Core.UI.Common
                 new(TextureIndex.None, null, Localization_Statements.Delete, string.Empty, () =>
                 {
                     soundEffectManager.Play(SoundEffectIndex.GUI_Click);
-                    WorldSerializer.Delete(this.saveFile.Metadata.Name);
+                    worldSerializer.Delete(this.saveFile.Metadata.Name);
                     uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Play, string.Empty, () =>
@@ -244,7 +247,7 @@ namespace StardustSandbox.Core.UI.Common
 
         internal void SetSaveFile(GraphicsDevice graphicsDevice, string saveFilename)
         {
-            this.saveFile = WorldSerializer.Load(saveFilename, LoadFlags.Metadata | LoadFlags.Manifest | LoadFlags.Thumbnail);
+            this.saveFile = this.worldSerializer.Load(saveFilename, LoadFlags.Metadata | LoadFlags.Manifest | LoadFlags.Thumbnail);
             UpdateDisplay(graphicsDevice, this.saveFile);
         }
 

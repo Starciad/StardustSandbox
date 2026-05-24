@@ -22,7 +22,7 @@ using StardustSandbox.Core.Events.Actors;
 using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Settings;
+using StardustSandbox.Core.Serialization.Progress;
 using StardustSandbox.Core.WorldSystem.Components;
 
 namespace StardustSandbox.Core.Managers
@@ -40,11 +40,13 @@ namespace StardustSandbox.Core.Managers
         private int corrodedElementCount = 0;
 
         private readonly AchievementDatabase achievementDatabase;
+        private readonly SettingsSerializer settingsSerializer;
         private readonly TileMap tileMap;
 
-        internal AchievementManager(AchievementDatabase achievementDatabase, GameEvents gameEvents, TileMap tileMap)
+        internal AchievementManager(AchievementDatabase achievementDatabase, GameEvents gameEvents, SettingsSerializer settingsSerializer, TileMap tileMap)
         {
             this.achievementDatabase = achievementDatabase;
+            this.settingsSerializer = settingsSerializer;
             this.tileMap = tileMap;
 
             InitializeEvents(gameEvents);

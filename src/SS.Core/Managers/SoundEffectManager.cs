@@ -35,19 +35,23 @@ namespace StardustSandbox.Core.Managers
         private float masterVolume = 1.0f;
 
         private readonly SoundEffectInstance[] activeInstances = new SoundEffectInstance[SoundEffectConstants.MAX_CONCURRENT_INSTANCES];
+        
         private readonly AssetDatabase assetDatabase;
+        private readonly VolumeSettings volumeSettings;
 
-        internal SoundEffectManager(AssetDatabase assetDatabase)
+        internal SoundEffectManager(AssetDatabase assetDatabase, VolumeSettings volumeSettings)
         {
             this.assetDatabase = assetDatabase;
-            ApplyVolumeSettings(this.settingsSerializer.Load<VolumeSettings>());
+            this.volumeSettings = volumeSettings;
+
+            ApplyVolumeSettings();
 
 #if SS_WINDOWS
             SoundEffect.Speakers = Speakers.Stereo;
 #endif
         }
 
-        internal void ApplyVolumeSettings(VolumeSettings volumeSettings)
+        internal void ApplyVolumeSettings()
         {
             this.masterVolume = volumeSettings.MasterVolume;
             SoundEffect.MasterVolume = this.masterVolume;
@@ -88,7 +92,7 @@ namespace StardustSandbox.Core.Managers
 
         internal void Play(SoundEffectIndex index)
         {
-            Play(index, this.settingsSerializer.Load<VolumeSettings>().SFXVolume, 0.0f, 0.0f);
+            Play(index, this.volumeSettings.SFXVolume, 0.0f, 0.0f);
         }
     }
 }

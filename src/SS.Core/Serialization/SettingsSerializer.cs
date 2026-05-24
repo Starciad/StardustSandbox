@@ -17,6 +17,7 @@
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.Serialization;
+using StardustSandbox.Core.Serialization.Progress;
 using StardustSandbox.Core.Serialization.Settings;
 
 using System;
@@ -30,13 +31,11 @@ namespace StardustSandbox.Core.Serialization
     {
         private readonly Dictionary<Type, ISettingsDescriptor> descriptors = new()
         {
-            [typeof(AchievementSettings)] = new SettingsDescriptor<AchievementSettings>(IOConstants.ACHIEVEMENT_SETTINGS_FILE),
             [typeof(ControlSettings)] = new SettingsDescriptor<ControlSettings>(IOConstants.CONTROL_SETTINGS_FILE),
             [typeof(CursorSettings)] = new SettingsDescriptor<CursorSettings>(IOConstants.CURSOR_SETTINGS_FILE),
             [typeof(GameplaySettings)] = new SettingsDescriptor<GameplaySettings>(IOConstants.GAMEPLAY_SETTINGS_FILE),
             [typeof(GeneralSettings)] = new SettingsDescriptor<GeneralSettings>(IOConstants.GENERAL_SETTINGS_FILE),
             [typeof(InterfaceSettings)] = new SettingsDescriptor<InterfaceSettings>(IOConstants.INTERFACE_SETTINGS_FILE),
-            [typeof(SystemInformationSettings)] = new SettingsDescriptor<SystemInformationSettings>(IOConstants.SYSTEM_INFORMATION_FILE),
             [typeof(VideoSettings)] = new SettingsDescriptor<VideoSettings>(IOConstants.VIDEO_SETTINGS_FILE),
             [typeof(VolumeSettings)] = new SettingsDescriptor<VolumeSettings>(IOConstants.VOLUME_SETTINGS_FILE),
         };

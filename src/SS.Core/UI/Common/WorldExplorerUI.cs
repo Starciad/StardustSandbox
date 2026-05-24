@@ -59,6 +59,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SoundEffectManager soundEffectManager;
         private readonly UIManager uiManager;
         private readonly WorldDetailsUI worldDetailsUI;
+        private readonly WorldSerializer worldSerializer;
 
         internal WorldExplorerUI(
             AssetDatabase assetDatabase,
@@ -66,7 +67,8 @@ namespace StardustSandbox.Core.UI.Common
             GraphicsDevice graphicsDevice,
             SoundEffectManager soundEffectManager,
             UIManager uiManager,
-            WorldDetailsUI worldDetailsUI
+            WorldDetailsUI worldDetailsUI,
+            WorldSerializer worldSerializer
         ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;
@@ -74,6 +76,7 @@ namespace StardustSandbox.Core.UI.Common
             this.soundEffectManager = soundEffectManager;
             this.uiManager = uiManager;
             this.worldDetailsUI = worldDetailsUI;
+            this.worldSerializer = worldSerializer;
 
             this.menuButtonInfos = [
                 new(TextureIndex.IconUI, new(192, 0, 32, 32), Localization_Statements.Exit, string.Empty, this.uiManager.CloseUI),
@@ -125,7 +128,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.loadedSaveFiles.Clear();
 
-            foreach (WorldSaveFile saveFile in WorldSerializer.LoadAll(LoadFlags.Thumbnail | LoadFlags.Metadata))
+            foreach (WorldSaveFile saveFile in this.worldSerializer.LoadAll(LoadFlags.Thumbnail | LoadFlags.Metadata))
             {
                 this.loadedSaveFiles.Add(saveFile);
             }

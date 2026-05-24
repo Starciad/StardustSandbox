@@ -32,11 +32,13 @@ namespace StardustSandbox.Core.WorldSystem
     {
         private readonly TileMap tileMap;
         private readonly World world;
+        private readonly WorldSerializer worldSerializer;
 
-        internal WorldSerializationHelper(World world)
+        internal WorldSerializationHelper(World world, WorldSerializer worldSerializer)
         {
             this.tileMap = world.TileMap;
             this.world = world;
+            this.worldSerializer = worldSerializer;
         }
 
         internal SlotData[] Serialize()
@@ -63,7 +65,7 @@ namespace StardustSandbox.Core.WorldSystem
 
         internal void Deserialize(string saveFileName)
         {
-            WorldSaveFile saveFile = WorldSerializer.Load(saveFileName, LoadFlags.Metadata | LoadFlags.Properties | LoadFlags.Environment | LoadFlags.Content);
+            WorldSaveFile saveFile = this.worldSerializer.Load(saveFileName, LoadFlags.Metadata | LoadFlags.Properties | LoadFlags.Environment | LoadFlags.Content);
 
             // World
             this.world.StartNew(saveFile.Properties.Size);

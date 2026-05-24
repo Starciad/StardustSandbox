@@ -21,7 +21,6 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.InputSystem;
-using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 
 namespace StardustSandbox.Core.Managers
@@ -35,8 +34,6 @@ namespace StardustSandbox.Core.Managers
         internal float Opacity { get; set; }
 
         private Vector2 backgroundPosition;
-        private bool canDraw;
-
         private Texture2D cursorTexture;
 
         private readonly AssetDatabase assetDatabase;
@@ -46,22 +43,19 @@ namespace StardustSandbox.Core.Managers
             new(0, 36, 36, 36),
         ];
 
-        internal CursorManager(AssetDatabase assetDatabase)
+        internal CursorManager(AssetDatabase assetDatabase, CursorSettings cursorSettings)
         {
             this.assetDatabase = assetDatabase;
-        }
-
-        internal void Initialize()
-        {
-            this.cursorTexture = this.assetDatabase.GetTexture(TextureIndex.Cursors);
-            this.canDraw = true;
-
-            CursorSettings cursorSettings = this.settingsSerializer.Load<CursorSettings>();
 
             this.Color = cursorSettings.Color;
             this.BackgroundColor = cursorSettings.BackgroundColor;
             this.Scale = cursorSettings.Scale;
             this.Opacity = cursorSettings.Opacity;
+        }
+
+        internal void Load()
+        {
+            this.cursorTexture = this.assetDatabase.GetTexture(TextureIndex.Cursors);
         }
 
         internal void Update()
@@ -74,11 +68,6 @@ namespace StardustSandbox.Core.Managers
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            if (!this.canDraw)
-            {
-                return;
-            }
-
             spriteBatch.Draw(this.cursorTexture, this.backgroundPosition, cursorClipAreas[1], new(this.BackgroundColor, this.Opacity), 0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0f);
             spriteBatch.Draw(this.cursorTexture, this.Position, cursorClipAreas[0], new(this.Color, this.Opacity), 0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0f);
         }

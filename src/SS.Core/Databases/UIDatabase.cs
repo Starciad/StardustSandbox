@@ -21,6 +21,9 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Serialization;
+using StardustSandbox.Core.Serialization.Progress;
+using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Common;
 using StardustSandbox.Core.UI.Elements;
@@ -47,15 +50,21 @@ namespace StardustSandbox.Core.Databases
             GameWindow gameWindow,
             GraphicsDevice graphicsDevice,
             PlayerInputController playerInputController,
+            SettingsSerializer settingsSerializer,
             SongManager songManager,
             SoundEffectManager soundEffectManager,
             UIManager uiManager,
             VideoManager videoManager,
-            World world
+            World world,
+            WorldSerializer worldSerializer
         )
         {
+            AchievementSettings achievementSettings = settingsSerializer.Load<AchievementSettings>();
+            ControlSettings controlSettings = settingsSerializer.Load<ControlSettings>();
+            InterfaceSettings interfaceSettings = settingsSerializer.Load<InterfaceSettings>();
+
             NotificationBox notificationBox = new(assetDatabase, gameScreen);
-            TooltipBox tooltipBox = new(assetDatabase, cursorManager, gameScreen)
+            TooltipBox tooltipBox = new(assetDatabase, cursorManager, gameScreen, interfaceSettings)
             {
                 MinimumSize = new(500f, 0f),
             };
@@ -198,6 +207,7 @@ namespace StardustSandbox.Core.Databases
                 keySelectorUI,
                 playerInputController,
                 selectorUI,
+                settingsSerializer,
                 sliderUI,
                 songManager,
                 soundEffectManager,
@@ -245,7 +255,8 @@ namespace StardustSandbox.Core.Databases
                 gameHandler,
                 gameScreen,
                 soundEffectManager,
-                uiManager
+                uiManager,
+                worldSerializer
             );
 
             WorldExplorerUI worldExplorerUI = new(
@@ -254,7 +265,8 @@ namespace StardustSandbox.Core.Databases
                 graphicsDevice,
                 soundEffectManager,
                 uiManager,
-                worldDetailsUI
+                worldDetailsUI,
+                worldSerializer
             );
 
             PlayUI playUI = new(
@@ -277,7 +289,6 @@ namespace StardustSandbox.Core.Databases
             );
 
             SaveUI saveSettingsUI = new(
-                actorManager,
                 assetDatabase,
                 gameHandler,
                 gameScreen,
@@ -286,7 +297,8 @@ namespace StardustSandbox.Core.Databases
                 textInputUI,
                 tooltipBox,
                 uiManager,
-                world
+                world,
+                worldSerializer
             );
 
             TemperatureSettingsUI temperatureSettingsUI = new(
@@ -314,6 +326,7 @@ namespace StardustSandbox.Core.Databases
 
             AchievementsUI achievementsUI = new(
                 achievementDatabase,
+                achievementSettings,
                 assetDatabase,
                 ambientManager,
                 gameScreen,
@@ -324,6 +337,7 @@ namespace StardustSandbox.Core.Databases
 
             TutorialUI tutorialUI = new(
                 assetDatabase,
+                controlSettings,
                 gameScreen,
                 uiManager
             );

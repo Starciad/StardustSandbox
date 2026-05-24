@@ -28,7 +28,6 @@ using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.WorldSystem.Slots;
 
@@ -36,14 +35,25 @@ using System;
 
 namespace StardustSandbox.Core.WorldSystem.Handlers
 {
-    internal sealed class RenderingHandler(AssetDatabase assetDatabase, PlayerInputController playerInputController, World world)
+    internal sealed class RenderingHandler
     {
         internal bool DrawForegroundElements { get; set; } = true;
         internal bool DrawBackgroundElements { get; set; } = true;
 
-        private readonly ElementContext elementRenderingContext = new(world);
-        private readonly PlayerInputController playerInputController = playerInputController;
-        private readonly World world = world;
+        private readonly AssetDatabase assetDatabase;
+        private readonly ElementContext elementRenderingContext;
+        private readonly GameplaySettings gameplaySettings;
+        private readonly PlayerInputController playerInputController;
+        private readonly World world;
+
+        internal RenderingHandler(AssetDatabase assetDatabase, GameplaySettings gameplaySettings, PlayerInputController playerInputController, World world)
+        {
+            this.assetDatabase = assetDatabase;
+            this.elementRenderingContext = new(world);
+            this.gameplaySettings = gameplaySettings;
+            this.playerInputController = playerInputController;
+            this.world = world;
+        }
 
         private void DrawWorldBorder(SpriteBatch spriteBatch, AssetDatabase assetDatabase)
         {
@@ -123,8 +133,6 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
             int minTileY = (int)Math.Clamp(Math.Floor(viewBounds.Top / WorldConstants.TILE_SIZE), 0, this.world.TileMap.Height);
             int maxTileX = (int)Math.Clamp(Math.Ceiling(viewBounds.Right / WorldConstants.TILE_SIZE), 0, this.world.TileMap.Width);
             int maxTileY = (int)Math.Clamp(Math.Ceiling(viewBounds.Bottom / WorldConstants.TILE_SIZE), 0, this.world.TileMap.Height);
-
-            GameplaySettings gameplaySettings = this.settingsSerializer.Load<GameplaySettings>();
 
             for (int y = minTileY; y < maxTileY; y++)
             {

@@ -118,14 +118,12 @@ namespace StardustSandbox.Core.Constants
         #region FILE
 
         // Settings
-        internal const string ACHIEVEMENT_SETTINGS_FILE = "achievement_settings.xml";
         internal const string CONTROL_SETTINGS_FILE = "control_settings.xml";
         internal const string CURSOR_SETTINGS_FILE = "cursor_settings.xml";
         internal const string GAMEPLAY_SETTINGS_FILE = "gameplay_settings.xml";
         internal const string GENERAL_SETTINGS_FILE = "general_settings.xml";
         internal const string STATUS_SETTINGS_FILE = "status_settings.xml";
         internal const string INTERFACE_SETTINGS_FILE = "interface_settings.xml";
-        internal const string SYSTEM_INFORMATION_FILE = "system_information.xml";
         internal const string VIDEO_SETTINGS_FILE = "video_settings.xml";
         internal const string VOLUME_SETTINGS_FILE = "volume_settings.xml";
 
