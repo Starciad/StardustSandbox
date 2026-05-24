@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.UI.Common
         private int currentPageIndex = 0, totalPages = 0;
         private Range achievementsRange;
 
-        private Label title, progress, pageIndexLabel;
+        private Label title, pageIndexLabel;
         private Image panelBackground;
 
         private SlotInfo exitButtonSlotInfo;
@@ -52,7 +52,6 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo exitButtonInfo;
         private readonly ButtonInfo[] paginationButtonInfos;
 
-        private readonly AchievementSettings achievementSettings;
         private readonly TooltipBox tooltipBox;
 
         private readonly AchievementDatabase achievementDatabase;
@@ -62,7 +61,6 @@ namespace StardustSandbox.Core.UI.Common
 
         internal AchievementsUI(
             AchievementDatabase achievementDatabase,
-            AchievementSettings achievementSettings,
             AssetDatabase assetDatabase,
             AmbientManager ambientManager,
             GameScreen gameScreen,
@@ -77,7 +75,6 @@ namespace StardustSandbox.Core.UI.Common
             this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
 
-            this.achievementSettings = achievementSettings;
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI);
 
             this.paginationButtonInfos =
@@ -140,9 +137,11 @@ namespace StardustSandbox.Core.UI.Common
 
                     Achievement achievement = this.achievementDatabase.GetAchievement(index);
 
-                    image.SourceRectangle = this.achievementSettings.IsUnlocked(index)
-                        ? achievement.AchievedIconSourceRectangle
-                        : achievement.NotAchievedIconSourceRectangle;
+                    // image.SourceRectangle = this.achievementSettings.IsUnlocked(index)
+                    //     ? achievement.AchievedIconSourceRectangle
+                    //     : achievement.NotAchievedIconSourceRectangle;
+
+                    image.SourceRectangle = achievement.AchievedIconSourceRectangle;
                 }
                 else
                 {
@@ -183,21 +182,8 @@ namespace StardustSandbox.Core.UI.Common
                 BorderThickness = 3.0f,
             };
 
-            this.progress = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
-            {
-                Scale = new(0.05f),
-                Margin = new(0.0f, 40.0f),
-                TextContent = "100%",
-
-                BorderDirections = LabelBorderDirection.All,
-                BorderColor = AAP64ColorPalette.DarkGray,
-                BorderOffset = 3.0f,
-                BorderThickness = 3.0f,
-            };
-
             root.AddChild(this.panelBackground);
             this.panelBackground.AddChild(this.title);
-            this.title.AddChild(this.progress);
         }
 
         private void BuildExitButton()
@@ -378,7 +364,6 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnOpened()
         {
-            this.progress.TextContent = string.Concat(PercentageMath.PercentageFromValue((int)AchievementIndex.Length, this.achievementSettings.GetUnlockedCount()), '%');
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Credits);
 
             this.currentPageIndex = 0;
