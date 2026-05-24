@@ -26,8 +26,6 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Mathematics;
-using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Progress;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;

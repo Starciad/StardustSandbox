@@ -21,7 +21,6 @@ using Microsoft.Xna.Framework.Audio;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Indexers;
-using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 
 #if SS_WINDOWS
@@ -35,7 +34,7 @@ namespace StardustSandbox.Core.Managers
         private float masterVolume = 1.0f;
 
         private readonly SoundEffectInstance[] activeInstances = new SoundEffectInstance[SoundEffectConstants.MAX_CONCURRENT_INSTANCES];
-        
+
         private readonly AssetDatabase assetDatabase;
         private readonly VolumeSettings volumeSettings;
 
@@ -53,7 +52,7 @@ namespace StardustSandbox.Core.Managers
 
         internal void ApplyVolumeSettings()
         {
-            this.masterVolume = volumeSettings.MasterVolume;
+            this.masterVolume = this.volumeSettings.MasterVolume;
             SoundEffect.MasterVolume = this.masterVolume;
         }
 

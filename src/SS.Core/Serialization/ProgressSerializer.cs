@@ -41,12 +41,12 @@ namespace StardustSandbox.Core.Serialization
         {
             this.descriptors = new()
             {
-                [typeof(AchievementProgress)] = new ProgressDescriptor<AchievementProgress>(IOConstants.ACHIEVEMENT_PROGRESS_FILE, options),
+                [typeof(AchievementProgress)] = new ProgressDescriptor<AchievementProgress>(IOConstants.ACHIEVEMENT_PROGRESS_FILE, this.options),
             };
 
             _ = Directory.CreateDirectory(IO.Directory.Progress);
 
-            foreach (IProgressDescriptor descriptor in descriptors.Values)
+            foreach (IProgressDescriptor descriptor in this.descriptors.Values)
             {
                 descriptor.Load();
             }
@@ -64,7 +64,7 @@ namespace StardustSandbox.Core.Serialization
 
         private ProgressDescriptor<T> GetDescriptor<T>() where T : IProgressModule, new()
         {
-            return !descriptors.TryGetValue(typeof(T), out IProgressDescriptor raw) ? null : (ProgressDescriptor<T>)raw;
+            return !this.descriptors.TryGetValue(typeof(T), out IProgressDescriptor raw) ? null : (ProgressDescriptor<T>)raw;
         }
     }
 }

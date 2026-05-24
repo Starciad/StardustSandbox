@@ -140,21 +140,21 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
                 {
                     Vector2 targetPosition = new(x, y);
 
-                    if (gameplaySettings.ShowGrid && this.playerInputController.Pen.Tool != PenTool.Visualization)
+                    if (this.gameplaySettings.ShowGrid && this.playerInputController.Pen.Tool != PenTool.Visualization)
                     {
-                        spriteBatch.Draw(assetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.TILE_SIZE, new(32, 0, 32, 32), new(AAP64ColorPalette.White, gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(assetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.TILE_SIZE, new(32, 0, 32, 32), new(AAP64ColorPalette.White, this.gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                     }
 
                     if (this.world.TileMap.TryGetSlot(targetPosition.ToPoint(), out Slot slot))
                     {
                         if (this.DrawBackgroundElements && !slot.Background.IsEmpty)
                         {
-                            DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Background, slot.GetLayer(Layer.Background).Element, gameplaySettings);
+                            DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Background, slot.GetLayer(Layer.Background).Element, this.gameplaySettings);
                         }
 
                         if (this.DrawForegroundElements && !slot.Foreground.IsEmpty)
                         {
-                            DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Foreground, slot.GetLayer(Layer.Foreground).Element, gameplaySettings);
+                            DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Foreground, slot.GetLayer(Layer.Foreground).Element, this.gameplaySettings);
                         }
                     }
                 }
@@ -164,7 +164,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
         private void DrawSlotLayer(SpriteBatch spriteBatch, Camera2D camera, Point position, Layer layer, Element element, GameplaySettings gameplaySettings)
         {
             this.elementRenderingContext.Initialize(position, layer);
-            ElementRenderer.Draw(this.elementRenderingContext, element, spriteBatch, assetDatabase, camera, element.TextureOriginOffset, gameplaySettings);
+            ElementRenderer.Draw(this.elementRenderingContext, element, spriteBatch, this.assetDatabase, camera, element.TextureOriginOffset, gameplaySettings);
         }
     }
 }

@@ -55,7 +55,7 @@ namespace StardustSandbox.Core.Serialization
 
         internal void Save()
         {
-            string filename = Path.Combine(IO.Directory.Worlds, string.Concat(world.Name, IOConstants.SAVE_FILE_EXTENSION));
+            string filename = Path.Combine(IO.Directory.Worlds, string.Concat(this.world.Name, IOConstants.SAVE_FILE_EXTENSION));
 
             if (File.Exists(filename))
             {
@@ -65,7 +65,7 @@ namespace StardustSandbox.Core.Serialization
             using FileStream fs = new(filename, FileMode.Create, FileAccess.Write);
             using ZipArchive zip = new(fs, ZipArchiveMode.Create);
 
-            Write(zip, IOConstants.SAVE_ENTRY_THUMBNAIL, new Texture2DData(world.TileMap.CreateThumbnail(this.graphicsDeviceManager.GraphicsDevice)));
+            Write(zip, IOConstants.SAVE_ENTRY_THUMBNAIL, new Texture2DData(this.world.TileMap.CreateThumbnail(this.graphicsDeviceManager.GraphicsDevice)));
             Write(zip, IOConstants.SAVE_ENTRY_METADATA, CreateMetadata());
             Write(zip, IOConstants.SAVE_ENTRY_MANIFEST, CreateManifest());
             Write(zip, IOConstants.SAVE_ENTRY_PROPERTIES, CreateProperties());
@@ -114,7 +114,7 @@ namespace StardustSandbox.Core.Serialization
             ZipArchiveEntry entry = zip.CreateEntry(entryName, CompressionLevel.SmallestSize);
 
             using Stream stream = entry.Open();
-            MessagePackSerializer.Serialize(stream, data, options);
+            MessagePackSerializer.Serialize(stream, data, this.options);
         }
 
         private T LoadPart<T>(ZipArchive zip, string entryName)
@@ -129,7 +129,7 @@ namespace StardustSandbox.Core.Serialization
                 }
 
                 using Stream stream = entry.Open();
-                return MessagePackSerializer.Deserialize<T>(stream, options);
+                return MessagePackSerializer.Deserialize<T>(stream, this.options);
             }
             catch (MessagePackSerializationException)
             {
@@ -145,8 +145,8 @@ namespace StardustSandbox.Core.Serialization
         {
             return new()
             {
-                Name = world.Name,
-                Description = world.Description
+                Name = this.world.Name,
+                Description = this.world.Description
             };
         }
 
@@ -163,8 +163,8 @@ namespace StardustSandbox.Core.Serialization
         {
             return new()
             {
-                Width = world.TileMap.Width,
-                Height = world.TileMap.Height
+                Width = this.world.TileMap.Width,
+                Height = this.world.TileMap.Height
             };
         }
 
@@ -172,9 +172,9 @@ namespace StardustSandbox.Core.Serialization
         {
             return new()
             {
-                CurrentTime = world.Time.CurrentTime,
-                IsFrozen = world.Time.IsFrozen,
-                Temperatures = world.Temperature.Serialize(),
+                CurrentTime = this.world.Time.CurrentTime,
+                IsFrozen = this.world.Time.IsFrozen,
+                Temperatures = this.world.Temperature.Serialize(),
             };
         }
 
@@ -182,8 +182,8 @@ namespace StardustSandbox.Core.Serialization
         {
             return new()
             {
-                Slots = world.SerializationHelper.Serialize(),
-                Actors = actorManager.Serialize(),
+                Slots = this.world.SerializationHelper.Serialize(),
+                Actors = this.actorManager.Serialize(),
             };
         }
     }

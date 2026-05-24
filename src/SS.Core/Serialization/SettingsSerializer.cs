@@ -43,7 +43,7 @@ namespace StardustSandbox.Core.Serialization
         {
             _ = Directory.CreateDirectory(IO.Directory.Settings);
 
-            foreach (ISettingsDescriptor descriptor in descriptors.Values)
+            foreach (ISettingsDescriptor descriptor in this.descriptors.Values)
             {
                 descriptor.Load();
             }
@@ -63,7 +63,7 @@ namespace StardustSandbox.Core.Serialization
 
         private SettingsDescriptor<T> GetDescriptor<T>() where T : ISettingsModule, new()
         {
-            return !descriptors.TryGetValue(typeof(T), out ISettingsDescriptor raw) ? null : (SettingsDescriptor<T>)raw;
+            return !this.descriptors.TryGetValue(typeof(T), out ISettingsDescriptor raw) ? null : (SettingsDescriptor<T>)raw;
         }
 
         private static void CreateWarningFile()

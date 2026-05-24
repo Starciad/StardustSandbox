@@ -26,8 +26,6 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Progress;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.WorldSystem;
@@ -77,15 +75,7 @@ namespace StardustSandbox.Core.UI.Common
             this.world = world;
 
             this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, () =>
-                {
-                    gameHandler.StartGame();
-
-                    // if (!this.settingsSerializer.Load<SystemInformationSettings>().TutorialDisplayed)
-                    // {
-                    //     this.uiManager.OpenUI(UIIndex.Tutorial);
-                    // }
-                }),
+                new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, gameHandler.StartGame),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Play, string.Empty, () => this.uiManager.OpenUI(UIIndex.Play)),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Options, string.Empty, () =>
                 {
