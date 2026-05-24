@@ -73,7 +73,7 @@ namespace StardustSandbox.Core.Serialization.Settings
 
         public bool IsUnlocked(Achievement achievement)
         {
-            return IsUnlocked(achievement.Index);
+            return IsUnlocked(achievement.AchievementIndex);
         }
 
         public bool IsUnlocked(AchievementIndex index)

@@ -21,10 +21,11 @@ using StardustSandbox.Core.Enums.Indexers;
 
 namespace StardustSandbox.Core.Achievements
 {
-    public sealed class Achievement(string id, AchievementIndex index, Rectangle? achievedIconSourceRectangle, Rectangle? notAchievedIconSourceRectangle, string title, string description)
+    public sealed class Achievement(string id, AchievementIndex achievementIndex, AchievementIndex prerequisiteAchievementIndex, Rectangle? achievedIconSourceRectangle, Rectangle? notAchievedIconSourceRectangle, string title, string description)
     {
         public string Id => id;
-        public AchievementIndex Index => index;
+        public AchievementIndex AchievementIndex => achievementIndex;
+        public AchievementIndex PrerequisiteAchievementIndex => prerequisiteAchievementIndex;
         public string Title => title;
         public string Description => description;
         public Rectangle? AchievedIconSourceRectangle => achievedIconSourceRectangle;
