@@ -144,7 +144,7 @@ namespace StardustSandbox.Core
 
         private void DrawCursorPenActionArea()
         {
-            GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
+            GameplaySettings gameplaySettings = this.settingsSerializer.Load<GameplaySettings>();
 
             if (!gameplaySettings.ShowPreviewArea || this.playerInputController.Pen.Tool is PenTool.Visualization or PenTool.Fill)
             {

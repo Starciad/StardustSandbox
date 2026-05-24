@@ -37,13 +37,13 @@ namespace StardustSandbox.Core.Cameras
         private float zoom;
         private float targetZoom;
 
-        private readonly GameScreen gameScreen;
         private readonly GameplaySettings gameplaySettings;
+        private readonly GameScreen gameScreen;
 
-        internal Camera2D(GameScreen gameScreen)
+        internal Camera2D(GameplaySettings gameplaySettings, GameScreen gameScreen)
         {
             this.gameScreen = gameScreen;
-            this.gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
+            this.gameplaySettings = gameplaySettings;
             Reset();
         }
 

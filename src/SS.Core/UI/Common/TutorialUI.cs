@@ -59,8 +59,8 @@ namespace StardustSandbox.Core.UI.Common
             this.assetDatabase = assetDatabase;
             this.uiManager = uiManager;
 
-            ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
-            this.systemInformationSettings = SettingsSerializer.Load<SystemInformationSettings>();
+            ControlSettings controlSettings = this.settingsSerializer.Load<ControlSettings>();
+            this.systemInformationSettings = this.settingsSerializer.Load<SystemInformationSettings>();
 
             this.contents =
             [
@@ -236,7 +236,7 @@ namespace StardustSandbox.Core.UI.Common
             {
                 this.uiManager.CloseUI();
                 this.systemInformationSettings.TutorialDisplayed = true;
-                SettingsSerializer.Save(this.systemInformationSettings);
+                this.settingsSerializer.Save(this.systemInformationSettings);
             }
         }
 

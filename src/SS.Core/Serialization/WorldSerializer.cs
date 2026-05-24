@@ -18,7 +18,7 @@
 using MessagePack;
 using MessagePack.Resolvers;
 
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Serialization;
@@ -34,16 +34,27 @@ using System.IO.Compression;
 
 namespace StardustSandbox.Core.Serialization
 {
-    internal static class WorldSerializer
+    internal sealed class WorldSerializer
     {
-        private static readonly MessagePackSerializerOptions options =
+        private readonly MessagePackSerializerOptions options =
             MessagePackSerializerOptions.Standard
                 .WithResolver(CompositeResolver.Create(StandardResolver.Instance, ContractlessStandardResolver.Instance))
                 .WithSecurity(MessagePackSecurity.UntrustedData)
                 .WithCompression(MessagePackCompression.Lz4BlockArray)
                 .WithAllowAssemblyVersionMismatch(true);
 
-        internal static void Save(ActorManager actorManager, World world, GraphicsDevice graphicsDevice)
+        private readonly ActorManager actorManager;
+        private readonly GraphicsDeviceManager graphicsDeviceManager;
+        private readonly World world;
+
+        internal WorldSerializer(ActorManager actorManager, GraphicsDeviceManager graphicsDeviceManager, World world)
+        {
+            this.actorManager = actorManager;
+            this.graphicsDeviceManager = graphicsDeviceManager;
+            this.world = world;
+        }
+
+        internal void Save()
         {
             string filename = Path.Combine(IO.Directory.Worlds, string.Concat(world.Name, IOConstants.SAVE_FILE_EXTENSION));
 
@@ -55,15 +66,15 @@ namespace StardustSandbox.Core.Serialization
             using FileStream fs = new(filename, FileMode.Create, FileAccess.Write);
             using ZipArchive zip = new(fs, ZipArchiveMode.Create);
 
-            Write(zip, IOConstants.SAVE_ENTRY_THUMBNAIL, new Texture2DData(world.TileMap.CreateThumbnail(graphicsDevice)));
-            Write(zip, IOConstants.SAVE_ENTRY_METADATA, CreateMetadata(world));
+            Write(zip, IOConstants.SAVE_ENTRY_THUMBNAIL, new Texture2DData(world.TileMap.CreateThumbnail(this.graphicsDeviceManager.GraphicsDevice)));
+            Write(zip, IOConstants.SAVE_ENTRY_METADATA, CreateMetadata());
             Write(zip, IOConstants.SAVE_ENTRY_MANIFEST, CreateManifest());
-            Write(zip, IOConstants.SAVE_ENTRY_PROPERTIES, CreateProperties(world));
-            Write(zip, IOConstants.SAVE_ENTRY_ENVIRONMENT, CreateEnvironment(world));
-            Write(zip, IOConstants.SAVE_ENTRY_CONTENT, CreateContent(actorManager, world));
+            Write(zip, IOConstants.SAVE_ENTRY_PROPERTIES, CreateProperties());
+            Write(zip, IOConstants.SAVE_ENTRY_ENVIRONMENT, CreateEnvironment());
+            Write(zip, IOConstants.SAVE_ENTRY_CONTENT, CreateContent());
         }
 
-        internal static WorldSaveFile Load(string name, LoadFlags flags)
+        internal WorldSaveFile Load(string name, LoadFlags flags)
         {
             string filename = Path.Combine(IO.Directory.Worlds, string.Concat(name, IOConstants.SAVE_FILE_EXTENSION));
 
@@ -81,7 +92,7 @@ namespace StardustSandbox.Core.Serialization
             };
         }
 
-        internal static IEnumerable<WorldSaveFile> LoadAll(LoadFlags flags)
+        internal IEnumerable<WorldSaveFile> LoadAll(LoadFlags flags)
         {
             foreach (string filename in Directory.EnumerateFiles(IO.Directory.Worlds, string.Concat("*", IOConstants.SAVE_FILE_EXTENSION), SearchOption.TopDirectoryOnly))
             {
@@ -99,7 +110,7 @@ namespace StardustSandbox.Core.Serialization
             }
         }
 
-        private static void Write<T>(ZipArchive zip, string entryName, T data)
+        private void Write<T>(ZipArchive zip, string entryName, T data)
         {
             ZipArchiveEntry entry = zip.CreateEntry(entryName, CompressionLevel.SmallestSize);
 
@@ -107,7 +118,7 @@ namespace StardustSandbox.Core.Serialization
             MessagePackSerializer.Serialize(stream, data, options);
         }
 
-        private static T LoadPart<T>(ZipArchive zip, string entryName)
+        private T LoadPart<T>(ZipArchive zip, string entryName)
         {
             try
             {
@@ -131,7 +142,7 @@ namespace StardustSandbox.Core.Serialization
             }
         }
 
-        private static Metadata CreateMetadata(World world)
+        private Metadata CreateMetadata()
         {
             return new()
             {
@@ -149,7 +160,7 @@ namespace StardustSandbox.Core.Serialization
             };
         }
 
-        private static PropertyData CreateProperties(World world)
+        private PropertyData CreateProperties()
         {
             return new()
             {
@@ -158,7 +169,7 @@ namespace StardustSandbox.Core.Serialization
             };
         }
 
-        private static EnvironmentData CreateEnvironment(World world)
+        private EnvironmentData CreateEnvironment()
         {
             return new()
             {
@@ -168,7 +179,7 @@ namespace StardustSandbox.Core.Serialization
             };
         }
 
-        private static ContentData CreateContent(ActorManager actorManager, World world)
+        private ContentData CreateContent()
         {
             return new()
             {

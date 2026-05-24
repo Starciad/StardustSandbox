@@ -76,7 +76,7 @@ namespace StardustSandbox.Core.UI.Common
             this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
 
-            this.achievementSettings = SettingsSerializer.Load<AchievementSettings>();
+            this.achievementSettings = this.settingsSerializer.Load<AchievementSettings>();
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI);
 
             this.paginationButtonInfos =

@@ -81,7 +81,7 @@ namespace StardustSandbox.Core.UI.Elements
             this.MinimumSize = new(48f, 48f);
             this.MaximumSize = gameScreen.Viewport;
 
-            this.interfaceSettings = SettingsSerializer.Load<InterfaceSettings>();
+            this.interfaceSettings = this.settingsSerializer.Load<InterfaceSettings>();
         }
 
         internal void SetTitle(string value)

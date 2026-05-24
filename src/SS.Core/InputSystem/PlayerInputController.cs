@@ -55,6 +55,7 @@ namespace StardustSandbox.Core.InputSystem
         internal void Initialize(
             ActorManager actorManager,
             Camera2D camera,
+            ControlSettings controlSettings,
             GameEvents gameEvents,
             GameHandler gameHandler,
             SoundEffectManager soundEffectManager,
@@ -64,8 +65,6 @@ namespace StardustSandbox.Core.InputSystem
         )
         {
             this.worldHandler = new(actorManager, camera, gameEvents, this.pen, this.player, world.TileMap, toolDatabase);
-
-            ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
 
             this.systemInputHandler = new(
                 new InputActionMap("General",

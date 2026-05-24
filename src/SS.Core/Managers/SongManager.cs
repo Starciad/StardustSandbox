@@ -54,7 +54,7 @@ namespace StardustSandbox.Core.Managers
         {
             this.assetDatabase = assetDatabase;
             this.gameLaunchOptions = gameLaunchOptions;
-            this.currentVolumeSettings = SettingsSerializer.Load<VolumeSettings>();
+            this.currentVolumeSettings = this.settingsSerializer.Load<VolumeSettings>();
             ApplyFinalVolume();
         }
 

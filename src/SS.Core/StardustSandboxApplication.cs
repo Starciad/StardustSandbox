@@ -17,41 +17,15 @@
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.IO;
-using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.OS;
-using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Settings;
 
 using System;
 using System.Text;
-using System.Threading;
 
 namespace StardustSandbox.Core
 {
     public static class StardustSandboxApplication
     {
-        private static void InitializeDirectories()
-        {
-            Directory.Initialize();
-            SettingsSerializer.Initialize();
-        }
-
-        private static void InitializeGameCulture()
-        {
-            GameCulture gameCulture = SettingsSerializer.Load<GeneralSettings>().GetGameCulture();
-
-            Thread.CurrentThread.CurrentCulture = gameCulture.CultureInfo;
-            Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;
-
-            gameCulture.CultureInfo.ClearCachedData();
-        }
-
-        public static void Initialize()
-        {
-            InitializeDirectories();
-            InitializeGameCulture();
-        }
-
         public static void HandleException(Exception value)
         {
             string logFilename = File.WriteException(value);

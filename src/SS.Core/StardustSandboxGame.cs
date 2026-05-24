@@ -27,12 +27,14 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces.Notifiers;
+using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
+using System.Threading;
 
 namespace StardustSandbox.Core
 {
@@ -45,6 +47,10 @@ namespace StardustSandbox.Core
 
         private readonly GraphicsDeviceManager graphicsDeviceManager;
         private readonly GameLaunchOptions gameLaunchOptions;
+
+        private readonly ProgressSerializer progressSerializer;
+        private readonly SettingsSerializer settingsSerializer;
+        private readonly WorldSerializer worldSerializer;
 
         private readonly GameEvents gameEvents;
         private readonly GameHandler gameHandler;
@@ -73,6 +79,8 @@ namespace StardustSandbox.Core
         private readonly PlayerInputController playerInputController;
         private readonly Camera2D camera;
 
+        private readonly ControlSettings controlSettings;
+        private readonly GameplaySettings gameplaySettings;
         private readonly VideoSettings videoSettings;
 
         public StardustSandboxGame(GameLaunchOptions options)
@@ -97,8 +105,13 @@ namespace StardustSandbox.Core
 
             this.videoManager = new(this.graphicsDeviceManager, this.Window);
 
-            // Load Settings
-            this.videoSettings = SettingsSerializer.Load<VideoSettings>();
+            // Serializers
+            this.progressSerializer = new();
+            this.settingsSerializer = new();
+
+            this.controlSettings = this.settingsSerializer.Load<ControlSettings>();
+            this.gameplaySettings = this.settingsSerializer.Load<GameplaySettings>();
+            this.videoSettings = this.settingsSerializer.Load<VideoSettings>();
 
             // Initialize Content
             this.Content.RootDirectory = IOConstants.ASSETS_DIRECTORY;
@@ -139,7 +152,7 @@ namespace StardustSandbox.Core
                 this.gameEvents,
                 this.playerInputController
             );
-            this.camera = new(this.gameScreen);
+            this.camera = new(this.gameplaySettings, this.gameScreen);
 
             // Managers
             this.achievementManager = new(this.achievementDatabase, this.gameEvents, this.world.TileMap);
@@ -149,7 +162,10 @@ namespace StardustSandbox.Core
             this.ambientManager = new(this.assetDatabase, this.backgroundDatabase, this.gameScreen, this.world);
             this.actorManager = new(this.actorDatabase, this.world);
 
-            // Others
+            // Serializers
+            this.worldSerializer = new(this.actorManager, this.graphicsDeviceManager, this.world);
+
+            // Handlers
             this.gameHandler = new(
                 this.actorManager,
                 this.ambientManager,
@@ -167,6 +183,21 @@ namespace StardustSandbox.Core
         internal void SetFrameRate(float framerate)
         {
             this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / framerate);
+        }
+
+        private static void InitializeDirectories()
+        {
+            IO.Directory.Initialize();
+        }
+
+        private void InitializeGameCulture()
+        {
+            GameCulture gameCulture = this.settingsSerializer.Load<GeneralSettings>().GetGameCulture();
+
+            Thread.CurrentThread.CurrentCulture = gameCulture.CultureInfo;
+            Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;
+
+            gameCulture.CultureInfo.ClearCachedData();
         }
 
         private void ResolveServices()
@@ -187,6 +218,8 @@ namespace StardustSandbox.Core
 
         protected override void Initialize()
         {
+            InitializeDirectories();
+            InitializeGameCulture();
             ResolveServices();
             RegisterAchievementEvents();
 
@@ -229,6 +262,7 @@ namespace StardustSandbox.Core
             this.playerInputController.Initialize(
                 this.actorManager,
                 this.camera,
+                this.controlSettings,
                 this.gameEvents,
                 this.gameHandler,
                 this.soundEffectManager,
@@ -241,7 +275,7 @@ namespace StardustSandbox.Core
             if (this.videoSettings.Width == 0 || this.videoSettings.Height == 0)
             {
                 this.videoSettings.UpdateResolution(this.GraphicsDevice);
-                SettingsSerializer.Save(this.videoSettings);
+                this.settingsSerializer.Save(this.videoSettings);
             }
 
             this.Window.ClientSizeChanged += OnClientSizeChanged;

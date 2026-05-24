@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.Managers
         private void Unlock(AchievementIndex targetIndex)
         {
             Achievement targetAchievement = this.achievementDatabase.GetAchievement(targetIndex);
-            AchievementSettings achievementSettings = SettingsSerializer.Load<AchievementSettings>();
+            AchievementSettings achievementSettings = this.settingsSerializer.Load<AchievementSettings>();
 
             // If the achievement is already unlocked or if the prerequisite achievement is not unlocked, do nothing.
             if (achievementSettings.IsUnlocked(targetIndex) || (targetAchievement.PrerequisiteAchievementIndex is not AchievementIndex.None && !achievementSettings.IsUnlocked(targetAchievement.PrerequisiteAchievementIndex)))
@@ -62,7 +62,7 @@ namespace StardustSandbox.Core.Managers
             }
 
             achievementSettings.Unlock(targetIndex);
-            SettingsSerializer.Save(achievementSettings);
+            this.settingsSerializer.Save(achievementSettings);
 
             AchievementUnlocked?.Invoke(targetAchievement);
         }

@@ -56,7 +56,7 @@ namespace StardustSandbox.Core.Managers
             this.cursorTexture = this.assetDatabase.GetTexture(TextureIndex.Cursors);
             this.canDraw = true;
 
-            CursorSettings cursorSettings = SettingsSerializer.Load<CursorSettings>();
+            CursorSettings cursorSettings = this.settingsSerializer.Load<CursorSettings>();
 
             this.Color = cursorSettings.Color;
             this.BackgroundColor = cursorSettings.BackgroundColor;

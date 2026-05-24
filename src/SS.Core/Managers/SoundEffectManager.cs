@@ -40,7 +40,7 @@ namespace StardustSandbox.Core.Managers
         internal SoundEffectManager(AssetDatabase assetDatabase)
         {
             this.assetDatabase = assetDatabase;
-            ApplyVolumeSettings(SettingsSerializer.Load<VolumeSettings>());
+            ApplyVolumeSettings(this.settingsSerializer.Load<VolumeSettings>());
 
 #if SS_WINDOWS
             SoundEffect.Speakers = Speakers.Stereo;
@@ -88,7 +88,7 @@ namespace StardustSandbox.Core.Managers
 
         internal void Play(SoundEffectIndex index)
         {
-            Play(index, SettingsSerializer.Load<VolumeSettings>().SFXVolume, 0.0f, 0.0f);
+            Play(index, this.settingsSerializer.Load<VolumeSettings>().SFXVolume, 0.0f, 0.0f);
         }
     }
 }

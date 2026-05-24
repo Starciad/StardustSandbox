@@ -124,7 +124,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
             int maxTileX = (int)Math.Clamp(Math.Ceiling(viewBounds.Right / WorldConstants.TILE_SIZE), 0, this.world.TileMap.Width);
             int maxTileY = (int)Math.Clamp(Math.Ceiling(viewBounds.Bottom / WorldConstants.TILE_SIZE), 0, this.world.TileMap.Height);
 
-            GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
+            GameplaySettings gameplaySettings = this.settingsSerializer.Load<GameplaySettings>();
 
             for (int y = minTileY; y < maxTileY; y++)
             {

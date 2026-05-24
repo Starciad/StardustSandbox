@@ -23,67 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Xml.Serialization;
 
 namespace StardustSandbox.Core.Serialization
 {
-    public static class SettingsSerializer
+    public sealed partial class SettingsSerializer
     {
-        private interface ISettingsDescriptor
-        {
-            Type SettingsType { get; }
-            void Load();
-        }
-
-        private sealed class SettingsDescriptor<T>(string fileName) : ISettingsDescriptor where T : ISettingsModule, new()
-        {
-            public Type SettingsType => typeof(T);
-            public T Value => this.cache;
-
-            private T cache;
-            private readonly XmlSerializer serializer = new(typeof(T));
-
-            public void Load()
-            {
-                string filePath = Path.Combine(IO.Directory.Settings, fileName);
-
-                if (!File.Exists(filePath))
-                {
-                    CreateAndSaveDefault(filePath);
-                    return;
-                }
-
-                try
-                {
-                    using FileStream stream = File.OpenRead(filePath);
-                    this.cache = (T)this.serializer.Deserialize(stream);
-                }
-                catch
-                {
-                    File.Delete(filePath);
-                    CreateAndSaveDefault(filePath);
-                }
-            }
-
-            public void Save(T value)
-            {
-                using FileStream stream = new(Path.Combine(IO.Directory.Settings, fileName), FileMode.Create, FileAccess.Write);
-
-                this.cache = value;
-                this.serializer.Serialize(stream, value);
-            }
-
-            private void CreateAndSaveDefault(string filePath)
-            {
-                this.cache = new T();
-
-                using FileStream stream = new(filePath, FileMode.Create, FileAccess.Write);
-
-                this.serializer.Serialize(stream, this.cache);
-            }
-        }
-
-        private static readonly Dictionary<Type, ISettingsDescriptor> descriptors = new()
+        private readonly Dictionary<Type, ISettingsDescriptor> descriptors = new()
         {
             [typeof(AchievementSettings)] = new SettingsDescriptor<AchievementSettings>(IOConstants.ACHIEVEMENT_SETTINGS_FILE),
             [typeof(ControlSettings)] = new SettingsDescriptor<ControlSettings>(IOConstants.CONTROL_SETTINGS_FILE),
@@ -96,7 +41,7 @@ namespace StardustSandbox.Core.Serialization
             [typeof(VolumeSettings)] = new SettingsDescriptor<VolumeSettings>(IOConstants.VOLUME_SETTINGS_FILE),
         };
 
-        public static void Initialize()
+        internal SettingsSerializer()
         {
             _ = Directory.CreateDirectory(IO.Directory.Settings);
 
@@ -108,17 +53,17 @@ namespace StardustSandbox.Core.Serialization
             CreateWarningFile();
         }
 
-        public static T Load<T>() where T : ISettingsModule, new()
+        public T Load<T>() where T : ISettingsModule, new()
         {
             return GetDescriptor<T>().Value;
         }
 
-        public static void Save<T>(T value) where T : ISettingsModule, new()
+        public void Save<T>(T value) where T : ISettingsModule, new()
         {
             GetDescriptor<T>().Save(value);
         }
 
-        private static SettingsDescriptor<T> GetDescriptor<T>() where T : ISettingsModule, new()
+        private SettingsDescriptor<T> GetDescriptor<T>() where T : ISettingsModule, new()
         {
             return !descriptors.TryGetValue(typeof(T), out ISettingsDescriptor raw)
                 ? throw new InvalidOperationException($"Settings type not registered: {typeof(T).FullName}")

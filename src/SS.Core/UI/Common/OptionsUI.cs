@@ -89,13 +89,13 @@ namespace StardustSandbox.Core.UI.Common
             this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
 
-            ControlSettings controlSettings = SettingsSerializer.Load<ControlSettings>();
-            CursorSettings cursorSettings = SettingsSerializer.Load<CursorSettings>();
-            GameplaySettings gameplaySettings = SettingsSerializer.Load<GameplaySettings>();
-            GeneralSettings generalSettings = SettingsSerializer.Load<GeneralSettings>();
-            InterfaceSettings interfaceSettings = SettingsSerializer.Load<InterfaceSettings>();
-            VideoSettings videoSettings = SettingsSerializer.Load<VideoSettings>();
-            VolumeSettings volumeSettings = SettingsSerializer.Load<VolumeSettings>();
+            ControlSettings controlSettings = this.settingsSerializer.Load<ControlSettings>();
+            CursorSettings cursorSettings = this.settingsSerializer.Load<CursorSettings>();
+            GameplaySettings gameplaySettings = this.settingsSerializer.Load<GameplaySettings>();
+            GeneralSettings generalSettings = this.settingsSerializer.Load<GeneralSettings>();
+            InterfaceSettings interfaceSettings = this.settingsSerializer.Load<InterfaceSettings>();
+            VideoSettings videoSettings = this.settingsSerializer.Load<VideoSettings>();
+            VolumeSettings volumeSettings = this.settingsSerializer.Load<VolumeSettings>();
 
             this.availableGameCulturesChoices = new SelectorUI.IChoice[LocalizationConstants.AVAILABLE_GAME_CULTURES.Length];
             this.resolutionChoices = new SelectorUI.IChoice[ScreenConstants.RESOLUTIONS.Length];
@@ -135,7 +135,7 @@ namespace StardustSandbox.Core.UI.Common
                                 (choice) =>
                                 {
                                     generalSettings.SetGameCulture((GameCulture)choice.Value);
-                                    SettingsSerializer.Save(generalSettings);
+                                    this.settingsSerializer.Save(generalSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
                                 },
@@ -171,7 +171,7 @@ namespace StardustSandbox.Core.UI.Common
                         (option, optionSlotInfo) =>
                         {
                             interfaceSettings.ShowTooltip = !interfaceSettings.ShowTooltip;
-                            SettingsSerializer.Save(interfaceSettings);
+                            this.settingsSerializer.Save(interfaceSettings);
                             optionSlotInfo.Value.TextContent = option.GetValueString();
                         }
                     )
@@ -197,7 +197,7 @@ namespace StardustSandbox.Core.UI.Common
                         (option, optionSlotInfo) =>
                         {
                             gameplaySettings.ShowPreviewArea = !gameplaySettings.ShowPreviewArea;
-                            SettingsSerializer.Save(gameplaySettings);
+                            this.settingsSerializer.Save(gameplaySettings);
 
                             optionSlotInfo.Value.TextContent = option.GetValueString();
                         }
@@ -218,7 +218,7 @@ namespace StardustSandbox.Core.UI.Common
                             colorPickerUI.Setup((newColor) =>
                             {
                                 gameplaySettings.PreviewAreaColor = newColor;
-                                SettingsSerializer.Save(gameplaySettings);
+                                this.settingsSerializer.Save(gameplaySettings);
 
                                 optionSlotInfo.Value.TextContent = option.GetValueString();
                             });
@@ -245,7 +245,7 @@ namespace StardustSandbox.Core.UI.Common
                                 Convert.ToInt32(option.GetValue()),
                                 (newValue) => {
                                     gameplaySettings.PreviewAreaColorOpacity = newValue / 100.0f;
-                                    SettingsSerializer.Save(gameplaySettings);
+                                    this.settingsSerializer.Save(gameplaySettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
                                 }
@@ -268,7 +268,7 @@ namespace StardustSandbox.Core.UI.Common
                         (option, optionSlotInfo) =>
                         {
                             gameplaySettings.ShowGrid = !gameplaySettings.ShowGrid;
-                            SettingsSerializer.Save(gameplaySettings);
+                            this.settingsSerializer.Save(gameplaySettings);
 
                             optionSlotInfo.Value.TextContent = option.GetValueString();
                         }
@@ -292,7 +292,7 @@ namespace StardustSandbox.Core.UI.Common
                                 Convert.ToInt32(option.GetValue()),
                                 (newValue) => {
                                     gameplaySettings.GridOpacity = newValue / 100.0f;
-                                    SettingsSerializer.Save(gameplaySettings);
+                                    this.settingsSerializer.Save(gameplaySettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
                                 }
@@ -314,7 +314,7 @@ namespace StardustSandbox.Core.UI.Common
                         (option, optionSlotInfo) =>
                         {
                             gameplaySettings.ShowTemperatureColorVariations = !gameplaySettings.ShowTemperatureColorVariations;
-                            SettingsSerializer.Save(gameplaySettings);
+                            this.settingsSerializer.Save(gameplaySettings);
                             optionSlotInfo.Value.TextContent = option.GetValueString();
                         }
                     ),
@@ -332,7 +332,7 @@ namespace StardustSandbox.Core.UI.Common
                         (option, optionSlotInfo) =>
                         {
                             gameplaySettings.UseSmoothCameraMovement = !gameplaySettings.UseSmoothCameraMovement;
-                            SettingsSerializer.Save(gameplaySettings);
+                            this.settingsSerializer.Save(gameplaySettings);
                             optionSlotInfo.Value.TextContent = option.GetValueString();
                         }
                     )
@@ -363,7 +363,7 @@ namespace StardustSandbox.Core.UI.Common
                                 Convert.ToInt32(option.GetValue()),
                                 (newValue) => {
                                     volumeSettings.MasterVolume = newValue / 100.0f;
-                                    SettingsSerializer.Save(volumeSettings);
+                                    this.settingsSerializer.Save(volumeSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -394,7 +394,7 @@ namespace StardustSandbox.Core.UI.Common
                                 Convert.ToInt32(option.GetValue()),
                                 (newValue) => {
                                     volumeSettings.MusicVolume = newValue / 100.0f;
-                                    SettingsSerializer.Save(volumeSettings);
+                                    this.settingsSerializer.Save(volumeSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -424,7 +424,7 @@ namespace StardustSandbox.Core.UI.Common
                                 Convert.ToInt32(option.GetValue()),
                                 (newValue) => {
                                     volumeSettings.SFXVolume = newValue / 100.0f;
-                                    SettingsSerializer.Save(volumeSettings);
+                                    this.settingsSerializer.Save(volumeSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -462,7 +462,7 @@ namespace StardustSandbox.Core.UI.Common
                                 Convert.ToInt32(option.GetValue()),
                                 (newValue) => {
                                     videoSettings.Framerate = newValue;
-                                    SettingsSerializer.Save(videoSettings);
+                                    this.settingsSerializer.Save(videoSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -490,7 +490,7 @@ namespace StardustSandbox.Core.UI.Common
                                 (choice) =>
                                 {
                                     videoSettings.Resolution = (Point)choice.Value;
-                                    SettingsSerializer.Save(videoSettings);
+                                    this.settingsSerializer.Save(videoSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -516,7 +516,7 @@ namespace StardustSandbox.Core.UI.Common
                         (option, optionSlotInfo) =>
                         {
                             videoSettings.FullScreen = !videoSettings.FullScreen;
-                            SettingsSerializer.Save(videoSettings);
+                            this.settingsSerializer.Save(videoSettings);
 
                             optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -537,7 +537,7 @@ namespace StardustSandbox.Core.UI.Common
                         (option, optionSlotInfo) =>
                         {
                             videoSettings.VSync = !videoSettings.VSync;
-                            SettingsSerializer.Save(videoSettings);
+                            this.settingsSerializer.Save(videoSettings);
 
                             optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -558,7 +558,7 @@ namespace StardustSandbox.Core.UI.Common
                         (option, optionSlotInfo) =>
                         {
                             videoSettings.Borderless = !videoSettings.Borderless;
-                            SettingsSerializer.Save(videoSettings);
+                            this.settingsSerializer.Save(videoSettings);
 
                             optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -590,7 +590,7 @@ namespace StardustSandbox.Core.UI.Common
                                 (newKey) =>
                                 {
                                     controlSettings.MoveCameraUpKeyboardBinding = newKey;
-                                    SettingsSerializer.Save(controlSettings);
+                                    this.settingsSerializer.Save(controlSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -618,7 +618,7 @@ namespace StardustSandbox.Core.UI.Common
                                 (newKey) =>
                                 {
                                     controlSettings.MoveCameraRightKeyboardBinding = newKey;
-                                    SettingsSerializer.Save(controlSettings);
+                                    this.settingsSerializer.Save(controlSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -646,7 +646,7 @@ namespace StardustSandbox.Core.UI.Common
                                 (newKey) =>
                                 {
                                     controlSettings.MoveCameraDownKeyboardBinding = newKey;
-                                    SettingsSerializer.Save(controlSettings);
+                                    this.settingsSerializer.Save(controlSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -674,7 +674,7 @@ namespace StardustSandbox.Core.UI.Common
                                 (newKey) =>
                                 {
                                     controlSettings.MoveCameraLeftKeyboardBinding = newKey;
-                                    SettingsSerializer.Save(controlSettings);
+                                    this.settingsSerializer.Save(controlSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -702,7 +702,7 @@ namespace StardustSandbox.Core.UI.Common
                                 (newKey) =>
                                 {
                                     controlSettings.MoveCameraFastKeyboardBinding = newKey;
-                                    SettingsSerializer.Save(controlSettings);
+                                    this.settingsSerializer.Save(controlSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -730,7 +730,7 @@ namespace StardustSandbox.Core.UI.Common
                                 (newKey) =>
                                 {
                                     controlSettings.TogglePauseKeyboardBinding = newKey;
-                                    SettingsSerializer.Save(controlSettings);
+                                    this.settingsSerializer.Save(controlSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -758,7 +758,7 @@ namespace StardustSandbox.Core.UI.Common
                                 (newKey) =>
                                 {
                                     controlSettings.ClearWorldKeyboardBinding = newKey;
-                                    SettingsSerializer.Save(controlSettings);
+                                    this.settingsSerializer.Save(controlSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -786,7 +786,7 @@ namespace StardustSandbox.Core.UI.Common
                                 (newKey) =>
                                 {
                                     controlSettings.NextShapeKeyboardBinding = newKey;
-                                    SettingsSerializer.Save(controlSettings);
+                                    this.settingsSerializer.Save(controlSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -814,7 +814,7 @@ namespace StardustSandbox.Core.UI.Common
                                 (newKey) =>
                                 {
                                     controlSettings.ScreenshotKeyboardBinding = newKey;
-                                    SettingsSerializer.Save(controlSettings);
+                                    this.settingsSerializer.Save(controlSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -842,7 +842,7 @@ namespace StardustSandbox.Core.UI.Common
                                 (newKey) =>
                                 {
                                     controlSettings.ToggleFullscreenKeyboardBinding = newKey;
-                                    SettingsSerializer.Save(controlSettings);
+                                    this.settingsSerializer.Save(controlSettings);
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
                                     playerInputController.SystemInputHandler.GetMap("General").GetAction("ToggleFullscreen").KeyboardBinding = newKey;
                                 }
@@ -874,7 +874,7 @@ namespace StardustSandbox.Core.UI.Common
                             colorPickerUI.Setup((newColor) =>
                             {
                                 cursorSettings.Color = newColor;
-                                SettingsSerializer.Save(cursorSettings);
+                                this.settingsSerializer.Save(cursorSettings);
 
                                 optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -900,7 +900,7 @@ namespace StardustSandbox.Core.UI.Common
                             colorPickerUI.Setup((newColor) =>
                             {
                                 cursorSettings.BackgroundColor = newColor;
-                                SettingsSerializer.Save(cursorSettings);
+                                this.settingsSerializer.Save(cursorSettings);
 
                                 optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -929,7 +929,7 @@ namespace StardustSandbox.Core.UI.Common
                                 Convert.ToInt32(option.GetValue()),
                                 (newValue) => {
                                     cursorSettings.Scale = newValue / 100.0f;
-                                    SettingsSerializer.Save(cursorSettings);
+                                    this.settingsSerializer.Save(cursorSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
@@ -959,7 +959,7 @@ namespace StardustSandbox.Core.UI.Common
                                 Convert.ToInt32(option.GetValue()),
                                 (newValue) => {
                                     cursorSettings.Opacity = newValue / 100.0f;
-                                    SettingsSerializer.Save(cursorSettings);
+                                    this.settingsSerializer.Save(cursorSettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 

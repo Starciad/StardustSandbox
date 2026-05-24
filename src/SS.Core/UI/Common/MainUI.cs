@@ -81,7 +81,7 @@ namespace StardustSandbox.Core.UI.Common
                 {
                     gameHandler.StartGame();
 
-                    if (!SettingsSerializer.Load<SystemInformationSettings>().TutorialDisplayed)
+                    if (!this.settingsSerializer.Load<SystemInformationSettings>().TutorialDisplayed)
                     {
                         this.uiManager.OpenUI(UIIndex.Tutorial);
                     }
