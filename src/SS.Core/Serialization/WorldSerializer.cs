@@ -24,8 +24,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Serialization;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization.Saving;
-using StardustSandbox.Core.Serialization.Saving.Data;
+using StardustSandbox.Core.Serialization.Worlds;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
@@ -35,7 +34,7 @@ using System.IO.Compression;
 
 namespace StardustSandbox.Core.Serialization
 {
-    internal static class SavingSerializer
+    internal static class WorldSerializer
     {
         private static readonly MessagePackSerializerOptions options =
             MessagePackSerializerOptions.Standard
@@ -48,9 +47,9 @@ namespace StardustSandbox.Core.Serialization
         {
             string filename = Path.Combine(IO.Directory.Worlds, string.Concat(world.Name, IOConstants.SAVE_FILE_EXTENSION));
 
-            if (System.IO.File.Exists(filename))
+            if (File.Exists(filename))
             {
-                System.IO.File.Delete(filename);
+                File.Delete(filename);
             }
 
             using FileStream fs = new(filename, FileMode.Create, FileAccess.Write);
@@ -64,7 +63,7 @@ namespace StardustSandbox.Core.Serialization
             Write(zip, IOConstants.SAVE_ENTRY_CONTENT, CreateContent(actorManager, world));
         }
 
-        internal static SaveFile Load(string name, LoadFlags flags)
+        internal static WorldSaveFile Load(string name, LoadFlags flags)
         {
             string filename = Path.Combine(IO.Directory.Worlds, string.Concat(name, IOConstants.SAVE_FILE_EXTENSION));
 
@@ -82,9 +81,9 @@ namespace StardustSandbox.Core.Serialization
             };
         }
 
-        internal static IEnumerable<SaveFile> LoadAll(LoadFlags flags)
+        internal static IEnumerable<WorldSaveFile> LoadAll(LoadFlags flags)
         {
-            foreach (string filename in System.IO.Directory.EnumerateFiles(IO.Directory.Worlds, string.Concat("*", IOConstants.SAVE_FILE_EXTENSION), SearchOption.TopDirectoryOnly))
+            foreach (string filename in Directory.EnumerateFiles(IO.Directory.Worlds, string.Concat("*", IOConstants.SAVE_FILE_EXTENSION), SearchOption.TopDirectoryOnly))
             {
                 yield return Load(Path.GetFileNameWithoutExtension(filename), flags);
             }
@@ -94,9 +93,9 @@ namespace StardustSandbox.Core.Serialization
         {
             string filename = Path.Combine(IO.Directory.Worlds, string.Concat(name, IOConstants.SAVE_FILE_EXTENSION));
 
-            if (System.IO.File.Exists(filename))
+            if (File.Exists(filename))
             {
-                System.IO.File.Delete(filename);
+                File.Delete(filename);
             }
         }
 
@@ -173,7 +172,7 @@ namespace StardustSandbox.Core.Serialization
         {
             return new()
             {
-                Slots = world.Serializer.Serialize(),
+                Slots = world.SerializationHelper.Serialize(),
                 Actors = actorManager.Serialize(),
             };
         }

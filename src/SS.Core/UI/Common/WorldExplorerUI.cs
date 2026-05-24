@@ -30,7 +30,7 @@ using StardustSandbox.Core.IO;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Saving;
+using StardustSandbox.Core.Serialization.Worlds;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 
@@ -52,7 +52,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SlotInfo[] worldButtonSlotInfos, paginationButtonSlotInfos;
         private readonly ButtonInfo[] menuButtonInfos, paginationButtonInfos;
 
-        private readonly List<SaveFile> loadedSaveFiles = [];
+        private readonly List<WorldSaveFile> loadedSaveFiles = [];
 
         private readonly AssetDatabase assetDatabase;
         private readonly GraphicsDevice graphicsDevice;
@@ -125,7 +125,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.loadedSaveFiles.Clear();
 
-            foreach (SaveFile saveFile in SavingSerializer.LoadAll(LoadFlags.Thumbnail | LoadFlags.Metadata))
+            foreach (WorldSaveFile saveFile in WorldSerializer.LoadAll(LoadFlags.Thumbnail | LoadFlags.Metadata))
             {
                 this.loadedSaveFiles.Add(saveFile);
             }
@@ -154,7 +154,7 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (i < length)
                 {
-                    SaveFile saveFile = this.loadedSaveFiles[this.saveFilesRange.Start.Value + i];
+                    WorldSaveFile saveFile = this.loadedSaveFiles[this.saveFilesRange.Start.Value + i];
 
                     slotInfoElement.Background.CanDraw = true;
 
@@ -347,7 +347,7 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = this.saveFilesRange.Start.Value; i < this.saveFilesRange.End.Value; i++)
             {
                 SlotInfo slotInfoElement = this.worldButtonSlotInfos[i % UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE];
-                SaveFile saveFile = this.loadedSaveFiles[i];
+                WorldSaveFile saveFile = this.loadedSaveFiles[i];
 
                 if (Interaction.OnMouseEnter(slotInfoElement.Background))
                 {

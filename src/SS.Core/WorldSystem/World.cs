@@ -46,7 +46,7 @@ namespace StardustSandbox.Core.WorldSystem
         internal ExplosionHandler ExplosionHandler => this.explosionHandler;
         internal RenderingHandler RenderingHandler => this.renderingHandler;
 
-        internal WorldSerializer Serializer => this.serializer;
+        internal WorldSerializationHelper SerializationHelper => this.serializationHelper;
 
         private readonly Simulation simulation;
         private readonly Temperature temperature;
@@ -59,7 +59,7 @@ namespace StardustSandbox.Core.WorldSystem
         private readonly UpdateHandler updateHandler;
 
         private readonly ElementContext elementContext;
-        private readonly WorldSerializer serializer;
+        private readonly WorldSerializationHelper serializationHelper;
 
         private readonly AssetDatabase assetDatabase;
         private readonly ElementDatabase elementDatabase;
@@ -86,7 +86,7 @@ namespace StardustSandbox.Core.WorldSystem
             this.updateHandler = new(this);
 
             this.elementContext = new(this);
-            this.serializer = new(this);
+            this.serializationHelper = new(this);
 
             RegisterEvents(gameEvents);
         }
@@ -203,7 +203,7 @@ namespace StardustSandbox.Core.WorldSystem
         {
             if (hasSaveFileLoaded)
             {
-                this.serializer.Deserialize(loadedSaveFileName);
+                this.serializationHelper.Deserialize(loadedSaveFileName);
                 return;
             }
 

@@ -29,7 +29,7 @@ using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Saving.Data;
+using StardustSandbox.Core.Serialization.Worlds;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
@@ -280,7 +280,7 @@ namespace StardustSandbox.Core.Managers
 
         internal void Deserialize(string saveFileName)
         {
-            Deserialize(SavingSerializer.Load(saveFileName, LoadFlags.Content).Content.Actors);
+            Deserialize(WorldSerializer.Load(saveFileName, LoadFlags.Content).Content.Actors);
         }
 
         internal void Reload(bool hasSaveFileLoaded, string loadedSaveFileName)

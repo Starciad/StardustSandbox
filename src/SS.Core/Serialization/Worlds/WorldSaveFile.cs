@@ -15,23 +15,16 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using MessagePack;
-
-using StardustSandbox.Core.Enums.Indexers;
-
-using System;
-using System.Collections.Generic;
-
-namespace StardustSandbox.Core.Serialization.Saving.Data
+namespace StardustSandbox.Core.Serialization.Worlds
 {
-    [Serializable]
-    [MessagePackObject]
-    public sealed class ActorData
+    internal sealed class WorldSaveFile
     {
-        [Key("Content")]
-        public IReadOnlyDictionary<string, object> Content { get; set; }
-
-        [Key("Index")]
-        public required ActorIndex Index { get; set; }
+        internal Texture2DData ThumbnailTextureData { get; set; }
+        internal Metadata Metadata { get; set; }
+        internal ManifestData Manifest { get; set; }
+        internal PropertyData Properties { get; set; }
+        internal EnvironmentData Environment { get; set; }
+        internal ContentData Content { get; set; }
     }
 }
+

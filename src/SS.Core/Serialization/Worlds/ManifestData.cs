@@ -19,20 +19,17 @@ using MessagePack;
 
 using System;
 
-namespace StardustSandbox.Core.Serialization.Saving.Data
+namespace StardustSandbox.Core.Serialization.Worlds
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class EnvironmentData
+    public sealed class ManifestData
     {
-        [Key("CurrentTime")]
-        public TimeSpan CurrentTime { get; set; }
+        [Key("CreationTimestamp")]
+        public DateTime CreationTimestamp { get; set; }
 
-        [Key("IsFrozen")]
-        public bool IsFrozen { get; set; }
-
-        [Key("Temperatures")]
-        public TemperatureData[] Temperatures { get; set; }
+        [Key("GameVersion")]
+        public Version GameVersion { get; set; }
     }
 }
 

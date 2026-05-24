@@ -17,19 +17,21 @@
 
 using MessagePack;
 
-using System;
+using StardustSandbox.Core.Enums.Indexers;
 
-namespace StardustSandbox.Core.Serialization.Saving.Data
+using System;
+using System.Collections.Generic;
+
+namespace StardustSandbox.Core.Serialization.Worlds
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class ContentData
+    public sealed class ActorData
     {
-        [Key("Actors")]
-        public ActorData[] Actors { get; set; }
+        [Key("Content")]
+        public IReadOnlyDictionary<string, object> Content { get; set; }
 
-        [Key("Slots")]
-        public SlotData[] Slots { get; set; }
+        [Key("Index")]
+        public required ActorIndex Index { get; set; }
     }
 }
-

@@ -115,7 +115,7 @@ namespace StardustSandbox.Core
             SetState(GameStates.IsSimulationPaused);
 
             this.actorManager.Deserialize(saveFileName);
-            this.world.Serializer.Deserialize(saveFileName);
+            this.world.SerializationHelper.Deserialize(saveFileName);
 
             DefineLoadedSaveFile(saveFileName);
         }

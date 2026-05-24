@@ -17,45 +17,32 @@
 
 using MessagePack;
 
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 using System;
 
-namespace StardustSandbox.Core.Serialization.Saving.Data
+namespace StardustSandbox.Core.Serialization.Worlds
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class Texture2DData
+    public sealed class PropertyData
     {
-        [Key("Data")]
-        public byte[] Data { get; set; }
-
         [Key("Height")]
         public int Height { get; set; }
 
+        [IgnoreMember]
+        public Point Size
+        {
+            get => new(this.Width, this.Height);
+            set
+            {
+                this.Width = value.X;
+                this.Height = value.Y;
+            }
+        }
+
         [Key("Width")]
         public int Width { get; set; }
-
-        public Texture2DData()
-        {
-
-        }
-
-        public Texture2DData(Texture2D texture2d)
-        {
-            this.Width = texture2d.Width;
-            this.Height = texture2d.Height;
-            this.Data = new byte[this.Width * this.Height * 4]; // RGBA
-
-            texture2d.GetData(this.Data);
-        }
-
-        public Texture2D ToTexture2D(GraphicsDevice graphicsDevice)
-        {
-            Texture2D texture2d = new(graphicsDevice, this.Width, this.Height);
-            texture2d.SetData(this.Data);
-            return texture2d;
-        }
     }
 }
 

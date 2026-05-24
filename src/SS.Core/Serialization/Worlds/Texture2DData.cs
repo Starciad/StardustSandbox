@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -17,39 +17,45 @@
 
 using MessagePack;
 
-using StardustSandbox.Core.WorldSystem.Models;
+using Microsoft.Xna.Framework.Graphics;
 
 using System;
 
-namespace StardustSandbox.Core.Serialization.Saving.Data
+namespace StardustSandbox.Core.Serialization.Worlds
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class TemperatureData
+    public sealed class Texture2DData
     {
-        [Key("StartTime")]
-        public TimeSpan StartTime { get; set; }
+        [Key("Data")]
+        public byte[] Data { get; set; }
 
-        [Key("EndTime")]
-        public TimeSpan EndTime { get; set; }
+        [Key("Height")]
+        public int Height { get; set; }
 
-        [Key("CanApplyTemperature")]
-        public bool CanApplyTemperature { get; set; }
+        [Key("Width")]
+        public int Width { get; set; }
 
-        [Key("Temperature")]
-        public float Temperature { get; set; }
-
-        public TemperatureData()
+        public Texture2DData()
         {
 
         }
 
-        internal TemperatureData(TemperatureRange temperatureRange)
+        public Texture2DData(Texture2D texture2d)
         {
-            this.StartTime = temperatureRange.StartTime;
-            this.EndTime = temperatureRange.EndTime;
-            this.CanApplyTemperature = temperatureRange.CanApplyTemperature;
-            this.Temperature = temperatureRange.Temperature;
+            this.Width = texture2d.Width;
+            this.Height = texture2d.Height;
+            this.Data = new byte[this.Width * this.Height * 4]; // RGBA
+
+            texture2d.GetData(this.Data);
+        }
+
+        public Texture2D ToTexture2D(GraphicsDevice graphicsDevice)
+        {
+            Texture2D texture2d = new(graphicsDevice, this.Width, this.Height);
+            texture2d.SetData(this.Data);
+            return texture2d;
         }
     }
 }
+

@@ -28,7 +28,7 @@ using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Saving;
+using StardustSandbox.Core.Serialization.Worlds;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 
@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class WorldDetailsUI : UIBase
     {
-        private SaveFile saveFile;
+        private WorldSaveFile saveFile;
 
         private Image headerBackground, shadowBackground;
 
@@ -72,7 +72,7 @@ namespace StardustSandbox.Core.UI.Common
                 new(TextureIndex.None, null, Localization_Statements.Delete, string.Empty, () =>
                 {
                     soundEffectManager.Play(SoundEffectIndex.GUI_Click);
-                    SavingSerializer.Delete(this.saveFile.Metadata.Name);
+                    WorldSerializer.Delete(this.saveFile.Metadata.Name);
                     uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Play, string.Empty, () =>
@@ -244,11 +244,11 @@ namespace StardustSandbox.Core.UI.Common
 
         internal void SetSaveFile(GraphicsDevice graphicsDevice, string saveFilename)
         {
-            this.saveFile = SavingSerializer.Load(saveFilename, LoadFlags.Metadata | LoadFlags.Manifest | LoadFlags.Thumbnail);
+            this.saveFile = WorldSerializer.Load(saveFilename, LoadFlags.Metadata | LoadFlags.Manifest | LoadFlags.Thumbnail);
             UpdateDisplay(graphicsDevice, this.saveFile);
         }
 
-        private void UpdateDisplay(GraphicsDevice graphicsDevice, SaveFile saveFile)
+        private void UpdateDisplay(GraphicsDevice graphicsDevice, WorldSaveFile saveFile)
         {
             this.worldThumbnail.Texture = saveFile.ThumbnailTextureData.ToTexture2D(graphicsDevice);
 

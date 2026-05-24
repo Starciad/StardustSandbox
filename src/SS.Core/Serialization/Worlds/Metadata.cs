@@ -15,18 +15,21 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Serialization.Saving.Data;
+using MessagePack;
 
-namespace StardustSandbox.Core.Serialization.Saving
+using System;
+
+namespace StardustSandbox.Core.Serialization.Worlds
 {
-    internal sealed class SaveFile
+    [Serializable]
+    [MessagePackObject]
+    public sealed class Metadata
     {
-        internal Texture2DData ThumbnailTextureData { get; set; }
-        internal Metadata Metadata { get; set; }
-        internal ManifestData Manifest { get; set; }
-        internal PropertyData Properties { get; set; }
-        internal EnvironmentData Environment { get; set; }
-        internal ContentData Content { get; set; }
+        [Key("Description")]
+        public string Description { get; set; }
+
+        [Key("Name")]
+        public string Name { get; set; }
     }
 }
 

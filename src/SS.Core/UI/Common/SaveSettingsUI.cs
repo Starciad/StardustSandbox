@@ -143,7 +143,7 @@ namespace StardustSandbox.Core.UI.Common
                 new(TextureIndex.None, null, Localization_Statements.Save, Localization_GUIs.Save_Save_Description, () =>
                 {
                     soundEffectManager.Play(SoundEffectIndex.GUI_World_Saved);
-                    SavingSerializer.Save(actorManager, world, this.graphicsDevice);
+                    WorldSerializer.Save(actorManager, world, this.graphicsDevice);
 
                     gameHandler.DefineLoadedSaveFile(world.Name);
 

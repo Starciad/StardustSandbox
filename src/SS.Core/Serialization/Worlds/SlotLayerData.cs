@@ -25,7 +25,7 @@ using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
 
-namespace StardustSandbox.Core.Serialization.Saving.Data
+namespace StardustSandbox.Core.Serialization.Worlds
 {
     [Serializable]
     [MessagePackObject]

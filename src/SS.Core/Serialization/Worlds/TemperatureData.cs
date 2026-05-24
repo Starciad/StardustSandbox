@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -17,32 +17,39 @@
 
 using MessagePack;
 
-using Microsoft.Xna.Framework;
+using StardustSandbox.Core.WorldSystem.Models;
 
 using System;
 
-namespace StardustSandbox.Core.Serialization.Saving.Data
+namespace StardustSandbox.Core.Serialization.Worlds
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class PropertyData
+    public sealed class TemperatureData
     {
-        [Key("Height")]
-        public int Height { get; set; }
+        [Key("StartTime")]
+        public TimeSpan StartTime { get; set; }
 
-        [IgnoreMember]
-        public Point Size
+        [Key("EndTime")]
+        public TimeSpan EndTime { get; set; }
+
+        [Key("CanApplyTemperature")]
+        public bool CanApplyTemperature { get; set; }
+
+        [Key("Temperature")]
+        public float Temperature { get; set; }
+
+        public TemperatureData()
         {
-            get => new(this.Width, this.Height);
-            set
-            {
-                this.Width = value.X;
-                this.Height = value.Y;
-            }
+
         }
 
-        [Key("Width")]
-        public int Width { get; set; }
+        internal TemperatureData(TemperatureRange temperatureRange)
+        {
+            this.StartTime = temperatureRange.StartTime;
+            this.EndTime = temperatureRange.EndTime;
+            this.CanApplyTemperature = temperatureRange.CanApplyTemperature;
+            this.Temperature = temperatureRange.Temperature;
+        }
     }
 }
-

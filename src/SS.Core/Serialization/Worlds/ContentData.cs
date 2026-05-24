@@ -19,17 +19,17 @@ using MessagePack;
 
 using System;
 
-namespace StardustSandbox.Core.Serialization.Saving.Data
+namespace StardustSandbox.Core.Serialization.Worlds
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class ManifestData
+    public sealed class ContentData
     {
-        [Key("CreationTimestamp")]
-        public DateTime CreationTimestamp { get; set; }
+        [Key("Actors")]
+        public ActorData[] Actors { get; set; }
 
-        [Key("GameVersion")]
-        public Version GameVersion { get; set; }
+        [Key("Slots")]
+        public SlotData[] Slots { get; set; }
     }
 }
 

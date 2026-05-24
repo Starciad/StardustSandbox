@@ -115,7 +115,7 @@ namespace StardustSandbox.Core.Managers
         private void OnElementCorruptedEvent(ElementCorruptedEvent e)
         {
             // This achievement is unlocked when the percentage of corrupted elements in the tile map reaches or exceeds 50%.
-            if (PercentageMath.PercentageFromValue(this.tileMap.MaxTotalElementCapacity, this.tileMap.ActiveCorruptedElementCount) >= 50.0f)
+            if (PercentageMath.PercentageFromValue(this.tileMap.MaxTotalElementCapacity / 2.0f, this.tileMap.ActiveCorruptedElementCount) >= 50.0f)
             {
                 Unlock(AchievementIndex.ACH_011);
             }

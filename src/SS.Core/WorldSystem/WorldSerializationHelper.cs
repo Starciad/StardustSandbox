@@ -20,8 +20,7 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Enums.Serialization;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Saving;
-using StardustSandbox.Core.Serialization.Saving.Data;
+using StardustSandbox.Core.Serialization.Worlds;
 using StardustSandbox.Core.WorldSystem.Components;
 using StardustSandbox.Core.WorldSystem.Slots;
 
@@ -29,12 +28,12 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.WorldSystem
 {
-    internal sealed class WorldSerializer
+    internal sealed class WorldSerializationHelper
     {
         private readonly TileMap tileMap;
         private readonly World world;
 
-        internal WorldSerializer(World world)
+        internal WorldSerializationHelper(World world)
         {
             this.tileMap = world.TileMap;
             this.world = world;
@@ -64,7 +63,7 @@ namespace StardustSandbox.Core.WorldSystem
 
         internal void Deserialize(string saveFileName)
         {
-            SaveFile saveFile = SavingSerializer.Load(saveFileName, LoadFlags.Metadata | LoadFlags.Properties | LoadFlags.Environment | LoadFlags.Content);
+            WorldSaveFile saveFile = WorldSerializer.Load(saveFileName, LoadFlags.Metadata | LoadFlags.Properties | LoadFlags.Environment | LoadFlags.Content);
 
             // World
             this.world.StartNew(saveFile.Properties.Size);
