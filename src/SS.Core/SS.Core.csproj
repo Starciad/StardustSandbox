@@ -28,6 +28,11 @@
 		<Deterministic>true</Deterministic>
 		<UseSharedCompilation>false</UseSharedCompilation>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="Audio\**" />
+	  <EmbeddedResource Remove="Audio\**" />
+	  <None Remove="Audio\**" />
+	</ItemGroup>
 
 	<!-- DEPENDENCIES -->
 	<ItemGroup>
@@ -35,8 +40,5 @@
 			<PrivateAssets>All</PrivateAssets>
 		</PackageReference>
 		<PackageReference Include="MessagePack" Version="3.1.4" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Audio\" />
 	</ItemGroup>
 </Project>
