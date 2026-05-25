@@ -1,0 +1,152 @@
+/*
+ * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+*/
+
+using Microsoft.Xna.Framework;
+
+using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Enums.Elements;
+using StardustSandbox.Core.Enums.Indexers;
+using StardustSandbox.Core.Events.Elements;
+using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.WorldSystem.Slots;
+
+using System.Collections.Generic;
+
+namespace StardustSandbox.Core.Elements.Common.Solids.Immovables
+{
+    internal sealed class Clone : ImmovableSolid
+    {
+        private readonly List<Point> positionScratch = [];
+        private readonly List<SlotLayer> layerScratch = [];
+
+        internal Clone(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
+        {
+            this.BaseDensity = 3.0f;
+
+            this.HasNeighborInteractions = true;
+            this.IsExplosionImmune = true;
+        }
+
+        // Instantiate the stored element into a random valid adjacent empty slot
+        private void TryInstantiateStoredElement(ElementContext context)
+        {
+            ElementIndex stored = context.GetStoredElementIndex();
+
+            if (stored is ElementIndex.None || !TryGetValidPosition(context, out Point validPosition))
+            {
+                return;
+            }
+
+            context.InstantiateElementIndex(validPosition, context.CurrentLayer, stored);
+            this.GameEvents.Publish(new ElementClonedEvent());
+        }
+
+        private void TryAddEmptyPosition(ElementContext context, Point position)
+        {
+            if (context.IsEmptySlotLayer(position, context.CurrentLayer))
+            {
+                this.positionScratch.Add(position);
+            }
+        }
+
+        // Collect neighboring empty positions and pick one at random
+        private bool TryGetValidPosition(ElementContext context, out Point validPosition)
+        {
+            int centerX = context.CurrentSlot.Position.X;
+            int centerY = context.CurrentSlot.Position.Y;
+
+            for (int dx = -1; dx <= 1; dx++)
+            {
+                for (int dy = -1; dy <= 1; dy++)
+                {
+                    if (dx == 0 && dy == 0)
+                    {
+                        continue;
+                    }
+
+                    TryAddEmptyPosition(context, new(centerX + dx, centerY + dy));
+                }
+            }
+
+            if (this.positionScratch.Count == 0)
+            {
+                validPosition = Point.Zero;
+                return false;
+            }
+
+            validPosition = this.positionScratch.GetRandomItem();
+            return true;
+        }
+
+        // Define the stored element based on the first valid neighboring element found
+        private void TryDefineStoredElement(ElementContext context, ElementNeighbors neighbors)
+        {
+            if (context.GetStoredElementIndex() is not ElementIndex.None)
+            {
+                return;
+            }
+
+            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
+            {
+                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer))
+                {
+                    continue;
+                }
+
+                SlotLayer neighborLayer = neighbors.GetSlotLayer(i, context.CurrentLayer);
+                ElementIndex index = neighborLayer.ElementIndex;
+
+                // Skip cloning from these element types
+                switch (index)
+                {
+                    case ElementIndex.Clone:
+                    case ElementIndex.Wall:
+                    case ElementIndex.Void:
+                    case ElementIndex.LightningBody:
+                    case ElementIndex.LightningHead:
+                        continue;
+
+                    default:
+                        this.layerScratch.Add(neighborLayer);
+                        break;
+                }
+
+                this.layerScratch.Add(neighborLayer);
+            }
+
+            if (this.layerScratch.Count == 0)
+            {
+                return;
+            }
+
+            context.SetStoredElementIndex(this.layerScratch.GetRandomItem().ElementIndex);
+        }
+
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
+        {
+            TryDefineStoredElement(context, neighbors);
+        }
+
+        protected override void OnStep(ElementContext context)
+        {
+            this.positionScratch.Clear();
+            this.layerScratch.Clear();
+
+            TryInstantiateStoredElement(context);
+        }
+    }
+}

@@ -31,7 +31,7 @@ namespace StardustSandbox.Core.Databases
         {
             this.elements = [
                 // [000] Dirt
-                new Elements.Solids.Movables.Dirt(
+                new Elements.Common.Solids.Movables.Dirt(
                     ElementIndex.Dirt,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Blob,
@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [001] Mud
-                new Elements.Solids.Movables.Mud(
+                new Elements.Common.Solids.Movables.Mud(
                     ElementIndex.Mud,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Blob,
@@ -51,7 +51,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [002] Water
-                new Elements.Liquids.Water(
+                new Elements.Common.Liquids.Water(
                     ElementIndex.Water,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -61,7 +61,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [003] Stone
-                new Elements.Solids.Movables.Stone(
+                new Elements.Common.Solids.Movables.Stone(
                     ElementIndex.Stone,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Blob,
@@ -71,7 +71,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [004] Grass
-                new Elements.Solids.Movables.Grass(
+                new Elements.Common.Solids.Movables.Grass(
                     ElementIndex.Grass,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Blob,
@@ -81,7 +81,7 @@ namespace StardustSandbox.Core.Databases
                 ),
                 
                 // [005] Ice
-                new Elements.Solids.Movables.Ice(
+                new Elements.Common.Solids.Movables.Ice(
                     ElementIndex.Ice,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Blob,
@@ -91,7 +91,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [006] Sand
-                new Elements.Solids.Movables.Sand(
+                new Elements.Common.Solids.Movables.Sand(
                     ElementIndex.Sand,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Blob,
@@ -101,7 +101,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [007] Snow
-                new Elements.Solids.Movables.Snow(
+                new Elements.Common.Solids.Movables.Snow(
                     ElementIndex.Snow,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Blob,
@@ -111,7 +111,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [008] Movable Corruption
-                new Elements.Solids.Movables.MovableCorruption(
+                new Elements.Common.Solids.Movables.MovableCorruption(
                     ElementIndex.MovableCorruption,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Blob,
@@ -121,7 +121,7 @@ namespace StardustSandbox.Core.Databases
                 ),
                 
                 // [009] Lava
-                new Elements.Liquids.Lava(
+                new Elements.Common.Liquids.Lava(
                     ElementIndex.Lava,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -131,7 +131,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [010] Acid
-                new Elements.Liquids.Acid(
+                new Elements.Common.Liquids.Acid(
                     ElementIndex.Acid,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -141,7 +141,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [011] Glass
-                new Elements.Solids.Immovables.Glass(
+                new Elements.Common.Solids.Immovables.Glass(
                     ElementIndex.Glass,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Blob,
@@ -151,7 +151,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [012] Iron
-                new Elements.Solids.Immovables.Iron(
+                new Elements.Common.Solids.Immovables.Iron(
                     ElementIndex.Iron,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Blob,
@@ -161,7 +161,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [013] Wall
-                new Elements.Solids.Immovables.Wall(
+                new Elements.Common.Solids.Immovables.Wall(
                     ElementIndex.Wall,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Blob,
@@ -171,7 +171,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [014] Wood
-                new Elements.Solids.Immovables.Wood(
+                new Elements.Common.Solids.Immovables.Wood(
                     ElementIndex.Wood,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Blob,
@@ -181,7 +181,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [015] Gas Corruption
-                new Elements.Gases.GasCorruption(
+                new Elements.Common.Gases.GasCorruption(
                     ElementIndex.GasCorruption,
                     ElementCategory.Gas,
                     ElementRenderingType.Blob,
@@ -191,7 +191,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [016] Liquid Corruption
-                new Elements.Liquids.LiquidCorruption(
+                new Elements.Common.Liquids.LiquidCorruption(
                     ElementIndex.LiquidCorruption,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -201,7 +201,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [017] Immovable Corruption
-                new Elements.Solids.Immovables.ImmovableCorruption(
+                new Elements.Common.Solids.Immovables.ImmovableCorruption(
                     ElementIndex.ImmovableCorruption,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Blob,
@@ -211,7 +211,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [018] Steam
-                new Elements.Gases.Steam(
+                new Elements.Common.Gases.Steam(
                     ElementIndex.Steam,
                     ElementCategory.Gas,
                     ElementRenderingType.Blob,
@@ -221,7 +221,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [019] Smoke
-                new Elements.Gases.Smoke(
+                new Elements.Common.Gases.Smoke(
                     ElementIndex.Smoke,
                     ElementCategory.Gas,
                     ElementRenderingType.Blob,
@@ -231,7 +231,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [020] Brick
-                new Elements.Solids.Immovables.Brick(
+                new Elements.Common.Solids.Immovables.Brick(
                     ElementIndex.Brick,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Blob,
@@ -241,7 +241,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [021] Leaf
-                new Elements.Solids.Immovables.Leaf(
+                new Elements.Common.Solids.Immovables.Leaf(
                     ElementIndex.Leaf,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Blob,
@@ -251,7 +251,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [022] Mounting Block
-                new Elements.Solids.Immovables.MountingBlock(
+                new Elements.Common.Solids.Immovables.MountingBlock(
                     ElementIndex.MountingBlock,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Single,
@@ -261,7 +261,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [023] Fire
-                new Elements.Energies.Fire(
+                new Elements.Common.Energies.Fire(
                     ElementIndex.Fire,
                     ElementCategory.Energy,
                     ElementRenderingType.Single,
@@ -271,7 +271,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [024] Lamp On
-                new Elements.Solids.Immovables.LampOn(
+                new Elements.Common.Solids.Immovables.LampOn(
                     ElementIndex.LampOn,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Single,
@@ -281,7 +281,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [025] Void
-                new Elements.Solids.Immovables.Void(
+                new Elements.Common.Solids.Immovables.Void(
                     ElementIndex.Void,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Blob,
@@ -291,7 +291,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [026] Clone
-                new Elements.Solids.Immovables.Clone(
+                new Elements.Common.Solids.Immovables.Clone(
                     ElementIndex.Clone,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Blob,
@@ -301,7 +301,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [027] Oil
-                new Elements.Liquids.Oil(
+                new Elements.Common.Liquids.Oil(
                     ElementIndex.Oil,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -311,7 +311,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [028] Salt
-                new Elements.Solids.Movables.Salt(
+                new Elements.Common.Solids.Movables.Salt(
                     ElementIndex.Salt,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Blob,
@@ -321,7 +321,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [029] Saltwater
-                new Elements.Liquids.Saltwater(
+                new Elements.Common.Liquids.Saltwater(
                     ElementIndex.Saltwater,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -331,7 +331,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [030] Bomb
-                new Elements.Solids.Movables.Bomb(
+                new Elements.Common.Solids.Movables.Bomb(
                     ElementIndex.Bomb,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Single,
@@ -341,7 +341,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [031] Dynamite
-                new Elements.Solids.Movables.Dynamite(
+                new Elements.Common.Solids.Movables.Dynamite(
                     ElementIndex.Dynamite,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Single,
@@ -351,7 +351,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [032] TNT
-                new Elements.Solids.Movables.Tnt(
+                new Elements.Common.Solids.Movables.Tnt(
                     ElementIndex.Tnt,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Single,
@@ -361,7 +361,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [033] Dry Sponge
-                new Elements.Solids.Immovables.DrySponge(
+                new Elements.Common.Solids.Immovables.DrySponge(
                     ElementIndex.DrySponge,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Blob,
@@ -371,7 +371,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [034] Wet Sponge
-                new Elements.Solids.Immovables.WetSponge(
+                new Elements.Common.Solids.Immovables.WetSponge(
                     ElementIndex.WetSponge,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Blob,
@@ -381,7 +381,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [035] Gold
-                new Elements.Solids.Immovables.Gold(
+                new Elements.Common.Solids.Immovables.Gold(
                     ElementIndex.Gold,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Single,
@@ -391,7 +391,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [036] Heater
-                new Elements.Solids.Immovables.TemperatureModifier(
+                new Elements.Common.Solids.Immovables.TemperatureModifier(
                     ElementIndex.Heater,
                     ElementCategory.ImmovableSolid,
                     TemperatureModifierMode.Warming,
@@ -402,7 +402,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [037] Freezer
-                new Elements.Solids.Immovables.TemperatureModifier(
+                new Elements.Common.Solids.Immovables.TemperatureModifier(
                     ElementIndex.Freezer,
                     ElementCategory.ImmovableSolid,
                     TemperatureModifierMode.Cooling,
@@ -413,7 +413,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [038] Ash
-                new Elements.Solids.Movables.Ash(
+                new Elements.Common.Solids.Movables.Ash(
                     ElementIndex.Ash,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Blob,
@@ -423,7 +423,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [039] Anti-Corruption
-                new Elements.Gases.AntiCorruption(
+                new Elements.Common.Gases.AntiCorruption(
                     ElementIndex.AntiCorruption,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Blob,
@@ -433,7 +433,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [040] Devourer
-                new Elements.Solids.Immovables.Devourer(
+                new Elements.Common.Solids.Immovables.Devourer(
                     ElementIndex.Devourer,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Single,
@@ -443,7 +443,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [041] Upward Pusher
-                new Elements.Solids.Immovables.Pusher(
+                new Elements.Common.Solids.Immovables.Pusher(
                     ElementIndex.UpwardPusher,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Single,
@@ -454,7 +454,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [042] Rightward Pusher
-                new Elements.Solids.Immovables.Pusher(
+                new Elements.Common.Solids.Immovables.Pusher(
                     ElementIndex.RightwardPusher,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Single,
@@ -465,7 +465,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [043] Downward Pusher
-                new Elements.Solids.Immovables.Pusher(
+                new Elements.Common.Solids.Immovables.Pusher(
                     ElementIndex.DownwardPusher,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Single,
@@ -476,7 +476,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [044] Leftward Pusher
-                new Elements.Solids.Immovables.Pusher(
+                new Elements.Common.Solids.Immovables.Pusher(
                     ElementIndex.LeftwardPusher,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Single,
@@ -487,7 +487,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [045] Cloud
-                new Elements.Gases.Cloud(
+                new Elements.Common.Gases.Cloud(
                     ElementIndex.Cloud,
                     ElementCategory.Gas,
                     ElementRenderingType.Blob,
@@ -497,7 +497,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [046] Charged Cloud
-                new Elements.Gases.ChargedCloud(
+                new Elements.Common.Gases.ChargedCloud(
                     ElementIndex.ChargedCloud,
                     ElementCategory.Gas,
                     ElementRenderingType.Blob,
@@ -507,7 +507,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [047] Lightning Head
-                new Elements.Energies.LightningHead(
+                new Elements.Common.Energies.LightningHead(
                     ElementIndex.LightningHead,
                     ElementCategory.Energy,
                     ElementRenderingType.Single,
@@ -517,7 +517,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [048] Lightning Body
-                new Elements.Energies.LightningBody(
+                new Elements.Common.Energies.LightningBody(
                     ElementIndex.LightningBody,
                     ElementCategory.Energy,
                     ElementRenderingType.Single,
@@ -527,7 +527,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [049] Dry Wool (Black)
-                new Elements.Solids.Immovables.DryWool(
+                new Elements.Common.Solids.Immovables.DryWool(
                     ElementIndex.DryBlackWool,
                     ElementIndex.WetBlackWool,
                     ElementCategory.ImmovableSolid,
@@ -538,7 +538,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [050] Dry Wool (White)
-                new Elements.Solids.Immovables.DryWool(
+                new Elements.Common.Solids.Immovables.DryWool(
                     ElementIndex.DryWhiteWool,
                     ElementIndex.WetWhiteWool,
                     ElementCategory.ImmovableSolid,
@@ -549,7 +549,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [051] Dry Wool (Red)
-                new Elements.Solids.Immovables.DryWool(
+                new Elements.Common.Solids.Immovables.DryWool(
                     ElementIndex.DryRedWool,
                     ElementIndex.WetRedWool,
                     ElementCategory.ImmovableSolid,
@@ -560,7 +560,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [052] Dry Wool (Orange)
-                new Elements.Solids.Immovables.DryWool(
+                new Elements.Common.Solids.Immovables.DryWool(
                     ElementIndex.DryOrangeWool,
                     ElementIndex.WetOrangeWool,
                     ElementCategory.ImmovableSolid,
@@ -571,7 +571,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [053] Dry Wool (Yellow)
-                new Elements.Solids.Immovables.DryWool(
+                new Elements.Common.Solids.Immovables.DryWool(
                     ElementIndex.DryYellowWool,
                     ElementIndex.WetYellowWool,
                     ElementCategory.ImmovableSolid,
@@ -582,7 +582,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [054] Dry Wool (Green)
-                new Elements.Solids.Immovables.DryWool(
+                new Elements.Common.Solids.Immovables.DryWool(
                     ElementIndex.DryGreenWool,
                     ElementIndex.WetGreenWool,
                     ElementCategory.ImmovableSolid,
@@ -593,7 +593,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [055] Dry Wool (Gray)
-                new Elements.Solids.Immovables.DryWool(
+                new Elements.Common.Solids.Immovables.DryWool(
                     ElementIndex.DryGrayWool,
                     ElementIndex.WetGrayWool,
                     ElementCategory.ImmovableSolid,
@@ -604,7 +604,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [056] Dry Wool (Blue)
-                new Elements.Solids.Immovables.DryWool(
+                new Elements.Common.Solids.Immovables.DryWool(
                     ElementIndex.DryBlueWool,
                     ElementIndex.WetBlueWool,
                     ElementCategory.ImmovableSolid,
@@ -615,7 +615,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [057] Dry Wool (Violet)
-                new Elements.Solids.Immovables.DryWool(
+                new Elements.Common.Solids.Immovables.DryWool(
                     ElementIndex.DryVioletWool,
                     ElementIndex.WetVioletWool,
                     ElementCategory.ImmovableSolid,
@@ -626,7 +626,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [058] Dry Wool (Brown)
-                new Elements.Solids.Immovables.DryWool(
+                new Elements.Common.Solids.Immovables.DryWool(
                     ElementIndex.DryBrownWool,
                     ElementIndex.WetBrownWool,
                     ElementCategory.ImmovableSolid,
@@ -637,7 +637,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [059] Wet Wool (Black)
-                new Elements.Solids.Immovables.WetWool(
+                new Elements.Common.Solids.Immovables.WetWool(
                     ElementIndex.WetBlackWool,
                     ElementIndex.DryBlackWool,
                     ElementCategory.ImmovableSolid,
@@ -648,7 +648,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [060] Wet Wool (White)
-                new Elements.Solids.Immovables.WetWool(
+                new Elements.Common.Solids.Immovables.WetWool(
                     ElementIndex.WetWhiteWool,
                     ElementIndex.DryWhiteWool,
                     ElementCategory.ImmovableSolid,
@@ -659,7 +659,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [061] Wet Wool (Red)
-                new Elements.Solids.Immovables.WetWool(
+                new Elements.Common.Solids.Immovables.WetWool(
                     ElementIndex.WetRedWool,
                     ElementIndex.DryRedWool,
                     ElementCategory.ImmovableSolid,
@@ -670,7 +670,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [062] Wet Wool (Orange)
-                new Elements.Solids.Immovables.WetWool(
+                new Elements.Common.Solids.Immovables.WetWool(
                     ElementIndex.WetOrangeWool,
                     ElementIndex.DryOrangeWool,
                     ElementCategory.ImmovableSolid,
@@ -681,7 +681,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [063] Wet Wool (Yellow)
-                new Elements.Solids.Immovables.WetWool(
+                new Elements.Common.Solids.Immovables.WetWool(
                     ElementIndex.WetYellowWool,
                     ElementIndex.DryYellowWool,
                     ElementCategory.ImmovableSolid,
@@ -692,7 +692,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [064] Wet Wool (Green)
-                new Elements.Solids.Immovables.WetWool(
+                new Elements.Common.Solids.Immovables.WetWool(
                     ElementIndex.WetGreenWool,
                     ElementIndex.DryGreenWool,
                     ElementCategory.ImmovableSolid,
@@ -703,7 +703,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [065] Wet Wool (Gray)
-                new Elements.Solids.Immovables.WetWool(
+                new Elements.Common.Solids.Immovables.WetWool(
                     ElementIndex.WetGrayWool,
                     ElementIndex.DryGrayWool,
                     ElementCategory.ImmovableSolid,
@@ -714,7 +714,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [066] Wet Wool (Blue)
-                new Elements.Solids.Immovables.WetWool(
+                new Elements.Common.Solids.Immovables.WetWool(
                     ElementIndex.WetBlueWool,
                     ElementIndex.DryBlueWool,
                     ElementCategory.ImmovableSolid,
@@ -725,7 +725,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [067] Wet Wool (Violet)
-                new Elements.Solids.Immovables.WetWool(
+                new Elements.Common.Solids.Immovables.WetWool(
                     ElementIndex.WetVioletWool,
                     ElementIndex.DryVioletWool,
                     ElementCategory.ImmovableSolid,
@@ -736,7 +736,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [068] Wet Wool (Brown)
-                new Elements.Solids.Immovables.WetWool(
+                new Elements.Common.Solids.Immovables.WetWool(
                     ElementIndex.WetBrownWool,
                     ElementIndex.DryBrownWool,
                     ElementCategory.ImmovableSolid,
@@ -747,7 +747,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [069] Fertile Soil
-                new Elements.Solids.Movables.FertileSoil(
+                new Elements.Common.Solids.Movables.FertileSoil(
                     ElementIndex.FertileSoil,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Blob,
@@ -757,7 +757,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [070] Seed
-                new Elements.Solids.Movables.Seed(
+                new Elements.Common.Solids.Movables.Seed(
                     ElementIndex.Seed,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Single,
@@ -767,7 +767,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [071] Sapling
-                new Elements.Solids.Movables.Sapling(
+                new Elements.Common.Solids.Movables.Sapling(
                     ElementIndex.Sapling,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Single,
@@ -777,7 +777,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [072] Moss
-                new Elements.Solids.Immovables.Moss(
+                new Elements.Common.Solids.Immovables.Moss(
                     ElementIndex.Moss,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Blob,
@@ -787,7 +787,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [073] Gunpowder
-                new Elements.Solids.Movables.Gunpowder(
+                new Elements.Common.Solids.Movables.Gunpowder(
                     ElementIndex.Gunpowder,
                     ElementCategory.MovableSolid,
                     ElementRenderingType.Blob,
@@ -797,7 +797,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [074] Liquefied Petroleum Gas
-                new Elements.Gases.LiquefiedPetroleumGas(
+                new Elements.Common.Gases.LiquefiedPetroleumGas(
                     ElementIndex.LiquefiedPetroleumGas,
                     ElementCategory.Gas,
                     ElementRenderingType.Blob,
@@ -807,7 +807,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [075] Obsidian
-                new Elements.Solids.Immovables.Obsidian(
+                new Elements.Common.Solids.Immovables.Obsidian(
                     ElementIndex.Obsidian,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Blob,
@@ -817,7 +817,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [076] Paint (Black)
-                new Elements.Liquids.Paint(
+                new Elements.Common.Liquids.Paint(
                     ElementIndex.BlackPaint,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -827,7 +827,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [077] Paint (White)
-                new Elements.Liquids.Paint(
+                new Elements.Common.Liquids.Paint(
                     ElementIndex.WhitePaint,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -837,7 +837,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [078] Paint (Red)
-                new Elements.Liquids.Paint(
+                new Elements.Common.Liquids.Paint(
                     ElementIndex.RedPaint,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -847,7 +847,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [079] Paint (Orange)
-                new Elements.Liquids.Paint(
+                new Elements.Common.Liquids.Paint(
                     ElementIndex.OrangePaint,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -857,7 +857,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [080] Paint (Yellow)
-                new Elements.Liquids.Paint(
+                new Elements.Common.Liquids.Paint(
                     ElementIndex.YellowPaint,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -867,7 +867,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [081] Paint (Green)
-                new Elements.Liquids.Paint(
+                new Elements.Common.Liquids.Paint(
                     ElementIndex.GreenPaint,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -877,7 +877,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [082] Paint (Cyan)
-                new Elements.Liquids.Paint(
+                new Elements.Common.Liquids.Paint(
                     ElementIndex.CyanPaint,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -887,7 +887,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [083] Paint (Gray)
-                new Elements.Liquids.Paint(
+                new Elements.Common.Liquids.Paint(
                     ElementIndex.GrayPaint,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -897,7 +897,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [084] Paint (Violet)
-                new Elements.Liquids.Paint(
+                new Elements.Common.Liquids.Paint(
                     ElementIndex.VioletPaint,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -907,7 +907,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [085] Paint (Brown)
-                new Elements.Liquids.Paint(
+                new Elements.Common.Liquids.Paint(
                     ElementIndex.BrownPaint,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -917,7 +917,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [086] Mercury
-                new Elements.Liquids.Mercury(
+                new Elements.Common.Liquids.Mercury(
                     ElementIndex.Mercury,
                     ElementCategory.Liquid,
                     ElementRenderingType.Blob,
@@ -927,7 +927,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [087] Electricity
-                new Elements.Energies.Electricity(
+                new Elements.Common.Energies.Electricity(
                     ElementIndex.Electricity,
                     ElementCategory.Energy,
                     ElementRenderingType.Blob,
@@ -937,7 +937,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [088] Battery
-                new Elements.Solids.Immovables.Battery(
+                new Elements.Common.Solids.Immovables.Battery(
                     ElementIndex.Battery,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Single,
@@ -947,7 +947,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [089] Lamp (Off)
-                new Elements.Solids.Immovables.LampOff(
+                new Elements.Common.Solids.Immovables.LampOff(
                     ElementIndex.LampOff,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Single,
@@ -957,7 +957,7 @@ namespace StardustSandbox.Core.Databases
                 ),
 
                 // [090] Energy Transmitter
-                new Elements.Solids.Immovables.EnergyTransmitter(
+                new Elements.Common.Solids.Immovables.EnergyTransmitter(
                     ElementIndex.EnergyTransmitter,
                     ElementCategory.ImmovableSolid,
                     ElementRenderingType.Single,
