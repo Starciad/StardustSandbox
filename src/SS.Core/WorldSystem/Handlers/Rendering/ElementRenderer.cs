@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers.Rendering
             Color referenceColor = slotLayer.Element.RenderingProfile.ReferenceColor;
             Color colorModifier = slotLayer.ColorModifier;
 
-            if (GameplaySettings.ShowTemperatureColorVariations)
+            if (this.GameplaySettings.ShowTemperatureColorVariations)
             {
                 colorModifier = TemperatureConstants.ApplyHeatColor(colorModifier, slotLayer.Temperature);
             }
@@ -70,7 +70,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers.Rendering
                 referenceColor.A
             );
 
-            spriteBatch.Draw(AssetDatabase.GetTexture(TextureIndex.Pixel), new Vector2(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y) * WorldConstants.TILE_SIZE, null, finalColor, 0f, Vector2.Zero, new Vector2(WorldConstants.TILE_SIZE), SpriteEffects.None, 0f);
+            spriteBatch.Draw(this.AssetDatabase.GetTexture(TextureIndex.Pixel), new Vector2(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y) * WorldConstants.TILE_SIZE, null, finalColor, 0f, Vector2.Zero, new Vector2(WorldConstants.TILE_SIZE), SpriteEffects.None, 0f);
         }
 
         internal void Draw(ElementContext context, SpriteBatch spriteBatch)

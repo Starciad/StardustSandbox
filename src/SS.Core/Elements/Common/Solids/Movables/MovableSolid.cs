@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Elements.Common.Solids;
 using StardustSandbox.Core.Elements.Utilities;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Elements;

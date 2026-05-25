@@ -252,7 +252,7 @@ namespace StardustSandbox.Core.WorldSystem
                 return;
             }
 
-            if (options.ShowChunks)
+            if (this.options.ShowChunks)
             {
                 this.chunkHandler.Draw(spriteBatch);
             }

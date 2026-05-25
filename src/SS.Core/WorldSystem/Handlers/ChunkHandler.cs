@@ -97,7 +97,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
                         color = color.Darken(0.25f);
                     }
 
-                    spriteBatch.Draw(assetDatabase.GetTexture(TextureIndex.Pixel), position, null, color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(this.assetDatabase.GetTexture(TextureIndex.Pixel), position, null, color, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
                     chessEffect = !chessEffect;
                 }
 

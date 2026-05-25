@@ -155,7 +155,7 @@ namespace StardustSandbox.Core.Elements.Common.Liquids
 
                 // If the next position is an empty slot layer or contains a liquid/gas element, it is traversable
                 if (context.IsEmptySlotLayer(nextPosition, context.CurrentLayer) ||
-                    element is not null && element.Category is ElementCategory.Liquid or ElementCategory.Gas)
+                    (element is not null && element.Category is ElementCategory.Liquid or ElementCategory.Gas))
                 {
                     steps++;
                     checkPos = nextPosition;
@@ -186,7 +186,7 @@ namespace StardustSandbox.Core.Elements.Common.Liquids
                 }
 
                 // Can disperse to the next position
-                if (context.IsEmptySlotLayer(nextPosition, context.CurrentLayer) || element is not null && element.Category is ElementCategory.Liquid or ElementCategory.Gas)
+                if (context.IsEmptySlotLayer(nextPosition, context.CurrentLayer) || (element is not null && element.Category is ElementCategory.Liquid or ElementCategory.Gas))
                 {
                     dispersionPosition = nextPosition;
                     steps++;

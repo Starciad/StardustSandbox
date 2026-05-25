@@ -53,10 +53,10 @@ namespace StardustSandbox.Core.WorldSystem.Handlers.Rendering
         {
             float xOffset = ElementConstants.SPRITE_X_OFFSET, yOffset = ElementConstants.SPRITE_Y_OFFSET;
 
-            spritePositions[0] = new Vector2(position.X, position.Y) * WorldConstants.TILE_SIZE;
-            spritePositions[1] = new Vector2(position.X + xOffset, position.Y) * WorldConstants.TILE_SIZE;
-            spritePositions[2] = new Vector2(position.X, position.Y + yOffset) * WorldConstants.TILE_SIZE;
-            spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * WorldConstants.TILE_SIZE;
+            this.spritePositions[0] = new Vector2(position.X, position.Y) * WorldConstants.TILE_SIZE;
+            this.spritePositions[1] = new Vector2(position.X + xOffset, position.Y) * WorldConstants.TILE_SIZE;
+            this.spritePositions[2] = new Vector2(position.X, position.Y + yOffset) * WorldConstants.TILE_SIZE;
+            this.spritePositions[3] = new Vector2(position.X + xOffset, position.Y + yOffset) * WorldConstants.TILE_SIZE;
         }
 
         private void UpdateSpriteSlice(ElementContext context, int index, Point position)
@@ -71,10 +71,10 @@ namespace StardustSandbox.Core.WorldSystem.Handlers.Rendering
             GetTargetPositionsFromIndex(index, position);
 
             // Check each of the target positions.
-            for (int i = 0; i < blobInfos.Length; i++)
+            for (int i = 0; i < this.blobInfos.Length; i++)
             {
                 // Get element from target position.
-                if (context.TryGetElementIndex(blobInfos[i].Position, context.CurrentLayer, out ElementIndex targetElement))
+                if (context.TryGetElementIndex(this.blobInfos[i].Position, context.CurrentLayer, out ElementIndex targetElement))
                 {
                     // Check conditions for addition to blob value. If you fail, just continue to the next iteration.
                     if (targetElement != this.Element.Index)
@@ -83,7 +83,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers.Rendering
                     }
 
                     // Upon successful completion of the conditions and steps, add to the blob value.
-                    result += blobInfos[i].BlobValue;
+                    result += this.blobInfos[i].BlobValue;
                 }
             }
 
@@ -96,36 +96,36 @@ namespace StardustSandbox.Core.WorldSystem.Handlers.Rendering
             {
                 // Sprite Piece 1 (Northwest Pivot)
                 case 0:
-                    blobInfos[0] = new(new(position.X - 1, position.Y), (byte)BlobDirection.West);
-                    blobInfos[1] = new(new(position.X - 1, position.Y - 1), (byte)BlobDirection.Northwest);
-                    blobInfos[2] = new(new(position.X, position.Y - 1), (byte)BlobDirection.North);
+                    this.blobInfos[0] = new(new(position.X - 1, position.Y), (byte)BlobDirection.West);
+                    this.blobInfos[1] = new(new(position.X - 1, position.Y - 1), (byte)BlobDirection.Northwest);
+                    this.blobInfos[2] = new(new(position.X, position.Y - 1), (byte)BlobDirection.North);
                     break;
 
                 // Sprite Piece 2 (Northeast Pivot)
                 case 1:
-                    blobInfos[0] = new(new(position.X + 1, position.Y), (byte)BlobDirection.East);
-                    blobInfos[1] = new(new(position.X + 1, position.Y - 1), (byte)BlobDirection.Northeast);
-                    blobInfos[2] = new(new(position.X, position.Y - 1), (byte)BlobDirection.North);
+                    this.blobInfos[0] = new(new(position.X + 1, position.Y), (byte)BlobDirection.East);
+                    this.blobInfos[1] = new(new(position.X + 1, position.Y - 1), (byte)BlobDirection.Northeast);
+                    this.blobInfos[2] = new(new(position.X, position.Y - 1), (byte)BlobDirection.North);
                     break;
 
                 // Sprite Piece 3 (Southwest Pivot)
                 case 2:
-                    blobInfos[0] = new(new(position.X - 1, position.Y), (byte)BlobDirection.West);
-                    blobInfos[1] = new(new(position.X - 1, position.Y + 1), (byte)BlobDirection.Southwest);
-                    blobInfos[2] = new(new(position.X, position.Y + 1), (byte)BlobDirection.South);
+                    this.blobInfos[0] = new(new(position.X - 1, position.Y), (byte)BlobDirection.West);
+                    this.blobInfos[1] = new(new(position.X - 1, position.Y + 1), (byte)BlobDirection.Southwest);
+                    this.blobInfos[2] = new(new(position.X, position.Y + 1), (byte)BlobDirection.South);
                     break;
 
                 // Sprite Piece 4 (Southeast Pivot)
                 case 3:
-                    blobInfos[0] = new(new(position.X + 1, position.Y), (byte)BlobDirection.East);
-                    blobInfos[1] = new(new(position.X + 1, position.Y + 1), (byte)BlobDirection.Southeast);
-                    blobInfos[2] = new(new(position.X, position.Y + 1), (byte)BlobDirection.South);
+                    this.blobInfos[0] = new(new(position.X + 1, position.Y), (byte)BlobDirection.East);
+                    this.blobInfos[1] = new(new(position.X + 1, position.Y + 1), (byte)BlobDirection.Southeast);
+                    this.blobInfos[2] = new(new(position.X, position.Y + 1), (byte)BlobDirection.South);
                     break;
 
                 default:
-                    blobInfos[0] = default;
-                    blobInfos[1] = default;
-                    blobInfos[2] = default;
+                    this.blobInfos[0] = default;
+                    this.blobInfos[1] = default;
+                    this.blobInfos[2] = default;
                     break;
             }
         }
@@ -136,7 +136,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers.Rendering
             {
                 // (Sprite 1 - Northwest Pivot)
                 case 0:
-                    spriteClipAreas[index] = blobValue switch
+                    this.spriteClipAreas[index] = blobValue switch
                     {
                         ElementConstants.BLOB_NORTHWEST_PIVOT_EMPTY => ElementConstants.BLOB_SPRITE_KEY_POINTS[(int)SpriteKeyPoints.Corner_Northwest],
                         ElementConstants.BLOB_NORTHWEST_PIVOT_CASE_1 => ElementConstants.BLOB_SPRITE_KEY_POINTS[(int)SpriteKeyPoints.Horizontal_Edge_Northwest],
@@ -152,7 +152,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers.Rendering
 
                 // (Sprite 2 - Northeast Pivot)
                 case 1:
-                    spriteClipAreas[index] = blobValue switch
+                    this.spriteClipAreas[index] = blobValue switch
                     {
                         ElementConstants.BLOB_NORTHEAST_PIVOT_EMPTY => ElementConstants.BLOB_SPRITE_KEY_POINTS[(int)SpriteKeyPoints.Corner_Northeast],
                         ElementConstants.BLOB_NORTHEAST_PIVOT_CASE_1 => ElementConstants.BLOB_SPRITE_KEY_POINTS[(int)SpriteKeyPoints.Horizontal_Edge_Northeast],
@@ -168,7 +168,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers.Rendering
 
                 // (Sprite 3 - Southwest Pivot)
                 case 2:
-                    spriteClipAreas[index] = blobValue switch
+                    this.spriteClipAreas[index] = blobValue switch
                     {
                         ElementConstants.BLOB_SOUTHWEST_PIVOT_EMPTY => ElementConstants.BLOB_SPRITE_KEY_POINTS[(int)SpriteKeyPoints.Corner_Southwest],
                         ElementConstants.BLOB_SOUTHWEST_PIVOT_CASE_1 => ElementConstants.BLOB_SPRITE_KEY_POINTS[(int)SpriteKeyPoints.Horizontal_Edge_Southwest],
@@ -184,7 +184,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers.Rendering
 
                 // (Sprite 4 - Southeast Pivot)
                 case 3:
-                    spriteClipAreas[index] = blobValue switch
+                    this.spriteClipAreas[index] = blobValue switch
                     {
                         ElementConstants.BLOB_SOUTHEAST_PIVOT_EMPTY => ElementConstants.BLOB_SPRITE_KEY_POINTS[(int)SpriteKeyPoints.Corner_Southeast],
                         ElementConstants.BLOB_SOUTHEAST_PIVOT_CASE_1 => ElementConstants.BLOB_SPRITE_KEY_POINTS[(int)SpriteKeyPoints.Horizontal_Edge_Southeast],
@@ -223,7 +223,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers.Rendering
             for (int i = 0; i < ElementConstants.SPRITE_DIVISIONS_LENGTH; i++)
             {
                 UpdateSpriteSlice(context, i, context.CurrentSlot.Position);
-                spriteBatch.Draw(this.AssetDatabase.GetTexture(TextureIndex.Elements), spritePositions[i], new(this.RenderingProfile.TextureOriginOffset + spriteClipAreas[i].Location, spriteClipAreas[i].Size), colorModifier, 0.0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(this.AssetDatabase.GetTexture(TextureIndex.Elements), this.spritePositions[i], new(this.RenderingProfile.TextureOriginOffset + this.spriteClipAreas[i].Location, this.spriteClipAreas[i].Size), colorModifier, 0.0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.0f);
             }
         }
     }

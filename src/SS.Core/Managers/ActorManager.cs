@@ -223,7 +223,7 @@ namespace StardustSandbox.Core.Managers
                 return;
             }
 
-            RectangleF viewBoundsF = camera.GetViewBounds();
+            RectangleF viewBoundsF = this.camera.GetViewBounds();
 
             // Convert the view boundaries to the world's tile system,
             // ensuring consistency with the culling and update logic.

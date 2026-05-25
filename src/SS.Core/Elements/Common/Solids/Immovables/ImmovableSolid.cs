@@ -15,9 +15,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
-using StardustSandbox.Core.Elements.Common.Solids;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Indexers;
 

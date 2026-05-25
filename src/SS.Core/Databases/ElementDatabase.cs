@@ -810,7 +810,7 @@ namespace StardustSandbox.Core.Databases
                     ElementCategory.ImmovableSolid,
                     new(ElementRenderingType.Blob, AAP64ColorPalette.Brown.Darken(0.65f))
                     {
-                        TextureOriginOffset = new(800, 64),    
+                        TextureOriginOffset = new(800, 64),
                     },
                     gameEvents
                 ),
@@ -832,7 +832,7 @@ namespace StardustSandbox.Core.Databases
                     ElementCategory.MovableSolid,
                     new(ElementRenderingType.Single, AAP64ColorPalette.DarkGreen)
                     {
-                        TextureOriginOffset = new(480, 320),    
+                        TextureOriginOffset = new(480, 320),
                     },
                     gameEvents
                 ),
