@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Common.Solids.Movables
 {
     internal sealed class Seed : MovableSolid
     {
-        internal Seed(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
+        internal Seed(ElementIndex index, ElementCategory category, ElementRenderingProfile renderingProfile, GameEvents gameEvents) : base(index, category, renderingProfile, gameEvents)
         {
             this.InitialTemperature = 25.0f;
             this.BaseFlammabilityResistance = 5.0f;

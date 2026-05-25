@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -18,15 +18,14 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.Elements;
-using StardustSandbox.Core.Enums.Indexers;
 
-namespace StardustSandbox.Core.Elements.Common.Solids
+namespace StardustSandbox.Core.Elements
 {
-    internal abstract class Solid : Element
+    internal sealed class ElementRenderingProfile(ElementRenderingType renderingType, Color referenceColor)
     {
-        internal Solid(ElementIndex index, ElementCategory category, ElementRenderingProfile renderingProfile, GameEvents gameEvents) : base(index, category, renderingProfile, gameEvents)
-        {
+        internal ElementRenderingType RenderingType => renderingType;
+        internal Color ReferenceColor => referenceColor;
 
-        }
+        internal Point TextureOriginOffset { get; init; }
     }
 }

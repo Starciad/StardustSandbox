@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Common.Liquids
 {
     internal sealed class Water : Liquid
     {
-        internal Water(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
+        internal Water(ElementIndex index, ElementCategory category, ElementRenderingProfile renderingProfile, GameEvents gameEvents) : base(index, category, renderingProfile, gameEvents)
         {
             this.BaseDispersionRate = 3;
             this.InitialTemperature = 25.0f;

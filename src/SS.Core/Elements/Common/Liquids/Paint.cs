@@ -27,9 +27,9 @@ namespace StardustSandbox.Core.Elements.Common.Liquids
     {
         private readonly Color dyeingColor;
 
-        internal Paint(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
+        internal Paint(ElementIndex index, ElementCategory category, ElementRenderingProfile renderingProfile, GameEvents gameEvents) : base(index, category, renderingProfile, gameEvents)
         {
-            this.dyeingColor = referenceColor;
+            this.dyeingColor = renderingProfile.ReferenceColor;
             this.InitialTemperature = 20.0f;
             this.BaseDensity = 1.2f;
             this.BaseExplosionResistance = 0.3f;

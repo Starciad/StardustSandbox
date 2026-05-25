@@ -25,7 +25,7 @@ namespace StardustSandbox.Core.Elements.Common.Liquids
 {
     internal sealed class Lava : Liquid
     {
-        internal Lava(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
+        internal Lava(ElementIndex index, ElementCategory category, ElementRenderingProfile renderingProfile, GameEvents gameEvents) : base(index, category, renderingProfile, gameEvents)
         {
             this.InitialTemperature = 1500.0f;
             this.BaseDensity = 2.7f;

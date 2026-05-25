@@ -66,10 +66,14 @@ namespace StardustSandbox.Core.WorldSystem
         private readonly AssetDatabase assetDatabase;
         private readonly ElementDatabase elementDatabase;
 
+        private readonly GameLaunchOptions options;
+
         internal World(
             AssetDatabase assetDatabase,
+            Camera2D camera,
             ElementDatabase elementDatabase,
             GameEvents gameEvents,
+            GameLaunchOptions options,
             GameplaySettings gameplaySettings,
             PlayerInputController playerInputController,
             WorldSerializer worldSerializer
@@ -77,6 +81,7 @@ namespace StardustSandbox.Core.WorldSystem
         {
             this.assetDatabase = assetDatabase;
             this.elementDatabase = elementDatabase;
+            this.options = options;
 
             this.simulation = new();
             this.time = new();
@@ -84,9 +89,9 @@ namespace StardustSandbox.Core.WorldSystem
 
             this.tileMap = new(elementDatabase, gameEvents);
 
-            this.chunkHandler = new(this.TileMap);
+            this.chunkHandler = new(assetDatabase, this.TileMap);
             this.explosionHandler = new(gameEvents, this.tileMap);
-            this.renderingHandler = new(assetDatabase, gameplaySettings, playerInputController, this);
+            this.renderingHandler = new(assetDatabase, camera, gameplaySettings, playerInputController, this);
             this.updateHandler = new(this);
 
             this.elementContext = new(this);
@@ -240,7 +245,7 @@ namespace StardustSandbox.Core.WorldSystem
             this.explosionHandler.HandleExplosions();
         }
 
-        internal void Draw(SpriteBatch spriteBatch, Camera2D camera, GameLaunchOptions options)
+        internal void Draw(SpriteBatch spriteBatch)
         {
             if (!this.CanDraw)
             {
@@ -249,10 +254,10 @@ namespace StardustSandbox.Core.WorldSystem
 
             if (options.ShowChunks)
             {
-                this.chunkHandler.Draw(spriteBatch, this.assetDatabase);
+                this.chunkHandler.Draw(spriteBatch);
             }
 
-            this.renderingHandler.Draw(spriteBatch, this.assetDatabase, camera);
+            this.renderingHandler.Draw(spriteBatch);
         }
     }
 }

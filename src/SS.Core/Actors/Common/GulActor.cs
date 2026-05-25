@@ -353,12 +353,12 @@ namespace StardustSandbox.Core.Actors.Common
                         (this.PositionX * SpriteConstants.SPRITE_SCALE) + (this.direction is Direction.Right ? 12.0f * (float)this.direction : 4.0f),
                         (this.PositionY * SpriteConstants.SPRITE_SCALE) + 16.0f
                     ),
-                    new(this.GrabbedElement.RenderingType switch
+                    new(this.GrabbedElement.RenderingProfile.RenderingType switch
                     {
                         ElementRenderingType.Single => Point.Zero,
                         ElementRenderingType.Blob => new(32, 0),
                         _ => Point.Zero,
-                    } + this.GrabbedElement.TextureOriginOffset, new(SpriteConstants.SPRITE_SCALE)),
+                    } + this.GrabbedElement.RenderingProfile.TextureOriginOffset, new(SpriteConstants.SPRITE_SCALE)),
                     Color.White,
                     0.0f,
                     Vector2.Zero,

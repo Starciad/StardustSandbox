@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.Elements.Common.Solids.Movables
 {
     internal sealed class Ice : MovableSolid
     {
-        internal Ice(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
+        internal Ice(ElementIndex index, ElementCategory category, ElementRenderingProfile renderingProfile, GameEvents gameEvents) : base(index, category, renderingProfile, gameEvents)
         {
             this.BaseDensity = 0.92f;
             this.BaseExplosionResistance = 1.2f;

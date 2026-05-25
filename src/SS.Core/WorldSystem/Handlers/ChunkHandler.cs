@@ -38,10 +38,12 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
 
         private Chunk[,] chunks;
 
+        private readonly AssetDatabase assetDatabase;
         private readonly TileMap tileMap;
 
-        internal ChunkHandler(TileMap tileMap)
+        internal ChunkHandler(AssetDatabase assetDatabase, TileMap tileMap)
         {
+            this.assetDatabase = assetDatabase;
             this.tileMap = tileMap;
             Reset();
         }
@@ -76,7 +78,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch, AssetDatabase assetDatabase)
+        internal void Draw(SpriteBatch spriteBatch)
         {
             bool chessEffect = false;
 

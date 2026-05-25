@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.Elements.Common.Energies
 {
     internal abstract class Energy : Element
     {
-        internal Energy(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
+        internal Energy(ElementIndex index, ElementCategory category, ElementRenderingProfile renderingProfile, GameEvents gameEvents) : base(index, category, renderingProfile, gameEvents)
         {
 
         }

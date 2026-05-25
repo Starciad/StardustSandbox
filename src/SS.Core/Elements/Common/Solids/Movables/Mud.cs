@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.Elements.Common.Solids.Movables
 {
     internal sealed class Mud : MovableSolid
     {
-        internal Mud(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
+        internal Mud(ElementIndex index, ElementCategory category, ElementRenderingProfile renderingProfile, GameEvents gameEvents) : base(index, category, renderingProfile, gameEvents)
         {
             this.InitialTemperature = 18.0f;
             this.BaseDensity = 1.5f;

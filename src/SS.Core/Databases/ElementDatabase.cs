@@ -34,9 +34,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.Dirt(
                     ElementIndex.Dirt,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Blob,
-                    new(0, 0),
-                    AAP64ColorPalette.Clay,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Clay)
+                    {
+                        TextureOriginOffset = new(0, 0),
+                    },
                     gameEvents
                 ),
 
@@ -44,9 +45,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.Mud(
                     ElementIndex.Mud,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Blob,
-                    new(0, 32),
-                    new(87, 44, 45),
+                    new(ElementRenderingType.Blob, new(87, 44, 45))
+                    {
+                        TextureOriginOffset = new(0, 32),
+                    },
                     gameEvents
                 ),
 
@@ -54,9 +56,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Water(
                     ElementIndex.Water,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(0, 64),
-                    new(8, 120, 184),
+                    new(ElementRenderingType.Blob, new(8, 120, 184))
+                    {
+                        TextureOriginOffset = new(0, 64),
+                    },
                     gameEvents
                 ),
 
@@ -64,9 +67,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.Stone(
                     ElementIndex.Stone,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Blob,
-                    new(0, 96),
-                    new(66, 65, 65),
+                    new(ElementRenderingType.Blob, new(66, 65, 65))
+                    {
+                        TextureOriginOffset = new(0, 96),
+                    },
                     gameEvents
                 ),
 
@@ -74,9 +78,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.Grass(
                     ElementIndex.Grass,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Blob,
-                    new(0, 128),
-                    new(69, 110, 55),
+                    new(ElementRenderingType.Blob, new(69, 110, 55))
+                    {
+                        TextureOriginOffset = new(0, 128),
+                    },
                     gameEvents
                 ),
                 
@@ -84,9 +89,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.Ice(
                     ElementIndex.Ice,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Blob,
-                    new(0, 160),
-                    new(34, 112, 255),
+                    new(ElementRenderingType.Blob, new(34, 112, 255))
+                    {
+                        TextureOriginOffset = new(0, 160),
+                    },
                     gameEvents
                 ),
 
@@ -94,9 +100,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.Sand(
                     ElementIndex.Sand,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Blob,
-                    new(0, 192),
-                    new(248, 246, 68),
+                    new(ElementRenderingType.Blob, new(248, 246, 68))
+                    {
+                        TextureOriginOffset = new(0, 192),
+                    },
                     gameEvents
                 ),
 
@@ -104,9 +111,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.Snow(
                     ElementIndex.Snow,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Blob,
-                    new(0, 224),
-                    new(189, 237, 246),
+                    new(ElementRenderingType.Blob, new(189, 237, 246))
+                    {
+                        TextureOriginOffset = new(0, 224),
+                    },
                     gameEvents
                 ),
 
@@ -114,9 +122,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.MovableCorruption(
                     ElementIndex.MovableCorruption,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Blob,
-                    new(0, 256),
-                    AAP64ColorPalette.PurpleGray,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.PurpleGray)
+                    {
+                        TextureOriginOffset = new(0, 256),
+                    },
                     gameEvents
                 ),
                 
@@ -124,9 +133,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Lava(
                     ElementIndex.Lava,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(0, 288),
-                    AAP64ColorPalette.OrangeRed,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.OrangeRed)
+                    {
+                        TextureOriginOffset = new(0, 288),
+                    },
                     gameEvents
                 ),
 
@@ -134,9 +144,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Acid(
                     ElementIndex.Acid,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(160, 0),
-                    new(59, 167, 5),
+                    new(ElementRenderingType.Blob, new(59, 167, 5))
+                    {
+                        TextureOriginOffset = new(160, 0),
+                    },
                     gameEvents
                 ),
 
@@ -144,9 +155,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Glass(
                     ElementIndex.Glass,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(160, 32),
-                    AAP64ColorPalette.White,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.White)
+                    {
+                        TextureOriginOffset = new(160, 32),
+                    },
                     gameEvents
                 ),
 
@@ -154,9 +166,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Iron(
                     ElementIndex.Iron,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(160, 64),
-                    new(66, 66, 66),
+                    new(ElementRenderingType.Blob, new(66, 66, 66))
+                    {
+                        TextureOriginOffset = new(160, 64),
+                    },
                     gameEvents
                 ),
 
@@ -164,9 +177,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Wall(
                     ElementIndex.Wall,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(160, 96),
-                    new(22, 99, 50),
+                    new(ElementRenderingType.Blob, new(22, 99, 50))
+                    {
+                        TextureOriginOffset = new(160, 96),
+                    },
                     gameEvents
                 ),
 
@@ -174,9 +188,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Wood(
                     ElementIndex.Wood,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(160, 128),
-                    new(92, 62, 0),
+                    new(ElementRenderingType.Blob, new(92, 62, 0))
+                    {
+                        TextureOriginOffset = new(160, 128),
+                    },
                     gameEvents
                 ),
 
@@ -184,9 +199,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Gases.GasCorruption(
                     ElementIndex.GasCorruption,
                     ElementCategory.Gas,
-                    ElementRenderingType.Blob,
-                    new(160, 160),
-                    AAP64ColorPalette.PurpleGray,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.PurpleGray)
+                    {
+                        TextureOriginOffset = new(160, 160),
+                    },
                     gameEvents
                 ),
 
@@ -194,9 +210,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.LiquidCorruption(
                     ElementIndex.LiquidCorruption,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(160, 192),
-                    AAP64ColorPalette.PurpleGray,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.PurpleGray)
+                    {
+                        TextureOriginOffset = new(160, 192),
+                    },
                     gameEvents
                 ),
 
@@ -204,9 +221,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.ImmovableCorruption(
                     ElementIndex.ImmovableCorruption,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(160, 224),
-                    AAP64ColorPalette.PurpleGray,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.PurpleGray)
+                    {
+                        TextureOriginOffset = new(160, 224),
+                    },
                     gameEvents
                 ),
 
@@ -214,9 +232,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Gases.Steam(
                     ElementIndex.Steam,
                     ElementCategory.Gas,
-                    ElementRenderingType.Blob,
-                    new(160, 256),
-                    new(171, 208, 218),
+                    new(ElementRenderingType.Blob, new(171, 208, 218))
+                    {
+                        TextureOriginOffset = new(160, 256),
+                    },
                     gameEvents
                 ),
 
@@ -224,9 +243,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Gases.Smoke(
                     ElementIndex.Smoke,
                     ElementCategory.Gas,
-                    ElementRenderingType.Blob,
-                    new(160, 288),
-                    new(48, 48, 48),
+                    new(ElementRenderingType.Blob, new(48, 48, 48))
+                    {
+                        TextureOriginOffset = new(160, 288),
+                    },
                     gameEvents
                 ),
 
@@ -234,9 +254,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Brick(
                     ElementIndex.Brick,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(320, 0),
-                    AAP64ColorPalette.Crimson,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Crimson)
+                    {
+                        TextureOriginOffset = new(320, 0),
+                    },
                     gameEvents
                 ),
 
@@ -244,9 +265,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Leaf(
                     ElementIndex.Leaf,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(320, 32),
-                    AAP64ColorPalette.MossGreen,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.MossGreen)
+                    {
+                        TextureOriginOffset = new(320, 32),
+                    },
                     gameEvents
                 ),
 
@@ -254,9 +276,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.MountingBlock(
                     ElementIndex.MountingBlock,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Single,
-                    new(0, 320),
-                    AAP64ColorPalette.White,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.White)
+                    {
+                        TextureOriginOffset = new(0, 320),
+                    },
                     gameEvents
                 ),
 
@@ -264,9 +287,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Energies.Fire(
                     ElementIndex.Fire,
                     ElementCategory.Energy,
-                    ElementRenderingType.Single,
-                    new(32, 320),
-                    AAP64ColorPalette.Amber,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.Amber)
+                    {
+                        TextureOriginOffset = new(32, 320),
+                    },
                     gameEvents
                 ),
 
@@ -274,9 +298,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.LampOn(
                     ElementIndex.LampOn,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Single,
-                    new(64, 320),
-                    AAP64ColorPalette.Sand,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.Sand)
+                    {
+                        TextureOriginOffset = new(64, 320),
+                    },
                     gameEvents
                 ),
 
@@ -284,9 +309,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Void(
                     ElementIndex.Void,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(320, 64),
-                    AAP64ColorPalette.DarkGray,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.DarkGray)
+                    {
+                        TextureOriginOffset = new(320, 64),
+                    },
                     gameEvents
                 ),
 
@@ -294,9 +320,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Clone(
                     ElementIndex.Clone,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(320, 96),
-                    AAP64ColorPalette.Amber,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Amber)
+                    {
+                        TextureOriginOffset = new(320, 96),
+                    },
                     gameEvents
                 ),
 
@@ -304,9 +331,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Oil(
                     ElementIndex.Oil,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(320, 128),
-                    AAP64ColorPalette.DarkGray,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.DarkGray)
+                    {
+                        TextureOriginOffset = new(320, 128),
+                    },
                     gameEvents
                 ),
 
@@ -314,9 +342,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.Salt(
                     ElementIndex.Salt,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Blob,
-                    new(320, 160),
-                    AAP64ColorPalette.White,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.White)
+                    {
+                        TextureOriginOffset = new(320, 160),
+                    },
                     gameEvents
                 ),
 
@@ -324,9 +353,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Saltwater(
                     ElementIndex.Saltwater,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(320, 192),
-                    new(69, 188, 255),
+                    new(ElementRenderingType.Blob, new(69, 188, 255))
+                    {
+                        TextureOriginOffset = new(320, 192),
+                    },
                     gameEvents
                 ),
 
@@ -334,9 +364,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.Bomb(
                     ElementIndex.Bomb,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Single,
-                    new(96, 320),
-                    AAP64ColorPalette.DarkGray,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.DarkGray)
+                    {
+                        TextureOriginOffset = new(96, 320),
+                    },
                     gameEvents
                 ),
 
@@ -344,9 +375,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.Dynamite(
                     ElementIndex.Dynamite,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Single,
-                    new(128, 320),
-                    AAP64ColorPalette.Crimson.Darken(0.05f),
+                    new(ElementRenderingType.Single, AAP64ColorPalette.Crimson.Darken(0.05f))
+                    {
+                        TextureOriginOffset = new(128, 320),
+                    },
                     gameEvents
                 ),
 
@@ -354,9 +386,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.Tnt(
                     ElementIndex.Tnt,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Single,
-                    new(160, 320),
-                    AAP64ColorPalette.Crimson.Darken(0.1f),
+                    new(ElementRenderingType.Single, AAP64ColorPalette.Crimson.Darken(0.1f))
+                    {
+                        TextureOriginOffset = new(160, 320),
+                    },
                     gameEvents
                 ),
 
@@ -364,9 +397,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.DrySponge(
                     ElementIndex.DrySponge,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(320, 224),
-                    AAP64ColorPalette.Amber,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Amber)
+                    {
+                        TextureOriginOffset = new(320, 224),
+                    },
                     gameEvents
                 ),
 
@@ -374,9 +408,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.WetSponge(
                     ElementIndex.WetSponge,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(320, 256),
-                    AAP64ColorPalette.Amber.Darken(0.1f),
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Amber.Darken(0.1f))
+                    {
+                        TextureOriginOffset = new(320, 256),
+                    },
                     gameEvents
                 ),
 
@@ -384,9 +419,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Gold(
                     ElementIndex.Gold,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Single,
-                    new(192, 320),
-                    AAP64ColorPalette.LemonYellow,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.LemonYellow)
+                    {
+                        TextureOriginOffset = new(192, 320),
+                    },
                     gameEvents
                 ),
 
@@ -395,9 +431,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.Heater,
                     ElementCategory.ImmovableSolid,
                     TemperatureModifierMode.Warming,
-                    ElementRenderingType.Single,
-                    new(224, 320),
-                    AAP64ColorPalette.DarkRed,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.DarkRed)
+                    {
+                        TextureOriginOffset = new(224, 320),
+                    },
                     gameEvents
                 ),
 
@@ -406,9 +443,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.Freezer,
                     ElementCategory.ImmovableSolid,
                     TemperatureModifierMode.Cooling,
-                    ElementRenderingType.Single,
-                    new(256, 320),
-                    AAP64ColorPalette.NavyBlue,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.NavyBlue)
+                    {
+                        TextureOriginOffset = new(256, 320),
+                    },
                     gameEvents
                 ),
 
@@ -416,9 +454,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.Ash(
                     ElementIndex.Ash,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Blob,
-                    new(320, 288),
-                    new(30, 33, 38),
+                    new(ElementRenderingType.Blob, new(30, 33, 38))
+                    {
+                        TextureOriginOffset = new(320, 288),
+                    },
                     gameEvents
                 ),
 
@@ -426,9 +465,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Gases.AntiCorruption(
                     ElementIndex.AntiCorruption,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(480, 0),
-                    AAP64ColorPalette.Crimson,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Crimson)
+                    {
+                        TextureOriginOffset = new(480, 0),
+                    },
                     gameEvents
                 ),
 
@@ -436,9 +476,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Devourer(
                     ElementIndex.Devourer,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Single,
-                    new(288, 320),
-                    AAP64ColorPalette.Coal,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.Coal)
+                    {
+                        TextureOriginOffset = new(288, 320),
+                    },
                     gameEvents
                 ),
 
@@ -446,10 +487,11 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Pusher(
                     ElementIndex.UpwardPusher,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Single,
                     PusherDirection.Up,
-                    new(320, 320),
-                    AAP64ColorPalette.Rust,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.Rust)
+                    {
+                        TextureOriginOffset = new(320, 320),
+                    },
                     gameEvents
                 ),
 
@@ -457,10 +499,11 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Pusher(
                     ElementIndex.RightwardPusher,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Single,
                     PusherDirection.Right,
-                    new(352, 320),
-                    AAP64ColorPalette.Rust,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.Rust)
+                    {
+                        TextureOriginOffset = new(352, 320),
+                    },
                     gameEvents
                 ),
 
@@ -468,10 +511,11 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Pusher(
                     ElementIndex.DownwardPusher,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Single,
                     PusherDirection.Down,
-                    new(384, 320),
-                    AAP64ColorPalette.Rust,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.Rust)
+                    {
+                        TextureOriginOffset = new(384, 320),
+                    },
                     gameEvents
                 ),
 
@@ -479,10 +523,11 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Pusher(
                     ElementIndex.LeftwardPusher,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Single,
                     PusherDirection.Left,
-                    new(416, 320),
-                    AAP64ColorPalette.Rust,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.Rust)
+                    {
+                        TextureOriginOffset = new(416, 320),
+                    },
                     gameEvents
                 ),
 
@@ -490,9 +535,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Gases.Cloud(
                     ElementIndex.Cloud,
                     ElementCategory.Gas,
-                    ElementRenderingType.Blob,
-                    new(480, 32),
-                    AAP64ColorPalette.LightGrayBlue,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.LightGrayBlue)
+                    {
+                        TextureOriginOffset = new(480, 32),
+                    },
                     gameEvents
                 ),
 
@@ -500,9 +546,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Gases.ChargedCloud(
                     ElementIndex.ChargedCloud,
                     ElementCategory.Gas,
-                    ElementRenderingType.Blob,
-                    new(480, 64),
-                    AAP64ColorPalette.Slate,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Slate)
+                    {
+                        TextureOriginOffset = new(480, 64),
+                    },
                     gameEvents
                 ),
 
@@ -510,9 +557,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Energies.LightningHead(
                     ElementIndex.LightningHead,
                     ElementCategory.Energy,
-                    ElementRenderingType.Single,
-                    new(448, 320),
-                    AAP64ColorPalette.White,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.White)
+                    {
+                        TextureOriginOffset = new(448, 320),
+                    },
                     gameEvents
                 ),
 
@@ -520,9 +568,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Energies.LightningBody(
                     ElementIndex.LightningBody,
                     ElementCategory.Energy,
-                    ElementRenderingType.Single,
-                    new(448, 320),
-                    AAP64ColorPalette.White,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.White)
+                    {
+                        TextureOriginOffset = new(448, 320),
+                    },
                     gameEvents
                 ),
 
@@ -531,9 +580,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryBlackWool,
                     ElementIndex.WetBlackWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(480, 96),
-                    AAP64ColorPalette.DarkGray,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.DarkGray)
+                    {
+                        TextureOriginOffset = new(480, 96),
+                    },
                     gameEvents
                 ),
 
@@ -542,9 +592,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryWhiteWool,
                     ElementIndex.WetWhiteWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(480, 128),
-                    AAP64ColorPalette.White,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.White)
+                    {
+                        TextureOriginOffset = new(480, 128),
+                    },
                     gameEvents
                 ),
 
@@ -553,9 +604,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryRedWool,
                     ElementIndex.WetRedWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(480, 160),
-                    AAP64ColorPalette.Crimson,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Crimson)
+                    {
+                        TextureOriginOffset = new(480, 160),
+                    },
                     gameEvents
                 ),
 
@@ -564,9 +616,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryOrangeWool,
                     ElementIndex.WetOrangeWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(480, 192),
-                    AAP64ColorPalette.Orange,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Orange)
+                    {
+                        TextureOriginOffset = new(480, 192),
+                    },
                     gameEvents
                 ),
 
@@ -575,9 +628,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryYellowWool,
                     ElementIndex.WetYellowWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(480, 224),
-                    AAP64ColorPalette.Gold,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Gold)
+                    {
+                        TextureOriginOffset = new(480, 224),
+                    },
                     gameEvents
                 ),
 
@@ -586,9 +640,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryGreenWool,
                     ElementIndex.WetGreenWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(480, 256),
-                    AAP64ColorPalette.ForestGreen,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.ForestGreen)
+                    {
+                        TextureOriginOffset = new(480, 256),
+                    },
                     gameEvents
                 ),
 
@@ -597,9 +652,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryGrayWool,
                     ElementIndex.WetGrayWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(480, 288),
-                    AAP64ColorPalette.Gunmetal,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Gunmetal)
+                    {
+                        TextureOriginOffset = new(480, 288),
+                    },
                     gameEvents
                 ),
 
@@ -608,9 +664,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryBlueWool,
                     ElementIndex.WetBlueWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(640, 0),
-                    AAP64ColorPalette.Cyan,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Cyan)
+                    {
+                        TextureOriginOffset = new(640, 0),
+                    },
                     gameEvents
                 ),
 
@@ -619,9 +676,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryVioletWool,
                     ElementIndex.WetVioletWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(640, 32),
-                    AAP64ColorPalette.Violet,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Violet)
+                    {
+                        TextureOriginOffset = new(640, 32),
+                    },
                     gameEvents
                 ),
 
@@ -630,9 +688,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.DryBrownWool,
                     ElementIndex.WetBrownWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(640, 64),
-                    AAP64ColorPalette.Brown,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Brown)
+                    {
+                        TextureOriginOffset = new(640, 64),
+                    },
                     gameEvents
                 ),
 
@@ -641,9 +700,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetBlackWool,
                     ElementIndex.DryBlackWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(640, 96),
-                    AAP64ColorPalette.DarkGray.Darken(0.65f),
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.DarkGray.Darken(0.65f))
+                    {
+                        TextureOriginOffset = new(640, 96),
+                    },
                     gameEvents
                 ),
 
@@ -652,9 +712,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetWhiteWool,
                     ElementIndex.DryWhiteWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(640, 128),
-                    AAP64ColorPalette.White.Darken(0.65f),
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.White.Darken(0.65f))
+                    {
+                        TextureOriginOffset = new(640, 128),
+                    },
                     gameEvents
                 ),
 
@@ -663,9 +724,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetRedWool,
                     ElementIndex.DryRedWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(640, 160),
-                    AAP64ColorPalette.Crimson.Darken(0.65f),
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Crimson.Darken(0.65f))
+                    {
+                        TextureOriginOffset = new(640, 160),
+                    },
                     gameEvents
                 ),
 
@@ -674,9 +736,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetOrangeWool,
                     ElementIndex.DryOrangeWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(640, 192),
-                    AAP64ColorPalette.Orange.Darken(0.65f),
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Orange.Darken(0.65f))
+                    {
+                        TextureOriginOffset = new(640, 192),
+                    },
                     gameEvents
                 ),
 
@@ -685,9 +748,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetYellowWool,
                     ElementIndex.DryYellowWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(640, 224),
-                    AAP64ColorPalette.Gold.Darken(0.65f),
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Gold.Darken(0.65f))
+                    {
+                        TextureOriginOffset = new(640, 224),
+                    },
                     gameEvents
                 ),
 
@@ -696,9 +760,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetGreenWool,
                     ElementIndex.DryGreenWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(640, 256),
-                    AAP64ColorPalette.ForestGreen.Darken(0.65f),
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.ForestGreen.Darken(0.65f))
+                    {
+                        TextureOriginOffset = new(640, 256),
+                    },
                     gameEvents
                 ),
 
@@ -707,9 +772,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetGrayWool,
                     ElementIndex.DryGrayWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(640, 288),
-                    AAP64ColorPalette.Gunmetal.Darken(0.65f),
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Gunmetal.Darken(0.65f))
+                    {
+                        TextureOriginOffset = new(640, 288),
+                    },
                     gameEvents
                 ),
 
@@ -718,9 +784,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetBlueWool,
                     ElementIndex.DryBlueWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(800, 0),
-                    AAP64ColorPalette.Cyan.Darken(0.65f),
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Cyan.Darken(0.65f))
+                    {
+                        TextureOriginOffset = new(800, 0),
+                    },
                     gameEvents
                 ),
 
@@ -729,9 +796,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetVioletWool,
                     ElementIndex.DryVioletWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(800, 32),
-                    AAP64ColorPalette.Violet.Darken(0.65f),
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Violet.Darken(0.65f))
+                    {
+                        TextureOriginOffset = new(800, 32),
+                    },
                     gameEvents
                 ),
 
@@ -740,9 +808,10 @@ namespace StardustSandbox.Core.Databases
                     ElementIndex.WetBrownWool,
                     ElementIndex.DryBrownWool,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(800, 64),
-                    AAP64ColorPalette.Brown.Darken(0.65f),
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Brown.Darken(0.65f))
+                    {
+                        TextureOriginOffset = new(800, 64),    
+                    },
                     gameEvents
                 ),
 
@@ -750,9 +819,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.FertileSoil(
                     ElementIndex.FertileSoil,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Blob,
-                    new(800, 96),
-                    AAP64ColorPalette.Burgundy,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Burgundy)
+                    {
+                        TextureOriginOffset = new(800, 96),
+                    },
                     gameEvents
                 ),
 
@@ -760,9 +830,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.Seed(
                     ElementIndex.Seed,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Single,
-                    new(480, 320),
-                    AAP64ColorPalette.DarkGreen,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.DarkGreen)
+                    {
+                        TextureOriginOffset = new(480, 320),    
+                    },
                     gameEvents
                 ),
 
@@ -770,9 +841,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.Sapling(
                     ElementIndex.Sapling,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Single,
-                    new(512, 320),
-                    AAP64ColorPalette.DarkTeal,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.DarkTeal)
+                    {
+                        TextureOriginOffset = new(512, 320),
+                    },
                     gameEvents
                 ),
 
@@ -780,9 +852,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Moss(
                     ElementIndex.Moss,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(800, 128),
-                    AAP64ColorPalette.PineGreen,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.PineGreen)
+                    {
+                        TextureOriginOffset = new(800, 128),
+                    },
                     gameEvents
                 ),
 
@@ -790,9 +863,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Movables.Gunpowder(
                     ElementIndex.Gunpowder,
                     ElementCategory.MovableSolid,
-                    ElementRenderingType.Blob,
-                    new(800, 160),
-                    AAP64ColorPalette.Graphite,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Graphite)
+                    {
+                        TextureOriginOffset = new(800, 160),
+                    },
                     gameEvents
                 ),
 
@@ -800,9 +874,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Gases.LiquefiedPetroleumGas(
                     ElementIndex.LiquefiedPetroleumGas,
                     ElementCategory.Gas,
-                    ElementRenderingType.Blob,
-                    new(800, 192),
-                    AAP64ColorPalette.Amber,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Amber)
+                    {
+                        TextureOriginOffset = new(800, 192),
+                    },
                     gameEvents
                 ),
 
@@ -810,9 +885,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Obsidian(
                     ElementIndex.Obsidian,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Blob,
-                    new(800, 224),
-                    AAP64ColorPalette.DarkGray,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.DarkGray)
+                    {
+                        TextureOriginOffset = new(800, 224),
+                    },
                     gameEvents
                 ),
 
@@ -820,9 +896,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Paint(
                     ElementIndex.BlackPaint,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(800, 256),
-                    AAP64ColorPalette.DarkGray,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.DarkGray)
+                    {
+                        TextureOriginOffset = new(800, 256),
+                    },
                     gameEvents
                 ),
 
@@ -830,9 +907,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Paint(
                     ElementIndex.WhitePaint,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(800, 288),
-                    AAP64ColorPalette.White,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.White)
+                    {
+                        TextureOriginOffset = new(800, 288),
+                    },
                     gameEvents
                 ),
 
@@ -840,9 +918,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Paint(
                     ElementIndex.RedPaint,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(960, 0),
-                    AAP64ColorPalette.Crimson,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Crimson)
+                    {
+                        TextureOriginOffset = new(960, 0),
+                    },
                     gameEvents
                 ),
 
@@ -850,9 +929,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Paint(
                     ElementIndex.OrangePaint,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(960, 32),
-                    AAP64ColorPalette.Orange,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Orange)
+                    {
+                        TextureOriginOffset = new(960, 32),
+                    },
                     gameEvents
                 ),
 
@@ -860,9 +940,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Paint(
                     ElementIndex.YellowPaint,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(960, 64),
-                    AAP64ColorPalette.Gold,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Gold)
+                    {
+                        TextureOriginOffset = new(960, 64),
+                    },
                     gameEvents
                 ),
 
@@ -870,9 +951,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Paint(
                     ElementIndex.GreenPaint,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(960, 96),
-                    AAP64ColorPalette.ForestGreen,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.ForestGreen)
+                    {
+                        TextureOriginOffset = new(960, 96),
+                    },
                     gameEvents
                 ),
 
@@ -880,9 +962,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Paint(
                     ElementIndex.CyanPaint,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(960, 128),
-                    AAP64ColorPalette.Cyan,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Cyan)
+                    {
+                        TextureOriginOffset = new(960, 128),
+                    },
                     gameEvents
                 ),
 
@@ -890,9 +973,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Paint(
                     ElementIndex.GrayPaint,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(960, 160),
-                    AAP64ColorPalette.Gunmetal,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Gunmetal)
+                    {
+                        TextureOriginOffset = new(960, 160),
+                    },
                     gameEvents
                 ),
 
@@ -900,9 +984,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Paint(
                     ElementIndex.VioletPaint,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(960, 192),
-                    AAP64ColorPalette.Violet,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Violet)
+                    {
+                        TextureOriginOffset = new(960, 192),
+                    },
                     gameEvents
                 ),
 
@@ -910,9 +995,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Paint(
                     ElementIndex.BrownPaint,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(960, 224),
-                    AAP64ColorPalette.Brown,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Brown)
+                    {
+                        TextureOriginOffset = new(960, 224),
+                    },
                     gameEvents
                 ),
 
@@ -920,9 +1006,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Liquids.Mercury(
                     ElementIndex.Mercury,
                     ElementCategory.Liquid,
-                    ElementRenderingType.Blob,
-                    new(960, 256),
-                    AAP64ColorPalette.Slate,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Slate)
+                    {
+                        TextureOriginOffset = new(960, 256),
+                    },
                     gameEvents
                 ),
 
@@ -930,9 +1017,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Energies.Electricity(
                     ElementIndex.Electricity,
                     ElementCategory.Energy,
-                    ElementRenderingType.Blob,
-                    new(960, 288),
-                    AAP64ColorPalette.Gold,
+                    new(ElementRenderingType.Blob, AAP64ColorPalette.Gold)
+                    {
+                        TextureOriginOffset = new(960, 288),
+                    },
                     gameEvents
                 ),
 
@@ -940,9 +1028,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.Battery(
                     ElementIndex.Battery,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Single,
-                    new(576, 320),
-                    AAP64ColorPalette.Orange,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.Orange)
+                    {
+                        TextureOriginOffset = new(576, 320),
+                    },
                     gameEvents
                 ),
 
@@ -950,9 +1039,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.LampOff(
                     ElementIndex.LampOff,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Single,
-                    new(544, 320),
-                    AAP64ColorPalette.Brown,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.Brown)
+                    {
+                        TextureOriginOffset = new(544, 320),
+                    },
                     gameEvents
                 ),
 
@@ -960,9 +1050,10 @@ namespace StardustSandbox.Core.Databases
                 new Elements.Common.Solids.Immovables.EnergyTransmitter(
                     ElementIndex.EnergyTransmitter,
                     ElementCategory.ImmovableSolid,
-                    ElementRenderingType.Single,
-                    new(608, 320),
-                    AAP64ColorPalette.Brown,
+                    new(ElementRenderingType.Single, AAP64ColorPalette.Brown)
+                    {
+                        TextureOriginOffset = new(608, 320),
+                    },
                     gameEvents
                 )
             ];

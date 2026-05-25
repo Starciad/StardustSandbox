@@ -27,7 +27,7 @@ namespace StardustSandbox.Core.Elements.Common.Solids.Immovables
 {
     internal sealed class Battery : ImmovableSolid
     {
-        internal Battery(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
+        internal Battery(ElementIndex index, ElementCategory category, ElementRenderingProfile renderingProfile, GameEvents gameEvents) : base(index, category, renderingProfile, gameEvents)
         {
             this.InitialTemperature = 20.0f;
             this.BaseFlammabilityResistance = 25.0f;

@@ -28,7 +28,7 @@ namespace StardustSandbox.Core.Elements.Common.Solids.Movables
 {
     internal sealed class MovableCorruption : MovableSolid
     {
-        internal MovableCorruption(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
+        internal MovableCorruption(ElementIndex index, ElementCategory category, ElementRenderingProfile renderingProfile, GameEvents gameEvents) : base(index, category, renderingProfile, gameEvents)
         {
             this.BaseDensity = 1.4f;
             this.BaseExplosionResistance = 0.8f;

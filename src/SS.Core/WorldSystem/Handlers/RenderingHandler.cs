@@ -29,6 +29,7 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Serialization.Settings;
+using StardustSandbox.Core.WorldSystem.Handlers.Rendering;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
@@ -40,19 +41,29 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
         internal bool DrawForegroundElements { get; set; } = true;
         internal bool DrawBackgroundElements { get; set; } = true;
 
+        private readonly ElementRenderer[] renderers;
+
         private readonly AssetDatabase assetDatabase;
+        private readonly Camera2D camera;
         private readonly ElementContext elementRenderingContext;
         private readonly GameplaySettings gameplaySettings;
         private readonly PlayerInputController playerInputController;
         private readonly World world;
 
-        internal RenderingHandler(AssetDatabase assetDatabase, GameplaySettings gameplaySettings, PlayerInputController playerInputController, World world)
+        internal RenderingHandler(AssetDatabase assetDatabase, Camera2D camera, GameplaySettings gameplaySettings, PlayerInputController playerInputController, World world)
         {
             this.assetDatabase = assetDatabase;
+            this.camera = camera;
             this.elementRenderingContext = new(world);
             this.gameplaySettings = gameplaySettings;
             this.playerInputController = playerInputController;
             this.world = world;
+
+            this.renderers =
+            [
+                new SingleElementRenderer(assetDatabase, camera, gameplaySettings),
+                new BlobElementRenderer(assetDatabase, camera, gameplaySettings),
+            ];
         }
 
         private void DrawWorldBorder(SpriteBatch spriteBatch, AssetDatabase assetDatabase)
@@ -122,11 +133,11 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch, AssetDatabase assetDatabase, Camera2D camera)
+        internal void Draw(SpriteBatch spriteBatch)
         {
             DrawWorldBorder(spriteBatch, assetDatabase);
 
-            RectangleF viewBounds = camera.GetViewBounds();
+            RectangleF viewBounds = this.camera.GetViewBounds();
 
             // Converts the visible world area to tile indexes
             int minTileX = (int)Math.Clamp(Math.Floor(viewBounds.Left / WorldConstants.TILE_SIZE), 0, this.world.TileMap.Width);
@@ -149,22 +160,22 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
                     {
                         if (this.DrawBackgroundElements && !slot.Background.IsEmpty)
                         {
-                            DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Background, slot.GetLayer(Layer.Background).Element, this.gameplaySettings);
+                            DrawSlotLayer(spriteBatch, slot.Position, Layer.Background, slot.GetLayer(Layer.Background).Element);
                         }
 
                         if (this.DrawForegroundElements && !slot.Foreground.IsEmpty)
                         {
-                            DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Foreground, slot.GetLayer(Layer.Foreground).Element, this.gameplaySettings);
+                            DrawSlotLayer(spriteBatch, slot.Position, Layer.Foreground, slot.GetLayer(Layer.Foreground).Element);
                         }
                     }
                 }
             }
         }
 
-        private void DrawSlotLayer(SpriteBatch spriteBatch, Camera2D camera, Point position, Layer layer, Element element, GameplaySettings gameplaySettings)
+        private void DrawSlotLayer(SpriteBatch spriteBatch, Point position, Layer layer, Element element)
         {
             this.elementRenderingContext.Initialize(position, layer);
-            ElementRenderer.Draw(this.elementRenderingContext, element, spriteBatch, this.assetDatabase, camera, element.TextureOriginOffset, gameplaySettings);
+            this.renderers[(int)element.RenderingProfile.RenderingType].Draw(this.elementRenderingContext, spriteBatch);
         }
     }
 }

@@ -54,12 +54,14 @@ namespace StardustSandbox.Core.Managers
         private readonly Queue<Actor> actorsToRemove = [];
 
         private readonly ActorDatabase actorDatabase;
+        private readonly Camera2D camera;
         private readonly World world;
         private readonly WorldSerializer worldSerializer;
 
-        internal ActorManager(ActorDatabase actorDatabase, World world, WorldSerializer worldSerializer)
+        internal ActorManager(ActorDatabase actorDatabase, Camera2D camera, World world, WorldSerializer worldSerializer)
         {
             this.actorDatabase = actorDatabase;
+            this.camera = camera;
             this.world = world;
             this.worldSerializer = worldSerializer;
         }
@@ -214,7 +216,7 @@ namespace StardustSandbox.Core.Managers
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch, Camera2D camera)
+        internal void Draw(SpriteBatch spriteBatch)
         {
             if (!this.CanDraw)
             {

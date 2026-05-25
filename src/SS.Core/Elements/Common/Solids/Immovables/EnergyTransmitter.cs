@@ -29,7 +29,7 @@ namespace StardustSandbox.Core.Elements.Common.Solids.Immovables
 {
     internal sealed class EnergyTransmitter : ImmovableSolid
     {
-        internal EnergyTransmitter(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
+        internal EnergyTransmitter(ElementIndex index, ElementCategory category, ElementRenderingProfile renderingProfile, GameEvents gameEvents) : base(index, category, renderingProfile, gameEvents)
         {
             this.InitialTemperature = 25.0f;
             this.BaseFlammabilityResistance = 30.0f;

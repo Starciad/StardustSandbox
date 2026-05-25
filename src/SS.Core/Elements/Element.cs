@@ -33,10 +33,7 @@ namespace StardustSandbox.Core.Elements
     {
         internal ElementIndex Index { get; }
         internal ElementCategory Category { get; }
-        internal ElementRenderingType RenderingType { get; }
-        internal Point TextureOriginOffset { get; }
-        internal Color ReferenceColor { get; }
-
+        internal ElementRenderingProfile RenderingProfile { get; }
         protected GameEvents GameEvents { get; }
 
         public float BaseDensity { get; protected init; }
@@ -58,13 +55,11 @@ namespace StardustSandbox.Core.Elements
 
         private ElementContext context;
 
-        internal Element(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents)
+        internal Element(ElementIndex index, ElementCategory category, ElementRenderingProfile renderingProfile, GameEvents gameEvents)
         {
             this.Index = index;
             this.Category = category;
-            this.RenderingType = renderingType;
-            this.TextureOriginOffset = textureOriginOffset;
-            this.ReferenceColor = referenceColor;
+            this.RenderingProfile = renderingProfile;
             this.GameEvents = gameEvents;
         }
 

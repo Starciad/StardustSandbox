@@ -123,6 +123,45 @@ namespace StardustSandbox.Core.Constants
         internal const byte BLOB_SOUTHEAST_PIVOT_CASE_6 = 20;
         internal const byte BLOB_SOUTHEAST_PIVOT_SURROUNDED = 28;
 
+        // The sprite sheet is organized in a way that each sprite corresponds
+        // to a specific configuration of neighboring elements. The constants
+        // above represent the binary encoding of these configurations for each
+        // pivot point. The system uses these constants to determine which sprite
+        // to use based on the presence or absence of neighboring elements in the
+        // four cardinal directions (North, East, South, West) around the pivot point.
+
+        internal static readonly Rectangle[] BLOB_SPRITE_KEY_POINTS = [
+            // Full 0, 1, 2, 3
+            new(00, 00, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+            new(16, 00, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+            new(00, 16, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+            new(16, 16, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+
+            // Corner 4, 5, 6, 7
+            new(32, 00, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+            new(48, 00, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+            new(32, 16, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+            new(48, 16, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+
+            // Vertical Edge 8, 9, 10, 11
+            new(64, 00, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+            new(80, 00, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+            new(64, 16, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+            new(80, 16, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+
+            // Horizontal Border 12, 13, 14, 15
+            new(096, 00, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+            new(112, 00, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+            new(096, 16, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+            new(112, 16, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+
+            // Gaps 16, 17, 18, 19
+            new(128, 00, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+            new(144, 00, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+            new(128, 16, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+            new(144, 16, SPRITE_SLICE_SIZE, SPRITE_SLICE_SIZE),
+        ];
+
         #endregion
 
         #endregion
