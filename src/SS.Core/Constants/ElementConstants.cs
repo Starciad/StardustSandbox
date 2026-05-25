@@ -123,12 +123,14 @@ namespace StardustSandbox.Core.Constants
         internal const byte BLOB_SOUTHEAST_PIVOT_CASE_6 = 20;
         internal const byte BLOB_SOUTHEAST_PIVOT_SURROUNDED = 28;
 
-        // The sprite sheet is organized in a way that each sprite corresponds
-        // to a specific configuration of neighboring elements. The constants
-        // above represent the binary encoding of these configurations for each
-        // pivot point. The system uses these constants to determine which sprite
-        // to use based on the presence or absence of neighboring elements in the
-        // four cardinal directions (North, East, South, West) around the pivot point.
+        /*
+         * The sprite sheet is organized in a way that each sprite corresponds
+         * to a specific configuration of neighboring elements. The constants
+         * above represent the binary encoding of these configurations for each
+         * pivot point. The system uses these constants to determine which sprite
+         * to use based on the presence or absence of neighboring elements in the
+         * four cardinal directions (North, East, South, West) around the pivot point.
+        */
 
         internal static readonly Rectangle[] BLOB_SPRITE_KEY_POINTS = [
             // Full 0, 1, 2, 3

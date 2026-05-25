@@ -33,6 +33,7 @@ namespace StardustSandbox.Core.Elements.Common.Liquids
             this.InitialTemperature = 25.0f;
             this.BaseDensity = 1.0f;
             this.BaseExplosionResistance = 0.2f;
+            this.BaseDispersionRate = 1;
 
             this.HasNeighborInteractions = true;
             this.HasTemperature = true;
