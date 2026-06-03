@@ -23,17 +23,23 @@ using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
 
-namespace StardustSandbox.Core.Serialization.Worlds
+namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 {
     [Serializable]
     [MessagePackObject]
     public sealed class SlotData
     {
-        [Key("BackgroundLayer")]
+        [Key(0)]
         public SlotLayerData BackgroundLayer { get; set; }
 
-        [Key("ForegroundLayer")]
+        [Key(1)]
         public SlotLayerData ForegroundLayer { get; set; }
+
+        [Key(2)]
+        public int PositionX { get; set; }
+
+        [Key(3)]
+        public int PositionY { get; set; }
 
         [IgnoreMember]
         public Point Position
@@ -46,12 +52,6 @@ namespace StardustSandbox.Core.Serialization.Worlds
                 this.PositionY = value.Y;
             }
         }
-
-        [Key("PositionX")]
-        public int PositionX { get; set; }
-
-        [Key("PositionY")]
-        public int PositionY { get; set; }
 
         public SlotData()
         {

@@ -15,23 +15,12 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using MessagePack;
-
-using StardustSandbox.Core.Enums.Indexers;
-
-using System;
-using System.Collections.Generic;
-
-namespace StardustSandbox.Core.Serialization.Worlds
+namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
 {
-    [Serializable]
-    [MessagePackObject]
-    public sealed class ActorData
+    public sealed class ContentStorageModel
     {
-        [Key("Content")]
-        public IReadOnlyDictionary<string, object> Content { get; set; }
-
-        [Key("Index")]
-        public required ActorIndex Index { get; set; }
+        public ActorStorageModel[] Actors { get; set; }
+        public SlotStorageModel[] Slots { get; set; }
     }
 }
+

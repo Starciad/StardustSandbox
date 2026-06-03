@@ -17,32 +17,21 @@
 
 using MessagePack;
 
-using Microsoft.Xna.Framework;
+using StardustSandbox.Core.Enums.Indexers;
 
 using System;
+using System.Collections.Generic;
 
-namespace StardustSandbox.Core.Serialization.Worlds
+namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class PropertyData
+    public sealed class ActorData
     {
-        [Key("Height")]
-        public int Height { get; set; }
+        [Key(0)]
+        public IReadOnlyDictionary<string, object> Content { get; set; }
 
-        [IgnoreMember]
-        public Point Size
-        {
-            get => new(this.Width, this.Height);
-            set
-            {
-                this.Width = value.X;
-                this.Height = value.Y;
-            }
-        }
-
-        [Key("Width")]
-        public int Width { get; set; }
+        [Key(1)]
+        public ActorIndex Index { get; set; }
     }
 }
-

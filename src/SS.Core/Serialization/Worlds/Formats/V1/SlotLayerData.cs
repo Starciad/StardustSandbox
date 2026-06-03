@@ -25,12 +25,39 @@ using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
 
-namespace StardustSandbox.Core.Serialization.Worlds
+namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 {
     [Serializable]
     [MessagePackObject]
     public sealed class SlotLayerData
     {
+        [Key(0)]
+        public byte ColorModifierA { get; set; }
+
+        [Key(1)]
+        public byte ColorModifierB { get; set; }
+
+        [Key(2)]
+        public byte ColorModifierG { get; set; }
+
+        [Key(3)]
+        public byte ColorModifierR { get; set; }
+
+        [Key(4)]
+        public ElementIndex ElementIndex { get; set; }
+
+        [Key(5)]
+        public ElementStates States { get; set; }
+
+        [Key(6)]
+        public UpdateCycleFlag StepCycleFlag { get; set; }
+
+        [Key(7)]
+        public ElementIndex StoredElementIndex { get; set; }
+
+        [Key(8)]
+        public float Temperature { get; set; }
+
         [IgnoreMember]
         public Color ColorModifier
         {
@@ -44,33 +71,6 @@ namespace StardustSandbox.Core.Serialization.Worlds
                 this.ColorModifierA = value.A;
             }
         }
-
-        [Key("ColorModifierA")]
-        public byte ColorModifierA { get; set; }
-
-        [Key("ColorModifierB")]
-        public byte ColorModifierB { get; set; }
-
-        [Key("ColorModifierG")]
-        public byte ColorModifierG { get; set; }
-
-        [Key("ColorModifierR")]
-        public byte ColorModifierR { get; set; }
-
-        [Key("ElementIndex")]
-        public ElementIndex ElementIndex { get; set; }
-
-        [Key("States")]
-        public ElementStates States { get; set; }
-
-        [Key("StepCycleFlag")]
-        public UpdateCycleFlag StepCycleFlag { get; set; }
-
-        [Key("StoredElementIndex")]
-        public ElementIndex StoredElementIndex { get; set; }
-
-        [Key("Temperature")]
-        public float Temperature { get; set; }
 
         public SlotLayerData()
         {

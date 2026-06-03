@@ -15,21 +15,27 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System;
+using Microsoft.Xna.Framework;
 
-namespace StardustSandbox.Core.Enums.Serialization
+namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
 {
-    [Flags]
-    internal enum LoadFlags : byte
+    public sealed class SlotStorageModel
     {
-        None = 0,
-        Thumbnail = 1 << 0,
-        Metadata = 1 << 1,
-        Manifest = 1 << 2,
-        Properties = 1 << 3,
-        Environment = 1 << 4,
-        Content = 1 << 5,
+        public SlotLayerStorageModel BackgroundLayer { get; set; }
+        public SlotLayerStorageModel ForegroundLayer { get; set; }
+        public int PositionX { get; set; }
+        public int PositionY { get; set; }
+        
+        public Point Position
+        {
+            get => new(this.PositionX, this.PositionY);
 
-        All = Thumbnail | Metadata | Manifest | Properties | Environment | Content
+            set
+            {
+                this.PositionX = value.X;
+                this.PositionY = value.Y;
+            }
+        }
     }
 }
+

@@ -21,6 +21,7 @@ using StardustSandbox.Core.Enums.Serialization;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Worlds;
+using StardustSandbox.Core.Serialization.Worlds.Formats.V1;
 using StardustSandbox.Core.WorldSystem.Components;
 using StardustSandbox.Core.WorldSystem.Slots;
 

@@ -16,7 +16,7 @@
 */
 
 using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Core.Serialization.Worlds;
+using StardustSandbox.Core.Serialization.Worlds.Formats.V1;
 using StardustSandbox.Core.WorldSystem.Models;
 
 using System;

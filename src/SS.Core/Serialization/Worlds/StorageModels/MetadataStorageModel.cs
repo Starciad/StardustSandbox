@@ -15,21 +15,12 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using MessagePack;
-
-using System;
-
-namespace StardustSandbox.Core.Serialization.Worlds
+namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
 {
-    [Serializable]
-    [MessagePackObject]
-    public sealed class ContentData
+    public sealed class MetadataStorageModel
     {
-        [Key("Actors")]
-        public ActorData[] Actors { get; set; }
-
-        [Key("Slots")]
-        public SlotData[] Slots { get; set; }
+        public string Description { get; set; }
+        public string Name { get; set; }
     }
 }
 

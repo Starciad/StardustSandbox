@@ -15,24 +15,15 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using MessagePack;
-
 using System;
 
-namespace StardustSandbox.Core.Serialization.Worlds
+namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
 {
-    [Serializable]
-    [MessagePackObject]
-    public sealed class EnvironmentData
+    public sealed class EnvironmentStorageModel
     {
-        [Key("CurrentTime")]
         public TimeSpan CurrentTime { get; set; }
-
-        [Key("IsFrozen")]
         public bool IsFrozen { get; set; }
-
-        [Key("Temperatures")]
-        public TemperatureData[] Temperatures { get; set; }
+        public TemperatureStorageModel[] Temperatures { get; set; }
     }
 }
 
