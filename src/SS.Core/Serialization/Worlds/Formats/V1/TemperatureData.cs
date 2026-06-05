@@ -17,6 +17,7 @@
 
 using MessagePack;
 
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
 using StardustSandbox.Core.WorldSystem.Models;
 
 using System;
@@ -25,7 +26,7 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class TemperatureData
+    public sealed class TemperatureData : IData
     {
         [Key(0)]
         public TimeSpan StartTime { get; set; }

@@ -17,7 +17,7 @@
 
 using MessagePack;
 
-using StardustSandbox.Core.Interfaces.Serialization;
+using StardustSandbox.Core.Interfaces.Serialization.Modules;
 
 using System;
 using System.IO;

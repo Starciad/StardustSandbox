@@ -17,16 +17,18 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
+
 namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
 {
-    public sealed class SlotStorageModel
+    internal sealed class SlotStorageModel : IStorageModel
     {
-        public SlotLayerStorageModel BackgroundLayer { get; set; }
-        public SlotLayerStorageModel ForegroundLayer { get; set; }
-        public int PositionX { get; set; }
-        public int PositionY { get; set; }
-        
-        public Point Position
+        internal SlotLayerStorageModel BackgroundLayer { get; set; }
+        internal SlotLayerStorageModel ForegroundLayer { get; set; }
+        internal int PositionX { get; set; }
+        internal int PositionY { get; set; }
+
+        internal Point Position
         {
             get => new(this.PositionX, this.PositionY);
 

@@ -16,14 +16,15 @@
 */
 
 using StardustSandbox.Core.Enums.Indexers;
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
 
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
 {
-    public sealed class ActorStorageModel
+    internal sealed class ActorStorageModel : IStorageModel
     {
-        public IReadOnlyDictionary<string, object> Content { get; set; }
-        public ActorIndex Index { get; set; }
+        internal IReadOnlyDictionary<string, object> Content { get; set; }
+        internal ActorIndex Index { get; set; }
     }
 }

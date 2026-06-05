@@ -17,13 +17,15 @@
 
 using MessagePack;
 
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
+
 using System;
 
 namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class ContentData
+    public sealed class ContentData : IData
     {
         [Key(0)]
         public ActorData[] Actors { get; set; }

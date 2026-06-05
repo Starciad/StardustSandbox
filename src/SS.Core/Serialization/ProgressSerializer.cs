@@ -19,7 +19,7 @@ using MessagePack;
 using MessagePack.Resolvers;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Interfaces.Serialization;
+using StardustSandbox.Core.Interfaces.Serialization.Modules;
 using StardustSandbox.Core.Serialization.Progress;
 
 using System;

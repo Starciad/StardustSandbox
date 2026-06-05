@@ -15,12 +15,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
+
 namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
 {
-    public sealed class ContentStorageModel
+    internal sealed class ContentStorageModel : IStorageModel
     {
-        public ActorStorageModel[] Actors { get; set; }
-        public SlotStorageModel[] Slots { get; set; }
+        internal ActorStorageModel[] Actors { get; set; }
+        internal SlotStorageModel[] Slots { get; set; }
     }
 }
 

@@ -17,8 +17,7 @@
 
 using MessagePack;
 
-using Microsoft.Xna.Framework;
-
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
@@ -27,7 +26,7 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class SlotLayerData
+    public sealed class SlotLayerData : IData
     {
         [Key(0)]
         public byte ColorModifierA { get; set; }
@@ -62,20 +61,6 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
         [Key(10)]
         public bool IsDissipating { get; set; }
 
-        [IgnoreMember]
-        public Color ColorModifier
-        {
-            get => new(this.ColorModifierR, this.ColorModifierG, this.ColorModifierB, this.ColorModifierA);
-
-            set
-            {
-                this.ColorModifierR = value.R;
-                this.ColorModifierG = value.G;
-                this.ColorModifierB = value.B;
-                this.ColorModifierA = value.A;
-            }
-        }
-
         public SlotLayerData()
         {
 
@@ -83,7 +68,10 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 
         internal SlotLayerData(SlotLayer slotLayer)
         {
-            this.ColorModifier = slotLayer.ColorModifier;
+            this.ColorModifierR = slotLayer.ColorModifier.R;
+            this.ColorModifierG = slotLayer.ColorModifier.G;
+            this.ColorModifierB = slotLayer.ColorModifier.B;
+            this.ColorModifierA = slotLayer.ColorModifier.A;
             this.ElementIndex = (byte)slotLayer.ElementIndex;
             this.StepCycleFlag = (byte)slotLayer.StepCycleFlag;
             this.StoredElementIndex = (byte)slotLayer.StoredElementIndex;

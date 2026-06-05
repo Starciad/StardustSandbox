@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Interfaces.Serialization;
+using StardustSandbox.Core.Interfaces.Serialization.Modules;
 
 using System;
 using System.IO;

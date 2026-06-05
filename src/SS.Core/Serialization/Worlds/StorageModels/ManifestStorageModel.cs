@@ -15,14 +15,23 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
+
 using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
 {
-    public sealed class ManifestStorageModel
+    internal sealed class ManifestStorageModel : IStorageModel
     {
-        public DateTime CreationTimestamp { get; set; }
-        public Version GameVersion { get; set; }
+        internal bool IsInitialized { get; set; }
+        internal int SaveVersion { get; set; }
+        internal Dictionary<string, int> ComponentVersions { get; set; }
+        internal Version GameVersion { get; set; }
+        internal string Name { get; set; }
+        internal string Description { get; set; }
+        internal DateTime CreationTimestamp { get; set; }
+        internal DateTime LastModifiedTimestamp { get; set; }
     }
 }
 

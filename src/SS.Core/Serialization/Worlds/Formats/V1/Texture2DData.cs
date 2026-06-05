@@ -19,13 +19,15 @@ using MessagePack;
 
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
+
 using System;
 
 namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class Texture2DData
+    public sealed class Texture2DData : IData
     {
         [Key(0)]
         public byte[] Data { get; set; }
@@ -48,13 +50,6 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
             this.Data = new byte[this.Width * this.Height * 4]; // RGBA
 
             texture2d.GetData(this.Data);
-        }
-
-        public Texture2D ToTexture2D(GraphicsDevice graphicsDevice)
-        {
-            Texture2D texture2d = new(graphicsDevice, this.Width, this.Height);
-            texture2d.SetData(this.Data);
-            return texture2d;
         }
     }
 }

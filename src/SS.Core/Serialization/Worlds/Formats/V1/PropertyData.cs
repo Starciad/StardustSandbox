@@ -17,7 +17,7 @@
 
 using MessagePack;
 
-using Microsoft.Xna.Framework;
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
 
 using System;
 
@@ -25,24 +25,13 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class PropertyData
+    public sealed class PropertyData : IData
     {
         [Key(0)]
         public int Height { get; set; }
 
         [Key(1)]
         public int Width { get; set; }
-
-        [IgnoreMember]
-        public Point Size
-        {
-            get => new(this.Width, this.Height);
-            set
-            {
-                this.Width = value.X;
-                this.Height = value.Y;
-            }
-        }
     }
 }
 

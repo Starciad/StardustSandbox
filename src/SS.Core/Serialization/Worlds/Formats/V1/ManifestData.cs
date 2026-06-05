@@ -17,6 +17,8 @@
 
 using MessagePack;
 
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
+
 using System;
 using System.Collections.Generic;
 
@@ -24,7 +26,7 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class ManifestData
+    public sealed class ManifestData : IData
     {
         [Key(0)]
         public bool IsInitialized { get; set; }

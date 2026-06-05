@@ -15,13 +15,15 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
+
 namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
 {
-    public sealed class Texture2DStorageModel
+    internal sealed class Texture2DStorageModel : IStorageModel
     {
-        public byte[] Data { get; set; }
-        public int Height { get; set; }
-        public int Width { get; set; }
+        internal byte[] Data { get; set; }
+        internal int Height { get; set; }
+        internal int Width { get; set; }
     }
 }
 

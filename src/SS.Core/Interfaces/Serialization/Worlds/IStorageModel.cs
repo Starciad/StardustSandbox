@@ -15,9 +15,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Interfaces.Serialization
+namespace StardustSandbox.Core.Interfaces.Serialization.Worlds
 {
-    internal interface IProgressModule
+    internal interface IStorageModel
     {
 
     }

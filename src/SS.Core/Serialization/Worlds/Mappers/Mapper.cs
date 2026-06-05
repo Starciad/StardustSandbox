@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,24 +15,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
-using StardustSandbox.Core.Enums.Elements;
-using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Interfaces.Serialization.Worlds;
 
-namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
+namespace StardustSandbox.Core.Serialization.Worlds.Mappers
 {
-    internal sealed class SlotLayerStorageModel : IStorageModel
+    internal abstract class Mapper<TStorage, TData> : IMapper where TStorage : IStorageModel where TData : IData
     {
-        internal Color Color { get; set; }
-        internal ElementIndex ElementIndex { get; set; }
-        internal UpdateCycleFlag StepCycleFlag { get; set; }
-        internal ElementIndex StoredElementIndex { get; set; }
-        internal float Temperature { get; set; }
-        internal bool IsFalling { get; set; }
-        internal bool WasPushed { get; set; }
-        internal bool IsDissipating { get; set; }
+        internal abstract TStorage ToStorageModel(TData data);
+        internal abstract TData ToData(TStorage storageModel);
     }
 }
-

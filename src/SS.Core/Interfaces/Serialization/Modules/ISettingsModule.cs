@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,13 +15,11 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Interfaces.Serialization
+namespace StardustSandbox.Core.Interfaces.Serialization.Modules
 {
-    internal interface ISaveMigration
+    public interface ISettingsModule
     {
-        int SourceVersion { get; }
-        int TargetVersion { get; }
 
-        object Migrate(object source);
     }
 }
+

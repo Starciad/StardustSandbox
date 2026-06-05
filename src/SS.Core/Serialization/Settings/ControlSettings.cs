@@ -17,7 +17,7 @@
 
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Core.Interfaces.Serialization;
+using StardustSandbox.Core.Interfaces.Serialization.Modules;
 
 using System;
 using System.Xml.Serialization;

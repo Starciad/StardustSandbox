@@ -16,7 +16,7 @@
 */
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Interfaces.Serialization;
+using StardustSandbox.Core.Interfaces.Serialization.Modules;
 using StardustSandbox.Core.Serialization.Settings;
 
 using System;

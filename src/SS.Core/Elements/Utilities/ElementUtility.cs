@@ -18,7 +18,6 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.Directions;
-using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Randomness;
 
 using System.Collections.Generic;

@@ -15,15 +15,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
+
 using System;
 
 namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
 {
-    public sealed class TemperatureStorageModel
+    internal sealed class TemperatureStorageModel : IStorageModel
     {
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
-        public bool CanApplyTemperature { get; set; }
-        public float Temperature { get; set; }
+        internal TimeSpan StartTime { get; set; }
+        internal TimeSpan EndTime { get; set; }
+        internal bool CanApplyTemperature { get; set; }
+        internal float Temperature { get; set; }
     }
 }

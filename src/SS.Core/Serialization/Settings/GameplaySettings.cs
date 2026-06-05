@@ -18,7 +18,7 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Colors.Palettes;
-using StardustSandbox.Core.Interfaces.Serialization;
+using StardustSandbox.Core.Interfaces.Serialization.Modules;
 
 using System;
 using System.Xml.Serialization;

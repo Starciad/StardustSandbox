@@ -17,13 +17,15 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
+
 namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
 {
-    public sealed class PropertyStorageModel
+    internal sealed class PropertyStorageModel : IStorageModel
     {
-        public int Height { get; set; }
-        public int Width { get; set; }
-        public Point Size
+        internal int Height { get; set; }
+        internal int Width { get; set; }
+        internal Point Size
         {
             get => new(this.Width, this.Height);
             set

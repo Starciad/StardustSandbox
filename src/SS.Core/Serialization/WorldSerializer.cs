@@ -16,7 +16,6 @@
 */
 
 using MessagePack;
-using MessagePack.Resolvers;
 
 using Microsoft.Xna.Framework;
 

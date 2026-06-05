@@ -373,7 +373,7 @@ namespace StardustSandbox.Core.Actors.Common
         {
             return new()
             {
-                Index = this.Index,
+                Index = (byte)this.Index,
                 Content = new Dictionary<string, object>()
                 {
                     ["Direction"] = this.direction,

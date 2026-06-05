@@ -17,8 +17,7 @@
 
 using MessagePack;
 
-using Microsoft.Xna.Framework;
-
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
@@ -27,7 +26,7 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class SlotData
+    public sealed class SlotData : IData
     {
         [Key(0)]
         public SlotLayerData BackgroundLayer { get; set; }
@@ -41,18 +40,6 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
         [Key(3)]
         public int PositionY { get; set; }
 
-        [IgnoreMember]
-        public Point Position
-        {
-            get => new(this.PositionX, this.PositionY);
-
-            set
-            {
-                this.PositionX = value.X;
-                this.PositionY = value.Y;
-            }
-        }
-
         public SlotData()
         {
 
@@ -60,7 +47,8 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 
         internal SlotData(Slot slot)
         {
-            this.Position = slot.Position;
+            this.PositionX = slot.Position.X;
+            this.PositionY = slot.Position.Y;
 
             if (!slot.Foreground.IsEmpty)
             {

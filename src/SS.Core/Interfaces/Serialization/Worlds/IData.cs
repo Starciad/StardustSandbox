@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,16 +15,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using System;
-
-namespace StardustSandbox.Core.Enums.Elements
+namespace StardustSandbox.Core.Interfaces.Serialization.Worlds
 {
-    [Flags]
-    public enum ElementStates : byte
+    internal interface IData
     {
-        None = 0,
-        IsFalling = 1 << 0,
-        WasPushed = 1 << 2,
-        IsDissipating = 1 << 3,
+
     }
 }

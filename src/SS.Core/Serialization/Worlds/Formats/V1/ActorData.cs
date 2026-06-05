@@ -17,7 +17,7 @@
 
 using MessagePack;
 
-using StardustSandbox.Core.Enums.Indexers;
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
 
 using System;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class ActorData
+    public sealed class ActorData : IData
     {
         [Key(0)]
         public IReadOnlyDictionary<string, object> Content { get; set; }

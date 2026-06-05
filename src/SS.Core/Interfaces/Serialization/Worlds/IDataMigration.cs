@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,12 +15,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
+namespace StardustSandbox.Core.Interfaces.Serialization.Worlds
 {
-    public sealed class MetadataStorageModel
+    internal interface IDataMigration
     {
-        public string Description { get; set; }
-        public string Name { get; set; }
+        int SourceVersion { get; }
+        int TargetVersion { get; }
+
+        object Migrate(object source);
     }
 }
-
