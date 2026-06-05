@@ -16,6 +16,7 @@
 */
 
 using MessagePack;
+using MessagePack.Resolvers;
 
 using Microsoft.Xna.Framework;
 
@@ -35,6 +36,7 @@ namespace StardustSandbox.Core.Serialization
     internal sealed class WorldSerializer
     {
         private readonly MessagePackSerializerOptions options = MessagePackSerializerOptions.Standard
+            .WithResolver(CompositeResolver.Create(StandardResolver.Instance))
             .WithSecurity(MessagePackSecurity.UntrustedData)
             .WithCompression(MessagePackCompression.Lz4BlockArray)
             .WithAllowAssemblyVersionMismatch(true);

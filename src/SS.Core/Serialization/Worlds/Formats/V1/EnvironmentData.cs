@@ -32,9 +32,6 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 
         [Key(1)]
         public bool IsFrozen { get; set; }
-
-        [Key(2)]
-        public TemperatureData[] Temperatures { get; set; }
     }
 }
 

@@ -17,11 +17,11 @@
 
 namespace StardustSandbox.Core.Interfaces.Serialization.Worlds
 {
-    internal interface IDataMigration
+    internal interface IMigration
     {
-        int SourceVersion { get; }
-        int TargetVersion { get; }
+        int OldVersion { get; }
+        int NewVersion { get; }
 
-        object Migrate(object source);
+        object Migrate(object oldData);
     }
 }
