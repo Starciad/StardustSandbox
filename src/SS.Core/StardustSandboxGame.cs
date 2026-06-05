@@ -30,7 +30,7 @@ using StardustSandbox.Core.Interfaces.Notifiers;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Settings;
+using StardustSandbox.Core.Serialization.Settings.Common;
 using StardustSandbox.Core.WorldSystem;
 
 using System;

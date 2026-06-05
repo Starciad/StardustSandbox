@@ -24,7 +24,7 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.IO;
-using StardustSandbox.Core.Serialization.Settings;
+using StardustSandbox.Core.Serialization.Settings.Common;
 
 using System;
 

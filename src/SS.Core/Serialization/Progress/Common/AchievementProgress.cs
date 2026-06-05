@@ -22,7 +22,7 @@ using StardustSandbox.Core.Interfaces.Serialization.Modules;
 
 using System;
 
-namespace StardustSandbox.Core.Serialization.Progress
+namespace StardustSandbox.Core.Serialization.Progress.Common
 {
     [Serializable]
     [MessagePackObject]

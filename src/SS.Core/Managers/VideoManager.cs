@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Serialization.Settings;
+using StardustSandbox.Core.Serialization.Settings.Common;
 
 namespace StardustSandbox.Core.Managers
 {

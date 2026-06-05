@@ -21,7 +21,7 @@ using Microsoft.Xna.Framework.Audio;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Indexers;
-using StardustSandbox.Core.Serialization.Settings;
+using StardustSandbox.Core.Serialization.Settings.Common;
 
 #if SS_WINDOWS
 using SharpDX.Multimedia;

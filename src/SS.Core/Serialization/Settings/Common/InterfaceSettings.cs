@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -20,27 +20,18 @@ using StardustSandbox.Core.Interfaces.Serialization.Modules;
 using System;
 using System.Xml.Serialization;
 
-namespace StardustSandbox.Core.Serialization.Settings
+namespace StardustSandbox.Core.Serialization.Settings.Common
 {
     [Serializable]
-    [XmlRoot("VolumeSettings")]
-    public sealed class VolumeSettings : ISettingsModule
+    [XmlRoot("InterfaceSettings")]
+    public sealed class InterfaceSettings : ISettingsModule
     {
-        [XmlElement("MasterVolume", typeof(float))]
-        public float MasterVolume { get; set; }
+        [XmlElement("ShowTooltip", typeof(bool))]
+        public bool ShowTooltip { get; set; }
 
-        [XmlElement("MusicVolume", typeof(float))]
-        public float MusicVolume { get; set; }
-
-        [XmlElement("SFXVolume", typeof(float))]
-        public float SFXVolume { get; set; }
-
-        public VolumeSettings()
+        public InterfaceSettings()
         {
-            this.MasterVolume = 1f;
-            this.MusicVolume = 0.5f;
-            this.SFXVolume = 0.5f;
+            this.ShowTooltip = true;
         }
     }
 }
-

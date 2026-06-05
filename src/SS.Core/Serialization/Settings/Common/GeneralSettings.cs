@@ -23,7 +23,7 @@ using System;
 using System.Globalization;
 using System.Xml.Serialization;
 
-namespace StardustSandbox.Core.Serialization.Settings
+namespace StardustSandbox.Core.Serialization.Settings.Common
 {
     [Serializable]
     [XmlRoot("GeneralSettings")]

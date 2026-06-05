@@ -23,7 +23,7 @@ using StardustSandbox.Core.Interfaces.Serialization.Modules;
 using System;
 using System.Xml.Serialization;
 
-namespace StardustSandbox.Core.Serialization.Settings
+namespace StardustSandbox.Core.Serialization.Settings.Common
 {
     [Serializable]
     [XmlRoot("GameplaySettings")]
