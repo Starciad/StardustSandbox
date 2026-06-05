@@ -17,8 +17,6 @@
 
 using MessagePack;
 
-using Microsoft.Xna.Framework.Graphics;
-
 using StardustSandbox.Core.Interfaces.Serialization.Worlds;
 
 using System;

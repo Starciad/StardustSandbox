@@ -27,8 +27,11 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Worlds.Formats.V1;
 using StardustSandbox.Core.Serialization.Worlds.Mappers;
 using StardustSandbox.Core.Serialization.Worlds.Migrations;
+using StardustSandbox.Core.Serialization.Worlds.StorageModels;
 using StardustSandbox.Core.WorldSystem;
 
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
@@ -104,7 +107,7 @@ namespace StardustSandbox.Core.Serialization
             Write(zip, IOConstants.SAVE_ENTRY_VERSION_FILE, SerializeVersion());
         }
 
-        private T Read<T>(ZipArchive zip, string entryName)
+        private T Read<T>(ZipArchive zip, string entryName) where T : IStorageModel
         {
             ZipArchiveEntry entry = zip.GetEntry(entryName);
 
@@ -123,6 +126,19 @@ namespace StardustSandbox.Core.Serialization
             
             using FileStream fs = new(filename, FileMode.Open, FileAccess.Read);
             using ZipArchive zip = new(fs, ZipArchiveMode.Read);
+
+            Type storageModelType = typeof(T);
+
+            VersionStorageModel versionStorageModel = Read<VersionStorageModel>(zip, IOConstants.SAVE_ENTRY_VERSION_FILE);
+
+            // 1 - Convert storage model to the data type
+            // 2 - Throw exception if the version file is missing
+            // 3 - Deserialize the version of component
+            // 4 - Migrate the data to the latest version if necessary
+            // 5 - Deserialize the data
+            // 6 - Return the deserialized data
+
+            return default;
         }
     }
 }

@@ -17,6 +17,7 @@
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.Serialization.Worlds.Formats.V1;
 using StardustSandbox.Core.Serialization.Worlds.StorageModels;
 
 using System.Collections.Generic;
@@ -75,7 +76,7 @@ namespace StardustSandbox.Core.Serialization
             return this.texture2DMapper.ToData(texture2DStorageModel);
         }
 
-        private Worlds.Formats.V1.VersionData SerializeVersion()
+        private VersionData SerializeVersion()
         {
             VersionStorageModel versionStorageModel = new()
             {
