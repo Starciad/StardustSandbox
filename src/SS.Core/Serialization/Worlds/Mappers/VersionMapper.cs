@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,31 +15,27 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework.Graphics;
+using StardustSandbox.Core.Serialization.Worlds.Formats.V1;
+using StardustSandbox.Core.Serialization.Worlds.StorageModels;
 
-using StardustSandbox.Core.Interfaces.Serialization.Worlds;
-
-namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
+namespace StardustSandbox.Core.Serialization.Worlds.Mappers
 {
-    internal sealed class Texture2DStorageModel : IStorageModel
+    internal class VersionMapper : Mapper<VersionStorageModel, VersionData>
     {
-        internal byte[] Data { get; set; }
-        internal int Height { get; set; }
-        internal int Width { get; set; }
-
-        public Texture2DStorageModel()
+        internal override VersionData ToData(VersionStorageModel storageModel)
         {
-
+            return new()
+            {
+                ComponentVersions = storageModel.ComponentVersions
+            };
         }
 
-        public Texture2DStorageModel(Texture2D texture2d)
+        internal override VersionStorageModel ToStorageModel(VersionData data)
         {
-            this.Width = texture2d.Width;
-            this.Height = texture2d.Height;
-            this.Data = new byte[this.Width * this.Height * 4]; // RGBA
-
-            texture2d.GetData(this.Data);
+            return new()
+            {
+                ComponentVersions = data.ComponentVersions
+            };
         }
     }
 }
-

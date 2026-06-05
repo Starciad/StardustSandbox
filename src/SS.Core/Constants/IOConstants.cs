@@ -132,23 +132,31 @@ namespace StardustSandbox.Core.Constants
         internal const string VOLUME_SETTINGS_FILE = "volume_settings.xml";
 
         // Save
-        internal const int ACTOR_COMPONENT_VERSION = 1;
-        internal const int CONTENT_COMPONENT_VERSION = 1;
-        internal const int ENVIRONMENT_COMPONENT_VERSION = 1;
-        internal const int MANIFEST_COMPONENT_VERSION = 1;
-        internal const int PROPERTY_COMPONENT_VERSION = 1;
-        internal const int SLOT_COMPONENT_VERSION = 1;
-        internal const int SLOT_LAYER_COMPONENT_VERSION = 1;
-        internal const int TEXTURE_2D_COMPONENT_VERSION = 1;
+        internal const int SAVE_ACTOR_COMPONENT_VERSION = 1;
+        internal const int SAVE_CONTENT_COMPONENT_VERSION = 1;
+        internal const int SAVE_ENVIRONMENT_COMPONENT_VERSION = 1;
+        internal const int SAVE_MANIFEST_COMPONENT_VERSION = 1;
+        internal const int SAVE_PROPERTIES_COMPONENT_VERSION = 1;
+        internal const int SAVE_SLOT_COMPONENT_VERSION = 1;
+        internal const int SAVE_SLOT_LAYER_COMPONENT_VERSION = 1;
+        internal const int SAVE_THUMBNAIL_COMPONENT_VERSION = 1;
+
+        internal const string SAVE_ENTRY_CONTENT_ID = "CONTENT";
+        internal const string SAVE_ENTRY_ENVIRONMENT_ID = "ENVIRONMENT";
+        internal const string SAVE_ENTRY_MANIFEST_ID = "MANIFEST";
+        internal const string SAVE_ENTRY_PROPERTIES_ID = "PROPERTIES";
+        internal const string SAVE_ENTRY_THUMBNAIL_ID = "THUMBNAIL";
+        internal const string SAVE_ENTRY_VERSION_ID = "VERSION";
 
         internal const string SAVE_FILE_EXTENSION = ".sf";
         internal const string SAVE_FILE_DATA = "data.bin";
 
-        internal const string SAVE_ENTRY_THUMBNAIL = "thumbnail.bin";
-        internal const string SAVE_ENTRY_MANIFEST = "manifest.bin";
-        internal const string SAVE_ENTRY_PROPERTIES = "properties.bin";
-        internal const string SAVE_ENTRY_ENVIRONMENT = "environment.bin";
-        internal const string SAVE_ENTRY_CONTENT = "content.bin";
+        internal const string SAVE_ENTRY_CONTENT_FILE = "content.bin";
+        internal const string SAVE_ENTRY_ENVIRONMENT_FILE = "environment.bin";
+        internal const string SAVE_ENTRY_MANIFEST_FILE = "manifest.bin";
+        internal const string SAVE_ENTRY_PROPERTIES_FILE = "properties.bin";
+        internal const string SAVE_ENTRY_THUMBNAIL_FILE = "thumbnail.bin";
+        internal const string SAVE_ENTRY_VERSION_FILE = "version.bin";
 
         // Others
         internal const string WARNING = "WARNING.txt";

@@ -20,7 +20,6 @@ using MessagePack;
 using StardustSandbox.Core.Interfaces.Serialization.Worlds;
 
 using System;
-using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 {
@@ -29,18 +28,15 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
     public sealed class ManifestData : IData
     {
         [Key(0)]
-        public int[] ComponentVersions { get; set; }
-
-        [Key(1)]
         public string Name { get; set; }
 
-        [Key(2)]
+        [Key(1)]
         public string Description { get; set; }
 
-        [Key(3)]
+        [Key(2)]
         public DateTime CreationTimestamp { get; set; }
 
-        [Key(4)]
+        [Key(3)]
         public DateTime LastModifiedTimestamp { get; set; }
     }
 }

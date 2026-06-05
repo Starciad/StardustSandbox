@@ -52,6 +52,7 @@ namespace StardustSandbox.Core.Serialization
         private readonly SlotLayerMapper slotLayerMapper;
         private readonly SlotMapper slotMapper;
         private readonly Texture2DMapper texture2DMapper;
+        private readonly VersionMapper versionMapper;
 
         private readonly ActorManager actorManager;
         private readonly GraphicsDeviceManager graphicsDeviceManager;
@@ -73,6 +74,7 @@ namespace StardustSandbox.Core.Serialization
             this.manifestMapper = new();
             this.propertyMapper = new();
             this.texture2DMapper = new();
+            this.versionMapper = new();
         }
 
         private void Write<T>(ZipArchive zip, string entryName, T data)
@@ -94,11 +96,12 @@ namespace StardustSandbox.Core.Serialization
             using FileStream fs = new(filename, FileMode.Create, FileAccess.Write);
             using ZipArchive zip = new(fs, ZipArchiveMode.Create);
 
-            Write(zip, IOConstants.SAVE_ENTRY_THUMBNAIL, new Texture2DData(this.world.TileMap.CreateThumbnail(this.graphicsDeviceManager.GraphicsDevice)));
-            Write(zip, IOConstants.SAVE_ENTRY_MANIFEST, CreateManifest());
-            Write(zip, IOConstants.SAVE_ENTRY_PROPERTIES, CreateProperties());
-            Write(zip, IOConstants.SAVE_ENTRY_ENVIRONMENT, CreateEnvironment());
-            Write(zip, IOConstants.SAVE_ENTRY_CONTENT, CreateContent());
+            Write(zip, IOConstants.SAVE_ENTRY_CONTENT_FILE, SerializeContent());
+            Write(zip, IOConstants.SAVE_ENTRY_ENVIRONMENT_FILE, SerializeEnvironment());
+            Write(zip, IOConstants.SAVE_ENTRY_MANIFEST_FILE, SerializeManifest());
+            Write(zip, IOConstants.SAVE_ENTRY_PROPERTIES_FILE, SerializeProperties());
+            Write(zip, IOConstants.SAVE_ENTRY_THUMBNAIL_FILE, SerializeThumbnail());
+            Write(zip, IOConstants.SAVE_ENTRY_VERSION_FILE, SerializeVersion());
         }
 
         private T Read<T>(ZipArchive zip, string entryName)

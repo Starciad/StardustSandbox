@@ -37,20 +37,6 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 
         [Key(2)]
         public int Width { get; set; }
-
-        public Texture2DData()
-        {
-
-        }
-
-        public Texture2DData(Texture2D texture2d)
-        {
-            this.Width = texture2d.Width;
-            this.Height = texture2d.Height;
-            this.Data = new byte[this.Width * this.Height * 4]; // RGBA
-
-            texture2d.GetData(this.Data);
-        }
     }
 }
 
