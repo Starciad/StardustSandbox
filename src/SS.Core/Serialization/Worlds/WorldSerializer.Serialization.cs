@@ -17,7 +17,7 @@
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Extensions;
-using StardustSandbox.Core.Serialization.Worlds.Formats.V1;
+using StardustSandbox.Core.Serialization.Worlds.Formats;
 using StardustSandbox.Core.Serialization.Worlds.StorageModels;
 
 using System.Collections.Generic;

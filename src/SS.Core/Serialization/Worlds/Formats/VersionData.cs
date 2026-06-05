@@ -22,7 +22,7 @@ using StardustSandbox.Core.Interfaces.Serialization.Worlds;
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
+namespace StardustSandbox.Core.Serialization.Worlds.Formats
 {
     [Serializable]
     [MessagePackObject]

@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Serialization.Worlds.Formats.V1;
+using StardustSandbox.Core.Serialization.Worlds.Formats;
 using StardustSandbox.Core.Serialization.Worlds.StorageModels;
 
 namespace StardustSandbox.Core.Serialization.Worlds.Mappers
