@@ -39,27 +39,6 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 
         [Key(3)]
         public int PositionY { get; set; }
-
-        public SlotData()
-        {
-
-        }
-
-        internal SlotData(Slot slot)
-        {
-            this.PositionX = slot.Position.X;
-            this.PositionY = slot.Position.Y;
-
-            if (!slot.Foreground.IsEmpty)
-            {
-                this.ForegroundLayer = new(slot.Foreground);
-            }
-
-            if (!slot.Background.IsEmpty)
-            {
-                this.BackgroundLayer = new(slot.Background);
-            }
-        }
     }
 }
 

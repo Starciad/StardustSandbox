@@ -24,7 +24,7 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization.Worlds.Formats.V1;
+using StardustSandbox.Core.Serialization.Worlds.StorageModels;
 using StardustSandbox.Core.WorldSystem;
 using StardustSandbox.Core.WorldSystem.Components;
 using StardustSandbox.Core.WorldSystem.Slots;
@@ -280,7 +280,7 @@ namespace StardustSandbox.Core.Actors
         internal virtual void OnCreated() { return; }
         internal virtual void OnDestroyed() { return; }
 
-        internal abstract ActorData Serialize();
-        internal abstract void Deserialize(ActorData data);
+        internal abstract ActorStorageModel Serialize();
+        internal abstract void Deserialize(ActorStorageModel data);
     }
 }

@@ -16,7 +16,6 @@
 */
 
 using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Core.Serialization.Worlds.Formats.V1;
 using StardustSandbox.Core.WorldSystem.Models;
 
 using System;
@@ -68,30 +67,6 @@ namespace StardustSandbox.Core.WorldSystem.Components
         internal TemperatureRange GetTemperatureRangeByTime(TimeSpan time)
         {
             return Array.Find(this.temperatureRanges, x => time >= x.StartTime && time < x.EndTime);
-        }
-
-        internal TemperatureData[] Serialize()
-        {
-            TemperatureData[] datas = new TemperatureData[this.temperatureRanges.Length];
-
-            for (int i = 0; i < this.temperatureRanges.Length; i++)
-            {
-                datas[i] = new(this.temperatureRanges[i]);
-            }
-
-            return datas;
-        }
-
-        internal void Deserialize(TemperatureData[] datas)
-        {
-            for (int i = 0; i < datas.Length; i++)
-            {
-                TemperatureData data = datas[i];
-                TemperatureRange range = GetTemperatureRangeByTime(data.StartTime);
-
-                range.CanApplyTemperature = data.CanApplyTemperature;
-                range.Temperature = data.Temperature;
-            }
         }
 
         public void Reset()

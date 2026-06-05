@@ -60,26 +60,6 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
 
         [Key(10)]
         public bool IsDissipating { get; set; }
-
-        public SlotLayerData()
-        {
-
-        }
-
-        internal SlotLayerData(SlotLayer slotLayer)
-        {
-            this.ColorModifierR = slotLayer.ColorModifier.R;
-            this.ColorModifierG = slotLayer.ColorModifier.G;
-            this.ColorModifierB = slotLayer.ColorModifier.B;
-            this.ColorModifierA = slotLayer.ColorModifier.A;
-            this.ElementIndex = (byte)slotLayer.ElementIndex;
-            this.StepCycleFlag = (byte)slotLayer.StepCycleFlag;
-            this.StoredElementIndex = (byte)slotLayer.StoredElementIndex;
-            this.Temperature = slotLayer.Temperature;
-            this.IsFalling = slotLayer.IsFalling;
-            this.WasPushed = slotLayer.WasPushed;
-            this.IsDissipating = slotLayer.IsDissipating;
-        }
     }
 }
 

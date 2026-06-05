@@ -20,12 +20,13 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Interfaces.Serialization.Worlds;
+using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
 {
     internal sealed class SlotLayerStorageModel : IStorageModel
     {
-        internal Color Color { get; set; }
+        internal Color ColorModifier { get; set; }
         internal ElementIndex ElementIndex { get; set; }
         internal UpdateCycleFlag StepCycleFlag { get; set; }
         internal ElementIndex StoredElementIndex { get; set; }
@@ -33,6 +34,23 @@ namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
         internal bool IsFalling { get; set; }
         internal bool WasPushed { get; set; }
         internal bool IsDissipating { get; set; }
+
+        internal SlotLayerStorageModel()
+        {
+
+        }
+
+        internal SlotLayerStorageModel(SlotLayer slotLayer)
+        {
+            this.ColorModifier = slotLayer.ColorModifier;
+            this.ElementIndex = slotLayer.ElementIndex;
+            this.StepCycleFlag = slotLayer.StepCycleFlag;
+            this.StoredElementIndex = slotLayer.StoredElementIndex;
+            this.Temperature = slotLayer.Temperature;
+            this.IsFalling = slotLayer.IsFalling;
+            this.WasPushed = slotLayer.WasPushed;
+            this.IsDissipating = slotLayer.IsDissipating;
+        }
     }
 }
 

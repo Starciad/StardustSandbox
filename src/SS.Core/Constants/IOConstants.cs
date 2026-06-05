@@ -132,11 +132,19 @@ namespace StardustSandbox.Core.Constants
         internal const string VOLUME_SETTINGS_FILE = "volume_settings.xml";
 
         // Save
+        internal const int ACTOR_COMPONENT_VERSION = 1;
+        internal const int CONTENT_COMPONENT_VERSION = 1;
+        internal const int ENVIRONMENT_COMPONENT_VERSION = 1;
+        internal const int MANIFEST_COMPONENT_VERSION = 1;
+        internal const int PROPERTY_COMPONENT_VERSION = 1;
+        internal const int SLOT_COMPONENT_VERSION = 1;
+        internal const int SLOT_LAYER_COMPONENT_VERSION = 1;
+        internal const int TEXTURE_2D_COMPONENT_VERSION = 1;
+
         internal const string SAVE_FILE_EXTENSION = ".sf";
         internal const string SAVE_FILE_DATA = "data.bin";
 
         internal const string SAVE_ENTRY_THUMBNAIL = "thumbnail.bin";
-        internal const string SAVE_ENTRY_METADATA = "metadata.bin";
         internal const string SAVE_ENTRY_MANIFEST = "manifest.bin";
         internal const string SAVE_ENTRY_PROPERTIES = "properties.bin";
         internal const string SAVE_ENTRY_ENVIRONMENT = "environment.bin";

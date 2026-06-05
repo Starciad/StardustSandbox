@@ -28,10 +28,10 @@ namespace StardustSandbox.Core.Serialization.Worlds.Mappers
         {
             return new()
             {
-                ColorModifierR = storageModel.Color.R,
-                ColorModifierG = storageModel.Color.G,
-                ColorModifierB = storageModel.Color.B,
-                ColorModifierA = storageModel.Color.A,
+                ColorModifierR = storageModel.ColorModifier.R,
+                ColorModifierG = storageModel.ColorModifier.G,
+                ColorModifierB = storageModel.ColorModifier.B,
+                ColorModifierA = storageModel.ColorModifier.A,
                 ElementIndex = (byte)storageModel.ElementIndex,
                 IsDissipating = storageModel.IsDissipating,
                 IsFalling = storageModel.IsFalling,
@@ -46,7 +46,7 @@ namespace StardustSandbox.Core.Serialization.Worlds.Mappers
         {
             return new()
             {
-                Color = new(data.ColorModifierR, data.ColorModifierG, data.ColorModifierB, data.ColorModifierA),
+                ColorModifier = new(data.ColorModifierR, data.ColorModifierG, data.ColorModifierB, data.ColorModifierA),
                 ElementIndex = (ElementIndex)data.ElementIndex,
                 IsDissipating = data.IsDissipating,
                 IsFalling = data.IsFalling,

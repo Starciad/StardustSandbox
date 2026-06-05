@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Worlds.Formats.V1;
+using StardustSandbox.Core.Serialization.Worlds.StorageModels;
 using StardustSandbox.Core.WorldSystem.Components;
 using StardustSandbox.Core.WorldSystem.Slots;
 
@@ -40,9 +40,9 @@ namespace StardustSandbox.Core.WorldSystem
             this.worldSerializer = worldSerializer;
         }
 
-        internal SlotData[] Serialize()
+        internal SlotStorageModel[] Serialize()
         {
-            List<SlotData> slots = [];
+            List<SlotStorageModel> slots = [];
 
             for (int y = 0; y < this.tileMap.Height; y++)
             {
@@ -64,24 +64,24 @@ namespace StardustSandbox.Core.WorldSystem
 
         internal void Deserialize(string saveFileName)
         {
-            WorldSaveFile saveFile = this.worldSerializer.Load(saveFileName, LoadFlags.Metadata | LoadFlags.Properties | LoadFlags.Environment | LoadFlags.Content);
+            ContentStorageModel content = this.worldSerializer.Load<ContentStorageModel>(saveFileName);
+            EnvironmentStorageModel environment = this.worldSerializer.Load<EnvironmentStorageModel>(saveFileName);
+            ManifestStorageModel manifest = this.worldSerializer.Load<ManifestStorageModel>(saveFileName);
+            PropertyStorageModel property = this.worldSerializer.Load<PropertyStorageModel>(saveFileName);
 
             // World
-            this.world.StartNew(saveFile.Properties.Size);
+            this.world.StartNew(property.Size);
 
             // Metadata
-            this.world.Name = saveFile.Metadata.Name;
-            this.world.Description = saveFile.Metadata.Description;
+            this.world.Name = manifest.Name;
+            this.world.Description = manifest.Description;
 
             // Time
-            this.world.Time.SetTime(saveFile.Environment.CurrentTime);
-            this.world.Time.IsFrozen = saveFile.Environment.IsFrozen;
-
-            // Temperature
-            this.world.Temperature.Deserialize(saveFile.Environment.Temperatures);
+            this.world.Time.SetTime(environment.CurrentTime);
+            this.world.Time.IsFrozen = environment.IsFrozen;
 
             // Allocate Slots
-            foreach (SlotData slotData in saveFile.Content.Slots)
+            foreach (SlotStorageModel slotData in content.Slots)
             {
                 if (slotData.ForegroundLayer != null)
                 {
@@ -95,16 +95,15 @@ namespace StardustSandbox.Core.WorldSystem
             }
         }
 
-        private void LoadSlotLayerData(Layer layer, Point position, SlotLayerData slotLayerData)
+        private void LoadSlotLayerData(Layer layer, Point position, SlotLayerStorageModel slotLayer)
         {
-            this.tileMap.InstantiateElementIndex(position, layer, slotLayerData.ElementIndex);
+            this.tileMap.InstantiateElementIndex(position, layer, slotLayer.ElementIndex);
 
             Slot slot = this.tileMap.GetSlot(position);
 
-            slot.SetTemperatureValue(layer, slotLayerData.Temperature);
-            slot.SetState(layer, slotLayerData.States);
-            slot.SetColorModifier(layer, slotLayerData.ColorModifier);
-            slot.SetStoredElement(layer, slotLayerData.StoredElementIndex);
+            slot.SetTemperatureValue(layer, slotLayer.Temperature);
+            slot.SetColorModifier(layer, slotLayer.ColorModifier);
+            slot.SetStoredElement(layer, slotLayer.StoredElementIndex);
         }
     }
 }

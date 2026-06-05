@@ -28,7 +28,7 @@ using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Worlds.Formats.V1;
+using StardustSandbox.Core.Serialization.Worlds.StorageModels;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
@@ -243,9 +243,9 @@ namespace StardustSandbox.Core.Managers
             }
         }
 
-        internal ActorData[] Serialize()
+        internal ActorStorageModel[] Serialize()
         {
-            List<ActorData> datas = [];
+            List<ActorStorageModel> datas = [];
 
             foreach (Actor actor in GetActors())
             {
@@ -260,7 +260,7 @@ namespace StardustSandbox.Core.Managers
             return [.. datas];
         }
 
-        internal void Deserialize(ActorData[] datas)
+        internal void Deserialize(ActorStorageModel[] datas)
         {
             if (datas == null)
             {
@@ -281,7 +281,7 @@ namespace StardustSandbox.Core.Managers
 
         internal void Deserialize(string saveFileName)
         {
-            Deserialize(this.worldSerializer.Load(saveFileName, LoadFlags.Content).Content.Actors);
+            Deserialize(this.worldSerializer.Load<ContentStorageModel>(saveFileName).Actors);
         }
 
         internal void Reload(bool hasSaveFileLoaded, string loadedSaveFileName)

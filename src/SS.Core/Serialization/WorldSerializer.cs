@@ -22,24 +22,36 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Extensions;
+using StardustSandbox.Core.Interfaces.Serialization.Worlds;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Worlds.Formats.V1;
+using StardustSandbox.Core.Serialization.Worlds.Mappers;
+using StardustSandbox.Core.Serialization.Worlds.Migrations;
 using StardustSandbox.Core.WorldSystem;
 
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
 namespace StardustSandbox.Core.Serialization
 {
-    internal sealed class WorldSerializer
+    internal sealed partial class WorldSerializer
     {
         private readonly MessagePackSerializerOptions options = MessagePackSerializerOptions.Standard
             .WithResolver(CompositeResolver.Create(StandardResolver.Instance))
             .WithSecurity(MessagePackSecurity.UntrustedData)
             .WithCompression(MessagePackCompression.Lz4BlockArray)
             .WithAllowAssemblyVersionMismatch(true);
+
+        private readonly MigrationRegistry migrationRegistry;
+
+        private readonly ActorMapper actorMapper;
+        private readonly ContentMapper contentMapper;
+        private readonly EnvironmentMapper environmentMapper;
+        private readonly ManifestMapper manifestMapper;
+        private readonly PropertyMapper propertyMapper;
+        private readonly SlotLayerMapper slotLayerMapper;
+        private readonly SlotMapper slotMapper;
+        private readonly Texture2DMapper texture2DMapper;
 
         private readonly ActorManager actorManager;
         private readonly GraphicsDeviceManager graphicsDeviceManager;
@@ -50,6 +62,24 @@ namespace StardustSandbox.Core.Serialization
             this.actorManager = actorManager;
             this.graphicsDeviceManager = graphicsDeviceManager;
             this.world = world;
+
+            this.migrationRegistry = new();
+
+            this.actorMapper = new();
+            this.slotLayerMapper = new();
+            this.slotMapper = new(this.slotLayerMapper);
+            this.contentMapper = new(this.actorMapper, this.slotMapper);
+            this.environmentMapper = new();
+            this.manifestMapper = new();
+            this.propertyMapper = new();
+            this.texture2DMapper = new();
+        }
+
+        private void Write<T>(ZipArchive zip, string entryName, T data)
+        {
+            ZipArchiveEntry entry = zip.CreateEntry(entryName, CompressionLevel.SmallestSize);
+            using Stream stream = entry.Open();
+            MessagePackSerializer.Serialize(stream, data, this.options);
         }
 
         internal void Save()
@@ -65,125 +95,31 @@ namespace StardustSandbox.Core.Serialization
             using ZipArchive zip = new(fs, ZipArchiveMode.Create);
 
             Write(zip, IOConstants.SAVE_ENTRY_THUMBNAIL, new Texture2DData(this.world.TileMap.CreateThumbnail(this.graphicsDeviceManager.GraphicsDevice)));
-            Write(zip, IOConstants.SAVE_ENTRY_METADATA, CreateMetadata());
             Write(zip, IOConstants.SAVE_ENTRY_MANIFEST, CreateManifest());
             Write(zip, IOConstants.SAVE_ENTRY_PROPERTIES, CreateProperties());
             Write(zip, IOConstants.SAVE_ENTRY_ENVIRONMENT, CreateEnvironment());
             Write(zip, IOConstants.SAVE_ENTRY_CONTENT, CreateContent());
         }
 
-        internal WorldSaveFile Load(string name, LoadFlags flags)
+        private T Read<T>(ZipArchive zip, string entryName)
         {
-            string filename = Path.Combine(IO.Directory.Worlds, string.Concat(name, IOConstants.SAVE_FILE_EXTENSION));
+            ZipArchiveEntry entry = zip.GetEntry(entryName);
 
-            using FileStream fs = new(filename, FileMode.Open, FileAccess.Read);
-            using ZipArchive zip = new(fs, ZipArchiveMode.Read);
-
-            return new()
+            if (entry == null)
             {
-                ThumbnailTextureData = flags.HasFlag(LoadFlags.Thumbnail) ? LoadPart<Texture2DData>(zip, IOConstants.SAVE_ENTRY_THUMBNAIL) : null,
-                Metadata = flags.HasFlag(LoadFlags.Metadata) ? LoadPart<Metadata>(zip, IOConstants.SAVE_ENTRY_METADATA) : null,
-                Manifest = flags.HasFlag(LoadFlags.Manifest) ? LoadPart<ManifestData>(zip, IOConstants.SAVE_ENTRY_MANIFEST) : null,
-                Properties = flags.HasFlag(LoadFlags.Properties) ? LoadPart<PropertyData>(zip, IOConstants.SAVE_ENTRY_PROPERTIES) : null,
-                Environment = flags.HasFlag(LoadFlags.Environment) ? LoadPart<EnvironmentData>(zip, IOConstants.SAVE_ENTRY_ENVIRONMENT) : null,
-                Content = flags.HasFlag(LoadFlags.Content) ? LoadPart<ContentData>(zip, IOConstants.SAVE_ENTRY_CONTENT) : null
-            };
-        }
-
-        internal IEnumerable<WorldSaveFile> LoadAll(LoadFlags flags)
-        {
-            foreach (string filename in Directory.EnumerateFiles(IO.Directory.Worlds, string.Concat("*", IOConstants.SAVE_FILE_EXTENSION), SearchOption.TopDirectoryOnly))
-            {
-                yield return Load(Path.GetFileNameWithoutExtension(filename), flags);
+                return default;
             }
-        }
-
-        internal void Delete(string name)
-        {
-            string filename = Path.Combine(IO.Directory.Worlds, string.Concat(name, IOConstants.SAVE_FILE_EXTENSION));
-
-            if (File.Exists(filename))
-            {
-                File.Delete(filename);
-            }
-        }
-
-        private void Write<T>(ZipArchive zip, string entryName, T data)
-        {
-            ZipArchiveEntry entry = zip.CreateEntry(entryName, CompressionLevel.SmallestSize);
 
             using Stream stream = entry.Open();
-            MessagePackSerializer.Serialize(stream, data, this.options);
+            return MessagePackSerializer.Deserialize<T>(stream, this.options);
         }
 
-        private T LoadPart<T>(ZipArchive zip, string entryName)
+        internal T Load<T>(string name) where T : IStorageModel
         {
-            try
-            {
-                ZipArchiveEntry entry = zip.GetEntry(entryName);
-
-                if (entry == null)
-                {
-                    return default;
-                }
-
-                using Stream stream = entry.Open();
-                return MessagePackSerializer.Deserialize<T>(stream, this.options);
-            }
-            catch (MessagePackSerializationException)
-            {
-                return default;
-            }
-            catch (Exception)
-            {
-                return default;
-            }
-        }
-
-        private Metadata CreateMetadata()
-        {
-            return new()
-            {
-                Name = this.world.Name,
-                Description = this.world.Description
-            };
-        }
-
-        private static ManifestData CreateManifest()
-        {
-            return new()
-            {
-                GameVersion = GameConstants.VERSION,
-                CreationTimestamp = DateTime.Now
-            };
-        }
-
-        private PropertyData CreateProperties()
-        {
-            return new()
-            {
-                Width = this.world.TileMap.Width,
-                Height = this.world.TileMap.Height
-            };
-        }
-
-        private EnvironmentData CreateEnvironment()
-        {
-            return new()
-            {
-                CurrentTime = this.world.Time.CurrentTime,
-                IsFrozen = this.world.Time.IsFrozen,
-                Temperatures = this.world.Temperature.Serialize(),
-            };
-        }
-
-        private ContentData CreateContent()
-        {
-            return new()
-            {
-                Slots = this.world.SerializationHelper.Serialize(),
-                Actors = this.actorManager.Serialize(),
-            };
+            string filename = Path.Combine(IO.Directory.Worlds, string.Concat(name, IOConstants.SAVE_FILE_EXTENSION));
+            
+            using FileStream fs = new(filename, FileMode.Open, FileAccess.Read);
+            using ZipArchive zip = new(fs, ZipArchiveMode.Read);
         }
     }
 }

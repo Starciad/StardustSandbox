@@ -25,7 +25,6 @@ namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
     {
         internal TimeSpan CurrentTime { get; set; }
         internal bool IsFrozen { get; set; }
-        internal TemperatureStorageModel[] Temperatures { get; set; }
     }
 }
 
