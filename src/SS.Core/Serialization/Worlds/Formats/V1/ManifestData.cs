@@ -27,24 +27,27 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
     public sealed class ManifestData
     {
         [Key(0)]
-        public int SaveVersion { get; set; }
+        public bool IsInitialized { get; set; }
 
         [Key(1)]
-        public Dictionary<string, int> ComponentVersions { get; set; }
+        public int SaveVersion { get; set; }
 
         [Key(2)]
-        public Version GameVersion { get; set; }
+        public Dictionary<string, int> ComponentVersions { get; set; }
 
         [Key(3)]
-        public string Name { get; set; }
+        public Version GameVersion { get; set; }
 
         [Key(4)]
-        public string Description { get; set; }
+        public string Name { get; set; }
 
         [Key(5)]
-        public DateTime CreationTimestamp { get; set; }
+        public string Description { get; set; }
 
         [Key(6)]
+        public DateTime CreationTimestamp { get; set; }
+
+        [Key(7)]
         public DateTime LastModifiedTimestamp { get; set; }
     }
 }

@@ -35,10 +35,13 @@ namespace StardustSandbox.Core.WorldSystem.Slots
 
         internal Color ColorModifier { get; set; }
         internal ElementIndex ElementIndex { get; set; }
-        internal ElementStates States { get; set; }
-        internal UpdateCycleFlag StepCycleFlag { get; set; }
         internal ElementIndex StoredElementIndex { get; set; }
+        internal UpdateCycleFlag StepCycleFlag { get; set; }
         internal float Temperature { get => this.temperature; set => this.temperature = TemperatureMath.Clamp(value); }
+
+        public bool IsFalling { get; set; }
+        public bool WasPushed { get; set; }
+        public bool IsDissipating { get; set; }
 
         private float temperature;
 
@@ -50,73 +53,49 @@ namespace StardustSandbox.Core.WorldSystem.Slots
             Reset();
         }
 
-        #region Lifecycle Management
-
         internal void Instantiate(ElementIndex index)
         {
-            this.States = ElementStates.None;
             this.ColorModifier = Color.White;
             this.ElementIndex = index;
             this.StepCycleFlag = UpdateCycleFlag.None;
             this.StoredElementIndex = ElementIndex.None;
             this.Temperature = this.Element.InitialTemperature;
+
+            this.IsFalling = false;
+            this.WasPushed = false;
+            this.IsDissipating = false;
         }
 
         internal void Destroy()
         {
-            this.States = ElementStates.None;
             this.ColorModifier = Color.White;
             this.ElementIndex = ElementIndex.None;
             this.StepCycleFlag = UpdateCycleFlag.None;
             this.StoredElementIndex = ElementIndex.None;
             this.Temperature = 0;
+
+            this.IsFalling = false;
+            this.WasPushed = false;
+            this.IsDissipating = false;
         }
 
         internal void Copy(SlotLayer target)
         {
             this.ColorModifier = target.ColorModifier;
             this.ElementIndex = target.ElementIndex;
-            this.States = target.States;
             this.StepCycleFlag = target.StepCycleFlag;
             this.StoredElementIndex = target.StoredElementIndex;
             this.Temperature = target.Temperature;
+
+            this.IsFalling = target.IsFalling;
+            this.WasPushed = target.WasPushed;
+            this.IsDissipating = target.IsDissipating;
         }
 
         internal void Reset()
         {
             Destroy();
         }
-
-        #endregion
-
-        #region States Management
-
-        internal void ClearStates()
-        {
-            this.States = ElementStates.None;
-        }
-
-        internal bool HasState(ElementStates value)
-        {
-            return this.States.HasFlag(value);
-        }
-
-        internal void RemoveState(ElementStates value)
-        {
-            this.States &= ~value;
-        }
-
-        internal void SetState(ElementStates value)
-        {
-            this.States |= value;
-        }
-
-        internal void ToggleState(ElementStates value)
-        {
-            this.States ^= value;
-        }
-
-        #endregion
     }
 }
 

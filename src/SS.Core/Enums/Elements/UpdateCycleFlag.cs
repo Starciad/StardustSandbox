@@ -17,7 +17,7 @@
 
 namespace StardustSandbox.Core.Enums.Elements
 {
-    public enum UpdateCycleFlag : byte
+    internal enum UpdateCycleFlag : byte
     {
         None = 0,
         Primary = 1,

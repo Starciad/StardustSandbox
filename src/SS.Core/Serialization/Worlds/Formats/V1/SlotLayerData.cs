@@ -19,8 +19,6 @@ using MessagePack;
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Enums.Elements;
-using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
@@ -44,19 +42,25 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
         public byte ColorModifierR { get; set; }
 
         [Key(4)]
-        public ElementIndex ElementIndex { get; set; }
+        public byte ElementIndex { get; set; }
 
         [Key(5)]
-        public ElementStates States { get; set; }
+        public byte StepCycleFlag { get; set; }
 
         [Key(6)]
-        public UpdateCycleFlag StepCycleFlag { get; set; }
+        public byte StoredElementIndex { get; set; }
 
         [Key(7)]
-        public ElementIndex StoredElementIndex { get; set; }
+        public float Temperature { get; set; }
 
         [Key(8)]
-        public float Temperature { get; set; }
+        public bool IsFalling { get; set; }
+
+        [Key(9)]
+        public bool WasPushed { get; set; }
+
+        [Key(10)]
+        public bool IsDissipating { get; set; }
 
         [IgnoreMember]
         public Color ColorModifier
@@ -80,11 +84,13 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
         internal SlotLayerData(SlotLayer slotLayer)
         {
             this.ColorModifier = slotLayer.ColorModifier;
-            this.ElementIndex = slotLayer.ElementIndex;
-            this.States = slotLayer.States;
-            this.StepCycleFlag = slotLayer.StepCycleFlag;
-            this.StoredElementIndex = slotLayer.StoredElementIndex;
+            this.ElementIndex = (byte)slotLayer.ElementIndex;
+            this.StepCycleFlag = (byte)slotLayer.StepCycleFlag;
+            this.StoredElementIndex = (byte)slotLayer.StoredElementIndex;
             this.Temperature = slotLayer.Temperature;
+            this.IsFalling = slotLayer.IsFalling;
+            this.WasPushed = slotLayer.WasPushed;
+            this.IsDissipating = slotLayer.IsDissipating;
         }
     }
 }

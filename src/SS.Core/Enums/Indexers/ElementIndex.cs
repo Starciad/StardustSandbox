@@ -17,7 +17,7 @@
 
 namespace StardustSandbox.Core.Enums.Indexers
 {
-    public enum ElementIndex : byte
+    internal enum ElementIndex : byte
     {
         None,
 

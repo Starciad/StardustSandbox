@@ -32,6 +32,6 @@ namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
         public IReadOnlyDictionary<string, object> Content { get; set; }
 
         [Key(1)]
-        public ActorIndex Index { get; set; }
+        public byte Index { get; set; }
     }
 }

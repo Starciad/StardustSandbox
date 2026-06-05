@@ -21,10 +21,8 @@ using MessagePack.Resolvers;
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Enums.Serialization;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization.Worlds;
 using StardustSandbox.Core.Serialization.Worlds.Formats.V1;
 using StardustSandbox.Core.WorldSystem;
 
@@ -38,7 +36,6 @@ namespace StardustSandbox.Core.Serialization
     internal sealed class WorldSerializer
     {
         private readonly MessagePackSerializerOptions options = MessagePackSerializerOptions.Standard
-            .WithResolver(CompositeResolver.Create(StandardResolver.Instance, ContractlessStandardResolver.Instance))
             .WithSecurity(MessagePackSecurity.UntrustedData)
             .WithCompression(MessagePackCompression.Lz4BlockArray)
             .WithAllowAssemblyVersionMismatch(true);
