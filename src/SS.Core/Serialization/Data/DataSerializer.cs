@@ -40,15 +40,15 @@ namespace StardustSandbox.Core.Serialization.Data
             MessagePackSerializer.Serialize(stream, data, this.options);
         }
 
-        internal TStorageModel Deserialize<TData, TMapper, TStorageModel>(Stream stream, TMapper mapper, MigrationRegistry migrationRegistry, int sourceVersion, int targetVersion)
-            where TData : IData
-            where TMapper : IMapper
-            where TStorageModel : IStorageModel
+        private static void Migrate<TData>(TData data, MigrationRegistry migrationRegistry, int sourceVersion, int targetVersion) where TData : IData
         {
-            // Deserialize Version (DATA V1, V2, [...])
-            TData data = MessagePackSerializer.Deserialize<TData>(stream, this.options);
+            // If the source version is greater than or equal to the target version, no migration is needed
+            if (sourceVersion >= targetVersion)
+            {
+                return;
+            }
 
-            // Migrate
+            // Apply migrations sequentially until we reach the target version
             int currentVersion = sourceVersion;
 
             while (currentVersion < targetVersion)
@@ -56,8 +56,18 @@ namespace StardustSandbox.Core.Serialization.Data
                 migrationRegistry.GetMigration(currentVersion).Migrate(data);
                 currentVersion++;
             }
+        }
 
-            // Data to StorageModel
+        internal TStorageModel Deserialize<TStorageModel>(Stream stream, IMapper mapper, MigrationRegistry migrationRegistry, int sourceVersion, int targetVersion)
+            where TStorageModel : IStorageModel
+        {
+            // Deserialize data from stream (this will be the old version of the data)
+            IData data = MessagePackSerializer.Deserialize<IData>(stream, this.options);
+
+            // Migrate to the latest version
+            Migrate(data, migrationRegistry, sourceVersion, targetVersion);
+
+            // Convert data to storage model
             return (TStorageModel)mapper.ToStorageModel(data);
         }
     }

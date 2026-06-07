@@ -38,5 +38,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Audio\" />
+	  <Folder Include="Serialization\Data\Progress\Migrations\" />
+	  <Folder Include="Serialization\Data\Worlds\Migrations\" />
 	</ItemGroup>
 </Project>

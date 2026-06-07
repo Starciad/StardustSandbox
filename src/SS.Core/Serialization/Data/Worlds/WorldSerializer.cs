@@ -30,6 +30,7 @@ using StardustSandbox.Core.Serialization.Migrations;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
@@ -37,8 +38,6 @@ namespace StardustSandbox.Core.Serialization
 {
     internal sealed partial class WorldSerializer
     {
-        private readonly MigrationRegistry migrationRegistry;
-
         private readonly ActorMapper actorMapper;
         private readonly ContentMapper contentMapper;
         private readonly EnvironmentMapper environmentMapper;
@@ -53,14 +52,16 @@ namespace StardustSandbox.Core.Serialization
         private readonly DataSerializer dataSerializer;
         private readonly World world;
 
+        private readonly Dictionary<Type, string> typeToEntryName;
+        private readonly Dictionary<Type, IMapper> typeToMapper;
+        private readonly Dictionary<Type, MigrationRegistry> typeToMigrationRegistry;
+
         internal WorldSerializer(ActorManager actorManager, GraphicsDeviceManager graphicsDeviceManager, DataSerializer dataSerializer, World world)
         {
             this.actorManager = actorManager;
             this.graphicsDeviceManager = graphicsDeviceManager;
             this.dataSerializer = dataSerializer;
             this.world = world;
-
-            this.migrationRegistry = new();
 
             this.actorMapper = new();
             this.slotLayerMapper = new();
@@ -70,6 +71,33 @@ namespace StardustSandbox.Core.Serialization
             this.manifestMapper = new();
             this.propertyMapper = new();
             this.texture2DMapper = new();
+
+            this.typeToEntryName = new()
+            {
+                [typeof(ContentStorageModel)] = IOConstants.SAVE_ENTRY_CONTENT_FILE,
+                [typeof(EnvironmentStorageModel)] = IOConstants.SAVE_ENTRY_ENVIRONMENT_FILE,
+                [typeof(ManifestStorageModel)] = IOConstants.SAVE_ENTRY_MANIFEST_FILE,
+                [typeof(PropertyStorageModel)] = IOConstants.SAVE_ENTRY_PROPERTIES_FILE,
+                [typeof(Texture2DStorageModel)] = IOConstants.SAVE_ENTRY_THUMBNAIL_FILE
+            };
+
+            this.typeToMapper = new()
+            {
+                [typeof(ContentStorageModel)] = this.contentMapper,
+                [typeof(EnvironmentStorageModel)] = this.environmentMapper,
+                [typeof(ManifestStorageModel)] = this.manifestMapper,
+                [typeof(PropertyStorageModel)] = this.propertyMapper,
+                [typeof(Texture2DStorageModel)] = this.texture2DMapper
+            };
+
+            this.typeToMigrationRegistry = new()
+            {
+                [typeof(ContentStorageModel)] = new(),
+                [typeof(EnvironmentStorageModel)] = new(),
+                [typeof(ManifestStorageModel)] = new(),
+                [typeof(PropertyStorageModel)] = new(),
+                [typeof(Texture2DStorageModel)] = new()
+            };
         }
 
         private void Serialize<TMapper, TStorageModel>(ZipArchive zip, string entryName, TMapper mapper, TStorageModel storageModel)
@@ -80,22 +108,6 @@ namespace StardustSandbox.Core.Serialization
             using Stream stream = entry.Open();
 
             this.dataSerializer.Serialize(stream, mapper, storageModel);
-        }
-
-        private TStorageModel Deserialize<TData, TMapper, TStorageModel>(ZipArchive zip, string entryName, TMapper mapper, MigrationRegistry migrationRegistry, int sourceVersion, int targetVersion)
-            where TData : IData
-            where TMapper : IMapper
-            where TStorageModel : IStorageModel
-        {
-            ZipArchiveEntry entry = zip.GetEntry(entryName);
-
-            if (entry == null)
-            {
-                return default;
-            }
-
-            using Stream stream = entry.Open();
-            return this.dataSerializer.Deserialize<TData, TMapper, TStorageModel>(stream, mapper, migrationRegistry, sourceVersion, targetVersion);
         }
 
         internal void Save()
@@ -117,24 +129,38 @@ namespace StardustSandbox.Core.Serialization
             Serialize(zip, IOConstants.SAVE_ENTRY_THUMBNAIL_FILE, this.texture2DMapper, SerializeThumbnail());
         }
 
-        internal T Load<T>(string name) where T : IStorageModel
+        private TStorageModel Deserialize<TStorageModel>(ZipArchive zip, string entryName, IMapper mapper, MigrationRegistry migrationRegistry, int sourceVersion, int targetVersion)
+            where TStorageModel : IStorageModel
+        {
+            ZipArchiveEntry entry = zip.GetEntry(entryName);
+
+            if (entry == null)
+            {
+                return default;
+            }
+
+            using Stream stream = entry.Open();
+            return this.dataSerializer.Deserialize<TStorageModel>(stream, mapper, migrationRegistry, sourceVersion, targetVersion);
+        }
+
+        internal TStorageModel Load<TStorageModel>(string name)
+            where TStorageModel : IStorageModel
         {
             string filename = Path.Combine(IO.Directory.Worlds, string.Concat(name, IOConstants.SAVE_FILE_EXTENSION));
             
             using FileStream fs = new(filename, FileMode.Open, FileAccess.Read);
             using ZipArchive zip = new(fs, ZipArchiveMode.Read);
 
-            Type storageModelType = typeof(T);
-            
-            // VersionStorageModel versionStorageModel = Deserialize<VersionStorageModel>(zip, IOConstants.SAVE_ENTRY_VERSION_FILE);
-            // 1 - Convert storage model to the data type
-            // 2 - Throw exception if the version file is missing
-            // 3 - Deserialize the version of component
-            // 4 - Migrate the data to the latest version if necessary
-            // 5 - Deserialize the data
-            // 6 - Return the deserialized data
+            Type storageModelType = typeof(TStorageModel);
 
-            return default;
+            string entryName = this.typeToEntryName[storageModelType];
+            IMapper mapper = this.typeToMapper[storageModelType];
+            MigrationRegistry migrationRegistry = this.typeToMigrationRegistry[storageModelType];
+
+            int sourceVersion = 1;
+            int targetVersion = 1;
+
+            return Deserialize<TStorageModel>(zip, entryName, mapper, migrationRegistry, sourceVersion, targetVersion);
         }
     }
 }
