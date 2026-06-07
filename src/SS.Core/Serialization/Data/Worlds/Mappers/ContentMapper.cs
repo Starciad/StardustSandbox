@@ -15,13 +15,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 using StardustSandbox.Core.Serialization.Data.Worlds.Formats.V1;
 using StardustSandbox.Core.Serialization.Data.Worlds.StorageModels;
-using StardustSandbox.Core.Serialization.Mappers;
 
 namespace StardustSandbox.Core.Serialization.Data.Worlds.Mappers
 {
-    internal sealed class ContentMapper : Mapper<ContentStorageModel, ContentData>
+    internal sealed class ContentMapper : IMapper
     {
         private readonly ActorMapper actorMapper;
         private readonly SlotMapper slotMapper;
@@ -32,44 +32,48 @@ namespace StardustSandbox.Core.Serialization.Data.Worlds.Mappers
             this.slotMapper = slotMapper;
         }
 
-        internal override ContentData ToData(ContentStorageModel storageModel)
+        public IData ToData(IStorageModel value)
         {
-            ActorData[] actors = new ActorData[storageModel.Actors.Length];
-            SlotData[] slots = new SlotData[storageModel.Slots.Length];
+            ContentStorageModel contentStorageModel = (ContentStorageModel)value;
+
+            ActorData[] actors = new ActorData[contentStorageModel.Actors.Length];
+            SlotData[] slots = new SlotData[contentStorageModel.Slots.Length];
 
             for (int i = 0; i < actors.Length; i++)
             {
-                actors[i] = this.actorMapper.ToData(storageModel.Actors[i]);
+                actors[i] = (ActorData)this.actorMapper.ToData(contentStorageModel.Actors[i]);
             }
 
             for (int i = 0; i < slots.Length; i++)
             {
-                slots[i] = this.slotMapper.ToData(storageModel.Slots[i]);
+                slots[i] = (SlotData)this.slotMapper.ToData(contentStorageModel.Slots[i]);
             }
 
-            return new()
+            return new ContentData()
             {
                 Actors = actors,
                 Slots = slots
             };
         }
 
-        internal override ContentStorageModel ToStorageModel(ContentData data)
+        public IStorageModel ToStorageModel(IData value)
         {
-            ActorStorageModel[] actors = new ActorStorageModel[data.Actors.Length];
-            SlotStorageModel[] slots = new SlotStorageModel[data.Slots.Length];
+            ContentData contentData = (ContentData)value;
+
+            ActorStorageModel[] actors = new ActorStorageModel[contentData.Actors.Length];
+            SlotStorageModel[] slots = new SlotStorageModel[contentData.Slots.Length];
 
             for (int i = 0; i < actors.Length; i++)
             {
-                actors[i] = this.actorMapper.ToStorageModel(data.Actors[i]);
+                actors[i] = (ActorStorageModel)this.actorMapper.ToStorageModel(contentData.Actors[i]);
             }
 
             for (int i = 0; i < slots.Length; i++)
             {
-                slots[i] = this.slotMapper.ToStorageModel(data.Slots[i]);
+                slots[i] = (SlotStorageModel)this.slotMapper.ToStorageModel(contentData.Slots[i]);
             }
 
-            return new()
+            return new ContentStorageModel()
             {
                 Actors = actors,
                 Slots = slots

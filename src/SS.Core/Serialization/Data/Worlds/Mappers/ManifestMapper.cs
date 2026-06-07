@@ -15,41 +15,37 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 using StardustSandbox.Core.Serialization.Data.Worlds.Formats.V1;
 using StardustSandbox.Core.Serialization.Data.Worlds.StorageModels;
-using StardustSandbox.Core.Serialization.Mappers;
 
 namespace StardustSandbox.Core.Serialization.Data.Worlds.Mappers
 {
-    internal sealed class ManifestMapper : Mapper<ManifestStorageModel, ManifestData>
+    internal sealed class ManifestMapper : IMapper
     {
-        internal override ManifestData ToData(ManifestStorageModel storageModel)
+        public IData ToData(IStorageModel value)
         {
-            return new()
+            ManifestStorageModel manifestStorageModel = (ManifestStorageModel)value;
+
+            return new ManifestData()
             {
-                ComponentVersions = storageModel.ComponentVersions,
-                CreationTimestamp = storageModel.CreationTimestamp,
-                Description = storageModel.Description,
-                GameVersion = storageModel.GameVersion,
-                IsInitialized = storageModel.IsInitialized,
-                LastModifiedTimestamp = storageModel.LastModifiedTimestamp,
-                Name = storageModel.Name,
-                SaveVersion = storageModel.SaveVersion
+                CreationTimestamp = manifestStorageModel.CreationTimestamp,
+                Description = manifestStorageModel.Description,
+                LastModifiedTimestamp = manifestStorageModel.LastModifiedTimestamp,
+                Name = manifestStorageModel.Name,
             };
         }
 
-        internal override ManifestStorageModel ToStorageModel(ManifestData data)
+        public IStorageModel ToStorageModel(IData value)
         {
-            return new()
+            ManifestData manifestData = (ManifestData)value;
+
+            return new ManifestStorageModel()
             {
-                ComponentVersions = data.ComponentVersions,
-                CreationTimestamp = data.CreationTimestamp,
-                Description = data.Description,
-                GameVersion = data.GameVersion,
-                IsInitialized = data.IsInitialized,
-                LastModifiedTimestamp = data.LastModifiedTimestamp,
-                Name = data.Name,
-                SaveVersion = data.SaveVersion
+                CreationTimestamp = manifestData.CreationTimestamp,
+                Description = manifestData.Description,
+                LastModifiedTimestamp = manifestData.LastModifiedTimestamp,
+                Name = manifestData.Name,
             };
         }
     }

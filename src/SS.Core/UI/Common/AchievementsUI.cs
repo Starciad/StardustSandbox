@@ -55,12 +55,12 @@ namespace StardustSandbox.Core.UI.Common
         private readonly AchievementDatabase achievementDatabase;
         private readonly AssetDatabase assetDatabase;
         private readonly AmbientManager ambientManager;
-        private readonly AchievementsData achievementProgress;
+        private readonly AchievementData achievementProgress;
         private readonly SoundEffectManager soundEffectManager;
 
         internal AchievementsUI(
             AchievementDatabase achievementDatabase,
-            AchievementsData achievementProgress,
+            AchievementData achievementProgress,
             AssetDatabase assetDatabase,
             AmbientManager ambientManager,
             GameScreen gameScreen,

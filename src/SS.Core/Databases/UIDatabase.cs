@@ -60,7 +60,7 @@ namespace StardustSandbox.Core.Databases
             WorldSerializer worldSerializer
         )
         {
-            AchievementsData achievementProgress = progressSerializer.Load<AchievementsData>();
+            AchievementData achievementProgress = progressSerializer.Load<AchievementData>();
 
             ControlSettings controlSettings = settingsSerializer.Load<ControlSettings>();
             InterfaceSettings interfaceSettings = settingsSerializer.Load<InterfaceSettings>();

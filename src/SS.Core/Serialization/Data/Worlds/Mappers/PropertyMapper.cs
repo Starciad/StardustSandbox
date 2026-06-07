@@ -15,29 +15,33 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 using StardustSandbox.Core.Serialization.Data.Worlds.Formats.V1;
 using StardustSandbox.Core.Serialization.Data.Worlds.StorageModels;
-using StardustSandbox.Core.Serialization.Mappers;
 
 namespace StardustSandbox.Core.Serialization.Data.Worlds.Mappers
 {
-    internal sealed class PropertyMapper : Mapper<PropertyStorageModel, PropertyData>
+    internal sealed class PropertyMapper : IMapper
     {
-        internal override PropertyData ToData(PropertyStorageModel storageModel)
+        public IData ToData(IStorageModel value)
         {
-            return new()
+            PropertyStorageModel propertyStorageModel = (PropertyStorageModel)value;
+
+            return new PropertyData()
             {
-                Height = storageModel.Height,
-                Width = storageModel.Width
+                Height = propertyStorageModel.Height,
+                Width = propertyStorageModel.Width
             };
         }
 
-        internal override PropertyStorageModel ToStorageModel(PropertyData data)
+        public IStorageModel ToStorageModel(IData value)
         {
-            return new()
+            PropertyData propertyData = (PropertyData)value;
+
+            return new PropertyStorageModel()
             {
-                Height = data.Height,
-                Width = data.Width
+                Height = propertyData.Height,
+                Width = propertyData.Width
             };
         }
     }

@@ -55,7 +55,7 @@ namespace StardustSandbox.Core.Managers
         private void Unlock(AchievementIndex targetIndex)
         {
             Achievement targetAchievement = this.achievementDatabase.GetAchievement(targetIndex);
-            AchievementsData achievementProgress = this.progressSerializer.Load<AchievementsData>();
+            AchievementData achievementProgress = this.progressSerializer.Load<AchievementData>();
 
             // If the achievement is already unlocked or if the prerequisite achievement is not unlocked, do nothing.
             if (achievementProgress.IsUnlocked(targetIndex) || (targetAchievement.PrerequisiteAchievementIndex is not AchievementIndex.None && !achievementProgress.IsUnlocked(targetAchievement.PrerequisiteAchievementIndex)))

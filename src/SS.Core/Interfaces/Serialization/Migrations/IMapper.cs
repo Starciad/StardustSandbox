@@ -19,6 +19,7 @@ namespace StardustSandbox.Core.Interfaces.Serialization.Migrations
 {
     internal interface IMapper
     {
-
+        internal abstract IStorageModel ToStorageModel(IData value);
+        internal abstract IData ToData(IStorageModel value);
     }
 }

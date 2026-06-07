@@ -22,14 +22,13 @@ using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.Serialization.Data.Worlds.Formats
+namespace StardustSandbox.Core.Serialization.Data.Progress.Formats.V1
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class VersionData : IData
+    public sealed class AchievementData : IData
     {
         [Key(0)]
-        public Dictionary<string, int> ComponentVersions { get; set; }
+        public Dictionary<byte, bool> Datas { get; set; }
     }
-
 }

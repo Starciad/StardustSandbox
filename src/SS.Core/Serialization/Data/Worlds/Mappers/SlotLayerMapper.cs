@@ -17,35 +17,39 @@
 
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Indexers;
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 using StardustSandbox.Core.Serialization.Data.Worlds.Formats.V1;
 using StardustSandbox.Core.Serialization.Data.Worlds.StorageModels;
-using StardustSandbox.Core.Serialization.Mappers;
 
 namespace StardustSandbox.Core.Serialization.Data.Worlds.Mappers
 {
-    internal sealed class SlotLayerMapper : Mapper<SlotLayerStorageModel, SlotLayerData>
+    internal sealed class SlotLayerMapper : IMapper
     {
-        internal override SlotLayerData ToData(SlotLayerStorageModel storageModel)
+        public IData ToData(IStorageModel value)
         {
-            return new()
+            SlotLayerStorageModel slotLayerStorageModel = (SlotLayerStorageModel)value;
+
+            return new SlotLayerData()
             {
-                ColorModifierR = storageModel.ColorModifier.R,
-                ColorModifierG = storageModel.ColorModifier.G,
-                ColorModifierB = storageModel.ColorModifier.B,
-                ColorModifierA = storageModel.ColorModifier.A,
-                ElementIndex = (byte)storageModel.ElementIndex,
-                IsDissipating = storageModel.IsDissipating,
-                IsFalling = storageModel.IsFalling,
-                StepCycleFlag = (byte)storageModel.StepCycleFlag,
-                StoredElementIndex = (byte)storageModel.StoredElementIndex,
-                Temperature = storageModel.Temperature,
-                WasPushed = storageModel.WasPushed
+                ColorModifierR = slotLayerStorageModel.ColorModifier.R,
+                ColorModifierG = slotLayerStorageModel.ColorModifier.G,
+                ColorModifierB = slotLayerStorageModel.ColorModifier.B,
+                ColorModifierA = slotLayerStorageModel.ColorModifier.A,
+                ElementIndex = (byte)slotLayerStorageModel.ElementIndex,
+                IsDissipating = slotLayerStorageModel.IsDissipating,
+                IsFalling = slotLayerStorageModel.IsFalling,
+                StepCycleFlag = (byte)slotLayerStorageModel.StepCycleFlag,
+                StoredElementIndex = (byte)slotLayerStorageModel.StoredElementIndex,
+                Temperature = slotLayerStorageModel.Temperature,
+                WasPushed = slotLayerStorageModel.WasPushed
             };
         }
 
-        internal override SlotLayerStorageModel ToStorageModel(SlotLayerData data)
+        public IStorageModel ToStorageModel(IData value)
         {
-            return new()
+            SlotLayerData data = (SlotLayerData)value;
+
+            return new SlotLayerStorageModel()
             {
                 ColorModifier = new(data.ColorModifierR, data.ColorModifierG, data.ColorModifierB, data.ColorModifierA),
                 ElementIndex = (ElementIndex)data.ElementIndex,

@@ -15,31 +15,35 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 using StardustSandbox.Core.Serialization.Data.Worlds.Formats.V1;
 using StardustSandbox.Core.Serialization.Data.Worlds.StorageModels;
-using StardustSandbox.Core.Serialization.Mappers;
 
 namespace StardustSandbox.Core.Serialization.Data.Worlds.Mappers
 {
-    internal sealed class Texture2DMapper : Mapper<Texture2DStorageModel, Texture2DData>
+    internal sealed class Texture2DMapper : IMapper
     {
-        internal override Texture2DData ToData(Texture2DStorageModel storageModel)
+        public IData ToData(IStorageModel value)
         {
-            return new()
+            Texture2DStorageModel texture2DStorageModel = (Texture2DStorageModel)value;
+
+            return new Texture2DData()
             {
-                Data = storageModel.Data,
-                Height = storageModel.Height,
-                Width = storageModel.Width
+                Data = texture2DStorageModel.Data,
+                Height = texture2DStorageModel.Height,
+                Width = texture2DStorageModel.Width
             };
         }
 
-        internal override Texture2DStorageModel ToStorageModel(Texture2DData data)
+        public IStorageModel ToStorageModel(IData value)
         {
-            return new()
+            Texture2DData texture2DData = (Texture2DData)value;
+
+            return new Texture2DStorageModel()
             {
-                Data = data.Data,
-                Height = data.Height,
-                Width = data.Width
+                Data = texture2DData.Data,
+                Height = texture2DData.Height,
+                Width = texture2DData.Width
             };
         }
     }

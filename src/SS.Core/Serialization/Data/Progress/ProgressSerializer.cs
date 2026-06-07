@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.Serialization
         {
             this.descriptors = new()
             {
-                [typeof(AchievementsData)] = new ProgressDescriptor<AchievementsData>(IOConstants.ACHIEVEMENT_PROGRESS_FILE, this.options),
+                [typeof(AchievementData)] = new ProgressDescriptor<AchievementData>(IOConstants.ACHIEVEMENT_PROGRESS_FILE, this.options),
             };
 
             _ = Directory.CreateDirectory(IO.Directory.Progress);

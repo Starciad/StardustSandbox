@@ -16,29 +16,33 @@
 */
 
 using StardustSandbox.Core.Enums.Indexers;
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 using StardustSandbox.Core.Serialization.Data.Worlds.Formats.V1;
 using StardustSandbox.Core.Serialization.Data.Worlds.StorageModels;
-using StardustSandbox.Core.Serialization.Mappers;
 
 namespace StardustSandbox.Core.Serialization.Data.Worlds.Mappers
 {
-    internal sealed class ActorMapper : Mapper<ActorStorageModel, ActorData>
+    internal sealed class ActorMapper : IMapper
     {
-        internal override ActorData ToData(ActorStorageModel storageModel)
+        public IData ToData(IStorageModel value)
         {
-            return new()
+            ActorStorageModel actorStorageModel = (ActorStorageModel)value;
+
+            return new ActorData()
             {
-                Content = storageModel.Content,
-                Index = (byte)storageModel.Index
+                Content = actorStorageModel.Content,
+                Index = (byte)actorStorageModel.Index
             };
         }
 
-        internal override ActorStorageModel ToStorageModel(ActorData data)
+        public IStorageModel ToStorageModel(IData value)
         {
-            return new()
+            ActorData actorData = (ActorData)value;
+
+            return new ActorStorageModel()
             {
-                Content = data.Content,
-                Index = (ActorIndex)data.Index
+                Content = actorData.Content,
+                Index = (ActorIndex)actorData.Index
             };
         }
     }

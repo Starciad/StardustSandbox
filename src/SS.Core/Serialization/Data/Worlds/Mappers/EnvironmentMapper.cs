@@ -15,29 +15,33 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 using StardustSandbox.Core.Serialization.Data.Worlds.Formats.V1;
 using StardustSandbox.Core.Serialization.Data.Worlds.StorageModels;
-using StardustSandbox.Core.Serialization.Mappers;
 
 namespace StardustSandbox.Core.Serialization.Data.Worlds.Mappers
 {
-    internal sealed class EnvironmentMapper : Mapper<EnvironmentStorageModel, EnvironmentData>
+    internal sealed class EnvironmentMapper : IMapper
     {
-        internal override EnvironmentData ToData(EnvironmentStorageModel storageModel)
+        public IData ToData(IStorageModel value)
         {
-            return new()
+            EnvironmentStorageModel environmentStorageModel = (EnvironmentStorageModel)value;
+
+            return new EnvironmentData()
             {
-                CurrentTime = storageModel.CurrentTime,
-                IsFrozen = storageModel.IsFrozen,
+                CurrentTime = environmentStorageModel.CurrentTime,
+                IsFrozen = environmentStorageModel.IsFrozen,
             };
         }
 
-        internal override EnvironmentStorageModel ToStorageModel(EnvironmentData data)
+        public IStorageModel ToStorageModel(IData value)
         {
-            return new()
+            EnvironmentData environmentData = (EnvironmentData)value;
+
+            return new EnvironmentStorageModel()
             {
-                CurrentTime = data.CurrentTime,
-                IsFrozen = data.IsFrozen,
+                CurrentTime = environmentData.CurrentTime,
+                IsFrozen = environmentData.IsFrozen,
             };
         }
     }

@@ -15,13 +15,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 using StardustSandbox.Core.Serialization.Data.Worlds.Formats.V1;
 using StardustSandbox.Core.Serialization.Data.Worlds.StorageModels;
-using StardustSandbox.Core.Serialization.Mappers;
 
 namespace StardustSandbox.Core.Serialization.Data.Worlds.Mappers
 {
-    internal sealed class SlotMapper : Mapper<SlotStorageModel, SlotData>
+    internal sealed class SlotMapper : IMapper
     {
         private readonly SlotLayerMapper slotLayerMapper;
 
@@ -30,25 +30,29 @@ namespace StardustSandbox.Core.Serialization.Data.Worlds.Mappers
             this.slotLayerMapper = slotLayerMapper;
         }
 
-        internal override SlotData ToData(SlotStorageModel storageModel)
+        public IData ToData(IStorageModel value)
         {
-            return new()
+            SlotStorageModel slotStorageModel = (SlotStorageModel)value;
+
+            return new SlotData()
             {
-                BackgroundLayer = this.slotLayerMapper.ToData(storageModel.BackgroundLayer),
-                ForegroundLayer = this.slotLayerMapper.ToData(storageModel.ForegroundLayer),
-                PositionX = storageModel.PositionX,
-                PositionY = storageModel.PositionY,
+                BackgroundLayer = (SlotLayerData)this.slotLayerMapper.ToData(slotStorageModel.BackgroundLayer),
+                ForegroundLayer = (SlotLayerData)this.slotLayerMapper.ToData(slotStorageModel.ForegroundLayer),
+                PositionX = slotStorageModel.PositionX,
+                PositionY = slotStorageModel.PositionY,
             };
         }
 
-        internal override SlotStorageModel ToStorageModel(SlotData data)
+        public IStorageModel ToStorageModel(IData value)
         {
-            return new()
+            SlotData slotData = (SlotData)value;
+
+            return new SlotStorageModel()
             {
-                BackgroundLayer = this.slotLayerMapper.ToStorageModel(data.BackgroundLayer),
-                ForegroundLayer = this.slotLayerMapper.ToStorageModel(data.ForegroundLayer),
-                PositionX = data.PositionX,
-                PositionY = data.PositionY,
+                BackgroundLayer = (SlotLayerStorageModel)this.slotLayerMapper.ToStorageModel(slotData.BackgroundLayer),
+                ForegroundLayer = (SlotLayerStorageModel)this.slotLayerMapper.ToStorageModel(slotData.ForegroundLayer),
+                PositionX = slotData.PositionX,
+                PositionY = slotData.PositionY,
             };
         }
     }

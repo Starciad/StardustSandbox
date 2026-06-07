@@ -18,6 +18,8 @@
 using MessagePack;
 using MessagePack.Resolvers;
 
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
+
 namespace StardustSandbox.Core.Serialization.Data
 {
     internal sealed class DataSerializer
@@ -25,7 +27,11 @@ namespace StardustSandbox.Core.Serialization.Data
         private readonly MessagePackSerializerOptions options = MessagePackSerializerOptions.Standard
             .WithResolver(CompositeResolver.Create(StandardResolver.Instance))
             .WithSecurity(MessagePackSecurity.UntrustedData)
-            .WithCompression(MessagePackCompression.Lz4BlockArray)
-            .WithAllowAssemblyVersionMismatch(true);
+            .WithCompression(MessagePackCompression.Lz4BlockArray);
+
+        internal void Serialize(IStorageModel storageModel)
+        {
+            MessagePackSerializer.Serialize(storageModel.GetType(), storageModel, this.options);
+        }
     }
 }

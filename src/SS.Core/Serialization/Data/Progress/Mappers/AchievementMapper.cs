@@ -16,41 +16,43 @@
 */
 
 using StardustSandbox.Core.Enums.Indexers;
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 using StardustSandbox.Core.Serialization.Data.Progress.Formats.V1;
 using StardustSandbox.Core.Serialization.Data.Progress.StorageModels;
-using StardustSandbox.Core.Serialization.Mappers;
 
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Serialization.Data.Progress.Mappers
 {
-    internal sealed class AchievementMapper : Mapper<AchievementStorageModel, AchievementsData>
+    internal sealed class AchievementMapper : IMapper
     {
-        internal override AchievementsData ToData(AchievementStorageModel storageModel)
+        public IData ToData(IStorageModel value)
         {
+            AchievementStorageModel achievementStorageModel = (AchievementStorageModel)value;
             Dictionary<byte, bool> datas = [];
 
-            foreach (KeyValuePair<AchievementIndex, bool> pair in storageModel.Datas)
+            foreach (KeyValuePair<AchievementIndex, bool> pair in achievementStorageModel.Datas)
             {
                 datas.Add((byte)pair.Key, pair.Value);
             }
 
-            return new()
+            return new AchievementData()
             {
                 Datas = datas
             };
         }
 
-        internal override AchievementStorageModel ToStorageModel(AchievementsData data)
+        public IStorageModel ToStorageModel(IData value)
         {
+            AchievementData achievementData = (AchievementData)value;
             Dictionary<AchievementIndex, bool> datas = [];
 
-            foreach (KeyValuePair<byte, bool> pair in data.Datas)
+            foreach (KeyValuePair<byte, bool> pair in achievementData.Datas)
             {
                 datas.Add((AchievementIndex)pair.Key, pair.Value);
             }
 
-            return new()
+            return new AchievementStorageModel()
             {
                 Datas = datas
             };
