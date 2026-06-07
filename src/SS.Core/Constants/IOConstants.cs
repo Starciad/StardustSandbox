@@ -146,7 +146,6 @@ namespace StardustSandbox.Core.Constants
         internal const string SAVE_ENTRY_MANIFEST_ID = "MANIFEST";
         internal const string SAVE_ENTRY_PROPERTIES_ID = "PROPERTIES";
         internal const string SAVE_ENTRY_THUMBNAIL_ID = "THUMBNAIL";
-        internal const string SAVE_ENTRY_VERSION_ID = "VERSION";
 
         internal const string SAVE_FILE_EXTENSION = ".sf";
         internal const string SAVE_FILE_DATA = "data.bin";
@@ -156,6 +155,7 @@ namespace StardustSandbox.Core.Constants
         internal const string SAVE_ENTRY_MANIFEST_FILE = "manifest.bin";
         internal const string SAVE_ENTRY_PROPERTIES_FILE = "properties.bin";
         internal const string SAVE_ENTRY_THUMBNAIL_FILE = "thumbnail.bin";
+        internal const string SAVE_ENTRY_VERSION_FILE = "version.bin";
 
         // Others
         internal const string WARNING = "WARNING.txt";

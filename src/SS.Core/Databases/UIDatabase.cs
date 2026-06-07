@@ -23,6 +23,7 @@ using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Data.Progress.Formats.V1;
+using StardustSandbox.Core.Serialization.Data.Worlds;
 using StardustSandbox.Core.Serialization.Settings.Common;
 using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Common;

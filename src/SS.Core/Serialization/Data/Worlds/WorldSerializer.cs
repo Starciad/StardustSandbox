@@ -15,15 +15,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using MessagePack;
-using MessagePack.Resolvers;
-
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization.Data;
+using StardustSandbox.Core.Serialization.Data.Versions;
 using StardustSandbox.Core.Serialization.Data.Worlds.Mappers;
 using StardustSandbox.Core.Serialization.Data.Worlds.StorageModels;
 using StardustSandbox.Core.Serialization.Migrations;
@@ -34,7 +32,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
-namespace StardustSandbox.Core.Serialization
+namespace StardustSandbox.Core.Serialization.Data.Worlds
 {
     internal sealed partial class WorldSerializer
     {
@@ -46,6 +44,7 @@ namespace StardustSandbox.Core.Serialization
         private readonly SlotLayerMapper slotLayerMapper;
         private readonly SlotMapper slotMapper;
         private readonly Texture2DMapper texture2DMapper;
+        private readonly VersionMapper versionMapper;
 
         private readonly ActorManager actorManager;
         private readonly GraphicsDeviceManager graphicsDeviceManager;
@@ -71,6 +70,7 @@ namespace StardustSandbox.Core.Serialization
             this.manifestMapper = new();
             this.propertyMapper = new();
             this.texture2DMapper = new();
+            this.versionMapper = new();
 
             this.typeToEntryName = new()
             {
@@ -87,7 +87,8 @@ namespace StardustSandbox.Core.Serialization
                 [typeof(EnvironmentStorageModel)] = this.environmentMapper,
                 [typeof(ManifestStorageModel)] = this.manifestMapper,
                 [typeof(PropertyStorageModel)] = this.propertyMapper,
-                [typeof(Texture2DStorageModel)] = this.texture2DMapper
+                [typeof(Texture2DStorageModel)] = this.texture2DMapper,
+                [typeof(VersionStorageModel)] = this.versionMapper
             };
 
             this.typeToMigrationRegistry = new()
@@ -110,6 +111,68 @@ namespace StardustSandbox.Core.Serialization
             this.dataSerializer.Serialize(stream, mapper, storageModel);
         }
 
+        #region
+
+        private ContentStorageModel CreateContent()
+        {
+            return new()
+            {
+                Actors = this.actorManager.Serialize(),
+                Slots = this.world.SerializationHelper.Serialize(),
+            };
+        }
+
+        private EnvironmentStorageModel CreateEnvironment()
+        {
+            return new()
+            {
+                CurrentTime = this.world.Time.CurrentTime,
+                IsFrozen = this.world.Time.IsFrozen,
+            };
+        }
+
+        private ManifestStorageModel CreateManifest()
+        {
+            return new()
+            {
+                CreationTimestamp = DateTime.Now,
+                Description = this.world.Description,
+                LastModifiedTimestamp = DateTime.Now,
+                Name = this.world.Name,
+            };
+        }
+
+        private PropertyStorageModel CreateProperties()
+        {
+            return new()
+            {
+                Width = this.world.TileMap.Width,
+                Height = this.world.TileMap.Height,
+            };
+        }
+
+        private Texture2DStorageModel CreateThumbnail()
+        {
+            return new(this.world.TileMap.CreateThumbnail(this.graphicsDeviceManager.GraphicsDevice));
+        }
+
+        private static VersionStorageModel CreateVersion()
+        {
+            return new()
+            {
+                Components = new Dictionary<string, int>()
+                {
+                    [IOConstants.SAVE_ENTRY_CONTENT_ID] = IOConstants.SAVE_CONTENT_COMPONENT_VERSION,
+                    [IOConstants.SAVE_ENTRY_ENVIRONMENT_ID] = IOConstants.SAVE_ENVIRONMENT_COMPONENT_VERSION,
+                    [IOConstants.SAVE_ENTRY_MANIFEST_ID] = IOConstants.SAVE_MANIFEST_COMPONENT_VERSION,
+                    [IOConstants.SAVE_ENTRY_PROPERTIES_ID] = IOConstants.SAVE_PROPERTIES_COMPONENT_VERSION,
+                    [IOConstants.SAVE_ENTRY_THUMBNAIL_ID] = IOConstants.SAVE_THUMBNAIL_COMPONENT_VERSION,
+                }
+            };
+        }
+
+        #endregion
+
         internal void Save()
         {
             string filename = Path.Combine(IO.Directory.Worlds, string.Concat(this.world.Name, IOConstants.SAVE_FILE_EXTENSION));
@@ -122,11 +185,12 @@ namespace StardustSandbox.Core.Serialization
             using FileStream fs = new(filename, FileMode.Create, FileAccess.Write);
             using ZipArchive zip = new(fs, ZipArchiveMode.Create);
 
-            Serialize(zip, IOConstants.SAVE_ENTRY_CONTENT_FILE, this.contentMapper, SerializeContent());
-            Serialize(zip, IOConstants.SAVE_ENTRY_ENVIRONMENT_FILE, this.environmentMapper, SerializeEnvironment());
-            Serialize(zip, IOConstants.SAVE_ENTRY_MANIFEST_FILE, this.manifestMapper, SerializeManifest());
-            Serialize(zip, IOConstants.SAVE_ENTRY_PROPERTIES_FILE, this.propertyMapper, SerializeProperties());
-            Serialize(zip, IOConstants.SAVE_ENTRY_THUMBNAIL_FILE, this.texture2DMapper, SerializeThumbnail());
+            Serialize(zip, IOConstants.SAVE_ENTRY_CONTENT_FILE, this.contentMapper, CreateContent());
+            Serialize(zip, IOConstants.SAVE_ENTRY_ENVIRONMENT_FILE, this.environmentMapper, CreateEnvironment());
+            Serialize(zip, IOConstants.SAVE_ENTRY_MANIFEST_FILE, this.manifestMapper, CreateManifest());
+            Serialize(zip, IOConstants.SAVE_ENTRY_PROPERTIES_FILE, this.propertyMapper, CreateProperties());
+            Serialize(zip, IOConstants.SAVE_ENTRY_THUMBNAIL_FILE, this.texture2DMapper, CreateThumbnail());
+            Serialize(zip, IOConstants.SAVE_ENTRY_VERSION_FILE, this.versionMapper, CreateVersion());
         }
 
         private TStorageModel Deserialize<TStorageModel>(ZipArchive zip, string entryName, IMapper mapper, MigrationRegistry migrationRegistry, int sourceVersion, int targetVersion)

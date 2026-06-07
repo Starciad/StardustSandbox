@@ -15,14 +15,20 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using MessagePack;
+
 using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 
+using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.Serialization.Data.Worlds.StorageModels
+namespace StardustSandbox.Core.Serialization.Data.Versions
 {
-    internal sealed class VersionStorageModel : IStorageModel
+    [Serializable]
+    [MessagePackObject]
+    public sealed class VersionData : IData
     {
-        internal Dictionary<string, int> ComponentVersions { get; set; }
+        [Key(0)]
+        public Dictionary<string, int> Components { get; set; }
     }
 }
