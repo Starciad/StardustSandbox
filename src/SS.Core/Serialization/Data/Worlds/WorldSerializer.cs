@@ -23,6 +23,7 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.Serialization.Data;
 using StardustSandbox.Core.Serialization.Data.Worlds.Mappers;
 using StardustSandbox.Core.Serialization.Data.Worlds.StorageModels;
 using StardustSandbox.Core.Serialization.Migrations;
@@ -36,12 +37,6 @@ namespace StardustSandbox.Core.Serialization
 {
     internal sealed partial class WorldSerializer
     {
-        private readonly MessagePackSerializerOptions options = MessagePackSerializerOptions.Standard
-            .WithResolver(CompositeResolver.Create(StandardResolver.Instance))
-            .WithSecurity(MessagePackSecurity.UntrustedData)
-            .WithCompression(MessagePackCompression.Lz4BlockArray)
-            .WithAllowAssemblyVersionMismatch(true);
-
         private readonly MigrationRegistry migrationRegistry;
 
         private readonly ActorMapper actorMapper;
@@ -56,12 +51,14 @@ namespace StardustSandbox.Core.Serialization
 
         private readonly ActorManager actorManager;
         private readonly GraphicsDeviceManager graphicsDeviceManager;
+        private readonly DataSerializer dataSerializer;
         private readonly World world;
 
-        internal WorldSerializer(ActorManager actorManager, GraphicsDeviceManager graphicsDeviceManager, World world)
+        internal WorldSerializer(ActorManager actorManager, GraphicsDeviceManager graphicsDeviceManager, DataSerializer dataSerializer, World world)
         {
             this.actorManager = actorManager;
             this.graphicsDeviceManager = graphicsDeviceManager;
+            this.dataSerializer = dataSerializer;
             this.world = world;
 
             this.migrationRegistry = new();

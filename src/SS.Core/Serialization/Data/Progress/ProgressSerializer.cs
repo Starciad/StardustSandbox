@@ -20,6 +20,7 @@ using MessagePack.Resolvers;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.Serialization.Migrations;
+using StardustSandbox.Core.Serialization.Data;
 using StardustSandbox.Core.Serialization.Data.Progress.Formats.V1;
 
 using System;
@@ -30,14 +31,10 @@ namespace StardustSandbox.Core.Serialization
 {
     internal sealed partial class ProgressSerializer
     {
-        private readonly MessagePackSerializerOptions options = MessagePackSerializerOptions.Standard
-            .WithResolver(StandardResolver.Instance)
-            .WithSecurity(MessagePackSecurity.UntrustedData)
-            .WithCompression(MessagePackCompression.Lz4BlockArray);
-
+        private readonly DataSerializer dataSerializer;
         private readonly Dictionary<Type, IProgressDescriptor> descriptors;
 
-        internal ProgressSerializer()
+        internal ProgressSerializer(DataSerializer dataSerializer)
         {
             this.descriptors = new()
             {
