@@ -28,7 +28,7 @@ using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Worlds.StorageModels;
+using StardustSandbox.Core.Serialization.Data.Worlds.StorageModels;
 using StardustSandbox.Core.WorldSystem;
 
 using System;

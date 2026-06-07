@@ -22,7 +22,7 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Progress.Common;
+using StardustSandbox.Core.Serialization.Data.Progress.Formats.V1;
 using StardustSandbox.Core.Serialization.Settings.Common;
 using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Common;
@@ -60,7 +60,7 @@ namespace StardustSandbox.Core.Databases
             WorldSerializer worldSerializer
         )
         {
-            AchievementProgress achievementProgress = progressSerializer.Load<AchievementProgress>();
+            AchievementsData achievementProgress = progressSerializer.Load<AchievementsData>();
 
             ControlSettings controlSettings = settingsSerializer.Load<ControlSettings>();
             InterfaceSettings interfaceSettings = settingsSerializer.Load<InterfaceSettings>();
