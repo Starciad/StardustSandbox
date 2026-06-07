@@ -120,6 +120,9 @@ namespace StardustSandbox.Core.Constants
 
         // Progress
         internal const string ACHIEVEMENT_PROGRESS_FILE = "achievement_progress.bin";
+        internal const string VERSION_PROGRESS_FILE = "version.bin";
+
+        internal const int ACHIEVEMENT_PROGRESS_VERSION = 1;
 
         // Settings
         internal const string CONTROL_SETTINGS_FILE = "control_settings.xml";

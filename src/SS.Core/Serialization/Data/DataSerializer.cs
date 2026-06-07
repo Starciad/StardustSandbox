@@ -65,7 +65,10 @@ namespace StardustSandbox.Core.Serialization.Data
             IData data = MessagePackSerializer.Deserialize<IData>(stream, this.options);
 
             // Migrate to the latest version
-            Migrate(data, migrationRegistry, sourceVersion, targetVersion);
+            if (migrationRegistry is not null)
+            {
+                Migrate(data, migrationRegistry, sourceVersion, targetVersion);
+            }
 
             // Convert data to storage model
             return (TStorageModel)mapper.ToStorageModel(data);

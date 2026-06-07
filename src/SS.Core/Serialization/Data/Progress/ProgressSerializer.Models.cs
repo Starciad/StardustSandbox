@@ -18,6 +18,8 @@
 using MessagePack;
 
 using StardustSandbox.Core.Interfaces.Serialization.Migrations;
+using StardustSandbox.Core.Serialization.Data;
+using StardustSandbox.Core.Serialization.Migrations;
 
 using System;
 using System.IO;
@@ -29,19 +31,19 @@ namespace StardustSandbox.Core.Serialization
         private interface IProgressDescriptor
         {
             Type SettingsType { get; }
-            void Load();
+            void Load(int sourceVersion, int targetVersion);
         }
 
-        private sealed class ProgressDescriptor<T>(string fileName, MessagePackSerializerOptions options) : IProgressDescriptor where T : IData, new()
+        private sealed class ProgressDescriptor<TStorageModel>(string filename, DataSerializer dataSerializer, IMapper mapper, MigrationRegistry migrationRegistry) : IProgressDescriptor where TStorageModel : IStorageModel, new()
         {
-            public Type SettingsType => typeof(T);
-            public T Value => this.cache;
+            public Type SettingsType => typeof(TStorageModel);
+            public TStorageModel Value => this.cache;
 
-            private T cache;
+            private TStorageModel cache;
 
-            public void Load()
+            public void Load(int sourceVersion, int targetVersion)
             {
-                string filePath = Path.Combine(IO.Directory.Progress, fileName);
+                string filePath = Path.Combine(IO.Directory.Progress, filename);
 
                 if (!File.Exists(filePath))
                 {
@@ -52,7 +54,7 @@ namespace StardustSandbox.Core.Serialization
                 try
                 {
                     using FileStream stream = File.OpenRead(filePath);
-                    this.cache = MessagePackSerializer.Deserialize<T>(stream, options);
+                    this.cache = dataSerializer.Deserialize<TStorageModel>(stream, mapper, migrationRegistry, sourceVersion, targetVersion);
                 }
                 catch
                 {
@@ -61,20 +63,20 @@ namespace StardustSandbox.Core.Serialization
                 }
             }
 
-            public void Save(T value)
+            public void Save(TStorageModel value)
             {
-                using FileStream stream = new(Path.Combine(IO.Directory.Progress, fileName), FileMode.Create, FileAccess.Write);
+                using FileStream stream = new(Path.Combine(IO.Directory.Progress, filename), FileMode.Create, FileAccess.Write);
 
                 this.cache = value;
-                MessagePackSerializer.Serialize<T>(stream, value);
+                dataSerializer.Serialize(stream, mapper, value);
             }
 
             private void CreateAndSaveDefault(string filePath)
             {
-                this.cache = new T();
+                this.cache = new TStorageModel();
 
                 using FileStream stream = new(filePath, FileMode.Create, FileAccess.Write);
-                MessagePackSerializer.Serialize<T>(stream, this.cache);
+                MessagePackSerializer.Serialize(stream, this.cache);
             }
         }
     }

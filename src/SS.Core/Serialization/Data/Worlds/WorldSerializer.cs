@@ -51,9 +51,10 @@ namespace StardustSandbox.Core.Serialization.Data.Worlds
         private readonly DataSerializer dataSerializer;
         private readonly World world;
 
-        private readonly Dictionary<Type, string> typeToEntryName;
-        private readonly Dictionary<Type, IMapper> typeToMapper;
-        private readonly Dictionary<Type, MigrationRegistry> typeToMigrationRegistry;
+        private readonly Dictionary<Type, string> entryNames;
+        private readonly Dictionary<Type, IMapper> mappers;
+        private readonly Dictionary<Type, MigrationRegistry> migrationRegistry;
+        private readonly Dictionary<Type, int> targetVersions;
 
         internal WorldSerializer(ActorManager actorManager, GraphicsDeviceManager graphicsDeviceManager, DataSerializer dataSerializer, World world)
         {
@@ -72,7 +73,7 @@ namespace StardustSandbox.Core.Serialization.Data.Worlds
             this.texture2DMapper = new();
             this.versionMapper = new();
 
-            this.typeToEntryName = new()
+            this.entryNames = new()
             {
                 [typeof(ContentStorageModel)] = IOConstants.SAVE_ENTRY_CONTENT_FILE,
                 [typeof(EnvironmentStorageModel)] = IOConstants.SAVE_ENTRY_ENVIRONMENT_FILE,
@@ -81,7 +82,7 @@ namespace StardustSandbox.Core.Serialization.Data.Worlds
                 [typeof(Texture2DStorageModel)] = IOConstants.SAVE_ENTRY_THUMBNAIL_FILE
             };
 
-            this.typeToMapper = new()
+            this.mappers = new()
             {
                 [typeof(ContentStorageModel)] = this.contentMapper,
                 [typeof(EnvironmentStorageModel)] = this.environmentMapper,
@@ -91,13 +92,22 @@ namespace StardustSandbox.Core.Serialization.Data.Worlds
                 [typeof(VersionStorageModel)] = this.versionMapper
             };
 
-            this.typeToMigrationRegistry = new()
+            this.migrationRegistry = new()
             {
                 [typeof(ContentStorageModel)] = new(),
                 [typeof(EnvironmentStorageModel)] = new(),
                 [typeof(ManifestStorageModel)] = new(),
                 [typeof(PropertyStorageModel)] = new(),
                 [typeof(Texture2DStorageModel)] = new()
+            };
+
+            this.targetVersions = new()
+            {
+                [typeof(ContentStorageModel)] = IOConstants.SAVE_CONTENT_COMPONENT_VERSION,
+                [typeof(EnvironmentStorageModel)] = IOConstants.SAVE_ENVIRONMENT_COMPONENT_VERSION,
+                [typeof(ManifestStorageModel)] = IOConstants.SAVE_MANIFEST_COMPONENT_VERSION,
+                [typeof(PropertyStorageModel)] = IOConstants.SAVE_PROPERTIES_COMPONENT_VERSION,
+                [typeof(Texture2DStorageModel)] = IOConstants.SAVE_THUMBNAIL_COMPONENT_VERSION
             };
         }
 
@@ -215,14 +225,16 @@ namespace StardustSandbox.Core.Serialization.Data.Worlds
             using FileStream fs = new(filename, FileMode.Open, FileAccess.Read);
             using ZipArchive zip = new(fs, ZipArchiveMode.Read);
 
+            VersionStorageModel sourceVersions = Deserialize<VersionStorageModel>(zip, IOConstants.SAVE_ENTRY_VERSION_FILE, this.versionMapper, null, 0, 0);
+          
             Type storageModelType = typeof(TStorageModel);
 
-            string entryName = this.typeToEntryName[storageModelType];
-            IMapper mapper = this.typeToMapper[storageModelType];
-            MigrationRegistry migrationRegistry = this.typeToMigrationRegistry[storageModelType];
+            string entryName = this.entryNames[storageModelType];
+            IMapper mapper = this.mappers[storageModelType];
+            MigrationRegistry migrationRegistry = this.migrationRegistry[storageModelType];
 
-            int sourceVersion = 1;
-            int targetVersion = 1;
+            int sourceVersion = sourceVersions.Components[entryName];
+            int targetVersion = this.targetVersions[storageModelType];
 
             return Deserialize<TStorageModel>(zip, entryName, mapper, migrationRegistry, sourceVersion, targetVersion);
         }

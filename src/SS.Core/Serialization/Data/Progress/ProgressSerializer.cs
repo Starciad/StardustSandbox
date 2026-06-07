@@ -15,13 +15,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using MessagePack;
-using MessagePack.Resolvers;
-
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 using StardustSandbox.Core.Serialization.Data;
 using StardustSandbox.Core.Serialization.Data.Progress.Formats.V1;
+using StardustSandbox.Core.Serialization.Data.Progress.Mappers;
+using StardustSandbox.Core.Serialization.Data.Progress.StorageModels;
+using StardustSandbox.Core.Serialization.Data.Versions;
+using StardustSandbox.Core.Serialization.Migrations;
 
 using System;
 using System.Collections.Generic;
@@ -36,9 +37,11 @@ namespace StardustSandbox.Core.Serialization
 
         internal ProgressSerializer(DataSerializer dataSerializer)
         {
+            this.dataSerializer = dataSerializer;
+
             this.descriptors = new()
             {
-                [typeof(AchievementData)] = new ProgressDescriptor<AchievementData>(IOConstants.ACHIEVEMENT_PROGRESS_FILE, this.options),
+                [typeof(AchievementStorageModel)] = new ProgressDescriptor<AchievementStorageModel>(IOConstants.ACHIEVEMENT_PROGRESS_FILE, dataSerializer, new AchievementMapper(), new()),
             };
 
             _ = Directory.CreateDirectory(IO.Directory.Progress);
@@ -59,9 +62,9 @@ namespace StardustSandbox.Core.Serialization
             GetDescriptor<T>().Save(value);
         }
 
-        private ProgressDescriptor<T> GetDescriptor<T>() where T : IStorageModel, new()
+        private ProgressDescriptor<TStorageModel> GetDescriptor<TStorageModel>() where TStorageModel : IStorageModel, new()
         {
-            return !this.descriptors.TryGetValue(typeof(T), out IProgressDescriptor raw) ? null : (ProgressDescriptor<T>)raw;
+            return !this.descriptors.TryGetValue(typeof(TStorageModel), out IProgressDescriptor raw) ? null : (ProgressDescriptor<TStorageModel>)raw;
         }
     }
 }
