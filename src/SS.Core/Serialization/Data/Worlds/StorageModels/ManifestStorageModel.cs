@@ -18,16 +18,11 @@
 using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 
 using System;
-using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Serialization.Data.Worlds.StorageModels
 {
     internal sealed class ManifestStorageModel : IStorageModel
     {
-        internal bool IsInitialized { get; set; }
-        internal int SaveVersion { get; set; }
-        internal Dictionary<string, int> ComponentVersions { get; set; }
-        internal Version GameVersion { get; set; }
         internal string Name { get; set; }
         internal string Description { get; set; }
         internal DateTime CreationTimestamp { get; set; }

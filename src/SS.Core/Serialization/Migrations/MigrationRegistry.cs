@@ -23,6 +23,11 @@ namespace StardustSandbox.Core.Serialization.Migrations
     {
         private readonly IMigration[] migrations;
 
+        internal MigrationRegistry(params IMigration[] migrations)
+        {
+            this.migrations = migrations;
+        }
+
         private static int GetIndexFromVersion(int value)
         {
             return value - 1;

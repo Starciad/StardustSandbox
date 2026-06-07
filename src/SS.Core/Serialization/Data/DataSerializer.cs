@@ -19,6 +19,9 @@ using MessagePack;
 using MessagePack.Resolvers;
 
 using StardustSandbox.Core.Interfaces.Serialization.Migrations;
+using StardustSandbox.Core.Serialization.Migrations;
+
+using System.IO;
 
 namespace StardustSandbox.Core.Serialization.Data
 {
@@ -29,9 +32,33 @@ namespace StardustSandbox.Core.Serialization.Data
             .WithSecurity(MessagePackSecurity.UntrustedData)
             .WithCompression(MessagePackCompression.Lz4BlockArray);
 
-        internal void Serialize(IStorageModel storageModel)
+        internal void Serialize<TMapper, TStorageModel>(Stream stream, TMapper mapper, TStorageModel storageModel)
+            where TMapper : IMapper
+            where TStorageModel : IStorageModel
         {
-            MessagePackSerializer.Serialize(storageModel.GetType(), storageModel, this.options);
+            IData data = mapper.ToData(storageModel);
+            MessagePackSerializer.Serialize(stream, data, this.options);
+        }
+
+        internal TStorageModel Deserialize<TData, TMapper, TStorageModel>(Stream stream, TMapper mapper, MigrationRegistry migrationRegistry, int sourceVersion, int targetVersion)
+            where TData : IData
+            where TMapper : IMapper
+            where TStorageModel : IStorageModel
+        {
+            // Deserialize Version (DATA V1, V2, [...])
+            TData data = MessagePackSerializer.Deserialize<TData>(stream, this.options);
+
+            // Migrate
+            int currentVersion = sourceVersion;
+
+            while (currentVersion < targetVersion)
+            {
+                migrationRegistry.GetMigration(currentVersion).Migrate(data);
+                currentVersion++;
+            }
+
+            // Data to StorageModel
+            return (TStorageModel)mapper.ToStorageModel(data);
         }
     }
 }

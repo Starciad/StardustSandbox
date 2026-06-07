@@ -47,7 +47,6 @@ namespace StardustSandbox.Core.Serialization
         private readonly SlotLayerMapper slotLayerMapper;
         private readonly SlotMapper slotMapper;
         private readonly Texture2DMapper texture2DMapper;
-        private readonly VersionMapper versionMapper;
 
         private readonly ActorManager actorManager;
         private readonly GraphicsDeviceManager graphicsDeviceManager;
@@ -71,14 +70,32 @@ namespace StardustSandbox.Core.Serialization
             this.manifestMapper = new();
             this.propertyMapper = new();
             this.texture2DMapper = new();
-            this.versionMapper = new();
         }
 
-        private void Write<T>(ZipArchive zip, string entryName, T data)
+        private void Serialize<TMapper, TStorageModel>(ZipArchive zip, string entryName, TMapper mapper, TStorageModel storageModel)
+            where TMapper : IMapper
+            where TStorageModel : IStorageModel
         {
             ZipArchiveEntry entry = zip.CreateEntry(entryName, CompressionLevel.SmallestSize);
             using Stream stream = entry.Open();
-            MessagePackSerializer.Serialize(stream, data, this.options);
+
+            this.dataSerializer.Serialize(stream, mapper, storageModel);
+        }
+
+        private TStorageModel Deserialize<TData, TMapper, TStorageModel>(ZipArchive zip, string entryName, TMapper mapper, MigrationRegistry migrationRegistry, int sourceVersion, int targetVersion)
+            where TData : IData
+            where TMapper : IMapper
+            where TStorageModel : IStorageModel
+        {
+            ZipArchiveEntry entry = zip.GetEntry(entryName);
+
+            if (entry == null)
+            {
+                return default;
+            }
+
+            using Stream stream = entry.Open();
+            return this.dataSerializer.Deserialize<TData, TMapper, TStorageModel>(stream, mapper, migrationRegistry, sourceVersion, targetVersion);
         }
 
         internal void Save()
@@ -93,25 +110,11 @@ namespace StardustSandbox.Core.Serialization
             using FileStream fs = new(filename, FileMode.Create, FileAccess.Write);
             using ZipArchive zip = new(fs, ZipArchiveMode.Create);
 
-            Write(zip, IOConstants.SAVE_ENTRY_CONTENT_FILE, SerializeContent());
-            Write(zip, IOConstants.SAVE_ENTRY_ENVIRONMENT_FILE, SerializeEnvironment());
-            Write(zip, IOConstants.SAVE_ENTRY_MANIFEST_FILE, SerializeManifest());
-            Write(zip, IOConstants.SAVE_ENTRY_PROPERTIES_FILE, SerializeProperties());
-            Write(zip, IOConstants.SAVE_ENTRY_THUMBNAIL_FILE, SerializeThumbnail());
-            Write(zip, IOConstants.SAVE_ENTRY_VERSION_FILE, SerializeVersion());
-        }
-
-        private T Read<T>(ZipArchive zip, string entryName) where T : IStorageModel
-        {
-            ZipArchiveEntry entry = zip.GetEntry(entryName);
-
-            if (entry == null)
-            {
-                return default;
-            }
-
-            using Stream stream = entry.Open();
-            return MessagePackSerializer.Deserialize<T>(stream, this.options);
+            Serialize(zip, IOConstants.SAVE_ENTRY_CONTENT_FILE, this.contentMapper, SerializeContent());
+            Serialize(zip, IOConstants.SAVE_ENTRY_ENVIRONMENT_FILE, this.environmentMapper, SerializeEnvironment());
+            Serialize(zip, IOConstants.SAVE_ENTRY_MANIFEST_FILE, this.manifestMapper, SerializeManifest());
+            Serialize(zip, IOConstants.SAVE_ENTRY_PROPERTIES_FILE, this.propertyMapper, SerializeProperties());
+            Serialize(zip, IOConstants.SAVE_ENTRY_THUMBNAIL_FILE, this.texture2DMapper, SerializeThumbnail());
         }
 
         internal T Load<T>(string name) where T : IStorageModel
@@ -122,9 +125,8 @@ namespace StardustSandbox.Core.Serialization
             using ZipArchive zip = new(fs, ZipArchiveMode.Read);
 
             Type storageModelType = typeof(T);
-
-            VersionStorageModel versionStorageModel = Read<VersionStorageModel>(zip, IOConstants.SAVE_ENTRY_VERSION_FILE);
-
+            
+            // VersionStorageModel versionStorageModel = Deserialize<VersionStorageModel>(zip, IOConstants.SAVE_ENTRY_VERSION_FILE);
             // 1 - Convert storage model to the data type
             // 2 - Throw exception if the version file is missing
             // 3 - Deserialize the version of component

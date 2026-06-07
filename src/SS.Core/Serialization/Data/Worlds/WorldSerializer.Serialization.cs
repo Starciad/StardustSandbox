@@ -15,83 +15,56 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Extensions;
-using StardustSandbox.Core.Serialization.Data.Worlds.Formats;
-using StardustSandbox.Core.Serialization.Data.Worlds.Formats.V1;
 using StardustSandbox.Core.Serialization.Data.Worlds.StorageModels;
 
-using System.Collections.Generic;
+using System;
 
 namespace StardustSandbox.Core.Serialization
 {
     internal sealed partial class WorldSerializer
     {
-        private ContentData SerializeContent()
+        private ContentStorageModel SerializeContent()
         {
-            ContentStorageModel contentStorageModel = new()
+            return new()
             {
                 Actors = this.actorManager.Serialize(),
                 Slots = this.world.SerializationHelper.Serialize(),
             };
-
-            return this.contentMapper.ToData(contentStorageModel);
         }
 
-        private EnvironmentData SerializeEnvironment()
+        private EnvironmentStorageModel SerializeEnvironment()
         {
-            EnvironmentStorageModel environmentStorageModel = new()
+            return new()
             {
                 CurrentTime = this.world.Time.CurrentTime,
                 IsFrozen = this.world.Time.IsFrozen,
             };
-
-            return this.environmentMapper.ToData(environmentStorageModel);
         }
 
-        private ManifestData SerializeManifest()
+        private ManifestStorageModel SerializeManifest()
         {
-            ManifestStorageModel manifestStorageModel = new()
+            return new()
             {
-
+                CreationTimestamp = DateTime.Now,
+                Description = this.world.Description,
+                LastModifiedTimestamp = DateTime.Now,
+                Name = this.world.Name,
             };
-
-            return this.manifestMapper.ToData(manifestStorageModel);
         }
 
-        private PropertyData SerializeProperties()
+        private PropertyStorageModel SerializeProperties()
         {
-            PropertyStorageModel propertyStorageModel = new()
+            return new()
             {
                 Width = this.world.TileMap.Width,
                 Height = this.world.TileMap.Height,
             };
-
-            return this.propertyMapper.ToData(propertyStorageModel);
         }
 
-        private Texture2DData SerializeThumbnail()
+        private Texture2DStorageModel SerializeThumbnail()
         {
-            Texture2DStorageModel texture2DStorageModel = new(this.world.TileMap.CreateThumbnail(this.graphicsDeviceManager.GraphicsDevice));
-
-            return this.texture2DMapper.ToData(texture2DStorageModel);
-        }
-
-        private VersionData SerializeVersion()
-        {
-            VersionStorageModel versionStorageModel = new()
-            {
-                ComponentVersions = new Dictionary<string, int>()
-                {
-                    [IOConstants.SAVE_ENTRY_CONTENT_ID] = IOConstants.SAVE_CONTENT_COMPONENT_VERSION,
-                    [IOConstants.SAVE_ENTRY_ENVIRONMENT_ID] = IOConstants.SAVE_ENVIRONMENT_COMPONENT_VERSION,
-                    [IOConstants.SAVE_ENTRY_MANIFEST_ID] = IOConstants.SAVE_MANIFEST_COMPONENT_VERSION,
-                    [IOConstants.SAVE_ENTRY_PROPERTIES_ID] = IOConstants.SAVE_PROPERTIES_COMPONENT_VERSION,
-                    [IOConstants.SAVE_ENTRY_THUMBNAIL_ID] = IOConstants.SAVE_THUMBNAIL_COMPONENT_VERSION,
-                }
-            };
-
-            return this.versionMapper.ToData(versionStorageModel);
+            return new(this.world.TileMap.CreateThumbnail(this.graphicsDeviceManager.GraphicsDevice));
         }
     }
 }
