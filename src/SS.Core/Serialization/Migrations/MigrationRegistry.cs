@@ -15,10 +15,22 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Interfaces.Serialization.Worlds
-{
-    internal interface IData
-    {
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 
+namespace StardustSandbox.Core.Serialization.Migrations
+{
+    internal sealed class MigrationRegistry
+    {
+        private readonly IMigration[] migrations;
+
+        private static int GetIndexFromVersion(int value)
+        {
+            return value - 1;
+        }
+
+        internal IMigration GetMigration(int version)
+        {
+            return this.migrations[GetIndexFromVersion(version)];
+        }
     }
 }

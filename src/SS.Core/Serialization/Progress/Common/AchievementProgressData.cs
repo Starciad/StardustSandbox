@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -17,21 +17,30 @@
 
 using MessagePack;
 
-using StardustSandbox.Core.Interfaces.Serialization.Migrations;
+using StardustSandbox.Core.Enums.Indexers;
 
 using System;
 
-namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
+namespace StardustSandbox.Core.Serialization.Progress.Common
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class ContentData : IData
+    public sealed class AchievementProgressData
     {
-        [Key(0)]
-        public ActorData[] Actors { get; set; }
+        [Key("Index")]
+        public AchievementIndex Index { get; set; } = AchievementIndex.None;
 
-        [Key(1)]
-        public SlotData[] Slots { get; set; }
+        [Key("IsUnlocked")]
+        public bool IsUnlocked { get; set; } = false;
+
+        public AchievementProgressData()
+        {
+
+        }
+
+        public AchievementProgressData(AchievementIndex index)
+        {
+            this.Index = index;
+        }
     }
 }
-

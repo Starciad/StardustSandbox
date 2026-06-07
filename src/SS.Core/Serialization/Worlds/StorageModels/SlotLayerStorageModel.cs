@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Indexers;
-using StardustSandbox.Core.Interfaces.Serialization.Worlds;
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Serialization.Worlds.StorageModels

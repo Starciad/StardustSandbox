@@ -16,7 +16,7 @@
 */
 
 using StardustSandbox.Core.Enums.Indexers;
-using StardustSandbox.Core.Interfaces.Serialization.Worlds;
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 
 using System.Collections.Generic;
 

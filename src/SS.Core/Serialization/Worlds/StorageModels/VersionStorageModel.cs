@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Interfaces.Serialization.Worlds;
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 
 using System.Collections.Generic;
 

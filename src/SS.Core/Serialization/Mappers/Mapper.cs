@@ -15,10 +15,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Interfaces.Serialization.Worlds
-{
-    internal interface IStorageModel
-    {
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 
+namespace StardustSandbox.Core.Serialization.Mappers
+{
+    internal abstract class Mapper<TStorage, TData> : IMapper where TStorage : IStorageModel where TData : IData
+    {
+        internal abstract TStorage ToStorageModel(TData data);
+        internal abstract TData ToData(TStorage storageModel);
     }
 }

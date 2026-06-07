@@ -16,6 +16,7 @@
 */
 
 using StardustSandbox.Core.Enums.Indexers;
+using StardustSandbox.Core.Serialization.Mappers;
 using StardustSandbox.Core.Serialization.Worlds.Formats.V1;
 using StardustSandbox.Core.Serialization.Worlds.StorageModels;
 

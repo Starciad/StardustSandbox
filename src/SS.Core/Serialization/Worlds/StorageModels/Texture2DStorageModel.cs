@@ -17,7 +17,7 @@
 
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Interfaces.Serialization.Worlds;
+using StardustSandbox.Core.Interfaces.Serialization.Migrations;
 
 namespace StardustSandbox.Core.Serialization.Worlds.StorageModels
 {

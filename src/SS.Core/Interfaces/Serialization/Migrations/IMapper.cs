@@ -15,13 +15,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Interfaces.Serialization.Worlds
+namespace StardustSandbox.Core.Interfaces.Serialization.Migrations
 {
-    internal interface IMigration
+    internal interface IMapper
     {
-        int OldVersion { get; }
-        int NewVersion { get; }
 
-        object Migrate(object oldData);
     }
 }

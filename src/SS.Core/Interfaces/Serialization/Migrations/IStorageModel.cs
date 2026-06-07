@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,23 +15,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using MessagePack;
-
-using StardustSandbox.Core.Interfaces.Serialization.Migrations;
-
-using System;
-
-namespace StardustSandbox.Core.Serialization.Worlds.Formats.V1
+namespace StardustSandbox.Core.Interfaces.Serialization.Migrations
 {
-    [Serializable]
-    [MessagePackObject]
-    public sealed class ContentData : IData
+    internal interface IStorageModel
     {
-        [Key(0)]
-        public ActorData[] Actors { get; set; }
 
-        [Key(1)]
-        public SlotData[] Slots { get; set; }
     }
 }
-

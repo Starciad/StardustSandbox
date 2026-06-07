@@ -15,13 +15,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Interfaces.Serialization.Worlds;
-
-namespace StardustSandbox.Core.Serialization.Worlds.Mappers
+namespace StardustSandbox.Core.Interfaces.Serialization.Migrations
 {
-    internal abstract class Mapper<TStorage, TData> : IMapper where TStorage : IStorageModel where TData : IData
+    internal interface IMigration
     {
-        internal abstract TStorage ToStorageModel(TData data);
-        internal abstract TData ToData(TStorage storageModel);
+        int SourceVersion { get; }
+        int TargetVersion { get; }
+
+        object Migrate(object source);
     }
 }

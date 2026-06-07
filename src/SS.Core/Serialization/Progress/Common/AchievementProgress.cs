@@ -26,27 +26,6 @@ namespace StardustSandbox.Core.Serialization.Progress.Common
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class AchievementProgressData
-    {
-        [Key("Index")]
-        public AchievementIndex Index { get; set; } = AchievementIndex.None;
-
-        [Key("IsUnlocked")]
-        public bool IsUnlocked { get; set; } = false;
-
-        public AchievementProgressData()
-        {
-
-        }
-
-        public AchievementProgressData(AchievementIndex index)
-        {
-            this.Index = index;
-        }
-    }
-
-    [Serializable]
-    [MessagePackObject]
     public sealed class AchievementProgress : IProgressModule
     {
         [Key("Datas")]
