@@ -24,11 +24,13 @@ using StardustSandbox.Core.UI.Handlers;
 
 namespace StardustSandbox.Core.UI
 {
-    internal abstract class UIBase<TServiceProvider, TModel>(UIElementHandler elementHandler) : IUI
-        where TServiceProvider : IUIServiceProvider
+    internal abstract class UIBase<TDependencies, TModel>(TDependencies dependencies, UIElementHandler elementHandler) : IUI
+        where TDependencies : IUIDependencies
         where TModel : IUIModel
     {
         internal bool IsActive { get; private set; }
+
+        protected TDependencies Dependencies => dependencies;
 
         internal void Open(TModel model)
         {

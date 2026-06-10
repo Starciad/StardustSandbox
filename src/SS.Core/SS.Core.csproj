@@ -36,7 +36,4 @@
 		</PackageReference>
 		<PackageReference Include="MessagePack" Version="3.1.4" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="UI\Models\" />
-	</ItemGroup>
 </Project>

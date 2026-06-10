@@ -17,7 +17,7 @@
 
 namespace StardustSandbox.Core.Interfaces.UI
 {
-    internal interface IUIServiceProvider
+    internal interface IUIDependencies
     {
 
     }
