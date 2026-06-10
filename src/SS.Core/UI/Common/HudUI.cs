@@ -35,6 +35,7 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
 
@@ -80,9 +81,7 @@ namespace StardustSandbox.Core.UI.Common
             new(128, 192, 32, 32),
         ];
 
-        internal HudUI(
-            
-        ) : base(assetDatabase, gameScreen)
+        internal HudUI(HudUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
             this.achievementManager = achievementManager;
             this.assetDatabase = assetDatabase;
@@ -251,7 +250,7 @@ namespace StardustSandbox.Core.UI.Common
             this.toolbarCurrentlySelectedToolIcon.SourceRectangle = iconRectangle;
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, TModel model)
         {
             BuildToolbar(ref this.topToolbarContainer, ref this.topToolbarBackground, root, new(1280, 96), TextureIndex.UIBackgroundHudHorizontalToolbar, new(0, 0, 1280, 96), UIDirection.North, BuildTopToolbarContent);
             BuildToolbar(ref this.leftToolbarContainer, ref this.leftToolbarBackground, root, new(96, 608), TextureIndex.UIBackgroundHudVerticalToolbar, new(0, 0, 96, 608), UIDirection.Southwest,

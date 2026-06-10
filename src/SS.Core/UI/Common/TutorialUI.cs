@@ -26,6 +26,7 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Models;
 
 using System;
@@ -50,9 +51,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly AssetDatabase assetDatabase;
         private readonly UIManager uiManager;
 
-        internal TutorialUI(
-            
-        ) : base(assetDatabase, gameScreen)
+        internal TutorialUI(TutorialUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
             this.assetDatabase = assetDatabase;
             this.uiManager = uiManager;
@@ -148,7 +147,7 @@ namespace StardustSandbox.Core.UI.Common
             );
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, TModel model)
         {
             BuildBackground(root);
             BuildContent();

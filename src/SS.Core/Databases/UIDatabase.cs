@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.InputSystem;
+using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Progress;
@@ -35,7 +36,7 @@ namespace StardustSandbox.Core.Databases
 {
     internal sealed class UIDatabase
     {
-        private UIBase[] uis;
+        private IUI[] uis;
 
         internal void Load(
             AchievementDatabase achievementDatabase,

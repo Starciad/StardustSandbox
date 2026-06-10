@@ -26,6 +26,7 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
 
@@ -42,9 +43,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SoundEffectManager soundEffectManager;
         private readonly UIManager uiManager;
 
-        internal PlayUI(
-            
-        ) : base(assetDatabase, gameScreen)
+        internal PlayUI(PlayUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
             this.assetDatabase = assetDatabase;
             this.soundEffectManager = soundEffectManager;
@@ -62,7 +61,7 @@ namespace StardustSandbox.Core.UI.Common
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, TModel model)
         {
             BuildTitle(root);
             BuildMenuButtons(root);

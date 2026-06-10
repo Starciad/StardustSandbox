@@ -28,6 +28,7 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
 
@@ -46,9 +47,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly Label[] buttonLabels;
         private readonly ButtonInfo[] buttonInfos;
 
-        internal ConfirmUI(
-            
-        ) : base(assetDatabase, gameScreen)
+        internal ConfirmUI(ConfirmUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
             this.buttonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
@@ -73,7 +72,7 @@ namespace StardustSandbox.Core.UI.Common
             this.confirmCallback = confirmCallback;
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, TModel model)
         {
             this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {

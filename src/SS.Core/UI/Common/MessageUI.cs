@@ -27,6 +27,7 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Models;
 
 namespace StardustSandbox.Core.UI.Common
@@ -41,16 +42,14 @@ namespace StardustSandbox.Core.UI.Common
         private readonly GameHandler gameHandler;
         private readonly UIManager uiManager;
 
-        internal MessageUI(
-            
-        ) : base(assetDatabase, gameScreen)
+        internal MessageUI(MessageUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
             this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
             this.uiManager = uiManager;
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, TModel model)
         {
             BuildBackground(root);
             BuildMessage(root);

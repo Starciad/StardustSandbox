@@ -29,6 +29,7 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Models;
 using StardustSandbox.Core.WorldSystem;
 
@@ -49,9 +50,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly UIManager uiManager;
         private readonly World world;
 
-        internal CreditsUI(
-            
-        ) : base(assetDatabase, gameScreen)
+        internal CreditsUI(CreditsUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
             this.ambientManager = ambientManager;
             this.assetDatabase = assetDatabase;
@@ -196,7 +195,7 @@ namespace StardustSandbox.Core.UI.Common
             ];
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, TModel model)
         {
             this.rootContainer = root;
             BuildCreditElements();

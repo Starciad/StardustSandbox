@@ -31,6 +31,7 @@ using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Worlds;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
 
@@ -55,9 +56,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SoundEffectManager soundEffectManager;
         private readonly WorldSerializer worldSerializer;
 
-        internal WorldDetailsUI(
-            
-        ) : base(assetDatabase, gameScreen)
+        internal WorldDetailsUI(WorldDetailsUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
             this.assetDatabase = assetDatabase;
             this.soundEffectManager = soundEffectManager;
@@ -90,7 +89,7 @@ namespace StardustSandbox.Core.UI.Common
             this.worldButtonLabels = new Label[this.worldButtonInfos.Length];
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, TModel model)
         {
             BuildBackground(root);
             BuildHeader(root);

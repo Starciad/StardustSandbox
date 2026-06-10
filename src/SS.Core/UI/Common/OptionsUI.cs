@@ -34,6 +34,7 @@ using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
 
@@ -70,9 +71,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SoundEffectManager soundEffectManager;
         private readonly TooltipBox tooltipBox;
 
-        internal OptionsUI(
-            
-        ) : base(assetDatabase, gameScreen)
+        internal OptionsUI(OptionsUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
             this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
@@ -1054,7 +1053,7 @@ namespace StardustSandbox.Core.UI.Common
             SelectCategory(0);
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, TModel model)
         {
             BuildBackground(root);
             BuildTitle();

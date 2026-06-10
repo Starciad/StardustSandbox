@@ -28,6 +28,7 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
 using StardustSandbox.Core.WorldSystem;
@@ -56,9 +57,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly UIManager uiManager;
         private readonly World world;
 
-        internal MainUI(
-            
-        ) : base(assetDatabase, gameScreen)
+        internal MainUI(MainUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
             this.ambientManager = ambientManager;
             this.assetDatabase = assetDatabase;
@@ -88,7 +87,7 @@ namespace StardustSandbox.Core.UI.Common
             this.buttonAnimationOffsets = new float[this.menuButtonLabels.Length];
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, TModel model)
         {
             BuildBackground(root);
             BuildMenuButtons();

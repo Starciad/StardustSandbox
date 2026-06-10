@@ -32,6 +32,7 @@ using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
 using StardustSandbox.Core.WorldSystem;
@@ -59,9 +60,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private readonly GraphicsDevice graphicsDevice;
 
-        internal SaveUI(
-            
-        ) : base(assetDatabase, gameScreen)
+        internal SaveUI(SaveUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
             this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
@@ -149,7 +148,7 @@ namespace StardustSandbox.Core.UI.Common
             this.footerButtonSlotInfos = new SlotInfo[this.footerButtonInfos.Length];
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, TModel model)
         {
             BuildBackground(root);
             BuildTitle();

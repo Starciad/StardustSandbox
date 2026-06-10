@@ -29,6 +29,7 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
 
@@ -49,9 +50,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private readonly ColorSlotInfo[] colorButtonSlotInfos;
 
-        internal ColorPickerUI(
-
-        ) : base(assetDatabase, gameScreen)
+        internal ColorPickerUI(ColorPickerUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
             this.exitButtonInfo = new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, this.uiManager.CloseUI);
 
@@ -136,7 +135,7 @@ namespace StardustSandbox.Core.UI.Common
             this.colorSelectionCallback?.Invoke(color);
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, TModel model)
         {
             BuildBackground(root);
             BuildCaption(root);

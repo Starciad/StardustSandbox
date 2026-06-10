@@ -28,6 +28,7 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
 using StardustSandbox.Core.WorldSystem;
@@ -49,9 +50,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly UIManager uiManager;
         private readonly World world;
 
-        internal EnvironmentSettingsUI(
-            
-        ) : base(assetDatabase, gameScreen)
+        internal EnvironmentSettingsUI(EnvironmentSettingsUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
             this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
@@ -82,7 +81,7 @@ namespace StardustSandbox.Core.UI.Common
             ];
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, TModel model)
         {
             BuildBackground(root);
             BuildTitle();

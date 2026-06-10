@@ -31,6 +31,7 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
 
@@ -69,9 +70,7 @@ namespace StardustSandbox.Core.UI.Common
 
         private static readonly StringBuilder normalizeBuilder = new(256);
 
-        internal ItemSearchUI(
-            
-        ) : base(assetDatabase, gameScreen)
+        internal ItemSearchUI(ItemSearchUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
             this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
@@ -273,7 +272,7 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, TModel model)
         {
             BuildBackground(root);
             BuildItemSlots();

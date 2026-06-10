@@ -27,6 +27,7 @@ using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Models;
 
 using System;
@@ -47,9 +48,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SoundEffectManager soundEffectManager;
         private readonly UIManager uiManager;
 
-        internal KeySelectorUI(
-            
-        ) : base(assetDatabase, gameScreen)
+        internal KeySelectorUI(KeySelectorUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
             this.assetDatabase = assetDatabase;
             this.gameHandler = gameHandler;
@@ -65,7 +64,7 @@ namespace StardustSandbox.Core.UI.Common
             this.keySelectionCallback = keySelectionCallback;
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, TModel model)
         {
             BuildBackground(root);
             BuildMessage(root);

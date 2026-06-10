@@ -30,6 +30,7 @@ using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
 
@@ -62,9 +63,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly TooltipBox tooltipBox;
         private readonly UIManager uiManager;
 
-        internal ItemExplorerUI(
-            
-        ) : base(assetDatabase, gameScreen)
+        internal ItemExplorerUI(ItemExplorerUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
             this.assetDatabase = assetDatabase;
             this.catalogDatabase = catalogDatabase;
@@ -212,7 +211,7 @@ namespace StardustSandbox.Core.UI.Common
             SelectItemCatalog(0, 0, 0);
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, TModel model)
         {
             BuildBackground(root);
             BuildTitle();
