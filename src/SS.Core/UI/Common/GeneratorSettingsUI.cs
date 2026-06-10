@@ -28,6 +28,7 @@ using StardustSandbox.Core.Enums.UI.Tools;
 using StardustSandbox.Core.Generators;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
@@ -178,7 +179,7 @@ namespace StardustSandbox.Core.UI.Common
             ];
         }
 
-        protected override void OnBuild(UIBuildContext context, TModel model)
+        protected override void OnBuild(UIBuildContext context, GeneratorSettingsUIModel model)
         {
             BuildBackground(root);
             BuildTitle();

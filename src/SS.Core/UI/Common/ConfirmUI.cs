@@ -26,6 +26,7 @@ using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Enums.UI.Tools;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Handlers;
@@ -72,7 +73,7 @@ namespace StardustSandbox.Core.UI.Common
             this.confirmCallback = confirmCallback;
         }
 
-        protected override void OnBuild(UIBuildContext context, TModel model)
+        protected override void OnBuild(UIBuildContext context, ConfirmUIModel model)
         {
             this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
             {

@@ -25,6 +25,7 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Handlers;
@@ -64,7 +65,7 @@ namespace StardustSandbox.Core.UI.Common
             this.keySelectionCallback = keySelectionCallback;
         }
 
-        protected override void OnBuild(UIBuildContext context, TModel model)
+        protected override void OnBuild(UIBuildContext context, KeySelectorUIModel model)
         {
             BuildBackground(root);
             BuildMessage(root);

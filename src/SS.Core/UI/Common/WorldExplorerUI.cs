@@ -31,6 +31,7 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Worlds;
+using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Handlers;
@@ -167,7 +168,7 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        protected override void OnBuild(UIBuildContext context, TModel model)
+        protected override void OnBuild(UIBuildContext context, WorldExplorerUIModel model)
         {
             BuildBackground(root);
             BuildMenuButtons();

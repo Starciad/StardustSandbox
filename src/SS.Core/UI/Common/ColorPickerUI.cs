@@ -26,6 +26,7 @@ using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
@@ -135,7 +136,7 @@ namespace StardustSandbox.Core.UI.Common
             this.colorSelectionCallback?.Invoke(color);
         }
 
-        protected override void OnBuild(UIBuildContext context, TModel model)
+        protected override void OnBuild(UIBuildContext context, ColorPickerUIModel model)
         {
             BuildBackground(root);
             BuildCaption(root);

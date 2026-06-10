@@ -29,6 +29,7 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
+using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
@@ -148,7 +149,7 @@ namespace StardustSandbox.Core.UI.Common
             this.footerButtonSlotInfos = new SlotInfo[this.footerButtonInfos.Length];
         }
 
-        protected override void OnBuild(UIBuildContext context, TModel model)
+        protected override void OnBuild(UIBuildContext context, SaveUIModel model)
         {
             BuildBackground(root);
             BuildTitle();

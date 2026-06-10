@@ -25,6 +25,7 @@ using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Handlers;
@@ -49,7 +50,7 @@ namespace StardustSandbox.Core.UI.Common
             this.uiManager = uiManager;
         }
 
-        protected override void OnBuild(UIBuildContext context, TModel model)
+        protected override void OnBuild(UIBuildContext context, MessageUIModel model)
         {
             BuildBackground(root);
             BuildMessage(root);
