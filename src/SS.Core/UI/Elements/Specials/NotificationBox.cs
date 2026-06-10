@@ -26,7 +26,7 @@ using StardustSandbox.Core.Enums.Indexers;
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.UI.Elements
+namespace StardustSandbox.Core.UI.Elements.Specials
 {
     internal sealed class NotificationBox : UIElement
     {
@@ -101,7 +101,7 @@ namespace StardustSandbox.Core.UI.Elements
         protected override void OnUpdate(GameTime gameTime)
         {
             // Smoothly animate visibility margin
-            this.Margin = Vector2.Lerp(this.Margin, (this.state == DisplayState.Showing) ? VISIBLE_MARGIN : HIDDEN_MARGIN, UIConstants.NOTIFICATION_MARGIN_LERP_FACTOR);
+            this.Margin = Vector2.Lerp(this.Margin, this.state == DisplayState.Showing ? VISIBLE_MARGIN : HIDDEN_MARGIN, UIConstants.NOTIFICATION_MARGIN_LERP_FACTOR);
 
             float deltaSeconds = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 

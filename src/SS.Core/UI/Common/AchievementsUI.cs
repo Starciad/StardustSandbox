@@ -28,6 +28,7 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Progress;
 using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Elements.Specials;
 using StardustSandbox.Core.UI.Information;
 
 using System;

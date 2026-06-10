@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,11 +15,22 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.UI.Elements
-{
-    internal sealed class Container : UIElement
-    {
+using StardustSandbox.Core.UI.Handlers;
 
+namespace StardustSandbox.Core.UI.Builders
+{
+    internal sealed class UIBuildContext
+    {
+        private readonly UIElementHandler elementHandler;
+
+        internal UIBuildContext(UIElementHandler elementHandler)
+        {
+            this.elementHandler = elementHandler;
+        }
+
+        internal UIBuildScope Begin()
+        {
+            return new(this.elementHandler);
+        }
     }
 }
-

@@ -28,20 +28,17 @@ namespace StardustSandbox.Core.UI.Elements
         internal Rectangle? SourceRectangle { get; set; }
         internal Color Color { get; set; }
 
-        internal Image()
+        public Image()
         {
-            this.CanDraw = true;
-            this.CanUpdate = true;
-
             this.Color = Color.White;
         }
 
-        internal Image(Texture2D texture) : this()
+        public Image(Texture2D texture) : this()
         {
             this.Texture = texture;
         }
 
-        internal Image(Texture2D texture, Rectangle? sourceRectangle) : this(texture)
+        public Image(Texture2D texture, Rectangle? sourceRectangle) : this(texture)
         {
             this.SourceRectangle = sourceRectangle;
         }

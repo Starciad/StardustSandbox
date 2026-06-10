@@ -18,50 +18,29 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.Interfaces.UI;
+using StardustSandbox.Core.UI.Builders;
+using StardustSandbox.Core.UI.Handlers;
 
 namespace StardustSandbox.Core.UI
 {
-    internal abstract class UIBase
+    internal abstract class UIBase<TServiceProvider, TModel>(UIElementHandler elementHandler) : IUI
+        where TServiceProvider : IUIServiceProvider
+        where TModel : IUIModel
     {
         internal bool IsActive { get; private set; }
 
-        protected UIElementFactory ElementFactory { get; }
-        protected GameScreen GameScreen { get; }
-        protected Container Root { get; }
-
-        protected UIBase(AssetDatabase assetDatabase, GameScreen gameScreen)
-        {
-            this.ElementFactory = new(assetDatabase);
-            this.GameScreen = gameScreen;
-            this.Root = new()
-            {
-                CanDraw = false,
-                CanUpdate = false,
-                Size = this.GameScreen.Viewport,
-            };
-        }
-
-        internal void Initialize()
-        {
-            OnBuild(this.Root);
-            this.Root.Initialize();
-        }
-
-        internal void Open()
+        internal void Open(TModel model)
         {
             if (this.IsActive)
             {
                 return;
             }
 
-            this.IsActive = true;
-
-            this.Root.CanUpdate = true;
-            this.Root.CanDraw = true;
-
+            OnBuild(new(elementHandler), model);
             OnOpened();
+
+            this.IsActive = true;
         }
 
         internal void Close()
@@ -71,12 +50,10 @@ namespace StardustSandbox.Core.UI
                 return;
             }
 
-            this.IsActive = false;
-
-            this.Root.CanUpdate = false;
-            this.Root.CanDraw = false;
-
+            elementHandler.ReleaseAllElements();
             OnClosed();
+
+            this.IsActive = false;
         }
 
         internal void Update(GameTime gameTime)
@@ -86,9 +63,7 @@ namespace StardustSandbox.Core.UI
                 return;
             }
 
-            this.Root.Update(gameTime);
-
-            OnUpdate(gameTime);
+            elementHandler.Update(gameTime);
         }
 
         internal void Draw(SpriteBatch spriteBatch)
@@ -98,20 +73,12 @@ namespace StardustSandbox.Core.UI
                 return;
             }
 
-            this.Root.Draw(spriteBatch);
+            elementHandler.Draw(spriteBatch);
         }
 
-        internal void Resize()
-        {
-            this.Root.Size = this.GameScreen.Viewport;
-            OnScreenResize();
-        }
-
-        protected abstract void OnBuild(Container root);
+        protected abstract void OnBuild(UIBuildContext context, TModel model);
         protected virtual void OnOpened() { }
         protected virtual void OnClosed() { }
-        protected virtual void OnUpdate(GameTime gameTime) { }
-        protected virtual void OnScreenResize() { }
     }
 }
 

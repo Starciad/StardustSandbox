@@ -26,7 +26,7 @@ using StardustSandbox.Core.Serialization.Progress;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Common;
-using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Elements.Specials;
 using StardustSandbox.Core.WorldSystem;
 
 using System;

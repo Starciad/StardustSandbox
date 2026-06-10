@@ -20,7 +20,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.UI.Models;
+using StardustSandbox.Core.UI.Utilities;
 
 using System;
 
@@ -69,13 +69,9 @@ namespace StardustSandbox.Core.UI.Elements
         private Vector2 measuredText;
         private bool textContentDirty;
 
-        internal Label()
+        public Label()
         {
-            this.CanDraw = true;
-            this.CanUpdate = true;
-
             this.textContent = string.Empty;
-
             this.Color = Color.White;
         }
 

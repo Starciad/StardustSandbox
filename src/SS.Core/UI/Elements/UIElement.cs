@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Enums.Directions;
+using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Mathematics.Primitives;
 
 using System;
@@ -26,10 +27,11 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.UI.Elements
 {
-    internal abstract class UIElement
+    internal abstract class UIElement : IPoolableObject
     {
         internal bool CanUpdate { get; set; }
         internal bool CanDraw { get; set; }
+        internal bool HasParent => this.parent != null;
 
         internal int ChildCount => this.children.Count;
         internal UIElement FirstChild => this.children.Count > 0 ? this.children[0] : null;
@@ -119,17 +121,9 @@ namespace StardustSandbox.Core.UI.Elements
 
         private readonly List<UIElement> children = [];
 
-        internal UIElement()
+        public UIElement()
         {
-            this.alignment = UIDirection.Northwest;
-
-            this.position = Vector2.Zero;
-            this.rawSize = Vector2.Zero;
-            this.margin = Vector2.Zero;
-            this.scale = Vector2.One;
-
-            this.CanDraw = true;
-            this.CanUpdate = true;
+            Reset();
         }
 
         private static Vector2 GetAnchoredPosition(in RectangleF rect1, in RectangleF rect2, in UIDirection anchor, in Vector2 margin)
@@ -294,6 +288,23 @@ namespace StardustSandbox.Core.UI.Elements
             }
         }
 
+        public virtual void Reset()
+        {
+            this.alignment = UIDirection.Northwest;
+
+            this.position = Vector2.Zero;
+            this.rawSize = Vector2.Zero;
+            this.margin = Vector2.Zero;
+            this.scale = Vector2.One;
+
+            this.CanDraw = true;
+            this.CanUpdate = true;
+
+            foreach (UIElement child in this.children)
+            {
+                child.Reset();
+            }
+        }
         protected virtual void OnInitialize() { return; }
         protected virtual void OnUpdate(GameTime gameTime) { return; }
         protected virtual void OnDraw(SpriteBatch spriteBatch) { return; }

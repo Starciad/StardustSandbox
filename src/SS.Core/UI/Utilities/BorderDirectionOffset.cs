@@ -15,11 +15,16 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.UI.Elements
-{
-    internal sealed class Container : UIElement
-    {
+using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Enums.UI;
+
+namespace StardustSandbox.Core.UI.Utilities
+{
+    internal readonly struct BorderDirectionOffset(LabelBorderDirection direction, Vector2 offset)
+    {
+        internal readonly LabelBorderDirection Direction => direction;
+        internal readonly Vector2 Offset => offset;
     }
 }
 

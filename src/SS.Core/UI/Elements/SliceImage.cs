@@ -56,18 +56,14 @@ namespace StardustSandbox.Core.UI.Elements
 
         private readonly SliceInfo[] slices;
 
-        internal SliceImage()
+        public SliceImage()
         {
-            this.CanDraw = true;
-            this.CanUpdate = true;
-
             this.TileSize = new(32);
             this.Color = Color.White;
-
             this.slices = new SliceInfo[9];
         }
 
-        internal SliceImage(Texture2D texture) : this()
+        public SliceImage(Texture2D texture) : this()
         {
             this.Texture = texture;
         }

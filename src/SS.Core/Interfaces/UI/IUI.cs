@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,11 +15,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.UI.Elements
+namespace StardustSandbox.Core.Interfaces.UI
 {
-    internal sealed class Container : UIElement
+    internal interface IUI
     {
 
     }
 }
-

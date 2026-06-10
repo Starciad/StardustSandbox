@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,16 +15,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
-using StardustSandbox.Core.Enums.UI;
-
-namespace StardustSandbox.Core.UI.Models
+namespace StardustSandbox.Core.Interfaces.UI
 {
-    internal readonly struct BorderDirectionOffset(LabelBorderDirection direction, Vector2 offset)
+    internal interface IUIServiceProvider
     {
-        internal readonly LabelBorderDirection Direction => direction;
-        internal readonly Vector2 Offset => offset;
+
     }
 }
-

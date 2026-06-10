@@ -20,7 +20,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.UI.Models;
+using StardustSandbox.Core.UI.Utilities;
 
 using System;
 using System.Collections.Generic;
@@ -81,17 +81,13 @@ namespace StardustSandbox.Core.UI.Elements
 
         private static readonly char[] WordSplitSeparators = [' '];
 
-        internal Text()
+        public Text()
         {
-            this.CanDraw = true;
-            this.CanUpdate = true;
-
             this.textContent = string.Empty;
-
             this.Color = Color.White;
         }
 
-        internal Text(SpriteFont spriteFont) : this()
+        public Text(SpriteFont spriteFont) : this()
         {
             this.SpriteFont = spriteFont;
         }
