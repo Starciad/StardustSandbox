@@ -49,27 +49,10 @@ namespace StardustSandbox.Core.UI.Common
 
         private readonly ColorSlotInfo[] colorButtonSlotInfos;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly TooltipBox tooltipBox;
-        private readonly UIManager uiManager;
-
         internal ColorPickerUI(
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            SoundEffectManager soundEffectManager,
-            TooltipBox tooltipBox,
-            UIManager uiManager
+
         ) : base(assetDatabase, gameScreen)
         {
-            this.assetDatabase = assetDatabase;
-            this.gameHandler = gameHandler;
-            this.soundEffectManager = soundEffectManager;
-            this.tooltipBox = tooltipBox;
-            this.uiManager = uiManager;
-
             this.exitButtonInfo = new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, this.uiManager.CloseUI);
 
             this.colorButtonInfos = [

@@ -42,10 +42,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly UIManager uiManager;
 
         internal MessageUI(
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            UIManager uiManager
+            
         ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;

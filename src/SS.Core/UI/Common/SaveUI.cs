@@ -60,16 +60,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly GraphicsDevice graphicsDevice;
 
         internal SaveUI(
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            GraphicsDevice graphicsDevice,
-            SoundEffectManager soundEffectManager,
-            TextInputUI textInputUI,
-            TooltipBox tooltipBox,
-            UIManager uiManager,
-            World world,
-            WorldSerializer worldSerializer
+            
         ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;

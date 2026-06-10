@@ -63,15 +63,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly UIManager uiManager;
 
         internal ItemExplorerUI(
-            AssetDatabase assetDatabase,
-            CatalogDatabase catalogDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            HudUI hudUI,
-            ItemSearchUI itemSearchUI,
-            SoundEffectManager soundEffectManager,
-            TooltipBox tooltipBox,
-            UIManager uiManager
+            
         ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;

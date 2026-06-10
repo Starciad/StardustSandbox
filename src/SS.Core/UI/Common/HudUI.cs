@@ -81,17 +81,7 @@ namespace StardustSandbox.Core.UI.Common
         ];
 
         internal HudUI(
-            AchievementManager achievementManager,
-            AssetDatabase assetDatabase,
-            CatalogDatabase catalogDatabase,
-            ConfirmUI confirmUI,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            NotificationBox notificationBox,
-            PlayerInputController playerInputController,
-            SoundEffectManager soundEffectManager,
-            TooltipBox tooltipBox,
-            UIManager uiManager
+            
         ) : base(assetDatabase, gameScreen)
         {
             this.achievementManager = achievementManager;

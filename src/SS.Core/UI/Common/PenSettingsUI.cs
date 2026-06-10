@@ -57,15 +57,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly World world;
 
         internal PenSettingsUI(
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            HudUI hudUI,
-            PlayerInputController playerInputController,
-            SoundEffectManager soundEffectManager,
-            TooltipBox tooltipBox,
-            UIManager uiManager,
-            World world
+            
         ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;

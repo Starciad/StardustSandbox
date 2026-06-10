@@ -27,9 +27,11 @@ using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Progress;
+using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
 
@@ -53,32 +55,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo exitButtonInfo;
         private readonly ButtonInfo[] paginationButtonInfos;
 
-        private readonly TooltipBox tooltipBox;
-
-        private readonly AchievementDatabase achievementDatabase;
-        private readonly AssetDatabase assetDatabase;
-        private readonly AmbientManager ambientManager;
-        private readonly AchievementProgress achievementProgress;
-        private readonly SoundEffectManager soundEffectManager;
-
-        internal AchievementsUI(
-            AchievementDatabase achievementDatabase,
-            AchievementProgress achievementProgress,
-            AssetDatabase assetDatabase,
-            AmbientManager ambientManager,
-            GameScreen gameScreen,
-            SoundEffectManager soundEffectManager,
-            TooltipBox tooltipBox,
-            UIManager uiManager
-        ) : base(assetDatabase, gameScreen)
+        internal AchievementsUI(AchievementsUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.achievementDatabase = achievementDatabase;
-            this.achievementProgress = achievementProgress;
-            this.assetDatabase = assetDatabase;
-            this.ambientManager = ambientManager;
-            this.soundEffectManager = soundEffectManager;
-            this.tooltipBox = tooltipBox;
-
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI);
 
             this.paginationButtonInfos =
@@ -152,7 +130,7 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        protected override void OnBuild(Container root)
+        protected override void OnBuild(UIBuildContext context, AchievementsUIModel model)
         {
             BuildBackground(root);
             BuildExitButton();

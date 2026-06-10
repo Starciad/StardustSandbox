@@ -71,21 +71,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly TooltipBox tooltipBox;
 
         internal OptionsUI(
-            AssetDatabase assetDatabase,
-            ColorPickerUI colorPickerUI,
-            CursorManager cursorManager,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            KeySelectorUI keySelectorUI,
-            PlayerInputController playerInputController,
-            SelectorUI selectorUI,
-            SettingsSerializer settingsSerializer,
-            SliderUI sliderUI,
-            SongManager songManager,
-            SoundEffectManager soundEffectManager,
-            TooltipBox tooltipBox,
-            UIManager uiManager,
-            VideoManager videoManager
+            
         ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;

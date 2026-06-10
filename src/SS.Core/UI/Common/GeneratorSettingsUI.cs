@@ -61,14 +61,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly UIManager uiManager;
 
         internal GeneratorSettingsUI(
-            AssetDatabase assetDatabase,
-            ConfirmUI confirmUI,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            SoundEffectManager soundEffectManager,
-            TooltipBox tooltipBox,
-            UIManager uiManager,
-            World world
+            
         ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;

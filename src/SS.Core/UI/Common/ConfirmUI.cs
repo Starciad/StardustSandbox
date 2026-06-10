@@ -46,24 +46,10 @@ namespace StardustSandbox.Core.UI.Common
         private readonly Label[] buttonLabels;
         private readonly ButtonInfo[] buttonInfos;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly UIManager uiManager;
-
         internal ConfirmUI(
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            SoundEffectManager soundEffectManager,
-            UIManager uiManager
+            
         ) : base(assetDatabase, gameScreen)
         {
-            this.assetDatabase = assetDatabase;
-            this.gameHandler = gameHandler;
-            this.soundEffectManager = soundEffectManager;
-            this.uiManager = uiManager;
-
             this.buttonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {

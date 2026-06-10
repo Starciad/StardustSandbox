@@ -51,10 +51,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly UIManager uiManager;
 
         internal TutorialUI(
-            AssetDatabase assetDatabase,
-            ControlSettings controlSettings,
-            GameScreen gameScreen,
-            UIManager uiManager
+            
         ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;

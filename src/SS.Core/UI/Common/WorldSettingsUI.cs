@@ -57,16 +57,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly World world;
 
         internal WorldSettingsUI(
-            ActorManager actorManager,
-            AssetDatabase assetDatabase,
-            ConfirmUI confirmUI,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            MessageUI messageUI,
-            SoundEffectManager soundEffectManager,
-            TooltipBox tooltipBox,
-            UIManager uiManager,
-            World world
+            
         ) : base(assetDatabase, gameScreen)
         {
             this.actorManager = actorManager;

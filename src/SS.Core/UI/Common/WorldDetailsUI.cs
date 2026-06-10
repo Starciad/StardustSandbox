@@ -56,12 +56,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly WorldSerializer worldSerializer;
 
         internal WorldDetailsUI(
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            SoundEffectManager soundEffectManager,
-            UIManager uiManager,
-            WorldSerializer worldSerializer
+            
         ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;

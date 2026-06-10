@@ -50,12 +50,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly World world;
 
         internal CreditsUI(
-            AmbientManager ambientManager,
-            AssetDatabase assetDatabase,
-            GameScreen gameScreen,
-            SongManager songManager,
-            UIManager uiManager,
-            World world
+            
         ) : base(assetDatabase, gameScreen)
         {
             this.ambientManager = ambientManager;

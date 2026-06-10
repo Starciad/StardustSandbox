@@ -70,14 +70,7 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SoundEffectManager soundEffectManager;
 
         internal TextInputUI(
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            GameWindow gameWindow,
-            MessageUI messageUI,
-            PlayerInputController playerInputController,
-            SoundEffectManager soundEffectManager,
-            UIManager uiManager
+            
         ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;

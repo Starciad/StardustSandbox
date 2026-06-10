@@ -70,15 +70,7 @@ namespace StardustSandbox.Core.UI.Common
         private static readonly StringBuilder normalizeBuilder = new(256);
 
         internal ItemSearchUI(
-            AssetDatabase assetDatabase,
-            CatalogDatabase catalogDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            GameWindow gameWindow,
-            PlayerInputController playerInputController,
-            SoundEffectManager soundEffectManager,
-            TooltipBox tooltipBox,
-            UIManager uiManager
+            
         ) : base(assetDatabase, gameScreen)
         {
             this.assetDatabase = assetDatabase;
