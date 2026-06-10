@@ -27,14 +27,16 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Models;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed partial class CreditsUI : UIBase
+    internal sealed partial class CreditsUI : UIBase<CreditsUIDependencies, CreditsUIModel>
     {
         private Container rootContainer;
         private UIElement lastElement;

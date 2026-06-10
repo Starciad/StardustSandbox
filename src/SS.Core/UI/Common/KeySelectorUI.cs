@@ -25,13 +25,15 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Models;
 
 using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class KeySelectorUI : UIBase
+    internal sealed class KeySelectorUI : UIBase<KeySelectorUIDependencies, KeySelectorUIModel>
     {
         private Action<Keys> keySelectionCallback;
 

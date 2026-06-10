@@ -25,11 +25,13 @@ using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Models;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class MessageUI : UIBase
+    internal sealed class MessageUI : UIBase<MessageUIDependencies, MessageUIModel>
     {
         private Image shadowBackground;
         private Text message;

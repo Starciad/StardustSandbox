@@ -29,14 +29,16 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Worlds;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 
 using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class WorldDetailsUI : UIBase
+    internal sealed class WorldDetailsUI : UIBase<WorldDetailsUIDependencies, WorldDetailsUIModel>
     {
         private WorldSaveFile saveFile;
 

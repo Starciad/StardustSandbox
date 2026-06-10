@@ -24,13 +24,15 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Settings;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Models;
 
 using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed partial class TutorialUI : UIBase
+    internal sealed partial class TutorialUI : UIBase<TutorialUIDependencies, TutorialUIModel>
     {
         private int currentPageIndex = 0, currentSpriteOffset = 0;
         private float currentAnimationDelay = 0.0f;

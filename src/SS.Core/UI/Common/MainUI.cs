@@ -26,15 +26,17 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class MainUI : UIBase
+    internal sealed class MainUI : UIBase<MainUIDependencies, MainUIModel>
     {
         private Image shadowBackground, theatricalCurtains, gameTitle;
         private SlotInfo[] topButtonSlotInfos;

@@ -26,14 +26,16 @@ using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Enums.UI.Tools;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 
 using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class ConfirmUI : UIBase
+    internal sealed class ConfirmUI : UIBase<ConfirmUIDependencies, ConfirmUIModel>
     {
         private Action<ConfirmStatus> confirmCallback;
 

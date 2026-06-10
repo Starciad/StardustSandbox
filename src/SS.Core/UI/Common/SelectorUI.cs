@@ -26,14 +26,16 @@ using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 
 using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed partial class SelectorUI : UIBase
+    internal sealed partial class SelectorUI : UIBase<SelectorUIDependencies, SelectorUIModel>
     {
         private int currentPageIndex = 0, totalPages = 0;
         private IChoice[] choices;

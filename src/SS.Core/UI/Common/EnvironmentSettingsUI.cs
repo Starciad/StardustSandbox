@@ -25,14 +25,16 @@ using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class EnvironmentSettingsUI : UIBase
+    internal sealed class EnvironmentSettingsUI : UIBase<EnvironmentSettingsUIDependencies, EnvironmentSettingsUIModel>
     {
         private Image panelBackground, shadowBackground;
         private Label menuTitle, timeStateSectionTitle, timeSectionTitle;

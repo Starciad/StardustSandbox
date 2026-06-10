@@ -28,14 +28,16 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class PenSettingsUI : UIBase
+    internal sealed class PenSettingsUI : UIBase<PenSettingsUIDependencies, PenSettingsUIModel>
     {
         private int toolButtonSelectedIndex, layerButtonSelectedIndex, shapeButtonSelectedIndex;
 

@@ -28,14 +28,16 @@ using StardustSandbox.Core.Enums.UI.Tools;
 using StardustSandbox.Core.Generators;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class GeneratorSettingsUI : UIBase
+    internal sealed class GeneratorSettingsUI : UIBase<GeneratorSettingsUIDependencies, GeneratorSettingsUIModel>
     {
         private WorldGenerationTheme selectedTheme = WorldGenerationTheme.Plain;
         private WorldGenerationSettings selectedSettings = WorldGenerationSettings.GenerateForeground;

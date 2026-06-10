@@ -31,15 +31,17 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 
 using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed partial class OptionsUI : UIBase
+    internal sealed partial class OptionsUI : UIBase<OptionsUIDependencies, OptionsUIModel>
     {
         private Category selectedCategory;
         private int currentPageIndex = 0, totalPages = 0;

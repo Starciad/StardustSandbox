@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StardustSandbox.Core.UI.Dependencies
+namespace StardustSandbox.Core.UI.Models
 {
-    internal class SaveSettingsUIDependencies : IUIDependencies
+    internal class SaveUIModel : IUIModel
     {
     }
 }

@@ -27,15 +27,17 @@ using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Progress;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 
 using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class AchievementsUI : UIBase
+    internal sealed class AchievementsUI : UIBase<AchievementsUIDependencies, AchievementsUIModel>
     {
         private int currentPageIndex = 0, totalPages = 0;
         private Range achievementsRange;

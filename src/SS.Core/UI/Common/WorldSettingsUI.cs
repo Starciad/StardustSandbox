@@ -27,14 +27,16 @@ using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Enums.UI.Tools;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class WorldSettingsUI : UIBase
+    internal sealed class WorldSettingsUI : UIBase<WorldSettingsUIDependencies, WorldSettingsUIModel>
     {
         private Point worldTargetSize;
 

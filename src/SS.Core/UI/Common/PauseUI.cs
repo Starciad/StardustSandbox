@@ -26,12 +26,14 @@ using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Enums.UI.Tools;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class PauseUI : UIBase
+    internal sealed class PauseUI : UIBase<PauseUIDependencies, PauseUIModel>
     {
         private Image panelBackground, shadowBackground;
         private Label menuTitle;

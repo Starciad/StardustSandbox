@@ -24,12 +24,14 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal class PlayUI : UIBase
+    internal class PlayUI : UIBase<PlayUIDependencies, PlayUIModel>
     {
         private Image shadowBackground;
 

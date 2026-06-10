@@ -32,15 +32,17 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 
 using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed partial class HudUI : UIBase
+    internal sealed partial class HudUI : UIBase<HudUIDependencies, HudUIModel>
     {
         private int slotSelectedIndex = 0;
         private bool isTopToolbarExpanded = true, isLeftToolbarExpanded = true, isRightToolbarExpanded = true;

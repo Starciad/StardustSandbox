@@ -26,15 +26,17 @@ using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 
 using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class ColorPickerUI : UIBase
+    internal sealed class ColorPickerUI : UIBase<ColorPickerUIDependencies, ColorPickerUIModel>
     {
         private Action<Color> colorSelectionCallback;
 

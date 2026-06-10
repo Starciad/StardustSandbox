@@ -26,14 +26,16 @@ using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 
 using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class SliderUI : UIBase
+    internal sealed class SliderUI : UIBase<SliderUIDependencies, SliderUIModel>
     {
         private Action<int> sendCallback;
 

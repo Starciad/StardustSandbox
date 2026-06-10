@@ -28,15 +28,17 @@ using StardustSandbox.Core.Enums.UI.Tools;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 
 using System;
 using System.Text;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed partial class TextInputUI : UIBase
+    internal sealed partial class TextInputUI : UIBase<TextInputUIDependencies, TextInputUIModel>
     {
         private bool allowSpaces;
         private uint maxCharacters;

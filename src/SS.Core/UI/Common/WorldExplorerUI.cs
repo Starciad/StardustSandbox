@@ -31,15 +31,17 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Worlds;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 
 using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class WorldExplorerUI : UIBase
+    internal sealed class WorldExplorerUI : UIBase<WorldExplorerUIDependencies, WorldExplorerUIModel>
     {
         private int currentPageIndex = 0, totalPages = 1;
         private Range saveFilesRange;

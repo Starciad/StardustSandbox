@@ -29,14 +29,16 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Specials;
 using StardustSandbox.Core.UI.Information;
+using StardustSandbox.Core.UI.Models;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class SaveUI : UIBase
+    internal sealed class SaveUI : UIBase<SaveUIDependencies, SaveUIModel>
     {
         private Texture2D worldThumbnailTexture;
 
