@@ -33,7 +33,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         GameScreen gameScreen,
         GraphicsDevice graphicsDevice,
         SoundEffectManager soundEffectManager,
-        TextInputUI textInputUI,
         UIManager uiManager,
         World world,
         WorldSerializer worldSerializer
@@ -44,7 +43,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         internal GameScreen GameScreen => gameScreen;
         internal GraphicsDevice GraphicsDevice => graphicsDevice;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
-        internal TextInputUI TextInputUI => textInputUI;
         internal UIManager UIManager => uiManager;
         internal World World => world;
         internal WorldSerializer WorldSerializer => worldSerializer;

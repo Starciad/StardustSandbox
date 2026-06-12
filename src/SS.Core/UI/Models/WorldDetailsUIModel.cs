@@ -16,11 +16,12 @@
 */
 
 using StardustSandbox.Core.Interfaces.UI;
+using StardustSandbox.Core.Serialization.Worlds;
 
 namespace StardustSandbox.Core.UI.Models
 {
     internal sealed class WorldDetailsUIModel : IUIModel
     {
-
+        private WorldSaveFile saveFile;
     }
 }

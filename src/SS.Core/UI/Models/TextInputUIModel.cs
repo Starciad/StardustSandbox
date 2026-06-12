@@ -15,12 +15,22 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Enums.UI.Tools;
 using StardustSandbox.Core.Interfaces.UI;
+
+using System;
 
 namespace StardustSandbox.Core.UI.Models
 {
     internal sealed class TextInputUIModel : IUIModel
     {
-
+        string synopsis;
+        string content;
+        bool allowSpaces;
+        InputMode inputMode;
+        InputRestriction inputRestriction;
+        uint maxCharacters;
+        Func<string, ValidationState> validateCallback;
+        Action<string> sendCallback;
     }
 }

@@ -31,7 +31,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         GraphicsDevice graphicsDevice,
         SoundEffectManager soundEffectManager,
         UIManager uiManager,
-        WorldDetailsUI worldDetailsUI,
         WorldSerializer worldSerializer
     ) : IUIDependencies
     {
@@ -40,7 +39,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         internal GraphicsDevice GraphicsDevice => graphicsDevice;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;
-        internal WorldDetailsUI WorldDetailsUI => worldDetailsUI;
         internal WorldSerializer WorldSerializer => worldSerializer;
     }
 }

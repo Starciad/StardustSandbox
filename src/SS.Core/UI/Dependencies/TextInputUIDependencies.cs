@@ -30,7 +30,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         GameHandler gameHandler,
         GameScreen gameScreen,
         GameWindow gameWindow,
-        MessageUI messageUI,
         PlayerInputController playerInputController,
         SoundEffectManager soundEffectManager,
         UIManager uiManager
@@ -40,7 +39,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         internal GameHandler GameHandler => gameHandler;
         internal GameScreen GameScreen => gameScreen;
         internal GameWindow GameWindow => gameWindow;
-        internal MessageUI MessageUI => messageUI;
         internal PlayerInputController PlayerInputController => playerInputController;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;

@@ -40,10 +40,6 @@ namespace StardustSandbox.Core.UI.Common
     internal sealed partial class SelectorUI : UIBase<SelectorUIDependencies, SelectorUIModel>
     {
         private int currentPageIndex = 0, totalPages = 0;
-        private IChoice[] choices;
-
-        private Action<IChoice> sendCallback;
-
         private Range selectedChoicesRange;
 
         private Image panelBackground, shadowBackground;
@@ -122,19 +118,6 @@ namespace StardustSandbox.Core.UI.Common
                     slotInfo.Background.CanDraw = false;
                 }
             }
-        }
-
-        internal void Setup(string title, Action<IChoice> sendCallback, params IChoice[] choices)
-        {
-            this.title.TextContent = title;
-
-            this.sendCallback = sendCallback;
-            this.choices = choices;
-
-            this.currentPageIndex = 0;
-            this.totalPages = (int)MathF.Max(1.0f, MathF.Ceiling(this.choices.Length / (float)UIConstants.SELECTOR_CHOICES_PER_PAGE));
-
-            RefreshContent();
         }
 
         protected override void OnBuild(UIBuildContext context, SelectorUIModel model)

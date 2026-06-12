@@ -28,8 +28,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         CatalogDatabase catalogDatabase,
         GameHandler gameHandler,
         GameScreen gameScreen,
-        HudUI hudUI,
-        ItemSearchUI itemSearchUI,
         SoundEffectManager soundEffectManager,
         UIManager uiManager
     ) : IUIDependencies
@@ -38,8 +36,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         internal CatalogDatabase CatalogDatabase => catalogDatabase;
         internal GameHandler GameHandler => gameHandler;
         internal GameScreen GameScreen => gameScreen;
-        internal HudUI HudUI => hudUI;
-        internal ItemSearchUI ItemSearchUI => itemSearchUI;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;
     }

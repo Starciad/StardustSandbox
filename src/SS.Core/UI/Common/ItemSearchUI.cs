@@ -45,8 +45,6 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed partial class ItemSearchUI : UIBase<ItemSearchUIDependencies, ItemSearchUIModel>
     {
-        private Action<Item> itemSelectionCallback;
-
         private Label placeholderLabel, searchQueryLabel;
         private Image panelBackground, shadowBackground;
 
@@ -82,11 +80,6 @@ namespace StardustSandbox.Core.UI.Common
                     this.searchIndex.Add(new(item));
                 }
             }
-        }
-
-        internal void Setup(Action<Item> itemSelectionCallback)
-        {
-            this.itemSelectionCallback = itemSelectionCallback;
         }
 
         private void PlayTypingSound()

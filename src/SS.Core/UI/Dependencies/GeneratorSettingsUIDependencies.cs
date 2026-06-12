@@ -26,7 +26,6 @@ namespace StardustSandbox.Core.UI.Dependencies
 {
     internal sealed class GeneratorSettingsUIDependencies(
         AssetDatabase assetDatabase,
-        ConfirmUI confirmUI,
         GameHandler gameHandler,
         GameScreen gameScreen,
         SoundEffectManager soundEffectManager,
@@ -35,7 +34,6 @@ namespace StardustSandbox.Core.UI.Dependencies
     ) : IUIDependencies
     {
         internal AssetDatabase AssetDatabase => assetDatabase;
-        internal ConfirmUI ConfirmUI => confirmUI;
         internal GameHandler GameHandler => gameHandler;
         internal GameScreen GameScreen => gameScreen;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;

@@ -28,7 +28,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         AchievementManager achievementManager,
         AssetDatabase assetDatabase,
         CatalogDatabase catalogDatabase,
-        ConfirmUI confirmUI,
         GameHandler gameHandler,
         GameScreen gameScreen,
         PlayerInputController playerInputController,
@@ -39,7 +38,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         internal AchievementManager AchievementManager => achievementManager;
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal CatalogDatabase CatalogDatabase => catalogDatabase;
-        internal ConfirmUI ConfirmUI => confirmUI;
         internal GameHandler GameHandler => gameHandler;
         internal GameScreen GameScreen => gameScreen;
         internal PlayerInputController PlayerInputController => playerInputController;

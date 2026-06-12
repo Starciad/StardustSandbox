@@ -39,8 +39,6 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class SliderUI : UIBase<SliderUIDependencies, SliderUIModel>
     {
-        private Action<int> sendCallback;
-
         private Text synopsis;
         private Label valueLabel;
         private Image shadowBackground, sliderBackground, sliderButton;
@@ -68,19 +66,6 @@ namespace StardustSandbox.Core.UI.Common
             ];
 
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
-        }
-
-        internal void Setup(string synopsis, Range range, int value, Action<int> sendCallback)
-        {
-            this.synopsis.TextContent = synopsis;
-            this.valueLabel.TextContent = value.ToString();
-
-            this.range = range;
-            this.value = value;
-
-            this.sendCallback = sendCallback;
-
-            UpdateSliderButtonPosition();
         }
 
         protected override void OnBuild(UIBuildContext context, SliderUIModel model)

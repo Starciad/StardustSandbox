@@ -17,10 +17,15 @@
 
 using StardustSandbox.Core.Interfaces.UI;
 
+using System;
+
 namespace StardustSandbox.Core.UI.Models
 {
     internal sealed class SliderUIModel : IUIModel
     {
-
+        internal string Synopsis;
+        internal Range Range;
+        internal int Value;
+        internal Action<int> SendCallback;
     }
 }

@@ -42,13 +42,6 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed partial class TextInputUI : UIBase<TextInputUIDependencies, TextInputUIModel>
     {
-        private bool allowSpaces;
-        private uint maxCharacters;
-        private InputMode inputMode;
-        private InputRestriction inputRestriction;
-        private Func<string, ValidationState> validateCallback;
-        private Action<string> sendCallback;
-
         private int cursorPosition = 0;
 
         private Vector2 userInputBackgroundElementPosition = Vector2.Zero;
@@ -97,38 +90,6 @@ namespace StardustSandbox.Core.UI.Common
             ];
 
             this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
-        }
-
-        internal void Setup(string synopsis, string content, bool allowSpaces, InputMode inputMode, InputRestriction inputRestriction, uint maxCharacters, Func<string, ValidationState> validateCallback, Action<string> sendCallback)
-        {
-            // Setting Synopsis
-            this.synopsis.TextContent = synopsis;
-
-            // Setting Content
-            _ = this.userInputStringBuilder.Clear();
-
-            if (string.IsNullOrWhiteSpace(content))
-            {
-                this.cursorPosition = 0;
-            }
-            else
-            {
-                _ = this.userInputStringBuilder.Append(content);
-                this.cursorPosition = content.Length;
-            }
-
-            // Count
-            this.characterCount.CanDraw = maxCharacters != 0;
-
-            // Settings
-            this.allowSpaces = allowSpaces;
-            this.maxCharacters = maxCharacters;
-            this.inputMode = inputMode;
-            this.inputRestriction = inputRestriction;
-
-            // Callbacks
-            this.validateCallback = validateCallback;
-            this.sendCallback = sendCallback;
         }
 
         protected override void OnBuild(UIBuildContext context, TextInputUIModel model)

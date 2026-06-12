@@ -24,19 +24,15 @@ namespace StardustSandbox.Core.UI.Dependencies
 {
     internal sealed class PauseUIDependencies(
         AssetDatabase assetDatabase,
-        ConfirmUI confirmUI,
         GameHandler gameHandler,
         GameScreen gameScreen,
-        OptionsUI optionsUI,
         SoundEffectManager soundEffectManager,
         UIManager uiManager
     ) : IUIDependencies
     {
         internal AssetDatabase AssetDatabase => assetDatabase;
-        internal ConfirmUI ConfirmUI => confirmUI;
         internal GameHandler GameHandler => gameHandler;
         internal GameScreen GameScreen => gameScreen;
-        internal OptionsUI OptionsUI => optionsUI;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;
     }

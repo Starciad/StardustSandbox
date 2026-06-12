@@ -26,14 +26,12 @@ namespace StardustSandbox.Core.UI.Dependencies
         AssetDatabase assetDatabase,
         GameScreen gameScreen,
         SoundEffectManager soundEffectManager,
-        UIManager uiManager,
-        WorldExplorerUI worldExplorerUI
+        UIManager uiManager
     ) : IUIDependencies
     {
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal GameScreen GameScreen => gameScreen;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;
-        internal WorldExplorerUI WorldExplorerUI => worldExplorerUI;
     }
 }

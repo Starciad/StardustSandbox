@@ -15,11 +15,18 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework.Input;
+
 using StardustSandbox.Core.Interfaces.UI;
+
+using System;
 
 namespace StardustSandbox.Core.UI.Models
 {
-    internal sealed class KeySelectorUIModel : IUIModel
+    internal sealed class KeySelectorUIModel(
+        string synopsis,
+        Action<Keys> keySelectionCallback
+    ) : IUIModel
     {
 
     }

@@ -15,11 +15,16 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Catalog;
 using StardustSandbox.Core.Interfaces.UI;
+
+using System;
 
 namespace StardustSandbox.Core.UI.Models
 {
-    internal sealed class ItemSearchUIModel : IUIModel
+    internal sealed class ItemSearchUIModel(
+        Action<Item> itemSelectionCallback
+    ) : IUIModel
     {
 
     }

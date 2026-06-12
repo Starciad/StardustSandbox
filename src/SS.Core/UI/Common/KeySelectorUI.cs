@@ -37,20 +37,12 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class KeySelectorUI : UIBase<KeySelectorUIDependencies, KeySelectorUIModel>
     {
-        private Action<Keys> keySelectionCallback;
-
         private Image shadowBackground;
         private Text message;
 
         internal KeySelectorUI(KeySelectorUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
 
-        }
-
-        internal void Setup(string synopsis, Action<Keys> keySelectionCallback)
-        {
-            this.message.TextContent = synopsis;
-            this.keySelectionCallback = keySelectionCallback;
         }
 
         protected override void OnBuild(UIBuildContext context, KeySelectorUIModel model)

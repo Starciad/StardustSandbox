@@ -42,8 +42,6 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class WorldDetailsUI : UIBase<WorldDetailsUIDependencies, WorldDetailsUIModel>
     {
-        private WorldSaveFile saveFile;
-
         private Image headerBackground, shadowBackground;
 
         private Image worldThumbnail;
