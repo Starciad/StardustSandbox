@@ -20,26 +20,29 @@ using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Common;
-using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Elements.Compounds;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
-    internal sealed class PenSettingsUIDependencies : IUIDependencies
+    internal sealed class PenSettingsUIDependencies(
+        AssetDatabase assetDatabase,
+        GameHandler gameHandler,
+        GameScreen gameScreen,
+        HudUI hudUI,
+        PlayerInputController playerInputController,
+        SoundEffectManager soundEffectManager,
+        UIManager uiManager,
+        World world
+    ) : IUIDependencies
     {
-        internal PenSettingsUIDependencies(
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            HudUI hudUI,
-            PlayerInputController playerInputController,
-            SoundEffectManager soundEffectManager,
-            TooltipBox tooltipBox,
-            UIManager uiManager,
-            World world
-        )
-        {
-
-        }
+        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal GameHandler GameHandler => gameHandler;
+        internal GameScreen GameScreen => gameScreen;
+        internal HudUI HudUI => hudUI;
+        internal PlayerInputController PlayerInputController => playerInputController;
+        internal SoundEffectManager SoundEffectManager => soundEffectManager;
+        internal UIManager UIManager => uiManager;
+        internal World World => world;
     }
 }

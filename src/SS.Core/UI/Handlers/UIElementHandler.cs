@@ -21,7 +21,8 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.UI.Elements;
-using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Elements.Compounds;
+using StardustSandbox.Core.UI.Elements.Simples;
 
 using System;
 using System.Collections.Generic;

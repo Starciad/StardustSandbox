@@ -21,17 +21,18 @@ using StardustSandbox.Core.Managers;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
-    internal sealed class ConfirmUIDependencies : IUIDependencies
+    internal sealed class ConfirmUIDependencies(
+        AssetDatabase assetDatabase,
+        GameHandler gameHandler,
+        GameScreen gameScreen,
+        SoundEffectManager soundEffectManager,
+        UIManager uiManager
+    ) : IUIDependencies
     {
-        internal ConfirmUIDependencies(
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            SoundEffectManager soundEffectManager,
-            UIManager uiManager
-        )
-        {
-
-        }
+        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal GameHandler GameHandler => gameHandler;
+        internal GameScreen GameScreen => gameScreen;
+        internal SoundEffectManager SoundEffectManager => soundEffectManager;
+        internal UIManager UIManager => uiManager;
     }
 }

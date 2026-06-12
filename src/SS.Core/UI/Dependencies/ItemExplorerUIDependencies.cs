@@ -19,24 +19,28 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Common;
-using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Elements.Compounds;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
-    internal sealed class ItemExplorerUIDependencies : IUIDependencies
+    internal sealed class ItemExplorerUIDependencies(
+        AssetDatabase assetDatabase,
+        CatalogDatabase catalogDatabase,
+        GameHandler gameHandler,
+        GameScreen gameScreen,
+        HudUI hudUI,
+        ItemSearchUI itemSearchUI,
+        SoundEffectManager soundEffectManager,
+        UIManager uiManager
+    ) : IUIDependencies
     {
-        internal ItemExplorerUIDependencies(
-            AssetDatabase assetDatabase,
-            CatalogDatabase catalogDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            HudUI hudUI,
-            ItemSearchUI itemSearchUI,
-            SoundEffectManager soundEffectManager,
-            TooltipBox tooltipBox,
-            UIManager uiManager
-        )
-        {
-        }
+        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal CatalogDatabase CatalogDatabase => catalogDatabase;
+        internal GameHandler GameHandler => gameHandler;
+        internal GameScreen GameScreen => gameScreen;
+        internal HudUI HudUI => hudUI;
+        internal ItemSearchUI ItemSearchUI => itemSearchUI;
+        internal SoundEffectManager SoundEffectManager => soundEffectManager;
+        internal UIManager UIManager => uiManager;
     }
 }

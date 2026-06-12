@@ -25,19 +25,24 @@ using StardustSandbox.Core.UI.Common;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
-    internal sealed class TextInputUIDependencies : IUIDependencies
+    internal sealed class TextInputUIDependencies(
+        AssetDatabase assetDatabase,
+        GameHandler gameHandler,
+        GameScreen gameScreen,
+        GameWindow gameWindow,
+        MessageUI messageUI,
+        PlayerInputController playerInputController,
+        SoundEffectManager soundEffectManager,
+        UIManager uiManager
+    ) : IUIDependencies
     {
-        internal TextInputUIDependencies(
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            GameWindow gameWindow,
-            MessageUI messageUI,
-            PlayerInputController playerInputController,
-            SoundEffectManager soundEffectManager,
-            UIManager uiManager
-        )
-        {
-        }
+        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal GameHandler GameHandler => gameHandler;
+        internal GameScreen GameScreen => gameScreen;
+        internal GameWindow GameWindow => gameWindow;
+        internal MessageUI MessageUI => messageUI;
+        internal PlayerInputController PlayerInputController => playerInputController;
+        internal SoundEffectManager SoundEffectManager => soundEffectManager;
+        internal UIManager UIManager => uiManager;
     }
 }

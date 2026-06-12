@@ -21,16 +21,16 @@ using StardustSandbox.Core.Managers;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
-    internal sealed class MessageUIDependencies : IUIDependencies
+    internal sealed class MessageUIDependencies(
+        AssetDatabase assetDatabase,
+        GameHandler gameHandler,
+        GameScreen gameScreen,
+        UIManager uiManager
+    ) : IUIDependencies
     {
-        internal MessageUIDependencies(
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            UIManager uiManager
-        )
-        {
-
-        }
+        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal GameHandler GameHandler => gameHandler;
+        internal GameScreen GameScreen => gameScreen;
+        internal UIManager UIManager => uiManager;
     }
 }

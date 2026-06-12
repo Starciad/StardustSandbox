@@ -18,7 +18,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace StardustSandbox.Core.UI.Elements
+namespace StardustSandbox.Core.UI.Elements.Simples
 {
     internal sealed class Image : UIElement
     {

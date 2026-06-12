@@ -24,19 +24,22 @@ using StardustSandbox.Core.Managers;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
-    internal sealed class KeySelectorUIDependencies : IUIDependencies
+    internal sealed class KeySelectorUIDependencies(
+        AssetDatabase assetDatabase,
+        GameHandler gameHandler,
+        GameScreen gameScreen,
+        GameWindow gameWindow,
+        PlayerInputController playerInputController,
+        SoundEffectManager soundEffectManager,
+        UIManager uiManager
+    ) : IUIDependencies
     {
-        internal KeySelectorUIDependencies(
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            GameWindow gameWindow,
-            PlayerInputController playerInputController,
-            SoundEffectManager soundEffectManager,
-            UIManager uiManager
-        )
-        {
-
-        }
+        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal GameHandler GameHandler => gameHandler;
+        internal GameScreen GameScreen => gameScreen;
+        internal GameWindow GameWindow => gameWindow;
+        internal PlayerInputController PlayerInputController => playerInputController;
+        internal SoundEffectManager SoundEffectManager => soundEffectManager;
+        internal UIManager UIManager => uiManager;
     }
 }

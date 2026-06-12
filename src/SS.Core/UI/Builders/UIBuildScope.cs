@@ -16,6 +16,7 @@
 */
 
 using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Elements.Simples;
 using StardustSandbox.Core.UI.Handlers;
 
 using System;

@@ -22,27 +22,31 @@ using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.UI.Common;
-using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Elements.Compounds;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
-    internal sealed class SaveUIDependencies : IUIDependencies
+    internal sealed class SaveUIDependencies(
+        AssetDatabase assetDatabase,
+        GameHandler gameHandler,
+        GameScreen gameScreen,
+        GraphicsDevice graphicsDevice,
+        SoundEffectManager soundEffectManager,
+        TextInputUI textInputUI,
+        UIManager uiManager,
+        World world,
+        WorldSerializer worldSerializer
+    ) : IUIDependencies
     {
-        internal SaveUIDependencies(
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            GraphicsDevice graphicsDevice,
-            SoundEffectManager soundEffectManager,
-            TextInputUI textInputUI,
-            TooltipBox tooltipBox,
-            UIManager uiManager,
-            World world,
-            WorldSerializer worldSerializer
-        )
-        {
-
-        }
+        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal GameHandler GameHandler => gameHandler;
+        internal GameScreen GameScreen => gameScreen;
+        internal GraphicsDevice GraphicsDevice => graphicsDevice;
+        internal SoundEffectManager SoundEffectManager => soundEffectManager;
+        internal TextInputUI TextInputUI => textInputUI;
+        internal UIManager UIManager => uiManager;
+        internal World World => world;
+        internal WorldSerializer WorldSerializer => worldSerializer;
     }
 }

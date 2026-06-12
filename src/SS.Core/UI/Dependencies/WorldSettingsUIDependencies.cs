@@ -19,27 +19,31 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Common;
-using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Elements.Compounds;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
-    internal sealed class WorldSettingsUIDependencies : IUIDependencies
+    internal sealed class WorldSettingsUIDependencies(
+        ActorManager actorManager,
+        AssetDatabase assetDatabase,
+        ConfirmUI confirmUI,
+        GameHandler gameHandler,
+        GameScreen gameScreen,
+        MessageUI messageUI,
+        SoundEffectManager soundEffectManager,
+        UIManager uiManager,
+        World world
+    ) : IUIDependencies
     {
-        internal WorldSettingsUIDependencies(
-            ActorManager actorManager,
-            AssetDatabase assetDatabase,
-            ConfirmUI confirmUI,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            MessageUI messageUI,
-            SoundEffectManager soundEffectManager,
-            TooltipBox tooltipBox,
-            UIManager uiManager,
-            World world
-        )
-        {
-
-        }
+        internal ActorManager ActorManager => actorManager;
+        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal ConfirmUI ConfirmUI => confirmUI;
+        internal GameHandler GameHandler => gameHandler;
+        internal GameScreen GameScreen => gameScreen;
+        internal MessageUI MessageUI => messageUI;
+        internal SoundEffectManager SoundEffectManager => soundEffectManager;
+        internal UIManager UIManager => uiManager;
+        internal World World => world;
     }
 }

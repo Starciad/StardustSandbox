@@ -22,11 +22,12 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Indexers;
+using StardustSandbox.Core.UI.Elements.Simples;
 
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.UI.Elements.Specials
+namespace StardustSandbox.Core.UI.Elements.Compounds
 {
     internal sealed class NotificationBox : UIElement
     {

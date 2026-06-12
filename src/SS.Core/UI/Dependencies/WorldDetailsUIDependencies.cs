@@ -22,17 +22,20 @@ using StardustSandbox.Core.Serialization;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
-    internal sealed class WorldDetailsUIDependencies : IUIDependencies
+    internal sealed class WorldDetailsUIDependencies(
+        AssetDatabase assetDatabase,
+        GameHandler gameHandler,
+        GameScreen gameScreen,
+        SoundEffectManager soundEffectManager,
+        UIManager uiManager,
+        WorldSerializer worldSerializer
+    ) : IUIDependencies
     {
-        internal WorldDetailsUIDependencies(
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            SoundEffectManager soundEffectManager,
-            UIManager uiManager,
-            WorldSerializer worldSerializer
-        )
-        {
-        }
+        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal GameHandler GameHandler => gameHandler;
+        internal GameScreen GameScreen => gameScreen;
+        internal SoundEffectManager SoundEffectManager => soundEffectManager;
+        internal UIManager UIManager => uiManager;
+        internal WorldSerializer WorldSerializer => worldSerializer;
     }
 }

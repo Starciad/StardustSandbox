@@ -21,31 +21,40 @@ using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.UI.Common;
-using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Elements.Compounds;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
-    internal sealed class OptionsUIDependencies : IUIDependencies
+    internal sealed class OptionsUIDependencies(
+        AssetDatabase assetDatabase,
+        ColorPickerUI colorPickerUI,
+        CursorManager cursorManager,
+        GameHandler gameHandler,
+        GameScreen gameScreen,
+        KeySelectorUI keySelectorUI,
+        PlayerInputController playerInputController,
+        SelectorUI selectorUI,
+        SettingsSerializer settingsSerializer,
+        SliderUI sliderUI,
+        SongManager songManager,
+        SoundEffectManager soundEffectManager,
+        UIManager uiManager,
+        VideoManager videoManager
+    ) : IUIDependencies
     {
-        internal OptionsUIDependencies(
-            AssetDatabase assetDatabase,
-            ColorPickerUI colorPickerUI,
-            CursorManager cursorManager,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            KeySelectorUI keySelectorUI,
-            PlayerInputController playerInputController,
-            SelectorUI selectorUI,
-            SettingsSerializer settingsSerializer,
-            SliderUI sliderUI,
-            SongManager songManager,
-            SoundEffectManager soundEffectManager,
-            TooltipBox tooltipBox,
-            UIManager uiManager,
-            VideoManager videoManager
-        )
-        {
-
-        }
+        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal ColorPickerUI ColorPickerUI => colorPickerUI;
+        internal CursorManager CursorManager => cursorManager;
+        internal GameHandler GameHandler => gameHandler;
+        internal GameScreen GameScreen => gameScreen;
+        internal KeySelectorUI KeySelectorUI => keySelectorUI;
+        internal PlayerInputController PlayerInputController => playerInputController;
+        internal SelectorUI SelectorUI => selectorUI;
+        internal SettingsSerializer SettingsSerializer => settingsSerializer;
+        internal SliderUI SliderUI => sliderUI;
+        internal SongManager SongManager => songManager;
+        internal SoundEffectManager SoundEffectManager => soundEffectManager;
+        internal UIManager UIManager => uiManager;
+        internal VideoManager VideoManager => videoManager;
     }
 }

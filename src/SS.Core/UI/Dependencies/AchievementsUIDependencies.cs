@@ -22,19 +22,22 @@ using StardustSandbox.Core.Serialization.Progress;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
-    internal sealed class AchievementsUIDependencies : IUIDependencies
+    internal sealed class AchievementsUIDependencies(
+        AchievementDatabase achievementDatabase,
+        AchievementProgress achievementProgress,
+        AssetDatabase assetDatabase,
+        AmbientManager ambientManager,
+        GameScreen gameScreen,
+        SoundEffectManager soundEffectManager,
+        UIManager uiManager
+    ) : IUIDependencies
     {
-        internal AchievementsUIDependencies(
-            AchievementDatabase achievementDatabase,
-            AchievementProgress achievementProgress,
-            AssetDatabase assetDatabase,
-            AmbientManager ambientManager,
-            GameScreen gameScreen,
-            SoundEffectManager soundEffectManager,
-            UIManager uiManager
-        )
-        {
-
-        }
+        internal AchievementDatabase AchievementDatabase => achievementDatabase;
+        internal AchievementProgress AchievementProgress => achievementProgress;
+        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal AmbientManager AmbientManager => ambientManager;
+        internal GameScreen GameScreen => gameScreen;
+        internal SoundEffectManager SoundEffectManager =>  soundEffectManager;
+        internal UIManager UIManager => uiManager;
     }
 }

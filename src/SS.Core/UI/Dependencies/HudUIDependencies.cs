@@ -20,27 +20,30 @@ using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Common;
-using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Elements.Compounds;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
-    internal sealed class HudUIDependencies : IUIDependencies
+    internal sealed class HudUIDependencies(
+        AchievementManager achievementManager,
+        AssetDatabase assetDatabase,
+        CatalogDatabase catalogDatabase,
+        ConfirmUI confirmUI,
+        GameHandler gameHandler,
+        GameScreen gameScreen,
+        PlayerInputController playerInputController,
+        SoundEffectManager soundEffectManager,
+        UIManager uiManager
+    ) : IUIDependencies
     {
-        internal HudUIDependencies(
-            AchievementManager achievementManager,
-            AssetDatabase assetDatabase,
-            CatalogDatabase catalogDatabase,
-            ConfirmUI confirmUI,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            NotificationBox notificationBox,
-            PlayerInputController playerInputController,
-            SoundEffectManager soundEffectManager,
-            TooltipBox tooltipBox,
-            UIManager uiManager
-        )
-        {
-
-        }
+        internal AchievementManager AchievementManager => achievementManager;
+        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal CatalogDatabase CatalogDatabase => catalogDatabase;
+        internal ConfirmUI ConfirmUI => confirmUI;
+        internal GameHandler GameHandler => gameHandler;
+        internal GameScreen GameScreen => gameScreen;
+        internal PlayerInputController PlayerInputController => playerInputController;
+        internal SoundEffectManager SoundEffectManager => soundEffectManager;
+        internal UIManager UIManager => uiManager;
     }
 }

@@ -22,16 +22,16 @@ using StardustSandbox.Core.Serialization.Settings;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
-    internal sealed class TutorialUIDependencies : IUIDependencies
+    internal sealed class TutorialUIDependencies(
+        AssetDatabase assetDatabase,
+        ControlSettings controlSettings,
+        GameScreen gameScreen,
+        UIManager uiManager
+    ) : IUIDependencies
     {
-        internal TutorialUIDependencies(
-            AssetDatabase assetDatabase,
-            ControlSettings controlSettings,
-            GameScreen gameScreen,
-            UIManager uiManager
-        )
-        {
-
-        }
+        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal ControlSettings ControlSettings => controlSettings;
+        internal GameScreen GameScreen => gameScreen;
+        internal UIManager UIManager => uiManager;
     }
 }

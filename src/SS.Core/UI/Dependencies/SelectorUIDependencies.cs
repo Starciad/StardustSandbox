@@ -21,17 +21,18 @@ using StardustSandbox.Core.Managers;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
-    internal sealed class SelectorUIDependencies : IUIDependencies
+    internal sealed class SelectorUIDependencies(
+        AssetDatabase assetDatabase,
+        GameHandler gameHandler,
+        GameScreen gameScreen,
+        SoundEffectManager soundEffectManager,
+        UIManager uiManager
+    ) : IUIDependencies
     {
-        internal SelectorUIDependencies(
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            SoundEffectManager soundEffectManager,
-            UIManager uiManager
-        )
-        {
-
-        }
+        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal GameHandler GameHandler => gameHandler;
+        internal GameScreen GameScreen => gameScreen;
+        internal SoundEffectManager SoundEffectManager => soundEffectManager;
+        internal UIManager UIManager => uiManager;
     }
 }

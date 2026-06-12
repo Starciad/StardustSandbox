@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.UI.Elements
+namespace StardustSandbox.Core.UI.Elements.Simples
 {
     internal sealed class Container : UIElement
     {

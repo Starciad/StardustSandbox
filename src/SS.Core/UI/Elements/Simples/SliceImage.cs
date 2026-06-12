@@ -20,7 +20,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Enums.Directions;
 
-namespace StardustSandbox.Core.UI.Elements
+namespace StardustSandbox.Core.UI.Elements.Simples
 {
     internal sealed class SliceImage : UIElement
     {
@@ -87,27 +87,27 @@ namespace StardustSandbox.Core.UI.Elements
 
             // Northeast
             this.slices[(byte)UIDirection.Northeast].SetSourceRectangle(
-                new(originX + (tileWidth * 2), originY, tileWidth, tileHeight)
+                new(originX + tileWidth * 2, originY, tileWidth, tileHeight)
             );
 
             // East
             this.slices[(byte)UIDirection.East].SetSourceRectangle(
-                new(originX + (tileWidth * 2), originY + tileHeight, tileWidth, tileHeight)
+                new(originX + tileWidth * 2, originY + tileHeight, tileWidth, tileHeight)
             );
 
             // Southeast
             this.slices[(byte)UIDirection.Southeast].SetSourceRectangle(
-                new(originX + (tileWidth * 2), originY + (tileHeight * 2), tileWidth, tileHeight)
+                new(originX + tileWidth * 2, originY + tileHeight * 2, tileWidth, tileHeight)
             );
 
             // South
             this.slices[(byte)UIDirection.South].SetSourceRectangle(
-                new(originX + tileWidth, originY + (tileHeight * 2), tileWidth, tileHeight)
+                new(originX + tileWidth, originY + tileHeight * 2, tileWidth, tileHeight)
             );
 
             // Southwest
             this.slices[(byte)UIDirection.Southwest].SetSourceRectangle(
-                new(originX, originY + (tileHeight * 2), tileWidth, tileHeight)
+                new(originX, originY + tileHeight * 2, tileWidth, tileHeight)
             );
 
             // West
@@ -140,23 +140,23 @@ namespace StardustSandbox.Core.UI.Elements
             this.slices[(byte)UIDirection.North].SetScale(new(this.TileScale.X, 1));
 
             // Northeast
-            this.slices[(byte)UIDirection.Northeast].SetPosition(new(this.Position.X + (tileWidth * this.TileScale.X), this.Position.Y - tileHeight));
+            this.slices[(byte)UIDirection.Northeast].SetPosition(new(this.Position.X + tileWidth * this.TileScale.X, this.Position.Y - tileHeight));
             this.slices[(byte)UIDirection.Northeast].SetScale(Vector2.One);
 
             // East
-            this.slices[(byte)UIDirection.East].SetPosition(new(this.Position.X + (tileWidth * this.TileScale.X), this.Position.Y));
+            this.slices[(byte)UIDirection.East].SetPosition(new(this.Position.X + tileWidth * this.TileScale.X, this.Position.Y));
             this.slices[(byte)UIDirection.East].SetScale(new(1, this.TileScale.Y));
 
             // Southeast
-            this.slices[(byte)UIDirection.Southeast].SetPosition(new(this.Position.X + (tileWidth * this.TileScale.X), this.Position.Y + (tileHeight * this.TileScale.Y)));
+            this.slices[(byte)UIDirection.Southeast].SetPosition(new(this.Position.X + tileWidth * this.TileScale.X, this.Position.Y + tileHeight * this.TileScale.Y));
             this.slices[(byte)UIDirection.Southeast].SetScale(Vector2.One);
 
             // South
-            this.slices[(byte)UIDirection.South].SetPosition(new(this.Position.X, this.Position.Y + (tileHeight * this.TileScale.Y)));
+            this.slices[(byte)UIDirection.South].SetPosition(new(this.Position.X, this.Position.Y + tileHeight * this.TileScale.Y));
             this.slices[(byte)UIDirection.South].SetScale(new(this.TileScale.X, 1));
 
             // Southwest
-            this.slices[(byte)UIDirection.Southwest].SetPosition(new(this.Position.X - tileWidth, this.Position.Y + (tileHeight * this.TileScale.Y)));
+            this.slices[(byte)UIDirection.Southwest].SetPosition(new(this.Position.X - tileWidth, this.Position.Y + tileHeight * this.TileScale.Y));
             this.slices[(byte)UIDirection.Southwest].SetScale(Vector2.One);
 
             // West

@@ -23,21 +23,26 @@ using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
-    internal sealed class MainUIDependencies : IUIDependencies
+    internal sealed class MainUIDependencies(
+        AmbientManager ambientManager,
+        AssetDatabase assetDatabase,
+        GameHandler gameHandler,
+        GameScreen gameScreen,
+        OptionsUI optionsUI,
+        SongManager songManager,
+        SoundEffectManager soundEffectManager,
+        UIManager uiManager,
+        World world
+    ) : IUIDependencies
     {
-        internal MainUIDependencies(
-            AmbientManager ambientManager,
-            AssetDatabase assetDatabase,
-            GameHandler gameHandler,
-            GameScreen gameScreen,
-            OptionsUI optionsUI,
-            SongManager songManager,
-            SoundEffectManager soundEffectManager,
-            UIManager uiManager,
-            World world
-        )
-        {
-
-        }
+        internal AmbientManager AmbientManager => ambientManager;
+        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal GameHandler GameHandler => gameHandler;
+        internal GameScreen GameScreen => gameScreen;
+        internal OptionsUI OptionsUI => optionsUI;
+        internal SongManager SongManager => songManager;
+        internal SoundEffectManager SoundEffectManager => soundEffectManager;
+        internal UIManager UIManager => uiManager;
+        internal World World => world;
     }
 }
