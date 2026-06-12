@@ -47,26 +47,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SlotInfo[] buttonSlotInfos;
         private readonly ButtonInfo[] buttonInfos;
 
-        private readonly ActorManager actorManager;
-        private readonly AssetDatabase assetDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly TileMap tileMap;
-        private readonly TooltipBox tooltipBox;
-        private readonly UIManager uiManager;
-        private readonly World world;
-
         internal InformationUI(InformationUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.actorManager = actorManager;
-            this.assetDatabase = assetDatabase;
-            this.gameHandler = gameHandler;
-            this.soundEffectManager = soundEffectManager;
-            this.tileMap = world.TileMap;
-            this.tooltipBox = tooltipBox;
-            this.uiManager = uiManager;
-            this.world = world;
-
             this.buttonInfos = [
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseUI),
             ];

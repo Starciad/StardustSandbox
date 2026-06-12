@@ -39,8 +39,6 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class ConfirmUI : UIBase<ConfirmUIDependencies, ConfirmUIModel>
     {
-        private Action<ConfirmStatus> confirmCallback;
-
         private Image shadowBackground;
         private Label caption;
         private Text message;
@@ -64,13 +62,6 @@ namespace StardustSandbox.Core.UI.Common
             ];
 
             this.buttonLabels = new Label[this.buttonInfos.Length];
-        }
-
-        internal void Setup(string caption, string message, Action<ConfirmStatus> confirmCallback)
-        {
-            this.caption.TextContent = caption;
-            this.message.TextContent = message;
-            this.confirmCallback = confirmCallback;
         }
 
         protected override void OnBuild(UIBuildContext context, ConfirmUIModel model)

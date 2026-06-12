@@ -50,24 +50,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly Label[] menuButtonLabels;
         private readonly ButtonInfo[] menuButtonInfos, topButtonInfos;
 
-        private readonly AmbientManager ambientManager;
-        private readonly AssetDatabase assetDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly SongManager songManager;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly UIManager uiManager;
-        private readonly World world;
-
         internal MainUI(MainUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.ambientManager = ambientManager;
-            this.assetDatabase = assetDatabase;
-            this.gameHandler = gameHandler;
-            this.songManager = songManager;
-            this.soundEffectManager = soundEffectManager;
-            this.uiManager = uiManager;
-            this.world = world;
-
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_GUIs.Main_Create, string.Empty, gameHandler.StartGame),
                 new(TextureIndex.None, null, Localization_GUIs.Main_Play, string.Empty, () => this.uiManager.OpenUI(UIIndex.Play)),

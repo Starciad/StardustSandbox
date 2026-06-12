@@ -67,18 +67,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SelectorUI.IChoice[] availableGameCulturesChoices;
         private readonly SelectorUI.IChoice[] resolutionChoices;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly TooltipBox tooltipBox;
-
         internal OptionsUI(OptionsUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.gameHandler = gameHandler;
-            this.soundEffectManager = soundEffectManager;
-            this.tooltipBox = tooltipBox;
-
             ControlSettings controlSettings = settingsSerializer.Load<ControlSettings>();
             CursorSettings cursorSettings = settingsSerializer.Load<CursorSettings>();
             GameplaySettings gameplaySettings = settingsSerializer.Load<GameplaySettings>();

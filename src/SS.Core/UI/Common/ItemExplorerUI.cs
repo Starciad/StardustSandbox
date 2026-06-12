@@ -55,26 +55,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo[] buttonInfos, paginationButtonInfos;
         private readonly SlotInfo[] itemButtonSlotInfos, categoryButtonSlotInfos, subcategoryButtonSlotInfos, paginationButtonSlotInfos;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly CatalogDatabase catalogDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly HudUI hudUI;
-        private readonly ItemSearchUI itemSearchUI;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly TooltipBox tooltipBox;
-        private readonly UIManager uiManager;
-
         internal ItemExplorerUI(ItemExplorerUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.catalogDatabase = catalogDatabase;
-            this.gameHandler = gameHandler;
-            this.hudUI = hudUI;
-            this.itemSearchUI = itemSearchUI;
-            this.soundEffectManager = soundEffectManager;
-            this.tooltipBox = tooltipBox;
-            this.uiManager = uiManager;
-
             this.buttonInfos = [
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI),
                 new(TextureIndex.IconUI, new(0, 0, 32, 32), Localization_GUIs.ItemSearch_Title, Localization_GUIs.ItemSearch_Description, () =>

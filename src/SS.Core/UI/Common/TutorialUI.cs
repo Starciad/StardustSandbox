@@ -49,14 +49,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private readonly TutorialContent[] contents;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly UIManager uiManager;
-
         internal TutorialUI(TutorialUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.uiManager = uiManager;
-
             this.contents =
             [
                 new(

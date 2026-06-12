@@ -56,18 +56,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo exitButtonInfo;
         private readonly ButtonInfo[] paginationButtonInfos;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly UIManager uiManager;
-
         internal SelectorUI(SelectorUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.gameHandler = gameHandler;
-            this.soundEffectManager = soundEffectManager;
-            this.uiManager = uiManager;
-
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, string.Empty, uiManager.CloseUI);
 
             this.paginationButtonInfos =

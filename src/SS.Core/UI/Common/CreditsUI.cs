@@ -46,20 +46,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private readonly CreditSection[] creditSections;
 
-        private readonly AmbientManager ambientManager;
-        private readonly AssetDatabase assetDatabase;
-        private readonly SongManager songManager;
-        private readonly UIManager uiManager;
-        private readonly World world;
-
         internal CreditsUI(CreditsUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.ambientManager = ambientManager;
-            this.assetDatabase = assetDatabase;
-            this.songManager = songManager;
-            this.uiManager = uiManager;
-            this.world = world;
-
             // Build Credit Sections
             this.creditSections = [
                 // Game Title

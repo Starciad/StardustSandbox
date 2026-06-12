@@ -39,15 +39,9 @@ namespace StardustSandbox.Core.UI.Common
         private Text message;
         private Label continueButtonLabel;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly UIManager uiManager;
-
         internal MessageUI(MessageUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.gameHandler = gameHandler;
-            this.uiManager = uiManager;
+
         }
 
         protected override void OnBuild(UIBuildContext context, MessageUIModel model)

@@ -58,22 +58,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private readonly List<WorldSaveFile> loadedSaveFiles = [];
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly GraphicsDevice graphicsDevice;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly UIManager uiManager;
-        private readonly WorldDetailsUI worldDetailsUI;
-        private readonly WorldSerializer worldSerializer;
-
         internal WorldExplorerUI(WorldExplorerUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.graphicsDevice = graphicsDevice;
-            this.soundEffectManager = soundEffectManager;
-            this.uiManager = uiManager;
-            this.worldDetailsUI = worldDetailsUI;
-            this.worldSerializer = worldSerializer;
-
             this.menuButtonInfos = [
                 new(TextureIndex.IconUI, new(192, 0, 32, 32), Localization_Statements.Exit, string.Empty, this.uiManager.CloseUI),
                 new(TextureIndex.IconUI, new(32, 32, 32, 32), Localization_GUIs.WorldExplorer_OpenInDirectory_Name, string.Empty, () =>

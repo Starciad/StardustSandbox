@@ -51,14 +51,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly Label[] menuButtonLabels;
         private readonly ButtonInfo[] menuButtonInfos;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly GameHandler gameHandler;
-
         internal SliderUI(SliderUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.gameHandler = gameHandler;
-
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {

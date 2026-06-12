@@ -56,20 +56,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo exitButtonInfo, generateButtonInfo;
         private readonly ButtonInfo[] themeButtonInfos, settingsButtonInfos, contentsButtonInfos;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly TooltipBox tooltipBox;
-        private readonly UIManager uiManager;
-
         internal GeneratorSettingsUI(GeneratorSettingsUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.gameHandler = gameHandler;
-            this.soundEffectManager = soundEffectManager;
-            this.tooltipBox = tooltipBox;
-            this.uiManager = uiManager;
-
             this.worldGenerator = new(gameHandler, world);
 
             this.exitButtonInfo = new(

@@ -40,8 +40,6 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class ColorPickerUI : UIBase<ColorPickerUIDependencies, ColorPickerUIModel>
     {
-        private Action<Color> colorSelectionCallback;
-
         private Image shadowBackground;
         private Text captionElement;
         private Label exitButtonLabel;
@@ -123,11 +121,6 @@ namespace StardustSandbox.Core.UI.Common
             ];
 
             this.colorButtonSlotInfos = new ColorSlotInfo[this.colorButtonInfos.Length];
-        }
-
-        internal void Setup(Action<Color> colorSelectionCallback)
-        {
-            this.colorSelectionCallback = colorSelectionCallback;
         }
 
         private void SelectColorButtonAction(Color color)

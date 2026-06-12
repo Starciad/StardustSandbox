@@ -15,11 +15,18 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Enums.UI.Tools;
 using StardustSandbox.Core.Interfaces.UI;
+
+using System;
 
 namespace StardustSandbox.Core.UI.Models
 {
-    internal sealed class ConfirmUIModel : IUIModel
+    internal sealed class ConfirmUIModel(
+        string caption,
+        string message,
+        Action<ConfirmStatus> confirmCallback
+    ) : IUIModel
     {
 
     }

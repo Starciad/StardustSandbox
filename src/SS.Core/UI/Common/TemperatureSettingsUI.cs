@@ -48,20 +48,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo exitButtonInfo;
         private readonly Section[] sections;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly TooltipBox tooltipBox;
-        private readonly World world;
-
         internal TemperatureSettingsUI(TemperatureSettingsUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.gameHandler = gameHandler;
-            this.soundEffectManager = soundEffectManager;
-            this.tooltipBox = tooltipBox;
-            this.world = world;
-
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI);
 
             this.sections =

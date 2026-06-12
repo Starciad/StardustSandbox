@@ -61,16 +61,6 @@ namespace StardustSandbox.Core.UI.Common
         private readonly SlotInfo[] toolbarSlots = new SlotInfo[UIConstants.HUD_ELEMENT_BUTTONS_LENGTH];
         private readonly ButtonInfo[] leftPanelTopButtonInfos, leftPanelBottomButtonInfos, rightPanelTopButtonInfos, rightPanelBottomButtonInfos;
 
-        private readonly AchievementManager achievementManager;
-        private readonly AssetDatabase assetDatabase;
-        private readonly CatalogDatabase catalogDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly NotificationBox notificationBox;
-        private readonly PlayerInputController playerInputController;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly TooltipBox tooltipBox;
-        private readonly UIManager uiManager;
-
         private readonly Rectangle[] speedIconRectangles = [
             new(192, 128, 32, 32),
             new(224, 128, 32, 32),
@@ -84,16 +74,6 @@ namespace StardustSandbox.Core.UI.Common
 
         internal HudUI(HudUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.achievementManager = achievementManager;
-            this.assetDatabase = assetDatabase;
-            this.catalogDatabase = catalogDatabase;
-            this.gameHandler = gameHandler;
-            this.notificationBox = notificationBox;
-            this.playerInputController = playerInputController;
-            this.soundEffectManager = soundEffectManager;
-            this.tooltipBox = tooltipBox;
-            this.uiManager = uiManager;
-
             this.leftPanelTopButtonInfos = [
                 new(TextureIndex.IconUI, new(64, 0, 32, 32), Localization_GUIs.HUD_EnvironmentSettings_Name, Localization_GUIs.HUD_EnvironmentSettings_Description, () => this.uiManager.OpenUI(UIIndex.EnvironmentSettings)),
                 new(TextureIndex.IconUI, new(32, 0, 32, 32), Localization_GUIs.HUD_PenSettings_Name, Localization_GUIs.HUD_PenSettings_Description, () => this.uiManager.OpenUI(UIIndex.PenSettings)),

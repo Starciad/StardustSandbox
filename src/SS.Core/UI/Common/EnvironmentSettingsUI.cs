@@ -44,22 +44,8 @@ namespace StardustSandbox.Core.UI.Common
 
         private readonly ButtonInfo[] menuButtonInfos, timeStateButtonInfos, timeButtonInfos;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly TooltipBox tooltipBox;
-        private readonly UIManager uiManager;
-        private readonly World world;
-
         internal EnvironmentSettingsUI(EnvironmentSettingsUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.gameHandler = gameHandler;
-            this.soundEffectManager = soundEffectManager;
-            this.tooltipBox = tooltipBox;
-            this.uiManager = uiManager;
-            this.world = world;
-
             this.menuButtonInfos = [
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseUI),
                 new(TextureIndex.IconTools, new(32, 0, 32, 32), Localization_GUIs.EnvironmentSettings_TemperatureEditor_Name, Localization_GUIs.EnvironmentSettings_TemperatureEditor_Description, () => this.uiManager.OpenUI(UIIndex.TemperatureSettings)),

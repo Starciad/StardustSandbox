@@ -43,20 +43,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo[] menuButtonInfos;
         private readonly SlotInfo[] menuButtonSlotInfos;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly ConfirmUI confirmUI;
-        private readonly GameHandler gameHandler;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly UIManager uiManager;
-
         internal PauseUI(PauseUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.confirmUI = confirmUI;
-            this.gameHandler = gameHandler;
-            this.soundEffectManager = soundEffectManager;
-            this.uiManager = uiManager;
-
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Resume, string.Empty, this.uiManager.CloseUI),
                 new(TextureIndex.None, null, Localization_Statements.Options, string.Empty, () =>

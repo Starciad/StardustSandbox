@@ -50,24 +50,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly Rectangle[] brushSizeSliderSourceRectangles;
         private readonly ButtonInfo[] menuButtonInfos, toolButtonInfos, layerButtonInfos, layerVisibility, shapeButtonInfos;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly HudUI hudUI;
-        private readonly PlayerInputController playerInputController;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly TooltipBox tooltipBox;
-        private readonly World world;
-
         internal PenSettingsUI(PenSettingsUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.gameHandler = gameHandler;
-            this.playerInputController = playerInputController;
-            this.soundEffectManager = soundEffectManager;
-            this.hudUI = hudUI;
-            this.tooltipBox = tooltipBox;
-            this.world = world;
-
             this.toolButtonSelectedIndex = 0;
             this.layerButtonSelectedIndex = 0;
 

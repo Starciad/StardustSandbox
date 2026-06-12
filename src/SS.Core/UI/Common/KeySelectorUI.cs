@@ -42,21 +42,9 @@ namespace StardustSandbox.Core.UI.Common
         private Image shadowBackground;
         private Text message;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly GameWindow gameWindow;
-        private readonly PlayerInputController playerInputController;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly UIManager uiManager;
-
         internal KeySelectorUI(KeySelectorUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.gameHandler = gameHandler;
-            this.gameWindow = gameWindow;
-            this.playerInputController = playerInputController;
-            this.soundEffectManager = soundEffectManager;
-            this.uiManager = uiManager;
+
         }
 
         internal void Setup(string synopsis, Action<Keys> keySelectionCallback)

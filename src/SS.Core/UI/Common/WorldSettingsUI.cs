@@ -48,28 +48,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly ButtonInfo[] menuButtonInfos, sizeButtonInfos;
         private readonly SlotInfo[] menuButtonSlotInfos, sizeButtonSlotInfos;
 
-        private readonly ActorManager actorManager;
-        private readonly AssetDatabase assetDatabase;
-        private readonly ConfirmUI confirmUI;
-        private readonly GameHandler gameHandler;
-        private readonly MessageUI messageUI;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly TooltipBox tooltipBox;
-        private readonly UIManager uiManager;
-        private readonly World world;
-
         internal WorldSettingsUI(WorldSettingsUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.actorManager = actorManager;
-            this.assetDatabase = assetDatabase;
-            this.confirmUI = confirmUI;
-            this.gameHandler = gameHandler;
-            this.messageUI = messageUI;
-            this.soundEffectManager = soundEffectManager;
-            this.tooltipBox = tooltipBox;
-            this.uiManager = uiManager;
-            this.world = world;
-
             this.menuButtonInfos = [
                 new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, this.uiManager.CloseUI),
                 new(TextureIndex.IconUI, new(288, 0, 32, 32), Localization_GUIs.EnvironmentSettings_Generator_Name, Localization_GUIs.EnvironmentSettings_Generator_Description, () => this.uiManager.OpenUI(UIIndex.GeneratorSettings)),

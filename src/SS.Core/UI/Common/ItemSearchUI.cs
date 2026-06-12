@@ -61,26 +61,10 @@ namespace StardustSandbox.Core.UI.Common
         private readonly List<SearchIndexEntry> searchResults;
         private readonly List<SearchMatch> matchesBuffer;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly GameWindow gameWindow;
-        private readonly PlayerInputController playerInputController;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly TooltipBox tooltipBox;
-        private readonly UIManager uiManager;
-
-        private static readonly StringBuilder normalizeBuilder = new(256);
+        private readonly StringBuilder normalizeBuilder = new(256);
 
         internal ItemSearchUI(ItemSearchUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.gameHandler = gameHandler;
-            this.gameWindow = gameWindow;
-            this.tooltipBox = tooltipBox;
-            this.playerInputController = playerInputController;
-            this.soundEffectManager = soundEffectManager;
-            this.uiManager = uiManager;
-
             this.itemButtonSlotInfos = new SlotInfo[UIConstants.ITEM_SEARCH_ITEMS_PER_PAGE];
 
             this.exitButtonInfo = new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Exit, Localization_GUIs.Button_Exit_Description, uiManager.CloseUI);

@@ -65,20 +65,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly StringBuilder userInputStringBuilder = new();
         private readonly StringBuilder userInputPasswordMaskedStringBuilder = new();
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly GameHandler gameHandler;
-        private readonly GameWindow gameWindow;
-        private readonly PlayerInputController playerInputController;
-        private readonly SoundEffectManager soundEffectManager;
-
         internal TextInputUI(TextInputUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.gameHandler = gameHandler;
-            this.gameWindow = gameWindow;
-            this.playerInputController = playerInputController;
-            this.soundEffectManager = soundEffectManager;
-
             this.menuButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
                 {

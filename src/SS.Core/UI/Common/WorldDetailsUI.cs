@@ -53,16 +53,8 @@ namespace StardustSandbox.Core.UI.Common
         private readonly Label[] worldButtonLabels;
         private readonly ButtonInfo[] worldButtonInfos;
 
-        private readonly AssetDatabase assetDatabase;
-        private readonly SoundEffectManager soundEffectManager;
-        private readonly WorldSerializer worldSerializer;
-
         internal WorldDetailsUI(WorldDetailsUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
         {
-            this.assetDatabase = assetDatabase;
-            this.soundEffectManager = soundEffectManager;
-            this.worldSerializer = worldSerializer;
-
             this.worldButtonInfos = [
                 new(TextureIndex.None, null, Localization_Statements.Return, string.Empty, () =>
                 {
