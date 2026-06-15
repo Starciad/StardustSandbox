@@ -27,16 +27,19 @@ using StardustSandbox.Core.Serialization.Progress;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Common;
+using StardustSandbox.Core.UI.Dependencies;
 using StardustSandbox.Core.UI.Elements.Compounds;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
+using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Databases
 {
     internal sealed class UIDatabase
     {
-        private IUI[] uis;
+        private readonly Dictionary<Type, IUI> uis;
 
         internal void Load(
             AchievementDatabase achievementDatabase,
@@ -49,345 +52,109 @@ namespace StardustSandbox.Core.Databases
             GameHandler gameHandler,
             GameScreen gameScreen,
             GameWindow gameWindow,
-            GraphicsDevice graphicsDevice,
+            GraphicsDeviceManager graphicsDeviceManager,
             PlayerInputController playerInputController,
             ProgressSerializer progressSerializer,
             SettingsSerializer settingsSerializer,
             SongManager songManager,
             SoundEffectManager soundEffectManager,
+            UIElementHandler elementHandler,
             UIManager uiManager,
             VideoManager videoManager,
             World world,
             WorldSerializer worldSerializer
         )
         {
-            AchievementProgress achievementProgress = progressSerializer.Load<AchievementProgress>();
+            AchievementsUIDependencies achievementsUIDependencies = new(achievementDatabase, assetDatabase, ambientManager, gameScreen, progressSerializer, soundEffectManager, uiManager);
+            ColorPickerUIDependencies colorPickerUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager);
+            ConfirmUIDependencies confirmUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager);
+            CreditsUIDependencies creditsUIDependencies = new(ambientManager, assetDatabase, gameScreen, songManager, uiManager, world);
+            EnvironmentSettingsUIDependencies environmentSettingsUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager, world);
+            GeneratorSettingsUIDependencies generatorSettingsUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager, world);
+            HudUIDependencies hudUIDependencies = new(achievementManager, assetDatabase, catalogDatabase, gameHandler, gameScreen, playerInputController, soundEffectManager, uiManager);
+            InformationUIDependencies informationUIDependencies = new(actorManager, assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager, world);
+            ItemExplorerUIDependencies itemExplorerUIDependencies = new(assetDatabase, catalogDatabase, gameHandler, gameScreen, soundEffectManager, uiManager);
+            ItemSearchUIDependencies itemSearchUIDependencies = new(assetDatabase, catalogDatabase, gameHandler, gameScreen, gameWindow, playerInputController, soundEffectManager, uiManager);
+            KeySelectorUIDependencies keySelectorUIDependencies = new(assetDatabase, gameHandler, gameScreen, gameWindow, playerInputController, soundEffectManager, uiManager);
+            MainUIDependencies mainUIDependencies = new(ambientManager, assetDatabase, gameHandler, gameScreen, songManager, soundEffectManager, uiManager, world);
+            MessageUIDependencies messageUIDependencies = new(assetDatabase, gameHandler, gameScreen, uiManager);
+            OptionsUIDependencies optionsUIDependencies = new(assetDatabase, cursorManager, gameHandler, gameScreen, playerInputController, settingsSerializer, songManager, soundEffectManager, uiManager, videoManager);
+            PauseUIDependencies pauseUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager);
+            PenSettingsUIDependencies penSettingsUIDependencies = new(assetDatabase, gameHandler, gameScreen, playerInputController, soundEffectManager, uiManager, world);
+            PlayUIDependencies playUIDependencies = new(assetDatabase, gameScreen, soundEffectManager, uiManager);
+            SaveUIDependencies saveUIDependencies = new(assetDatabase, gameHandler, gameScreen, graphicsDeviceManager, soundEffectManager, uiManager, world, worldSerializer);
+            SelectorUIDependencies selectorUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager);
+            SliderUIDependencies sliderUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager);
+            TemperatureSettingsUIDependencies temperatureSettingsUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager, world);
+            TextInputUIDependencies textInputUIDependencies = new(assetDatabase, gameHandler, gameScreen, gameWindow, playerInputController, soundEffectManager, uiManager);
+            TutorialUIDependencies tutorialUIDependencies = new(assetDatabase, gameScreen, settingsSerializer, uiManager);
+            WorldDetailsUIDependencies worldDetailsUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager, worldSerializer);
+            WorldExplorerUIDependencies worldExplorerUIDependencies = new(assetDatabase, gameScreen, graphicsDeviceManager, soundEffectManager, uiManager, worldSerializer);
+            WorldSettingsUIDependencies worldSettingsUIDependencies = new(actorManager, assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager, world);
 
-            ControlSettings controlSettings = settingsSerializer.Load<ControlSettings>();
-            InterfaceSettings interfaceSettings = settingsSerializer.Load<InterfaceSettings>();
+            AchievementsUI achievementsUI = new(achievementsUIDependencies, elementHandler);
+            ColorPickerUI colorPickerUI = new(colorPickerUIDependencies, elementHandler);
+            ConfirmUI confirmUI = new(confirmUIDependencies, elementHandler);
+            CreditsUI creditsUI = new(creditsUIDependencies, elementHandler);
+            EnvironmentSettingsUI environmentSettingsUI = new(environmentSettingsUIDependencies, elementHandler);
+            GeneratorSettingsUI generatorSettingsUI = new(generatorSettingsUIDependencies, elementHandler);
+            HudUI hudUI = new(hudUIDependencies, elementHandler);
+            InformationUI informationUI = new(informationUIDependencies, elementHandler);
+            ItemExplorerUI itemExplorerUI = new(itemExplorerUIDependencies, elementHandler);
+            ItemSearchUI itemSearchUI = new(itemSearchUIDependencies, elementHandler);
+            KeySelectorUI keySelectorUI = new(keySelectorUIDependencies, elementHandler);
+            MainUI mainUI = new(mainUIDependencies, elementHandler);
+            MessageUI messageUI = new(messageUIDependencies, elementHandler);
+            OptionsUI optionsUI = new(optionsUIDependencies, elementHandler);
+            PauseUI pauseUI = new(pauseUIDependencies, elementHandler);
+            PenSettingsUI penSettingsUI = new(penSettingsUIDependencies, elementHandler);
+            PlayUI playUI = new(playUIDependencies, elementHandler);
+            SaveUI saveUI = new(saveUIDependencies, elementHandler);
+            SelectorUI selectorUI = new(selectorUIDependencies, elementHandler);
+            SliderUI sliderUI = new(sliderUIDependencies, elementHandler);
+            TemperatureSettingsUI temperatureSettingsUI = new(temperatureSettingsUIDependencies, elementHandler);
+            TextInputUI textInputUI = new(textInputUIDependencies, elementHandler);
+            TutorialUI tutorialUI = new(tutorialUIDependencies, elementHandler);
+            WorldDetailsUI worldDetailsUI = new(worldDetailsUIDependencies, elementHandler);
+            WorldExplorerUI worldExplorerUI = new(worldExplorerUIDependencies, elementHandler);
+            WorldSettingsUI worldSettingsUI = new(worldSettingsUIDependencies, elementHandler);
 
-            NotificationBox notificationBox = new(assetDatabase, gameScreen);
-            TooltipBox tooltipBox = new(assetDatabase, cursorManager, gameScreen, interfaceSettings)
-            {
-                MinimumSize = new(500f, 0f),
-            };
-
-            ColorPickerUI colorPickerUI = new(
-                assetDatabase,
-                gameHandler,
-                gameScreen,
-                soundEffectManager,
-                tooltipBox,
-                uiManager
-            );
-
-            ConfirmUI confirmUI = new(
-                assetDatabase,
-                gameHandler,
-                gameScreen,
-                soundEffectManager,
-                uiManager
-            );
-
-            CreditsUI creditsUI = new(
-                ambientManager,
-                assetDatabase,
-                gameScreen,
-                songManager,
-                uiManager,
-                world
-            );
-
-            EnvironmentSettingsUI environmentSettingsUI = new(
-                assetDatabase,
-                gameHandler,
-                gameScreen,
-                soundEffectManager,
-                tooltipBox,
-                uiManager,
-                world
-            );
-
-            GeneratorSettingsUI generatorSettingsUI = new(
-                assetDatabase,
-                confirmUI,
-                gameHandler,
-                gameScreen,
-                soundEffectManager,
-                tooltipBox,
-                uiManager,
-                world
-            );
-
-            HudUI hudUI = new(
-                achievementManager,
-                assetDatabase,
-                catalogDatabase,
-                confirmUI,
-                gameHandler,
-                gameScreen,
-                notificationBox,
-                playerInputController,
-                soundEffectManager,
-                tooltipBox,
-                uiManager
-            );
-
-            InformationUI informationUI = new(
-                actorManager,
-                assetDatabase,
-                gameHandler,
-                gameScreen,
-                soundEffectManager,
-                tooltipBox,
-                uiManager,
-                world
-            );
-
-            ItemSearchUI itemSearchUI = new(
-                assetDatabase,
-                catalogDatabase,
-                gameHandler,
-                gameScreen,
-                gameWindow,
-                playerInputController,
-                soundEffectManager,
-                tooltipBox,
-                uiManager
-            );
-
-            ItemExplorerUI itemExplorerUI = new(
-                assetDatabase,
-                catalogDatabase,
-                gameHandler,
-                gameScreen,
-                hudUI,
-                itemSearchUI,
-                soundEffectManager,
-                tooltipBox,
-                uiManager
-            );
-
-            KeySelectorUI keySelectorUI = new(
-                assetDatabase,
-                gameHandler,
-                gameScreen,
-                gameWindow,
-                playerInputController,
-                soundEffectManager,
-                uiManager
-            );
-
-            MessageUI messageUI = new(
-                assetDatabase,
-                gameHandler,
-                gameScreen,
-                uiManager
-            );
-
-            SliderUI sliderUI = new(
-                assetDatabase,
-                gameHandler,
-                gameScreen,
-                soundEffectManager,
-                uiManager
-            );
-
-            SelectorUI selectorUI = new(
-                assetDatabase,
-                gameHandler,
-                gameScreen,
-                soundEffectManager,
-                uiManager
-            );
-
-            OptionsUI optionsUI = new(
-                assetDatabase,
-                colorPickerUI,
-                cursorManager,
-                gameHandler,
-                gameScreen,
-                keySelectorUI,
-                playerInputController,
-                selectorUI,
-                settingsSerializer,
-                sliderUI,
-                songManager,
-                soundEffectManager,
-                tooltipBox,
-                uiManager,
-                videoManager
-            );
-
-            MainUI mainUI = new(
-                ambientManager,
-                assetDatabase,
-                gameHandler,
-                gameScreen,
-                optionsUI,
-                songManager,
-                soundEffectManager,
-                uiManager,
-                world
-            );
-
-            PauseUI pauseUI = new(
-                assetDatabase,
-                confirmUI,
-                gameHandler,
-                gameScreen,
-                optionsUI,
-                soundEffectManager,
-                uiManager
-            );
-
-            PenSettingsUI penSettingsUI = new(
-                assetDatabase,
-                gameHandler,
-                gameScreen,
-                hudUI,
-                playerInputController,
-                soundEffectManager,
-                tooltipBox,
-                uiManager,
-                world
-            );
-
-            WorldDetailsUI worldDetailsUI = new(
-                assetDatabase,
-                gameHandler,
-                gameScreen,
-                soundEffectManager,
-                uiManager,
-                worldSerializer
-            );
-
-            WorldExplorerUI worldExplorerUI = new(
-                assetDatabase,
-                gameScreen,
-                graphicsDevice,
-                soundEffectManager,
-                uiManager,
-                worldDetailsUI,
-                worldSerializer
-            );
-
-            PlayUI playUI = new(
-                assetDatabase,
-                gameScreen,
-                soundEffectManager,
-                uiManager,
-                worldExplorerUI
-            );
-
-            TextInputUI textInputUI = new(
-                assetDatabase,
-                gameHandler,
-                gameScreen,
-                gameWindow,
-                messageUI,
-                playerInputController,
-                soundEffectManager,
-                uiManager
-            );
-
-            SaveUI saveSettingsUI = new(
-                assetDatabase,
-                gameHandler,
-                gameScreen,
-                graphicsDevice,
-                soundEffectManager,
-                textInputUI,
-                tooltipBox,
-                uiManager,
-                world,
-                worldSerializer
-            );
-
-            TemperatureSettingsUI temperatureSettingsUI = new(
-                assetDatabase,
-                gameHandler,
-                gameScreen,
-                soundEffectManager,
-                tooltipBox,
-                uiManager,
-                world
-            );
-
-            WorldSettingsUI worldSettingsUI = new(
-                actorManager,
-                assetDatabase,
-                confirmUI,
-                gameHandler,
-                gameScreen,
-                messageUI,
-                soundEffectManager,
-                tooltipBox,
-                uiManager,
-                world
-            );
-
-            AchievementsUI achievementsUI = new(
-                achievementDatabase,
-                achievementProgress,
-                assetDatabase,
-                ambientManager,
-                gameScreen,
-                soundEffectManager,
-                tooltipBox,
-                uiManager
-            );
-
-            TutorialUI tutorialUI = new(
-                assetDatabase,
-                controlSettings,
-                gameScreen,
-                uiManager
-            );
-
-            this.uis = [
-                achievementsUI,
-                colorPickerUI,
-                confirmUI,
-                creditsUI,
-                environmentSettingsUI,
-                generatorSettingsUI,
-                hudUI,
-                informationUI,
-                itemExplorerUI,
-                itemSearchUI,
-                keySelectorUI,
-                mainUI,
-                messageUI,
-                optionsUI,
-                pauseUI,
-                penSettingsUI,
-                playUI,
-                saveSettingsUI,
-                selectorUI,
-                sliderUI,
-                temperatureSettingsUI,
-                textInputUI,
-                tutorialUI,
-                worldDetailsUI,
-                worldExplorerUI,
-                worldSettingsUI,
-            ];
-
-            for (int i = 0; i < this.uis.Length; i++)
-            {
-                this.uis[i].Initialize();
-            }
+            RegisterUI(achievementsUI);
+            RegisterUI(colorPickerUI);
+            RegisterUI(confirmUI);
+            RegisterUI(creditsUI);
+            RegisterUI(environmentSettingsUI);
+            RegisterUI(generatorSettingsUI);
+            RegisterUI(hudUI);
+            RegisterUI(informationUI);
+            RegisterUI(itemExplorerUI);
+            RegisterUI(itemSearchUI);
+            RegisterUI(keySelectorUI);
+            RegisterUI(mainUI);
+            RegisterUI(messageUI);
+            RegisterUI(optionsUI);
+            RegisterUI(pauseUI);
+            RegisterUI(penSettingsUI);
+            RegisterUI(playUI);
+            RegisterUI(saveUI);
+            RegisterUI(selectorUI);
+            RegisterUI(sliderUI);
+            RegisterUI(temperatureSettingsUI);
+            RegisterUI(textInputUI);
+            RegisterUI(tutorialUI);
+            RegisterUI(worldDetailsUI);
+            RegisterUI(worldExplorerUI);
+            RegisterUI(worldSettingsUI);
         }
 
-        internal UIBase GetUI(UIIndex index)
+        private void RegisterUI<T>(T ui) where T : IUI
         {
-            return index is UIIndex.None ? null : this.uis[((byte)index) - 1];
+            this.uis.Add(typeof(T), ui);
         }
 
-        internal void ResizeUIs()
+        internal T GetUI<T>() where T : IUI
         {
-            Array.ForEach(this.uis, x => x.Resize());
+            return (T)this.uis[typeof(T)];
         }
     }
 }

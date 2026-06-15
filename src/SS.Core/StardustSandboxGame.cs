@@ -31,6 +31,7 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
+using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
@@ -72,6 +73,7 @@ namespace StardustSandbox.Core
         private readonly EffectsManager effectsManager;
         private readonly SongManager songManager;
         private readonly SoundEffectManager soundEffectManager;
+        private readonly UIElementHandler uiElementManager;
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
 
@@ -163,6 +165,7 @@ namespace StardustSandbox.Core
             // Managers
             this.achievementManager = new(this.achievementDatabase, this.gameEvents, this.progressSerializer, this.world.TileMap);
             this.effectsManager = new(this.assetDatabase);
+            this.uiElementManager = new();
             this.uiManager = new(this.uiDatabase);
             this.cursorManager = new(this.assetDatabase, this.cursorSettings);
             this.ambientManager = new(this.assetDatabase, this.backgroundDatabase, this.gameScreen, this.world);

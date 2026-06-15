@@ -15,12 +15,15 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.UI.Elements.Compounds;
 using StardustSandbox.Core.UI.Handlers;
 
 namespace StardustSandbox.Core.UI.Builders
 {
     internal sealed class UIBuildContext
     {
+        private TooltipBox tooltipBox;
+
         private readonly UIElementHandler elementHandler;
 
         internal UIBuildContext(UIElementHandler elementHandler)
@@ -28,7 +31,13 @@ namespace StardustSandbox.Core.UI.Builders
             this.elementHandler = elementHandler;
         }
 
-        internal UIBuildScope Begin()
+        internal TooltipBox UseTooltipBox()
+        {
+            TooltipBox tooltipBox = this.elementHandler.AddElement<TooltipBox>();
+            return tooltipBox;
+        }
+
+        internal UIBuildScope BeginLayout()
         {
             return new(this.elementHandler);
         }

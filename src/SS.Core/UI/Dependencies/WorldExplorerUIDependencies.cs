@@ -15,6 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Databases;
@@ -28,7 +29,7 @@ namespace StardustSandbox.Core.UI.Dependencies
     internal sealed class WorldExplorerUIDependencies(
         AssetDatabase assetDatabase,
         GameScreen gameScreen,
-        GraphicsDevice graphicsDevice,
+        GraphicsDeviceManager graphicsDeviceManager,
         SoundEffectManager soundEffectManager,
         UIManager uiManager,
         WorldSerializer worldSerializer
@@ -36,7 +37,7 @@ namespace StardustSandbox.Core.UI.Dependencies
     {
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal GameScreen GameScreen => gameScreen;
-        internal GraphicsDevice GraphicsDevice => graphicsDevice;
+        internal GraphicsDeviceManager GraphicsDeviceManager => graphicsDeviceManager;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;
         internal WorldSerializer WorldSerializer => worldSerializer;

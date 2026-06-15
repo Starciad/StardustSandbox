@@ -21,8 +21,11 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Interfaces;
+using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.UI;
+using StardustSandbox.Core.UI.Handlers;
 
+using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Managers
@@ -30,14 +33,17 @@ namespace StardustSandbox.Core.Managers
     internal sealed class UIManager : IResettable
     {
         // Expose current UI for callers (read-only).
-        internal UIBase CurrentUI => this.uiStack.Count > 0 ? this.uiStack.Peek() : null;
+        internal IUI CurrentUI => this.uiStack.Count > 0 ? this.uiStack.Peek() : null;
 
         // Stack represents navigation/history. Top = currently active UI.
-        private readonly Stack<UIBase> uiStack = new();
-        private readonly UIDatabase uiDatabase;
+        private readonly Stack<IUI> uiStack = new();
 
-        internal UIManager(UIDatabase uiDatabase)
+        private readonly UIDatabase uiDatabase;
+        private readonly UIElementHandler elementHandler;
+
+        internal UIManager(UIElementHandler elementHandler, UIDatabase uiDatabase)
         {
+            this.elementHandler = elementHandler;
             this.uiDatabase = uiDatabase;
         }
 
@@ -45,7 +51,7 @@ namespace StardustSandbox.Core.Managers
         {
             while (this.uiStack.Count > 0)
             {
-                UIBase ui = this.uiStack.Pop();
+                IUI ui = this.uiStack.Pop();
                 ui.Close();
             }
 
@@ -53,27 +59,41 @@ namespace StardustSandbox.Core.Managers
             // CurrentUI property will reflect empty stack.
         }
 
-        internal void Update(GameTime gameTime)
+        private bool TryGetActiveUI(out IUI ui)
         {
-            UIBase current = this.CurrentUI;
+            IUI current = this.CurrentUI;
+
             if (current != null && current.IsActive)
             {
-                current.Update(gameTime);
+                ui = current;
+                return true;
+            }
+
+            ui = null;
+            return false;
+        }
+
+        internal void Update(GameTime gameTime)
+        {
+            if (TryGetActiveUI(out IUI _))
+            {
+                this.elementHandler.Update(gameTime);
             }
         }
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            UIBase current = this.CurrentUI;
-            if (current != null && current.IsActive)
+            if (TryGetActiveUI(out IUI _))
             {
-                current.Draw(spriteBatch);
+                this.elementHandler.Draw(spriteBatch);
             }
         }
 
-        internal void OpenUI(UIIndex index)
+        internal void OpenUI<TGui, TModel>(TModel model)
+            where TGui : IUI
+            where TModel : IUIModel
         {
-            UIBase ui = this.uiDatabase.GetUI(index);
+            IUI ui = this.uiDatabase.GetUI<TGui>();
 
             // If the requested UI is already the active one and active, nothing to do.
             if (this.uiStack.Count > 0 && this.uiStack.Peek() == ui)
@@ -84,7 +104,7 @@ namespace StardustSandbox.Core.Managers
                 }
 
                 // If it's top but currently not active, (re)open it.
-                ui.Open();
+                ui.Open(model);
                 return;
             }
 
@@ -95,25 +115,25 @@ namespace StardustSandbox.Core.Managers
                 // Close and remove entries above the requested UI.
                 while (this.uiStack.Count > 0 && this.uiStack.Peek() != ui)
                 {
-                    UIBase top = this.uiStack.Pop();
+                    IUI top = this.uiStack.Pop();
                     top.Close();
                 }
 
                 // Now top == ui
-                UIBase current = this.uiStack.Peek();
-                current.Open(); // ensure it's active
+                IUI current = this.uiStack.Peek();
+                current.Open(model); // ensure it's active
                 return;
             }
 
             // New UI: close current top, push new UI and open it.
             if (this.uiStack.Count > 0)
             {
-                UIBase top = this.uiStack.Peek();
+                IUI top = this.uiStack.Peek();
                 top.Close();
             }
 
             this.uiStack.Push(ui);
-            ui.Open();
+            ui.Open(model);
         }
 
         internal void CloseUI()
@@ -124,14 +144,22 @@ namespace StardustSandbox.Core.Managers
             }
 
             // Close and remove current UI.
-            UIBase top = this.uiStack.Pop();
+            IUI top = this.uiStack.Pop();
             top.Close();
 
             // If there's a previous UI, make it current and reopen it.
             if (this.uiStack.Count > 0)
             {
-                UIBase previous = this.uiStack.Peek();
-                previous.Open();
+                IUI previous = this.uiStack.Peek();
+                previous.Reopen();
+            }
+        }
+
+        internal void RefreshUI()
+        {
+            if (TryGetActiveUI(out IUI ui))
+            {
+                ui.Refresh();
             }
         }
     }

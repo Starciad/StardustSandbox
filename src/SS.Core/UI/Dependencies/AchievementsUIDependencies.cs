@@ -18,25 +18,25 @@
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization.Progress;
+using StardustSandbox.Core.Serialization;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
     internal sealed class AchievementsUIDependencies(
         AchievementDatabase achievementDatabase,
-        AchievementProgress achievementProgress,
         AssetDatabase assetDatabase,
         AmbientManager ambientManager,
         GameScreen gameScreen,
+        ProgressSerializer progressSerializer,
         SoundEffectManager soundEffectManager,
         UIManager uiManager
     ) : IUIDependencies
     {
         internal AchievementDatabase AchievementDatabase => achievementDatabase;
-        internal AchievementProgress AchievementProgress => achievementProgress;
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal AmbientManager AmbientManager => ambientManager;
         internal GameScreen GameScreen => gameScreen;
+        internal ProgressSerializer ProgressSerializer => progressSerializer;
         internal SoundEffectManager SoundEffectManager =>  soundEffectManager;
         internal UIManager UIManager => uiManager;
     }

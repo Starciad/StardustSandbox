@@ -16,7 +16,7 @@
 */
 
 using StardustSandbox.Core.UI.Elements;
-using StardustSandbox.Core.UI.Elements.Simples;
+using StardustSandbox.Core.UI.Elements.Common;
 using StardustSandbox.Core.UI.Handlers;
 
 using System;
@@ -28,12 +28,17 @@ namespace StardustSandbox.Core.UI.Builders
         private readonly UIElementHandler elementHandler;
         private readonly Container rootContainer;
 
-        internal UIBuildScope(UIElementHandler elementHandler)
+        internal UIBuildScope(UIElementHandler elementHandler, GameScreen gameScreen)
         {
             this.elementHandler = elementHandler;
-            this.rootContainer = CreateElement<Container>();
+
+            // Create a root container for this scope.
+            // All elements created within this scope will be added to this container.
+
+            this.rootContainer = elementHandler.AddElement<Container>();
+            this.rootContainer.Size = gameScreen.Viewport;
         }
-        
+
         private void AddToRootContainer(UIElement element)
         {
             if (!element.HasParent)
@@ -42,18 +47,36 @@ namespace StardustSandbox.Core.UI.Builders
             }
         }
 
-        internal T CreateElement<T>() where T : UIElement, new()
+        private T AddElement<T>() where T : UIElement, new()
         {
-            T element = this.elementHandler.CreateElement<T>();
+            T element = this.elementHandler.AddElement<T>();
             AddToRootContainer(element);
             return element;
         }
 
-        internal T CreateElement<T>(Action<T> configure) where T : UIElement, new()
+        internal Container AddContainer()
         {
-            T element = this.elementHandler.CreateElement<T>(configure);
-            AddToRootContainer(element);
-            return element;
+            return AddElement<Container>();
+        }
+
+        internal Image AddImage()
+        {
+            return AddElement<Image>();
+        }
+
+        internal Label AddLabel()
+        {
+            return AddElement<Label>();
+        }
+
+        internal SliceImage AddSliceImage()
+        {
+            return AddElement<SliceImage>();
+        }
+
+        internal Text AddText()
+        {
+            return AddElement<Text>();
         }
 
         // This method is called when the scope is disposed, which typically happens at the end of a using block.

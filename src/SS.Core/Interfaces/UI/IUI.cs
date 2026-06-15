@@ -19,6 +19,11 @@ namespace StardustSandbox.Core.Interfaces.UI
 {
     internal interface IUI
     {
+        bool IsActive { get; }
 
+        void Open(IUIModel model);
+        void Reopen();
+        void Close();
+        void Refresh();
     }
 }

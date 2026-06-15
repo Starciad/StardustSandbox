@@ -15,9 +15,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Handlers;
@@ -28,54 +25,74 @@ namespace StardustSandbox.Core.UI
         where TDependencies : IUIDependencies
         where TModel : IUIModel
     {
-        internal bool IsActive { get; private set; }
-
+        public bool IsActive => this.isActive;
         protected TDependencies Dependencies => dependencies;
 
-        internal void Open(TModel model)
+        private bool isActive = false;
+        private TModel model;
+
+        private void Instantiate(TModel model)
         {
-            if (this.IsActive)
+            OnBuild(new(elementHandler), model);
+        }
+
+        private void Destroy()
+        {
+            elementHandler.ReleaseAllElements();
+        }
+
+        public void Open(TModel model)
+        {
+            if (this.isActive)
             {
                 return;
             }
 
-            OnBuild(new(elementHandler), model);
+            Destroy();
+            Instantiate(model);
             OnOpened();
 
-            this.IsActive = true;
+            this.isActive = true;
+            this.model = model;
         }
 
-        internal void Close()
+        public void Open(IUIModel model)
         {
-            if (!this.IsActive)
+            Open(model);
+        }
+
+        public void Refresh()
+        {
+            if (!this.isActive)
             {
                 return;
             }
 
-            elementHandler.ReleaseAllElements();
+            // Rebuild the UI with the same model.
+            // This allows for dynamic updates without needing to close and reopen.
+
+            Destroy();
+            Instantiate(this.model);
+        }
+
+        public void Reopen()
+        {
+            Refresh();
+            OnOpened();
+            this.isActive = true;
+        }
+
+        public void Close()
+        {
+            if (!this.isActive)
+            {
+                return;
+            }
+
+            Destroy();
             OnClosed();
 
-            this.IsActive = false;
-        }
-
-        internal void Update(GameTime gameTime)
-        {
-            if (!this.IsActive)
-            {
-                return;
-            }
-
-            elementHandler.Update(gameTime);
-        }
-
-        internal void Draw(SpriteBatch spriteBatch)
-        {
-            if (!this.IsActive)
-            {
-                return;
-            }
-
-            elementHandler.Draw(spriteBatch);
+            this.isActive = false;
         }
 
         protected abstract void OnBuild(UIBuildContext context, TModel model);

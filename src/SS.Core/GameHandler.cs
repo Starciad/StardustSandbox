@@ -29,6 +29,7 @@ using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Common;
+using StardustSandbox.Core.UI.Models;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
@@ -142,10 +143,10 @@ namespace StardustSandbox.Core
             this.songManager.StopGameplayMusicCycle();
             this.songManager.StartGameplayMusicCycle(this);
 
-            ((HudUI)this.uiDatabase.GetUI(UIIndex.Hud)).Setup();
-            ((ItemExplorerUI)this.uiDatabase.GetUI(UIIndex.ItemExplorer)).Setup();
+            this.uiDatabase.GetUI<HudUI>().Setup();
+            this.uiDatabase.GetUI<ItemExplorerUI>().Setup();
 
-            this.uiManager.OpenUI(UIIndex.Hud);
+            this.uiManager.OpenUI<HudUI, HudUIModel>(null);
 
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Ocean);
 

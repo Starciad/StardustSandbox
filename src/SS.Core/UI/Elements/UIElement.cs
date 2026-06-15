@@ -243,7 +243,10 @@ namespace StardustSandbox.Core.UI.Elements
                 return;
             }
 
+            // Remove from previous parent if necessary
+            element.parent?.children.Remove(element);
             element.parent = this;
+
             element.RepositionRelativeToParent();
             this.children.Add(element);
         }

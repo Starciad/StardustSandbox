@@ -23,27 +23,33 @@ using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.UI.Utilities;
 
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace StardustSandbox.Core.UI.Elements.Simples
+namespace StardustSandbox.Core.UI.Elements.Common
 {
-    internal sealed class Label : UIElement
+    internal sealed class Text : UIElement
     {
         internal SpriteFont SpriteFont { get; set; }
         internal override Vector2 Size
         {
             get
             {
-                if (this.textContentDirty)
+                if (this.isTextContentDirty)
                 {
                     this.measuredText = MeasureText();
-                    this.textContentDirty = false;
+                    this.isTextContentDirty = false;
                 }
 
                 return this.measuredText;
             }
 
-            set => throw new InvalidOperationException("Cannot set Size of Label directly. Size is determined by the text content.");
+            set => throw new InvalidOperationException("Cannot set Size of Text directly. Size is determined by the text content and wrapping.");
         }
+        internal Vector2 TextAreaSize { get; set; }
+        internal float LineHeight { get; set; } = 1.0f;
+        internal float WordSpacing { get; set; } = 0.0f;
+        internal int LineCount => this.wrappedLines.Count;
         internal string TextContent
         {
             get => this.textContent;
@@ -51,31 +57,37 @@ namespace StardustSandbox.Core.UI.Elements.Simples
             {
                 if (value is not null && !this.textContent.Equals(value))
                 {
+                    WrapContent(value);
+
                     this.textContent = value;
-                    this.textContentDirty = true;
+                    this.isTextContentDirty = true;
 
                     RepositionRelativeToParent();
                 }
             }
         }
         internal Color Color { get; set; }
-        internal LabelBorderDirection BorderDirections { get; set; } = LabelBorderDirection.None;
+        internal LabelBorderDirection BorderDirections { get; set; }
         internal float BorderThickness { get; set; }
         internal float BorderOffset { get; set; }
         internal Color BorderColor { get; set; }
 
         private string textContent;
 
+        private bool isTextContentDirty;
         private Vector2 measuredText;
-        private bool textContentDirty;
 
-        public Label()
+        private readonly List<string> wrappedLines = [];
+
+        private static readonly char[] WordSplitSeparators = [' '];
+
+        public Text()
         {
             this.textContent = string.Empty;
             this.Color = Color.White;
         }
 
-        internal Label(SpriteFont spriteFont) : this()
+        public Text(SpriteFont spriteFont) : this()
         {
             this.SpriteFont = spriteFont;
         }
@@ -107,19 +119,73 @@ namespace StardustSandbox.Core.UI.Elements.Simples
         {
             if (!string.IsNullOrWhiteSpace(this.textContent))
             {
-                Vector2 position = this.Position;
+                Vector2 position = new(0f, this.Position.Y);
 
-                // Draw borders
-                DrawBorders(spriteBatch, position);
+                foreach (string line in this.wrappedLines)
+                {
+                    position.X = this.Position.X;
 
-                // Draw main text
-                spriteBatch.DrawString(this.SpriteFont, this.textContent, position, this.Color, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
+                    DrawBorders(spriteBatch, position);
+                    spriteBatch.DrawString(this.SpriteFont, line, position, this.Color, 0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0f);
+
+                    position.Y += this.LineHeight * this.SpriteFont.LineSpacing * this.Scale.Y;
+                }
+            }
+        }
+
+        private void WrapContent(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return;
+            }
+
+            this.wrappedLines.Clear();
+            string[] words = value.Split(WordSplitSeparators, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+            StringBuilder lineBuilder = new();
+            float spaceWidth = this.SpriteFont.MeasureString(" ").X * this.Scale.X;
+
+            foreach (string word in words)
+            {
+                float measureString = this.SpriteFont.MeasureString(lineBuilder + word).X * this.Scale.X;
+
+                if (measureString + spaceWidth >= this.TextAreaSize.X)
+                {
+                    this.wrappedLines.Add(lineBuilder.ToString().TrimEnd());
+                    _ = lineBuilder.Clear();
+                }
+
+                _ = lineBuilder.Append(word + " ");
+            }
+
+            if (lineBuilder.Length > 0)
+            {
+                this.wrappedLines.Add(lineBuilder.ToString().TrimEnd());
             }
         }
 
         private Vector2 MeasureText()
         {
-            return string.IsNullOrWhiteSpace(this.textContent) ? Vector2.Zero : this.SpriteFont.MeasureString(this.textContent) * this.Scale;
+            if (this.wrappedLines.Count == 0 || string.IsNullOrWhiteSpace(this.textContent))
+            {
+                return Vector2.Zero;
+            }
+
+            float maxWidth = 0f;
+            float totalHeight = this.LineHeight * this.SpriteFont.LineSpacing * this.Scale.Y * this.wrappedLines.Count;
+
+            foreach (string line in this.wrappedLines)
+            {
+                float lineWidth = this.SpriteFont.MeasureString(line).X * this.Scale.X;
+
+                if (lineWidth > maxWidth)
+                {
+                    maxWidth = lineWidth;
+                }
+            }
+
+            return new(maxWidth, totalHeight);
         }
     }
 }

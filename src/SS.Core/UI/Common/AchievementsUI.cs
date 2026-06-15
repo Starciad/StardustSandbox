@@ -20,17 +20,14 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Achievements;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
-using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization.Progress;
 using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
-using StardustSandbox.Core.UI.Elements.Simples;
-using StardustSandbox.Core.UI.Elements.Specials;
+using StardustSandbox.Core.UI.Elements.Common;
+using StardustSandbox.Core.UI.Elements.Compounds;
 using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
@@ -132,41 +129,44 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnBuild(UIBuildContext context, AchievementsUIModel model)
         {
-            BuildBackground(root);
-            BuildExitButton();
-            BuildAchievementSlots();
-            BuildPagination();
+            TooltipBox tooltipBox = context.UseTooltipBox();
 
-            root.AddChild(this.tooltipBox);
+            using (UIBuildScope scope = context.BeginLayout())
+            {
+                BuildBackground(scope);
+                BuildExitButton(scope);
+                BuildAchievementSlots(scope);
+                BuildPagination(scope);
+            }
         }
 
-        private void BuildBackground(Container root)
+        private void BuildBackground(UIBuildScope scope)
         {
             // Background
-            this.panelBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIBackgroundAchievements))
-            {
-                Alignment = UIDirection.Center,
-                Size = new(420.0f, 568.0f),
-            };
+            Image panel = scope.AddImage();
+            
+            panel.Alignment = UIDirection.Center;
+            panel.Size = new(420.0f, 568.0f);
+            panel.Texture = this.Dependencies.AssetDatabase.GetTexture(TextureIndex.UIBackgroundAchievements);
 
             // Title
-            this.title = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
-            {
-                Scale = new(0.1f),
-                Margin = new(16.0f, 4.0f),
-                TextContent = Localization_GUIs.Achievements_Title,
+            Label title = scope.AddLabel();
 
-                BorderDirections = LabelBorderDirection.All,
-                BorderColor = AAP64ColorPalette.DarkGray,
-                BorderOffset = 3.0f,
-                BorderThickness = 3.0f,
-            };
+            title.SpriteFont = this.Dependencies.AssetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm);
+            title.Scale = new(0.1f);
+            title.Margin = new(16.0f, 4.0f);
+            title.TextContent = Localization_GUIs.Achievements_Title;
 
-            root.AddChild(this.panelBackground);
-            this.panelBackground.AddChild(this.title);
+            title.BorderDirections = LabelBorderDirection.All;
+            title.BorderColor = AAP64ColorPalette.DarkGray;
+            title.BorderOffset = 3.0f;
+            title.BorderThickness = 3.0f;
+
+            // Adding
+            panel.AddChild(title);
         }
 
-        private void BuildExitButton()
+        private void BuildExitButton(UIBuildScope scope)
         {
             SlotInfo slot = this.ElementFactory.BuildButtonSlot(new(-4.0f, 6.5f), this.exitButtonInfo);
 
@@ -179,7 +179,7 @@ namespace StardustSandbox.Core.UI.Common
             this.exitButtonSlotInfo = slot;
         }
 
-        private void BuildAchievementSlots()
+        private void BuildAchievementSlots(UIBuildScope scope)
         {
             int rows = UIConstants.ACHIEVEMENTS_PER_ROW;
             int columns = UIConstants.ACHIEVEMENTS_PER_COLUMN;
@@ -202,7 +202,7 @@ namespace StardustSandbox.Core.UI.Common
             }
         }
 
-        private void BuildPagination()
+        private void BuildPagination(UIBuildScope scope)
         {
             this.pageIndexLabel = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
             {

@@ -21,8 +21,8 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.UI.Elements;
+using StardustSandbox.Core.UI.Elements.Common;
 using StardustSandbox.Core.UI.Elements.Compounds;
-using StardustSandbox.Core.UI.Elements.Simples;
 
 using System;
 using System.Collections.Generic;
@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.UI.Handlers
 
         }
 
-        internal T CreateElement<T>() where T : UIElement, new()
+        internal T AddElement<T>() where T : UIElement, new()
         {
             if (!this.elementPools.TryGetValue(typeof(T), out ObjectPool pool))
             {
@@ -77,9 +77,9 @@ namespace StardustSandbox.Core.UI.Handlers
             return value;
         }
 
-        internal T CreateElement<T>(Action<T> configure) where T : UIElement, new()
+        internal T AddElement<T>(Action<T> configure) where T : UIElement, new()
         {
-            T element = CreateElement<T>();
+            T element = AddElement<T>();
             configure?.Invoke(element);
             return element;
         }

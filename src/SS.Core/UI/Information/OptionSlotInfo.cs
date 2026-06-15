@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.UI.Elements.Simples;
+using StardustSandbox.Core.UI.Elements.Common;
 
 namespace StardustSandbox.Core.UI.Information
 {

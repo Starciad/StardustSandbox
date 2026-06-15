@@ -15,14 +15,12 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.UI.Common;
-using StardustSandbox.Core.UI.Elements.Compounds;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.UI.Dependencies
@@ -31,7 +29,7 @@ namespace StardustSandbox.Core.UI.Dependencies
         AssetDatabase assetDatabase,
         GameHandler gameHandler,
         GameScreen gameScreen,
-        GraphicsDevice graphicsDevice,
+        GraphicsDeviceManager graphicsDeviceManager,
         SoundEffectManager soundEffectManager,
         UIManager uiManager,
         World world,
@@ -41,7 +39,7 @@ namespace StardustSandbox.Core.UI.Dependencies
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal GameHandler GameHandler => gameHandler;
         internal GameScreen GameScreen => gameScreen;
-        internal GraphicsDevice GraphicsDevice => graphicsDevice;
+        internal GraphicsDeviceManager GraphicsDeviceManager => graphicsDeviceManager;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;
         internal World World => world;

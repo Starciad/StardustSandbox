@@ -22,7 +22,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Indexers;
-using StardustSandbox.Core.UI.Elements.Simples;
+using StardustSandbox.Core.UI.Elements.Common;
 
 using System;
 using System.Collections.Generic;
