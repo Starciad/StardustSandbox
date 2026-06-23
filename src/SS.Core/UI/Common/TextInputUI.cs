@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed partial class TextInputUI : UIBase<TextInputUIDependencies, TextInputUIModel>
     {
-        internal TextInputUI(TextInputUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
+        internal TextInputUI(TextInputUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
         {
 
         }

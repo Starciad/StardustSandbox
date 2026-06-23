@@ -24,7 +24,7 @@ using System;
 
 namespace StardustSandbox.Core.UI
 {
-    internal abstract class UIBase<TDependencies, TModel>(TDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : IUI, IResettable
+    internal abstract class UIBase<TDependencies, TModel>(TDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : IUI, IResettable
         where TDependencies : class, IUIDependencies
         where TModel : class, IUIModel
     {
@@ -39,7 +39,7 @@ namespace StardustSandbox.Core.UI
 
         private void Instantiate(TModel model)
         {
-            OnBuild(new(elementHandler, gameScreen), model);
+            OnBuild(new(gameScreen, elementHandler), model);
         }
 
         private void Destroy()

@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed partial class HudUI : UIBase<HudUIDependencies, HudUIModel>
     {
-        internal HudUI(HudUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
+        internal HudUI(HudUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
         {
 
         }

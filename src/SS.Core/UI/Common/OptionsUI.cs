@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed partial class OptionsUI : UIBase<OptionsUIDependencies, OptionsUIModel>
     {
-        internal OptionsUI(OptionsUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
+        internal OptionsUI(OptionsUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
         {
 
         }

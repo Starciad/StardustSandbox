@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed partial class ItemSearchUI : UIBase<ItemSearchUIDependencies, ItemSearchUIModel>
     {
-        internal ItemSearchUI(ItemSearchUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
+        internal ItemSearchUI(ItemSearchUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
         {
 
         }

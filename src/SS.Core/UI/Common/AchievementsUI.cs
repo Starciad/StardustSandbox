@@ -31,7 +31,7 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class AchievementsUI : UIBase<AchievementsUIDependencies, AchievementsUIModel>
     {
-        internal AchievementsUI(AchievementsUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
+        internal AchievementsUI(AchievementsUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
         {
 
         }

@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class ItemExplorerUI : UIBase<ItemExplorerUIDependencies, ItemExplorerUIModel>
     {
-        internal ItemExplorerUI(ItemExplorerUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
+        internal ItemExplorerUI(ItemExplorerUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
         {
 
         }

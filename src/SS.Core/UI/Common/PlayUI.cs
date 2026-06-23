@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal class PlayUI : UIBase<PlayUIDependencies, PlayUIModel>
     {
-        internal PlayUI(PlayUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
+        internal PlayUI(PlayUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
         {
 
         }

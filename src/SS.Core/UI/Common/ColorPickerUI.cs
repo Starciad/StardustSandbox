@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class ColorPickerUI : UIBase<ColorPickerUIDependencies, ColorPickerUIModel>
     {
-        internal ColorPickerUI(ColorPickerUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
+        internal ColorPickerUI(ColorPickerUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
         {
 
         }

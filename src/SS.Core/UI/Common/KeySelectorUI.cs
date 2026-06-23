@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class KeySelectorUI : UIBase<KeySelectorUIDependencies, KeySelectorUIModel>
     {
-        internal KeySelectorUI(KeySelectorUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
+        internal KeySelectorUI(KeySelectorUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
         {
 
         }

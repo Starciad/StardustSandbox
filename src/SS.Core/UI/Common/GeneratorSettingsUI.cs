@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class GeneratorSettingsUI : UIBase<GeneratorSettingsUIDependencies, GeneratorSettingsUIModel>
     {
-        internal GeneratorSettingsUI(GeneratorSettingsUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
+        internal GeneratorSettingsUI(GeneratorSettingsUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
         {
 
         }

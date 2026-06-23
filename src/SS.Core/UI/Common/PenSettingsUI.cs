@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class PenSettingsUI : UIBase<PenSettingsUIDependencies, PenSettingsUIModel>
     {
-        internal PenSettingsUI(PenSettingsUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
+        internal PenSettingsUI(PenSettingsUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
         {
 
         }

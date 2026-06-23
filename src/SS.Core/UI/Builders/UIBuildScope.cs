@@ -28,7 +28,7 @@ namespace StardustSandbox.Core.UI.Builders
         private readonly UIElementHandler elementHandler;
         private readonly Container rootContainer;
 
-        internal UIBuildScope(UIElementHandler elementHandler, GameScreen gameScreen)
+        internal UIBuildScope(GameScreen gameScreen, UIElementHandler elementHandler)
         {
             this.elementHandler = elementHandler;
 

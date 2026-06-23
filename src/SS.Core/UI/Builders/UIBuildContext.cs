@@ -21,18 +21,18 @@ namespace StardustSandbox.Core.UI.Builders
 {
     internal sealed class UIBuildContext
     {
-        private readonly UIElementHandler elementHandler;
         private readonly GameScreen gameScreen;
+        private readonly UIElementHandler elementHandler;
 
-        internal UIBuildContext(UIElementHandler elementHandler, GameScreen gameScreen)
+        internal UIBuildContext(GameScreen gameScreen, UIElementHandler elementHandler)
         {
-            this.elementHandler = elementHandler;
             this.gameScreen = gameScreen;
+            this.elementHandler = elementHandler;
         }
 
         internal UIBuildScope BeginLayout()
         {
-            return new(this.elementHandler, this.gameScreen);
+            return new(this.gameScreen, this.elementHandler);
         }
     }
 }

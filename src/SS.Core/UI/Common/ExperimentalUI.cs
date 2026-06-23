@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -22,17 +22,16 @@ using StardustSandbox.Core.UI.Models;
 
 namespace StardustSandbox.Core.UI.Common
 {
-    internal sealed class ConfirmUI : UIBase<ConfirmUIDependencies, ConfirmUIModel>
+    internal sealed class ExperimentalUI : UIBase<ExperimentalUIDependencies, ExperimentalUIModel>
     {
-        internal ConfirmUI(ConfirmUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
+        internal ExperimentalUI(ExperimentalUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
         {
 
         }
 
-        protected override void OnBuild(UIBuildContext context, ConfirmUIModel model)
+        protected override void OnBuild(UIBuildContext context, ExperimentalUIModel model)
         {
 
         }
     }
 }
-

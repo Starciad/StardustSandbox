@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,24 +15,12 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.UI.Builders;
-using StardustSandbox.Core.UI.Dependencies;
-using StardustSandbox.Core.UI.Handlers;
-using StardustSandbox.Core.UI.Models;
+using StardustSandbox.Core.Interfaces.UI;
 
-namespace StardustSandbox.Core.UI.Common
+namespace StardustSandbox.Core.UI.Models
 {
-    internal sealed class ConfirmUI : UIBase<ConfirmUIDependencies, ConfirmUIModel>
+    internal sealed class ExperimentalUIModel : IUIModel
     {
-        internal ConfirmUI(ConfirmUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
-        {
 
-        }
-
-        protected override void OnBuild(UIBuildContext context, ConfirmUIModel model)
-        {
-
-        }
     }
 }
-

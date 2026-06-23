@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class EnvironmentSettingsUI : UIBase<EnvironmentSettingsUIDependencies, EnvironmentSettingsUIModel>
     {
-        internal EnvironmentSettingsUI(EnvironmentSettingsUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
+        internal EnvironmentSettingsUI(EnvironmentSettingsUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
         {
 
         }

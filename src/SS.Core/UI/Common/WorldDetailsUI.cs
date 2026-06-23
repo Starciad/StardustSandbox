@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class WorldDetailsUI : UIBase<WorldDetailsUIDependencies, WorldDetailsUIModel>
     {
-        internal WorldDetailsUI(WorldDetailsUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
+        internal WorldDetailsUI(WorldDetailsUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
         {
 
         }
