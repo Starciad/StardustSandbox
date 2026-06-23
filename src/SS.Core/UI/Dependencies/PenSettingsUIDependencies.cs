@@ -19,8 +19,6 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.UI.Common;
-using StardustSandbox.Core.UI.Elements.Compounds;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.UI.Dependencies
@@ -28,7 +26,6 @@ namespace StardustSandbox.Core.UI.Dependencies
     internal sealed class PenSettingsUIDependencies(
         AssetDatabase assetDatabase,
         GameHandler gameHandler,
-        GameScreen gameScreen,
         PlayerInputController playerInputController,
         SoundEffectManager soundEffectManager,
         UIManager uiManager,
@@ -37,7 +34,6 @@ namespace StardustSandbox.Core.UI.Dependencies
     {
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal GameHandler GameHandler => gameHandler;
-        internal GameScreen GameScreen => gameScreen;
         internal PlayerInputController PlayerInputController => playerInputController;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;

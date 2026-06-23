@@ -24,14 +24,12 @@ namespace StardustSandbox.Core.UI.Dependencies
     internal sealed class ColorPickerUIDependencies(
         AssetDatabase assetDatabase,
         GameHandler gameHandler,
-        GameScreen gameScreen,
         SoundEffectManager soundEffectManager,
         UIManager uiManager
     ) : IUIDependencies
     {
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal GameHandler GameHandler => gameHandler;
-        internal GameScreen GameScreen => gameScreen;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;
     }

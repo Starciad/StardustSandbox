@@ -28,7 +28,6 @@ namespace StardustSandbox.Core.UI.Dependencies
     internal sealed class SaveUIDependencies(
         AssetDatabase assetDatabase,
         GameHandler gameHandler,
-        GameScreen gameScreen,
         GraphicsDeviceManager graphicsDeviceManager,
         SoundEffectManager soundEffectManager,
         UIManager uiManager,
@@ -38,7 +37,6 @@ namespace StardustSandbox.Core.UI.Dependencies
     {
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal GameHandler GameHandler => gameHandler;
-        internal GameScreen GameScreen => gameScreen;
         internal GraphicsDeviceManager GraphicsDeviceManager => graphicsDeviceManager;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;

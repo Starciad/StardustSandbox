@@ -22,12 +22,11 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Indexers;
-using StardustSandbox.Core.UI.Elements.Common;
 
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.UI.Elements.Compounds
+namespace StardustSandbox.Core.UI.Elements.Common
 {
     internal sealed class NotificationBox : UIElement
     {
@@ -94,9 +93,9 @@ namespace StardustSandbox.Core.UI.Elements.Compounds
                 Margin = new(this.icon.Size.X + this.icon.Margin.X + 16.0f, 0.0f),
             };
 
-            AddChild(this.background);
             this.background.AddChild(this.icon);
             this.background.AddChild(this.label);
+            AddChild(this.background);
         }
 
         protected override void OnUpdate(GameTime gameTime)

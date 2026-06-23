@@ -22,8 +22,16 @@ namespace StardustSandbox.Core.Interfaces.UI
         bool IsActive { get; }
 
         void Open(IUIModel model);
-        void Reopen();
         void Close();
         void Refresh();
+
+        // Show and Hide are helper methods similar to
+        // Open and Close; the difference lies in the fact
+        // that the model is preserved regardless of the
+        // situation, allowing for an identical reconstruction
+        // should the UI be reloaded.
+
+        void Show();
+        void Hide();
     }
 }

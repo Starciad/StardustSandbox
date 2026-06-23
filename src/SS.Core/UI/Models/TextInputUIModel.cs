@@ -17,6 +17,7 @@
 
 using StardustSandbox.Core.Enums.UI.Tools;
 using StardustSandbox.Core.Interfaces.UI;
+using StardustSandbox.Core.UI.Validations;
 
 using System;
 
@@ -24,13 +25,13 @@ namespace StardustSandbox.Core.UI.Models
 {
     internal sealed class TextInputUIModel : IUIModel
     {
-        string synopsis;
-        string content;
-        bool allowSpaces;
-        InputMode inputMode;
-        InputRestriction inputRestriction;
-        uint maxCharacters;
-        Func<string, ValidationState> validateCallback;
-        Action<string> sendCallback;
+        internal string Title { get; init; }
+        internal string Description { get; init; }
+        internal bool AllowSpaces { get; init; }
+        internal InputMode InputMode { get; init; }
+        internal InputRestriction InputRestriction { get; init; }
+        internal uint MaxCharacters { get; init; }
+        internal Func<string, TextInputValidationState> OnValidated { get; init; }
+        internal Action<string> OnSent { get; init; }
     }
 }

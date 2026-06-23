@@ -28,9 +28,9 @@ namespace StardustSandbox.Core.Managers
         internal BackgroundHandler BackgroundHandler => this.backgroundHandler;
         internal CelestialBodyHandler CelestialBodyHandler => this.celestialBodyHandler;
 
-        private BackgroundHandler backgroundHandler;
-        private CelestialBodyHandler celestialBodyHandler;
-        private TimeHandler timeHandler;
+        private readonly BackgroundHandler backgroundHandler;
+        private readonly CelestialBodyHandler celestialBodyHandler;
+        private readonly TimeHandler timeHandler;
 
         private readonly AssetDatabase assetDatabase;
         private readonly BackgroundDatabase backgroundDatabase;
@@ -43,10 +43,7 @@ namespace StardustSandbox.Core.Managers
             this.backgroundDatabase = backgroundDatabase;
             this.gameScreen = gameScreen;
             this.world = world;
-        }
 
-        internal void Initialize()
-        {
             this.backgroundHandler = new(this.backgroundDatabase);
             this.timeHandler = new(this.world.Time);
             this.celestialBodyHandler = new(this.assetDatabase, this.gameScreen, this.timeHandler, this.world);

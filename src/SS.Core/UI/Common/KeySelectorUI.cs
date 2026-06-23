@@ -15,94 +15,23 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-
-using StardustSandbox.Core.Colors.Palettes;
-using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Directions;
-using StardustSandbox.Core.Enums.Indexers;
-using StardustSandbox.Core.Enums.States;
-using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
-using StardustSandbox.Core.UI.Elements.Common;
 using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Models;
-
-using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class KeySelectorUI : UIBase<KeySelectorUIDependencies, KeySelectorUIModel>
     {
-        private Image shadowBackground;
-        private Text message;
-
-        internal KeySelectorUI(KeySelectorUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
+        internal KeySelectorUI(KeySelectorUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
         {
 
         }
 
         protected override void OnBuild(UIBuildContext context, KeySelectorUIModel model)
         {
-            BuildBackground(root);
-            BuildMessage(root);
-        }
 
-        private void BuildBackground(Container root)
-        {
-            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
-            {
-                Scale = this.GameScreen.Viewport,
-                Color = new(AAP64ColorPalette.DarkGray, 160),
-                Size = Vector2.One,
-            };
-
-            root.AddChild(this.shadowBackground);
-        }
-
-        private void BuildMessage(Container root)
-        {
-            this.message = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator))
-            {
-                Scale = new(0.1f),
-                Margin = new(0.0f, 96.0f),
-                LineHeight = 1.25f,
-                TextAreaSize = new(850.0f, 1000.0f),
-                Alignment = UIDirection.North,
-            };
-
-            root.AddChild(this.message);
-        }
-
-        protected override void OnScreenResize()
-        {
-            this.shadowBackground.Scale = this.GameScreen.Viewport;
-        }
-
-        protected override void OnOpened()
-        {
-            this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
-            this.playerInputController.Disable();
-
-            this.gameWindow.KeyDown += OnKeyDown;
-        }
-
-        protected override void OnClosed()
-        {
-            this.gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
-            this.playerInputController.Enable();
-
-            this.gameWindow.KeyDown -= OnKeyDown;
-        }
-
-        private void OnKeyDown(object sender, InputKeyEventArgs inputKeyEventArgs)
-        {
-            this.soundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
-
-            this.uiManager.CloseUI();
-            this.keySelectionCallback?.Invoke(inputKeyEventArgs.Key);
         }
     }
 }

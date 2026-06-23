@@ -18,6 +18,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using StardustSandbox.Core.Backgrounds;
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Indexers;
@@ -84,17 +85,22 @@ namespace StardustSandbox.Core
             this.spriteBatch.End();
 
             // Background
-            this.spriteBatch.Begin(
-                SpriteSortMode.Deferred,
-                BlendState.NonPremultiplied,
-                SamplerState.PointClamp,
-                DepthStencilState.Default,
-                RasterizerState.CullNone,
-                this.ambientManager.BackgroundHandler.GetCurrentBackground().IsAffectedByLighting ? gradientTransitionEffect : null,
-                null
-            );
-            this.ambientManager.BackgroundHandler.Draw(this.spriteBatch, this.camera, this.gameScreen);
-            this.spriteBatch.End();
+            Background background = this.ambientManager.BackgroundHandler.GetCurrentBackground();
+
+            if (background != null)
+            {
+                this.spriteBatch.Begin(
+                    SpriteSortMode.Deferred,
+                    BlendState.NonPremultiplied,
+                    SamplerState.PointClamp,
+                    DepthStencilState.Default,
+                    RasterizerState.CullNone,
+                    background.IsAffectedByLighting ? gradientTransitionEffect : null,
+                    null
+                );
+                this.ambientManager.BackgroundHandler.Draw(this.spriteBatch, this.camera, this.gameScreen);
+                this.spriteBatch.End();
+            }
         }
 
         private void DrawWorld()

@@ -19,8 +19,6 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.UI.Common;
-using StardustSandbox.Core.UI.Elements.Compounds;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
@@ -29,7 +27,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         AssetDatabase assetDatabase,
         CatalogDatabase catalogDatabase,
         GameHandler gameHandler,
-        GameScreen gameScreen,
         PlayerInputController playerInputController,
         SoundEffectManager soundEffectManager,
         UIManager uiManager
@@ -39,7 +36,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal CatalogDatabase CatalogDatabase => catalogDatabase;
         internal GameHandler GameHandler => gameHandler;
-        internal GameScreen GameScreen => gameScreen;
         internal PlayerInputController PlayerInputController => playerInputController;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;

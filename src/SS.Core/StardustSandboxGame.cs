@@ -31,6 +31,7 @@ using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
+using StardustSandbox.Core.UI.Common;
 using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.WorldSystem;
 
@@ -73,7 +74,6 @@ namespace StardustSandbox.Core
         private readonly EffectsManager effectsManager;
         private readonly SongManager songManager;
         private readonly SoundEffectManager soundEffectManager;
-        private readonly UIElementHandler uiElementManager;
         private readonly UIManager uiManager;
         private readonly VideoManager videoManager;
 
@@ -86,6 +86,8 @@ namespace StardustSandbox.Core
         private readonly GameplaySettings gameplaySettings;
         private readonly VideoSettings videoSettings;
         private readonly VolumeSettings volumeSettings;
+
+        private readonly UIElementHandler uiElementHandler;
 
         public StardustSandboxGame(GameLaunchOptions options)
         {
@@ -162,11 +164,13 @@ namespace StardustSandbox.Core
             );
             this.camera = new(this.gameplaySettings, this.gameScreen);
 
+            // Handlers
+            this.uiElementHandler = new();
+
             // Managers
             this.achievementManager = new(this.achievementDatabase, this.gameEvents, this.progressSerializer, this.world.TileMap);
             this.effectsManager = new(this.assetDatabase);
-            this.uiElementManager = new();
-            this.uiManager = new(this.uiDatabase);
+            this.uiManager = new(this.uiElementHandler, this.uiDatabase);
             this.cursorManager = new(this.assetDatabase, this.cursorSettings);
             this.ambientManager = new(this.assetDatabase, this.backgroundDatabase, this.gameScreen, this.world);
             this.actorManager = new(this.actorDatabase, this.world, this.worldSerializer);
@@ -253,12 +257,13 @@ namespace StardustSandbox.Core
                 this.gameHandler,
                 this.gameScreen,
                 this.Window,
-                this.GraphicsDevice,
+                this.graphicsDeviceManager,
                 this.playerInputController,
                 this.progressSerializer,
                 this.settingsSerializer,
                 this.songManager,
                 this.soundEffectManager,
+                this.uiElementHandler,
                 this.uiManager,
                 this.videoManager,
                 this.world,
@@ -268,7 +273,6 @@ namespace StardustSandbox.Core
             // Managers
             this.cursorManager.Load();
             this.effectsManager.Initialize();
-            this.ambientManager.Initialize();
 
             // Controllers
             this.playerInputController.Initialize(
@@ -313,11 +317,10 @@ namespace StardustSandbox.Core
             }
             else
             {
-                this.uiManager.OpenUI(UIIndex.Main);
+                this.uiManager.OpenUI<MainUI>();
             }
 
             this.gameNotifier?.OnBeginRun();
-            this.uiDatabase.ResizeUIs();
         }
 
         protected override void Update(GameTime gameTime)
@@ -413,7 +416,7 @@ namespace StardustSandbox.Core
                 this.graphicsDeviceManager.ApplyChanges();
             }
 
-            this.uiDatabase.ResizeUIs();
+            this.uiManager.RefreshUI();
         }
     }
 }

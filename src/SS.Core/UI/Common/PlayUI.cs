@@ -15,133 +15,23 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
-using StardustSandbox.Core.Colors.Palettes;
-using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Directions;
-using StardustSandbox.Core.Enums.Indexers;
-using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
-using StardustSandbox.Core.UI.Elements.Common;
 using StardustSandbox.Core.UI.Handlers;
-using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
 
 namespace StardustSandbox.Core.UI.Common
 {
     internal class PlayUI : UIBase<PlayUIDependencies, PlayUIModel>
     {
-        private Image shadowBackground;
-
-        private readonly Label[] menuButtonLabels;
-        private readonly ButtonInfo[] menuButtonInfos;
-
-        internal PlayUI(PlayUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
+        internal PlayUI(PlayUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
         {
-            this.menuButtonInfos = [
-                new(TextureIndex.IconUI, new(0, 32, 32, 32), Localization_Statements.Worlds, string.Empty, () =>
-                {
-                    worldExplorerUI.Setup();
-                    this.uiManager.OpenUI(UIIndex.WorldExplorer);
-                }),
-                new(TextureIndex.IconUI, new(224, 0, 32, 32), Localization_Statements.Return, string.Empty, this.uiManager.CloseUI),
-            ];
 
-            this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
         }
 
         protected override void OnBuild(UIBuildContext context, PlayUIModel model)
         {
-            BuildTitle(root);
-            BuildMenuButtons(root);
-        }
 
-        private void BuildTitle(Container root)
-        {
-            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
-            {
-                Color = new(AAP64ColorPalette.DarkGray, 196),
-                Scale = new(this.GameScreen.Viewport.X, 128.0f),
-                Size = Vector2.One,
-            };
-
-            Label title = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
-            {
-                Scale = new(0.2f),
-                Alignment = UIDirection.Center,
-                TextContent = Localization_GUIs.Play_Title,
-
-                BorderColor = AAP64ColorPalette.DarkGray,
-                BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 2.0f,
-                BorderThickness = 2.0f,
-            };
-
-            this.shadowBackground.AddChild(title);
-            root.AddChild(this.shadowBackground);
-        }
-
-        private void BuildMenuButtons(Container root)
-        {
-            for (int i = 0; i < this.menuButtonInfos.Length; i++)
-            {
-                ButtonInfo button = this.menuButtonInfos[i];
-
-                Label label = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
-                {
-                    Scale = new(0.15f),
-                    Alignment = UIDirection.Center,
-                    TextContent = button.Name,
-
-                    BorderColor = AAP64ColorPalette.DarkGray,
-                    BorderDirections = LabelBorderDirection.All,
-                    BorderOffset = 2.0f,
-                    BorderThickness = 2.0f,
-                };
-
-                label.Margin = new(0.0f, i * (label.Size.Y + 64.0f));
-
-                Image icon = new(this.assetDatabase.GetTexture(button.TextureIndex), button.TextureSourceRectangle)
-                {
-                    Margin = new(-96.0f, 0.0f),
-                    Scale = new(2),
-                };
-
-                label.AddChild(icon);
-                root.AddChild(label);
-
-                this.menuButtonLabels[i] = label;
-            }
-        }
-
-        protected override void OnScreenResize()
-        {
-            this.shadowBackground.Scale = new(this.GameScreen.Viewport.X, this.shadowBackground.Scale.Y);
-        }
-
-        protected override void OnUpdate(GameTime gameTime)
-        {
-            for (int i = 0; i < this.menuButtonLabels.Length; i++)
-            {
-                Label label = this.menuButtonLabels[i];
-
-                if (Interaction.OnMouseEnter(label))
-                {
-                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
-                }
-
-                if (Interaction.OnMouseLeftClick(label))
-                {
-                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
-                    this.menuButtonInfos[i].ClickAction?.Invoke();
-                    break;
-                }
-
-                label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
-            }
         }
     }
 }

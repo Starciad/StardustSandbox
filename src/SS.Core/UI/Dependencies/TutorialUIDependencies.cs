@@ -19,19 +19,16 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Settings;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
     internal sealed class TutorialUIDependencies(
         AssetDatabase assetDatabase,
-        GameScreen gameScreen,
         SettingsSerializer settingsSerializer,
         UIManager uiManager
     ) : IUIDependencies
     {
         internal AssetDatabase AssetDatabase => assetDatabase;
-        internal GameScreen GameScreen => gameScreen;
         internal SettingsSerializer SettingsSerializer => settingsSerializer;
         internal UIManager UIManager => uiManager;
     }

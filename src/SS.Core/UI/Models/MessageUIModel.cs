@@ -21,6 +21,7 @@ namespace StardustSandbox.Core.UI.Models
 {
     internal sealed class MessageUIModel : IUIModel
     {
-        internal string Content { get; set; }
+        internal string Title { get; init; }
+        internal string Description { get; init; }
     }
 }

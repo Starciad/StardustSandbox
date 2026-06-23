@@ -18,7 +18,6 @@
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.UI.Common;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.UI.Dependencies
@@ -27,7 +26,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         AmbientManager ambientManager,
         AssetDatabase assetDatabase,
         GameHandler gameHandler,
-        GameScreen gameScreen,
         SongManager songManager,
         SoundEffectManager soundEffectManager,
         UIManager uiManager,
@@ -37,7 +35,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         internal AmbientManager AmbientManager => ambientManager;
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal GameHandler GameHandler => gameHandler;
-        internal GameScreen GameScreen => gameScreen;
         internal SongManager SongManager => songManager;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;

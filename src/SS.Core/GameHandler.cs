@@ -143,10 +143,10 @@ namespace StardustSandbox.Core
             this.songManager.StopGameplayMusicCycle();
             this.songManager.StartGameplayMusicCycle(this);
 
-            this.uiDatabase.GetUI<HudUI>().Setup();
-            this.uiDatabase.GetUI<ItemExplorerUI>().Setup();
+            this.uiDatabase.GetUI<HudUI>().Reset();
+            this.uiDatabase.GetUI<ItemExplorerUI>().Reset();
 
-            this.uiManager.OpenUI<HudUI, HudUIModel>(null);
+            this.uiManager.OpenUI<HudUI>();
 
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Ocean);
 

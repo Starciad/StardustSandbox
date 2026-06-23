@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,15 +15,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.UI.Elements.Common;
+using StardustSandbox.Core.Enums.UI.Tools;
 
-namespace StardustSandbox.Core.UI.Information
+namespace StardustSandbox.Core.UI.Validations
 {
-    internal sealed class OptionSlotInfo(Image background, Label title, Label value)
+    internal sealed class TextInputValidationState(ValidationStatus status, string message)
     {
-        internal Image Background => background;
-        internal Label Title => title;
-        internal Label Value => value;
+        internal ValidationStatus Status => status;
+        internal string Message => message;
     }
 }
-

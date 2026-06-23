@@ -17,18 +17,10 @@
 
 using StardustSandbox.Core.Interfaces.UI;
 
-using System;
-
-using static StardustSandbox.Core.UI.Common.SelectorUI;
-
 namespace StardustSandbox.Core.UI.Models
 {
-    internal sealed class SelectorUIModel(
-        string title,
-        Action<IChoice> sendCallback,
-        params IChoice[] choices
-    ) : IUIModel
+    internal sealed class SelectorUIModel : IUIModel
     {
-
+        internal string Synopsis { get; init; }
     }
 }

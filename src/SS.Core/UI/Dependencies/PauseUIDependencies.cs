@@ -18,21 +18,18 @@
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.UI.Common;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
     internal sealed class PauseUIDependencies(
         AssetDatabase assetDatabase,
         GameHandler gameHandler,
-        GameScreen gameScreen,
         SoundEffectManager soundEffectManager,
         UIManager uiManager
     ) : IUIDependencies
     {
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal GameHandler GameHandler => gameHandler;
-        internal GameScreen GameScreen => gameScreen;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;
     }

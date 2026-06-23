@@ -23,11 +23,9 @@ using System;
 
 namespace StardustSandbox.Core.UI.Models
 {
-    internal sealed class KeySelectorUIModel(
-        string synopsis,
-        Action<Keys> keySelectionCallback
-    ) : IUIModel
+    internal sealed class KeySelectorUIModel : IUIModel
     {
-
+        internal string Synopsis { get; init; }
+        internal Action<Keys> OnKeySelected { get; init; }
     }
 }

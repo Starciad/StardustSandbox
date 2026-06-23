@@ -15,25 +15,31 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Handlers;
 
+using System;
+
 namespace StardustSandbox.Core.UI
 {
-    internal abstract class UIBase<TDependencies, TModel>(TDependencies dependencies, UIElementHandler elementHandler) : IUI
-        where TDependencies : IUIDependencies
-        where TModel : IUIModel
+    internal abstract class UIBase<TDependencies, TModel>(TDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : IUI, IResettable
+        where TDependencies : class, IUIDependencies
+        where TModel : class, IUIModel
     {
         public bool IsActive => this.isActive;
+        internal bool IsCritical { get; init; }
+
         protected TDependencies Dependencies => dependencies;
+        protected GameScreen GameScreen => gameScreen;
 
         private bool isActive = false;
         private TModel model;
 
         private void Instantiate(TModel model)
         {
-            OnBuild(new(elementHandler), model);
+            OnBuild(new(elementHandler, gameScreen), model);
         }
 
         private void Destroy()
@@ -58,7 +64,26 @@ namespace StardustSandbox.Core.UI
 
         public void Open(IUIModel model)
         {
-            Open(model);
+            if (model is not null && model is not TModel)
+            {
+                throw new ArgumentException($"Invalid model type. Expected {typeof(TModel).Name}, but received {model.GetType().Name}.");
+            }
+
+            Open((TModel)model);
+        }
+
+        public void Close()
+        {
+            if (!this.isActive)
+            {
+                return;
+            }
+
+            Destroy();
+            OnClosed();
+
+            this.isActive = false;
+            this.model = null;
         }
 
         public void Refresh()
@@ -75,14 +100,21 @@ namespace StardustSandbox.Core.UI
             Instantiate(this.model);
         }
 
-        public void Reopen()
+        public void Show()
         {
-            Refresh();
-            OnOpened();
+            if (this.isActive)
+            {
+                return;
+            }
+
+            Destroy();
+            Instantiate(this.model);
+            OnShown();
+
             this.isActive = true;
         }
 
-        public void Close()
+        public void Hide()
         {
             if (!this.isActive)
             {
@@ -90,7 +122,7 @@ namespace StardustSandbox.Core.UI
             }
 
             Destroy();
-            OnClosed();
+            OnHidden();
 
             this.isActive = false;
         }
@@ -98,6 +130,9 @@ namespace StardustSandbox.Core.UI
         protected abstract void OnBuild(UIBuildContext context, TModel model);
         protected virtual void OnOpened() { }
         protected virtual void OnClosed() { }
+        protected virtual void OnShown() { }
+        protected virtual void OnHidden() { }
+        public virtual void Reset() { }
     }
 }
 

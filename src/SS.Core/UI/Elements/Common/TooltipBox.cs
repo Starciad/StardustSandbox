@@ -24,11 +24,10 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Settings;
-using StardustSandbox.Core.UI.Elements.Common;
 
 using System;
 
-namespace StardustSandbox.Core.UI.Elements.Compounds
+namespace StardustSandbox.Core.UI.Elements.Common
 {
     internal sealed class TooltipBox : UIElement
     {

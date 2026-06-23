@@ -22,7 +22,6 @@ using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Elements.Common;
-using StardustSandbox.Core.UI.Elements.Compounds;
 
 using System;
 using System.Collections.Generic;

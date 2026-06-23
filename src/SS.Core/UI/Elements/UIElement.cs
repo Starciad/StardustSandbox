@@ -308,6 +308,7 @@ namespace StardustSandbox.Core.UI.Elements
                 child.Reset();
             }
         }
+
         protected virtual void OnInitialize() { return; }
         protected virtual void OnUpdate(GameTime gameTime) { return; }
         protected virtual void OnDraw(SpriteBatch spriteBatch) { return; }

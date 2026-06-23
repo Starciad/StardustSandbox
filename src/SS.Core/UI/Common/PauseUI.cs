@@ -15,184 +15,23 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
-using StardustSandbox.Core.Colors.Palettes;
-using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Directions;
-using StardustSandbox.Core.Enums.Indexers;
-using StardustSandbox.Core.Enums.States;
-using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.Enums.UI.Tools;
-using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
-using StardustSandbox.Core.UI.Elements.Common;
 using StardustSandbox.Core.UI.Handlers;
-using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
 
 namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class PauseUI : UIBase<PauseUIDependencies, PauseUIModel>
     {
-        private Image panelBackground, shadowBackground;
-        private Label menuTitle;
-
-        private readonly ButtonInfo[] menuButtonInfos;
-        private readonly SlotInfo[] menuButtonSlotInfos;
-
-        internal PauseUI(PauseUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
+        internal PauseUI(PauseUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
         {
-            this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Resume, string.Empty, this.uiManager.CloseUI),
-                new(TextureIndex.None, null, Localization_Statements.Options, string.Empty, () =>
-                {
-                    optionsUI.Setup();
-                    uiManager.OpenUI(UIIndex.Options);
-                    gameHandler.SetState(GameStates.IsCriticalMenuOpen);
-                }),
-                new(TextureIndex.None, null, Localization_Statements.Exit, string.Empty, () =>
-                {
-                    this.confirmUI.Setup(
-                        Localization_Messages.Confirm_Simulation_Exit_Title,
-                        Localization_Messages.Confirm_Simulation_Exit_Description,
-                        status =>
-                        {
-                            if (status is ConfirmStatus.Confirmed)
-                            {
-                                uiManager.Reset();
-                                uiManager.OpenUI(UIIndex.Main);
-                            }
-                        }
-                    );
-                    this.uiManager.OpenUI(UIIndex.Confirm);
-                    gameHandler.SetState(GameStates.IsCriticalMenuOpen);
-                }),
-            ];
-
-            this.menuButtonSlotInfos = new SlotInfo[this.menuButtonInfos.Length];
+            
         }
 
         protected override void OnBuild(UIBuildContext context, PauseUIModel model)
         {
-            BuildBackground(root);
-            BuildTitle();
-            BuildMenuButtons();
-        }
 
-        private void BuildBackground(Container root)
-        {
-            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
-            {
-                Scale = this.GameScreen.Viewport,
-                Color = new(AAP64ColorPalette.DarkGray, 160),
-                Size = Vector2.One,
-            };
-
-            this.panelBackground = new(this.assetDatabase.GetTexture(TextureIndex.UIBackgroundPause))
-            {
-                Size = new(542.0f, 540.0f),
-                Alignment = UIDirection.Center,
-            };
-
-            root.AddChild(this.shadowBackground);
-            root.AddChild(this.panelBackground);
-        }
-
-        private void BuildTitle()
-        {
-            this.menuTitle = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
-            {
-                Scale = new(0.12f),
-                Alignment = UIDirection.North,
-                Margin = new(0.0f, 10.0f),
-                Color = AAP64ColorPalette.White,
-                TextContent = Localization_GUIs.Pause_Title,
-
-                BorderColor = AAP64ColorPalette.DarkGray,
-                BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 3.0f,
-                BorderThickness = 3.0f
-            };
-
-            this.panelBackground.AddChild(this.menuTitle);
-        }
-
-        private void BuildMenuButtons()
-        {
-            for (int i = 0; i < this.menuButtonInfos.Length; i++)
-            {
-                ButtonInfo button = this.menuButtonInfos[i];
-
-                Image background = new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(0, 140, 320, 80))
-                {
-                    Color = AAP64ColorPalette.PurpleGray,
-                    Size = new(320.0f, 80.0f),
-                    Margin = new(0.0f, 118.0f + (i * 112.0f)),
-                    Alignment = UIDirection.North,
-                };
-
-                Label label = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
-                {
-                    Scale = new(0.1f),
-                    Color = AAP64ColorPalette.White,
-                    Alignment = UIDirection.Center,
-                    TextContent = button.Name,
-
-                    BorderColor = AAP64ColorPalette.DarkGray,
-                    BorderDirections = LabelBorderDirection.All,
-                    BorderOffset = 2.0f,
-                    BorderThickness = 2.0f,
-                };
-
-                this.panelBackground.AddChild(background);
-                background.AddChild(label);
-
-                this.menuButtonSlotInfos[i] = new(background, null, label);
-            }
-        }
-
-        protected override void OnScreenResize()
-        {
-            this.shadowBackground.Scale = this.GameScreen.Viewport;
-        }
-
-        protected override void OnUpdate(GameTime gameTime)
-        {
-            UpdateMenuButtons();
-        }
-
-        private void UpdateMenuButtons()
-        {
-            for (int i = 0; i < this.menuButtonInfos.Length; i++)
-            {
-                SlotInfo slot = this.menuButtonSlotInfos[i];
-
-                if (Interaction.OnMouseEnter(slot.Background))
-                {
-                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
-                }
-
-                if (Interaction.OnMouseLeftClick(slot.Background))
-                {
-                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
-                    this.menuButtonInfos[i].ClickAction?.Invoke();
-                    break;
-                }
-
-                slot.Background.Color = Interaction.OnMouseOver(slot.Background) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
-            }
-        }
-
-        protected override void OnOpened()
-        {
-            this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
-        }
-
-        protected override void OnClosed()
-        {
-            this.gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }

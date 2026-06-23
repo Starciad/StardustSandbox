@@ -54,6 +54,11 @@ namespace StardustSandbox.Core.UI.Builders
             return element;
         }
 
+        internal Button AddButton()
+        {
+            return AddElement<Button>();
+        }
+
         internal Container AddContainer()
         {
             return AddElement<Container>();

@@ -19,13 +19,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Interfaces.UI;
-using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Handlers;
 
-using System;
 using System.Collections.Generic;
 
 namespace StardustSandbox.Core.Managers
@@ -89,9 +86,8 @@ namespace StardustSandbox.Core.Managers
             }
         }
 
-        internal void OpenUI<TGui, TModel>(TModel model)
+        internal void OpenUI<TGui>(IUIModel model)
             where TGui : IUI
-            where TModel : IUIModel
         {
             IUI ui = this.uiDatabase.GetUI<TGui>();
 
@@ -108,32 +104,22 @@ namespace StardustSandbox.Core.Managers
                 return;
             }
 
-            // If the requested UI exists somewhere in the stack (history),
-            // pop and close everything above it, then reopen it as current.
-            if (this.uiStack.Contains(ui))
-            {
-                // Close and remove entries above the requested UI.
-                while (this.uiStack.Count > 0 && this.uiStack.Peek() != ui)
-                {
-                    IUI top = this.uiStack.Pop();
-                    top.Close();
-                }
 
-                // Now top == ui
-                IUI current = this.uiStack.Peek();
-                current.Open(model); // ensure it's active
-                return;
-            }
-
-            // New UI: close current top, push new UI and open it.
+            // New UI: hide current top, push new UI and open it.
             if (this.uiStack.Count > 0)
             {
                 IUI top = this.uiStack.Peek();
-                top.Close();
+                top.Hide();
             }
 
             this.uiStack.Push(ui);
             ui.Open(model);
+        }
+
+        internal void OpenUI<TGui>()
+            where TGui : IUI
+        {
+            OpenUI<TGui>(null);
         }
 
         internal void CloseUI()
@@ -151,7 +137,7 @@ namespace StardustSandbox.Core.Managers
             if (this.uiStack.Count > 0)
             {
                 IUI previous = this.uiStack.Peek();
-                previous.Reopen();
+                previous.Show();
             }
         }
 

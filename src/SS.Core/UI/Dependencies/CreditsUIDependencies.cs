@@ -25,7 +25,6 @@ namespace StardustSandbox.Core.UI.Dependencies
     internal sealed class CreditsUIDependencies(
         AmbientManager ambientManager,
         AssetDatabase assetDatabase,
-        GameScreen gameScreen,
         SongManager songManager,
         UIManager uiManager,
         World world
@@ -33,7 +32,6 @@ namespace StardustSandbox.Core.UI.Dependencies
     {
         internal AmbientManager AmbientManager => ambientManager;
         internal AssetDatabase AssetDatabase => assetDatabase;
-        internal GameScreen GameScreen => gameScreen;
         internal SongManager SongManager => songManager;
         internal UIManager UIManager => uiManager;
         internal World World => world;

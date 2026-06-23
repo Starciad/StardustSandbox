@@ -16,19 +16,16 @@
 */
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.UI.Common;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
     internal sealed class WorldExplorerUIDependencies(
         AssetDatabase assetDatabase,
-        GameScreen gameScreen,
         GraphicsDeviceManager graphicsDeviceManager,
         SoundEffectManager soundEffectManager,
         UIManager uiManager,
@@ -36,7 +33,6 @@ namespace StardustSandbox.Core.UI.Dependencies
     ) : IUIDependencies
     {
         internal AssetDatabase AssetDatabase => assetDatabase;
-        internal GameScreen GameScreen => gameScreen;
         internal GraphicsDeviceManager GraphicsDeviceManager => graphicsDeviceManager;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;

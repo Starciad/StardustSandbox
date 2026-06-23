@@ -15,18 +15,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
-using StardustSandbox.Core.Colors.Palettes;
-using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Directions;
-using StardustSandbox.Core.Enums.Indexers;
-using StardustSandbox.Core.Enums.States;
-using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
-using StardustSandbox.Core.UI.Elements.Common;
 using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Models;
 
@@ -34,94 +24,14 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class MessageUI : UIBase<MessageUIDependencies, MessageUIModel>
     {
-        private Image shadowBackground;
-        private Text message;
-        private Label continueButtonLabel;
-
-        internal MessageUI(MessageUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
+        internal MessageUI(MessageUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
         {
 
         }
 
         protected override void OnBuild(UIBuildContext context, MessageUIModel model)
         {
-            BuildBackground(root);
-            BuildMessage(root);
-            BuildButton(root);
-        }
 
-        private void BuildBackground(Container root)
-        {
-            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
-            {
-                Scale = this.GameScreen.Viewport,
-                Color = new(AAP64ColorPalette.DarkGray, 160),
-                Size = Vector2.One,
-            };
-
-            root.AddChild(this.shadowBackground);
-        }
-
-        private void BuildMessage(Container root)
-        {
-            this.message = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator))
-            {
-                Scale = new(0.1f),
-                Margin = new(0.0f, 96.0f),
-                LineHeight = 1.25f,
-                TextAreaSize = new(850.0f, 1000.0f),
-                Alignment = UIDirection.North,
-            };
-
-            root.AddChild(this.message);
-        }
-
-        private void BuildButton(Container root)
-        {
-            this.continueButtonLabel = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
-            {
-                Scale = new(0.13f),
-                Margin = new(0.0f, -96.0f),
-                Alignment = UIDirection.South,
-                TextContent = Localization_Statements.Continue,
-
-                BorderColor = AAP64ColorPalette.DarkGray,
-                BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 2.0f,
-                BorderThickness = 2.0f,
-            };
-
-            root.AddChild(this.continueButtonLabel);
-        }
-
-        protected override void OnScreenResize()
-        {
-            this.shadowBackground.Scale = this.GameScreen.Viewport;
-        }
-
-        protected override void OnUpdate(GameTime gameTime)
-        {
-            if (Interaction.OnMouseLeftClick(this.continueButtonLabel))
-            {
-                this.uiManager.CloseUI();
-            }
-
-            this.continueButtonLabel.Color = Interaction.OnMouseOver(this.continueButtonLabel) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
-        }
-
-        internal void SetContent(string text)
-        {
-            this.message.TextContent = text;
-        }
-
-        protected override void OnOpened()
-        {
-            this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
-        }
-
-        protected override void OnClosed()
-        {
-            this.gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }

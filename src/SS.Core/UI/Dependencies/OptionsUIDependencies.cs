@@ -20,8 +20,6 @@ using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.UI.Common;
-using StardustSandbox.Core.UI.Elements.Compounds;
 
 namespace StardustSandbox.Core.UI.Dependencies
 {
@@ -29,7 +27,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         AssetDatabase assetDatabase,
         CursorManager cursorManager,
         GameHandler gameHandler,
-        GameScreen gameScreen,
         PlayerInputController playerInputController,
         SettingsSerializer settingsSerializer,
         SongManager songManager,
@@ -41,7 +38,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal CursorManager CursorManager => cursorManager;
         internal GameHandler GameHandler => gameHandler;
-        internal GameScreen GameScreen => gameScreen;
         internal PlayerInputController PlayerInputController => playerInputController;
         internal SettingsSerializer SettingsSerializer => settingsSerializer;
         internal SongManager SongManager => songManager;

@@ -21,5 +21,6 @@ namespace StardustSandbox.Core.UI.Models
 {
     internal sealed class AchievementsUIModel : IUIModel
     {
+
     }
 }

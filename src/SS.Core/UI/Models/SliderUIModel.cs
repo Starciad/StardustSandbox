@@ -23,9 +23,9 @@ namespace StardustSandbox.Core.UI.Models
 {
     internal sealed class SliderUIModel : IUIModel
     {
-        internal string Synopsis;
-        internal Range Range;
-        internal int Value;
-        internal Action<int> SendCallback;
+        internal string Synopsis { get; init; }
+        internal Range Range { get; init; }
+        internal int Value { get; init; }
+        internal Action<int> OnSent { get; init; }
     }
 }

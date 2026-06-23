@@ -15,203 +15,23 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
-using StardustSandbox.Core.Colors.Palettes;
-using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Directions;
-using StardustSandbox.Core.Enums.Indexers;
-using StardustSandbox.Core.Enums.States;
-using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.InputSystem;
-using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
-using StardustSandbox.Core.UI.Elements.Common;
 using StardustSandbox.Core.UI.Handlers;
-using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
-
-using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class SliderUI : UIBase<SliderUIDependencies, SliderUIModel>
     {
-        private Text synopsis;
-        private Label valueLabel;
-        private Image shadowBackground, sliderBackground, sliderButton;
-
-        private Range range;
-        private int value;
-
-        private readonly Label[] menuButtonLabels;
-        private readonly ButtonInfo[] menuButtonInfos;
-
-        internal SliderUI(SliderUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
+        internal SliderUI(SliderUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
         {
-            this.menuButtonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
-                {
-                    soundEffectManager.Play(SoundEffectIndex.GUI_Returning);
-                    uiManager.CloseUI();
-                }),
-                new(TextureIndex.None, null, Localization_Statements.Send, string.Empty, () =>
-                {
-                    soundEffectManager.Play(SoundEffectIndex.GUI_Accepted);
-                    uiManager.CloseUI();
-                    this.sendCallback?.Invoke(this.value);
-                }),
-            ];
 
-            this.menuButtonLabels = new Label[this.menuButtonInfos.Length];
         }
 
         protected override void OnBuild(UIBuildContext context, SliderUIModel model)
         {
-            // Shadow
-            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
-            {
-                Scale = this.GameScreen.Viewport,
-                Color = new(AAP64ColorPalette.DarkGray, 160),
-                Size = Vector2.One,
-            };
 
-            root.AddChild(this.shadowBackground);
-
-            BuildSynopsis(root);
-            BuildSlider(root);
-            BuildMenuButtons(root);
-        }
-
-        private void BuildSynopsis(Container root)
-        {
-            this.synopsis = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator))
-            {
-                Scale = new(0.1f),
-                Margin = new(0.0f, 128.0f),
-                LineHeight = 1.25f,
-                TextAreaSize = new(850.0f, 1000.0f),
-                Alignment = UIDirection.North,
-            };
-
-            root.AddChild(this.synopsis);
-        }
-
-        private void BuildSlider(Container root)
-        {
-            this.sliderBackground = new(this.assetDatabase.GetTexture(TextureIndex.UISliderInputOrnament), new(0, 0, 630, 32))
-            {
-                Size = new(630.0f, 32.0f),
-                Alignment = UIDirection.Center,
-            };
-
-            this.sliderButton = new(this.assetDatabase.GetTexture(TextureIndex.UIButtons), new(320, 172, 32, 32))
-            {
-                Size = new(32.0f, 32.0f),
-            };
-
-            this.valueLabel = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
-            {
-                Scale = new(0.125f),
-                Margin = new(0.0f, 48.0f),
-                Alignment = UIDirection.Center,
-                TextContent = this.value.ToString(),
-            };
-
-            root.AddChild(this.valueLabel);
-            root.AddChild(this.sliderBackground);
-
-            this.sliderBackground.AddChild(this.sliderButton);
-        }
-
-        private void BuildMenuButtons(Container root)
-        {
-            for (int i = 0; i < this.menuButtonInfos.Length; i++)
-            {
-                ButtonInfo button = this.menuButtonInfos[i];
-
-                Label label = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
-                {
-                    Scale = new(0.125f),
-                    Margin = new(0.0f, -48.0f - (i * 72)),
-                    Alignment = UIDirection.South,
-                    TextContent = button.Name,
-
-                    BorderColor = AAP64ColorPalette.DarkGray,
-                    BorderDirections = LabelBorderDirection.All,
-                    BorderOffset = 2.0f,
-                    BorderThickness = 2.0f,
-                };
-
-                root.AddChild(label);
-
-                this.menuButtonLabels[i] = label;
-            }
-        }
-
-        protected override void OnScreenResize()
-        {
-            this.shadowBackground.Scale = this.GameScreen.Viewport;
-        }
-
-        protected override void OnUpdate(GameTime gameTime)
-        {
-            UpdateMenuButtons();
-            UpdateSliderButton();
-            UpdateSliderButtonPosition();
-        }
-
-        private void UpdateMenuButtons()
-        {
-            for (int i = 0; i < this.menuButtonInfos.Length; i++)
-            {
-                Label label = this.menuButtonLabels[i];
-
-                if (Interaction.OnMouseLeftClick(label))
-                {
-                    this.menuButtonInfos[i].ClickAction?.Invoke();
-                    break;
-                }
-
-                label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
-            }
-        }
-
-        private void UpdateSliderButton()
-        {
-            if (Interaction.OnMouseLeftDown(this.sliderBackground) || Interaction.OnMouseLeftDown(this.sliderButton))
-            {
-                Vector2 mousePosition = InputEngine.GetCurrentMousePosition();
-                Vector2 sliderPosition = this.sliderBackground.Position;
-
-                float relativeX = MathHelper.Clamp(mousePosition.X - sliderPosition.X, 0.0f, this.sliderBackground.Size.X);
-                float percentage = relativeX / this.sliderBackground.Size.X;
-                int newValue = this.range.Start.Value + (int)((this.range.End.Value - this.range.Start.Value) * percentage);
-
-                if (newValue != this.value)
-                {
-                    this.value = newValue;
-                    this.valueLabel.TextContent = this.value.ToString();
-                }
-            }
-        }
-
-        private void UpdateSliderButtonPosition()
-        {
-            float percentage = (this.value - this.range.Start.Value) / (float)(this.range.End.Value - this.range.Start.Value);
-            float buttonX = percentage * this.sliderBackground.Size.X;
-            this.sliderButton.Margin = new(buttonX - (this.sliderButton.Size.X / 2), 0.0f);
-        }
-
-        protected override void OnOpened()
-        {
-            this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
-        }
-
-        protected override void OnClosed()
-        {
-            this.gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }

@@ -26,7 +26,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         AchievementDatabase achievementDatabase,
         AssetDatabase assetDatabase,
         AmbientManager ambientManager,
-        GameScreen gameScreen,
         ProgressSerializer progressSerializer,
         SoundEffectManager soundEffectManager,
         UIManager uiManager
@@ -35,7 +34,6 @@ namespace StardustSandbox.Core.UI.Dependencies
         internal AchievementDatabase AchievementDatabase => achievementDatabase;
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal AmbientManager AmbientManager => ambientManager;
-        internal GameScreen GameScreen => gameScreen;
         internal ProgressSerializer ProgressSerializer => progressSerializer;
         internal SoundEffectManager SoundEffectManager =>  soundEffectManager;
         internal UIManager UIManager => uiManager;

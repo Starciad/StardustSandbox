@@ -24,13 +24,11 @@ namespace StardustSandbox.Core.UI.Dependencies
     internal sealed class MessageUIDependencies(
         AssetDatabase assetDatabase,
         GameHandler gameHandler,
-        GameScreen gameScreen,
         UIManager uiManager
     ) : IUIDependencies
     {
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal GameHandler GameHandler => gameHandler;
-        internal GameScreen GameScreen => gameScreen;
         internal UIManager UIManager => uiManager;
     }
 }

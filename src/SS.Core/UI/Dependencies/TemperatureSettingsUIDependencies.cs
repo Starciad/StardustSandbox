@@ -18,7 +18,6 @@
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.UI.Elements.Compounds;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.UI.Dependencies
@@ -26,7 +25,6 @@ namespace StardustSandbox.Core.UI.Dependencies
     internal sealed class TemperatureSettingsUIDependencies(
         AssetDatabase assetDatabase,
         GameHandler gameHandler,
-        GameScreen gameScreen,
         SoundEffectManager soundEffectManager,
         UIManager uiManager,
         World world
@@ -34,7 +32,6 @@ namespace StardustSandbox.Core.UI.Dependencies
     {
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal GameHandler GameHandler => gameHandler;
-        internal GameScreen GameScreen => gameScreen;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;
         internal World World => world;

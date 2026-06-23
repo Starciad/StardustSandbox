@@ -16,19 +16,13 @@
 */
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces.UI;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Progress;
-using StardustSandbox.Core.Serialization.Settings;
-using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Common;
 using StardustSandbox.Core.UI.Dependencies;
-using StardustSandbox.Core.UI.Elements.Compounds;
 using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.WorldSystem;
 
@@ -39,7 +33,7 @@ namespace StardustSandbox.Core.Databases
 {
     internal sealed class UIDatabase
     {
-        private readonly Dictionary<Type, IUI> uis;
+        private readonly Dictionary<Type, IUI> uis = [];
 
         internal void Load(
             AchievementDatabase achievementDatabase,
@@ -58,66 +52,66 @@ namespace StardustSandbox.Core.Databases
             SettingsSerializer settingsSerializer,
             SongManager songManager,
             SoundEffectManager soundEffectManager,
-            UIElementHandler elementHandler,
+            UIElementHandler uiElementHandler,
             UIManager uiManager,
             VideoManager videoManager,
             World world,
             WorldSerializer worldSerializer
         )
         {
-            AchievementsUIDependencies achievementsUIDependencies = new(achievementDatabase, assetDatabase, ambientManager, gameScreen, progressSerializer, soundEffectManager, uiManager);
-            ColorPickerUIDependencies colorPickerUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager);
-            ConfirmUIDependencies confirmUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager);
-            CreditsUIDependencies creditsUIDependencies = new(ambientManager, assetDatabase, gameScreen, songManager, uiManager, world);
-            EnvironmentSettingsUIDependencies environmentSettingsUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager, world);
-            GeneratorSettingsUIDependencies generatorSettingsUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager, world);
-            HudUIDependencies hudUIDependencies = new(achievementManager, assetDatabase, catalogDatabase, gameHandler, gameScreen, playerInputController, soundEffectManager, uiManager);
-            InformationUIDependencies informationUIDependencies = new(actorManager, assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager, world);
-            ItemExplorerUIDependencies itemExplorerUIDependencies = new(assetDatabase, catalogDatabase, gameHandler, gameScreen, soundEffectManager, uiManager);
-            ItemSearchUIDependencies itemSearchUIDependencies = new(assetDatabase, catalogDatabase, gameHandler, gameScreen, gameWindow, playerInputController, soundEffectManager, uiManager);
-            KeySelectorUIDependencies keySelectorUIDependencies = new(assetDatabase, gameHandler, gameScreen, gameWindow, playerInputController, soundEffectManager, uiManager);
-            MainUIDependencies mainUIDependencies = new(ambientManager, assetDatabase, gameHandler, gameScreen, songManager, soundEffectManager, uiManager, world);
-            MessageUIDependencies messageUIDependencies = new(assetDatabase, gameHandler, gameScreen, uiManager);
-            OptionsUIDependencies optionsUIDependencies = new(assetDatabase, cursorManager, gameHandler, gameScreen, playerInputController, settingsSerializer, songManager, soundEffectManager, uiManager, videoManager);
-            PauseUIDependencies pauseUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager);
-            PenSettingsUIDependencies penSettingsUIDependencies = new(assetDatabase, gameHandler, gameScreen, playerInputController, soundEffectManager, uiManager, world);
-            PlayUIDependencies playUIDependencies = new(assetDatabase, gameScreen, soundEffectManager, uiManager);
-            SaveUIDependencies saveUIDependencies = new(assetDatabase, gameHandler, gameScreen, graphicsDeviceManager, soundEffectManager, uiManager, world, worldSerializer);
-            SelectorUIDependencies selectorUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager);
-            SliderUIDependencies sliderUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager);
-            TemperatureSettingsUIDependencies temperatureSettingsUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager, world);
-            TextInputUIDependencies textInputUIDependencies = new(assetDatabase, gameHandler, gameScreen, gameWindow, playerInputController, soundEffectManager, uiManager);
-            TutorialUIDependencies tutorialUIDependencies = new(assetDatabase, gameScreen, settingsSerializer, uiManager);
-            WorldDetailsUIDependencies worldDetailsUIDependencies = new(assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager, worldSerializer);
-            WorldExplorerUIDependencies worldExplorerUIDependencies = new(assetDatabase, gameScreen, graphicsDeviceManager, soundEffectManager, uiManager, worldSerializer);
-            WorldSettingsUIDependencies worldSettingsUIDependencies = new(actorManager, assetDatabase, gameHandler, gameScreen, soundEffectManager, uiManager, world);
+            AchievementsUIDependencies achievementsUIDependencies = new(achievementDatabase, assetDatabase, ambientManager, progressSerializer, soundEffectManager, uiManager);
+            ColorPickerUIDependencies colorPickerUIDependencies = new(assetDatabase, gameHandler, soundEffectManager, uiManager);
+            ConfirmUIDependencies confirmUIDependencies = new(assetDatabase, gameHandler, soundEffectManager, uiManager);
+            CreditsUIDependencies creditsUIDependencies = new(ambientManager, assetDatabase, songManager, uiManager, world);
+            EnvironmentSettingsUIDependencies environmentSettingsUIDependencies = new(assetDatabase, gameHandler, soundEffectManager, uiManager, world);
+            GeneratorSettingsUIDependencies generatorSettingsUIDependencies = new(assetDatabase, gameHandler, soundEffectManager, uiManager, world);
+            HudUIDependencies hudUIDependencies = new(achievementManager, assetDatabase, catalogDatabase, gameHandler, playerInputController, soundEffectManager, uiManager);
+            InformationUIDependencies informationUIDependencies = new(actorManager, assetDatabase, gameHandler, soundEffectManager, uiManager, world);
+            ItemExplorerUIDependencies itemExplorerUIDependencies = new(assetDatabase, catalogDatabase, gameHandler, soundEffectManager, uiManager);
+            ItemSearchUIDependencies itemSearchUIDependencies = new(assetDatabase, catalogDatabase, gameHandler, gameWindow, playerInputController, soundEffectManager, uiManager);
+            KeySelectorUIDependencies keySelectorUIDependencies = new(assetDatabase, gameHandler, gameWindow, playerInputController, soundEffectManager, uiManager);
+            MainUIDependencies mainUIDependencies = new(ambientManager, assetDatabase, gameHandler, songManager, soundEffectManager, uiManager, world);
+            MessageUIDependencies messageUIDependencies = new(assetDatabase, gameHandler, uiManager);
+            OptionsUIDependencies optionsUIDependencies = new(assetDatabase, cursorManager, gameHandler, playerInputController, settingsSerializer, songManager, soundEffectManager, uiManager, videoManager);
+            PauseUIDependencies pauseUIDependencies = new(assetDatabase, gameHandler, soundEffectManager, uiManager);
+            PenSettingsUIDependencies penSettingsUIDependencies = new(assetDatabase, gameHandler, playerInputController, soundEffectManager, uiManager, world);
+            PlayUIDependencies playUIDependencies = new(assetDatabase, soundEffectManager, uiManager);
+            SaveUIDependencies saveUIDependencies = new(assetDatabase, gameHandler, graphicsDeviceManager, soundEffectManager, uiManager, world, worldSerializer);
+            SelectorUIDependencies selectorUIDependencies = new(assetDatabase, gameHandler, soundEffectManager, uiManager);
+            SliderUIDependencies sliderUIDependencies = new(assetDatabase, gameHandler, soundEffectManager, uiManager);
+            TemperatureSettingsUIDependencies temperatureSettingsUIDependencies = new(assetDatabase, gameHandler, soundEffectManager, uiManager, world);
+            TextInputUIDependencies textInputUIDependencies = new(assetDatabase, gameHandler, gameWindow, playerInputController, soundEffectManager, uiManager);
+            TutorialUIDependencies tutorialUIDependencies = new(assetDatabase, settingsSerializer, uiManager);
+            WorldDetailsUIDependencies worldDetailsUIDependencies = new(assetDatabase, gameHandler, soundEffectManager, uiManager, worldSerializer);
+            WorldExplorerUIDependencies worldExplorerUIDependencies = new(assetDatabase, graphicsDeviceManager, soundEffectManager, uiManager, worldSerializer);
+            WorldSettingsUIDependencies worldSettingsUIDependencies = new(actorManager, assetDatabase, gameHandler, soundEffectManager, uiManager, world);
 
-            AchievementsUI achievementsUI = new(achievementsUIDependencies, elementHandler);
-            ColorPickerUI colorPickerUI = new(colorPickerUIDependencies, elementHandler);
-            ConfirmUI confirmUI = new(confirmUIDependencies, elementHandler);
-            CreditsUI creditsUI = new(creditsUIDependencies, elementHandler);
-            EnvironmentSettingsUI environmentSettingsUI = new(environmentSettingsUIDependencies, elementHandler);
-            GeneratorSettingsUI generatorSettingsUI = new(generatorSettingsUIDependencies, elementHandler);
-            HudUI hudUI = new(hudUIDependencies, elementHandler);
-            InformationUI informationUI = new(informationUIDependencies, elementHandler);
-            ItemExplorerUI itemExplorerUI = new(itemExplorerUIDependencies, elementHandler);
-            ItemSearchUI itemSearchUI = new(itemSearchUIDependencies, elementHandler);
-            KeySelectorUI keySelectorUI = new(keySelectorUIDependencies, elementHandler);
-            MainUI mainUI = new(mainUIDependencies, elementHandler);
-            MessageUI messageUI = new(messageUIDependencies, elementHandler);
-            OptionsUI optionsUI = new(optionsUIDependencies, elementHandler);
-            PauseUI pauseUI = new(pauseUIDependencies, elementHandler);
-            PenSettingsUI penSettingsUI = new(penSettingsUIDependencies, elementHandler);
-            PlayUI playUI = new(playUIDependencies, elementHandler);
-            SaveUI saveUI = new(saveUIDependencies, elementHandler);
-            SelectorUI selectorUI = new(selectorUIDependencies, elementHandler);
-            SliderUI sliderUI = new(sliderUIDependencies, elementHandler);
-            TemperatureSettingsUI temperatureSettingsUI = new(temperatureSettingsUIDependencies, elementHandler);
-            TextInputUI textInputUI = new(textInputUIDependencies, elementHandler);
-            TutorialUI tutorialUI = new(tutorialUIDependencies, elementHandler);
-            WorldDetailsUI worldDetailsUI = new(worldDetailsUIDependencies, elementHandler);
-            WorldExplorerUI worldExplorerUI = new(worldExplorerUIDependencies, elementHandler);
-            WorldSettingsUI worldSettingsUI = new(worldSettingsUIDependencies, elementHandler);
+            AchievementsUI achievementsUI = new(achievementsUIDependencies, uiElementHandler, gameScreen);
+            ColorPickerUI colorPickerUI = new(colorPickerUIDependencies, uiElementHandler, gameScreen);
+            ConfirmUI confirmUI = new(confirmUIDependencies, uiElementHandler, gameScreen);
+            CreditsUI creditsUI = new(creditsUIDependencies, uiElementHandler, gameScreen);
+            EnvironmentSettingsUI environmentSettingsUI = new(environmentSettingsUIDependencies, uiElementHandler, gameScreen);
+            GeneratorSettingsUI generatorSettingsUI = new(generatorSettingsUIDependencies, uiElementHandler, gameScreen);
+            HudUI hudUI = new(hudUIDependencies, uiElementHandler, gameScreen);
+            InformationUI informationUI = new(informationUIDependencies, uiElementHandler, gameScreen);
+            ItemExplorerUI itemExplorerUI = new(itemExplorerUIDependencies, uiElementHandler, gameScreen);
+            ItemSearchUI itemSearchUI = new(itemSearchUIDependencies, uiElementHandler, gameScreen);
+            KeySelectorUI keySelectorUI = new(keySelectorUIDependencies, uiElementHandler, gameScreen);
+            MainUI mainUI = new(mainUIDependencies, uiElementHandler, gameScreen);
+            MessageUI messageUI = new(messageUIDependencies, uiElementHandler, gameScreen);
+            OptionsUI optionsUI = new(optionsUIDependencies, uiElementHandler, gameScreen);
+            PauseUI pauseUI = new(pauseUIDependencies, uiElementHandler, gameScreen);
+            PenSettingsUI penSettingsUI = new(penSettingsUIDependencies, uiElementHandler, gameScreen);
+            PlayUI playUI = new(playUIDependencies, uiElementHandler, gameScreen);
+            SaveUI saveUI = new(saveUIDependencies, uiElementHandler, gameScreen);
+            SelectorUI selectorUI = new(selectorUIDependencies, uiElementHandler, gameScreen);
+            SliderUI sliderUI = new(sliderUIDependencies, uiElementHandler, gameScreen);
+            TemperatureSettingsUI temperatureSettingsUI = new(temperatureSettingsUIDependencies, uiElementHandler, gameScreen);
+            TextInputUI textInputUI = new(textInputUIDependencies, uiElementHandler, gameScreen);
+            TutorialUI tutorialUI = new(tutorialUIDependencies, uiElementHandler, gameScreen);
+            WorldDetailsUI worldDetailsUI = new(worldDetailsUIDependencies, uiElementHandler, gameScreen);
+            WorldExplorerUI worldExplorerUI = new(worldExplorerUIDependencies, uiElementHandler, gameScreen);
+            WorldSettingsUI worldSettingsUI = new(worldSettingsUIDependencies, uiElementHandler, gameScreen);
 
             RegisterUI(achievementsUI);
             RegisterUI(colorPickerUI);

@@ -22,6 +22,6 @@ namespace StardustSandbox.Core.UI.Models
 {
     internal sealed class WorldDetailsUIModel : IUIModel
     {
-        private WorldSaveFile saveFile;
+        internal WorldSaveFile WorldSaveFile { get; init; }
     }
 }

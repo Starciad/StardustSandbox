@@ -22,12 +22,10 @@ using System;
 
 namespace StardustSandbox.Core.UI.Models
 {
-    internal sealed class ConfirmUIModel(
-        string caption,
-        string message,
-        Action<ConfirmStatus> confirmCallback
-    ) : IUIModel
+    internal sealed class ConfirmUIModel : IUIModel
     {
-
+        internal string Title { get; init; }
+        internal string Description { get; init; }
+        internal Action<ConfirmStatus> OnConfirmed { get; init; }
     }
 }

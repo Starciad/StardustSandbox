@@ -22,10 +22,8 @@ using System;
 
 namespace StardustSandbox.Core.UI.Models
 {
-    internal sealed class ItemSearchUIModel(
-        Action<Item> itemSelectionCallback
-    ) : IUIModel
+    internal sealed class ItemSearchUIModel : IUIModel
     {
-
+        internal Action<Item> OnItemSelected { get; init; }
     }
 }

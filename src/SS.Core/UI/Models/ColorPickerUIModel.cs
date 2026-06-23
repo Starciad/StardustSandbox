@@ -23,10 +23,8 @@ using System;
 
 namespace StardustSandbox.Core.UI.Models
 {
-    internal sealed class ColorPickerUIModel(
-        Action<Color> colorSelectionCallback
-    ) : IUIModel
+    internal sealed class ColorPickerUIModel : IUIModel
     {
-
+        internal Action<Color> OnColorSelected { get; init; }
     }
 }

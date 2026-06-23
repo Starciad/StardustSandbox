@@ -17,19 +17,14 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Enums.Indexers;
+using StardustSandbox.Core.Enums.UI;
 
-using System;
-
-namespace StardustSandbox.Core.UI.Information
+namespace StardustSandbox.Core.UI.Texts
 {
-    internal sealed class ButtonInfo(TextureIndex textureIndex, Rectangle? textureSourceRectangle, string name, string description, Action clickAction)
+    internal readonly struct BorderDirectionOffset(LabelBorderDirection direction, Vector2 offset)
     {
-        internal TextureIndex TextureIndex => textureIndex;
-        internal Rectangle? TextureSourceRectangle => textureSourceRectangle;
-        internal string Name => name;
-        internal string Description => description;
-        internal Action ClickAction => clickAction;
+        internal readonly LabelBorderDirection Direction => direction;
+        internal readonly Vector2 Offset => offset;
     }
 }
 

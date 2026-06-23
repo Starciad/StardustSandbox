@@ -15,151 +15,23 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
-using StardustSandbox.Core.Colors.Palettes;
-using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Enums.Directions;
-using StardustSandbox.Core.Enums.Indexers;
-using StardustSandbox.Core.Enums.States;
-using StardustSandbox.Core.Enums.UI;
-using StardustSandbox.Core.Enums.UI.Tools;
-using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
-using StardustSandbox.Core.UI.Elements.Common;
 using StardustSandbox.Core.UI.Handlers;
-using StardustSandbox.Core.UI.Information;
 using StardustSandbox.Core.UI.Models;
-
-using System;
 
 namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class ConfirmUI : UIBase<ConfirmUIDependencies, ConfirmUIModel>
     {
-        private Image shadowBackground;
-        private Label caption;
-        private Text message;
-
-        private readonly Label[] buttonLabels;
-        private readonly ButtonInfo[] buttonInfos;
-
-        internal ConfirmUI(ConfirmUIDependencies dependencies, UIElementHandler elementHandler) : base(dependencies, elementHandler)
+        internal ConfirmUI(ConfirmUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
         {
-            this.buttonInfos = [
-                new(TextureIndex.None, null, Localization_Statements.Cancel, string.Empty, () =>
-                {
-                    this.uiManager.CloseUI();
-                    this.confirmCallback?.Invoke(ConfirmStatus.Cancelled);
-                }),
-                new(TextureIndex.None, null, Localization_Statements.Confirm, string.Empty, () =>
-                {
-                    this.uiManager.CloseUI();
-                    this.confirmCallback?.Invoke(ConfirmStatus.Confirmed);
-                }),
-            ];
 
-            this.buttonLabels = new Label[this.buttonInfos.Length];
         }
 
         protected override void OnBuild(UIBuildContext context, ConfirmUIModel model)
         {
-            this.shadowBackground = new(this.assetDatabase.GetTexture(TextureIndex.Pixel))
-            {
-                Scale = this.GameScreen.Viewport,
-                Size = Vector2.One,
-                Color = new(AAP64ColorPalette.DarkGray, 160)
-            };
 
-            this.caption = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
-            {
-                Scale = new(0.1f),
-                Margin = new(0.0f, 64.0f),
-                Alignment = UIDirection.North,
-
-                BorderColor = AAP64ColorPalette.DarkGray,
-                BorderDirections = LabelBorderDirection.All,
-                BorderOffset = 2.0f,
-                BorderThickness = 2.0f,
-            };
-
-            this.message = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator))
-            {
-                Scale = new(0.1f),
-                LineHeight = 1.25f,
-                Margin = new(0.0f, -32.0f),
-                TextAreaSize = new(850.0f, 1000.0f),
-                Alignment = UIDirection.Center,
-            };
-
-            root.AddChild(this.shadowBackground);
-            root.AddChild(this.caption);
-            root.AddChild(this.message);
-
-            BuildMenuButtons(root);
-        }
-
-        private void BuildMenuButtons(Container root)
-        {
-            for (int i = 0; i < this.buttonInfos.Length; i++)
-            {
-                ButtonInfo button = this.buttonInfos[i];
-
-                Label label = new(this.assetDatabase.GetSpriteFont(SpriteFontIndex.BigApple3pm))
-                {
-                    Scale = new(0.125f),
-                    Margin = new(0.0f, -64.0f - (i * 72.0f)),
-                    Alignment = UIDirection.South,
-                    TextContent = button.Name,
-
-                    BorderColor = AAP64ColorPalette.DarkGray,
-                    BorderDirections = LabelBorderDirection.All,
-                    BorderOffset = 2.0f,
-                    BorderThickness = 2.0f,
-                };
-
-                root.AddChild(label);
-
-                this.buttonLabels[i] = label;
-            }
-        }
-
-        protected override void OnScreenResize()
-        {
-            this.shadowBackground.Scale = this.GameScreen.Viewport;
-        }
-
-        protected override void OnUpdate(GameTime gameTime)
-        {
-            for (int i = 0; i < this.buttonInfos.Length; i++)
-            {
-                Label label = this.buttonLabels[i];
-
-                if (Interaction.OnMouseEnter(label))
-                {
-                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Hover);
-                }
-
-                if (Interaction.OnMouseLeftClick(label))
-                {
-                    this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
-                    this.buttonInfos[i].ClickAction?.Invoke();
-                    break;
-                }
-
-                label.Color = Interaction.OnMouseOver(label) ? AAP64ColorPalette.HoverColor : AAP64ColorPalette.White;
-            }
-        }
-
-        protected override void OnOpened()
-        {
-            this.gameHandler.SetState(GameStates.IsCriticalMenuOpen);
-        }
-
-        protected override void OnClosed()
-        {
-            this.gameHandler.RemoveState(GameStates.IsCriticalMenuOpen);
         }
     }
 }

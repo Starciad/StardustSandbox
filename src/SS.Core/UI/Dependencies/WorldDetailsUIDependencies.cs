@@ -25,7 +25,6 @@ namespace StardustSandbox.Core.UI.Dependencies
     internal sealed class WorldDetailsUIDependencies(
         AssetDatabase assetDatabase,
         GameHandler gameHandler,
-        GameScreen gameScreen,
         SoundEffectManager soundEffectManager,
         UIManager uiManager,
         WorldSerializer worldSerializer
@@ -33,7 +32,6 @@ namespace StardustSandbox.Core.UI.Dependencies
     {
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal GameHandler GameHandler => gameHandler;
-        internal GameScreen GameScreen => gameScreen;
         internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;
         internal WorldSerializer WorldSerializer => worldSerializer;
