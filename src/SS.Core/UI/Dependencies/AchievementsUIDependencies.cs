@@ -35,7 +35,7 @@ namespace StardustSandbox.Core.UI.Dependencies
         internal AssetDatabase AssetDatabase => assetDatabase;
         internal AmbientManager AmbientManager => ambientManager;
         internal ProgressSerializer ProgressSerializer => progressSerializer;
-        internal SoundEffectManager SoundEffectManager =>  soundEffectManager;
+        internal SoundEffectManager SoundEffectManager => soundEffectManager;
         internal UIManager UIManager => uiManager;
     }
 }

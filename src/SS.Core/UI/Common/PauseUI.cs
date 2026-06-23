@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.UI.Common
     {
         internal PauseUI(PauseUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
         {
-            
+
         }
 
         protected override void OnBuild(UIBuildContext context, PauseUIModel model)

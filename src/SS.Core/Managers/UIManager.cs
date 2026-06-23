@@ -104,7 +104,6 @@ namespace StardustSandbox.Core.Managers
                 return;
             }
 
-
             // New UI: hide current top, push new UI and open it.
             if (this.uiStack.Count > 0)
             {

@@ -31,7 +31,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnBuild(UIBuildContext context, WorldDetailsUIModel model)
         {
-            
+
         }
     }
 }

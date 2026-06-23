@@ -59,20 +59,11 @@ namespace StardustSandbox.Core.UI.Handlers
                 throw new InvalidOperationException($"No pool found for element type {typeof(T).FullName}.");
             }
 
-            T value;
-
-            if (pool.TryDequeue(out IPoolableObject poolableObject))
-            {
-                value = (T)poolableObject;
-            }
-            else
-            {
-                value = new();
-            }
+            T value = pool.TryDequeue(out IPoolableObject poolableObject) ? (T)poolableObject : new();
 
             this.activeElements.Add(value);
             this.activeElementCount++;
-            
+
             return value;
         }
 

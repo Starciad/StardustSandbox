@@ -29,7 +29,6 @@ using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Common;
-using StardustSandbox.Core.UI.Models;
 using StardustSandbox.Core.WorldSystem;
 
 using System;

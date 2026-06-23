@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.UI.Common
     {
         internal HudUI(HudUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
         {
-            
+
         }
 
         protected override void OnBuild(UIBuildContext context, HudUIModel model)

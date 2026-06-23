@@ -244,7 +244,7 @@ namespace StardustSandbox.Core.UI.Elements
             }
 
             // Remove from previous parent if necessary
-            element.parent?.children.Remove(element);
+            _ = (element.parent?.children.Remove(element));
             element.parent = this;
 
             element.RepositionRelativeToParent();

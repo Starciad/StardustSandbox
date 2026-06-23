@@ -26,7 +26,7 @@ namespace StardustSandbox.Core.UI.Common
     {
         internal PenSettingsUI(PenSettingsUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
         {
-           
+
         }
 
         protected override void OnBuild(UIBuildContext context, PenSettingsUIModel model)

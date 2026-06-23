@@ -33,7 +33,7 @@ namespace StardustSandbox.Core.UI.Common
     {
         internal AchievementsUI(AchievementsUIDependencies dependencies, UIElementHandler elementHandler, GameScreen gameScreen) : base(dependencies, elementHandler, gameScreen)
         {
-        
+
         }
 
         protected override void OnBuild(UIBuildContext context, AchievementsUIModel model)
@@ -51,7 +51,7 @@ namespace StardustSandbox.Core.UI.Common
         {
             // Background
             Image panel = scope.AddImage();
-            
+
             panel.Alignment = UIDirection.Center;
             panel.Size = new(420.0f, 568.0f);
             panel.Texture = this.Dependencies.AssetDatabase.GetTexture(TextureIndex.UIBackgroundAchievements);
