@@ -95,27 +95,8 @@ namespace StardustSandbox.Core.Enums.Indexers
 
         #region UI
 
-        UIBackgroundAchievements,
-        UIBackgroundEnvironmentSettings,
-        UIBackgroundGeneratorSettings,
-        UIBackgroundHudHorizontalToolbar,
-        UIBackgroundHudVerticalToolbar,
-        UIBackgroundInformation,
-        UIBackgroundItemExplorer,
-        UIBackgroundItemSearch,
-        UIBackgroundOptions,
-        UIBackgroundPause,
-        UIBackgroundPenSettings,
-        UIBackgroundSave,
-        UIBackgroundSelector,
-        UIBackgroundTemperatureSettings,
-        UIBackgroundTutorial,
-        UIBackgroundWorldExplorer,
-        UIBackgroundWorldSettings,
-        UIButtons,
-        UISizeSlider,
-        UISliderInputOrnament,
-        UITextInputOrnament,
+        UIElements,
+        UIPanels,
         UITutorial,
 
         #endregion
