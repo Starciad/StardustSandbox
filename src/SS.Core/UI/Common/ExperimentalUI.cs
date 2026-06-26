@@ -31,7 +31,7 @@ namespace StardustSandbox.Core.UI.Common
 
         protected override void OnBuild(UIBuildContext context, ExperimentalUIModel model)
         {
-
+            using UIBuildScope scope = context.BeginLayout();
         }
     }
 }
