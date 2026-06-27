@@ -21,84 +21,18 @@ namespace StardustSandbox.Core.Enums.Indexers
     {
         None,
 
-        #region General
-
         Pixel,
-        Achievements,
-        Actors,
-        Cursors,
-        Elements,
-        Frames,
-
-        #endregion
-
-        #region Backgrounds
-
-        BackgroundClouds,
-        BackgroundOcean,
-
-        #endregion
-
-        #region BGOs
-
-        BgoCelestialBodies,
-        BgoClouds,
-
-        #endregion
-
-        #region Characters
-
-        CharacterStarciad,
-
-        #endregion
-
-        #region Game
-
-        GameTitle,
-
-        #endregion
-
-        #region Icons
-
-        IconActors,
-        IconElements,
-        IconKeys,
-        IconTools,
-        IconUI,
-
-        #endregion
-
-        #region Miscellaneous
-
-        MiscellaneousTheatricalCurtains,
-
-        #endregion
-
-        #region Patterns
-
-        PatternDiamonds,
-
-        #endregion
-
-        #region Shapes
-
-        ShapeSquares,
-
-        #endregion
-
-        #region ThirdParty
-
-        ThirdPartyMonogame,
-        ThirdPartyXna,
-
-        #endregion
-
-        #region UI
-
         UIElements,
         UIPanels,
         UITutorial,
-
-        #endregion
+        Achievements,
+        Actors,
+        Backgrounds,
+        BGOs,
+        Cursors,
+        Elements,
+        Frames,
+        Icons,
+        Patterns,
     }
 }
