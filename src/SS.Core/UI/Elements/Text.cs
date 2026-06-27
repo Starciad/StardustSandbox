@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace StardustSandbox.Core.UI.Elements.Common
+namespace StardustSandbox.Core.UI.Elements
 {
     internal sealed class Text : UIElement
     {

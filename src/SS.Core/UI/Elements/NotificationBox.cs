@@ -26,7 +26,7 @@ using StardustSandbox.Core.Enums.Indexers;
 using System;
 using System.Collections.Generic;
 
-namespace StardustSandbox.Core.UI.Elements.Common
+namespace StardustSandbox.Core.UI.Elements
 {
     internal sealed class NotificationBox : UIElement
     {

@@ -27,7 +27,7 @@ using StardustSandbox.Core.Serialization.Settings;
 
 using System;
 
-namespace StardustSandbox.Core.UI.Elements.Common
+namespace StardustSandbox.Core.UI.Elements
 {
     internal sealed class TooltipBox : UIElement
     {

@@ -20,7 +20,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Enums.Directions;
 
-namespace StardustSandbox.Core.UI.Elements.Common
+namespace StardustSandbox.Core.UI.Elements
 {
     internal sealed class SliceImage : UIElement
     {
