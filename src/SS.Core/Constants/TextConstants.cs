@@ -24,14 +24,14 @@ namespace StardustSandbox.Core.Constants
     {
         internal static readonly BorderDirectionOffset[] BORDER_DIRECTION_OFFSETS =
         [
-            new(LabelBorderDirection.North,     new(0.0f, -1.0f)),
-            new(LabelBorderDirection.NorthEast, new(1.0f, -1.0f)),
-            new(LabelBorderDirection.East,      new(1.0f, 0.0f)),
-            new(LabelBorderDirection.SouthEast, new(1.0f, 1.0f)),
-            new(LabelBorderDirection.South,     new(0.0f, 1.0f)),
-            new(LabelBorderDirection.SouthWest, new(-1.0f, 1.0f)),
-            new(LabelBorderDirection.West,      new(-1.0f, 0.0f)),
-            new(LabelBorderDirection.NorthWest, new(-1.0f, -1.0f))
+            new(TextBorderDirections.North,     new(0.0f, -1.0f)),
+            new(TextBorderDirections.NorthEast, new(1.0f, -1.0f)),
+            new(TextBorderDirections.East,      new(1.0f, 0.0f)),
+            new(TextBorderDirections.SouthEast, new(1.0f, 1.0f)),
+            new(TextBorderDirections.South,     new(0.0f, 1.0f)),
+            new(TextBorderDirections.SouthWest, new(-1.0f, 1.0f)),
+            new(TextBorderDirections.West,      new(-1.0f, 0.0f)),
+            new(TextBorderDirections.NorthWest, new(-1.0f, -1.0f))
         ];
     }
 }

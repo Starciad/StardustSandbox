@@ -51,7 +51,7 @@ namespace StardustSandbox.Core.UI.Elements.Common
         // UI children
         private readonly Image background;
         private readonly Image icon;
-        private readonly Label label;
+        private readonly Text text;
 
         // Queue
         private readonly Queue<NotificationEntry> notifications = new();
@@ -73,7 +73,7 @@ namespace StardustSandbox.Core.UI.Elements.Common
             {
                 Size = Vector2.One,
                 Color = new(AAP64ColorPalette.DarkGray, 120),
-                Alignment = UIDirection.South,
+                Alignment = UIAlignment.South,
             };
 
             this.icon = new()
@@ -81,20 +81,20 @@ namespace StardustSandbox.Core.UI.Elements.Common
                 Size = new(32f),
                 Scale = new(2.0f),
                 Color = AAP64ColorPalette.White,
-                Alignment = UIDirection.West,
+                Alignment = UIAlignment.West,
                 Margin = new(16.0f, 0.0f),
             };
 
-            this.label = new(assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco))
+            this.text = new(assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco))
             {
                 Scale = new(0.11f),
                 Color = AAP64ColorPalette.White,
-                Alignment = UIDirection.West,
+                Alignment = UIAlignment.West,
                 Margin = new(this.icon.Size.X + this.icon.Margin.X + 16.0f, 0.0f),
             };
 
             this.background.AddChild(this.icon);
-            this.background.AddChild(this.label);
+            this.background.AddChild(this.text);
             AddChild(this.background);
         }
 
@@ -174,10 +174,10 @@ namespace StardustSandbox.Core.UI.Elements.Common
             // Apply UI values immediately on the game/main thread
             this.icon.Texture = this.assetDatabase.GetTexture(entry.IconTextureIndex);
             this.icon.SourceRectangle = entry.IconSourceRectangle;
-            this.label.TextContent = entry.Message;
+            this.text.TextContent = entry.Message;
 
             // Recompute background size based on label/icon sizes.
-            this.background.Scale = new(this.label.Size.X + this.icon.Size.X + 48.0f, 88.0f);
+            this.background.Scale = new(this.text.Size.X + this.icon.Size.X + 48.0f, 88.0f);
 
             // Set state to showing and start timer
             this.state = DisplayState.Showing;

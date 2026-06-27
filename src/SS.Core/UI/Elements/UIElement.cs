@@ -42,11 +42,13 @@ namespace StardustSandbox.Core.UI.Elements
             get => this.parent;
             set
             {
-                if (this.parent != value)
+                if (this.parent == value)
                 {
-                    this.parent = value;
-                    RepositionRelativeToParent();
+                    return;
                 }
+
+                this.parent = value;
+                RepositionRelativeToParent();
             }
         }
         internal Vector2 Position
@@ -54,11 +56,13 @@ namespace StardustSandbox.Core.UI.Elements
             get => this.position;
             set
             {
-                if (this.position != value)
+                if (this.position == value)
                 {
-                    this.position = value;
-                    RepositionChildren();
+                    return;
                 }
+
+                this.position = value;
+                RepositionChildren();
             }
         }
         internal virtual Vector2 Size
@@ -66,11 +70,13 @@ namespace StardustSandbox.Core.UI.Elements
             get => this.rawSize * this.scale;
             set
             {
-                if (this.rawSize != value)
+                if (this.rawSize == value)
                 {
-                    this.rawSize = value;
-                    RepositionRelativeToParent();
+                    return;
                 }
+
+                this.rawSize = value;
+                RepositionRelativeToParent();
             }
         }
         internal Vector2 Margin
@@ -78,11 +84,13 @@ namespace StardustSandbox.Core.UI.Elements
             get => this.margin;
             set
             {
-                if (this.margin != value)
+                if (this.margin == value)
                 {
-                    this.margin = value;
-                    RepositionRelativeToParent();
+                    return;
                 }
+
+                this.margin = value;
+                RepositionRelativeToParent();
             }
         }
         internal Vector2 Scale
@@ -90,24 +98,28 @@ namespace StardustSandbox.Core.UI.Elements
             get => this.scale;
             set
             {
-                if (this.scale != value)
+                if (this.scale == value)
                 {
-                    this.scale = value;
-
-                    RepositionRelativeToParent();
+                    return;
                 }
+
+                this.scale = value;
+                PropagateScaleToChildren();
+                RepositionRelativeToParent();
             }
         }
-        internal UIDirection Alignment
+        internal UIAlignment Alignment
         {
             get => this.alignment;
             set
             {
-                if (this.alignment != value)
+                if (this.alignment == value)
                 {
-                    this.alignment = value;
-                    RepositionRelativeToParent();
+                    return;
                 }
+
+                this.alignment = value;
+                RepositionRelativeToParent();
             }
         }
 
@@ -117,7 +129,7 @@ namespace StardustSandbox.Core.UI.Elements
         private Vector2 rawSize;
         private Vector2 margin;
         private Vector2 scale;
-        private UIDirection alignment;
+        private UIAlignment alignment;
 
         private readonly List<UIElement> children = [];
 
@@ -126,46 +138,46 @@ namespace StardustSandbox.Core.UI.Elements
             Reset();
         }
 
-        private static Vector2 GetAnchoredPosition(in RectangleF rect1, in RectangleF rect2, in UIDirection anchor, in Vector2 margin)
+        private static Vector2 GetAnchoredPosition(in RectangleF rect1, in RectangleF rect2, in UIAlignment anchor, in Vector2 margin)
         {
             float x = rect2.Location.X;
             float y = rect2.Location.Y;
 
             switch (anchor)
             {
-                case UIDirection.Center:
+                case UIAlignment.Center:
                     x += (rect2.Size.X - rect1.Size.X) / 2.0f;
                     y += (rect2.Size.Y - rect1.Size.Y) / 2.0f;
                     break;
-                case UIDirection.North:
+                case UIAlignment.North:
                     x += (rect2.Size.X - rect1.Size.X) / 2.0f;
                     y += 0.0f;
                     break;
-                case UIDirection.Northeast:
+                case UIAlignment.Northeast:
                     x += rect2.Size.X - rect1.Size.X;
                     y += 0.0f;
                     break;
-                case UIDirection.East:
+                case UIAlignment.East:
                     x += rect2.Size.X - rect1.Size.X;
                     y += (rect2.Size.Y - rect1.Size.Y) / 2.0f;
                     break;
-                case UIDirection.Southeast:
+                case UIAlignment.Southeast:
                     x += rect2.Size.X - rect1.Size.X;
                     y += rect2.Size.Y - rect1.Size.Y;
                     break;
-                case UIDirection.South:
+                case UIAlignment.South:
                     x += (rect2.Size.X - rect1.Size.X) / 2.0f;
                     y += rect2.Size.Y - rect1.Size.Y;
                     break;
-                case UIDirection.Southwest:
+                case UIAlignment.Southwest:
                     x += 0f;
                     y += rect2.Size.Y - rect1.Size.Y;
                     break;
-                case UIDirection.West:
+                case UIAlignment.West:
                     x += 0f;
                     y += (rect2.Size.Y - rect1.Size.Y) / 2.0f;
                     break;
-                case UIDirection.Northwest:
+                case UIAlignment.Northwest:
                 default:
                     x += 0.0f;
                     y += 0.0f;
@@ -205,6 +217,16 @@ namespace StardustSandbox.Core.UI.Elements
             }
 
             RepositionChildren();
+        }
+
+        private void PropagateScaleToChildren()
+        {
+            foreach (UIElement child in this.children)
+            {
+                child.scale *= this.scale;
+                child.PropagateScaleToChildren();
+                child.RepositionRelativeToParent();
+            }
         }
 
         private static RectangleF CalculateTotalBounds(UIElement element)
@@ -293,7 +315,7 @@ namespace StardustSandbox.Core.UI.Elements
 
         public virtual void Reset()
         {
-            this.alignment = UIDirection.Northwest;
+            this.alignment = UIAlignment.Northwest;
 
             this.position = Vector2.Zero;
             this.rawSize = Vector2.Zero;

@@ -21,9 +21,9 @@ using StardustSandbox.Core.Enums.UI;
 
 namespace StardustSandbox.Core.UI.Texts
 {
-    internal readonly struct BorderDirectionOffset(LabelBorderDirection direction, Vector2 offset)
+    internal readonly struct BorderDirectionOffset(TextBorderDirections direction, Vector2 offset)
     {
-        internal readonly LabelBorderDirection Direction => direction;
+        internal readonly TextBorderDirections Direction => direction;
         internal readonly Vector2 Offset => offset;
     }
 }

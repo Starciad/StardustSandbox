@@ -15,8 +15,11 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using StardustSandbox.Core.Enums.Directions;
+using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
+using StardustSandbox.Core.UI.Elements.Common;
 using StardustSandbox.Core.UI.Handlers;
 using StardustSandbox.Core.UI.Models;
 
@@ -29,9 +32,34 @@ namespace StardustSandbox.Core.UI.Common
 
         }
 
+        private Container BuildPage1(UIBuildScope scope)
+        {
+            Container container = scope.AddContainer();
+            container.Size = this.GameScreen.Viewport;
+
+            Image panelImage = scope.AddImage();
+            panelImage.Texture = this.Dependencies.AssetDatabase.GetTexture(TextureIndex.UIPanels);
+            panelImage.SourceRectangle = new(0, 0, 542, 270);
+            panelImage.Scale = new(1.0f);
+            panelImage.Size = new(542.0f, 270.0f);
+            panelImage.Alignment = UIAlignment.Center;
+
+            container.AddChild(panelImage);
+
+            return container;
+        }
+
         protected override void OnBuild(UIBuildContext context, ExperimentalUIModel model)
         {
             using UIBuildScope scope = context.BeginLayout();
+
+            Button nextPageButton = scope.AddButton();
+            Button previousPageButton = scope.AddButton();
+
+            Container[] containers =
+            [
+                BuildPage1(scope)
+            ];
         }
     }
 }

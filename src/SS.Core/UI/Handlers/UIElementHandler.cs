@@ -35,16 +35,10 @@ namespace StardustSandbox.Core.UI.Handlers
         private readonly List<UIElement> activeElements = [];
         private readonly Dictionary<Type, ObjectPool> elementPools = new()
         {
-            // Standard
             [typeof(Container)] = new(),
             [typeof(Image)] = new(),
-            [typeof(Label)] = new(),
             [typeof(SliceImage)] = new(),
             [typeof(Text)] = new(),
-
-            // Specials
-            [typeof(NotificationBox)] = new(),
-            [typeof(TooltipBox)] = new()
         };
 
         internal UIElementHandler()

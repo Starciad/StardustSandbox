@@ -64,7 +64,7 @@ namespace StardustSandbox.Core.Databases
             ConfirmUIDependencies confirmUIDependencies = new(assetDatabase, gameHandler, soundEffectManager, uiManager);
             CreditsUIDependencies creditsUIDependencies = new(ambientManager, assetDatabase, songManager, uiManager, world);
             EnvironmentSettingsUIDependencies environmentSettingsUIDependencies = new(assetDatabase, gameHandler, soundEffectManager, uiManager, world);
-            ExperimentalUIDependencies experimentalUIDependencies = new();
+            ExperimentalUIDependencies experimentalUIDependencies = new(assetDatabase);
             GeneratorSettingsUIDependencies generatorSettingsUIDependencies = new(assetDatabase, gameHandler, soundEffectManager, uiManager, world);
             HudUIDependencies hudUIDependencies = new(achievementManager, assetDatabase, catalogDatabase, gameHandler, playerInputController, soundEffectManager, uiManager);
             InformationUIDependencies informationUIDependencies = new(actorManager, assetDatabase, gameHandler, soundEffectManager, uiManager, world);

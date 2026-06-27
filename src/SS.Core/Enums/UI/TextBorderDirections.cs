@@ -20,7 +20,7 @@ using System;
 namespace StardustSandbox.Core.Enums.UI
 {
     [Flags]
-    internal enum LabelBorderDirection : byte
+    internal enum TextBorderDirections : byte
     {
         None = 0,
         North = 1 << 0,

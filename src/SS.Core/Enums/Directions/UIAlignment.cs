@@ -17,7 +17,7 @@
 
 namespace StardustSandbox.Core.Enums.Directions
 {
-    internal enum UIDirection : byte
+    internal enum UIAlignment : byte
     {
         /// <summary>
         /// (.)

@@ -15,15 +15,12 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Interfaces.UI;
-
-namespace StardustSandbox.Core.UI.Dependencies
+namespace StardustSandbox.Core.Enums.UI
 {
-    internal sealed class ExperimentalUIDependencies(
-        AssetDatabase assetDatabase
-    ) : IUIDependencies
+    internal enum TextSize : byte
     {
-        internal AssetDatabase AssetDatabase => assetDatabase;
+        Small = 0,
+        Medium = 1,
+        Large = 2,
     }
 }

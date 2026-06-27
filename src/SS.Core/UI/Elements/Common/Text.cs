@@ -18,8 +18,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.UI.Texts;
 
 using System;
@@ -50,6 +48,7 @@ namespace StardustSandbox.Core.UI.Elements.Common
         internal float LineHeight { get; set; } = 1.0f;
         internal float WordSpacing { get; set; } = 0.0f;
         internal int LineCount => this.wrappedLines.Count;
+        internal bool HasTextContent => !string.IsNullOrWhiteSpace(this.textContent);
         internal string TextContent
         {
             get => this.textContent;
@@ -57,7 +56,10 @@ namespace StardustSandbox.Core.UI.Elements.Common
             {
                 if (value is not null && !this.textContent.Equals(value))
                 {
-                    WrapContent(value);
+                    if (this.WrapText)
+                    {
+                        WrapContent(value);
+                    }
 
                     this.textContent = value;
                     this.isTextContentDirty = true;
@@ -66,11 +68,10 @@ namespace StardustSandbox.Core.UI.Elements.Common
                 }
             }
         }
+
         internal Color Color { get; set; }
-        internal LabelBorderDirection BorderDirections { get; set; }
-        internal float BorderThickness { get; set; }
-        internal float BorderOffset { get; set; }
-        internal Color BorderColor { get; set; }
+        internal TextBorderSettings BorderSettings { get; set; }
+        internal bool WrapText { get; set; }
 
         private string textContent;
 
@@ -92,44 +93,22 @@ namespace StardustSandbox.Core.UI.Elements.Common
             this.SpriteFont = spriteFont;
         }
 
-        private void DrawBorders(SpriteBatch spriteBatch, Vector2 position)
+        protected override void OnDraw(SpriteBatch spriteBatch)
         {
-            if (this.BorderDirections == LabelBorderDirection.None)
+            if (!this.HasTextContent)
             {
                 return;
             }
 
-            for (int i = 0; i < TextConstants.BORDER_DIRECTION_OFFSETS.Length; i++)
+            Vector2 position = new(0f, this.Position.Y);
+
+            foreach (string line in this.wrappedLines)
             {
-                BorderDirectionOffset borderDirectionOffset = TextConstants.BORDER_DIRECTION_OFFSETS[i];
+                position.X = this.Position.X;
 
-                if ((this.BorderDirections & borderDirectionOffset.Direction) != 0)
-                {
-                    for (float t = 0; t < this.BorderThickness; t += 1.0f)
-                    {
-                        float scale = (t + 1) / this.BorderThickness;
-                        Vector2 offset = borderDirectionOffset.Offset * this.BorderOffset * scale;
-                        spriteBatch.DrawString(this.SpriteFont, this.textContent, position + offset, this.BorderColor, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
-                    }
-                }
-            }
-        }
+                spriteBatch.DrawString(this.SpriteFont, line, position, this.Color, 0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0f);
 
-        protected override void OnDraw(SpriteBatch spriteBatch)
-        {
-            if (!string.IsNullOrWhiteSpace(this.textContent))
-            {
-                Vector2 position = new(0f, this.Position.Y);
-
-                foreach (string line in this.wrappedLines)
-                {
-                    position.X = this.Position.X;
-
-                    DrawBorders(spriteBatch, position);
-                    spriteBatch.DrawString(this.SpriteFont, line, position, this.Color, 0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0f);
-
-                    position.Y += this.LineHeight * this.SpriteFont.LineSpacing * this.Scale.Y;
-                }
+                position.Y += this.LineHeight * this.SpriteFont.LineSpacing * this.Scale.Y;
             }
         }
 

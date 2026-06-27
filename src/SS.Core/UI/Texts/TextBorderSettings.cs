@@ -15,15 +15,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Databases;
-using StardustSandbox.Core.Interfaces.UI;
+using Microsoft.Xna.Framework;
 
-namespace StardustSandbox.Core.UI.Dependencies
+using StardustSandbox.Core.Enums.UI;
+
+namespace StardustSandbox.Core.UI.Texts
 {
-    internal sealed class ExperimentalUIDependencies(
-        AssetDatabase assetDatabase
-    ) : IUIDependencies
+    internal struct TextBorderSettings
     {
-        internal AssetDatabase AssetDatabase => assetDatabase;
+        internal TextBorderDirections BorderDirections { get; set; }
+        internal float BorderThickness { get; set; }
+        internal float BorderOffset { get; set; }
+        internal Color BorderColor { get; set; }
     }
 }

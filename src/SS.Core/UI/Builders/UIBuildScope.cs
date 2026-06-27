@@ -69,11 +69,6 @@ namespace StardustSandbox.Core.UI.Builders
             return AddElement<Image>();
         }
 
-        internal Label AddLabel()
-        {
-            return AddElement<Label>();
-        }
-
         internal SliceImage AddSliceImage()
         {
             return AddElement<SliceImage>();

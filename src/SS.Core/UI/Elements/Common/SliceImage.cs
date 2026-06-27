@@ -76,47 +76,47 @@ namespace StardustSandbox.Core.UI.Elements.Common
             int tileHeight = this.TileSize.Y;
 
             // Center
-            this.slices[(byte)UIDirection.Center].SetSourceRectangle(
+            this.slices[(byte)UIAlignment.Center].SetSourceRectangle(
                 new(originX + tileWidth, originY + tileHeight, tileWidth, tileHeight)
             );
 
             // North
-            this.slices[(byte)UIDirection.North].SetSourceRectangle(
+            this.slices[(byte)UIAlignment.North].SetSourceRectangle(
                 new(originX + tileWidth, originY, tileWidth, tileHeight)
             );
 
             // Northeast
-            this.slices[(byte)UIDirection.Northeast].SetSourceRectangle(
+            this.slices[(byte)UIAlignment.Northeast].SetSourceRectangle(
                 new(originX + (tileWidth * 2), originY, tileWidth, tileHeight)
             );
 
             // East
-            this.slices[(byte)UIDirection.East].SetSourceRectangle(
+            this.slices[(byte)UIAlignment.East].SetSourceRectangle(
                 new(originX + (tileWidth * 2), originY + tileHeight, tileWidth, tileHeight)
             );
 
             // Southeast
-            this.slices[(byte)UIDirection.Southeast].SetSourceRectangle(
+            this.slices[(byte)UIAlignment.Southeast].SetSourceRectangle(
                 new(originX + (tileWidth * 2), originY + (tileHeight * 2), tileWidth, tileHeight)
             );
 
             // South
-            this.slices[(byte)UIDirection.South].SetSourceRectangle(
+            this.slices[(byte)UIAlignment.South].SetSourceRectangle(
                 new(originX + tileWidth, originY + (tileHeight * 2), tileWidth, tileHeight)
             );
 
             // Southwest
-            this.slices[(byte)UIDirection.Southwest].SetSourceRectangle(
+            this.slices[(byte)UIAlignment.Southwest].SetSourceRectangle(
                 new(originX, originY + (tileHeight * 2), tileWidth, tileHeight)
             );
 
             // West
-            this.slices[(byte)UIDirection.West].SetSourceRectangle(
+            this.slices[(byte)UIAlignment.West].SetSourceRectangle(
                 new(originX, originY + tileHeight, tileWidth, tileHeight)
             );
 
             // Northwest
-            this.slices[(byte)UIDirection.Northwest].SetSourceRectangle(
+            this.slices[(byte)UIAlignment.Northwest].SetSourceRectangle(
                 new(originX, originY, tileWidth, tileHeight)
             );
         }
@@ -132,40 +132,40 @@ namespace StardustSandbox.Core.UI.Elements.Common
             int tileHeight = this.TileSize.Y;
 
             // Center
-            this.slices[(byte)UIDirection.Center].SetPosition(this.Position);
-            this.slices[(byte)UIDirection.Center].SetScale(this.TileScale);
+            this.slices[(byte)UIAlignment.Center].SetPosition(this.Position);
+            this.slices[(byte)UIAlignment.Center].SetScale(this.TileScale);
 
             // North
-            this.slices[(byte)UIDirection.North].SetPosition(new(this.Position.X, this.Position.Y - tileHeight));
-            this.slices[(byte)UIDirection.North].SetScale(new(this.TileScale.X, 1));
+            this.slices[(byte)UIAlignment.North].SetPosition(new(this.Position.X, this.Position.Y - tileHeight));
+            this.slices[(byte)UIAlignment.North].SetScale(new(this.TileScale.X, 1));
 
             // Northeast
-            this.slices[(byte)UIDirection.Northeast].SetPosition(new(this.Position.X + (tileWidth * this.TileScale.X), this.Position.Y - tileHeight));
-            this.slices[(byte)UIDirection.Northeast].SetScale(Vector2.One);
+            this.slices[(byte)UIAlignment.Northeast].SetPosition(new(this.Position.X + (tileWidth * this.TileScale.X), this.Position.Y - tileHeight));
+            this.slices[(byte)UIAlignment.Northeast].SetScale(Vector2.One);
 
             // East
-            this.slices[(byte)UIDirection.East].SetPosition(new(this.Position.X + (tileWidth * this.TileScale.X), this.Position.Y));
-            this.slices[(byte)UIDirection.East].SetScale(new(1, this.TileScale.Y));
+            this.slices[(byte)UIAlignment.East].SetPosition(new(this.Position.X + (tileWidth * this.TileScale.X), this.Position.Y));
+            this.slices[(byte)UIAlignment.East].SetScale(new(1, this.TileScale.Y));
 
             // Southeast
-            this.slices[(byte)UIDirection.Southeast].SetPosition(new(this.Position.X + (tileWidth * this.TileScale.X), this.Position.Y + (tileHeight * this.TileScale.Y)));
-            this.slices[(byte)UIDirection.Southeast].SetScale(Vector2.One);
+            this.slices[(byte)UIAlignment.Southeast].SetPosition(new(this.Position.X + (tileWidth * this.TileScale.X), this.Position.Y + (tileHeight * this.TileScale.Y)));
+            this.slices[(byte)UIAlignment.Southeast].SetScale(Vector2.One);
 
             // South
-            this.slices[(byte)UIDirection.South].SetPosition(new(this.Position.X, this.Position.Y + (tileHeight * this.TileScale.Y)));
-            this.slices[(byte)UIDirection.South].SetScale(new(this.TileScale.X, 1));
+            this.slices[(byte)UIAlignment.South].SetPosition(new(this.Position.X, this.Position.Y + (tileHeight * this.TileScale.Y)));
+            this.slices[(byte)UIAlignment.South].SetScale(new(this.TileScale.X, 1));
 
             // Southwest
-            this.slices[(byte)UIDirection.Southwest].SetPosition(new(this.Position.X - tileWidth, this.Position.Y + (tileHeight * this.TileScale.Y)));
-            this.slices[(byte)UIDirection.Southwest].SetScale(Vector2.One);
+            this.slices[(byte)UIAlignment.Southwest].SetPosition(new(this.Position.X - tileWidth, this.Position.Y + (tileHeight * this.TileScale.Y)));
+            this.slices[(byte)UIAlignment.Southwest].SetScale(Vector2.One);
 
             // West
-            this.slices[(byte)UIDirection.West].SetPosition(new(this.Position.X - tileWidth, this.Position.Y));
-            this.slices[(byte)UIDirection.West].SetScale(new(1, this.TileScale.Y));
+            this.slices[(byte)UIAlignment.West].SetPosition(new(this.Position.X - tileWidth, this.Position.Y));
+            this.slices[(byte)UIAlignment.West].SetScale(new(1, this.TileScale.Y));
 
             // Northwest
-            this.slices[(byte)UIDirection.Northwest].SetPosition(new(this.Position.X - tileWidth, this.Position.Y - tileHeight));
-            this.slices[(byte)UIDirection.Northwest].SetScale(Vector2.One);
+            this.slices[(byte)UIAlignment.Northwest].SetPosition(new(this.Position.X - tileWidth, this.Position.Y - tileHeight));
+            this.slices[(byte)UIAlignment.Northwest].SetScale(Vector2.One);
         }
 
         protected override void OnDraw(SpriteBatch spriteBatch)

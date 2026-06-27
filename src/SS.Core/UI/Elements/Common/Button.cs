@@ -30,12 +30,12 @@ namespace StardustSandbox.Core.UI.Elements.Common
 
         private readonly Image backgroundImage = new();
         private readonly Image iconImage = new();
-        private readonly Label nameLabel = new();
+        private readonly Text nameText = new();
 
         public Button()
         {
             this.backgroundImage.AddChild(this.iconImage);
-            this.backgroundImage.AddChild(this.nameLabel);
+            this.backgroundImage.AddChild(this.nameText);
             AddChild(this.backgroundImage);
         }
 
@@ -49,7 +49,7 @@ namespace StardustSandbox.Core.UI.Elements.Common
 
             this.backgroundImage.Reset();
             this.iconImage.Reset();
-            this.nameLabel.Reset();
+            this.nameText.Reset();
         }
 
         internal void SetBackground(Texture2D texture, Rectangle? sourceRectangle)
@@ -64,7 +64,7 @@ namespace StardustSandbox.Core.UI.Elements.Common
             }
         }
 
-        internal void SetIcon(Texture2D texture, Rectangle? sourceRectangle, UIDirection alignment)
+        internal void SetIcon(Texture2D texture, Rectangle? sourceRectangle, UIAlignment alignment)
         {
             this.HasIcon = true;
             this.iconImage.Texture = texture;
@@ -81,9 +81,9 @@ namespace StardustSandbox.Core.UI.Elements.Common
         internal void SetText(string name, SpriteFont spriteFont, Color color)
         {
             this.HasText = true;
-            this.nameLabel.TextContent = name;
-            this.nameLabel.SpriteFont = spriteFont;
-            this.nameLabel.Color = color;
+            this.nameText.TextContent = name;
+            this.nameText.SpriteFont = spriteFont;
+            this.nameText.Color = color;
         }
     }
 }

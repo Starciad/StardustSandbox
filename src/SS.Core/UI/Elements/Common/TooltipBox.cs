@@ -35,7 +35,7 @@ namespace StardustSandbox.Core.UI.Elements.Common
         internal Vector2 MaximumSize { get; set; }
 
         private readonly SliceImage background;
-        private readonly Label title;
+        private readonly Text title;
         private readonly Text description;
 
         private readonly CursorManager cursorManager;
@@ -55,7 +55,7 @@ namespace StardustSandbox.Core.UI.Elements.Common
             this.background = new(assetDatabase.GetTexture(TextureIndex.ShapeSquares))
             {
                 Color = AAP64ColorPalette.DarkPurple,
-                Alignment = UIDirection.Center,
+                Alignment = UIAlignment.Center,
                 Size = new(48f),
                 TileSize = new(16),
                 Origin = new(0, 32)
