@@ -20,14 +20,6 @@ namespace StardustSandbox.Core.Enums.Indexers
     internal enum SpriteFontIndex : byte
     {
         None,
-        Arial,
-        BigApple3pm,
-        ComicSansMS,
-        CooperBits,
-        DePixelBreit,
-        DigitalDisco,
-        PixelOperator,
-        VcrOsdMono1001,
-        WindowsCommandPrompt,
+        Font_01,
     }
 }

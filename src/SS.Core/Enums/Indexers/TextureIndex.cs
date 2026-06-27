@@ -22,9 +22,6 @@ namespace StardustSandbox.Core.Enums.Indexers
         None,
 
         Pixel,
-        UIElements,
-        UIPanels,
-        UITutorial,
         Achievements,
         Actors,
         Backgrounds,
@@ -34,5 +31,6 @@ namespace StardustSandbox.Core.Enums.Indexers
         Frames,
         Icons,
         Patterns,
+        UI,
     }
 }

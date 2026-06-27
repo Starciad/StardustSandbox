@@ -85,7 +85,7 @@ namespace StardustSandbox.Core.UI.Elements
                 Margin = new(16.0f, 0.0f),
             };
 
-            this.text = new(assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco))
+            this.text = new(assetDatabase.GetSpriteFont(SpriteFontIndex.Font_01))
             {
                 Scale = new(0.11f),
                 Color = AAP64ColorPalette.White,

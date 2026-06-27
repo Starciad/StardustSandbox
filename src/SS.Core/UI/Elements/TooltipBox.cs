@@ -52,7 +52,7 @@ namespace StardustSandbox.Core.UI.Elements
             this.CanUpdate = true;
             this.Margin = new(60f);
 
-            this.background = new(assetDatabase.GetTexture(TextureIndex.ShapeSquares))
+            this.background = new(assetDatabase.GetTexture(TextureIndex.UI))
             {
                 Color = AAP64ColorPalette.DarkPurple,
                 Alignment = UIAlignment.Center,
@@ -61,13 +61,13 @@ namespace StardustSandbox.Core.UI.Elements
                 Origin = new(0, 32)
             };
 
-            this.title = new(assetDatabase.GetSpriteFont(SpriteFontIndex.DigitalDisco))
+            this.title = new(assetDatabase.GetSpriteFont(SpriteFontIndex.Font_01))
             {
                 Scale = new(0.12f),
                 Margin = Vector2.Zero
             };
 
-            this.description = new(assetDatabase.GetSpriteFont(SpriteFontIndex.PixelOperator))
+            this.description = new(assetDatabase.GetSpriteFont(SpriteFontIndex.Font_01))
             {
                 Scale = new(0.078f),
                 Margin = new(0f, 64f),

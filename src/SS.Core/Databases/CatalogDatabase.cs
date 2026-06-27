@@ -38,14 +38,14 @@ namespace StardustSandbox.Core.Databases
             new(
                 Localization_Catalog.Category_Elements_Name,
                 Localization_Catalog.Category_Elements_Description,
-                TextureIndex.IconElements,
+                TextureIndex.Icons,
                 sourceRectangle: new(32, 0, 32, 32),
 
                 // [0] Powders
                 new Subcategory(
                     name: Localization_Catalog.Subcategory_Elements_Powders_Name,
                     description: Localization_Catalog.Subcategory_Elements_Powders_Description,
-                    textureIndex: TextureIndex.IconElements,
+                    textureIndex: TextureIndex.Icons,
                     sourceRectangle: new(32, 0, 32, 32),
                     
                     // [0] Dirt
@@ -54,7 +54,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_Dirt_Name,
                         description: Localization_Elements.Solid_Movable_Dirt_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(32, 0, 32, 32)
                     ),
 
@@ -64,7 +64,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_Mud_Name,
                         description: Localization_Elements.Solid_Movable_Mud_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(64, 0, 32, 32)
                     ),
 
@@ -74,7 +74,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_Stone_Name,
                         description: Localization_Elements.Solid_Movable_Stone_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(128, 0, 32, 32)
                     ),
 
@@ -84,7 +84,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_Grass_Name,
                         description: Localization_Elements.Solid_Movable_Grass_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(160, 0, 32, 32)
                     ),
 
@@ -94,7 +94,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_Ice_Name,
                         description: Localization_Elements.Solid_Movable_Ice_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(192, 0, 32, 32)
                     ),
 
@@ -104,7 +104,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_Sand_Name,
                         description: Localization_Elements.Solid_Movable_Sand_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(224, 0, 32, 32)
                     ),
 
@@ -114,7 +114,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_Snow_Name,
                         description: Localization_Elements.Solid_Movable_Snow_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(256, 0, 32, 32)
                     ),
 
@@ -124,7 +124,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_Corruption_Name,
                         description: Localization_Elements.Solid_Movable_Corruption_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(288, 0, 32, 32)
                     ),
 
@@ -134,7 +134,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_Salt_Name,
                         description: Localization_Elements.Solid_Movable_Salt_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(224, 64, 32, 32)
                     ),
 
@@ -144,7 +144,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_Ash_Name,
                         description: Localization_Elements.Solid_Movable_Ash_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(192, 96, 32, 32)
                     ),
 
@@ -154,7 +154,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_FertileSoil_Name,
                         description: Localization_Elements.Solid_Movable_FertileSoil_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(96, 128, 32, 32)
                     )
                 ),
@@ -163,7 +163,7 @@ namespace StardustSandbox.Core.Databases
                 new Subcategory(
                     name: Localization_Catalog.Subcategory_Elements_Liquids_Name,
                     description: Localization_Catalog.Subcategory_Elements_Liquids_Description,
-                    textureIndex: TextureIndex.IconElements,
+                    textureIndex: TextureIndex.Icons,
                     sourceRectangle: new(96, 0, 32, 32),
                  
                     // [0] Water
@@ -172,7 +172,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_Water_Name,
                         description: Localization_Elements.Liquid_Water_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(96, 0, 32, 32)
                     ),
 
@@ -182,7 +182,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_Lava_Name,
                         description: Localization_Elements.Liquid_Lava_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(320, 0, 32, 32)
                     ),
 
@@ -192,7 +192,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_Acid_Name,
                         description: Localization_Elements.Liquid_Acid_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(0, 32, 32, 32)
                     ),
 
@@ -202,7 +202,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_Corruption_Name,
                         description: Localization_Elements.Liquid_Corruption_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(192, 32, 32, 32)
                     ),
 
@@ -212,7 +212,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_Oil_Name,
                         description: Localization_Elements.Liquid_Oil_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(192, 64, 32, 32)
                     ),
 
@@ -222,7 +222,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_Saltwater_Name,
                         description: Localization_Elements.Liquid_Saltwater_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(256, 64, 32, 32)
                     ),
 
@@ -232,7 +232,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_BlackPaint_Name,
                         description: Localization_Elements.Liquid_BlackPaint_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(192, 160, 32, 32)
                     ),
 
@@ -242,7 +242,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_WhitePaint_Name,
                         description: Localization_Elements.Liquid_WhitePaint_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(224, 160, 32, 32)
                     ),
 
@@ -252,7 +252,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_RedPaint_Name,
                         description: Localization_Elements.Liquid_RedPaint_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(256, 160, 32, 32)
                     ),
 
@@ -262,7 +262,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_OrangePaint_Name,
                         description: Localization_Elements.Liquid_OrangePaint_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(288, 160, 32, 32)
                     ),
 
@@ -272,7 +272,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_YellowPaint_Name,
                         description: Localization_Elements.Liquid_YellowPaint_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(320, 160, 32, 32)
                     ),
 
@@ -282,7 +282,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_GreenPaint_Name,
                         description: Localization_Elements.Liquid_GreenPaint_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(192, 192, 32, 32)
                     ),
 
@@ -292,7 +292,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_BluePaint_Name,
                         description: Localization_Elements.Liquid_BluePaint_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(224, 192, 32, 32)
                     ),
 
@@ -302,7 +302,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_GrayPaint_Name,
                         description: Localization_Elements.Liquid_GrayPaint_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(256, 192, 32, 32)
                     ),
 
@@ -312,7 +312,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_VioletPaint_Name,
                         description: Localization_Elements.Liquid_VioletPaint_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(288, 192, 32, 32)
                     ),
 
@@ -322,7 +322,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_BrownPaint_Name,
                         description: Localization_Elements.Liquid_BrownPaint_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(320, 192, 32, 32)
                     ),
 
@@ -332,7 +332,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Liquid_Mercury_Name,
                         description: Localization_Elements.Liquid_Mercury_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(160, 192, 32, 32)
                     )
                 ),
@@ -341,7 +341,7 @@ namespace StardustSandbox.Core.Databases
                 new Subcategory(
                     name: Localization_Catalog.Subcategory_Elements_Gases_Name,
                     description: Localization_Catalog.Subcategory_Elements_Gases_Description,
-                    textureIndex: TextureIndex.IconElements,
+                    textureIndex: TextureIndex.Icons,
                     sourceRectangle: new(288, 32, 32, 32),
                  
                     // [0] Corruption
@@ -350,7 +350,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Gas_Corruption_Name,
                         description: Localization_Elements.Gas_Corruption_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(160, 32, 32, 32)
                     ),
 
@@ -360,7 +360,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Gas_Steam_Name,
                         description: Localization_Elements.Gas_Steam_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(256, 32, 32, 32)
                     ),
 
@@ -370,7 +370,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Gas_Smoke_Name,
                         description: Localization_Elements.Gas_Smoke_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(288, 32, 32, 32)
                     ),
 
@@ -380,7 +380,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Gas_AntiCorruption_Name,
                         description: Localization_Elements.Gas_AntiCorruption_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(224, 96, 32, 32)
                     ),
 
@@ -390,7 +390,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Gas_Cloud_Name,
                         description: Localization_Elements.Gas_Cloud_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(0, 128, 32, 32)
                     ),
 
@@ -400,7 +400,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Gas_ChargedCloud_Name,
                         description: Localization_Elements.Gas_ChargedCloud_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(32, 128, 32, 32)
                     ),
 
@@ -410,7 +410,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Gas_LiquefiedPetroleumGas_Name,
                         description: Localization_Elements.Gas_LiquefiedPetroleumGas_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(256, 128, 32, 32)
                     )
                 ),
@@ -419,7 +419,7 @@ namespace StardustSandbox.Core.Databases
                 new Subcategory(
                     name: Localization_Catalog.Subcategory_Elements_Solids_Name,
                     description: Localization_Catalog.Subcategory_Elements_Solids_Description,
-                    textureIndex: TextureIndex.IconElements,
+                    textureIndex: TextureIndex.Icons,
                     sourceRectangle: new(128, 32, 32, 32),
 
                     // [0] Glass
@@ -428,7 +428,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_Glass_Name,
                         description: Localization_Elements.Solid_Immovable_Glass_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(32, 32, 32, 32)
                     ),
 
@@ -438,7 +438,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_Iron_Name,
                         description: Localization_Elements.Solid_Immovable_Iron_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(64, 32, 32, 32)
                     ),
 
@@ -448,7 +448,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_Wall_Name,
                         description: Localization_Elements.Solid_Immovable_Wall_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(96, 32, 32, 32)
                     ),
 
@@ -458,7 +458,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_Wood_Name,
                         description: Localization_Elements.Solid_Immovable_Wood_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(128, 32, 32, 32)
                     ),
 
@@ -468,7 +468,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_Corruption_Name,
                         description: Localization_Elements.Solid_Immovable_Corruption_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(224, 32, 32, 32)
                     ),
 
@@ -478,7 +478,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_RedBrick_Name,
                         description: Localization_Elements.Solid_Immovable_RedBrick_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(320, 32, 32, 32)
                     ),
 
@@ -488,7 +488,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_TreeLeaf_Name,
                         description: Localization_Elements.Solid_Immovable_TreeLeaf_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(0, 64, 32, 32)
                     ),
 
@@ -498,7 +498,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_MountingBlock_Name,
                         description: Localization_Elements.Solid_Immovable_MountingBlock_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(32, 64, 32, 32)
                     ),
 
@@ -508,7 +508,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_DrySponge_Name,
                         description: Localization_Elements.Solid_Immovable_DrySponge_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(32, 96, 32, 32)
                     ),
 
@@ -518,7 +518,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_WetSponge_Name,
                         description: Localization_Elements.Solid_Immovable_WetSponge_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(64, 96, 32, 32)
                     ),
 
@@ -528,7 +528,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_Gold_Name,
                         description: Localization_Elements.Solid_Immovable_Gold_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(96, 96, 32, 32)
                     ),
 
@@ -538,7 +538,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_DryBlackWool_Name,
                         description: Localization_Elements.Solid_Immovable_DryBlackWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(0, 160, 32, 32)
                     ),
 
@@ -548,7 +548,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_DryWhiteWool_Name,
                         description: Localization_Elements.Solid_Immovable_DryWhiteWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(32, 160, 32, 32)
                     ),
 
@@ -558,7 +558,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_DryRedWool_Name,
                         description: Localization_Elements.Solid_Immovable_DryRedWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(64, 160, 32, 32)
                     ),
 
@@ -568,7 +568,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_DryOrangeWool_Name,
                         description: Localization_Elements.Solid_Immovable_DryOrangeWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(96, 160, 32, 32)
                     ),
 
@@ -578,7 +578,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_DryYellowWool_Name,
                         description: Localization_Elements.Solid_Immovable_DryYellowWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(128, 160, 32, 32)
                     ),
 
@@ -588,7 +588,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_DryGreenWool_Name,
                         description: Localization_Elements.Solid_Immovable_DryGreenWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(0, 192, 32, 32)
                     ),
 
@@ -598,7 +598,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_DryGrayWool_Name,
                         description: Localization_Elements.Solid_Immovable_DryGrayWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(32, 192, 32, 32)
                     ),
 
@@ -608,7 +608,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_DryBlueWool_Name,
                         description: Localization_Elements.Solid_Immovable_DryBlueWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(64, 192, 32, 32)
                     ),
 
@@ -618,7 +618,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_DryVioletWool_Name,
                         description: Localization_Elements.Solid_Immovable_DryVioletWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(96, 192, 32, 32)
                     ),
 
@@ -628,7 +628,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_DryBrownWool_Name,
                         description: Localization_Elements.Solid_Immovable_DryBrownWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(128, 192, 32, 32)
                     ),
 
@@ -638,7 +638,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_WetBlackWool_Name,
                         description: Localization_Elements.Solid_Immovable_WetBlackWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(0, 224, 32, 32)
                     ),
 
@@ -648,7 +648,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_WetWhiteWool_Name,
                         description: Localization_Elements.Solid_Immovable_WetWhiteWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(32, 224, 32, 32)
                     ),
 
@@ -658,7 +658,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_WetRedWool_Name,
                         description: Localization_Elements.Solid_Immovable_WetRedWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(64, 224, 32, 32)
                     ),
 
@@ -668,7 +668,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_WetOrangeWool_Name,
                         description: Localization_Elements.Solid_Immovable_WetOrangeWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(96, 224, 32, 32)
                     ),
 
@@ -678,7 +678,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_WetYellowWool_Name,
                         description: Localization_Elements.Solid_Immovable_WetYellowWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(128, 224, 32, 32)
                     ),
 
@@ -688,7 +688,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_WetGreenWool_Name,
                         description: Localization_Elements.Solid_Immovable_WetGreenWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(0, 256, 32, 32)
                     ),
 
@@ -698,7 +698,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_WetGrayWool_Name,
                         description: Localization_Elements.Solid_Immovable_WetGrayWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(32, 256, 32, 32)
                     ),
 
@@ -708,7 +708,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_WetBlueWool_Name,
                         description: Localization_Elements.Solid_Immovable_WetBlueWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(64, 256, 32, 32)
                     ),
 
@@ -718,7 +718,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_WetVioletWool_Name,
                         description: Localization_Elements.Solid_Immovable_WetVioletWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(96, 256, 32, 32)
                     ),
 
@@ -728,7 +728,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_WetBrownWool_Name,
                         description: Localization_Elements.Solid_Immovable_WetBrownWool_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(128, 256, 32, 32)
                     ),
 
@@ -738,7 +738,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_Obsidian_Name,
                         description: Localization_Elements.Solid_Immovable_Obsidian_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(160, 160, 32, 32)
                     )
                 ),
@@ -747,7 +747,7 @@ namespace StardustSandbox.Core.Databases
                 new Subcategory(
                     name: Localization_Catalog.Subcategory_Elements_Energies_Name,
                     description: Localization_Catalog.Subcategory_Elements_Energies_Description,
-                    textureIndex: TextureIndex.IconElements,
+                    textureIndex: TextureIndex.Icons,
                     sourceRectangle: new(64, 64, 32, 32),
                     
                     // [0] Fire
@@ -756,7 +756,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Energy_Fire_Name,
                         description: Localization_Elements.Energy_Fire_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(64, 64, 32, 32)
                     ),
 
@@ -766,7 +766,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Energy_Lightning_Name,
                         description: Localization_Elements.Energy_Lightning_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(64, 128, 32, 32)
                     ),
 
@@ -776,7 +776,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Energy_Electricity_Name,
                         description: Localization_Elements.Energy_Electricity_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(192, 224, 32, 32)
                     )
                 ),
@@ -785,7 +785,7 @@ namespace StardustSandbox.Core.Databases
                 new Subcategory(
                     name: Localization_Catalog.Subcategory_Elements_Explosives_Name,
                     description: Localization_Catalog.Subcategory_Elements_Explosives_Description,
-                    textureIndex: TextureIndex.IconElements,
+                    textureIndex: TextureIndex.Icons,
                     sourceRectangle: new(0, 96, 32, 32),
                  
                     // [0] Bomb
@@ -794,7 +794,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_Bomb_Name,
                         description: Localization_Elements.Solid_Movable_Bomb_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(288, 64, 32, 32)
                     ),
 
@@ -804,7 +804,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_Dynamite_Name,
                         description: Localization_Elements.Solid_Movable_Dynamite_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(320, 64, 32, 32)
                     ),
 
@@ -814,7 +814,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_TNT_Name,
                         description: Localization_Elements.Solid_Movable_TNT_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(0, 96, 32, 32)
                     ),
 
@@ -824,7 +824,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_Gunpowder_Name,
                         description: Localization_Elements.Solid_Movable_Gunpowder_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(224, 128, 32, 32)
                     )
                 ),
@@ -833,7 +833,7 @@ namespace StardustSandbox.Core.Databases
                 new Subcategory(
                     name: Localization_Catalog.Subcategory_Elements_Technologies_Name,
                     description: Localization_Catalog.Subcategory_Elements_Technologies_Description,
-                    textureIndex: TextureIndex.IconElements,
+                    textureIndex: TextureIndex.Icons,
                     sourceRectangle: new(128, 96, 32, 32),
                     
                     // [0] Heater
@@ -842,7 +842,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_Heater_Name,
                         description: Localization_Elements.Solid_Immovable_Heater_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(128, 96, 32, 32)
                     ),
 
@@ -852,7 +852,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_Freezer_Name,
                         description: Localization_Elements.Solid_Immovable_Freezer_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(160, 96, 32, 32)
                     ),
 
@@ -862,7 +862,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_UpwardPusher_Name,
                         description: Localization_Elements.Solid_Immovable_UpwardPusher_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(288, 96, 32, 32)
                     ),
 
@@ -872,7 +872,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_RightwardPusher_Name,
                         description: Localization_Elements.Solid_Immovable_RightwardPusher_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(320, 96, 32, 32)
                     ),
 
@@ -882,7 +882,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_DownwardPusher_Name,
                         description: Localization_Elements.Solid_Immovable_DownwardPusher_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(288, 128, 32, 32)
                     ),
 
@@ -892,7 +892,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_LeftwardPusher_Name,
                         description: Localization_Elements.Solid_Immovable_LeftwardPusher_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(320, 128, 32, 32)
                     ),
 
@@ -902,7 +902,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_Battery_Name,
                         description: Localization_Elements.Solid_Immovable_Battery_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(224, 224, 32, 32)
                     ),
 
@@ -912,7 +912,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_LampOn_Name,
                         description: Localization_Elements.Solid_Immovable_LampOn_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(96, 64, 32, 32)
                     ),
 
@@ -922,7 +922,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_LampOff_Name,
                         description: Localization_Elements.Solid_Immovable_LampOff_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(160, 224, 32, 32)
                     ),
 
@@ -932,7 +932,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_EnergyTransmitter_Name,
                         description: Localization_Elements.Solid_Immovable_EnergyTransmitter_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(256, 224, 32, 32)
                     )
                 ),
@@ -941,7 +941,7 @@ namespace StardustSandbox.Core.Databases
                 new Subcategory(
                     name: Localization_Catalog.Subcategory_Elements_Specials_Name,
                     description: Localization_Catalog.Subcategory_Elements_Specials_Description,
-                    textureIndex: TextureIndex.IconElements,
+                    textureIndex: TextureIndex.Icons,
                     sourceRectangle: new(160, 64, 32, 32),
                  
                     // [0] Void
@@ -950,7 +950,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_Void_Name,
                         description: Localization_Elements.Solid_Immovable_Void_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(128, 64, 32, 32)
                     ),
 
@@ -960,7 +960,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_Clone_Name,
                         description: Localization_Elements.Solid_Immovable_Clone_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(160, 64, 32, 32)
                     ),
 
@@ -970,7 +970,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_Devourer_Name,
                         description: Localization_Elements.Solid_Immovable_Devourer_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(256, 96, 32, 32)
                     )
                 ),
@@ -979,7 +979,7 @@ namespace StardustSandbox.Core.Databases
                 new Subcategory(
                     name: Localization_Catalog.Subcategory_Elements_Vegetation_Name,
                     description: Localization_Catalog.Subcategory_Elements_Vegetation_Description,
-                    textureIndex: TextureIndex.IconElements,
+                    textureIndex: TextureIndex.Icons,
                     sourceRectangle: new(160, 128, 32, 32),
                  
                     // [0] Seed
@@ -988,7 +988,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_Seed_Name,
                         description: Localization_Elements.Solid_Movable_Seed_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(128, 128, 32, 32)
                     ),
 
@@ -998,7 +998,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Movable_Sapling_Name,
                         description: Localization_Elements.Solid_Movable_Sapling_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(160, 128, 32, 32)
                     ),
 
@@ -1008,7 +1008,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Elements.Solid_Immovable_Moss_Name,
                         description: Localization_Elements.Solid_Immovable_Moss_Description,
                         contentType: ItemContentType.Element,
-                        textureIndex: TextureIndex.IconElements,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(192, 128, 32, 32)
                     )
                 )
@@ -1018,14 +1018,14 @@ namespace StardustSandbox.Core.Databases
             new(
                 Localization_Catalog.Category_Tools_Name,
                 Localization_Catalog.Category_Tools_Description,
-                TextureIndex.IconUI,
+                TextureIndex.Icons,
                 sourceRectangle: new(224, 160, 32, 32),
 
                 // [0] Environment
                 new Subcategory(
                     name: Localization_Catalog.Subcategory_Tools_Environment_Name,
                     description: Localization_Catalog.Subcategory_Tools_Environment_Description,
-                    textureIndex: TextureIndex.IconUI,
+                    textureIndex: TextureIndex.Icons,
                     sourceRectangle: new(0, 192, 32, 32),
 
                     // [0] Heat Tool
@@ -1034,7 +1034,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Tools.Environment_Heat_Name,
                         description: Localization_Tools.Environment_Heat_Description,
                         contentType: ItemContentType.Tool,
-                        textureIndex: TextureIndex.IconTools,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(0, 0, 32, 32)
                     ),
 
@@ -1044,7 +1044,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Tools.Environment_Freeze_Name,
                         description: Localization_Tools.Environment_Freeze_Description,
                         contentType: ItemContentType.Tool,
-                        textureIndex: TextureIndex.IconTools,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(32, 0, 32, 32)
                     )
                 ),
@@ -1053,7 +1053,7 @@ namespace StardustSandbox.Core.Databases
                 new Subcategory(
                     name: Localization_Catalog.Subcategory_Tools_Inks_Name,
                     description: Localization_Catalog.Subcategory_Tools_Inks_Description,
-                    textureIndex: TextureIndex.IconTools,
+                    textureIndex: TextureIndex.Icons,
                     sourceRectangle: new(0, 32, 32, 32),
                     
                     // [0] Black Ink Tool
@@ -1062,7 +1062,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Tools.Inks_Black_Name,
                         description: Localization_Tools.Inks_Black_Description,
                         contentType: ItemContentType.Tool,
-                        textureIndex: TextureIndex.IconTools,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(0, 32, 32, 32)
                     ),
 
@@ -1072,7 +1072,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Tools.Inks_White_Name,
                         description: Localization_Tools.Inks_White_Description,
                         contentType: ItemContentType.Tool,
-                        textureIndex: TextureIndex.IconTools,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(32, 32, 32, 32)
                     ),
 
@@ -1082,7 +1082,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Tools.Inks_Red_Name,
                         description: Localization_Tools.Inks_Red_Description,
                         contentType: ItemContentType.Tool,
-                        textureIndex: TextureIndex.IconTools,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(64, 32, 32, 32)
                     ),
 
@@ -1092,7 +1092,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Tools.Inks_Orange_Name,
                         description: Localization_Tools.Inks_Orange_Description,
                         contentType: ItemContentType.Tool,
-                        textureIndex: TextureIndex.IconTools,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(96, 32, 32, 32)
                     ),
 
@@ -1102,7 +1102,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Tools.Inks_Yellow_Name,
                         description: Localization_Tools.Inks_Yellow_Description,
                         contentType: ItemContentType.Tool,
-                        textureIndex: TextureIndex.IconTools,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(128, 32, 32, 32)
                     ),
 
@@ -1112,7 +1112,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Tools.Inks_Green_Name,
                         description: Localization_Tools.Inks_Green_Description,
                         contentType: ItemContentType.Tool,
-                        textureIndex: TextureIndex.IconTools,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(0, 64, 32, 32)
                     ),
 
@@ -1122,7 +1122,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Tools.Inks_Blue_Name,
                         description: Localization_Tools.Inks_Blue_Description,
                         contentType: ItemContentType.Tool,
-                        textureIndex: TextureIndex.IconTools,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(32, 64, 32, 32)
                     ),
 
@@ -1132,7 +1132,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Tools.Inks_Gray_Name,
                         description: Localization_Tools.Inks_Gray_Description,
                         contentType: ItemContentType.Tool,
-                        textureIndex: TextureIndex.IconTools,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(64, 64, 32, 32)
                     ),
 
@@ -1142,7 +1142,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Tools.Inks_Violet_Name,
                         description: Localization_Tools.Inks_Violet_Description,
                         contentType: ItemContentType.Tool,
-                        textureIndex: TextureIndex.IconTools,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(96, 64, 32, 32)
                     ),
 
@@ -1152,7 +1152,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Tools.Inks_Brown_Name,
                         description: Localization_Tools.Inks_Brown_Description,
                         contentType: ItemContentType.Tool,
-                        textureIndex: TextureIndex.IconTools,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(128, 64, 32, 32)
                     )
                 )
@@ -1162,14 +1162,14 @@ namespace StardustSandbox.Core.Databases
             new(
                 Localization_Catalog.Category_Actors_Name,
                 Localization_Catalog.Category_Actors_Description,
-                TextureIndex.IconActors,
+                TextureIndex.Icons,
                 sourceRectangle: new(0, 0, 32, 32),
 
                 // [0] Creatures
                 new Subcategory(
                     name: Localization_Catalog.Subcategory_Actors_Creatures_Name,
                     description: Localization_Catalog.Subcategory_Actors_Creatures_Description,
-                    textureIndex: TextureIndex.IconActors,
+                    textureIndex: TextureIndex.Icons,
                     sourceRectangle: new(0, 0, 32, 32),
 
                     // [0] Gul
@@ -1178,7 +1178,7 @@ namespace StardustSandbox.Core.Databases
                         name: Localization_Actors.Gul_Name,
                         description: Localization_Actors.Gul_Description,
                         contentType: ItemContentType.Actor,
-                        textureIndex: TextureIndex.IconActors,
+                        textureIndex: TextureIndex.Icons,
                         sourceRectangle: new(0, 0, 32, 32)
                     )
                 )

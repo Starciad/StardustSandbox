@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.UI.Common
             container.Size = this.GameScreen.Viewport;
 
             Image panelImage = scope.AddImage();
-            panelImage.Texture = this.Dependencies.AssetDatabase.GetTexture(TextureIndex.UIPanels);
+            panelImage.Texture = this.Dependencies.AssetDatabase.GetTexture(TextureIndex.UI);
             panelImage.SourceRectangle = new(0, 0, 542, 270);
             panelImage.Scale = new(1.0f);
             panelImage.Size = new(542.0f, 270.0f);

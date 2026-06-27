@@ -179,7 +179,7 @@ namespace StardustSandbox.Core
                 );
 
                 this.spriteBatch.Draw(
-                    this.assetDatabase.GetTexture(TextureIndex.ShapeSquares),
+                    this.assetDatabase.GetTexture(TextureIndex.UI),
                     worldPosition,
                     new Rectangle(110, 0, 32, 32),
                     gameplaySettings.PreviewAreaColor

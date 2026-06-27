@@ -142,7 +142,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
 
                     if (this.gameplaySettings.ShowGrid && this.playerInputController.Pen.Tool != PenTool.Visualization)
                     {
-                        spriteBatch.Draw(assetDatabase.GetTexture(TextureIndex.ShapeSquares), targetPosition * WorldConstants.TILE_SIZE, new(32, 0, 32, 32), new(AAP64ColorPalette.White, this.gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(assetDatabase.GetTexture(TextureIndex.UI), targetPosition * WorldConstants.TILE_SIZE, new(32, 0, 32, 32), new(AAP64ColorPalette.White, this.gameplaySettings.GridOpacity), 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                     }
 
                     if (this.world.TileMap.TryGetSlot(targetPosition.ToPoint(), out Slot slot))

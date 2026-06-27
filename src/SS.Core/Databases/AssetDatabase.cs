@@ -32,7 +32,7 @@ namespace StardustSandbox.Core.Databases
         private Texture2D pixelTexture;
 
         private Texture2D[] textures;
-        private SpriteFont[] fonts;
+        private SpriteFont[] spriteFonts;
         private Song[] songs;
         private SoundEffect[] soundEffects;
         private Effect[] effects;
@@ -55,8 +55,8 @@ namespace StardustSandbox.Core.Databases
                 this.contentManager.Load<Effect>(Path.Combine("effects", "gradient_transition")),
             ];
 
-            this.fonts = [
-
+            this.spriteFonts = [
+                this.contentManager.Load<SpriteFont>(Path.Combine("fonts", "font_01")),
             ];
 
             this.songs = [
@@ -89,9 +89,6 @@ namespace StardustSandbox.Core.Databases
 
             this.textures = [
                 this.pixelTexture,
-                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "elements")),
-                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "panels")),
-                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui", "tutorial")),
                 this.contentManager.Load<Texture2D>(Path.Combine("textures", "achievements")),
                 this.contentManager.Load<Texture2D>(Path.Combine("textures", "actors")),
                 this.contentManager.Load<Texture2D>(Path.Combine("textures", "backgrounds")),
@@ -101,6 +98,7 @@ namespace StardustSandbox.Core.Databases
                 this.contentManager.Load<Texture2D>(Path.Combine("textures", "frames")),
                 this.contentManager.Load<Texture2D>(Path.Combine("textures", "icons")),
                 this.contentManager.Load<Texture2D>(Path.Combine("textures", "patterns")),
+                this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui")),
             ];
         }
 
@@ -116,7 +114,7 @@ namespace StardustSandbox.Core.Databases
 
         internal SpriteFont GetSpriteFont(SpriteFontIndex index)
         {
-            return index is SpriteFontIndex.None ? null : this.fonts[((byte)index) - 1];
+            return index is SpriteFontIndex.None ? null : this.spriteFonts[((byte)index) - 1];
         }
 
         internal Song GetSong(SongIndex index)

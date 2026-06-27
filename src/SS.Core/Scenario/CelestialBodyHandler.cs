@@ -64,7 +64,7 @@ namespace StardustSandbox.Core.Scenario
                 _ => throw new InvalidOperationException("Unexpected day period."),
             };
 
-            spriteBatch.Draw(assetDatabase.GetTexture(TextureIndex.BgoCelestialBodies), new(this.positionX, this.positionY), rectangle, Color.White, this.rotation, Vector2.Zero, new Vector2(1.2f), SpriteEffects.None, 0f);
+            spriteBatch.Draw(assetDatabase.GetTexture(TextureIndex.BGOs), new(this.positionX, this.positionY), rectangle, Color.White, this.rotation, Vector2.Zero, new Vector2(1.2f), SpriteEffects.None, 0f);
         }
     }
 }
