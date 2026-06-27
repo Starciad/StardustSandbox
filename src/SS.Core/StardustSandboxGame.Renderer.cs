@@ -33,117 +33,70 @@ namespace StardustSandbox.Core
 {
     public sealed partial class StardustSandboxGame
     {
+        private Effect gradientTransitionEffect;
         private bool hasScreenshotRequest;
 
-        protected override void Draw(GameTime gameTime)
+        private void LoadRenderer()
         {
-            this.GraphicsDevice.SetRenderTarget(null);
-            this.GraphicsDevice.Clear(Color.Transparent);
-
-            DrawAmbient();
-            DrawWorld();
-            DrawCursorPenActionArea();
-            DrawGUI();
-            DrawCursor();
-
-            if (this.hasScreenshotRequest)
-            {
-                SaveBackBufferScreenshot();
-                this.hasScreenshotRequest = false;
-            }
-
-            base.Draw(gameTime);
+            this.gradientTransitionEffect = this.assetDatabase.GetEffect(EffectIndex.GradientTransition);
         }
 
         private void DrawAmbient()
         {
-            Effect gradientTransitionEffect = this.assetDatabase.GetEffect(EffectIndex.GradientTransition);
-
             // Sky (gradient)
-            this.spriteBatch.Begin(
-                SpriteSortMode.Deferred,
-                BlendState.NonPremultiplied,
-                null,
-                null,
-                null,
-                gradientTransitionEffect
-            );
-            this.spriteBatch.Draw(
-                this.assetDatabase.GetTexture(TextureIndex.Pixel),
-                new Rectangle(0, 0, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height),
-                AAP64ColorPalette.White
-            );
-            this.spriteBatch.End();
+            if (this.ambientManager.CanDrawSky)
+            {
+                this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, null, null, null, this.gradientTransitionEffect);
+                this.spriteBatch.Draw(this.assetDatabase.GetTexture(TextureIndex.Pixel), new Rectangle(0, 0, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height), AAP64ColorPalette.White);
+                this.spriteBatch.End();
+            }
 
-            // Celestial bodies
-            this.spriteBatch.Begin(
-                SpriteSortMode.Deferred,
-                BlendState.NonPremultiplied,
-                SamplerState.PointClamp
-            );
-            this.ambientManager.CelestialBodyHandler.Draw(this.spriteBatch);
-            this.spriteBatch.End();
+            // Celestial Bodies
+            if (this.ambientManager.CanDrawCelestialBodies)
+            {
+                this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
+                this.ambientManager.DrawCelestialBodies(this.spriteBatch);
+                this.spriteBatch.End();
+            }
 
             // Background
-            Background background = this.ambientManager.BackgroundHandler.GetCurrentBackground();
-
-            if (background != null)
+            if (this.ambientManager.CanDrawBackground && this.ambientManager.TryGetBackground(out Background background))
             {
-                this.spriteBatch.Begin(
-                    SpriteSortMode.Deferred,
-                    BlendState.NonPremultiplied,
-                    SamplerState.PointClamp,
-                    DepthStencilState.Default,
-                    RasterizerState.CullNone,
-                    background.IsAffectedByLighting ? gradientTransitionEffect : null,
-                    null
-                );
-                this.ambientManager.BackgroundHandler.Draw(this.spriteBatch, this.camera, this.gameScreen);
+                this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, background.IsAffectedByLighting ? this.gradientTransitionEffect : null, null);
+                this.ambientManager.DrawBackground(this.spriteBatch);
                 this.spriteBatch.End();
             }
         }
 
-        private void DrawWorld()
+        private void DrawElements()
         {
-            this.spriteBatch.Begin(
-                SpriteSortMode.Deferred,
-                BlendState.NonPremultiplied,
-                SamplerState.PointClamp,
-                DepthStencilState.Default,
-                RasterizerState.CullNone,
-                null,
-                this.camera.GetViewMatrix()
-            );
+            if (!this.actorManager.CanDraw && !this.world.CanDraw)
+            {
+                return;
+            }
 
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null, this.camera.GetViewMatrix());
             this.world.Draw(this.spriteBatch, this.camera, this.gameLaunchOptions);
             this.actorManager.Draw(this.spriteBatch, this.camera);
-
             this.spriteBatch.End();
         }
 
-        private void DrawGUI()
+        private void DrawUI()
         {
-            this.spriteBatch.Begin(
-                SpriteSortMode.Deferred,
-                BlendState.NonPremultiplied,
-                SamplerState.PointClamp
-            );
+            if (!this.uiManager.HasActiveUI)
+            {
+                return;
+            }
 
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
             this.uiManager.Draw(this.spriteBatch);
-
             this.spriteBatch.End();
         }
 
         private void DrawCursor()
         {
-            this.spriteBatch.Begin(
-                SpriteSortMode.Deferred,
-                BlendState.NonPremultiplied,
-                SamplerState.PointClamp
-            );
-
+            this.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointClamp);
             this.cursorManager.Draw(this.spriteBatch);
-
             this.spriteBatch.End();
         }
 
@@ -204,6 +157,26 @@ namespace StardustSandbox.Core
             }
 
             File.WriteColorBuffer(this.GraphicsDevice, width, height, data);
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            this.GraphicsDevice.SetRenderTarget(null);
+            this.GraphicsDevice.Clear(Color.Transparent);
+
+            DrawAmbient();
+            DrawElements();
+            DrawCursorPenActionArea();
+            DrawUI();
+            DrawCursor();
+
+            if (this.hasScreenshotRequest)
+            {
+                SaveBackBufferScreenshot();
+                this.hasScreenshotRequest = false;
+            }
+
+            base.Draw(gameTime);
         }
 
         internal void RequestScreenshot()

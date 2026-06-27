@@ -173,7 +173,7 @@ namespace StardustSandbox.Core
             this.effectsManager = new(this.assetDatabase);
             this.uiManager = new(this.uiElementHandler, this.uiDatabase);
             this.cursorManager = new(this.assetDatabase, this.cursorSettings);
-            this.ambientManager = new(this.assetDatabase, this.backgroundDatabase, this.gameScreen, this.world);
+            this.ambientManager = new(this.assetDatabase, this.backgroundDatabase, this.camera, this.gameScreen, this.world);
             this.actorManager = new(this.actorDatabase, this.world, this.worldSerializer);
 
             // Serializers
@@ -300,6 +300,7 @@ namespace StardustSandbox.Core
 
             // Renderer
             this.spriteBatch = new(this.GraphicsDevice);
+            LoadRenderer();
         }
 
         protected override void BeginRun()

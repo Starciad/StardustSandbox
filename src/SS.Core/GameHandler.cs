@@ -148,7 +148,7 @@ namespace StardustSandbox.Core
 
             this.uiManager.OpenUI<HudUI, HudUIModel>();
 
-            this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Ocean);
+            this.ambientManager.SetBackground(BackgroundIndex.Ocean);
 
             Reset();
             this.world.StartNew(WorldConstants.WORLD_SIZES_TEMPLATE[0]);

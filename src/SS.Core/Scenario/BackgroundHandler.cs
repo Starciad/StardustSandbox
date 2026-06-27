@@ -27,33 +27,16 @@ namespace StardustSandbox.Core.Scenario
 {
     internal sealed class BackgroundHandler
     {
-        private Background currentBackground;
-
-        private readonly BackgroundDatabase backgroundDatabase;
-
-        internal BackgroundHandler(BackgroundDatabase backgroundDatabase)
-        {
-            this.backgroundDatabase = backgroundDatabase;
-        }
-
-        internal void SetBackground(BackgroundIndex backgroundIndex)
-        {
-            this.currentBackground = this.backgroundDatabase.GetBackground(backgroundIndex);
-        }
-
-        internal Background GetCurrentBackground()
-        {
-            return this.currentBackground;
-        }
+        internal Background Background { get;set ; }
 
         internal void Update(GameTime gameTime)
         {
-            this.currentBackground?.Update(gameTime);
+            this.Background?.Update(gameTime);
         }
 
         internal void Draw(SpriteBatch spriteBatch, Camera2D camera, GameScreen gameScreen)
         {
-            this.currentBackground?.Draw(spriteBatch, camera, gameScreen);
+            this.Background?.Draw(spriteBatch, camera, gameScreen);
         }
     }
 }

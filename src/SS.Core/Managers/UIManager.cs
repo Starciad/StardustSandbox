@@ -29,6 +29,8 @@ namespace StardustSandbox.Core.Managers
 {
     internal sealed class UIManager : IResettable
     {
+        internal bool HasActiveUI => this.uiStack.Count > 0 && this.uiStack.Peek().IsActive;
+
         // Expose current UI for callers (read-only).
         internal IUI CurrentUI => this.uiStack.Count > 0 ? this.uiStack.Peek() : null;
 
