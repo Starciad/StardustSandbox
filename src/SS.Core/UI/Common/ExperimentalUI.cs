@@ -39,7 +39,7 @@ namespace StardustSandbox.Core.UI.Common
 
             Image panelImage = scope.AddImage();
             panelImage.Texture = this.Dependencies.AssetDatabase.GetTexture(TextureIndex.UI);
-            panelImage.SourceRectangle = new(0, 0, 542, 270);
+            panelImage.SourceRectangle = new(1024, 0, 542, 270);
             panelImage.Scale = new(1.0f);
             panelImage.Size = new(542.0f, 270.0f);
             panelImage.Alignment = UIAlignment.Center;
@@ -53,8 +53,8 @@ namespace StardustSandbox.Core.UI.Common
         {
             using UIBuildScope scope = context.BeginLayout();
 
-            Button nextPageButton = scope.AddButton();
-            Button previousPageButton = scope.AddButton();
+            // Button nextPageButton = scope.AddButton();
+            // Button previousPageButton = scope.AddButton();
 
             Container[] containers =
             [

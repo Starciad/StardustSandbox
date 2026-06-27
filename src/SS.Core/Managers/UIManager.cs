@@ -86,8 +86,9 @@ namespace StardustSandbox.Core.Managers
             }
         }
 
-        internal void OpenUI<TGui>(IUIModel model)
+        internal void OpenUI<TGui, TModel>(TModel model)
             where TGui : IUI
+            where TModel : IUIModel
         {
             IUI ui = this.uiDatabase.GetUI<TGui>();
 
@@ -115,10 +116,11 @@ namespace StardustSandbox.Core.Managers
             ui.Open(model);
         }
 
-        internal void OpenUI<TGui>()
+        internal void OpenUI<TGui, TModel>()
             where TGui : IUI
+            where TModel : IUIModel, new()
         {
-            OpenUI<TGui>(null);
+            OpenUI<TGui, TModel>(new());
         }
 
         internal void CloseUI()

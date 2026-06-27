@@ -62,7 +62,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
             int right = this.world.TileMap.Width;
             int bottom = this.world.TileMap.Height;
 
-            Texture2D texture = assetDatabase.GetTexture(TextureIndex.Frames);
+            Texture2D texture = assetDatabase.GetTexture(TextureIndex.BGOs);
             int gridSize = WorldConstants.TILE_SIZE;
 
             // Top line

@@ -33,6 +33,7 @@ using StardustSandbox.Core.Serialization;
 using StardustSandbox.Core.Serialization.Settings;
 using StardustSandbox.Core.UI.Common;
 using StardustSandbox.Core.UI.Handlers;
+using StardustSandbox.Core.UI.Models;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
@@ -317,7 +318,7 @@ namespace StardustSandbox.Core
             }
             else
             {
-                this.uiManager.OpenUI<ExperimentalUI>();
+                this.uiManager.OpenUI<ExperimentalUI, ExperimentalUIModel>();
             }
 
             this.gameNotifier?.OnBeginRun();

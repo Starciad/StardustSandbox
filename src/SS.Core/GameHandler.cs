@@ -29,6 +29,7 @@ using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.UI.Common;
+using StardustSandbox.Core.UI.Models;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
@@ -145,7 +146,7 @@ namespace StardustSandbox.Core
             this.uiDatabase.GetUI<HudUI>().Reset();
             this.uiDatabase.GetUI<ItemExplorerUI>().Reset();
 
-            this.uiManager.OpenUI<HudUI>();
+            this.uiManager.OpenUI<HudUI, HudUIModel>();
 
             this.ambientManager.BackgroundHandler.SetBackground(BackgroundIndex.Ocean);
 

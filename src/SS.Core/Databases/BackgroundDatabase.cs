@@ -108,7 +108,7 @@ namespace StardustSandbox.Core.Databases
                             AutoMovementSpeed = new(-32.0f),
                             RepeatHorizontally = true,
                             RepeatVertically = true,
-                            Texture = this.assetDatabase.GetTexture(TextureIndex.Patterns),
+                            Texture = this.assetDatabase.GetTexture(TextureIndex.Backgrounds),
                             TextureSourceRectangle = new(0, 0, 80, 80),
                         }
                     ],

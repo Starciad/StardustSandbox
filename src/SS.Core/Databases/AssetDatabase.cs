@@ -78,26 +78,23 @@ namespace StardustSandbox.Core.Databases
                 this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "ui", "pause_started")),
                 this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "ui", "rejected")),
                 this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "ui", "returning")),
-                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "ui", "typing_1")),
-                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "ui", "typing_2")),
-                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "ui", "typing_3")),
-                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "ui", "typing_4")),
-                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "ui", "typing_5")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "ui", "typing_01")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "ui", "typing_02")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "ui", "typing_03")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "ui", "typing_04")),
+                this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "ui", "typing_05")),
                 this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "ui", "world_loaded")),
                 this.contentManager.Load<SoundEffect>(Path.Combine("sounds", "ui", "world_saved")),
             ];
 
             this.textures = [
                 this.pixelTexture,
-                this.contentManager.Load<Texture2D>(Path.Combine("textures", "achievements")),
                 this.contentManager.Load<Texture2D>(Path.Combine("textures", "actors")),
                 this.contentManager.Load<Texture2D>(Path.Combine("textures", "backgrounds")),
                 this.contentManager.Load<Texture2D>(Path.Combine("textures", "bgos")),
                 this.contentManager.Load<Texture2D>(Path.Combine("textures", "cursors")),
                 this.contentManager.Load<Texture2D>(Path.Combine("textures", "elements")),
-                this.contentManager.Load<Texture2D>(Path.Combine("textures", "frames")),
                 this.contentManager.Load<Texture2D>(Path.Combine("textures", "icons")),
-                this.contentManager.Load<Texture2D>(Path.Combine("textures", "patterns")),
                 this.contentManager.Load<Texture2D>(Path.Combine("textures", "ui")),
             ];
         }

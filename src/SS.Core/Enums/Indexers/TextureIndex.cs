@@ -22,15 +22,12 @@ namespace StardustSandbox.Core.Enums.Indexers
         None,
 
         Pixel,
-        Achievements,
         Actors,
         Backgrounds,
         BGOs,
         Cursors,
         Elements,
-        Frames,
         Icons,
-        Patterns,
         UI,
     }
 }

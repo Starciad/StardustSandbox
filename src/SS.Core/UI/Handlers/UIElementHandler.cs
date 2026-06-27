@@ -32,13 +32,7 @@ namespace StardustSandbox.Core.UI.Handlers
         private int activeElementCount = 0;
 
         private readonly List<UIElement> activeElements = [];
-        private readonly Dictionary<Type, ObjectPool> elementPools = new()
-        {
-            [typeof(Container)] = new(),
-            [typeof(Image)] = new(),
-            [typeof(SliceImage)] = new(),
-            [typeof(Text)] = new(),
-        };
+        private readonly Dictionary<Type, ObjectPool> elementPools = [];
 
         internal UIElementHandler()
         {
@@ -47,9 +41,12 @@ namespace StardustSandbox.Core.UI.Handlers
 
         internal T AddElement<T>() where T : UIElement, new()
         {
-            if (!this.elementPools.TryGetValue(typeof(T), out ObjectPool pool))
+            Type elementType = typeof(T);
+
+            if (!this.elementPools.TryGetValue(elementType, out ObjectPool pool))
             {
-                throw new InvalidOperationException($"No pool found for element type {typeof(T).FullName}.");
+                pool = new();
+                this.elementPools.Add(elementType, pool);
             }
 
             T value = pool.TryDequeue(out IPoolableObject poolableObject) ? (T)poolableObject : new();
