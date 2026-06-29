@@ -85,10 +85,10 @@ namespace StardustSandbox.Core.UI.Elements
                 Margin = new(16.0f, 0.0f),
             };
 
-            this.text = new(assetDatabase.GetSpriteFont(SpriteFontIndex.Font_01))
+            this.text = new()
             {
+                SpriteFont = assetDatabase.GetSpriteFont(SpriteFontIndex.Font_01),
                 Scale = new(0.11f),
-                Color = AAP64ColorPalette.White,
                 Alignment = UIAlignment.West,
                 Margin = new(this.icon.Size.X + this.icon.Margin.X + 16.0f, 0.0f),
             };

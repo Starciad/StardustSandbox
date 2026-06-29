@@ -40,11 +40,19 @@ namespace StardustSandbox.Core.UI.Common
             Image panelImage = scope.AddImage();
             panelImage.Texture = this.Dependencies.AssetDatabase.GetTexture(TextureIndex.UI);
             panelImage.SourceRectangle = new(1024, 0, 542, 270);
-            panelImage.Scale = new(1.0f);
+            panelImage.Scale = new(2.0f);
             panelImage.Size = new(542.0f, 270.0f);
             panelImage.Alignment = UIAlignment.Center;
 
             container.AddChild(panelImage);
+
+            Text panelText = scope.AddText();
+            panelText.SpriteFont = this.Dependencies.AssetDatabase.GetSpriteFont(SpriteFontIndex.Font_01);
+            panelText.Scale = new(0.15f);
+            panelText.LineHeight = 360.0f;
+            panelText.TextContent = "Hello World! [BreakLine] Experimental [SetColor:255,32,96,255] Changes. [ResetColor] [BreakLine] Omg, what's [SetColor:50,80,53,255] this place? [BreakLine] I'm [ResetColor] not...";
+            
+            panelImage.AddChild(panelText);
 
             return container;
         }
@@ -52,9 +60,6 @@ namespace StardustSandbox.Core.UI.Common
         protected override void OnBuild(UIBuildContext context, ExperimentalUIModel model)
         {
             using UIBuildScope scope = context.BeginLayout();
-
-            // Button nextPageButton = scope.AddButton();
-            // Button previousPageButton = scope.AddButton();
 
             Container[] containers =
             [

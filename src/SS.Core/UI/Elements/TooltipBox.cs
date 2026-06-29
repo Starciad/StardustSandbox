@@ -61,14 +61,16 @@ namespace StardustSandbox.Core.UI.Elements
                 Origin = new(0, 32)
             };
 
-            this.title = new(assetDatabase.GetSpriteFont(SpriteFontIndex.Font_01))
+            this.title = new()
             {
+                SpriteFont = assetDatabase.GetSpriteFont(SpriteFontIndex.Font_01),
                 Scale = new(0.12f),
                 Margin = Vector2.Zero
             };
 
-            this.description = new(assetDatabase.GetSpriteFont(SpriteFontIndex.Font_01))
+            this.description = new()
             {
+                SpriteFont = assetDatabase.GetSpriteFont(SpriteFontIndex.Font_01),
                 Scale = new(0.078f),
                 Margin = new(0f, 64f),
                 LineHeight = 1.25f,

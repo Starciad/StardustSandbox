@@ -78,12 +78,11 @@ namespace StardustSandbox.Core.UI.Elements
             this.iconImage.Alignment = alignment;
         }
 
-        internal void SetText(string name, SpriteFont spriteFont, Color color)
+        internal void SetText(string name, SpriteFont spriteFont)
         {
             this.HasText = true;
             this.nameText.TextContent = name;
             this.nameText.SpriteFont = spriteFont;
-            this.nameText.Color = color;
         }
     }
 }

@@ -209,7 +209,7 @@ namespace StardustSandbox.Core.UI.Elements
             }
         }
 
-        protected void RepositionRelativeToParent()
+        protected virtual void RepositionRelativeToParent()
         {
             if (this.Parent != null)
             {
@@ -267,10 +267,13 @@ namespace StardustSandbox.Core.UI.Elements
 
             // Remove from previous parent if necessary
             _ = (element.parent?.children.Remove(element));
+            
             element.parent = this;
-
             element.RepositionRelativeToParent();
+
             this.children.Add(element);
+
+            PropagateScaleToChildren();
         }
 
         internal virtual void Initialize()
