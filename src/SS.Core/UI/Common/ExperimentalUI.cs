@@ -51,7 +51,7 @@ namespace StardustSandbox.Core.UI.Common
             panelText.Scale = new(0.15f);
             panelText.LineHeight = 360.0f;
             panelText.TextContent = "Hello World! [BreakLine] Experimental [SetColor:255,32,96,255] Changes. [ResetColor] [BreakLine] Omg, what's [SetColor:50,80,53,255] this place? [BreakLine] I'm [ResetColor] not...";
-            
+            panelText.Alignment = UIAlignment.Center;
             panelImage.AddChild(panelText);
 
             return container;

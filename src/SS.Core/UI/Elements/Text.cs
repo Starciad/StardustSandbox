@@ -41,19 +41,21 @@ namespace StardustSandbox.Core.UI.Elements
             Action
         }
 
-        private sealed class TextToken(TokenType type, string content)
+        private readonly struct TextToken(TokenType type, int start, int length)
         {
-            internal TokenType Type => type;
-            internal string Content => content;
+            internal readonly TokenType Type => type;
+            internal readonly int Start => start;
+            internal readonly int Length => length;
         }
 
-        private sealed class TextFragment
+        private struct TextFragment
         {
-            internal string Content { get; set; }
-            internal Vector2 Position { get; set; }
-            internal Vector2 Scale { get; set; }
-            internal Color Color { get; set; }
-            internal TextStyle Style { get; set; }
+            internal int Start;
+            internal int Length;
+            internal Vector2 Position;
+            internal Vector2 Scale;
+            internal Color Color;
+            internal TextStyle Style;
         }
 
         private sealed class TextFragmentContext(Vector2 origin, float lneHeight)
@@ -113,36 +115,36 @@ namespace StardustSandbox.Core.UI.Elements
         private readonly List<TextFragment> textFragments = [];
         private readonly List<TextToken> textTokens = [];
 
-        private static readonly Dictionary<string, Action<TextFragmentContext, string[]>> textActions = new()
-        {
-            ["BreakLine"] = (context, parameters) =>
-            {
-                context.Position = new(context.Origin.X, context.Position.Y + context.Scale.Y * context.LineHeight);
-            },
-
-            ["SetColor"] = (context, parameters) =>
-            {
-                if (parameters.Length != 4)
-                {
-                    throw new ArgumentException("SetColor action requires 4 parameters: R, G, B, A.");
-                }
-
-                if (!byte.TryParse(parameters[0], out byte r) ||
-                    !byte.TryParse(parameters[1], out byte g) ||
-                    !byte.TryParse(parameters[2], out byte b) ||
-                    !byte.TryParse(parameters[3], out byte a))
-                {
-                    throw new ArgumentException("SetColor action parameters must be valid byte values (0-255).");
-                }
-
-                context.Color = new(r, g, b, a);
-            },
-
-            ["ResetColor"] = (context, parameters) =>
-            {
-                context.Color = Color.White;
-            }
-        };
+        // private static readonly Dictionary<string, Action<TextFragmentContext, string[]>> textActions = new()
+        // {
+        //     ["BreakLine"] = (context, parameters) =>
+        //     {
+        //         
+        //     },
+        // 
+        //     ["SetColor"] = (context, parameters) =>
+        //     {
+        //         
+        //         
+        //         
+        //         
+        // 
+        //         
+        //         
+        //         
+        //         
+        //         
+        //         
+        //         
+        // 
+        //         
+        //     },
+        // 
+        //     ["ResetColor"] = (context, parameters) =>
+        //     {
+        //         
+        //     }
+        // };
 
         public Text()
         {
@@ -168,7 +170,7 @@ namespace StardustSandbox.Core.UI.Elements
             }
         }
 
-        private void AppendTextFragment(TextFragmentContext context, string content)
+        private void AppendTextFragment(TextFragmentContext context, ReadOnlySpan<char> content)
         {
             this.textFragments.Add(new()
             {
@@ -202,15 +204,38 @@ namespace StardustSandbox.Core.UI.Elements
             );
         }
 
-        private static void PerformTextAction(TextFragmentContext context, string name, string[] parameters)
+        private static void PerformTextAction(TextFragmentContext context, ReadOnlySpan<char> name, string[] parameters)
         {
-            if (textActions.TryGetValue(name, out Action<TextFragmentContext, string[]> action))
+            switch (name)
             {
-                action(context, parameters);
-                return;
-            }
+                case "BreakLine":
+                    context.Position = new(context.Origin.X, context.Position.Y + context.Scale.Y * context.LineHeight);
+                    break;
 
-            throw new InvalidOperationException($"Unknown text action: {name}");
+                case "ResetColor":
+                    context.Color = Color.White;
+                    break;
+
+                case "SetColor":
+                    if (parameters.Length != 4)
+                    {
+                        throw new ArgumentException("SetColor action requires 4 parameters: R, G, B, A.");
+                    }
+
+                    if (!byte.TryParse(parameters[0], out byte r) ||
+                        !byte.TryParse(parameters[1], out byte g) ||
+                        !byte.TryParse(parameters[2], out byte b) ||
+                        !byte.TryParse(parameters[3], out byte a))
+                    {
+                        throw new ArgumentException("SetColor action parameters must be valid byte values (0-255).");
+                    }
+
+                    context.Color = new(r, g, b, a);
+                    break;
+
+                default:
+                    throw new InvalidOperationException($"Unknown text action: {name}");
+            }
         }
 
         private void ProcessTextTokens(TextFragmentContext context, TextToken token)
