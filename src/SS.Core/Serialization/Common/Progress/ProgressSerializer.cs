@@ -17,12 +17,9 @@
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.Serialization.Morph;
+using StardustSandbox.Core.Serialization.Common.Progress.Mappers;
 using StardustSandbox.Core.Serialization.Common.Progress.StorageModels;
-using StardustSandbox.Core.Serialization.Data;
-using StardustSandbox.Core.Serialization.Data.Progress.Formats.V1;
-using StardustSandbox.Core.Serialization.Data.Progress.Mappers;
-using StardustSandbox.Core.Serialization.Data.Versions;
-using StardustSandbox.Core.Serialization.Migrations;
+using StardustSandbox.Core.Serialization.Morph;
 
 using System;
 using System.Collections.Generic;
@@ -32,19 +29,45 @@ namespace StardustSandbox.Core.Serialization
 {
     internal sealed partial class ProgressSerializer
     {
-        private readonly DataSerializer dataSerializer;
+        private readonly string versioningHeaderFilename = Path.Combine(IO.Directory.Progress, IOConstants.VERSIONING_HEADER_FILE);
+
+        private readonly SchemaSerializer schemaSerializer;
         private readonly Dictionary<Type, IProgressDescriptor> descriptors;
 
-        internal ProgressSerializer(DataSerializer dataSerializer)
+        private VersioningHeader WriteVersioningHeader()
         {
-            this.dataSerializer = dataSerializer;
+            using FileStream fs = new(versioningHeaderFilename, FileMode.Create, FileAccess.Write);
+            VersioningHeader versioningHeader = new();
+            versioningHeader.SetVersion(IOConstants.ACHIEVEMENT_PROGRESS_FILE, IOConstants.ACHIEVEMENT_PROGRESS_VERSION);
+            versioningHeader.Serialize(fs);
+
+            return versioningHeader;
+        }
+
+        private VersioningHeader ReadVersioningHeader()
+        {
+            if (!File.Exists(this.versioningHeaderFilename))
+            {
+                return WriteVersioningHeader();
+            }
+
+            using FileStream fs = new(versioningHeaderFilename, FileMode.Open, FileAccess.Read);
+            VersioningHeader versioningHeader = new();
+            versioningHeader.Deserialize(fs);
+            return versioningHeader;
+        }
+
+        internal ProgressSerializer(SchemaSerializer schemaSerializer)
+        {
+            this.schemaSerializer = schemaSerializer;
 
             this.descriptors = new()
             {
-                [typeof(AchievementStorageModel)] = new ProgressDescriptor<AchievementStorageModel>(IOConstants.ACHIEVEMENT_PROGRESS_FILE, dataSerializer, new AchievementMapper(), new()),
+                [typeof(AchievementStorageModel)] = new ProgressDescriptor<AchievementStorageModel>(IOConstants.ACHIEVEMENT_PROGRESS_FILE, schemaSerializer, new AchievementMapper(), new()),
             };
 
             _ = Directory.CreateDirectory(IO.Directory.Progress);
+            VersioningHeader versioningHeader = ReadVersioningHeader();
 
             foreach (IProgressDescriptor descriptor in this.descriptors.Values)
             {

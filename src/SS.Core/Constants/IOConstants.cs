@@ -118,9 +118,13 @@ namespace StardustSandbox.Core.Constants
 
         #region FILE
 
+        // Versioning Header
+        internal const string VERSIONING_HEADER_FILE = "versioning_header.bin";
+
         // Progress
         internal const string ACHIEVEMENT_PROGRESS_FILE = "achievement_progress.bin";
-        internal const string VERSION_PROGRESS_FILE = "version.bin";
+
+        internal const string ACHIEVEMENT_PROGRESS_ID = "achievement_progress";
 
         internal const int ACHIEVEMENT_PROGRESS_VERSION = 1;
 
@@ -134,15 +138,30 @@ namespace StardustSandbox.Core.Constants
         internal const string VIDEO_SETTINGS_FILE = "video_settings.xml";
         internal const string VOLUME_SETTINGS_FILE = "volume_settings.xml";
 
+        internal const string CONTROL_SETTINGS_ID = "control_settings";
+        internal const string CURSOR_SETTINGS_ID = "cursor_settings";
+        internal const string GAMEPLAY_SETTINGS_ID = "gameplay_settings";
+        internal const string GENERAL_SETTINGS_ID = "general_settings";
+        internal const string STATUS_SETTINGS_ID = "status_settings";
+        internal const string INTERFACE_SETTINGS_ID = "interface_settings";
+        internal const string VIDEO_SETTINGS_ID = "video_settings";
+        internal const string VOLUME_SETTINGS_ID = "volume_settings";
+
+        internal const int CONTROL_SETTINGS_VERSION = 1;
+        internal const int CURSOR_SETTINGS_VERSION = 1;
+        internal const int GAMEPLAY_SETTINGS_VERSION = 1;
+        internal const int GENERAL_SETTINGS_VERSION = 1;
+        internal const int STATUS_SETTINGS_VERSION = 1;
+        internal const int INTERFACE_SETTINGS_VERSION = 1;
+        internal const int VIDEO_SETTINGS_VERSION = 1;
+        internal const int VOLUME_SETTINGS_VERSION = 1;
+
         // Save
-        internal const int SAVE_ACTOR_COMPONENT_VERSION = 1;
-        internal const int SAVE_CONTENT_COMPONENT_VERSION = 1;
-        internal const int SAVE_ENVIRONMENT_COMPONENT_VERSION = 1;
-        internal const int SAVE_MANIFEST_COMPONENT_VERSION = 1;
-        internal const int SAVE_PROPERTIES_COMPONENT_VERSION = 1;
-        internal const int SAVE_SLOT_COMPONENT_VERSION = 1;
-        internal const int SAVE_SLOT_LAYER_COMPONENT_VERSION = 1;
-        internal const int SAVE_THUMBNAIL_COMPONENT_VERSION = 1;
+        internal const string SAVE_ENTRY_CONTENT_FILE = "content.bin";
+        internal const string SAVE_ENTRY_ENVIRONMENT_FILE = "environment.bin";
+        internal const string SAVE_ENTRY_MANIFEST_FILE = "manifest.bin";
+        internal const string SAVE_ENTRY_PROPERTIES_FILE = "properties.bin";
+        internal const string SAVE_ENTRY_THUMBNAIL_FILE = "thumbnail.bin";
 
         internal const string SAVE_ENTRY_CONTENT_ID = "CONTENT";
         internal const string SAVE_ENTRY_ENVIRONMENT_ID = "ENVIRONMENT";
@@ -150,15 +169,14 @@ namespace StardustSandbox.Core.Constants
         internal const string SAVE_ENTRY_PROPERTIES_ID = "PROPERTIES";
         internal const string SAVE_ENTRY_THUMBNAIL_ID = "THUMBNAIL";
 
+        internal const int SAVE_CONTENT_COMPONENT_VERSION = 1;
+        internal const int SAVE_ENVIRONMENT_COMPONENT_VERSION = 1;
+        internal const int SAVE_MANIFEST_COMPONENT_VERSION = 1;
+        internal const int SAVE_PROPERTIES_COMPONENT_VERSION = 1;
+        internal const int SAVE_THUMBNAIL_COMPONENT_VERSION = 1;
+
         internal const string SAVE_FILE_EXTENSION = ".sf";
         internal const string SAVE_FILE_DATA = "data.bin";
-
-        internal const string SAVE_ENTRY_CONTENT_FILE = "content.bin";
-        internal const string SAVE_ENTRY_ENVIRONMENT_FILE = "environment.bin";
-        internal const string SAVE_ENTRY_MANIFEST_FILE = "manifest.bin";
-        internal const string SAVE_ENTRY_PROPERTIES_FILE = "properties.bin";
-        internal const string SAVE_ENTRY_THUMBNAIL_FILE = "thumbnail.bin";
-        internal const string SAVE_ENTRY_VERSION_FILE = "version.bin";
 
         // Others
         internal const string WARNING = "WARNING.txt";

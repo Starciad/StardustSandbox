@@ -24,12 +24,6 @@ namespace StardustSandbox.Core.Serialization.Morph
     internal sealed class VersioningHeader
     {
         private readonly Dictionary<string, int> componentVersions = [];
-        private readonly Stream stream;
-
-        internal VersioningHeader(Stream stream)
-        {
-            this.stream = stream;
-        }
 
         internal void SetVersion(string component, int version)
         {
@@ -41,9 +35,9 @@ namespace StardustSandbox.Core.Serialization.Morph
             return this.componentVersions.TryGetValue(component, out version);
         }
 
-        internal void Serialize()
+        internal void Serialize(Stream stream)
         {
-            using BinaryWriter writer = new(this.stream, Encoding.UTF8, leaveOpen: true);
+            using BinaryWriter writer = new(stream, Encoding.UTF8, leaveOpen: true);
 
             writer.Write(this.componentVersions.Count);
 
@@ -54,16 +48,16 @@ namespace StardustSandbox.Core.Serialization.Morph
             }
         }
 
-        internal void Deserialize()
+        internal void Deserialize(Stream stream)
         {
-            if (this.stream.CanSeek && this.stream.Position == this.stream.Length)
+            if (stream.CanSeek && stream.Position == stream.Length)
             {
                 return;
             }
 
             this.componentVersions.Clear();
 
-            using BinaryReader reader = new(this.stream, Encoding.UTF8, leaveOpen: true);
+            using BinaryReader reader = new(stream, Encoding.UTF8, leaveOpen: true);
 
             int count = reader.ReadInt32();
 

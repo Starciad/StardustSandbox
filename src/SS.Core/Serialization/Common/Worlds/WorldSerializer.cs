@@ -259,23 +259,21 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
 
         private static void WriteVersioningHeader(ZipArchive zip)
         {
-            ZipArchiveEntry entry = zip.CreateEntry(IOConstants.SAVE_ENTRY_VERSION_FILE, CompressionLevel.SmallestSize);
+            ZipArchiveEntry entry = zip.CreateEntry(IOConstants.VERSIONING_HEADER_FILE, CompressionLevel.SmallestSize);
             using Stream stream = entry.Open();
 
-            VersioningHeader versioningHeader = new(stream);
-
+            VersioningHeader versioningHeader = new();
             versioningHeader.SetVersion(IOConstants.SAVE_ENTRY_CONTENT_ID, IOConstants.SAVE_CONTENT_COMPONENT_VERSION);
             versioningHeader.SetVersion(IOConstants.SAVE_ENTRY_ENVIRONMENT_ID, IOConstants.SAVE_ENVIRONMENT_COMPONENT_VERSION);
             versioningHeader.SetVersion(IOConstants.SAVE_ENTRY_MANIFEST_ID, IOConstants.SAVE_MANIFEST_COMPONENT_VERSION);
             versioningHeader.SetVersion(IOConstants.SAVE_ENTRY_PROPERTIES_ID, IOConstants.SAVE_PROPERTIES_COMPONENT_VERSION);
             versioningHeader.SetVersion(IOConstants.SAVE_ENTRY_THUMBNAIL_ID, IOConstants.SAVE_THUMBNAIL_COMPONENT_VERSION);
-
-            versioningHeader.Serialize();
+            versioningHeader.Serialize(stream);
         }
 
         private static VersioningHeader ReadVersioningHeader(ZipArchive zip)
         {
-            ZipArchiveEntry entry = zip.GetEntry(IOConstants.SAVE_ENTRY_VERSION_FILE);
+            ZipArchiveEntry entry = zip.GetEntry(IOConstants.VERSIONING_HEADER_FILE);
 
             if (entry == null)
             {
@@ -283,8 +281,8 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
             }
 
             using Stream stream = entry.Open();
-            VersioningHeader versioningHeader = new(stream);
-            versioningHeader.Deserialize();
+            VersioningHeader versioningHeader = new();
+            versioningHeader.Deserialize(stream);
 
             return versioningHeader;
         }
@@ -292,11 +290,6 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
         internal void Save()
         {
             string filename = Path.Combine(IO.Directory.Worlds, string.Concat(this.world.Name, IOConstants.SAVE_FILE_EXTENSION));
-
-            if (File.Exists(filename))
-            {
-                File.Delete(filename);
-            }
 
             using FileStream fs = new(filename, FileMode.Create, FileAccess.Write);
             using ZipArchive zip = new(fs, ZipArchiveMode.Create);
