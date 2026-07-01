@@ -21,7 +21,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.InputSystem;
-using StardustSandbox.Core.Serialization.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Settings.Common;
 
 namespace StardustSandbox.Core.Managers
 {

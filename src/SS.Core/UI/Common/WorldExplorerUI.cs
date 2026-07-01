@@ -28,7 +28,7 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.IO;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization.Data.Worlds;
+using StardustSandbox.Core.Serialization.Common.Worlds;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 

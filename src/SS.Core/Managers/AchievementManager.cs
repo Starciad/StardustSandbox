@@ -22,7 +22,7 @@ using StardustSandbox.Core.Events.Actors;
 using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Data.Progress.Formats.V1;
+using StardustSandbox.Core.Serialization.Common.Progress.Data.V1;
 using StardustSandbox.Core.WorldSystem.Components;
 
 namespace StardustSandbox.Core.Managers

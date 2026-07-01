@@ -27,7 +27,7 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Events.Actors;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization.Data.Worlds.Formats.V1;
+using StardustSandbox.Core.Serialization.Common.Worlds.Data.V1;
 using StardustSandbox.Core.WorldSystem;
 using StardustSandbox.Core.WorldSystem.Slots;
 

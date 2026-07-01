@@ -30,9 +30,8 @@ using StardustSandbox.Core.Interfaces.Notifiers;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Data;
-using StardustSandbox.Core.Serialization.Data.Worlds;
-using StardustSandbox.Core.Serialization.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Worlds;
 using StardustSandbox.Core.WorldSystem;
 
 using System;
@@ -50,7 +49,6 @@ namespace StardustSandbox.Core
         private readonly GraphicsDeviceManager graphicsDeviceManager;
         private readonly GameLaunchOptions gameLaunchOptions;
 
-        private readonly DataSerializer dataSerializer;
         private readonly ProgressSerializer progressSerializer;
         private readonly SettingsSerializer settingsSerializer;
         private readonly WorldSerializer worldSerializer;
@@ -111,8 +109,7 @@ namespace StardustSandbox.Core
             this.videoManager = new(this.graphicsDeviceManager, this.Window);
 
             // Serializers
-            this.dataSerializer = new();
-            this.progressSerializer = new(this.dataSerializer);
+            this.progressSerializer = new();
             this.settingsSerializer = new();
 
             this.controlSettings = this.settingsSerializer.Load<ControlSettings>();
@@ -173,7 +170,7 @@ namespace StardustSandbox.Core
             this.actorManager = new(this.actorDatabase, this.world, this.worldSerializer);
 
             // Serializers
-            this.worldSerializer = new(this.actorManager, this.graphicsDeviceManager, this.dataSerializer, this.world);
+            this.worldSerializer = new(this.actorManager, this.graphicsDeviceManager, this.world);
 
             // Handlers
             this.gameHandler = new(

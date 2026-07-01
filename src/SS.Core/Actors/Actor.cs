@@ -24,7 +24,7 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Collections;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization.Data.Worlds.StorageModels;
+using StardustSandbox.Core.Serialization.Common.Worlds.StorageModels;
 using StardustSandbox.Core.WorldSystem;
 using StardustSandbox.Core.WorldSystem.Components;
 using StardustSandbox.Core.WorldSystem.Slots;

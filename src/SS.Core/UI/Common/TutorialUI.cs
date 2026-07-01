@@ -23,7 +23,7 @@ using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Settings.Common;
 using StardustSandbox.Core.UI.Elements;
 
 using System;

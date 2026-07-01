@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.Serialization.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Settings.Common;
 
 using System;
 
