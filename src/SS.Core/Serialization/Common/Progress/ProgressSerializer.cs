@@ -38,22 +38,25 @@ namespace StardustSandbox.Core.Serialization.Common.Progress
             .WithSecurity(MessagePackSecurity.UntrustedData)
             .WithCompression(MessagePackCompression.Lz4BlockArray);
 
-        // Mappers
+        #region Mappers
+
         private readonly AchievementMapper achievementMapper;
 
-        // Schemas
+        #endregion
+
+        #region Schemas
+
         private readonly ComponentSchema achievementComponentSchema;
 
-        // Dictionaries
-        private readonly Dictionary<Type, string> componentFilenamesByType = new()
-        {
-            [typeof(AchievementStorageModel)] = IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_FILE,
-        };
+        #endregion
+
+        #region Dictionaries
+
+        private readonly Dictionary<Type, string> componentFilenamesByType;
         private readonly Dictionary<Type, ComponentSchema> componentSchemasByType;
-        private readonly Dictionary<Type, int> componentVersionsByType = new()
-        {
-            [typeof(AchievementStorageModel)] = IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_VERSION,
-        };
+        private readonly Dictionary<Type, int> componentVersionsByType;
+
+        #endregion
 
         private readonly string versioningHeaderFilename = Path.Combine(IO.Directory.Progress, IOConstants.VERSIONING_HEADER_FILE);
         private readonly SchemaSerializer schemaSerializer;
@@ -95,10 +98,14 @@ namespace StardustSandbox.Core.Serialization.Common.Progress
             // Write the versioning header if it doesn't exist
             WriteVersioningHeader();
 
-            // Mappers
+            #region Mappers
+
             this.achievementMapper = new();
 
-            // Schemas
+            #endregion
+
+            #region Schemas
+
             this.achievementComponentSchema = new(
                 IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_ID,
                 this.achievementMapper,
@@ -108,11 +115,26 @@ namespace StardustSandbox.Core.Serialization.Common.Progress
                 ]
             );
 
-            // Dictionaries
+            #endregion
+
+            #region Dictionaries
+
+            this.componentFilenamesByType = new()
+            {
+                [typeof(AchievementStorageModel)] = IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_FILE,
+            };
+
             this.componentSchemasByType = new()
             {
                 [typeof(AchievementStorageModel)] = this.achievementComponentSchema
             };
+
+            this.componentVersionsByType = new()
+            {
+                [typeof(AchievementStorageModel)] = IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_VERSION,
+            };
+
+            #endregion
         }
 
         internal TStorageModel Load<TStorageModel>() where TStorageModel : IStorageModel

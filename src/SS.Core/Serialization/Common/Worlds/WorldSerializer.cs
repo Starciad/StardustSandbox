@@ -43,7 +43,8 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
             .WithSecurity(MessagePackSecurity.UntrustedData)
             .WithCompression(MessagePackCompression.Lz4BlockArray);
 
-        // Mappers
+        #region Mappers
+
         private readonly ActorMapper actorMapper;
         private readonly ContentMapper contentMapper;
         private readonly EnvironmentMapper environmentMapper;
@@ -53,7 +54,10 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
         private readonly SlotMapper slotMapper;
         private readonly Texture2DMapper texture2DMapper;
 
-        // Schemas
+        #endregion
+
+        #region Schemas
+
         private readonly ComponentSchema actorComponentSchema;
         private readonly ComponentSchema contentComponentSchema;
         private readonly ComponentSchema environmentComponentSchema;
@@ -63,24 +67,15 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
         private readonly ComponentSchema slotComponentSchema;
         private readonly ComponentSchema texture2DComponentSchema;
 
-        // Dictionaries
+        #endregion
+
+        #region Dictionaries
+
+        private readonly Dictionary<Type, string> componentEntryNamesByType;
         private readonly Dictionary<Type, ComponentSchema> componentSchemasByType;
-        private readonly Dictionary<Type, int> componentVersionsByType = new()
-        {
-            [typeof(ContentStorageModel)] = IOConstants.WORLD_CONTENT_COMPONENT_VERSION,
-            [typeof(EnvironmentStorageModel)] = IOConstants.WORLD_ENVIRONMENT_COMPONENT_VERSION,
-            [typeof(ManifestStorageModel)] = IOConstants.WORLD_MANIFEST_COMPONENT_VERSION,
-            [typeof(PropertyStorageModel)] = IOConstants.WORLD_PROPERTIES_COMPONENT_VERSION,
-            [typeof(Texture2DStorageModel)] = IOConstants.WORLD_THUMBNAIL_COMPONENT_VERSION,
-        };
-        private readonly Dictionary<Type, string> componentEntryNamesByType = new()
-        {
-            [typeof(ContentStorageModel)] = IOConstants.WORLD_CONTENT_COMPONENT_FILE,
-            [typeof(EnvironmentStorageModel)] = IOConstants.WORLD_ENVIRONMENT_COMPONENT_FILE,
-            [typeof(ManifestStorageModel)] = IOConstants.WORLD_MANIFEST_COMPONENT_FILE,
-            [typeof(PropertyStorageModel)] = IOConstants.WORLD_PROPERTIES_COMPONENT_FILE,
-            [typeof(Texture2DStorageModel)] = IOConstants.WORLD_THUMBNAIL_COMPONENT_FILE,
-        };
+        private readonly Dictionary<Type, int> componentVersionsByType;
+
+        #endregion
 
         private readonly ActorManager actorManager;
         private readonly GraphicsDeviceManager graphicsDeviceManager;
@@ -106,6 +101,8 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
             this.graphicsDeviceManager = graphicsDeviceManager;
             this.world = world;
 
+            #region Mappers
+
             this.actorMapper = new();
             this.slotLayerMapper = new();
             this.slotMapper = new(this.slotLayerMapper);
@@ -114,6 +111,10 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
             this.manifestMapper = new();
             this.propertyMapper = new();
             this.texture2DMapper = new();
+
+            #endregion
+
+            #region Schemas
 
             this.actorComponentSchema = new(
                 string.Empty,
@@ -188,6 +189,19 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
                 ]
             );
 
+            #endregion
+
+            #region Dictionaries
+
+            this.componentEntryNamesByType = new()
+            {
+                [typeof(ContentStorageModel)] = IOConstants.WORLD_CONTENT_COMPONENT_FILE,
+                [typeof(EnvironmentStorageModel)] = IOConstants.WORLD_ENVIRONMENT_COMPONENT_FILE,
+                [typeof(ManifestStorageModel)] = IOConstants.WORLD_MANIFEST_COMPONENT_FILE,
+                [typeof(PropertyStorageModel)] = IOConstants.WORLD_PROPERTIES_COMPONENT_FILE,
+                [typeof(Texture2DStorageModel)] = IOConstants.WORLD_THUMBNAIL_COMPONENT_FILE,
+            };
+
             this.componentSchemasByType = new()
             {
                 [typeof(ContentStorageModel)] = this.contentComponentSchema,
@@ -196,6 +210,17 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
                 [typeof(PropertyStorageModel)] = this.propertyComponentSchema,
                 [typeof(Texture2DStorageModel)] = this.texture2DComponentSchema,
             };
+
+            this.componentVersionsByType = new()
+            {
+                [typeof(ContentStorageModel)] = IOConstants.WORLD_CONTENT_COMPONENT_VERSION,
+                [typeof(EnvironmentStorageModel)] = IOConstants.WORLD_ENVIRONMENT_COMPONENT_VERSION,
+                [typeof(ManifestStorageModel)] = IOConstants.WORLD_MANIFEST_COMPONENT_VERSION,
+                [typeof(PropertyStorageModel)] = IOConstants.WORLD_PROPERTIES_COMPONENT_VERSION,
+                [typeof(Texture2DStorageModel)] = IOConstants.WORLD_THUMBNAIL_COMPONENT_VERSION,
+            };
+
+            #endregion
         }
 
         #region

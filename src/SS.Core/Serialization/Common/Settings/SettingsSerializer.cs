@@ -15,19 +15,68 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using MessagePack;
-
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.Serialization.Morph;
+using StardustSandbox.Core.Serialization.Common.Settings.Mappers;
+using StardustSandbox.Core.Serialization.Common.Settings.StorageModels;
 using StardustSandbox.Core.Serialization.Morph;
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace StardustSandbox.Core.Serialization.Common.Settings
 {
     public sealed partial class SettingsSerializer
     {
+        private readonly XmlReaderSettings readerSettings = new()
+        {
+            DtdProcessing = DtdProcessing.Prohibit
+        };
+
+        private readonly XmlWriterSettings writerSettings = new()
+        {
+            Indent = true,
+            Encoding = Encoding.UTF8,
+            CloseOutput = false
+        };
+
+        #region Mappers
+
+        private readonly ControlMapper controlMapper;
+        private readonly CursorMapper cursorMapper;
+        private readonly GameplayMapper gameplayMapper;
+        private readonly GeneralMapper generalMapper;
+        private readonly InterfaceMapper interfaceMapper;
+        private readonly VideoMapper videoMapper;
+        private readonly VolumeMapper volumeMapper;
+
+        #endregion
+
+        #region Schemas
+
+        private readonly ComponentSchema controlComponentSchema;
+        private readonly ComponentSchema cursorComponentSchema;
+        private readonly ComponentSchema gameplayComponentSchema;
+        private readonly ComponentSchema generalComponentSchema;
+        private readonly ComponentSchema interfaceComponentSchema;
+        private readonly ComponentSchema videoComponentSchema;
+        private readonly ComponentSchema volumeComponentSchema;
+
+        #endregion
+
+        #region Dictionaries
+
+        private readonly Dictionary<Type, string> componentFilenamesByType;
+        private readonly Dictionary<Type, ComponentSchema> componentSchemasByType;
+        private readonly Dictionary<Type, XmlSerializer> componentSerializersByType;
+        private readonly Dictionary<Type, int> componentVersionsByType;
+
+        #endregion
+
         private readonly string versioningHeaderFilename = Path.Combine(IO.Directory.Settings, IOConstants.VERSIONING_HEADER_FILE);
         private readonly SchemaSerializer schemaSerializer;
 
@@ -36,7 +85,13 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
             using FileStream stream = new(this.versioningHeaderFilename, FileMode.Create, FileAccess.Write, FileShare.None);
 
             VersioningHeader versioningHeader = new();
-            versioningHeader.SetVersion(IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_ID, IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_VERSION);
+            versioningHeader.SetVersion(IOConstants.SETTINGS_CONTROL_COMPONENT_ID, IOConstants.SETTINGS_CONTROL_COMPONENT_VERSION);
+            versioningHeader.SetVersion(IOConstants.SETTINGS_CURSOR_COMPONENT_ID, IOConstants.SETTINGS_CURSOR_COMPONENT_VERSION);
+            versioningHeader.SetVersion(IOConstants.SETTINGS_GAMEPLAY_COMPONENT_ID, IOConstants.SETTINGS_GAMEPLAY_COMPONENT_VERSION);
+            versioningHeader.SetVersion(IOConstants.SETTINGS_GENERAL_COMPONENT_ID, IOConstants.SETTINGS_GENERAL_COMPONENT_VERSION);
+            versioningHeader.SetVersion(IOConstants.SETTINGS_INTERFACE_COMPONENT_ID, IOConstants.SETTINGS_INTERFACE_COMPONENT_VERSION);
+            versioningHeader.SetVersion(IOConstants.SETTINGS_VIDEO_COMPONENT_ID, IOConstants.SETTINGS_VIDEO_COMPONENT_VERSION);
+            versioningHeader.SetVersion(IOConstants.SETTINGS_VOLUME_COMPONENT_ID, IOConstants.SETTINGS_VOLUME_COMPONENT_VERSION);
             versioningHeader.Serialize(stream);
         }
 
@@ -52,41 +107,171 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
 
         private IData Deserializer(Stream stream, Type versionType)
         {
+            using XmlReader reader = XmlReader.Create(stream, readerSettings);
 
+            XmlSerializer serializer = new(versionType);
+            return (IData)serializer.Deserialize(reader);
         }
 
         private void Serializer(Stream stream, IData data)
         {
+            using XmlWriter writer = XmlWriter.Create(stream, writerSettings);
 
+            XmlSerializer serializer = new(data.GetType());
+            serializer.Serialize(writer, data);
         }
 
         internal SettingsSerializer()
         {
             this.schemaSerializer = new(Deserializer, Serializer);
 
-            CreateWarningFile();
-        }
-        
-        private static void CreateWarningFile()
-        {
-            string filePath = Path.Combine(IO.Directory.Settings, IOConstants.WARNING);
+            #region Mappers
 
-            if (File.Exists(filePath))
+            this.controlMapper = new();
+            this.cursorMapper = new();
+            this.gameplayMapper = new();
+            this.generalMapper = new();
+            this.interfaceMapper = new();
+            this.videoMapper = new();
+            this.volumeMapper = new();
+
+            #endregion
+
+            #region Schemas
+
+            this.controlComponentSchema = new(
+                IOConstants.SETTINGS_CONTROL_COMPONENT_ID,
+                this.controlMapper,
+                [],
+                [
+                    typeof(Data.V1.ControlData)
+                ]
+            );
+
+            this.cursorComponentSchema = new(
+                IOConstants.SETTINGS_CURSOR_COMPONENT_ID,
+                this.cursorMapper,
+                [],
+                [
+                    typeof(Data.V1.CursorData)
+                ]
+            );
+
+            this.gameplayComponentSchema = new(
+                IOConstants.SETTINGS_GAMEPLAY_COMPONENT_ID,
+                this.gameplayMapper,
+                [],
+                [
+                    typeof(Data.V1.GameplayData)
+                ]
+            );
+
+            this.generalComponentSchema = new(
+                IOConstants.SETTINGS_GENERAL_COMPONENT_ID,
+                this.generalMapper,
+                [],
+                [
+                    typeof(Data.V1.GeneralData)
+                ]
+            );
+
+            this.interfaceComponentSchema = new(
+                IOConstants.SETTINGS_INTERFACE_COMPONENT_ID,
+                this.interfaceMapper,
+                [],
+                [
+                    typeof(Data.V1.InterfaceData)
+                ]
+            );
+
+            this.videoComponentSchema = new(
+                IOConstants.SETTINGS_VIDEO_COMPONENT_ID,
+                this.videoMapper,
+                [],
+                [
+                    typeof(Data.V1.VideoData)
+                ]
+            );
+
+            this.volumeComponentSchema = new(
+                IOConstants.SETTINGS_VOLUME_COMPONENT_ID,
+                this.volumeMapper,
+                [],
+                [
+                    typeof(Data.V1.VolumeData)
+                ]
+            );
+
+            #endregion
+
+            #region Dictionaries
+
+            this.componentFilenamesByType = new()
             {
-                return;
-            }
+                [typeof(ControlStorageModel)] = IOConstants.SETTINGS_CONTROL_COMPONENT_FILE,
+                [typeof(CursorStorageModel)] = IOConstants.SETTINGS_CURSOR_COMPONENT_FILE,
+                [typeof(GameplayStorageModel)] = IOConstants.SETTINGS_GAMEPLAY_COMPONENT_FILE,
+                [typeof(GeneralStorageModel)] = IOConstants.SETTINGS_GENERAL_COMPONENT_FILE,
+                [typeof(InterfaceStorageModel)] = IOConstants.SETTINGS_INTERFACE_COMPONENT_FILE,
+                [typeof(VideoStorageModel)] = IOConstants.SETTINGS_VIDEO_COMPONENT_FILE,
+                [typeof(VolumeStorageModel)] = IOConstants.SETTINGS_VOLUME_COMPONENT_FILE
+            };
 
-            File.WriteAllText(filePath, builder.ToString());
+            this.componentSchemasByType = new()
+            {
+                [typeof(ControlStorageModel)] = this.controlComponentSchema,
+                [typeof(CursorStorageModel)] = this.cursorComponentSchema,
+                [typeof(GameplayStorageModel)] = this.gameplayComponentSchema,
+                [typeof(GeneralStorageModel)] = this.generalComponentSchema,
+                [typeof(InterfaceStorageModel)] = this.interfaceComponentSchema,
+                [typeof(VideoStorageModel)] = this.videoComponentSchema,
+                [typeof(VolumeStorageModel)] = this.volumeComponentSchema
+            };
+
+            this.componentVersionsByType = new()
+            {
+                [typeof(ControlStorageModel)] = IOConstants.SETTINGS_CONTROL_COMPONENT_VERSION,
+                [typeof(CursorStorageModel)] = IOConstants.SETTINGS_CURSOR_COMPONENT_VERSION,
+                [typeof(GameplayStorageModel)] = IOConstants.SETTINGS_GAMEPLAY_COMPONENT_VERSION,
+                [typeof(GeneralStorageModel)] = IOConstants.SETTINGS_GENERAL_COMPONENT_VERSION,
+                [typeof(InterfaceStorageModel)] = IOConstants.SETTINGS_INTERFACE_COMPONENT_VERSION,
+                [typeof(VideoStorageModel)] = IOConstants.SETTINGS_VIDEO_COMPONENT_VERSION,
+                [typeof(VolumeStorageModel)] = IOConstants.SETTINGS_VOLUME_COMPONENT_VERSION
+            };
+
+            #endregion
         }
 
         internal TStorageModel Load<TStorageModel>() where TStorageModel : IStorageModel
         {
+            Type storageModelType = typeof(TStorageModel);
 
+            string componentFilename = Path.Combine(IO.Directory.Settings, this.componentFilenamesByType[storageModelType]);
+            int targetVersion = this.componentVersionsByType[storageModelType];
+
+            ComponentSchema schema = this.componentSchemasByType[storageModelType];
+            VersioningHeader versioningHeader = ReadVersioningHeader();
+
+            if (!versioningHeader.TryGetVersion(schema.Identifier, out int sourceVersion))
+            {
+                sourceVersion = targetVersion;
+            }
+
+            using FileStream stream = new(componentFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            return this.schemaSerializer.Deserialize<TStorageModel>(stream, schema, sourceVersion, targetVersion);
         }
 
         internal void Save<TStorageModel>(TStorageModel value) where TStorageModel : IStorageModel
         {
+            Type storageModelType = typeof(TStorageModel);
 
+            ComponentSchema schema = this.componentSchemasByType[storageModelType];
+
+            string filename = Path.Combine(IO.Directory.Settings, this.componentFilenamesByType[storageModelType]);
+            using FileStream stream = new(filename, FileMode.Create, FileAccess.Write, FileShare.None);
+
+            this.schemaSerializer.Serialize(stream, schema.Mapper, value);
         }
     }
 }
