@@ -36,8 +36,6 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class WorldDetailsUI : UIBase
     {
-        private WorldSaveFile saveFile;
-
         private Image headerBackground, shadowBackground;
 
         private Image worldThumbnail;
@@ -73,7 +71,6 @@ namespace StardustSandbox.Core.UI.Common
                 new(TextureIndex.None, null, Localization_Statements.Delete, string.Empty, () =>
                 {
                     soundEffectManager.Play(SoundEffectIndex.GUI_Click);
-                    worldSerializer.Delete(this.saveFile.Metadata.Name);
                     uiManager.CloseUI();
                 }),
                 new(TextureIndex.None, null, Localization_Statements.Play, string.Empty, () =>
@@ -83,7 +80,6 @@ namespace StardustSandbox.Core.UI.Common
                     uiManager.OpenUI(UIIndex.Hud);
 
                     gameHandler.StartGame();
-                    gameHandler.LoadSaveFile(this.saveFile.Metadata.Name);
                     soundEffectManager.Play(SoundEffectIndex.GUI_World_Loaded);
                 }),
             ];
@@ -241,22 +237,6 @@ namespace StardustSandbox.Core.UI.Common
 
                 slotInfoElement.Color = Interaction.OnMouseOver(slotInfoElement) ? AAP64ColorPalette.LemonYellow : AAP64ColorPalette.White;
             }
-        }
-
-        internal void SetSaveFile(GraphicsDevice graphicsDevice, string saveFilename)
-        {
-            this.saveFile = this.worldSerializer.Load(saveFilename, LoadFlags.Metadata | LoadFlags.Manifest | LoadFlags.Thumbnail);
-            UpdateDisplay(graphicsDevice, this.saveFile);
-        }
-
-        private void UpdateDisplay(GraphicsDevice graphicsDevice, WorldSaveFile saveFile)
-        {
-            this.worldThumbnail.Texture = saveFile.ThumbnailTextureData.ToTexture2D(graphicsDevice);
-
-            this.worldTitle.TextContent = saveFile.Metadata.Name;
-            this.worldDescription.TextContent = saveFile.Metadata.Description;
-            this.worldVersion.TextContent = string.Concat('v', saveFile.Manifest.GameVersion);
-            this.worldCreationTimestamp.TextContent = saveFile.Manifest.CreationTimestamp.ToString();
         }
 
         protected override void OnClosed()

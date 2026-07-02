@@ -17,7 +17,7 @@
 
 namespace StardustSandbox.Core.Enums.Indexers
 {
-    internal enum AchievementIndex : byte
+    public enum AchievementIndex : byte
     {
         None,
         ACH_001,

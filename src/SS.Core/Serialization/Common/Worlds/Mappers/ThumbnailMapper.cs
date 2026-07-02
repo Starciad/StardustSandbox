@@ -21,29 +21,29 @@ using StardustSandbox.Core.Serialization.Common.Worlds.StorageModels;
 
 namespace StardustSandbox.Core.Serialization.Common.Worlds.Mappers
 {
-    internal sealed class Texture2DMapper : IMapper
+    internal sealed class ThumbnailMapper : IMapper
     {
         public IData ToData(IStorageModel value)
         {
-            Texture2DStorageModel texture2DStorageModel = (Texture2DStorageModel)value;
+            ThumbnailStorageModel storageModel = (ThumbnailStorageModel)value;
 
-            return new Texture2DData()
+            return new ThumbnailData()
             {
-                Data = texture2DStorageModel.Data,
-                Height = texture2DStorageModel.Height,
-                Width = texture2DStorageModel.Width
+                Data = storageModel.Data,
+                Height = storageModel.Height,
+                Width = storageModel.Width
             };
         }
 
         public IStorageModel ToStorageModel(IData value)
         {
-            Texture2DData texture2DData = (Texture2DData)value;
+            ThumbnailData data = (ThumbnailData)value;
 
-            return new Texture2DStorageModel()
+            return new ThumbnailStorageModel()
             {
-                Data = texture2DData.Data,
-                Height = texture2DData.Height,
-                Width = texture2DData.Width
+                Data = data.Data,
+                Height = data.Height,
+                Width = data.Width
             };
         }
     }

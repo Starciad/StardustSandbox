@@ -294,67 +294,6 @@ namespace StardustSandbox.Core.Elements
             return TryGetStoredElement(this.CurrentPosition, out element);
         }
 
-        internal bool TryHasElementState(Point position, Layer layer, ElementStates state, out bool value)
-        {
-            return this.tileMap.TryHasElementState(position, layer, state, out value);
-        }
-        internal bool TryHasElementState(Point position, ElementStates state, out bool value)
-        {
-            return TryHasElementState(position, this.CurrentLayer, state, out value);
-        }
-        internal bool TryHasElementState(ElementStates state, out bool value)
-        {
-            return TryHasElementState(this.CurrentPosition, state, out value);
-        }
-        internal bool TrySetElementState(Point position, Layer layer, ElementStates state)
-        {
-            return this.tileMap.TrySetElementState(position, layer, state);
-        }
-        internal bool TrySetElementState(Point position, ElementStates state)
-        {
-            return TrySetElementState(position, this.CurrentLayer, state);
-        }
-        internal bool TrySetElementState(ElementStates state)
-        {
-            return TrySetElementState(this.CurrentPosition, state);
-        }
-        internal bool TryRemoveElementState(Point position, Layer layer, ElementStates state)
-        {
-            return this.tileMap.TryRemoveElementState(position, layer, state);
-        }
-        internal bool TryRemoveElementState(Point position, ElementStates state)
-        {
-            return TryRemoveElementState(position, this.CurrentLayer, state);
-        }
-        internal bool TryRemoveElementState(ElementStates state)
-        {
-            return TryRemoveElementState(this.CurrentPosition, state);
-        }
-        internal bool TryClearElementStates(Point position, Layer layer)
-        {
-            return this.tileMap.TryClearElementStates(position, layer);
-        }
-        internal bool TryClearElementStates(Point position)
-        {
-            return TryClearElementStates(position, this.CurrentLayer);
-        }
-        internal bool TryClearElementStates()
-        {
-            return TryClearElementStates(this.CurrentPosition, this.CurrentLayer);
-        }
-        internal bool TryToggleElementState(Point position, Layer layer, ElementStates state)
-        {
-            return this.tileMap.TryToggleElementState(position, layer, state);
-        }
-        internal bool TryToggleElementState(Point position, ElementStates state)
-        {
-            return TryToggleElementState(position, this.CurrentLayer, state);
-        }
-        internal bool TryToggleElementState(ElementStates state)
-        {
-            return TryToggleElementState(this.CurrentPosition, state);
-        }
-
         internal void SetPosition(Point newPosition, Layer layer)
         {
             _ = TrySetPosition(newPosition, layer);
@@ -518,67 +457,6 @@ namespace StardustSandbox.Core.Elements
         internal bool HasStoredElement()
         {
             return HasStoredElement(this.CurrentPosition);
-        }
-
-        internal bool HasElementState(Point position, Layer layer, ElementStates state)
-        {
-            return this.tileMap.HasElementState(position, layer, state);
-        }
-        internal bool HasElementState(Point position, ElementStates state)
-        {
-            return HasElementState(position, this.CurrentLayer, state);
-        }
-        internal bool HasElementState(ElementStates state)
-        {
-            return HasElementState(this.CurrentPosition, state);
-        }
-        internal void SetElementState(Point position, Layer layer, ElementStates state)
-        {
-            this.tileMap.SetElementState(position, layer, state);
-        }
-        internal void SetElementState(Point position, ElementStates state)
-        {
-            SetElementState(position, this.CurrentLayer, state);
-        }
-        internal void SetElementState(ElementStates state)
-        {
-            SetElementState(this.CurrentPosition, state);
-        }
-        internal void RemoveElementState(Point position, Layer layer, ElementStates state)
-        {
-            this.tileMap.RemoveElementState(position, layer, state);
-        }
-        internal void RemoveElementState(Point position, ElementStates state)
-        {
-            RemoveElementState(position, this.CurrentLayer, state);
-        }
-        internal void RemoveElementState(ElementStates state)
-        {
-            RemoveElementState(this.CurrentPosition, state);
-        }
-        internal void ClearElementStates(Point position, Layer layer)
-        {
-            this.tileMap.ClearElementStates(position, layer);
-        }
-        internal void ClearElementStates(Point position)
-        {
-            ClearElementStates(position, this.CurrentLayer);
-        }
-        internal void ClearElementStates()
-        {
-            ClearElementStates(this.CurrentPosition, this.CurrentLayer);
-        }
-        internal void ToggleElementState(Point position, Layer layer, ElementStates state)
-        {
-            this.tileMap.ToggleElementState(position, layer, state);
-        }
-        internal void ToggleElementState(Point position, ElementStates state)
-        {
-            ToggleElementState(position, this.CurrentLayer, state);
-        }
-        internal void ToggleElementState(ElementStates state)
-        {
-            ToggleElementState(this.CurrentPosition, state);
         }
 
         internal ElementIndex GetElementIndex(Point position, Layer layer)

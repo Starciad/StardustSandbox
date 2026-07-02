@@ -21,24 +21,31 @@ using StardustSandbox.Core.Interfaces.Serialization.Morph;
 
 namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
 {
-    internal sealed class Texture2DStorageModel : IStorageModel
+    internal sealed class ThumbnailStorageModel : IStorageModel
     {
         internal byte[] Data { get; set; }
         internal int Height { get; set; }
         internal int Width { get; set; }
 
-        public Texture2DStorageModel()
+        public ThumbnailStorageModel()
         {
 
         }
 
-        public Texture2DStorageModel(Texture2D texture2d)
+        public ThumbnailStorageModel(Texture2D texture2d)
         {
             this.Width = texture2d.Width;
             this.Height = texture2d.Height;
             this.Data = new byte[this.Width * this.Height * 4]; // RGBA
 
             texture2d.GetData(this.Data);
+        }
+
+        internal Texture2D ToTexture2D(GraphicsDevice graphicsDevice)
+        {
+            Texture2D texture2d = new(graphicsDevice, this.Width, this.Height);
+            texture2d.SetData(this.Data);
+            return texture2d;
         }
     }
 }

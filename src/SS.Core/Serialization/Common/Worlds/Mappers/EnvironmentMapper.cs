@@ -25,23 +25,23 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.Mappers
     {
         public IData ToData(IStorageModel value)
         {
-            EnvironmentStorageModel environmentStorageModel = (EnvironmentStorageModel)value;
+            EnvironmentStorageModel storageModel = (EnvironmentStorageModel)value;
 
             return new EnvironmentData()
             {
-                CurrentTime = environmentStorageModel.CurrentTime,
-                IsFrozen = environmentStorageModel.IsFrozen,
+                CurrentTime = storageModel.CurrentTime,
+                IsFrozen = storageModel.IsFrozen,
             };
         }
 
         public IStorageModel ToStorageModel(IData value)
         {
-            EnvironmentData environmentData = (EnvironmentData)value;
+            EnvironmentData data = (EnvironmentData)value;
 
             return new EnvironmentStorageModel()
             {
-                CurrentTime = environmentData.CurrentTime,
-                IsFrozen = environmentData.IsFrozen,
+                CurrentTime = data.CurrentTime,
+                IsFrozen = data.IsFrozen,
             };
         }
     }

@@ -25,27 +25,27 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.Mappers
     {
         public IData ToData(IStorageModel value)
         {
-            ManifestStorageModel manifestStorageModel = (ManifestStorageModel)value;
+            ManifestStorageModel storageModel = (ManifestStorageModel)value;
 
             return new ManifestData()
             {
-                CreationTimestamp = manifestStorageModel.CreationTimestamp,
-                Description = manifestStorageModel.Description,
-                LastModifiedTimestamp = manifestStorageModel.LastModifiedTimestamp,
-                Name = manifestStorageModel.Name,
+                CreationTimestamp = storageModel.CreationTimestamp,
+                Description = storageModel.Description,
+                LastModifiedTimestamp = storageModel.LastModifiedTimestamp,
+                Name = storageModel.Name,
             };
         }
 
         public IStorageModel ToStorageModel(IData value)
         {
-            ManifestData manifestData = (ManifestData)value;
+            ManifestData data = (ManifestData)value;
 
             return new ManifestStorageModel()
             {
-                CreationTimestamp = manifestData.CreationTimestamp,
-                Description = manifestData.Description,
-                LastModifiedTimestamp = manifestData.LastModifiedTimestamp,
-                Name = manifestData.Name,
+                CreationTimestamp = data.CreationTimestamp,
+                Description = data.Description,
+                LastModifiedTimestamp = data.LastModifiedTimestamp,
+                Name = data.Name,
             };
         }
     }

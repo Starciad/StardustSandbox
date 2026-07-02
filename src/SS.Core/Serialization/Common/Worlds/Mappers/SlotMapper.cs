@@ -32,27 +32,27 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.Mappers
 
         public IData ToData(IStorageModel value)
         {
-            SlotStorageModel slotStorageModel = (SlotStorageModel)value;
+            SlotStorageModel storageModel = (SlotStorageModel)value;
 
             return new SlotData()
             {
-                BackgroundLayer = (SlotLayerData)this.slotLayerMapper.ToData(slotStorageModel.BackgroundLayer),
-                ForegroundLayer = (SlotLayerData)this.slotLayerMapper.ToData(slotStorageModel.ForegroundLayer),
-                PositionX = slotStorageModel.PositionX,
-                PositionY = slotStorageModel.PositionY,
+                BackgroundLayer = (SlotLayerData)this.slotLayerMapper.ToData(storageModel.BackgroundLayer),
+                ForegroundLayer = (SlotLayerData)this.slotLayerMapper.ToData(storageModel.ForegroundLayer),
+                PositionX = storageModel.PositionX,
+                PositionY = storageModel.PositionY,
             };
         }
 
         public IStorageModel ToStorageModel(IData value)
         {
-            SlotData slotData = (SlotData)value;
+            SlotData data = (SlotData)value;
 
             return new SlotStorageModel()
             {
-                BackgroundLayer = (SlotLayerStorageModel)this.slotLayerMapper.ToStorageModel(slotData.BackgroundLayer),
-                ForegroundLayer = (SlotLayerStorageModel)this.slotLayerMapper.ToStorageModel(slotData.ForegroundLayer),
-                PositionX = slotData.PositionX,
-                PositionY = slotData.PositionY,
+                BackgroundLayer = (SlotLayerStorageModel)this.slotLayerMapper.ToStorageModel(data.BackgroundLayer),
+                ForegroundLayer = (SlotLayerStorageModel)this.slotLayerMapper.ToStorageModel(data.ForegroundLayer),
+                PositionX = data.PositionX,
+                PositionY = data.PositionY,
             };
         }
     }

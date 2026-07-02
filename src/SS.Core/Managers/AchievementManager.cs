@@ -58,7 +58,7 @@ namespace StardustSandbox.Core.Managers
             AchievementData achievementProgress = this.progressSerializer.Load<AchievementData>();
 
             // If the achievement is already unlocked or if the prerequisite achievement is not unlocked, do nothing.
-            if (achievementProgress.IsUnlocked(targetIndex) || (targetAchievement.PrerequisiteAchievementIndex is not AchievementIndex.None && !achievementProgress.IsUnlocked(targetAchievement.PrerequisiteAchievementIndex)))
+            if (achievementProgress.IsUnlocked(targetIndex) || (targetAchievement.PreviousAchievementIndex is not AchievementIndex.None && !achievementProgress.IsUnlocked(targetAchievement.PreviousAchievementIndex)))
             {
                 return;
             }

@@ -26,23 +26,23 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.Mappers
     {
         public IData ToData(IStorageModel value)
         {
-            ActorStorageModel actorStorageModel = (ActorStorageModel)value;
+            ActorStorageModel storageModel = (ActorStorageModel)value;
 
             return new ActorData()
             {
-                Content = actorStorageModel.Content,
-                Index = (byte)actorStorageModel.Index
+                Content = storageModel.Content,
+                Index = (byte)storageModel.Index
             };
         }
 
         public IStorageModel ToStorageModel(IData value)
         {
-            ActorData actorData = (ActorData)value;
+            ActorData data = (ActorData)value;
 
             return new ActorStorageModel()
             {
-                Content = actorData.Content,
-                Index = (ActorIndex)actorData.Index
+                Content = data.Content,
+                Index = (ActorIndex)data.Index
             };
         }
     }

@@ -52,7 +52,7 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
         private readonly PropertyMapper propertyMapper;
         private readonly SlotLayerMapper slotLayerMapper;
         private readonly SlotMapper slotMapper;
-        private readonly Texture2DMapper texture2DMapper;
+        private readonly ThumbnailMapper thumbnailMapper;
 
         #endregion
 
@@ -65,7 +65,7 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
         private readonly ComponentSchema propertyComponentSchema;
         private readonly ComponentSchema slotLayerComponentSchema;
         private readonly ComponentSchema slotComponentSchema;
-        private readonly ComponentSchema texture2DComponentSchema;
+        private readonly ComponentSchema thumbnailComponentSchema;
 
         #endregion
 
@@ -110,7 +110,7 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
             this.environmentMapper = new();
             this.manifestMapper = new();
             this.propertyMapper = new();
-            this.texture2DMapper = new();
+            this.thumbnailMapper = new();
 
             #endregion
 
@@ -180,12 +180,12 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
                 ]
             );
 
-            this.texture2DComponentSchema = new(
+            this.thumbnailComponentSchema = new(
                 IOConstants.WORLD_THUMBNAIL_COMPONENT_ID,
-                this.texture2DMapper,
+                this.thumbnailMapper,
                 [],
                 [
-                    typeof(Data.V1.Texture2DData)
+                    typeof(Data.V1.ThumbnailData)
                 ]
             );
 
@@ -199,7 +199,7 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
                 [typeof(EnvironmentStorageModel)] = IOConstants.WORLD_ENVIRONMENT_COMPONENT_FILE,
                 [typeof(ManifestStorageModel)] = IOConstants.WORLD_MANIFEST_COMPONENT_FILE,
                 [typeof(PropertyStorageModel)] = IOConstants.WORLD_PROPERTIES_COMPONENT_FILE,
-                [typeof(Texture2DStorageModel)] = IOConstants.WORLD_THUMBNAIL_COMPONENT_FILE,
+                [typeof(ThumbnailStorageModel)] = IOConstants.WORLD_THUMBNAIL_COMPONENT_FILE,
             };
 
             this.componentSchemasByType = new()
@@ -208,7 +208,7 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
                 [typeof(EnvironmentStorageModel)] = this.environmentComponentSchema,
                 [typeof(ManifestStorageModel)] = this.manifestComponentSchema,
                 [typeof(PropertyStorageModel)] = this.propertyComponentSchema,
-                [typeof(Texture2DStorageModel)] = this.texture2DComponentSchema,
+                [typeof(ThumbnailStorageModel)] = this.thumbnailComponentSchema,
             };
 
             this.componentVersionsByType = new()
@@ -217,7 +217,7 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
                 [typeof(EnvironmentStorageModel)] = IOConstants.WORLD_ENVIRONMENT_COMPONENT_VERSION,
                 [typeof(ManifestStorageModel)] = IOConstants.WORLD_MANIFEST_COMPONENT_VERSION,
                 [typeof(PropertyStorageModel)] = IOConstants.WORLD_PROPERTIES_COMPONENT_VERSION,
-                [typeof(Texture2DStorageModel)] = IOConstants.WORLD_THUMBNAIL_COMPONENT_VERSION,
+                [typeof(ThumbnailStorageModel)] = IOConstants.WORLD_THUMBNAIL_COMPONENT_VERSION,
             };
 
             #endregion
@@ -263,7 +263,7 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
             };
         }
 
-        private Texture2DStorageModel CreateThumbnail()
+        private ThumbnailStorageModel CreateThumbnail()
         {
             return new(this.world.TileMap.CreateThumbnail(this.graphicsDeviceManager.GraphicsDevice));
         }
@@ -345,6 +345,29 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
             return Read<TStorageModel>(zip, entryName, schema, sourceVersion, targetVersion);
         }
 
+        internal IEnumerable<TStorageModel> LoadAll<TStorageModel>() where TStorageModel : IStorageModel
+        {
+            Type storageModelType = typeof(TStorageModel);
+            int targetVersion = this.componentVersionsByType[storageModelType];
+            string entryName = this.componentEntryNamesByType[storageModelType];
+
+            foreach (string filename in Directory.EnumerateFiles(IO.Directory.Worlds, $"*{IOConstants.WORLD_FILE_EXTENSION}"))
+            {
+                using FileStream fs = new(filename, FileMode.Open, FileAccess.Read);
+                using ZipArchive zip = new(fs, ZipArchiveMode.Read);
+
+                ComponentSchema schema = this.componentSchemasByType[storageModelType];
+                VersioningHeader versioningHeader = ReadVersioningHeader(zip);
+
+                if (!versioningHeader.TryGetVersion(schema.Identifier, out int sourceVersion))
+                {
+                    sourceVersion = targetVersion;
+                }
+
+                yield return Read<TStorageModel>(zip, entryName, schema, sourceVersion, targetVersion);
+            }
+        }
+
         internal void Save()
         {
             string filename = Path.Combine(IO.Directory.Worlds, string.Concat(this.world.Name, IOConstants.WORLD_FILE_EXTENSION));
@@ -356,7 +379,7 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
             Write(zip, IOConstants.WORLD_ENVIRONMENT_COMPONENT_FILE, this.environmentMapper, CreateEnvironment());
             Write(zip, IOConstants.WORLD_MANIFEST_COMPONENT_FILE, this.manifestMapper, CreateManifest());
             Write(zip, IOConstants.WORLD_PROPERTIES_COMPONENT_FILE, this.propertyMapper, CreateProperties());
-            Write(zip, IOConstants.WORLD_THUMBNAIL_COMPONENT_FILE, this.texture2DMapper, CreateThumbnail());
+            Write(zip, IOConstants.WORLD_THUMBNAIL_COMPONENT_FILE, this.thumbnailMapper, CreateThumbnail());
             WriteVersioningHeader(zip);
         }
     }

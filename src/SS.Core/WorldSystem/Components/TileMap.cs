@@ -531,63 +531,6 @@ namespace StardustSandbox.Core.WorldSystem.Components
             return true;
         }
 
-        internal bool TryHasElementState(Point position, Layer layer, ElementStates state, out bool value)
-        {
-            value = false;
-
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
-            {
-                return false;
-            }
-
-            value = this[position].HasState(layer, state);
-            return true;
-        }
-
-        internal bool TrySetElementState(Point position, Layer layer, ElementStates state)
-        {
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
-            {
-                return false;
-            }
-
-            this[position].SetState(layer, state);
-            return true;
-        }
-
-        internal bool TryRemoveElementState(Point position, Layer layer, ElementStates state)
-        {
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
-            {
-                return false;
-            }
-
-            this[position].RemoveState(layer, state);
-            return true;
-        }
-
-        internal bool TryClearElementStates(Point position, Layer layer)
-        {
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
-            {
-                return false;
-            }
-
-            this[position].ClearStates(layer);
-            return true;
-        }
-
-        internal bool TryToggleElementState(Point position, Layer layer, ElementStates state)
-        {
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
-            {
-                return false;
-            }
-
-            this[position].ToggleState(layer, state);
-            return true;
-        }
-
         internal void InstantiateElementIndex(Point position, Layer layer, ElementIndex index)
         {
             _ = TryInstantiateElementIndex(position, layer, index);
@@ -705,32 +648,6 @@ namespace StardustSandbox.Core.WorldSystem.Components
         {
             _ = TryHasStoredElement(position, layer, out bool value);
             return value;
-        }
-
-        internal bool HasElementState(Point position, Layer layer, ElementStates state)
-        {
-            _ = TryHasElementState(position, layer, state, out bool value);
-            return value;
-        }
-
-        internal void SetElementState(Point position, Layer layer, ElementStates state)
-        {
-            _ = TrySetElementState(position, layer, state);
-        }
-
-        internal void RemoveElementState(Point position, Layer layer, ElementStates state)
-        {
-            _ = TryRemoveElementState(position, layer, state);
-        }
-
-        internal void ClearElementStates(Point position, Layer layer)
-        {
-            _ = TryClearElementStates(position, layer);
-        }
-
-        internal void ToggleElementState(Point position, Layer layer, ElementStates state)
-        {
-            _ = TryToggleElementState(position, layer, state);
         }
 
         internal bool IsEmptySlot(Point position)

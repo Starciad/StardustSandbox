@@ -27,21 +27,21 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.Mappers
     {
         public IData ToData(IStorageModel value)
         {
-            SlotLayerStorageModel slotLayerStorageModel = (SlotLayerStorageModel)value;
+            SlotLayerStorageModel storageModel = (SlotLayerStorageModel)value;
 
             return new SlotLayerData()
             {
-                ColorModifierR = slotLayerStorageModel.ColorModifier.R,
-                ColorModifierG = slotLayerStorageModel.ColorModifier.G,
-                ColorModifierB = slotLayerStorageModel.ColorModifier.B,
-                ColorModifierA = slotLayerStorageModel.ColorModifier.A,
-                ElementIndex = (byte)slotLayerStorageModel.ElementIndex,
-                IsDissipating = slotLayerStorageModel.IsDissipating,
-                IsFalling = slotLayerStorageModel.IsFalling,
-                StepCycleFlag = (byte)slotLayerStorageModel.StepCycleFlag,
-                StoredElementIndex = (byte)slotLayerStorageModel.StoredElementIndex,
-                Temperature = slotLayerStorageModel.Temperature,
-                WasPushed = slotLayerStorageModel.WasPushed
+                ColorModifierR = storageModel.ColorModifier.R,
+                ColorModifierG = storageModel.ColorModifier.G,
+                ColorModifierB = storageModel.ColorModifier.B,
+                ColorModifierA = storageModel.ColorModifier.A,
+                ElementIndex = (byte)storageModel.ElementIndex,
+                IsDissipating = storageModel.IsDissipating,
+                IsFalling = storageModel.IsFalling,
+                StepCycleFlag = (byte)storageModel.StepCycleFlag,
+                StoredElementIndex = (byte)storageModel.StoredElementIndex,
+                Temperature = storageModel.Temperature,
+                WasPushed = storageModel.WasPushed
             };
         }
 

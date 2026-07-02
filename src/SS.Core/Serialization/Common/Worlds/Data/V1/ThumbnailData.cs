@@ -25,7 +25,7 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.Data.V1
 {
     [Serializable]
     [MessagePackObject]
-    public sealed class Texture2DData : IData
+    public sealed class ThumbnailData : IData
     {
         [Key(0)]
         public byte[] Data { get; set; }

@@ -85,31 +85,6 @@ namespace StardustSandbox.Core.WorldSystem.Slots
             GetLayer(layer).StoredElementIndex = index;
         }
 
-        internal bool HasState(Layer layer, ElementStates value)
-        {
-            return GetLayer(layer).HasState(value);
-        }
-
-        internal void SetState(Layer layer, ElementStates value)
-        {
-            GetLayer(layer).SetState(value);
-        }
-
-        internal void RemoveState(Layer layer, ElementStates value)
-        {
-            GetLayer(layer).RemoveState(value);
-        }
-
-        internal void ClearStates(Layer layer)
-        {
-            GetLayer(layer).ClearStates();
-        }
-
-        internal void ToggleState(Layer layer, ElementStates value)
-        {
-            GetLayer(layer).ToggleState(value);
-        }
-
         internal void Reset(Layer layer)
         {
             GetLayer(layer).Reset();

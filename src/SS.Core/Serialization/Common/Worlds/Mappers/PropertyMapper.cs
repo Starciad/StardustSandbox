@@ -25,23 +25,23 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.Mappers
     {
         public IData ToData(IStorageModel value)
         {
-            PropertyStorageModel propertyStorageModel = (PropertyStorageModel)value;
+            PropertyStorageModel storageModel = (PropertyStorageModel)value;
 
             return new PropertyData()
             {
-                Height = propertyStorageModel.Height,
-                Width = propertyStorageModel.Width
+                Height = storageModel.Height,
+                Width = storageModel.Width
             };
         }
 
         public IStorageModel ToStorageModel(IData value)
         {
-            PropertyData propertyData = (PropertyData)value;
+            PropertyData data = (PropertyData)value;
 
             return new PropertyStorageModel()
             {
-                Height = propertyData.Height,
-                Width = propertyData.Width
+                Height = data.Height,
+                Width = data.Width
             };
         }
     }

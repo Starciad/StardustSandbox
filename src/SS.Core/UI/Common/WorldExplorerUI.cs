@@ -29,6 +29,7 @@ using StardustSandbox.Core.IO;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Common.Worlds;
+using StardustSandbox.Core.Serialization.Common.Worlds.StorageModels;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 
@@ -39,6 +40,12 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class WorldExplorerUI : UIBase
     {
+        private sealed class WorldEntry
+        {
+            internal ManifestStorageModel Manifest { get; }
+            internal ThumbnailStorageModel Thumbnail { get; }
+        }
+
         private int currentPageIndex = 0, totalPages = 1;
         private Range saveFilesRange;
 
@@ -47,10 +54,10 @@ namespace StardustSandbox.Core.UI.Common
 
         private SlotInfo[] menuButtonSlotInfos;
 
+        private readonly List<WorldEntry> worldEntries = [];
+
         private readonly SlotInfo[] worldButtonSlotInfos, paginationButtonSlotInfos;
         private readonly ButtonInfo[] menuButtonInfos, paginationButtonInfos;
-
-        private readonly List<WorldSaveFile> loadedSaveFiles = [];
 
         private readonly AssetDatabase assetDatabase;
         private readonly GraphicsDevice graphicsDevice;
@@ -124,15 +131,13 @@ namespace StardustSandbox.Core.UI.Common
 
         private void LoadAllSaveFiles()
         {
-            this.loadedSaveFiles.Clear();
+            this.worldEntries.Clear();
 
-            foreach (WorldSaveFile saveFile in this.worldSerializer.LoadAll(LoadFlags.Thumbnail | LoadFlags.Metadata))
-            {
-                this.loadedSaveFiles.Add(saveFile);
-            }
+            this.worldSerializer.LoadAll<ManifestStorageModel>();
+            this.worldSerializer.LoadAll<ThumbnailStorageModel>();
 
             this.currentPageIndex = Math.Clamp(this.currentPageIndex, 0, this.totalPages - 1);
-            this.totalPages = (int)MathF.Max(1.0f, MathF.Ceiling(this.loadedSaveFiles.Count / (float)UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE));
+            this.totalPages = (int)MathF.Max(1.0f, MathF.Ceiling(this.worldEntries.Count / (float)UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE));
         }
 
         private void RefreshContent()
@@ -143,7 +148,7 @@ namespace StardustSandbox.Core.UI.Common
                 this.currentPageIndex * UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE,
                 Math.Min(
                     (this.totalPages * UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE) + UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE,
-                    this.loadedSaveFiles.Count
+                    this.worldEntries.Count
                 )
             );
 
@@ -155,13 +160,13 @@ namespace StardustSandbox.Core.UI.Common
 
                 if (i < length)
                 {
-                    WorldSaveFile saveFile = this.loadedSaveFiles[this.saveFilesRange.Start.Value + i];
+                    WorldEntry saveFile = this.worldEntries[this.saveFilesRange.Start.Value + i];
 
                     slotInfoElement.Background.CanDraw = true;
 
                     slotInfoElement.Icon.DisposeTexture();
-                    slotInfoElement.Icon.Texture = saveFile.ThumbnailTextureData.ToTexture2D(this.graphicsDevice);
-                    slotInfoElement.Label.TextContent = saveFile.Metadata.Name.Truncate(10);
+                    slotInfoElement.Icon.Texture = saveFile.Thumbnail.ToTexture2D(this.graphicsDevice);
+                    slotInfoElement.Label.TextContent = saveFile.Manifest.Name.Truncate(10);
                 }
                 else
                 {
@@ -348,7 +353,6 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = this.saveFilesRange.Start.Value; i < this.saveFilesRange.End.Value; i++)
             {
                 SlotInfo slotInfoElement = this.worldButtonSlotInfos[i % UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE];
-                WorldSaveFile saveFile = this.loadedSaveFiles[i];
 
                 if (Interaction.OnMouseEnter(slotInfoElement.Background))
                 {
@@ -358,7 +362,6 @@ namespace StardustSandbox.Core.UI.Common
                 if (Interaction.OnMouseLeftClick(slotInfoElement.Background))
                 {
                     this.soundEffectManager.Play(SoundEffectIndex.GUI_Click);
-                    this.worldDetailsUI.SetSaveFile(this.graphicsDevice, saveFile.Metadata.Name);
                     this.uiManager.OpenUI(UIIndex.WorldDetails);
                     break;
                 }
@@ -393,6 +396,19 @@ namespace StardustSandbox.Core.UI.Common
         {
             LoadAllSaveFiles();
             RefreshContent();
+        }
+
+        protected override void OnClosed()
+        {
+            for (int i = 0; i < this.worldButtonSlotInfos.Length; i++)
+            {
+                SlotInfo slotInfoElement = this.worldButtonSlotInfos[i];
+                
+                if (slotInfoElement.Icon.HasTexture)
+                {
+                    slotInfoElement.Icon.DisposeTexture();
+                }
+            }
         }
     }
 }

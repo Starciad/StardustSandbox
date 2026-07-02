@@ -28,6 +28,7 @@ using StardustSandbox.Core.Events.Actors;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Common.Worlds.Data.V1;
+using StardustSandbox.Core.Serialization.Common.Worlds.StorageModels;
 using StardustSandbox.Core.WorldSystem;
 using StardustSandbox.Core.WorldSystem.Slots;
 
@@ -369,11 +370,11 @@ namespace StardustSandbox.Core.Actors.Common
             }
         }
 
-        internal override ActorData Serialize()
+        internal override ActorStorageModel Serialize()
         {
             return new()
             {
-                Index = (byte)this.Index,
+                Index = this.Index,
                 Content = new Dictionary<string, object>()
                 {
                     ["Direction"] = this.direction,
@@ -386,7 +387,7 @@ namespace StardustSandbox.Core.Actors.Common
             };
         }
 
-        internal override void Deserialize(ActorData data)
+        internal override void Deserialize(ActorStorageModel data)
         {
             Direction tempDirection = Randomness.Random.GetBool() ? Direction.Left : Direction.Right;
             ElementIndex tempGrabbedElementIndex = ElementIndex.None;

@@ -34,19 +34,19 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.Mappers
 
         public IData ToData(IStorageModel value)
         {
-            ContentStorageModel contentStorageModel = (ContentStorageModel)value;
+            ContentStorageModel storageModel = (ContentStorageModel)value;
 
-            ActorData[] actors = new ActorData[contentStorageModel.Actors.Length];
-            SlotData[] slots = new SlotData[contentStorageModel.Slots.Length];
+            ActorData[] actors = new ActorData[storageModel.Actors.Length];
+            SlotData[] slots = new SlotData[storageModel.Slots.Length];
 
             for (int i = 0; i < actors.Length; i++)
             {
-                actors[i] = (ActorData)this.actorMapper.ToData(contentStorageModel.Actors[i]);
+                actors[i] = (ActorData)this.actorMapper.ToData(storageModel.Actors[i]);
             }
 
             for (int i = 0; i < slots.Length; i++)
             {
-                slots[i] = (SlotData)this.slotMapper.ToData(contentStorageModel.Slots[i]);
+                slots[i] = (SlotData)this.slotMapper.ToData(storageModel.Slots[i]);
             }
 
             return new ContentData()
@@ -58,19 +58,19 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.Mappers
 
         public IStorageModel ToStorageModel(IData value)
         {
-            ContentData contentData = (ContentData)value;
+            ContentData data = (ContentData)value;
 
-            ActorStorageModel[] actors = new ActorStorageModel[contentData.Actors.Length];
-            SlotStorageModel[] slots = new SlotStorageModel[contentData.Slots.Length];
+            ActorStorageModel[] actors = new ActorStorageModel[data.Actors.Length];
+            SlotStorageModel[] slots = new SlotStorageModel[data.Slots.Length];
 
             for (int i = 0; i < actors.Length; i++)
             {
-                actors[i] = (ActorStorageModel)this.actorMapper.ToStorageModel(contentData.Actors[i]);
+                actors[i] = (ActorStorageModel)this.actorMapper.ToStorageModel(data.Actors[i]);
             }
 
             for (int i = 0; i < slots.Length; i++)
             {
-                slots[i] = (SlotStorageModel)this.slotMapper.ToStorageModel(contentData.Slots[i]);
+                slots[i] = (SlotStorageModel)this.slotMapper.ToStorageModel(data.Slots[i]);
             }
 
             return new ContentStorageModel()
