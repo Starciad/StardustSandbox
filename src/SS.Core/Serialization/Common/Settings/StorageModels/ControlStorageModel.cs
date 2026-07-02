@@ -17,54 +17,26 @@
 
 using Microsoft.Xna.Framework.Input;
 
-using StardustSandbox.Core.Interfaces.Serialization.Modules;
+using StardustSandbox.Core.Interfaces.Serialization.Morph;
 
-using System;
-using System.Xml.Serialization;
-
-namespace StardustSandbox.Core.Serialization.Common.Settings.Common
+namespace StardustSandbox.Core.Serialization.Common.Settings.StorageModels
 {
-    [Serializable]
-    [XmlRoot("ControlSettings")]
-    public sealed class ControlSettings : ISettingsModule
+    public sealed class ControlStorageModel : IStorageModel
     {
-        [XmlElement("MoveCameraUpKeyboardBinding", typeof(Keys))]
         public Keys MoveCameraUpKeyboardBinding { get; set; }
-
-        [XmlElement("MoveCameraRightKeyboardBinding", typeof(Keys))]
         public Keys MoveCameraRightKeyboardBinding { get; set; }
-
-        [XmlElement("MoveCameraDownKeyboardBinding", typeof(Keys))]
         public Keys MoveCameraDownKeyboardBinding { get; set; }
-
-        [XmlElement("MoveCameraLeftKeyboardBinding", typeof(Keys))]
         public Keys MoveCameraLeftKeyboardBinding { get; set; }
-
-        [XmlElement("MoveCameraFastKeyboardBinding", typeof(Keys))]
         public Keys MoveCameraFastKeyboardBinding { get; set; }
-
-        [XmlElement("ZoomCameraInKeyboardBinding", typeof(Keys))]
         public Keys ZoomCameraInKeyboardBinding { get; set; }
-
-        [XmlElement("ZoomCameraOutKeyboardBinding", typeof(Keys))]
         public Keys ZoomCameraOutKeyboardBinding { get; set; }
-
-        [XmlElement("TogglePauseKeyboardBinding", typeof(Keys))]
         public Keys TogglePauseKeyboardBinding { get; set; }
-
-        [XmlElement("ClearWorldKeyboardBinding", typeof(Keys))]
         public Keys ClearWorldKeyboardBinding { get; set; }
-
-        [XmlElement("NextShapeKeyboardBinding", typeof(Keys))]
         public Keys NextShapeKeyboardBinding { get; set; }
-
-        [XmlElement("ScreenshotKeyboardBinding", typeof(Keys))]
         public Keys ScreenshotKeyboardBinding { get; set; }
-
-        [XmlElement("ToggleFullscreenKeyboardBinding", typeof(Keys))]
         public Keys ToggleFullscreenKeyboardBinding { get; set; }
 
-        public ControlSettings()
+        public ControlStorageModel()
         {
             this.MoveCameraUpKeyboardBinding = Keys.W;
             this.MoveCameraLeftKeyboardBinding = Keys.A;

@@ -121,62 +121,78 @@ namespace StardustSandbox.Core.Constants
         // Versioning Header
         internal const string VERSIONING_HEADER_FILE = "versioning_header.bin";
 
-        // Progress
-        internal const string ACHIEVEMENT_PROGRESS_FILE = "achievement_progress.bin";
+        #region PROGRESS
 
-        internal const string ACHIEVEMENT_PROGRESS_ID = "achievement_progress";
+        // Filenames
+        internal const string PROGRESS_ACHIEVEMENT_COMPONENT_FILE = "achievement_progress.bin";
 
-        internal const int ACHIEVEMENT_PROGRESS_VERSION = 1;
+        // Identifiers
+        internal const string PROGRESS_ACHIEVEMENT_COMPONENT_ID = "achievement_progress";
 
-        // Settings
-        internal const string CONTROL_SETTINGS_FILE = "control_settings.xml";
-        internal const string CURSOR_SETTINGS_FILE = "cursor_settings.xml";
-        internal const string GAMEPLAY_SETTINGS_FILE = "gameplay_settings.xml";
-        internal const string GENERAL_SETTINGS_FILE = "general_settings.xml";
-        internal const string STATUS_SETTINGS_FILE = "status_settings.xml";
-        internal const string INTERFACE_SETTINGS_FILE = "interface_settings.xml";
-        internal const string VIDEO_SETTINGS_FILE = "video_settings.xml";
-        internal const string VOLUME_SETTINGS_FILE = "volume_settings.xml";
+        // Versions
+        internal const int PROGRESS_ACHIEVEMENT_COMPONENT_VERSION = 1;
 
-        internal const string CONTROL_SETTINGS_ID = "control_settings";
-        internal const string CURSOR_SETTINGS_ID = "cursor_settings";
-        internal const string GAMEPLAY_SETTINGS_ID = "gameplay_settings";
-        internal const string GENERAL_SETTINGS_ID = "general_settings";
-        internal const string STATUS_SETTINGS_ID = "status_settings";
-        internal const string INTERFACE_SETTINGS_ID = "interface_settings";
-        internal const string VIDEO_SETTINGS_ID = "video_settings";
-        internal const string VOLUME_SETTINGS_ID = "volume_settings";
+        #endregion
 
-        internal const int CONTROL_SETTINGS_VERSION = 1;
-        internal const int CURSOR_SETTINGS_VERSION = 1;
-        internal const int GAMEPLAY_SETTINGS_VERSION = 1;
-        internal const int GENERAL_SETTINGS_VERSION = 1;
-        internal const int STATUS_SETTINGS_VERSION = 1;
-        internal const int INTERFACE_SETTINGS_VERSION = 1;
-        internal const int VIDEO_SETTINGS_VERSION = 1;
-        internal const int VOLUME_SETTINGS_VERSION = 1;
+        #region SETTINGS
 
-        // Save
-        internal const string SAVE_ENTRY_CONTENT_FILE = "content.bin";
-        internal const string SAVE_ENTRY_ENVIRONMENT_FILE = "environment.bin";
-        internal const string SAVE_ENTRY_MANIFEST_FILE = "manifest.bin";
-        internal const string SAVE_ENTRY_PROPERTIES_FILE = "properties.bin";
-        internal const string SAVE_ENTRY_THUMBNAIL_FILE = "thumbnail.bin";
+        // Filenames
+        internal const string SETTINGS_CONTROL_COMPONENT_FILE = "control_settings.xml";
+        internal const string SETTINGS_CURSOR_COMPONENT_FILE = "cursor_settings.xml";
+        internal const string SETTINGS_GAMEPLAY_COMPONENT_FILE = "gameplay_settings.xml";
+        internal const string SETTINGS_GENERAL_COMPONENT_FILE = "general_settings.xml";
+        internal const string SETTINGS_INTERFACE_COMPONENT_FILE = "interface_settings.xml";
+        internal const string SETTINGS_VIDEO_COMPONENT_FILE = "video_settings.xml";
+        internal const string SETTINGS_VOLUME_COMPONENT_FILE = "volume_settings.xml";
 
-        internal const string SAVE_ENTRY_CONTENT_ID = "CONTENT";
-        internal const string SAVE_ENTRY_ENVIRONMENT_ID = "ENVIRONMENT";
-        internal const string SAVE_ENTRY_MANIFEST_ID = "MANIFEST";
-        internal const string SAVE_ENTRY_PROPERTIES_ID = "PROPERTIES";
-        internal const string SAVE_ENTRY_THUMBNAIL_ID = "THUMBNAIL";
+        // Identifiers
+        internal const string SETTINGS_CONTROL_COMPONENT_ID = "control_settings";
+        internal const string SETTINGS_CURSOR_COMPONENT_ID = "cursor_settings";
+        internal const string SETTINGS_GAMEPLAY_COMPONENT_ID = "gameplay_settings";
+        internal const string SETTINGS_GENERAL_COMPONENT_ID = "general_settings";
+        internal const string SETTINGS_INTERFACE_COMPONENT_ID = "interface_settings";
+        internal const string SETTINGS_VIDEO_COMPONENT_ID = "video_settings";
+        internal const string SETTINGS_VOLUME_COMPONENT_ID = "volume_settings";
 
-        internal const int SAVE_CONTENT_COMPONENT_VERSION = 1;
-        internal const int SAVE_ENVIRONMENT_COMPONENT_VERSION = 1;
-        internal const int SAVE_MANIFEST_COMPONENT_VERSION = 1;
-        internal const int SAVE_PROPERTIES_COMPONENT_VERSION = 1;
-        internal const int SAVE_THUMBNAIL_COMPONENT_VERSION = 1;
+        // Versions
+        internal const int SETTINGS_CONTROL_COMPONENT_VERSION = 1;
+        internal const int SETTINGS_CURSOR_COMPONENT_VERSION = 1;
+        internal const int SETTINGS_GAMEPLAY_COMPONENT_VERSION = 1;
+        internal const int SETTINGS_GENERAL_COMPONENT_VERSION = 1;
+        internal const int SETTINGS_INTERFACE_COMPONENT_VERSION = 1;
+        internal const int SETTINGS_VIDEO_COMPONENT_VERSION = 1;
+        internal const int SETTINGS_VOLUME_COMPONENT_VERSION = 1;
 
-        internal const string SAVE_FILE_EXTENSION = ".sf";
-        internal const string SAVE_FILE_DATA = "data.bin";
+        #endregion
+
+        #region WORLD
+
+        // Filenames
+        internal const string WORLD_CONTENT_COMPONENT_FILE = "content.bin";
+        internal const string WORLD_ENVIRONMENT_COMPONENT_FILE = "environment.bin";
+        internal const string WORLD_MANIFEST_COMPONENT_FILE = "manifest.bin";
+        internal const string WORLD_PROPERTIES_COMPONENT_FILE = "properties.bin";
+        internal const string WORLD_THUMBNAIL_COMPONENT_FILE = "thumbnail.bin";
+
+        // Identifiers
+        internal const string WORLD_CONTENT_COMPONENT_ID = "CONTENT";
+        internal const string WORLD_ENVIRONMENT_COMPONENT_ID = "ENVIRONMENT";
+        internal const string WORLD_MANIFEST_COMPONENT_ID = "MANIFEST";
+        internal const string WORLD_PROPERTIES_COMPONENT_ID = "PROPERTIES";
+        internal const string WORLD_THUMBNAIL_COMPONENT_ID = "THUMBNAIL";
+
+        // Metadata
+        internal const string WORLD_FILE_EXTENSION = ".sf2";
+        internal const string WORLD_FILE_DATA = "data.bin";
+
+        // Versions
+        internal const int WORLD_CONTENT_COMPONENT_VERSION = 1;
+        internal const int WORLD_ENVIRONMENT_COMPONENT_VERSION = 1;
+        internal const int WORLD_MANIFEST_COMPONENT_VERSION = 1;
+        internal const int WORLD_PROPERTIES_COMPONENT_VERSION = 1;
+        internal const int WORLD_THUMBNAIL_COMPONENT_VERSION = 1;
+
+        #endregion
 
         // Others
         internal const string WARNING = "WARNING.txt";

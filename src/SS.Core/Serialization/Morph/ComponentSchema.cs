@@ -24,13 +24,15 @@ namespace StardustSandbox.Core.Serialization.Morph
 {
     internal sealed class ComponentSchema
     {
+        internal string Identifier => this.identifier;
         internal IMapper Mapper => this.mapper;
 
+        private readonly string identifier;
         private readonly IMapper mapper;
         private readonly IMigration[] migrations;
         private readonly Type[] versionTypes;
 
-        internal ComponentSchema(IMapper mapper, IMigration[] migrations, Type[] versionTypes)
+        internal ComponentSchema(string identifier, IMapper mapper, IMigration[] migrations, Type[] versionTypes)
         {
             ArgumentNullException.ThrowIfNull(mapper);
             ArgumentNullException.ThrowIfNull(versionTypes);
@@ -46,6 +48,7 @@ namespace StardustSandbox.Core.Serialization.Morph
                 throw new InvalidOperationException($"The number of migrations ({migrations.Length}) must be one less than the number of version types ({versionTypes.Length}).");
             }
 
+            this.identifier = identifier;
             this.mapper = mapper;
             this.migrations = migrations;
             this.versionTypes = versionTypes;

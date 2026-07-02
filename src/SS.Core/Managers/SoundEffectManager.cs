@@ -21,7 +21,7 @@ using Microsoft.Xna.Framework.Audio;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Indexers;
-using StardustSandbox.Core.Serialization.Common.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
 
 
 
@@ -39,9 +39,9 @@ namespace StardustSandbox.Core.Managers
         private readonly SoundEffectInstance[] activeInstances = new SoundEffectInstance[SoundEffectConstants.MAX_CONCURRENT_INSTANCES];
 
         private readonly AssetDatabase assetDatabase;
-        private readonly VolumeSettings volumeSettings;
+        private readonly VolumeData volumeSettings;
 
-        internal SoundEffectManager(AssetDatabase assetDatabase, VolumeSettings volumeSettings)
+        internal SoundEffectManager(AssetDatabase assetDatabase, VolumeData volumeSettings)
         {
             this.assetDatabase = assetDatabase;
             this.volumeSettings = volumeSettings;

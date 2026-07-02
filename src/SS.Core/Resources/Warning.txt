@@ -1,0 +1,22 @@
+================================================================
+
+            (c) 2023 Davi "Starciad" Fernandes
+
+================================================================
+
+WARNING: MODIFYING SETTINGS OUTSIDE THE GAME
+________________________________________________________________
+
+Modifying configuration files outside the official game environment
+can lead to unexpected behavior, including crashes, corrupted data,
+or other failures.
+
+These settings are designed to work seamlessly within the game's
+framework. Any manual changes may bypass validation, causing
+incompatibilities or errors that could severely impact gameplay.
+
+We strongly recommend making adjustments only through the in-game
+settings menu.
+
+If you proceed to modify these files, you do so at your own risk.
+Backup your settings regularly to avoid losing important data.

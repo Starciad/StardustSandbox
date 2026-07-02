@@ -15,23 +15,18 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Interfaces.Serialization.Modules;
+using StardustSandbox.Core.Interfaces.Serialization.Morph;
 
 using System;
 using System.Xml.Serialization;
 
-namespace StardustSandbox.Core.Serialization.Common.Settings.Common
+namespace StardustSandbox.Core.Serialization.Common.Settings.Data.V1
 {
     [Serializable]
-    [XmlRoot("InterfaceSettings")]
-    public sealed class InterfaceSettings : ISettingsModule
+    [XmlRoot("InterfaceData")]
+    public sealed class InterfaceData : IData
     {
         [XmlElement("ShowTooltip", typeof(bool))]
         public bool ShowTooltip { get; set; }
-
-        public InterfaceSettings()
-        {
-            this.ShowTooltip = true;
-        }
     }
 }

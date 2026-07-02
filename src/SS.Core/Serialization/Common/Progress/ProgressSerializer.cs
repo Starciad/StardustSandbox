@@ -15,7 +15,11 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using MessagePack;
+using MessagePack.Resolvers;
+
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Elements.Gases;
 using StardustSandbox.Core.Interfaces.Serialization.Morph;
 using StardustSandbox.Core.Serialization.Common.Progress.Mappers;
 using StardustSandbox.Core.Serialization.Common.Progress.StorageModels;
@@ -25,69 +29,122 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace StardustSandbox.Core.Serialization
+namespace StardustSandbox.Core.Serialization.Common.Progress
 {
     internal sealed partial class ProgressSerializer
     {
-        private readonly string versioningHeaderFilename = Path.Combine(IO.Directory.Progress, IOConstants.VERSIONING_HEADER_FILE);
+        private readonly MessagePackSerializerOptions options = MessagePackSerializerOptions.Standard
+            .WithResolver(StandardResolver.Instance)
+            .WithSecurity(MessagePackSecurity.UntrustedData)
+            .WithCompression(MessagePackCompression.Lz4BlockArray);
 
-        private readonly SchemaSerializer schemaSerializer;
-        private readonly Dictionary<Type, IProgressDescriptor> descriptors;
+        // Mappers
+        private readonly AchievementMapper achievementMapper;
 
-        private VersioningHeader WriteVersioningHeader()
+        // Schemas
+        private readonly ComponentSchema achievementComponentSchema;
+
+        // Dictionaries
+        private readonly Dictionary<Type, string> componentFilenamesByType = new()
         {
-            using FileStream fs = new(versioningHeaderFilename, FileMode.Create, FileAccess.Write);
-            VersioningHeader versioningHeader = new();
-            versioningHeader.SetVersion(IOConstants.ACHIEVEMENT_PROGRESS_FILE, IOConstants.ACHIEVEMENT_PROGRESS_VERSION);
-            versioningHeader.Serialize(fs);
+            [typeof(AchievementStorageModel)] = IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_FILE,
+        };
+        private readonly Dictionary<Type, ComponentSchema> componentSchemasByType;
+        private readonly Dictionary<Type, int> componentVersionsByType = new()
+        {
+            [typeof(AchievementStorageModel)] = IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_VERSION,
+        };
 
-            return versioningHeader;
+        private readonly string versioningHeaderFilename = Path.Combine(IO.Directory.Progress, IOConstants.VERSIONING_HEADER_FILE);
+        private readonly SchemaSerializer schemaSerializer;
+
+        private IData Deserializer(Stream stream, Type versionType)
+        {
+            return (IData)MessagePackSerializer.Deserialize(versionType, stream, this.options);
+        }
+
+        private void Serializer(Stream stream, IData data)
+        {
+            MessagePackSerializer.Serialize(stream, data, this.options);
+        }
+
+        private void WriteVersioningHeader()
+        {
+            using FileStream stream = new(this.versioningHeaderFilename, FileMode.Create, FileAccess.Write, FileShare.None);
+
+            VersioningHeader versioningHeader = new();
+            versioningHeader.SetVersion(IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_ID, IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_VERSION);
+            versioningHeader.Serialize(stream);
         }
 
         private VersioningHeader ReadVersioningHeader()
         {
-            if (!File.Exists(this.versioningHeaderFilename))
-            {
-                return WriteVersioningHeader();
-            }
+            using FileStream stream = new(this.versioningHeaderFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
 
-            using FileStream fs = new(versioningHeaderFilename, FileMode.Open, FileAccess.Read);
             VersioningHeader versioningHeader = new();
-            versioningHeader.Deserialize(fs);
+            versioningHeader.Deserialize(stream);
+
             return versioningHeader;
         }
 
-        internal ProgressSerializer(SchemaSerializer schemaSerializer)
+        internal ProgressSerializer()
         {
-            this.schemaSerializer = schemaSerializer;
+            // Serializer
+            this.schemaSerializer = new(Deserializer, Serializer);
 
-            this.descriptors = new()
+            // Write the versioning header if it doesn't exist
+            WriteVersioningHeader();
+
+            // Mappers
+            this.achievementMapper = new();
+
+            // Schemas
+            this.achievementComponentSchema = new(
+                IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_ID,
+                this.achievementMapper,
+                [],
+                [
+                    typeof(Data.V1.AchievementData)
+                ]
+            );
+
+            // Dictionaries
+            this.componentSchemasByType = new()
             {
-                [typeof(AchievementStorageModel)] = new ProgressDescriptor<AchievementStorageModel>(IOConstants.ACHIEVEMENT_PROGRESS_FILE, schemaSerializer, new AchievementMapper(), new()),
+                [typeof(AchievementStorageModel)] = this.achievementComponentSchema
             };
+        }
 
-            _ = Directory.CreateDirectory(IO.Directory.Progress);
+        internal TStorageModel Load<TStorageModel>() where TStorageModel : IStorageModel
+        {
+            Type storageModelType = typeof(TStorageModel);
+
+            string componentFilename = Path.Combine(IO.Directory.Progress, this.componentFilenamesByType[storageModelType]);
+            int targetVersion = this.componentVersionsByType[storageModelType];
+
+            ComponentSchema schema = this.componentSchemasByType[storageModelType];
             VersioningHeader versioningHeader = ReadVersioningHeader();
 
-            foreach (IProgressDescriptor descriptor in this.descriptors.Values)
+            if (!versioningHeader.TryGetVersion(schema.Identifier, out int sourceVersion))
             {
-                descriptor.Load();
+                sourceVersion = targetVersion;
             }
+
+            using FileStream stream = new(componentFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            return this.schemaSerializer.Deserialize<TStorageModel>(stream, schema, sourceVersion, targetVersion);
         }
 
-        public T Load<T>() where T : IStorageModel, new()
+        internal void Save<TStorageModel>(TStorageModel value) where TStorageModel : IStorageModel
         {
-            return GetDescriptor<T>().Value;
-        }
+            Type storageModelType = typeof(TStorageModel);
 
-        public void Save<T>(T value) where T : IStorageModel, new()
-        {
-            GetDescriptor<T>().Save(value);
-        }
+            ComponentSchema schema = this.componentSchemasByType[storageModelType];
 
-        private ProgressDescriptor<TStorageModel> GetDescriptor<TStorageModel>() where TStorageModel : IStorageModel, new()
-        {
-            return !this.descriptors.TryGetValue(typeof(TStorageModel), out IProgressDescriptor raw) ? null : (ProgressDescriptor<TStorageModel>)raw;
+            string filename = Path.Combine(IO.Directory.Progress, this.componentFilenamesByType[storageModelType]);
+            using FileStream stream = new(filename, FileMode.Create, FileAccess.Write, FileShare.None);
+
+            this.schemaSerializer.Serialize(stream, schema.Mapper, value);
         }
     }
 }

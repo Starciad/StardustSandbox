@@ -15,11 +15,24 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Interfaces.Serialization.Modules
-{
-    public interface ISettingsModule
-    {
+using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Colors.Palettes;
+using StardustSandbox.Core.Interfaces.Serialization.Morph;
+
+namespace StardustSandbox.Core.Serialization.Common.Settings.StorageModels
+{
+    public sealed class CursorStorageModel : IStorageModel
+    {
+        public Color ForegroundColor { get; set; }
+        public Color BackgroundColor { get; set; }
+        public float Scale { get; set; }
+
+        public CursorStorageModel()
+        {
+            this.ForegroundColor = AAP64ColorPalette.White;
+            this.BackgroundColor = AAP64ColorPalette.DarkRed;
+            this.Scale = 1.0f;
+        }
     }
 }
-

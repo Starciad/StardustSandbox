@@ -23,7 +23,7 @@ using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization.Common.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
 
 using System;
 
@@ -40,9 +40,9 @@ namespace StardustSandbox.Core.UI.Elements
 
         private readonly CursorManager cursorManager;
         private readonly GameScreen gameScreen;
-        private readonly InterfaceSettings interfaceSettings;
+        private readonly InterfaceData interfaceSettings;
 
-        internal TooltipBox(AssetDatabase assetDatabase, CursorManager cursorManager, GameScreen gameScreen, InterfaceSettings interfaceSettings)
+        internal TooltipBox(AssetDatabase assetDatabase, CursorManager cursorManager, GameScreen gameScreen, InterfaceData interfaceSettings)
         {
             this.cursorManager = cursorManager;
             this.gameScreen = gameScreen;

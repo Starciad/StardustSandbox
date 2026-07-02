@@ -16,29 +16,22 @@
 */
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Interfaces.Serialization.Modules;
+using StardustSandbox.Core.Interfaces.Serialization.Morph;
 using StardustSandbox.Core.Localization;
 
 using System;
 using System.Globalization;
 using System.Xml.Serialization;
 
-namespace StardustSandbox.Core.Serialization.Common.Settings.Common
+namespace StardustSandbox.Core.Serialization.Common.Settings.StorageModels
 {
-    [Serializable]
-    [XmlRoot("GeneralSettings")]
-    public sealed class GeneralSettings : ISettingsModule
+    public sealed class GeneralStorageModel : IStorageModel
     {
-        [XmlElement("Language", typeof(string))]
         public string Language { get; set; }
-
-        [XmlElement("Region", typeof(string))]
         public string Region { get; set; }
-
-        [XmlIgnore]
         public string Name => string.Concat(this.Language, '-', this.Region);
 
-        public GeneralSettings()
+        public GeneralStorageModel()
         {
             GameCulture gameCulture = LocalizationConstants.DEFAULT_GAME_CULTURE;
 

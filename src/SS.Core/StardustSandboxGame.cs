@@ -29,8 +29,9 @@ using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces.Notifiers;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Common.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Progress;
+using StardustSandbox.Core.Serialization.Common.Settings;
+using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
 using StardustSandbox.Core.Serialization.Common.Worlds;
 using StardustSandbox.Core.WorldSystem;
 
@@ -80,11 +81,11 @@ namespace StardustSandbox.Core
         private readonly PlayerInputController playerInputController;
         private readonly Camera2D camera;
 
-        private readonly ControlSettings controlSettings;
-        private readonly CursorSettings cursorSettings;
-        private readonly GameplaySettings gameplaySettings;
-        private readonly VideoSettings videoSettings;
-        private readonly VolumeSettings volumeSettings;
+        private readonly ControlData controlSettings;
+        private readonly CursorData cursorSettings;
+        private readonly GameplayData gameplaySettings;
+        private readonly VideoData videoSettings;
+        private readonly VolumeData volumeSettings;
 
         public StardustSandboxGame(GameLaunchOptions options)
         {
@@ -112,11 +113,11 @@ namespace StardustSandbox.Core
             this.progressSerializer = new();
             this.settingsSerializer = new();
 
-            this.controlSettings = this.settingsSerializer.Load<ControlSettings>();
-            this.cursorSettings = this.settingsSerializer.Load<CursorSettings>();
-            this.gameplaySettings = this.settingsSerializer.Load<GameplaySettings>();
-            this.videoSettings = this.settingsSerializer.Load<VideoSettings>();
-            this.volumeSettings = this.settingsSerializer.Load<VolumeSettings>();
+            this.controlSettings = this.settingsSerializer.Load<ControlData>();
+            this.cursorSettings = this.settingsSerializer.Load<CursorData>();
+            this.gameplaySettings = this.settingsSerializer.Load<GameplayData>();
+            this.videoSettings = this.settingsSerializer.Load<VideoData>();
+            this.volumeSettings = this.settingsSerializer.Load<VolumeData>();
 
             // Initialize Content
             this.Content.RootDirectory = IOConstants.ASSETS_DIRECTORY;
@@ -199,7 +200,7 @@ namespace StardustSandbox.Core
 
         private void InitializeGameCulture()
         {
-            GameCulture gameCulture = this.settingsSerializer.Load<GeneralSettings>().GetGameCulture();
+            GameCulture gameCulture = this.settingsSerializer.Load<GeneralData>().GetGameCulture();
 
             Thread.CurrentThread.CurrentCulture = gameCulture.CultureInfo;
             Thread.CurrentThread.CurrentUICulture = gameCulture.CultureInfo;

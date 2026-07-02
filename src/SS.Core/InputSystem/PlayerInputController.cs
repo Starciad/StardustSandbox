@@ -26,7 +26,7 @@ using StardustSandbox.Core.InputSystem.Actions;
 using StardustSandbox.Core.InputSystem.Handlers;
 using StardustSandbox.Core.InputSystem.Simulation;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization.Common.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
 using StardustSandbox.Core.WorldSystem;
 
 namespace StardustSandbox.Core.InputSystem
@@ -54,7 +54,7 @@ namespace StardustSandbox.Core.InputSystem
         internal void Initialize(
             ActorManager actorManager,
             Camera2D camera,
-            ControlSettings controlSettings,
+            ControlData controlSettings,
             GameEvents gameEvents,
             GameHandler gameHandler,
             SoundEffectManager soundEffectManager,

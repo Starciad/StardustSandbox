@@ -21,7 +21,7 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.InputSystem;
-using StardustSandbox.Core.Serialization.Common.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
 
 namespace StardustSandbox.Core.Managers
 {
@@ -43,7 +43,7 @@ namespace StardustSandbox.Core.Managers
             new(0, 36, 36, 36),
         ];
 
-        internal CursorManager(AssetDatabase assetDatabase, CursorSettings cursorSettings)
+        internal CursorManager(AssetDatabase assetDatabase, CursorData cursorSettings)
         {
             this.assetDatabase = assetDatabase;
 

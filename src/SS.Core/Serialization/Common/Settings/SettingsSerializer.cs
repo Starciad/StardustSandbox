@@ -15,57 +15,58 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using MessagePack;
+
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Interfaces.Serialization.Modules;
-using StardustSandbox.Core.Serialization.Common.Settings.Common;
+using StardustSandbox.Core.Interfaces.Serialization.Morph;
+using StardustSandbox.Core.Serialization.Morph;
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
-namespace StardustSandbox.Core.Serialization
+namespace StardustSandbox.Core.Serialization.Common.Settings
 {
     public sealed partial class SettingsSerializer
     {
-        private readonly Dictionary<Type, ISettingsDescriptor> descriptors = new()
+        private readonly string versioningHeaderFilename = Path.Combine(IO.Directory.Settings, IOConstants.VERSIONING_HEADER_FILE);
+        private readonly SchemaSerializer schemaSerializer;
+
+        private void WriteVersioningHeader()
         {
-            [typeof(ControlSettings)] = new SettingsDescriptor<ControlSettings>(IOConstants.CONTROL_SETTINGS_FILE),
-            [typeof(CursorSettings)] = new SettingsDescriptor<CursorSettings>(IOConstants.CURSOR_SETTINGS_FILE),
-            [typeof(GameplaySettings)] = new SettingsDescriptor<GameplaySettings>(IOConstants.GAMEPLAY_SETTINGS_FILE),
-            [typeof(GeneralSettings)] = new SettingsDescriptor<GeneralSettings>(IOConstants.GENERAL_SETTINGS_FILE),
-            [typeof(InterfaceSettings)] = new SettingsDescriptor<InterfaceSettings>(IOConstants.INTERFACE_SETTINGS_FILE),
-            [typeof(VideoSettings)] = new SettingsDescriptor<VideoSettings>(IOConstants.VIDEO_SETTINGS_FILE),
-            [typeof(VolumeSettings)] = new SettingsDescriptor<VolumeSettings>(IOConstants.VOLUME_SETTINGS_FILE),
-        };
+            using FileStream stream = new(this.versioningHeaderFilename, FileMode.Create, FileAccess.Write, FileShare.None);
+
+            VersioningHeader versioningHeader = new();
+            versioningHeader.SetVersion(IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_ID, IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_VERSION);
+            versioningHeader.Serialize(stream);
+        }
+
+        private VersioningHeader ReadVersioningHeader()
+        {
+            using FileStream stream = new(this.versioningHeaderFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            VersioningHeader versioningHeader = new();
+            versioningHeader.Deserialize(stream);
+
+            return versioningHeader;
+        }
+
+        private IData Deserializer(Stream stream, Type versionType)
+        {
+
+        }
+
+        private void Serializer(Stream stream, IData data)
+        {
+
+        }
 
         internal SettingsSerializer()
         {
-            _ = Directory.CreateDirectory(IO.Directory.Settings);
-
-            foreach (ISettingsDescriptor descriptor in this.descriptors.Values)
-            {
-                descriptor.Load();
-            }
+            this.schemaSerializer = new(Deserializer, Serializer);
 
             CreateWarningFile();
         }
-
-        public T Load<T>() where T : ISettingsModule, new()
-        {
-            return GetDescriptor<T>().Value;
-        }
-
-        public void Save<T>(T value) where T : ISettingsModule, new()
-        {
-            GetDescriptor<T>().Save(value);
-        }
-
-        private SettingsDescriptor<T> GetDescriptor<T>() where T : ISettingsModule, new()
-        {
-            return !this.descriptors.TryGetValue(typeof(T), out ISettingsDescriptor raw) ? null : (SettingsDescriptor<T>)raw;
-        }
-
+        
         private static void CreateWarningFile()
         {
             string filePath = Path.Combine(IO.Directory.Settings, IOConstants.WARNING);
@@ -75,32 +76,17 @@ namespace StardustSandbox.Core.Serialization
                 return;
             }
 
-            StringBuilder builder = new();
-
-            _ = builder.AppendLine(new string('=', 64));
-            _ = builder.AppendLine();
-            _ = builder.AppendLine($"            (c) {GameConstants.YEAR} {GameConstants.AUTHOR}");
-            _ = builder.AppendLine();
-            _ = builder.AppendLine(new string('=', 64));
-            _ = builder.AppendLine();
-            _ = builder.AppendLine("WARNING: MODIFYING SETTINGS OUTSIDE THE GAME");
-            _ = builder.AppendLine(new string('_', 64));
-            _ = builder.AppendLine();
-            _ = builder.AppendLine("Modifying configuration files outside the official game environment");
-            _ = builder.AppendLine("can lead to unexpected behavior, including crashes, corrupted data,");
-            _ = builder.AppendLine("or other failures.");
-            _ = builder.AppendLine();
-            _ = builder.AppendLine("These settings are designed to work seamlessly within the game's");
-            _ = builder.AppendLine("framework. Any manual changes may bypass validation, causing");
-            _ = builder.AppendLine("incompatibilities or errors that could severely impact gameplay.");
-            _ = builder.AppendLine();
-            _ = builder.AppendLine("We strongly recommend making adjustments only through the in-game");
-            _ = builder.AppendLine("settings menu.");
-            _ = builder.AppendLine();
-            _ = builder.AppendLine("If you proceed to modify these files, you do so at your own risk.");
-            _ = builder.AppendLine("Backup your settings regularly to avoid losing important data.");
-
             File.WriteAllText(filePath, builder.ToString());
+        }
+
+        internal TStorageModel Load<TStorageModel>() where TStorageModel : IStorageModel
+        {
+
+        }
+
+        internal void Save<TStorageModel>(TStorageModel value) where TStorageModel : IStorageModel
+        {
+
         }
     }
 }

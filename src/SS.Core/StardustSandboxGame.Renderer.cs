@@ -24,7 +24,7 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.IO;
-using StardustSandbox.Core.Serialization.Common.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
 
 using System;
 
@@ -143,7 +143,7 @@ namespace StardustSandbox.Core
 
         private void DrawCursorPenActionArea()
         {
-            GameplaySettings gameplaySettings = this.settingsSerializer.Load<GameplaySettings>();
+            GameplayData gameplaySettings = this.settingsSerializer.Load<GameplayData>();
 
             if (!gameplaySettings.ShowPreviewArea || this.playerInputController.Pen.Tool is PenTool.Visualization or PenTool.Fill)
             {

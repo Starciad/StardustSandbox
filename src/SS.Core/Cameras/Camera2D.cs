@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.Serialization.Common.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
 
 using System;
 
@@ -36,10 +36,10 @@ namespace StardustSandbox.Core.Cameras
         private float zoom;
         private float targetZoom;
 
-        private readonly GameplaySettings gameplaySettings;
+        private readonly GameplayData gameplaySettings;
         private readonly GameScreen gameScreen;
 
-        internal Camera2D(GameplaySettings gameplaySettings, GameScreen gameScreen)
+        internal Camera2D(GameplayData gameplaySettings, GameScreen gameScreen)
         {
             this.gameScreen = gameScreen;
             this.gameplaySettings = gameplaySettings;
@@ -54,7 +54,7 @@ namespace StardustSandbox.Core.Cameras
 
         internal void Update(GameTime gameTime)
         {
-            if (this.gameplaySettings.UseSmoothCameraMovement)
+            if (this.gameplaySettings.EnableSmoothCameraMovement)
             {
                 float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 

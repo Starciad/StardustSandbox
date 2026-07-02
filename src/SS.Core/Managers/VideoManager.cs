@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Serialization.Common.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
 
 namespace StardustSandbox.Core.Managers
 {
@@ -37,7 +37,7 @@ namespace StardustSandbox.Core.Managers
             this.gameWindow = gameWindow;
         }
 
-        internal void ApplySettings(VideoSettings videoSettings)
+        internal void ApplySettings(VideoData videoSettings)
         {
             SetResolution(videoSettings.Width, videoSettings.Height);
             SetFullScreen(videoSettings.FullScreen);

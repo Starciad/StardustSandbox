@@ -29,8 +29,8 @@ using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization;
-using StardustSandbox.Core.Serialization.Common.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Settings;
+using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 
@@ -90,13 +90,13 @@ namespace StardustSandbox.Core.UI.Common
             this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
 
-            ControlSettings controlSettings = settingsSerializer.Load<ControlSettings>();
-            CursorSettings cursorSettings = settingsSerializer.Load<CursorSettings>();
-            GameplaySettings gameplaySettings = settingsSerializer.Load<GameplaySettings>();
-            GeneralSettings generalSettings = settingsSerializer.Load<GeneralSettings>();
-            InterfaceSettings interfaceSettings = settingsSerializer.Load<InterfaceSettings>();
-            VideoSettings videoSettings = settingsSerializer.Load<VideoSettings>();
-            VolumeSettings volumeSettings = settingsSerializer.Load<VolumeSettings>();
+            ControlData controlSettings = settingsSerializer.Load<ControlData>();
+            CursorData cursorSettings = settingsSerializer.Load<CursorData>();
+            GameplayData gameplaySettings = settingsSerializer.Load<GameplayData>();
+            GeneralData generalSettings = settingsSerializer.Load<GeneralData>();
+            InterfaceData interfaceSettings = settingsSerializer.Load<InterfaceData>();
+            VideoData videoSettings = settingsSerializer.Load<VideoData>();
+            VolumeData volumeSettings = settingsSerializer.Load<VolumeData>();
 
             this.availableGameCulturesChoices = new SelectorUI.IChoice[LocalizationConstants.AVAILABLE_GAME_CULTURES.Length];
             this.resolutionChoices = new SelectorUI.IChoice[ScreenConstants.RESOLUTIONS.Length];
@@ -232,7 +232,7 @@ namespace StardustSandbox.Core.UI.Common
                         Localization_GUIs.Options_Gameplay_PreviewAreaOpacity_Description,
                         () =>
                         {
-                            return gameplaySettings.PreviewAreaColorOpacity * 100.0f;
+                            return gameplaySettings.PreviewAreaColorA * 100.0f;
                         },
                         (value) =>
                         {
@@ -245,7 +245,7 @@ namespace StardustSandbox.Core.UI.Common
                                 new(0, 100),
                                 Convert.ToInt32(option.GetValue()),
                                 (newValue) => {
-                                    gameplaySettings.PreviewAreaColorOpacity = newValue / 100.0f;
+                                    gameplaySettings.PreviewAreaColorA = newValue / 100.0f;
                                     settingsSerializer.Save(gameplaySettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
@@ -324,7 +324,7 @@ namespace StardustSandbox.Core.UI.Common
                         Localization_GUIs.Options_Gameplay_UseSmoothCameraMovement_Description,
                         () =>
                         {
-                            return gameplaySettings.UseSmoothCameraMovement;
+                            return gameplaySettings.EnableSmoothCameraMovement;
                         },
                         (value) =>
                         {
@@ -332,7 +332,7 @@ namespace StardustSandbox.Core.UI.Common
                         },
                         (option, optionSlotInfo) =>
                         {
-                            gameplaySettings.UseSmoothCameraMovement = !gameplaySettings.UseSmoothCameraMovement;
+                            gameplaySettings.EnableSmoothCameraMovement = !gameplaySettings.EnableSmoothCameraMovement;
                             settingsSerializer.Save(gameplaySettings);
                             optionSlotInfo.Value.TextContent = option.GetValueString();
                         }

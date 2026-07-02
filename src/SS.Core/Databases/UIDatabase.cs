@@ -21,9 +21,10 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization;
+using StardustSandbox.Core.Serialization.Common.Progress;
 using StardustSandbox.Core.Serialization.Common.Progress.Data.V1;
-using StardustSandbox.Core.Serialization.Common.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Settings;
+using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
 using StardustSandbox.Core.Serialization.Common.Worlds;
 using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Common;
@@ -63,8 +64,8 @@ namespace StardustSandbox.Core.Databases
         {
             AchievementData achievementProgress = progressSerializer.Load<AchievementData>();
 
-            ControlSettings controlSettings = settingsSerializer.Load<ControlSettings>();
-            InterfaceSettings interfaceSettings = settingsSerializer.Load<InterfaceSettings>();
+            ControlData controlSettings = settingsSerializer.Load<ControlData>();
+            InterfaceData interfaceSettings = settingsSerializer.Load<InterfaceData>();
 
             NotificationBox notificationBox = new(assetDatabase, gameScreen);
             TooltipBox tooltipBox = new(assetDatabase, cursorManager, gameScreen, interfaceSettings)

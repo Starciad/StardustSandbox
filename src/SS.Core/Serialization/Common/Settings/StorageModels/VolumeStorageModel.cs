@@ -15,27 +15,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Interfaces.Serialization.Modules;
+using StardustSandbox.Core.Interfaces.Serialization.Morph;
 
-using System;
-using System.Xml.Serialization;
-
-namespace StardustSandbox.Core.Serialization.Common.Settings.Common
+namespace StardustSandbox.Core.Serialization.Common.Settings.StorageModels
 {
-    [Serializable]
-    [XmlRoot("VolumeSettings")]
-    public sealed class VolumeSettings : ISettingsModule
+    public sealed class VolumeStorageModel : IStorageModel
     {
-        [XmlElement("MasterVolume", typeof(float))]
         public float MasterVolume { get; set; }
-
-        [XmlElement("MusicVolume", typeof(float))]
         public float MusicVolume { get; set; }
-
-        [XmlElement("SFXVolume", typeof(float))]
         public float SFXVolume { get; set; }
 
-        public VolumeSettings()
+        public VolumeStorageModel()
         {
             this.MasterVolume = 1f;
             this.MusicVolume = 0.5f;

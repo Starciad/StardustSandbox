@@ -25,7 +25,7 @@ using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Core.Serialization.Common.Settings.Common;
+using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
 using StardustSandbox.Core.Serialization.Common.Worlds;
 using StardustSandbox.Core.WorldSystem.Components;
 using StardustSandbox.Core.WorldSystem.Handlers;
@@ -70,7 +70,7 @@ namespace StardustSandbox.Core.WorldSystem
             AssetDatabase assetDatabase,
             ElementDatabase elementDatabase,
             GameEvents gameEvents,
-            GameplaySettings gameplaySettings,
+            GameplayData gameplaySettings,
             PlayerInputController playerInputController,
             WorldSerializer worldSerializer
         )

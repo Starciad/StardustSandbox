@@ -19,52 +19,25 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Interfaces.Serialization.Modules;
+using StardustSandbox.Core.Interfaces.Serialization.Morph;
 
 using System;
 using System.Xml.Serialization;
 
-namespace StardustSandbox.Core.Serialization.Common.Settings.Common
+namespace StardustSandbox.Core.Serialization.Common.Settings.StorageModels
 {
-    [Serializable]
-    [XmlRoot("VideoSettings")]
-    public sealed class VideoSettings : ISettingsModule
+    public sealed class VideoStorageModel : IStorageModel
     {
-        [XmlElement("Framerate", typeof(float))]
         public float Framerate { get; set; }
-
-        [XmlElement("Width", typeof(int))]
-        public int Width { get; set; }
-
-        [XmlElement("Height", typeof(int))]
-        public int Height { get; set; }
-
-        [XmlElement("FullScreen", typeof(bool))]
+        public Point Resolution { get; set; }
         public bool FullScreen { get; set; }
-
-        [XmlElement("VSync", typeof(bool))]
         public bool VSync { get; set; }
-
-        [XmlElement("Borderless", typeof(bool))]
         public bool Borderless { get; set; }
 
-        [XmlIgnore]
-        public Point Resolution
-        {
-            get => new(this.Width, this.Height);
-
-            set
-            {
-                this.Width = value.X;
-                this.Height = value.Y;
-            }
-        }
-
-        public VideoSettings()
+        public VideoStorageModel()
         {
             this.Framerate = 60.0f;
-            this.Width = 0;
-            this.Height = 0;
+            this.Resolution = Point.Zero;
             this.FullScreen = false;
             this.VSync = true;
             this.Borderless = false;
@@ -79,8 +52,7 @@ namespace StardustSandbox.Core.Serialization.Common.Settings.Common
 
             Point autoResolution = GetAutoResolution(monitorResolution);
 
-            this.Width = autoResolution.X;
-            this.Height = autoResolution.Y;
+            this.Resolution = autoResolution;
         }
 
         private static Point GetAutoResolution(Point monitorResolution)
