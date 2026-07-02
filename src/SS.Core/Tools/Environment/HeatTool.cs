@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.Tools.Environment
 
             SlotLayer slotLayer = slot.GetLayer(context.Layer);
 
-            if (slotLayer.IsEmpty)
+            if (slotLayer.HasElement)
             {
                 return;
             }

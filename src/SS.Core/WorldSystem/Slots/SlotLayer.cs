@@ -27,69 +27,114 @@ namespace StardustSandbox.Core.WorldSystem.Slots
 {
     internal sealed class SlotLayer
     {
-        internal bool IsEmpty => this.ElementIndex is ElementIndex.None;
+        internal bool IsEmpty => !HasElement && !HasStoredElement;
+
+        internal bool HasElement => this.ElementIndex is not ElementIndex.None;
         internal bool HasStoredElement => this.StoredElementIndex is not ElementIndex.None;
 
-        internal Element Element => this.elementDatabase.GetElement(this.ElementIndex);
-        internal Element StoredElement => this.elementDatabase.GetElement(this.StoredElementIndex);
+        internal Element Element => this.elementDatabase.GetElement(this.elementIndex);
+        internal Element StoredElement => this.elementDatabase.GetElement(this.storedElementIndex);
 
-        internal Color ColorModifier { get; set; }
-        internal ElementIndex ElementIndex { get; set; }
-        internal ElementIndex StoredElementIndex { get; set; }
-        internal UpdateCycleFlag StepCycleFlag { get; set; }
-        internal float Temperature { get => this.temperature; set => this.temperature = TemperatureMath.Clamp(value); }
+        public bool IsFalling
+        {
+            get => this.isFalling;
+            set => this.isFalling = value;
+        }
+        public bool IsDissipating
+        {
+            get => this.isDissipating;
+            set => this.isDissipating = value;
+        }
+        public bool WasPushed
+        {
+            get => this.wasPushed;
+            set => this.wasPushed = value;
+        }
+        internal Color ColorModifier
+        {
+            get => this.colorModifier;
+            set => this.colorModifier = value;
+        }
+        internal ElementIndex ElementIndex
+        {
+            get => this.elementIndex;
+            set => this.elementIndex = value;
+        }
+        internal ElementIndex StoredElementIndex
+        {
+            get => this.storedElementIndex;
+            set => this.storedElementIndex = value;
+        }
+        internal float Temperature
+        {
+            get => this.temperature;
+            set => this.temperature = TemperatureMath.Clamp(value);
+        }
+        internal UpdateCycleFlag StepCycleFlag
+        {
+            get => this.stepCycleFlag;
+            set => this.stepCycleFlag = value;
+        }
 
-        public bool IsFalling { get; set; }
-        public bool WasPushed { get; set; }
-        public bool IsDissipating { get; set; }
-
+        private bool isDissipating;
+        private bool isFalling;
+        private bool wasPushed;
+        private Color colorModifier;
+        private ElementIndex elementIndex;
+        private ElementIndex storedElementIndex;
         private float temperature;
+        private UpdateCycleFlag stepCycleFlag;
 
         private readonly ElementDatabase elementDatabase;
 
         internal SlotLayer(ElementDatabase elementDatabase)
         {
             this.elementDatabase = elementDatabase;
-            Reset();
+
+            this.isDissipating = false;
+            this.isFalling = false;
+            this.wasPushed = false;
+            this.colorModifier = Color.White;
+            this.elementIndex = ElementIndex.None;
+            this.storedElementIndex = ElementIndex.None;
+            this.temperature = 0.0f;
+            this.stepCycleFlag = UpdateCycleFlag.None;
         }
 
         internal void Instantiate(ElementIndex index)
         {
-            this.ColorModifier = Color.White;
-            this.ElementIndex = index;
-            this.StepCycleFlag = UpdateCycleFlag.None;
-            this.StoredElementIndex = ElementIndex.None;
-            this.Temperature = this.Element.InitialTemperature;
+            this.isDissipating = false;
+            this.isFalling = false;
+            this.wasPushed = false;
+            this.colorModifier = Color.White;
+            this.elementIndex = index;
+            this.storedElementIndex = ElementIndex.None;
+            this.temperature = this.Element.InitialTemperature;
+            this.stepCycleFlag = UpdateCycleFlag.None;
+        }
 
-            this.IsFalling = false;
-            this.WasPushed = false;
-            this.IsDissipating = false;
+        internal void Instantiate(SlotLayer valueToCopy)
+        {
+            this.isDissipating = valueToCopy.isDissipating;
+            this.isFalling = valueToCopy.isFalling;
+            this.wasPushed = valueToCopy.wasPushed;
+            this.colorModifier = valueToCopy.colorModifier;
+            this.elementIndex = valueToCopy.elementIndex;
+            this.storedElementIndex = valueToCopy.storedElementIndex;
+            this.temperature = valueToCopy.temperature;
+            this.stepCycleFlag = valueToCopy.stepCycleFlag;
         }
 
         internal void Destroy()
         {
-            this.ColorModifier = Color.White;
-            this.ElementIndex = ElementIndex.None;
-            this.StepCycleFlag = UpdateCycleFlag.None;
-            this.StoredElementIndex = ElementIndex.None;
-            this.Temperature = 0;
-
-            this.IsFalling = false;
-            this.WasPushed = false;
-            this.IsDissipating = false;
-        }
-
-        internal void Copy(SlotLayer target)
-        {
-            this.ColorModifier = target.ColorModifier;
-            this.ElementIndex = target.ElementIndex;
-            this.StepCycleFlag = target.StepCycleFlag;
-            this.StoredElementIndex = target.StoredElementIndex;
-            this.Temperature = target.Temperature;
-
-            this.IsFalling = target.IsFalling;
-            this.WasPushed = target.WasPushed;
-            this.IsDissipating = target.IsDissipating;
+            this.isDissipating = false;
+            this.isFalling = false;
+            this.wasPushed = false;
+            this.colorModifier = Color.White;
+            this.elementIndex = ElementIndex.None;
+            this.storedElementIndex = ElementIndex.None;
+            this.temperature = 0.0f;
+            this.stepCycleFlag = UpdateCycleFlag.None;
         }
 
         internal void Reset()

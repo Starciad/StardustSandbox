@@ -148,12 +148,12 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
 
                     if (this.world.TileMap.TryGetSlot(targetPosition.ToPoint(), out Slot slot))
                     {
-                        if (this.DrawBackgroundElements && !slot.Background.IsEmpty)
+                        if (this.DrawBackgroundElements && !slot.Background.HasElement)
                         {
                             DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Background, slot.GetLayer(Layer.Background).Element);
                         }
 
-                        if (this.DrawForegroundElements && !slot.Foreground.IsEmpty)
+                        if (this.DrawForegroundElements && !slot.Foreground.HasElement)
                         {
                             DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Foreground, slot.GetLayer(Layer.Foreground).Element);
                         }

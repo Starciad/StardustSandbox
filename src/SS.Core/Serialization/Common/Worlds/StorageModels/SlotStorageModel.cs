@@ -50,12 +50,12 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
             this.PositionX = slot.Position.X;
             this.PositionY = slot.Position.Y;
 
-            if (!slot.Foreground.IsEmpty)
+            if (!slot.Foreground.HasElement)
             {
                 this.ForegroundLayer = new(slot.Foreground);
             }
 
-            if (!slot.Background.IsEmpty)
+            if (!slot.Background.HasElement)
             {
                 this.BackgroundLayer = new(slot.Background);
             }

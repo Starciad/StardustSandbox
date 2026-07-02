@@ -132,7 +132,7 @@ namespace StardustSandbox.Core.Elements
 
             float CalculateHeatTransfer(SlotLayer slotLayer)
             {
-                if (!slotLayer.IsEmpty && slotLayer.Element.HasTemperature)
+                if (!slotLayer.HasElement && slotLayer.Element.HasTemperature)
                 {
                     float neighborTemp = slotLayer.Temperature;
                     return TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;

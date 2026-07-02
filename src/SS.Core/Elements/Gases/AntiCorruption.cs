@@ -59,7 +59,7 @@ namespace StardustSandbox.Core.Elements.Gases
                 Slot slot = neighbors.GetSlot(i);
                 SlotLayer layer = slot.GetLayer(context.CurrentLayer);
 
-                if (!layer.IsEmpty && layer.ElementIndex is not ElementIndex.AntiCorruption && layer.Element.IsCorruption)
+                if (!layer.HasElement && layer.ElementIndex is not ElementIndex.AntiCorruption && layer.Element.IsCorruption)
                 {
                     ElementIndex originalElementIndex = layer.StoredElementIndex;
 

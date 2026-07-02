@@ -64,7 +64,7 @@ namespace StardustSandbox.Core.Elements.Liquids
 
         private bool TrySwappingElements(ElementContext context, Point position, SlotLayer belowLayer)
         {
-            if (belowLayer.IsEmpty)
+            if (belowLayer.HasElement)
             {
                 return false;
             }
@@ -87,7 +87,7 @@ namespace StardustSandbox.Core.Elements.Liquids
 
         private void TryPerformConvection(ElementContext context, Point position, SlotLayer belowLayer)
         {
-            if (belowLayer.IsEmpty ||
+            if (belowLayer.HasElement ||
                 belowLayer.ElementIndex != this.Index ||
                 belowLayer.Temperature <= context.CurrentSlotLayer.Temperature)
             {

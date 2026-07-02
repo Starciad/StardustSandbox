@@ -291,7 +291,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
                 return false;
             }
 
-            this[newPosition].Copy(layer, this[oldPosition].GetLayer(layer));
+            this[newPosition].Instantiate(layer, this[oldPosition]);
             this[newPosition].Position = newPosition;
             this[oldPosition].Destroy(layer);
 
@@ -313,10 +313,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             Slot tempSlot = this.slotObjectPool.TryDequeue(out IPoolableObject value) ? (Slot)value : new(this.elementDatabase);
 
-            tempSlot.Copy(layer, this[element1Position].GetLayer(layer));
+            tempSlot.Instantiate(layer, this[element1Position]);
 
-            this[element1Position].Copy(layer, this[element2Position].GetLayer(layer));
-            this[element2Position].Copy(layer, tempSlot.GetLayer(layer));
+            this[element1Position].Instantiate(layer, this[element2Position]);
+            this[element2Position].Instantiate(layer, tempSlot);
 
             this[element1Position].Position = element1Position;
             this[element2Position].Position = element2Position;
@@ -335,10 +335,8 @@ namespace StardustSandbox.Core.WorldSystem.Components
                 return false;
             }
 
-            SlotLayer slotLayer = this[position].GetLayer(layer);
-
-            ElementIndex index = slotLayer.ElementIndex;
-            slotLayer.Destroy();
+            ElementIndex index = this[position].GetElementIndex(layer);
+            this[position].Destroy(layer);
 
             DecrementElementCount(this.elementDatabase.GetElement(index), layer);
             this.gameEvents.Publish(new ElementDestroyedEvent(position, layer, index));
@@ -353,10 +351,9 @@ namespace StardustSandbox.Core.WorldSystem.Components
                 return false;
             }
 
-            SlotLayer slotLayer = this[position].GetLayer(layer);
-            slotLayer.Destroy();
+            this[position].Destroy(layer);
 
-            DecrementElementCount(slotLayer.Element, layer);
+            DecrementElementCount(this[position].GetElement(layer), layer);
             this.gameEvents.Publish(new ElementRemovedEvent(position, layer));
 
             return true;
@@ -369,11 +366,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
                 return false;
             }
 
-            SlotLayer slotLayer = this[position].GetLayer(layer);
-            ElementIndex oldIndex = slotLayer.ElementIndex;
+            ElementIndex oldIndex = this[position].GetElementIndex(layer);
 
-            slotLayer.Destroy();
-            slotLayer.Instantiate(newIndex);
+            this[position].Destroy(layer);
+            this[position].Instantiate(layer, newIndex);
 
             this.gameEvents.Publish(new ElementReplacedEvent(position, layer, oldIndex, newIndex));
 
@@ -384,19 +380,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
         {
             index = ElementIndex.None;
 
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer) || !this[position].HasElement(layer))
             {
                 return false;
             }
 
-            SlotLayer slotLayer = this[position].GetLayer(layer);
-
-            if (slotLayer.IsEmpty)
-            {
-                return false;
-            }
-
-            index = slotLayer.ElementIndex;
+            index = this[position].GetElementIndex(layer);
             return true;
         }
 
@@ -404,18 +393,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
         {
             value = null;
 
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer) || !this[position].HasElement(layer))
             {
                 return false;
             }
 
-            SlotLayer slotLayer = this[position].GetLayer(layer);
-            if (slotLayer.IsEmpty)
-            {
-                return false;
-            }
-
-            value = slotLayer.Element;
+            value = this[position].GetElement(layer);
             return true;
         }
 
@@ -432,19 +415,6 @@ namespace StardustSandbox.Core.WorldSystem.Components
             return true;
         }
 
-        internal bool TryGetSlotLayer(Point position, Layer layer, out SlotLayer slotLayer)
-        {
-            slotLayer = null;
-
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
-            {
-                return false;
-            }
-
-            slotLayer = this[position].GetLayer(layer);
-            return true;
-        }
-
         internal bool TrySetElementTemperature(Point position, Layer layer, float value)
         {
             if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
@@ -452,11 +422,9 @@ namespace StardustSandbox.Core.WorldSystem.Components
                 return false;
             }
 
-            SlotLayer slotLayer = this[position].GetLayer(layer);
-
-            if (slotLayer.Temperature != value)
+            if (this[position].GetTemperature(layer) != value)
             {
-                slotLayer.Temperature = value;
+                this[position].SetTemperature(layer, value);
                 this.gameEvents.Publish(new ElementTemperatureChangedEvent(position, layer, value));
             }
 
@@ -470,8 +438,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
                 return false;
             }
 
-            this[position].GetLayer(layer).ColorModifier = value;
-
+            this[position].SetColorModifier(layer, value);
             return true;
         }
 
@@ -484,7 +451,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
                 return false;
             }
 
-            value = this[position].GetLayer(layer).HasStoredElement;
+            value = this[position].HasStoredElement(layer);
             return true;
         }
 
@@ -495,7 +462,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
                 return false;
             }
 
-            this[position].GetLayer(layer).StoredElementIndex = index;
+            this[position].SetStoredElementIndex(layer, index);
             return true;
         }
 
@@ -508,7 +475,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
                 return false;
             }
 
-            index = this[position].GetLayer(layer).StoredElementIndex;
+            index = this[position].GetStoredElementIndex(layer);
 
             return index is not ElementIndex.None;
         }
@@ -516,18 +483,13 @@ namespace StardustSandbox.Core.WorldSystem.Components
         internal bool TryGetStoredElement(Point position, Layer layer, out Element value)
         {
             value = null;
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
+
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer) || !this[position].HasStoredElement(layer))
             {
                 return false;
             }
 
-            SlotLayer slotLayer = this[position].GetLayer(layer);
-            if (!slotLayer.HasStoredElement)
-            {
-                return false;
-            }
-
-            value = slotLayer.StoredElement;
+            value = this[position].GetStoredElement(layer);
             return true;
         }
 
@@ -577,12 +539,6 @@ namespace StardustSandbox.Core.WorldSystem.Components
         {
             _ = TryGetSlot(position, out Slot value);
             return value;
-        }
-
-        internal SlotLayer GetSlotLayer(Point position, Layer layer)
-        {
-            _ = TryGetSlotLayer(position, layer, out SlotLayer slotLayer);
-            return slotLayer;
         }
 
         internal ElementNeighbors GetNeighboringSlots(Point position)
@@ -652,12 +608,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
         internal bool IsEmptySlot(Point position)
         {
-            return !IsWithinBounds(position) || this[position].IsEmpty;
+            return !IsWithinBounds(position) || this[position].IsEmpty();
         }
 
         internal bool IsEmptySlotLayer(Point position, Layer layer)
         {
-            return !IsWithinBounds(position) || this[position].GetLayer(layer).IsEmpty;
+            return !IsWithinBounds(position) || this[position].HasElement(layer);
         }
 
         #endregion

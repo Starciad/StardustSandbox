@@ -81,7 +81,7 @@ namespace StardustSandbox.Core.Elements.Energies
                     continue;
                 }
 
-                if (!neighbors.GetSlotLayer(i, Layer.Foreground).IsEmpty)
+                if (!neighbors.GetSlotLayer(i, Layer.Foreground).HasElement)
                 {
                     if (TryIgniteElement(context, neighbors.GetSlot(i), neighbors.GetSlotLayer(i, Layer.Foreground), Layer.Foreground))
                     {
@@ -91,7 +91,7 @@ namespace StardustSandbox.Core.Elements.Energies
                     aroundElements++;
                 }
 
-                if (!neighbors.GetSlotLayer(i, Layer.Background).IsEmpty)
+                if (!neighbors.GetSlotLayer(i, Layer.Background).HasElement)
                 {
                     if (TryIgniteElement(context, neighbors.GetSlot(i), neighbors.GetSlotLayer(i, Layer.Background), Layer.Background))
                     {

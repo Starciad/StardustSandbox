@@ -58,7 +58,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
                 SlotLayer layer = neighbors.GetSlotLayer(i, context.CurrentLayer);
 
-                if (!layer.IsEmpty && layer.Element.IsElectrified)
+                if (!layer.HasElement && layer.Element.IsElectrified)
                 {
                     electrifiedNeighborFound = true;
                     break;

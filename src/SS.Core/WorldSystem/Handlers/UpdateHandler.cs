@@ -67,12 +67,12 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
                     return false;
                 }
 
-                if (!slot.Foreground.IsEmpty)
+                if (!slot.Foreground.HasElement)
                 {
                     UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Foreground, slot);
                 }
 
-                if (!slot.Background.IsEmpty)
+                if (!slot.Background.HasElement)
                 {
                     UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Background, slot);
                 }

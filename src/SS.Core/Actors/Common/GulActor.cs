@@ -170,7 +170,7 @@ namespace StardustSandbox.Core.Actors.Common
 
         private bool IsOnTopMortalElement(Point position)
         {
-            return this.TileMap.TryGetSlotLayer(new(position.X, position.Y + 1), Layer.Foreground, out SlotLayer slotLayer) && !slotLayer.IsEmpty &&
+            return this.TileMap.TryGetSlotLayer(new(position.X, position.Y + 1), Layer.Foreground, out SlotLayer slotLayer) && !slotLayer.HasElement &&
                    (IsMortalElement(slotLayer.ElementIndex) || slotLayer.Temperature < -15.0f || slotLayer.Temperature > 48.0f);
         }
 

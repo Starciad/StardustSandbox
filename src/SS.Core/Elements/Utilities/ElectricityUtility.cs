@@ -30,7 +30,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             SlotLayer slotLayer = context.GetSlotLayer(position, layer);
 
             if (slotLayer is null ||
-                slotLayer.IsEmpty ||
+                slotLayer.HasElement ||
                 slotLayer.ElementIndex is ElementIndex.Electricity ||
                 !slotLayer.Element.IsConductive)
             {

@@ -33,7 +33,7 @@ namespace StardustSandbox.Core.Tools.Inks
 
         internal override void Execute(ToolContext context)
         {
-            if (!context.TileMap.TryGetSlot(context.Position, out Slot slot) || slot.GetLayer(context.Layer).IsEmpty)
+            if (!context.TileMap.TryGetSlot(context.Position, out Slot slot) || slot.GetLayer(context.Layer).HasElement)
             {
                 return;
             }

@@ -18,6 +18,8 @@
 using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Databases;
+using StardustSandbox.Core.Elements;
+using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Collections;
@@ -26,15 +28,7 @@ namespace StardustSandbox.Core.WorldSystem.Slots
 {
     internal sealed class Slot : IPoolableObject
     {
-        internal bool IsEmpty => this.IsBackgroundEmpty && this.IsForegroundEmpty;
-
-        internal bool IsForegroundEmpty => this.foreground.IsEmpty;
-        internal bool IsBackgroundEmpty => this.background.IsEmpty;
-
         internal Point Position { get; set; }
-
-        internal SlotLayer Foreground => this.foreground;
-        internal SlotLayer Background => this.background;
 
         private readonly SlotLayer foreground;
         private readonly SlotLayer background;
@@ -45,7 +39,7 @@ namespace StardustSandbox.Core.WorldSystem.Slots
             this.background = new(elementDatabase);
         }
 
-        internal SlotLayer GetLayer(Layer layer)
+        private SlotLayer GetLayer(Layer layer)
         {
             return layer switch
             {
@@ -55,34 +49,21 @@ namespace StardustSandbox.Core.WorldSystem.Slots
             };
         }
 
-        internal void Instantiate(Layer layer, ElementIndex index)
-        {
-            GetLayer(layer).Instantiate(index);
-        }
+        #region Handling
 
         internal void Destroy(Layer layer)
         {
             GetLayer(layer).Destroy();
         }
 
-        internal void Copy(Layer layer, in SlotLayer valueToCopy)
+        internal void Instantiate(Layer layer, ElementIndex index)
         {
-            GetLayer(layer).Copy(valueToCopy);
+            GetLayer(layer).Instantiate(index);
         }
 
-        internal void SetTemperatureValue(Layer layer, float value)
+        internal void Instantiate(Layer layer, Slot valueToCopy)
         {
-            GetLayer(layer).Temperature = value;
-        }
-
-        internal void SetColorModifier(Layer layer, Color value)
-        {
-            GetLayer(layer).ColorModifier = value;
-        }
-
-        internal void SetStoredElement(Layer layer, ElementIndex index)
-        {
-            GetLayer(layer).StoredElementIndex = index;
+            GetLayer(layer).Instantiate(valueToCopy.GetLayer(layer));
         }
 
         internal void Reset(Layer layer)
@@ -95,5 +76,125 @@ namespace StardustSandbox.Core.WorldSystem.Slots
             this.foreground.Reset();
             this.background.Reset();
         }
+
+        #endregion
+
+        #region Getters
+
+        internal bool GetDissipatingState(Layer layer)
+        {
+            return GetLayer(layer).IsDissipating;
+        }
+
+        internal bool GetFallingState(Layer layer)
+        {
+            return GetLayer(layer).IsFalling;
+        }
+
+        internal bool GetPushedState(Layer layer)
+        {
+            return GetLayer(layer).WasPushed;
+        }
+
+        internal Color GetColorModifier(Layer layer)
+        {
+            return GetLayer(layer).ColorModifier;
+        }
+
+        internal Element GetElement(Layer layer)
+        {
+            return GetLayer(layer).Element;
+        }
+
+        internal ElementIndex GetElementIndex(Layer layer)
+        {
+            return GetLayer(layer).ElementIndex;
+        }
+
+        internal Element GetStoredElement(Layer layer)
+        {
+            return GetLayer(layer).StoredElement;
+        }
+
+        internal ElementIndex GetStoredElementIndex(Layer layer)
+        {
+            return GetLayer(layer).StoredElementIndex;
+        }
+
+        internal float GetTemperature(Layer layer)
+        {
+            return GetLayer(layer).Temperature;
+        }
+
+        internal UpdateCycleFlag GetStepCycleFlag(Layer layer)
+        {
+            return GetLayer(layer).StepCycleFlag;
+        }
+
+        internal bool HasElement(Layer layer)
+        {
+            return GetLayer(layer).HasElement;
+        }
+
+        internal bool HasStoredElement(Layer layer)
+        {
+            return GetLayer(layer).HasStoredElement;
+        }
+
+        internal bool IsEmpty(Layer layer)
+        {
+            return GetLayer(layer).IsEmpty;
+        }
+
+        internal bool IsEmpty()
+        {
+            return this.foreground.IsEmpty && this.background.IsEmpty;
+        }
+
+        #endregion
+
+        #region Setters
+
+        internal void SetDissipatingState(Layer layer, bool value)
+        {
+            GetLayer(layer).IsDissipating = value;
+        }
+
+        internal void SetFallingState(Layer layer, bool value)
+        {
+            GetLayer(layer).IsFalling = value;
+        }
+
+        internal void SetPushedState(Layer layer, bool value)
+        {
+            GetLayer(layer).WasPushed = value;
+        }
+
+        internal void SetColorModifier(Layer layer, Color value)
+        {
+            GetLayer(layer).ColorModifier = value;
+        }
+
+        internal void SetElementIndex(Layer layer, ElementIndex value)
+        {
+            GetLayer(layer).ElementIndex = value;
+        }
+
+        internal void SetStoredElementIndex(Layer layer, ElementIndex value)
+        {
+            GetLayer(layer).StoredElementIndex = value;
+        }
+
+        internal void SetTemperature(Layer layer, float value)
+        {
+            GetLayer(layer).Temperature = value;
+        }
+
+        internal void SetStepCycleFlag(Layer layer, UpdateCycleFlag value)
+        {
+            GetLayer(layer).StepCycleFlag = value;
+        }
+
+        #endregion
     }
 }

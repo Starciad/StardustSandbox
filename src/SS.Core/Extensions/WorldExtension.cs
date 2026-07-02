@@ -65,11 +65,11 @@ namespace StardustSandbox.Core.Extensions
                         // This color represents the currently selected element
                         Slot slot = tileMap.GetSlot(worldPosition);
 
-                        if (!slot.Foreground.IsEmpty)
+                        if (!slot.Foreground.HasElement)
                         {
                             data[index] = tileMap.GetElement(worldPosition, Layer.Foreground).ReferenceColor.Vary(5);
                         }
-                        else if (!slot.Background.IsEmpty)
+                        else if (!slot.Background.HasElement)
                         {
                             data[index] = tileMap.GetElement(worldPosition, Layer.Background).ReferenceColor.Vary(5).Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
                         }

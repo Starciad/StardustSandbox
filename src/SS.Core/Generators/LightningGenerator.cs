@@ -73,7 +73,7 @@ namespace StardustSandbox.Core.Generators
                     continue;
                 }
 
-                if (context.TryGetSlot(position, out Slot slot) && !slot.GetLayer(context.CurrentLayer).IsEmpty)
+                if (context.TryGetSlot(position, out Slot slot) && !slot.GetLayer(context.CurrentLayer).HasElement)
                 {
                     if (slot.GetLayer(context.CurrentLayer).Element.Category is ElementCategory.Gas)
                     {
