@@ -55,6 +55,7 @@ namespace StardustSandbox.Core.Serialization.Common.Progress
         private readonly Dictionary<Type, string> componentFilenamesByType;
         private readonly Dictionary<Type, ComponentSchema> componentSchemasByType;
         private readonly Dictionary<Type, int> componentVersionsByType;
+        private readonly Dictionary<Type, IStorageModel> storageModelCache;
 
         #endregion
 
@@ -134,12 +135,19 @@ namespace StardustSandbox.Core.Serialization.Common.Progress
                 [typeof(AchievementStorageModel)] = IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_VERSION,
             };
 
+            this.storageModelCache = [];
+
             #endregion
         }
 
         internal TStorageModel Load<TStorageModel>() where TStorageModel : IStorageModel
         {
             Type storageModelType = typeof(TStorageModel);
+
+            if (this.storageModelCache.TryGetValue(storageModelType, out IStorageModel cachedModel))
+            {
+                return (TStorageModel)cachedModel;
+            }
 
             string componentFilename = Path.Combine(IO.Directory.Progress, this.componentFilenamesByType[storageModelType]);
             int targetVersion = this.componentVersionsByType[storageModelType];
@@ -154,12 +162,18 @@ namespace StardustSandbox.Core.Serialization.Common.Progress
 
             using FileStream stream = new(componentFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
 
-            return this.schemaSerializer.Deserialize<TStorageModel>(stream, schema, sourceVersion, targetVersion);
+            TStorageModel loadedModel = this.schemaSerializer.Deserialize<TStorageModel>(stream, schema, sourceVersion, targetVersion);
+
+            this.storageModelCache[storageModelType] = loadedModel;
+
+            return loadedModel;
         }
 
         internal void Save<TStorageModel>(TStorageModel value) where TStorageModel : IStorageModel
         {
             Type storageModelType = typeof(TStorageModel);
+
+            this.storageModelCache[storageModelType] = value;
 
             ComponentSchema schema = this.componentSchemasByType[storageModelType];
 

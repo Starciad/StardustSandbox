@@ -72,8 +72,8 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
 
         private readonly Dictionary<Type, string> componentFilenamesByType;
         private readonly Dictionary<Type, ComponentSchema> componentSchemasByType;
-        private readonly Dictionary<Type, XmlSerializer> componentSerializersByType;
         private readonly Dictionary<Type, int> componentVersionsByType;
+        private readonly Dictionary<Type, IStorageModel> storageModelCache;
 
         #endregion
 
@@ -107,7 +107,7 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
 
         private IData Deserializer(Stream stream, Type versionType)
         {
-            using XmlReader reader = XmlReader.Create(stream, readerSettings);
+            using XmlReader reader = XmlReader.Create(stream, this.readerSettings);
 
             XmlSerializer serializer = new(versionType);
             return (IData)serializer.Deserialize(reader);
@@ -115,7 +115,7 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
 
         private void Serializer(Stream stream, IData data)
         {
-            using XmlWriter writer = XmlWriter.Create(stream, writerSettings);
+            using XmlWriter writer = XmlWriter.Create(stream, this.writerSettings);
 
             XmlSerializer serializer = new(data.GetType());
             serializer.Serialize(writer, data);
@@ -124,6 +124,7 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
         internal SettingsSerializer()
         {
             this.schemaSerializer = new(Deserializer, Serializer);
+            WriteVersioningHeader();
 
             #region Mappers
 
@@ -239,12 +240,19 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
                 [typeof(VolumeStorageModel)] = IOConstants.SETTINGS_VOLUME_COMPONENT_VERSION
             };
 
+            this.storageModelCache = [];
+
             #endregion
         }
 
         internal TStorageModel Load<TStorageModel>() where TStorageModel : IStorageModel
         {
             Type storageModelType = typeof(TStorageModel);
+
+            if (this.storageModelCache.TryGetValue(storageModelType, out IStorageModel cachedModel))
+            {
+                return (TStorageModel)cachedModel;
+            }
 
             string componentFilename = Path.Combine(IO.Directory.Settings, this.componentFilenamesByType[storageModelType]);
             int targetVersion = this.componentVersionsByType[storageModelType];
@@ -259,12 +267,18 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
 
             using FileStream stream = new(componentFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
 
-            return this.schemaSerializer.Deserialize<TStorageModel>(stream, schema, sourceVersion, targetVersion);
+            TStorageModel loadedModel = this.schemaSerializer.Deserialize<TStorageModel>(stream, schema, sourceVersion, targetVersion);
+            
+            this.storageModelCache[storageModelType] = loadedModel;
+
+            return loadedModel;
         }
 
         internal void Save<TStorageModel>(TStorageModel value) where TStorageModel : IStorageModel
         {
             Type storageModelType = typeof(TStorageModel);
+
+            this.storageModelCache[storageModelType] = value;
 
             ComponentSchema schema = this.componentSchemasByType[storageModelType];
 
@@ -275,4 +289,3 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
         }
     }
 }
-

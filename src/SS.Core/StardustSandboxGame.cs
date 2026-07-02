@@ -82,13 +82,6 @@ namespace StardustSandbox.Core
         private readonly PlayerInputController playerInputController;
         private readonly Camera2D camera;
 
-        private readonly ControlStorageModel controlSettings;
-        private readonly CursorStorageModel cursorSettings;
-        private readonly GeneralStorageModel generalSettings;
-        private readonly GameplayStorageModel gameplaySettings;
-        private readonly VideoStorageModel videoSettings;
-        private readonly VolumeStorageModel volumeSettings;
-
         public StardustSandboxGame(GameLaunchOptions options)
         {
             this.gameLaunchOptions = options;
@@ -115,23 +108,23 @@ namespace StardustSandbox.Core
             this.progressSerializer = new();
             this.settingsSerializer = new();
 
-            this.controlSettings = this.settingsSerializer.Load<ControlStorageModel>();
-            this.cursorSettings = this.settingsSerializer.Load<CursorStorageModel>();
-            this.generalSettings = this.settingsSerializer.Load<GeneralStorageModel>();
-            this.gameplaySettings = this.settingsSerializer.Load<GameplayStorageModel>();
-            this.videoSettings = this.settingsSerializer.Load<VideoStorageModel>();
-            this.volumeSettings = this.settingsSerializer.Load<VolumeStorageModel>();
+            ControlStorageModel controlSettings = this.settingsSerializer.Load<ControlStorageModel>();
+            CursorStorageModel cursorSettings = this.settingsSerializer.Load<CursorStorageModel>();
+            GeneralStorageModel generalSettings = this.settingsSerializer.Load<GeneralStorageModel>();
+            GameplayStorageModel gameplaySettings =  this.settingsSerializer.Load<GameplayStorageModel>();
+            VideoStorageModel videoSettings = this.settingsSerializer.Load<VideoStorageModel>();
+            VolumeStorageModel volumeSettings = this.settingsSerializer.Load<VolumeStorageModel>();
 
             // Initialize Content
             this.Content.RootDirectory = IOConstants.ASSETS_DIRECTORY;
 
             // Configure the game's window
-            this.Window.IsBorderless = this.videoSettings.Borderless;
+            this.Window.IsBorderless = videoSettings.Borderless;
             this.Window.Title = GameConstants.GetTitleAndVersionString();
             this.Window.AllowUserResizing = true;
 
             // Configure game settings
-            SetFrameRate(this.videoSettings.Framerate);
+            SetFrameRate(videoSettings.Framerate);
 
             this.IsMouseVisible = false;
             this.IsFixedTimeStep = true;
