@@ -84,6 +84,8 @@ namespace StardustSandbox.Core.WorldSystem.Components
             this.gameEvents = gameEvents;
         }
 
+        #region Utilities
+
         internal void Clear()
         {
             for (int y = 0; y < this.height; y++)
@@ -178,6 +180,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
             return IsWithinBounds(position.X, position.Y);
         }
 
+        #endregion
+
+        #region Counters
+
         private void ResetCounts()
         {
             this.totalForegroundElementCount = 0;
@@ -257,8 +263,100 @@ namespace StardustSandbox.Core.WorldSystem.Components
             DecrementLayerElementCount(layer);
         }
 
-        #region ELEMENTS
+        #endregion
 
+        #region Elements
+
+        #region Try Methods
+
+        internal bool TryDestroyElement(Point position, Layer layer)
+        {
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
+            {
+                return false;
+            }
+
+            ElementIndex index = this[position].GetElementIndex(layer);
+            this[position].Destroy(layer);
+
+            DecrementElementCount(this.elementDatabase.GetElement(index), layer);
+            this.gameEvents.Publish(new ElementDestroyedEvent(position, layer, index));
+
+            return true;
+        }
+        internal bool TryGetElement(Point position, Layer layer, out Element value)
+        {
+            value = null;
+
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer) || !this[position].HasElement(layer))
+            {
+                return false;
+            }
+
+            value = this[position].GetElement(layer);
+            return true;
+        }
+        internal bool TryGetElementIndex(Point position, Layer layer, out ElementIndex index)
+        {
+            index = ElementIndex.None;
+
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer) || !this[position].HasElement(layer))
+            {
+                return false;
+            }
+
+            index = this[position].GetElementIndex(layer);
+            return true;
+        }
+        internal bool TryGetSlot(Point position, out Slot value)
+        {
+            value = null;
+
+            if (!IsWithinBounds(position) || IsEmptySlot(position))
+            {
+                return false;
+            }
+
+            value = this[position];
+            return true;
+        }
+        internal bool TryGetStoredElementIndex(Point position, Layer layer, out ElementIndex index)
+        {
+            index = ElementIndex.None;
+
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
+            {
+                return false;
+            }
+
+            index = this[position].GetStoredElementIndex(layer);
+
+            return index is not ElementIndex.None;
+        }
+        internal bool TryGetStoredElement(Point position, Layer layer, out Element value)
+        {
+            value = null;
+
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer) || !this[position].HasStoredElement(layer))
+            {
+                return false;
+            }
+
+            value = this[position].GetStoredElement(layer);
+            return true;
+        }
+        internal bool TryHasStoredElement(Point position, Layer layer, out bool value)
+        {
+            value = false;
+
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
+            {
+                return false;
+            }
+
+            value = this[position].HasStoredElement(layer);
+            return true;
+        }
         internal bool TryInstantiateElementIndex(Point position, Layer layer, ElementIndex index)
         {
             if (!IsWithinBounds(position) || !IsEmptySlotLayer(position, layer))
@@ -279,27 +377,71 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             return true;
         }
-
-        internal bool TryUpdateElementPosition(Point oldPosition, Point newPosition, Layer layer)
+        internal bool TryRemoveElement(Point position, Layer layer)
         {
-            if (!IsWithinBounds(oldPosition) ||
-                !IsWithinBounds(newPosition) ||
-                 IsEmptySlotLayer(oldPosition, layer) ||
-                !IsEmptySlotLayer(newPosition, layer) ||
-                oldPosition == newPosition)
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
             {
                 return false;
             }
 
-            this[newPosition].Instantiate(layer, this[oldPosition]);
-            this[newPosition].Position = newPosition;
-            this[oldPosition].Destroy(layer);
+            this[position].Destroy(layer);
 
-            this.gameEvents.Publish(new ElementPositionUpdatedEvent(oldPosition, newPosition, layer));
+            DecrementElementCount(this[position].GetElement(layer), layer);
+            this.gameEvents.Publish(new ElementRemovedEvent(position, layer));
 
             return true;
         }
+        internal bool TryReplaceElementIndex(Point position, Layer layer, ElementIndex newIndex)
+        {
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
+            {
+                return false;
+            }
 
+            ElementIndex oldIndex = this[position].GetElementIndex(layer);
+
+            this[position].Destroy(layer);
+            this[position].Instantiate(layer, newIndex);
+
+            this.gameEvents.Publish(new ElementReplacedEvent(position, layer, oldIndex, newIndex));
+
+            return true;
+        }
+        internal bool TrySetElementColorModifier(Point position, Layer layer, Color value)
+        {
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
+            {
+                return false;
+            }
+
+            this[position].SetColorModifier(layer, value);
+            return true;
+        }
+        internal bool TrySetElementTemperature(Point position, Layer layer, float value)
+        {
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
+            {
+                return false;
+            }
+
+            if (this[position].GetTemperature(layer) != value)
+            {
+                this[position].SetTemperature(layer, value);
+                this.gameEvents.Publish(new ElementTemperatureChangedEvent(position, layer, value));
+            }
+
+            return true;
+        }
+        internal bool TrySetStoredElementIndex(Point position, Layer layer, ElementIndex index)
+        {
+            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
+            {
+                return false;
+            }
+
+            this[position].SetStoredElementIndex(layer, index);
+            return true;
+        }
         internal bool TrySwappingElements(Point element1Position, Point element2Position, Layer layer)
         {
             if (!IsWithinBounds(element1Position) ||
@@ -327,220 +469,44 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             return true;
         }
-
-        internal bool TryDestroyElement(Point position, Layer layer)
+        internal bool TryUpdateElementPosition(Point oldPosition, Point newPosition, Layer layer)
         {
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
+            if (!IsWithinBounds(oldPosition) ||
+                !IsWithinBounds(newPosition) ||
+                 IsEmptySlotLayer(oldPosition, layer) ||
+                !IsEmptySlotLayer(newPosition, layer) ||
+                oldPosition == newPosition)
             {
                 return false;
             }
 
-            ElementIndex index = this[position].GetElementIndex(layer);
-            this[position].Destroy(layer);
+            this[newPosition].Instantiate(layer, this[oldPosition]);
+            this[newPosition].Position = newPosition;
+            this[oldPosition].Destroy(layer);
 
-            DecrementElementCount(this.elementDatabase.GetElement(index), layer);
-            this.gameEvents.Publish(new ElementDestroyedEvent(position, layer, index));
+            this.gameEvents.Publish(new ElementPositionUpdatedEvent(oldPosition, newPosition, layer));
 
             return true;
         }
 
-        internal bool TryRemoveElement(Point position, Layer layer)
-        {
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
-            {
-                return false;
-            }
+        #endregion
 
-            this[position].Destroy(layer);
-
-            DecrementElementCount(this[position].GetElement(layer), layer);
-            this.gameEvents.Publish(new ElementRemovedEvent(position, layer));
-
-            return true;
-        }
-
-        internal bool TryReplaceElementIndex(Point position, Layer layer, ElementIndex newIndex)
-        {
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
-            {
-                return false;
-            }
-
-            ElementIndex oldIndex = this[position].GetElementIndex(layer);
-
-            this[position].Destroy(layer);
-            this[position].Instantiate(layer, newIndex);
-
-            this.gameEvents.Publish(new ElementReplacedEvent(position, layer, oldIndex, newIndex));
-
-            return true;
-        }
-
-        internal bool TryGetElementIndex(Point position, Layer layer, out ElementIndex index)
-        {
-            index = ElementIndex.None;
-
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer) || !this[position].HasElement(layer))
-            {
-                return false;
-            }
-
-            index = this[position].GetElementIndex(layer);
-            return true;
-        }
-
-        internal bool TryGetElement(Point position, Layer layer, out Element value)
-        {
-            value = null;
-
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer) || !this[position].HasElement(layer))
-            {
-                return false;
-            }
-
-            value = this[position].GetElement(layer);
-            return true;
-        }
-
-        internal bool TryGetSlot(Point position, out Slot value)
-        {
-            value = null;
-
-            if (!IsWithinBounds(position) || IsEmptySlot(position))
-            {
-                return false;
-            }
-
-            value = this[position];
-            return true;
-        }
-
-        internal bool TrySetElementTemperature(Point position, Layer layer, float value)
-        {
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
-            {
-                return false;
-            }
-
-            if (this[position].GetTemperature(layer) != value)
-            {
-                this[position].SetTemperature(layer, value);
-                this.gameEvents.Publish(new ElementTemperatureChangedEvent(position, layer, value));
-            }
-
-            return true;
-        }
-
-        internal bool TrySetElementColorModifier(Point position, Layer layer, Color value)
-        {
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
-            {
-                return false;
-            }
-
-            this[position].SetColorModifier(layer, value);
-            return true;
-        }
-
-        internal bool TryHasStoredElement(Point position, Layer layer, out bool value)
-        {
-            value = false;
-
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
-            {
-                return false;
-            }
-
-            value = this[position].HasStoredElement(layer);
-            return true;
-        }
-
-        internal bool TrySetStoredElementIndex(Point position, Layer layer, ElementIndex index)
-        {
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
-            {
-                return false;
-            }
-
-            this[position].SetStoredElementIndex(layer, index);
-            return true;
-        }
-
-        internal bool TryGetStoredElementIndex(Point position, Layer layer, out ElementIndex index)
-        {
-            index = ElementIndex.None;
-
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer))
-            {
-                return false;
-            }
-
-            index = this[position].GetStoredElementIndex(layer);
-
-            return index is not ElementIndex.None;
-        }
-
-        internal bool TryGetStoredElement(Point position, Layer layer, out Element value)
-        {
-            value = null;
-
-            if (!IsWithinBounds(position) || IsEmptySlotLayer(position, layer) || !this[position].HasStoredElement(layer))
-            {
-                return false;
-            }
-
-            value = this[position].GetStoredElement(layer);
-            return true;
-        }
-
-        internal void InstantiateElementIndex(Point position, Layer layer, ElementIndex index)
-        {
-            _ = TryInstantiateElementIndex(position, layer, index);
-        }
-
-        internal void UpdateElementPosition(Point oldPosition, Point newPosition, Layer layer)
-        {
-            _ = TryUpdateElementPosition(oldPosition, newPosition, layer);
-        }
-
-        internal void SwappingElements(Point element1Position, Point element2Position, Layer layer)
-        {
-            _ = TrySwappingElements(element1Position, element2Position, layer);
-        }
+        #region Internal Methods
 
         internal void DestroyElement(Point position, Layer layer)
         {
             _ = TryDestroyElement(position, layer);
         }
-
-        internal void RemoveElement(Point position, Layer layer)
-        {
-            _ = TryRemoveElement(position, layer);
-        }
-
-        internal void ReplaceElementIndex(Point position, Layer layer, ElementIndex index)
-        {
-            _ = TryReplaceElementIndex(position, layer, index);
-        }
-
-        internal ElementIndex GetElementIndex(Point position, Layer layer)
-        {
-            _ = TryGetElementIndex(position, layer, out ElementIndex index);
-            return index;
-        }
-
         internal Element GetElement(Point position, Layer layer)
         {
             _ = TryGetElement(position, layer, out Element value);
             return value;
         }
-
-        internal Slot GetSlot(Point position)
+        internal ElementIndex GetElementIndex(Point position, Layer layer)
         {
-            _ = TryGetSlot(position, out Slot value);
-            return value;
+            _ = TryGetElementIndex(position, layer, out ElementIndex index);
+            return index;
         }
-
         internal ElementNeighbors GetNeighboringSlots(Point position)
         {
             this.elementNeighbors.Reset();
@@ -572,49 +538,73 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             return this.elementNeighbors;
         }
-
-        internal void SetElementTemperature(Point position, Layer layer, float value)
+        internal Slot GetSlot(Point position)
         {
-            _ = TrySetElementTemperature(position, layer, value);
+            _ = TryGetSlot(position, out Slot value);
+            return value;
         }
-
-        internal void SetElementColorModifier(Point position, Layer layer, Color value)
-        {
-            _ = TrySetElementColorModifier(position, layer, value);
-        }
-
-        internal void SetStoredElementIndex(Point position, Layer layer, ElementIndex index)
-        {
-            _ = TrySetStoredElementIndex(position, layer, index);
-        }
-
-        internal ElementIndex GetStoredElementIndex(Point position, Layer layer)
-        {
-            _ = TryGetStoredElementIndex(position, layer, out ElementIndex index);
-            return index;
-        }
-
         internal Element GetStoredElement(Point position, Layer layer)
         {
             _ = TryGetStoredElement(position, layer, out Element value);
             return value;
         }
-
+        internal ElementIndex GetStoredElementIndex(Point position, Layer layer)
+        {
+            _ = TryGetStoredElementIndex(position, layer, out ElementIndex index);
+            return index;
+        }
         internal bool HasStoredElement(Point position, Layer layer)
         {
             _ = TryHasStoredElement(position, layer, out bool value);
             return value;
         }
+        internal void InstantiateElementIndex(Point position, Layer layer, ElementIndex index)
+        {
+            _ = TryInstantiateElementIndex(position, layer, index);
+        }
+        internal void RemoveElement(Point position, Layer layer)
+        {
+            _ = TryRemoveElement(position, layer);
+        }
+        internal void ReplaceElementIndex(Point position, Layer layer, ElementIndex index)
+        {
+            _ = TryReplaceElementIndex(position, layer, index);
+        }
+        internal void SetElementColorModifier(Point position, Layer layer, Color value)
+        {
+            _ = TrySetElementColorModifier(position, layer, value);
+        }
+        internal void SetElementTemperature(Point position, Layer layer, float value)
+        {
+            _ = TrySetElementTemperature(position, layer, value);
+        }
+        internal void SetStoredElementIndex(Point position, Layer layer, ElementIndex index)
+        {
+            _ = TrySetStoredElementIndex(position, layer, index);
+        }
+        internal void SwappingElements(Point element1Position, Point element2Position, Layer layer)
+        {
+            _ = TrySwappingElements(element1Position, element2Position, layer);
+        }
+        internal void UpdateElementPosition(Point oldPosition, Point newPosition, Layer layer)
+        {
+            _ = TryUpdateElementPosition(oldPosition, newPosition, layer);
+        }
+        
+        #endregion
 
+        #region Utility Methods
+
+        internal bool IsEmptySlotLayer(Point position, Layer layer)
+        {
+            return !IsWithinBounds(position) || this[position].IsEmpty(layer);
+        }
         internal bool IsEmptySlot(Point position)
         {
             return !IsWithinBounds(position) || this[position].IsEmpty();
         }
 
-        internal bool IsEmptySlotLayer(Point position, Layer layer)
-        {
-            return !IsWithinBounds(position) || this[position].HasElement(layer);
-        }
+        #endregion
 
         #endregion
     }
