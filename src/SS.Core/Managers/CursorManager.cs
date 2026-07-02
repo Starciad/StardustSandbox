@@ -22,13 +22,14 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
+using StardustSandbox.Core.Serialization.Common.Settings.StorageModels;
 
 namespace StardustSandbox.Core.Managers
 {
     internal sealed class CursorManager
     {
         internal Vector2 Position { get; set; }
-        internal Color Color { get; set; }
+        internal Color ForegroundColor { get; set; }
         internal Color BackgroundColor { get; set; }
         internal float Scale { get; set; }
         internal float Opacity { get; set; }
@@ -43,14 +44,13 @@ namespace StardustSandbox.Core.Managers
             new(0, 36, 36, 36),
         ];
 
-        internal CursorManager(AssetDatabase assetDatabase, CursorData cursorSettings)
+        internal CursorManager(AssetDatabase assetDatabase, CursorStorageModel cursorSettings)
         {
             this.assetDatabase = assetDatabase;
 
-            this.Color = cursorSettings.Color;
+            this.ForegroundColor = cursorSettings.ForegroundColor;
             this.BackgroundColor = cursorSettings.BackgroundColor;
             this.Scale = cursorSettings.Scale;
-            this.Opacity = cursorSettings.Opacity;
         }
 
         internal void Load()
@@ -68,8 +68,8 @@ namespace StardustSandbox.Core.Managers
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.cursorTexture, this.backgroundPosition, cursorClipAreas[1], new(this.BackgroundColor, this.Opacity), 0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0f);
-            spriteBatch.Draw(this.cursorTexture, this.Position, cursorClipAreas[0], new(this.Color, this.Opacity), 0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(this.cursorTexture, this.backgroundPosition, cursorClipAreas[1], this.BackgroundColor, 0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(this.cursorTexture, this.Position, cursorClipAreas[0], this.ForegroundColor, 0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0f);
         }
     }
 }

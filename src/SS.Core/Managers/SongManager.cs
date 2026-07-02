@@ -24,6 +24,7 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
+using StardustSandbox.Core.Serialization.Common.Settings.StorageModels;
 
 using System;
 using System.Collections.Generic;
@@ -47,9 +48,9 @@ namespace StardustSandbox.Core.Managers
         private readonly AssetDatabase assetDatabase;
         private readonly GameLaunchOptions gameLaunchOptions;
         private readonly Queue<SongIndex> gameplaySongDeck = [];
-        private readonly VolumeData volumeSettings;
+        private readonly VolumeStorageModel volumeSettings;
 
-        internal SongManager(AssetDatabase assetDatabase, GameLaunchOptions gameLaunchOptions, VolumeData volumeSettings)
+        internal SongManager(AssetDatabase assetDatabase, GameLaunchOptions gameLaunchOptions, VolumeStorageModel volumeSettings)
         {
             this.assetDatabase = assetDatabase;
             this.gameLaunchOptions = gameLaunchOptions;

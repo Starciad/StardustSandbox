@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
+using StardustSandbox.Core.Serialization.Common.Settings.StorageModels;
 
 using System;
 
@@ -36,10 +37,10 @@ namespace StardustSandbox.Core.Cameras
         private float zoom;
         private float targetZoom;
 
-        private readonly GameplayData gameplaySettings;
+        private readonly GameplayStorageModel gameplaySettings;
         private readonly GameScreen gameScreen;
 
-        internal Camera2D(GameplayData gameplaySettings, GameScreen gameScreen)
+        internal Camera2D(GameplayStorageModel gameplaySettings, GameScreen gameScreen)
         {
             this.gameScreen = gameScreen;
             this.gameplaySettings = gameplaySettings;

@@ -879,7 +879,7 @@ namespace StardustSandbox.Core.UI.Common
 
                                 optionSlotInfo.Value.TextContent = option.GetValueString();
 
-                                cursorManager.Color = newColor;
+                                cursorManager.ForegroundColor = newColor;
                             });
 
                             uiManager.OpenUI(UIIndex.ColorPicker);

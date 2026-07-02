@@ -19,7 +19,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
+using StardustSandbox.Core.Serialization.Common.Settings.StorageModels;
 
 namespace StardustSandbox.Core.Managers
 {
@@ -35,14 +35,6 @@ namespace StardustSandbox.Core.Managers
         {
             this.graphicsDeviceManager = graphicsDeviceManager;
             this.gameWindow = gameWindow;
-        }
-
-        internal void ApplySettings(VideoData videoSettings)
-        {
-            SetResolution(videoSettings.Width, videoSettings.Height);
-            SetFullScreen(videoSettings.FullScreen);
-            SetVSync(videoSettings.VSync);
-            SetBorderless(videoSettings.Borderless);
         }
 
         internal void SetResolution(int width, int height)
@@ -91,6 +83,14 @@ namespace StardustSandbox.Core.Managers
         internal void SetBorderless(bool value)
         {
             this.gameWindow.IsBorderless = value;
+        }
+
+        internal void ApplySettings(VideoStorageModel videoSettings)
+        {
+            SetResolution(videoSettings.Resolution);
+            SetFullScreen(videoSettings.FullScreen);
+            SetVSync(videoSettings.VSync);
+            SetBorderless(videoSettings.Borderless);
         }
     }
 }

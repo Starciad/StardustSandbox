@@ -29,6 +29,7 @@ using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Mathematics.Primitives;
 using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
+using StardustSandbox.Core.Serialization.Common.Settings.StorageModels;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
@@ -42,11 +43,11 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
 
         private readonly AssetDatabase assetDatabase;
         private readonly ElementContext elementRenderingContext;
-        private readonly GameplayData gameplaySettings;
+        private readonly GameplayStorageModel gameplaySettings;
         private readonly PlayerInputController playerInputController;
         private readonly World world;
 
-        internal RenderingHandler(AssetDatabase assetDatabase, GameplayData gameplaySettings, PlayerInputController playerInputController, World world)
+        internal RenderingHandler(AssetDatabase assetDatabase, GameplayStorageModel gameplaySettings, PlayerInputController playerInputController, World world)
         {
             this.assetDatabase = assetDatabase;
             this.elementRenderingContext = new(world);
@@ -149,22 +150,22 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
                     {
                         if (this.DrawBackgroundElements && !slot.Background.IsEmpty)
                         {
-                            DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Background, slot.GetLayer(Layer.Background).Element, this.gameplaySettings);
+                            DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Background, slot.GetLayer(Layer.Background).Element);
                         }
 
                         if (this.DrawForegroundElements && !slot.Foreground.IsEmpty)
                         {
-                            DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Foreground, slot.GetLayer(Layer.Foreground).Element, this.gameplaySettings);
+                            DrawSlotLayer(spriteBatch, camera, slot.Position, Layer.Foreground, slot.GetLayer(Layer.Foreground).Element);
                         }
                     }
                 }
             }
         }
 
-        private void DrawSlotLayer(SpriteBatch spriteBatch, Camera2D camera, Point position, Layer layer, Element element, GameplayData gameplaySettings)
+        private void DrawSlotLayer(SpriteBatch spriteBatch, Camera2D camera, Point position, Layer layer, Element element)
         {
             this.elementRenderingContext.Initialize(position, layer);
-            ElementRenderer.Draw(this.elementRenderingContext, element, spriteBatch, this.assetDatabase, camera, element.TextureOriginOffset, gameplaySettings);
+            ElementRenderer.Draw(this.elementRenderingContext, element, spriteBatch, this.assetDatabase, camera, element.TextureOriginOffset, this.gameplaySettings);
         }
     }
 }

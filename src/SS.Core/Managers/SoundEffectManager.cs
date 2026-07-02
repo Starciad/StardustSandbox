@@ -22,9 +22,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
-
-
-
+using StardustSandbox.Core.Serialization.Common.Settings.StorageModels;
 
 #if SS_WINDOWS
 using SharpDX.Multimedia;
@@ -39,9 +37,9 @@ namespace StardustSandbox.Core.Managers
         private readonly SoundEffectInstance[] activeInstances = new SoundEffectInstance[SoundEffectConstants.MAX_CONCURRENT_INSTANCES];
 
         private readonly AssetDatabase assetDatabase;
-        private readonly VolumeData volumeSettings;
+        private readonly VolumeStorageModel volumeSettings;
 
-        internal SoundEffectManager(AssetDatabase assetDatabase, VolumeData volumeSettings)
+        internal SoundEffectManager(AssetDatabase assetDatabase, VolumeStorageModel volumeSettings)
         {
             this.assetDatabase = assetDatabase;
             this.volumeSettings = volumeSettings;
