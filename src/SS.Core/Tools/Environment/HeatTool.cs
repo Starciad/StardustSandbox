@@ -31,19 +31,12 @@ namespace StardustSandbox.Core.Tools.Environment
 
         internal override void Execute(ToolContext context)
         {
-            if (!context.TileMap.TryGetSlot(context.Position, out Slot slot))
+            if (!context.TileMap.TryGetSlot(context.Position, out Slot slot) || !slot.HasElement(context.Layer))
             {
                 return;
             }
 
-            SlotLayer slotLayer = slot.GetLayer(context.Layer);
-
-            if (slotLayer.HasElement)
-            {
-                return;
-            }
-
-            context.TileMap.SetElementTemperature(context.Position, context.Layer, TemperatureMath.Clamp(slotLayer.Temperature + ToolConstants.DEFAULT_HEAT_VALUE));
+            context.TileMap.SetTemperature(context.Position, context.Layer, slot.GetTemperature(context.Layer) + ToolConstants.DEFAULT_HEAT_VALUE);
         }
     }
 }

@@ -43,24 +43,24 @@ namespace StardustSandbox.Core.Elements.Gases
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
-            if (context.CurrentPosition.Y <= PercentageMath.PercentageOfValue(context.GetWorldSize().Y, 10.0f) && Random.Chance(1))
+            if (context.Position.Y <= PercentageMath.PercentageOfValue(context.GetWorldSize().Y, 10.0f) && Random.Chance(1))
             {
                 if (context.CurrentSlotLayer.Temperature < 0.0f)
                 {
                     if (Random.Chance(65))
                     {
-                        context.ReplaceElementIndex(ElementIndex.Snow);
+                        context.ReplaceElement(ElementIndex.Snow);
                         context.SetElementTemperature(-55.0f);
                     }
                     else
                     {
-                        context.ReplaceElementIndex(ElementIndex.LightningHead);
+                        context.ReplaceElement(ElementIndex.LightningHead);
                         this.GameEvents.Publish(new ChargedCloudDischargedEvent());
                     }
                 }
                 else
                 {
-                    context.ReplaceElementIndex(ElementIndex.Water);
+                    context.ReplaceElement(ElementIndex.Water);
                     context.SetElementTemperature(2.5f);
                 }
             }
@@ -70,7 +70,7 @@ namespace StardustSandbox.Core.Elements.Gases
         {
             if (Random.Chance(35))
             {
-                context.UpdateElementPosition(new(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y - 1));
+                context.UpdateElementPosition(new(context.Slot.Position.X, context.Slot.Position.Y - 1));
                 return;
             }
 

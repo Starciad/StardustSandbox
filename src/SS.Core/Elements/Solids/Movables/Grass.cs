@@ -44,11 +44,11 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             {
                 if (Random.Chance(85))
                 {
-                    context.ReplaceElementIndex(ElementIndex.Fire);
+                    context.ReplaceElement(ElementIndex.Fire);
                 }
                 else
                 {
-                    context.ReplaceElementIndex(ElementIndex.Ash);
+                    context.ReplaceElement(ElementIndex.Ash);
                 }
             }
         }

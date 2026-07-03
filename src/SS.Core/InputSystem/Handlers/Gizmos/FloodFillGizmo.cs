@@ -161,15 +161,15 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             if (isErasing)
             {
-                _ = this.TileMap.TryRemoveElement(position, this.Pen.Layer); // Remove the element
+                _ = this.TileMap.TryRemove(position, this.Pen.Layer); // Remove the element
             }
             else if (this.TileMap.IsEmptySlotLayer(position, this.Pen.Layer))
             {
-                this.TileMap.InstantiateElementIndex(position, this.Pen.Layer, index); // Insert new element
+                this.TileMap.Instantiate(position, this.Pen.Layer, index); // Insert new element
             }
             else
             {
-                this.TileMap.ReplaceElementIndex(position, this.Pen.Layer, index); // Replace the element
+                this.TileMap.Replace(position, this.Pen.Layer, index); // Replace the element
             }
         }
 

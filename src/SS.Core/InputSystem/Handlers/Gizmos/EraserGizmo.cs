@@ -57,7 +57,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                this.TileMap.RemoveElement(position, this.Pen.Layer);
+                this.TileMap.Remove(position, this.Pen.Layer);
             }
         }
 

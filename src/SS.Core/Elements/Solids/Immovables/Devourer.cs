@@ -72,12 +72,12 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex)
+                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
                 {
                     case ElementIndex.Devourer:
                     case ElementIndex.Void:
@@ -96,10 +96,10 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             {
                 Slot neighborSlot = this.cachedNeighborSlots.GetRandomItem();
 
-                Point oldPosition = context.CurrentSlot.Position;
+                Point oldPosition = context.Slot.Position;
                 Point newPosition = neighborSlot.Position;
 
-                context.SwappingElements(oldPosition, newPosition, context.CurrentLayer);
+                context.SwappingElements(oldPosition, newPosition, context.Layer);
                 context.RemoveElement(oldPosition);
 
                 this.GameEvents.Publish(new ElementConsumedByDevourerEvent());

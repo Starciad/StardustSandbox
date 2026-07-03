@@ -98,8 +98,8 @@ namespace StardustSandbox.Core.WorldSystem.Components
                         continue;
                     }
 
-                    RemoveElement(new(x, y), Layer.Foreground);
-                    RemoveElement(new(x, y), Layer.Background);
+                    Remove(new(x, y), Layer.Foreground);
+                    Remove(new(x, y), Layer.Background);
                 }
             }
 
@@ -270,7 +270,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
         #region Try Methods
 
-        internal bool TryDestroyElement(Point position, Layer layer)
+        internal bool TryDestroy(Point position, Layer layer)
         {
             if (!IsWithinBounds(position) || IsEmpty(position, layer))
             {
@@ -406,6 +406,16 @@ namespace StardustSandbox.Core.WorldSystem.Components
             value = this[position].GetStoredElement(layer);
             return true;
         }
+        internal bool TryGetTemperature(Point position, Layer layer, out float value)
+        {
+            value = 0f;
+            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            {
+                return false;
+            }
+            value = this[position].GetTemperature(layer);
+            return true;
+        }
         internal bool TryHasElement(Point position, Layer layer, out bool value)
         {
             value = false;
@@ -430,7 +440,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             value = this[position].HasStoredElement(layer);
             return true;
         }
-        internal bool TryInstantiateElementIndex(Point position, Layer layer, ElementIndex index)
+        internal bool TryInstantiate(Point position, Layer layer, ElementIndex index)
         {
             if (!IsWithinBounds(position) || !IsEmpty(position, layer))
             {
@@ -474,7 +484,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             value = this[position].IsEmpty();
             return true;
         }
-        internal bool TryRemoveElement(Point position, Layer layer)
+        internal bool TryRemove(Point position, Layer layer)
         {
             if (!IsWithinBounds(position) || IsEmpty(position, layer))
             {
@@ -488,7 +498,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             return true;
         }
-        internal bool TryReplaceElementIndex(Point position, Layer layer, ElementIndex newIndex)
+        internal bool TryReplace(Point position, Layer layer, ElementIndex newIndex)
         {
             if (!IsWithinBounds(position) || IsEmpty(position, layer))
             {
@@ -534,7 +544,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             this[position].SetElementIndex(layer, value);
             return true;
         }
-        internal bool TrySetElementTemperature(Point position, Layer layer, float value)
+        internal bool TrySetTemperature(Point position, Layer layer, float value)
         {
             if (!IsWithinBounds(position) || IsEmpty(position, layer))
             {
@@ -589,7 +599,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             this[position].SetStoredElementIndex(layer, index);
             return true;
         }
-        internal bool TrySwappingElements(Point element1Position, Point element2Position, Layer layer)
+        internal bool TrySwapping(Point element1Position, Point element2Position, Layer layer)
         {
             if (!IsWithinBounds(element1Position) ||
                 !IsWithinBounds(element2Position) ||
@@ -616,7 +626,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             return true;
         }
-        internal bool TryUpdateElementPosition(Point oldPosition, Point newPosition, Layer layer)
+        internal bool TryUpdatePosition(Point oldPosition, Point newPosition, Layer layer)
         {
             if (!IsWithinBounds(oldPosition) ||
                 !IsWithinBounds(newPosition) ||
@@ -640,9 +650,9 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
         #region Internal Methods
 
-        internal void DestroyElement(Point position, Layer layer)
+        internal void Destroy(Point position, Layer layer)
         {
-            _ = TryDestroyElement(position, layer);
+            _ = TryDestroy(position, layer);
         }
         internal Color GetColorModifier(Point position, Layer layer)
         {
@@ -725,6 +735,11 @@ namespace StardustSandbox.Core.WorldSystem.Components
             _ = TryGetStoredElementIndex(position, layer, out ElementIndex index);
             return index;
         }
+        internal float GetTemperature(Point position, Layer layer)
+        {
+            _ = TryGetTemperature(position, layer, out float value);
+            return value;
+        }
         internal bool HasElement(Point position, Layer layer)
         {
             _ = TryHasElement(position, layer, out bool value);
@@ -735,9 +750,9 @@ namespace StardustSandbox.Core.WorldSystem.Components
             _ = TryHasStoredElement(position, layer, out bool value);
             return value;
         }
-        internal void InstantiateElementIndex(Point position, Layer layer, ElementIndex index)
+        internal void Instantiate(Point position, Layer layer, ElementIndex index)
         {
-            _ = TryInstantiateElementIndex(position, layer, index);
+            _ = TryInstantiate(position, layer, index);
         }
         internal bool IsEmpty(Point position, Layer layer)
         {
@@ -749,19 +764,19 @@ namespace StardustSandbox.Core.WorldSystem.Components
             _ = TryIsEmpty(position, out bool value);
             return value;
         }
-        internal void RemoveElement(Point position, Layer layer)
+        internal void Remove(Point position, Layer layer)
         {
-            _ = TryRemoveElement(position, layer);
+            _ = TryRemove(position, layer);
         }
-        internal void ReplaceElementIndex(Point position, Layer layer, ElementIndex index)
+        internal void Replace(Point position, Layer layer, ElementIndex index)
         {
-            _ = TryReplaceElementIndex(position, layer, index);
+            _ = TryReplace(position, layer, index);
         }
         internal void SetDissipatingState(Point position, Layer layer, bool value)
         {
             _ = TrySetDissipatingState(position, layer, value);
         }
-        internal void SetElementColorModifier(Point position, Layer layer, Color value)
+        internal void SetColorModifier(Point position, Layer layer, Color value)
         {
             _ = TrySetElementColorModifier(position, layer, value);
         }
@@ -769,9 +784,9 @@ namespace StardustSandbox.Core.WorldSystem.Components
         {
             _ = TrySetElementIndex(position, layer, value);
         }
-        internal void SetElementTemperature(Point position, Layer layer, float value)
+        internal void SetTemperature(Point position, Layer layer, float value)
         {
-            _ = TrySetElementTemperature(position, layer, value);
+            _ = TrySetTemperature(position, layer, value);
         }
         internal void SetFallingState(Point position, Layer layer, bool value)
         {
@@ -789,13 +804,13 @@ namespace StardustSandbox.Core.WorldSystem.Components
         {
             _ = TrySetStoredElementIndex(position, layer, index);
         }
-        internal void SwappingElements(Point element1Position, Point element2Position, Layer layer)
+        internal void Swapping(Point element1Position, Point element2Position, Layer layer)
         {
-            _ = TrySwappingElements(element1Position, element2Position, layer);
+            _ = TrySwapping(element1Position, element2Position, layer);
         }
-        internal void UpdateElementPosition(Point oldPosition, Point newPosition, Layer layer)
+        internal void UpdatePosition(Point oldPosition, Point newPosition, Layer layer)
         {
-            _ = TryUpdateElementPosition(oldPosition, newPosition, layer);
+            _ = TryUpdatePosition(oldPosition, newPosition, layer);
         }
 
         #endregion

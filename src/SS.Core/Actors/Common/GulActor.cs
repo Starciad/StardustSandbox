@@ -241,7 +241,7 @@ namespace StardustSandbox.Core.Actors.Common
                 }
 
                 this.grabbedElementIndex = index;
-                this.TileMap.RemoveElement(position, Layer.Foreground);
+                this.TileMap.Remove(position, Layer.Foreground);
 
                 return true;
             }
@@ -261,7 +261,7 @@ namespace StardustSandbox.Core.Actors.Common
             {
                 Point position = possiblePositions.GetRandomItem();
 
-                if (!this.TileMap.TryInstantiateElementIndex(position, Layer.Foreground, this.grabbedElementIndex))
+                if (!this.TileMap.TryInstantiate(position, Layer.Foreground, this.grabbedElementIndex))
                 {
                     _ = possiblePositions.Remove(position);
                     continue;

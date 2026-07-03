@@ -35,7 +35,7 @@ namespace StardustSandbox.Core.Elements.Liquids
 
         protected override void OnStep(ElementContext context)
         {
-            foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(context.CurrentSlot.Position, Direction.Down))
+            foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(context.Slot.Position, Direction.Down))
             {
                 if (context.TrySetPosition(belowPosition))
                 {
@@ -44,12 +44,12 @@ namespace StardustSandbox.Core.Elements.Liquids
 
                 if (context.TryGetSlot(belowPosition, out Slot belowSlot))
                 {
-                    SlotLayer belowLayer = belowSlot.GetLayer(context.CurrentLayer);
+                    SlotLayer belowLayer = belowSlot.GetLayer(context.Layer);
 
                     if (TrySwappingElements(context, belowPosition, belowLayer))
                     {
                         ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(context, belowPosition);
-                        context.SetElementState(belowPosition, context.CurrentLayer, ElementStates.IsFalling);
+                        context.SetElementState(belowPosition, context.Layer, ElementStates.IsFalling);
                         return;
                     }
 
@@ -121,31 +121,31 @@ namespace StardustSandbox.Core.Elements.Liquids
             // Compute target position moving exactly distanceToMove (or fewer if blocked unexpectedly)
             Point targetPosition = GetHorizontalDispersionPosition(context, chosenDirection, distanceToMove);
 
-            if (targetPosition == context.CurrentSlot.Position)
+            if (targetPosition == context.Slot.Position)
             {
                 return;
             }
 
-            if (context.IsEmptySlotLayer(targetPosition, context.CurrentLayer))
+            if (context.IsEmptySlotLayer(targetPosition, context.Layer))
             {
-                context.SetPosition(targetPosition, context.CurrentLayer);
+                context.SetPosition(targetPosition, context.Layer);
             }
             else
             {
-                context.SwappingElements(context.CurrentPosition, targetPosition, context.CurrentLayer);
+                context.SwappingElements(context.Position, targetPosition, context.Layer);
             }
         }
 
         private int GetMaxDispersionSteps(ElementContext context, int direction)
         {
-            Point checkPos = context.CurrentSlot.Position;
+            Point checkPos = context.Slot.Position;
             int steps = 0;
 
             while (steps < this.BaseDispersionRate)
             {
                 Point nextPosition = new(checkPos.X + direction, checkPos.Y);
 
-                if (!context.TryGetElement(nextPosition, context.CurrentLayer, out Element element))
+                if (!context.TryGetElement(nextPosition, context.Layer, out Element element))
                 {
                     // No element entry found -> treat as traversable
                     steps++;
@@ -154,7 +154,7 @@ namespace StardustSandbox.Core.Elements.Liquids
                 }
 
                 // If the next position is an empty slot layer or contains a liquid/gas element, it is traversable
-                if (context.IsEmptySlotLayer(nextPosition, context.CurrentLayer) ||
+                if (context.IsEmptySlotLayer(nextPosition, context.Layer) ||
                     (element is not null && element.Category is ElementCategory.Liquid or ElementCategory.Gas))
                 {
                     steps++;
@@ -171,14 +171,14 @@ namespace StardustSandbox.Core.Elements.Liquids
 
         private static Point GetHorizontalDispersionPosition(ElementContext context, int direction, int stepsToMove)
         {
-            Point dispersionPosition = context.CurrentSlot.Position;
+            Point dispersionPosition = context.Slot.Position;
             int steps = 0;
 
             while (steps < stepsToMove)
             {
                 Point nextPosition = new(dispersionPosition.X + direction, dispersionPosition.Y);
 
-                if (!context.TryGetElement(nextPosition, context.CurrentLayer, out Element element))
+                if (!context.TryGetElement(nextPosition, context.Layer, out Element element))
                 {
                     dispersionPosition = nextPosition;
                     steps++;
@@ -186,7 +186,7 @@ namespace StardustSandbox.Core.Elements.Liquids
                 }
 
                 // Can disperse to the next position
-                if (context.IsEmptySlotLayer(nextPosition, context.CurrentLayer) || (element is not null && element.Category is ElementCategory.Liquid or ElementCategory.Gas))
+                if (context.IsEmptySlotLayer(nextPosition, context.Layer) || (element is not null && element.Category is ElementCategory.Liquid or ElementCategory.Gas))
                 {
                     dispersionPosition = nextPosition;
                     steps++;

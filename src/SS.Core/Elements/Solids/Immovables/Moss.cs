@@ -64,12 +64,12 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex)
+                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
                 {
                     case ElementIndex.Dirt:
                     case ElementIndex.Mud:
@@ -104,7 +104,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                         // For each valid neighbor, add the two eligible positions.
                         for (int j = 0; j < 2; j++)
                         {
-                            _ = this.eligiblePositions.Add(context.CurrentPosition + this.eligibleSpreadPositions[i][j]);
+                            _ = this.eligiblePositions.Add(context.Position + this.eligibleSpreadPositions[i][j]);
                         }
 
                         break;
@@ -132,14 +132,14 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                 return;
             }
 
-            context.InstantiateElementIndex(this.availablePositions.GetRandomItem(), context.CurrentLayer, ElementIndex.Moss);
+            context.InstantiateElementIndex(this.availablePositions.GetRandomItem(), context.Layer, ElementIndex.Moss);
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)
         {
             if (currentValue >= 100.0f)
             {
-                context.ReplaceElementIndex(ElementIndex.Fire);
+                context.ReplaceElement(ElementIndex.Fire);
             }
         }
     }

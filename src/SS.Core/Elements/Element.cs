@@ -172,11 +172,11 @@ namespace StardustSandbox.Core.Elements
             }
 
             float newTemperature = currentTemperature + totalHeatTransfer;
-            this.context.SetElementTemperature(this.context.CurrentPosition, this.context.CurrentLayer, TemperatureMath.Clamp(newTemperature));
+            this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(newTemperature));
 
             if (Math.Abs(totalHeatTransfer) < TemperatureConstants.EQUILIBRIUM_THRESHOLD)
             {
-                this.context.SetElementTemperature(this.context.CurrentPosition, this.context.CurrentLayer, TemperatureMath.Clamp(currentTemperature));
+                this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(currentTemperature));
             }
 
             if (this.context.CurrentSlotLayer.Temperature == TemperatureConstants.MAX_CELSIUS_VALUE)

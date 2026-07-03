@@ -97,7 +97,7 @@ namespace StardustSandbox.Core.WorldSystem
 
         private void LoadSlotLayerData(Layer layer, Point position, SlotLayerStorageModel slotLayer)
         {
-            this.tileMap.InstantiateElementIndex(position, layer, slotLayer.ElementIndex);
+            this.tileMap.Instantiate(position, layer, slotLayer.ElementIndex);
 
             Slot slot = this.tileMap.GetSlot(position);
 

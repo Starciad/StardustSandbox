@@ -276,7 +276,7 @@ namespace StardustSandbox.Core.Generators
                         : relativeDepth <= subsurfaceThickness ? subsurfaceElement
                         : relativeDepth <= deepThreshold ? rockElement : abyssElement;
 
-                    this.tileMap.InstantiateElementIndex(new(x, y), layer, chosen);
+                    this.tileMap.Instantiate(new(x, y), layer, chosen);
                 }
             }
         }
@@ -303,7 +303,7 @@ namespace StardustSandbox.Core.Generators
             {
                 if (this.tileMap.IsWithinBounds(point))
                 {
-                    this.tileMap.ReplaceElementIndex(point, layer, ElementIndex.Sand);
+                    this.tileMap.Replace(point, layer, ElementIndex.Sand);
                 }
             }
 
@@ -311,7 +311,7 @@ namespace StardustSandbox.Core.Generators
             {
                 if (this.tileMap.IsWithinBounds(point))
                 {
-                    this.tileMap.ReplaceElementIndex(point, layer, ElementIndex.Sand);
+                    this.tileMap.Replace(point, layer, ElementIndex.Sand);
                 }
             }
 
@@ -320,7 +320,7 @@ namespace StardustSandbox.Core.Generators
             {
                 if (this.tileMap.IsWithinBounds(point))
                 {
-                    this.tileMap.ReplaceElementIndex(point, layer, ElementIndex.Saltwater);
+                    this.tileMap.Replace(point, layer, ElementIndex.Saltwater);
                 }
             }
 
@@ -328,7 +328,7 @@ namespace StardustSandbox.Core.Generators
             {
                 if (this.tileMap.IsWithinBounds(point))
                 {
-                    this.tileMap.ReplaceElementIndex(point, layer, ElementIndex.Saltwater);
+                    this.tileMap.Replace(point, layer, ElementIndex.Saltwater);
                 }
             }
         }
@@ -377,7 +377,7 @@ namespace StardustSandbox.Core.Generators
 
                     foreach (Point point in ShapePointGenerator.EnumerateCirclePoints(origin, Randomness.Random.Range(3, 6)))
                     {
-                        this.tileMap.InstantiateElementIndex(point, layer, ElementIndex.Cloud);
+                        this.tileMap.Instantiate(point, layer, ElementIndex.Cloud);
                     }
                 }
             }

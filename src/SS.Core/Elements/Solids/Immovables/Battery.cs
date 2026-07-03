@@ -52,7 +52,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
                 Slot slot = neighbors.GetSlot(i);
 
-                ElectricityUtility.Electrify(context, slot.Position, context.CurrentLayer);
+                ElectricityUtility.Electrify(context, slot.Position, context.Layer);
             }
         }
     }

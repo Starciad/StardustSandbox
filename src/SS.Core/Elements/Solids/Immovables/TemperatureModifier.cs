@@ -45,13 +45,13 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         {
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer) ||
-                    !neighbors.GetSlotLayer(i, context.CurrentLayer).Element.HasTemperature)
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer) ||
+                    !neighbors.GetSlotLayer(i, context.Layer).Element.HasTemperature)
                 {
                     continue;
                 }
 
-                float result = neighbors.GetSlotLayer(i, context.CurrentLayer).Temperature;
+                float result = neighbors.GetSlotLayer(i, context.Layer).Temperature;
 
                 switch (this.temperatureModifierMode)
                 {
@@ -67,7 +67,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                         break;
                 }
 
-                context.SetElementTemperature(neighbors.GetNeighborPosition(i), context.CurrentLayer, result);
+                context.SetElementTemperature(neighbors.GetNeighborPosition(i), context.Layer, result);
             }
         }
     }

@@ -38,14 +38,14 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
         protected override void OnStep(ElementContext context)
         {
-            Point belowPosition = new(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y + 1);
+            Point belowPosition = new(context.Slot.Position.X, context.Slot.Position.Y + 1);
 
-            if (context.TryGetElementIndex(belowPosition, context.CurrentLayer, out ElementIndex index))
+            if (context.TryGetElementIndex(belowPosition, context.Layer, out ElementIndex index))
             {
                 switch (index)
                 {
                     case ElementIndex.DrySponge:
-                        context.SwappingElements(context.CurrentPosition, belowPosition);
+                        context.SwappingElements(context.Position, belowPosition);
                         break;
 
                     default:
@@ -58,7 +58,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         {
             if (currentValue >= 60.0f)
             {
-                context.ReplaceElementIndex(ElementIndex.DrySponge);
+                context.ReplaceElement(ElementIndex.DrySponge);
             }
         }
     }

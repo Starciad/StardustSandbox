@@ -49,18 +49,18 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
                     continue;
                 }
 
-                if (neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex is ElementIndex.Water)
+                if (neighbors.GetSlotLayer(i, context.Layer).ElementIndex is ElementIndex.Water)
                 {
                     hasWater = true;
                     context.DestroyElement(neighbors.GetNeighborPosition(i));
                 }
 
-                if (i == (int)ElementNeighborDirection.South && neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex is ElementIndex.FertileSoil)
+                if (i == (int)ElementNeighborDirection.South && neighbors.GetSlotLayer(i, context.Layer).ElementIndex is ElementIndex.FertileSoil)
                 {
                     hasFertileSoil = true;
                 }
@@ -83,7 +83,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             if (currentValue >= 100.0f)
             {
-                context.ReplaceElementIndex(ElementIndex.Fire);
+                context.ReplaceElement(ElementIndex.Fire);
             }
         }
     }

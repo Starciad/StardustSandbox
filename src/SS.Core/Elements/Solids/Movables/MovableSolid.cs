@@ -36,7 +36,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             if (context.CurrentSlotLayer.HasState(ElementStates.IsFalling))
             {
-                foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(context.CurrentSlot.Position, Direction.Down))
+                foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(context.Slot.Position, Direction.Down))
                 {
                     if (TrySetPosition(context, belowPosition))
                     {
@@ -50,7 +50,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             }
             else
             {
-                Point belowPosition = new(context.CurrentSlot.Position.X, context.CurrentSlot.Position.Y + 1);
+                Point belowPosition = new(context.Slot.Position.X, context.Slot.Position.Y + 1);
 
                 if (TrySetPosition(context, belowPosition))
                 {

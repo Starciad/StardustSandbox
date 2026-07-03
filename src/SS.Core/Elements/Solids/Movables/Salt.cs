@@ -43,18 +43,18 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex)
+                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
                 {
                     case ElementIndex.Water:
                     case ElementIndex.Ice:
                     case ElementIndex.Snow:
                         context.DestroyElement();
-                        context.ReplaceElementIndex(neighbors.GetNeighborPosition(i), context.CurrentLayer, ElementIndex.Saltwater);
+                        context.ReplaceElement(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Saltwater);
 
                         this.GameEvents.Publish(new SaltDissolvedEvent());
                         break;
@@ -69,7 +69,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             if (currentValue > 900.0f)
             {
-                context.ReplaceElementIndex(ElementIndex.Lava);
+                context.ReplaceElement(ElementIndex.Lava);
                 context.SetStoredElementIndex(ElementIndex.Salt);
             }
         }

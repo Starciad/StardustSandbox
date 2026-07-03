@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Indexers;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Elements.Gases
@@ -38,15 +39,13 @@ namespace StardustSandbox.Core.Elements.Gases
         {
             if (context.HasStoredElement())
             {
-                if (context.HasElementState(ElementStates.IsDissipating))
+                if (context.GetDissipatingState())
                 {
-                    context.ReplaceElementIndex(context.GetStoredElementIndex());
+                    context.ReplaceElement(context.GetStoredElementIndex());
                     return;
                 }
-                else
-                {
-                    context.SetElementState(ElementStates.IsDissipating);
-                }
+
+                context.SetDissipatingState(true);
             }
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
@@ -57,14 +56,16 @@ namespace StardustSandbox.Core.Elements.Gases
                 }
 
                 Slot slot = neighbors.GetSlot(i);
-                SlotLayer layer = slot.GetLayer(context.CurrentLayer);
+                Layer layer = context.Layer;
 
-                if (!layer.HasElement && layer.ElementIndex is not ElementIndex.AntiCorruption && layer.Element.IsCorruption)
+                if (!slot.HasElement(layer) &&
+                    slot.GetElementIndex(layer) is not ElementIndex.AntiCorruption &&
+                    slot.GetElement(layer).IsCorruption)
                 {
-                    ElementIndex originalElementIndex = layer.StoredElementIndex;
+                    ElementIndex originalElementIndex = slot.GetStoredElementIndex(layer);
 
-                    context.ReplaceElementIndex(slot.Position, ElementIndex.AntiCorruption);
-                    context.SetStoredElementIndex(slot.Position, context.CurrentLayer, originalElementIndex);
+                    context.ReplaceElement(slot.Position, ElementIndex.AntiCorruption);
+                    context.SetStoredElementIndex(slot.Position, context.Layer, originalElementIndex);
                 }
             }
         }

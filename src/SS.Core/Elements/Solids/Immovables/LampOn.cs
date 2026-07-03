@@ -56,7 +56,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                     continue;
                 }
 
-                SlotLayer layer = neighbors.GetSlotLayer(i, context.CurrentLayer);
+                SlotLayer layer = neighbors.GetSlotLayer(i, context.Layer);
 
                 if (!layer.HasElement && layer.Element.IsElectrified)
                 {
@@ -67,7 +67,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             if (!electrifiedNeighborFound)
             {
-                context.ReplaceElementIndex(ElementIndex.LampOff);
+                context.ReplaceElement(ElementIndex.LampOff);
             }
         }
     }

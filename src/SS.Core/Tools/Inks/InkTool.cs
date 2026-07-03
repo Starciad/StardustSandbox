@@ -33,12 +33,12 @@ namespace StardustSandbox.Core.Tools.Inks
 
         internal override void Execute(ToolContext context)
         {
-            if (!context.TileMap.TryGetSlot(context.Position, out Slot slot) || slot.GetLayer(context.Layer).HasElement)
+            if (!context.TileMap.TryGetSlot(context.Position, out Slot slot) || !slot.HasElement(context.Layer))
             {
                 return;
             }
 
-            context.TileMap.SetElementColorModifier(context.Position, context.Layer, this.inkColor);
+            context.TileMap.SetColorModifier(context.Position, context.Layer, this.inkColor);
         }
     }
 }

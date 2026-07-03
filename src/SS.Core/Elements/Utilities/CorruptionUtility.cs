@@ -114,23 +114,23 @@ namespace StardustSandbox.Core.Elements.Utilities
             switch (targetElement.Category)
             {
                 case ElementCategory.MovableSolid:
-                    context.ReplaceElementIndex(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MovableCorruption);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MovableCorruption);
                     break;
 
                 case ElementCategory.ImmovableSolid:
-                    context.ReplaceElementIndex(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.ImmovableCorruption);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.ImmovableCorruption);
                     break;
 
                 case ElementCategory.Liquid:
-                    context.ReplaceElementIndex(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.LiquidCorruption);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.LiquidCorruption);
                     break;
 
                 case ElementCategory.Gas:
-                    context.ReplaceElementIndex(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.GasCorruption);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.GasCorruption);
                     break;
 
                 default:
-                    context.ReplaceElementIndex(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MovableCorruption);
+                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MovableCorruption);
                     break;
             }
 

@@ -71,16 +71,6 @@ namespace StardustSandbox.Core.Elements
             return GetSlot((int)direction);
         }
 
-        internal SlotLayer GetSlotLayer(int index, Layer layer)
-        {
-            return GetSlot(index)?.GetLayer(layer);
-        }
-
-        internal SlotLayer GetSlotLayer(in ElementNeighborDirection direction, Layer layer)
-        {
-            return GetSlotLayer((int)direction, layer);
-        }
-
         internal bool HasNeighbor(int index)
         {
             return this.slots[index] != null;
@@ -97,7 +87,7 @@ namespace StardustSandbox.Core.Elements
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (IsNeighborLayerOccupied(i, layer) && GetSlotLayer(i, layer).ElementIndex == elementIndex)
+                if (IsNeighborLayerOccupied(i, layer) && GetSlot(i).GetElementIndex(layer) == elementIndex)
                 {
                     count++;
                 }
@@ -108,7 +98,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool IsNeighborLayerOccupied(int index, Layer layer)
         {
-            return HasNeighbor(index) && !GetSlotLayer(index, layer).HasElement;
+            return HasNeighbor(index) && !GetSlot(index).HasElement(layer);
         }
 
         internal bool IsNeighborLayerOccupied(in ElementNeighborDirection direction, Layer layer)

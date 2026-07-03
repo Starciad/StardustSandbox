@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Collections;
 using StardustSandbox.Core.Constants;
+using StardustSandbox.Core.Elements;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Events.Explosions;
 using StardustSandbox.Core.Explosions;
@@ -83,7 +84,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
                     TryAffectPoint(slot, point, explosion);
                 }
 
-                this.tileMap.InstantiateElementIndex(point, explosion.Layer, explosion.ExplosionResidues.GetRandomItem());
+                this.tileMap.Instantiate(point, explosion.Layer, explosion.ExplosionResidues.GetRandomItem());
             }
 
             this.gameEvents.Publish(new ExplosionEvent());
@@ -98,27 +99,34 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
             }
         }
 
-        private void TryAffectSlotLayer(SlotLayer slotLayer, Layer layer, Point targetPosition, Explosion explosion)
+        private void TryAffectSlotLayer(Slot slot, Layer layer, Point targetPosition, Explosion explosion)
         {
-            if (slotLayer.HasElement || slotLayer.Element.IsExplosionImmune)
+            if (!slot.HasElement(layer))
             {
                 return;
             }
 
-            if (slotLayer.Element.BaseExplosionResistance >= explosion.Power)
+            Element element = slot.GetElement(layer);
+
+            if (element.IsExplosionImmune)
             {
-                slotLayer.Temperature += explosion.Heat;
+                return;
+            }
+
+            if (element.BaseExplosionResistance >= explosion.Power)
+            {
+                slot.SetTemperature(layer, slot.GetTemperature(layer) + explosion.Heat);
             }
             else
             {
-                this.tileMap.DestroyElement(targetPosition, layer);
+                this.tileMap.Destroy(targetPosition, layer);
             }
         }
 
         private void TryAffectPoint(Slot slot, Point targetPosition, Explosion explosion)
         {
-            TryAffectSlotLayer(slot.GetLayer(Layer.Foreground), Layer.Foreground, targetPosition, explosion);
-            TryAffectSlotLayer(slot.GetLayer(Layer.Background), Layer.Background, targetPosition, explosion);
+            TryAffectSlotLayer(slot, Layer.Foreground, targetPosition, explosion);
+            TryAffectSlotLayer(slot, Layer.Background, targetPosition, explosion);
         }
     }
 }

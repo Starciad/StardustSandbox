@@ -44,18 +44,20 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
 
         private void UpdateSlotLayerTarget(GameTime gameTime, Point position, Layer layer, Slot slot)
         {
-            SlotLayer slotLayer = slot.GetLayer(layer);
-
             this.elementUpdateContext.Initialize(position, layer);
-            slotLayer.Element.SetContext(this.elementUpdateContext);
 
-            if (slotLayer.StepCycleFlag == this.stepCycleFlag)
+            Element element = slot.GetElement(layer);
+            UpdateCycleFlag scf = slot.GetStepCycleFlag(layer);
+
+            element.SetContext(this.elementUpdateContext);
+
+            if (scf == this.stepCycleFlag)
             {
                 return;
             }
 
-            slotLayer.StepCycleFlag = slotLayer.StepCycleFlag.GetNextCycle();
-            slotLayer.Element.Steps(gameTime);
+            slot.SetStepCycleFlag(layer, scf.GetNextCycle());
+            element.Steps(gameTime);
         }
 
         private void UpdateChunk(GameTime gameTime, Chunk chunk, bool leftToRight)
@@ -67,12 +69,12 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
                     return false;
                 }
 
-                if (!slot.Foreground.HasElement)
+                if (slot.HasElement(Layer.Foreground))
                 {
                     UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Foreground, slot);
                 }
 
-                if (!slot.Background.HasElement)
+                if (slot.HasElement(Layer.Background))
                 {
                     UpdateSlotLayerTarget(gameTime, slot.Position, Layer.Background, slot);
                 }

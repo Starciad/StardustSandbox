@@ -84,14 +84,14 @@ namespace StardustSandbox.Core.Elements.Utilities
                 ElementNeighborDirection direction = (ElementNeighborDirection)i;
 
                 if (direction is not (ElementNeighborDirection.North or ElementNeighborDirection.West or ElementNeighborDirection.East or ElementNeighborDirection.South) ||
-                    !neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer) ||
-                    !neighbors.GetSlotLayer(i, context.CurrentLayer).Element.IsPushable ||
-                     neighbors.GetSlotLayer(i, context.CurrentLayer).HasState(ElementStates.WasPushed))
+                    !neighbors.IsNeighborLayerOccupied(i, context.Layer) ||
+                    !neighbors.GetSlotLayer(i, context.Layer).Element.IsPushable ||
+                     neighbors.GetSlotLayer(i, context.Layer).HasState(ElementStates.WasPushed))
                 {
                     continue;
                 }
 
-                Point pusherPosition = context.CurrentPosition;
+                Point pusherPosition = context.Position;
                 Point currentNeighborPosition = neighbors.GetNeighborPosition(i);
                 Point targetNeighborPosition = currentNeighborPosition;
 
@@ -142,7 +142,7 @@ namespace StardustSandbox.Core.Elements.Utilities
 
             if (neighbors.CountOccupied > 0)
             {
-                context.NotifyChunk(context.CurrentPosition);
+                context.NotifyChunk(context.Position);
             }
         }
     }

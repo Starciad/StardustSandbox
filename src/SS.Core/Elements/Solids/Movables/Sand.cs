@@ -40,7 +40,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             if (currentValue >= 1500.0f)
             {
-                context.ReplaceElementIndex(ElementIndex.Glass);
+                context.ReplaceElement(ElementIndex.Glass);
                 this.GameEvents.Publish(new SandMeltedEvent());
             }
         }

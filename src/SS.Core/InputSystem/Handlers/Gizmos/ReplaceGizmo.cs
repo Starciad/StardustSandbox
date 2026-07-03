@@ -70,7 +70,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                this.TileMap.ReplaceElementIndex(position, this.Pen.Layer, elementIndex);
+                this.TileMap.Replace(position, this.Pen.Layer, elementIndex);
             }
         }
 
@@ -78,7 +78,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                this.TileMap.RemoveElement(position, this.Pen.Layer);
+                this.TileMap.Remove(position, this.Pen.Layer);
             }
         }
     }

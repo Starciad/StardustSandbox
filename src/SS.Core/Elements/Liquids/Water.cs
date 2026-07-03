@@ -44,23 +44,23 @@ namespace StardustSandbox.Core.Elements.Liquids
         {
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex)
+                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
                 {
                     case ElementIndex.FertileSoil:
                     case ElementIndex.Dirt:
-                        context.ReplaceElementIndex(neighbors.GetNeighborPosition(i), context.CurrentLayer, ElementIndex.Mud);
+                        context.ReplaceElement(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Mud);
                         context.DestroyElement();
                         return;
 
                     case ElementIndex.Stone:
                         if (Random.Range(0, 150) == 0)
                         {
-                            context.ReplaceElementIndex(neighbors.GetNeighborPosition(i), context.CurrentLayer, ElementIndex.Sand);
+                            context.ReplaceElement(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Sand);
                             context.DestroyElement();
                             return;
                         }
@@ -68,7 +68,7 @@ namespace StardustSandbox.Core.Elements.Liquids
                         break;
 
                     case ElementIndex.Fire:
-                        context.DestroyElement(neighbors.GetNeighborPosition(i), context.CurrentLayer);
+                        context.DestroyElement(neighbors.GetNeighborPosition(i), context.Layer);
                         break;
 
                     default:
@@ -81,12 +81,12 @@ namespace StardustSandbox.Core.Elements.Liquids
         {
             if (currentValue <= 0.0f)
             {
-                context.ReplaceElementIndex(ElementIndex.Ice);
+                context.ReplaceElement(ElementIndex.Ice);
                 this.GameEvents.Publish(new WaterFrozenEvent());
             }
             else if (currentValue >= 100.0f)
             {
-                context.ReplaceElementIndex(ElementIndex.Steam);
+                context.ReplaceElement(ElementIndex.Steam);
                 this.GameEvents.Publish(new WaterVaporizedEvent());
             }
         }

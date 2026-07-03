@@ -46,12 +46,12 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
-                if (!neighbors.IsNeighborLayerOccupied(i, context.CurrentLayer))
+                if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.CurrentLayer).ElementIndex)
+                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
                 {
                     case ElementIndex.Water:
                     case ElementIndex.Saltwater:
@@ -66,7 +66,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             if (shouldBecomeWet)
             {
-                context.ReplaceElementIndex(ElementIndex.WetSponge);
+                context.ReplaceElement(ElementIndex.WetSponge);
             }
         }
 
@@ -76,11 +76,11 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             {
                 if (Random.Chance(70))
                 {
-                    context.ReplaceElementIndex(ElementIndex.Fire);
+                    context.ReplaceElement(ElementIndex.Fire);
                 }
                 else
                 {
-                    context.ReplaceElementIndex(ElementIndex.Ash);
+                    context.ReplaceElement(ElementIndex.Ash);
                 }
             }
         }

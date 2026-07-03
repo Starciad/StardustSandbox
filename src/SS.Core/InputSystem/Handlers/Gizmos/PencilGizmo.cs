@@ -110,7 +110,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                _ = this.TileMap.TryInstantiateElementIndex(position, this.Pen.Layer, elementIndex);
+                _ = this.TileMap.TryInstantiate(position, this.Pen.Layer, elementIndex);
             }
         }
 
@@ -118,7 +118,7 @@ namespace StardustSandbox.Core.InputSystem.Handlers.Gizmos
         {
             foreach (Point position in positions)
             {
-                this.TileMap.RemoveElement(position, this.Pen.Layer);
+                this.TileMap.Remove(position, this.Pen.Layer);
             }
         }
 
