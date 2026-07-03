@@ -25,7 +25,7 @@ using System.Xml.Serialization;
 namespace StardustSandbox.Core.Serialization.Common.Settings.Data.V1
 {
     [Serializable]
-    [XmlRoot("ControlData")]
+    [XmlRoot("ControlSettings")]
     public sealed class ControlData : IData
     {
         [XmlElement("ClearWorldKeyboardBinding", typeof(Keys))]

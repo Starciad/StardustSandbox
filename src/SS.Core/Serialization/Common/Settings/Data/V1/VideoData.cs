@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace StardustSandbox.Core.Serialization.Common.Settings.Data.V1
 {
     [Serializable]
-    [XmlRoot("VideoData")]
+    [XmlRoot("VideoSettings")]
     public sealed class VideoData : IData
     {
         [XmlElement("Borderless", typeof(bool))]

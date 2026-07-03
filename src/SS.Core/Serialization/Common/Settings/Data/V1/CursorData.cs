@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace StardustSandbox.Core.Serialization.Common.Settings.Data.V1
 {
     [Serializable]
-    [XmlRoot("CursorData")]
+    [XmlRoot("CursorSettings")]
     public sealed class CursorData : IData
     {
         [XmlElement("ForegroundColorR", typeof(byte))]

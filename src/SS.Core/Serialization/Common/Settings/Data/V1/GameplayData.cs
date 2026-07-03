@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace StardustSandbox.Core.Serialization.Common.Settings.Data.V1
 {
     [Serializable]
-    [XmlRoot("GameplayData")]
+    [XmlRoot("GameplaySettings")]
     public sealed class GameplayData : IData
     {
         [XmlElement("EnableSmoothCameraMovement", typeof(bool))]

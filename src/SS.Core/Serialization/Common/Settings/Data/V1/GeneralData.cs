@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace StardustSandbox.Core.Serialization.Common.Settings.Data.V1
 {
     [Serializable]
-    [XmlRoot("GeneralData")]
+    [XmlRoot("GeneralSettings")]
     public sealed class GeneralData : IData
     {
         [XmlElement("Language", typeof(string))]

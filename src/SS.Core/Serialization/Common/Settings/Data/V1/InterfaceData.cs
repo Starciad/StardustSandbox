@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace StardustSandbox.Core.Serialization.Common.Settings.Data.V1
 {
     [Serializable]
-    [XmlRoot("InterfaceData")]
+    [XmlRoot("InterfaceSettings")]
     public sealed class InterfaceData : IData
     {
         [XmlElement("ShowTooltip", typeof(bool))]

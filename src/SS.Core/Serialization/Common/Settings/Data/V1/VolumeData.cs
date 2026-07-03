@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace StardustSandbox.Core.Serialization.Common.Settings.Data.V1
 {
     [Serializable]
-    [XmlRoot("VolumeData")]
+    [XmlRoot("VolumeSettings")]
     public sealed class VolumeData : IData
     {
         [XmlElement("MasterVolume", typeof(float))]
