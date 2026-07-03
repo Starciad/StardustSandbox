@@ -22,9 +22,9 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Common.Progress;
-using StardustSandbox.Core.Serialization.Common.Progress.Data.V1;
+using StardustSandbox.Core.Serialization.Common.Progress.StorageModels;
 using StardustSandbox.Core.Serialization.Common.Settings;
-using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
+using StardustSandbox.Core.Serialization.Common.Settings.StorageModels;
 using StardustSandbox.Core.Serialization.Common.Worlds;
 using StardustSandbox.Core.UI;
 using StardustSandbox.Core.UI.Common;
@@ -62,10 +62,10 @@ namespace StardustSandbox.Core.Databases
             WorldSerializer worldSerializer
         )
         {
-            AchievementData achievementProgress = progressSerializer.Load<AchievementData>();
+            AchievementStorageModel achievementProgress = progressSerializer.Load<AchievementStorageModel>();
 
-            ControlData controlSettings = settingsSerializer.Load<ControlData>();
-            InterfaceData interfaceSettings = settingsSerializer.Load<InterfaceData>();
+            ControlStorageModel controlSettings = settingsSerializer.Load<ControlStorageModel>();
+            InterfaceStorageModel interfaceSettings = settingsSerializer.Load<InterfaceStorageModel>();
 
             NotificationBox notificationBox = new(assetDatabase, gameScreen);
             TooltipBox tooltipBox = new(assetDatabase, cursorManager, gameScreen, interfaceSettings)

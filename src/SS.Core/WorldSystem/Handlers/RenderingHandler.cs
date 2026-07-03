@@ -28,7 +28,6 @@ using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Mathematics.Primitives;
-using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
 using StardustSandbox.Core.Serialization.Common.Settings.StorageModels;
 using StardustSandbox.Core.WorldSystem.Slots;
 

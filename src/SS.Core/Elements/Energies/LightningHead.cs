@@ -39,7 +39,7 @@ namespace StardustSandbox.Core.Elements.Energies
 
         protected override void OnStep(ElementContext context)
         {
-            context.RemoveElement();
+            context.Remove();
         }
     }
 }

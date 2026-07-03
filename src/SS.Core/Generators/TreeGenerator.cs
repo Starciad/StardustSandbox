@@ -33,13 +33,13 @@ namespace StardustSandbox.Core.Generators
                 {
                     Point position = new(context.Position.X + x, context.Position.Y - y);
 
-                    if (context.IsEmptySlotLayer(position, context.Layer))
+                    if (!context.HasElement(position))
                     {
-                        context.InstantiateElementIndex(position, context.Layer, ElementIndex.Wood);
+                        context.Instantiate(position, ElementIndex.Wood);
                     }
                     else
                     {
-                        context.ReplaceElement(position, context.Layer, ElementIndex.Wood);
+                        context.Replace(position, ElementIndex.Wood);
                     }
                 }
             }
@@ -55,13 +55,13 @@ namespace StardustSandbox.Core.Generators
                     {
                         Point position = new(context.Position.X + x, leavesStartY + y);
 
-                        if (context.IsEmptySlotLayer(position, context.Layer))
+                        if (!context.HasElement(position))
                         {
-                            context.InstantiateElementIndex(position, context.Layer, ElementIndex.Leaf);
+                            context.Instantiate(position, ElementIndex.Leaf);
                         }
                         else
                         {
-                            context.ReplaceElement(position, context.Layer, ElementIndex.Leaf);
+                            context.Replace(position, ElementIndex.Leaf);
                         }
                     }
                 }

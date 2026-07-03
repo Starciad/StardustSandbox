@@ -53,11 +53,11 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlot(i).GetElementIndex(context.Layer))
                 {
                     case ElementIndex.Water:
                     case ElementIndex.Saltwater:
-                        context.RemoveElement(neighbors.GetNeighborPosition(i));
+                        context.Remove(neighbors.GetNeighborPosition(i));
                         shouldBecomeWet = true;
                         break;
 
@@ -68,7 +68,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             if (shouldBecomeWet)
             {
-                context.ReplaceElement(this.wetWoolIndex);
+                context.Replace(this.wetWoolIndex);
             }
         }
 
@@ -76,7 +76,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         {
             if (currentValue >= 580.0f)
             {
-                context.ReplaceElement(ElementIndex.Fire);
+                context.Replace(ElementIndex.Fire);
             }
         }
     }

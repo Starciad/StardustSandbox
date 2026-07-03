@@ -19,7 +19,6 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Indexers;
-using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.WorldSystem.Slots;
 
@@ -38,7 +37,7 @@ namespace StardustSandbox.Core.Elements.Gases
 
         private void EvaluateNeighboringPosition(ElementContext context, Point position)
         {
-            if (context.IsEmpty(position))
+            if (!context.HasElement(position))
             {
                 availablePositions.Add(position);
                 return;
@@ -48,10 +47,10 @@ namespace StardustSandbox.Core.Elements.Gases
             // is a gas or liquid and if it has a lower temperature or density than the current
             // gas element. If so, add that position to the available positions list.
 
-            if (context.TryGetSlot(position, out Slot value) &&
+            if ((context.TryGetSlot(position, out Slot value) &&
                 value.GetElement(context.Layer).Category is ElementCategory.Gas or ElementCategory.Liquid &&
                 value.GetElementIndex(context.Layer) == this.Index &&
-                value.GetTemperature(context.Layer) > context.GetTemperature() ||
+                value.GetTemperature(context.Layer) > context.GetTemperature()) ||
                 this.BaseDensity > value.GetElement(context.Layer).BaseDensity)
             {
                 availablePositions.Add(position);
@@ -85,13 +84,13 @@ namespace StardustSandbox.Core.Elements.Gases
 
             Point targetPosition = availablePositions.GetRandomItem();
 
-            if (context.IsEmpty(targetPosition))
+            if (!context.HasElement(targetPosition))
             {
                 context.SetPosition(targetPosition);
                 return;
             }
-            
-            context.SwappingElements(targetPosition);
+
+            context.Swap(targetPosition);
         }
     }
 }

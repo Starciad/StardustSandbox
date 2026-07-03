@@ -27,10 +27,8 @@ namespace StardustSandbox.Core.WorldSystem.Slots
 {
     internal sealed class SlotLayer
     {
-        internal bool IsEmpty => !HasElement && !HasStoredElement;
-
         internal bool HasElement => this.ElementIndex is not ElementIndex.None;
-        internal bool HasStoredElement => this.StoredElementIndex is not ElementIndex.None;
+        internal bool HasStoredElement => this.HasElement && this.StoredElementIndex is not ElementIndex.None;
 
         internal Element Element => this.elementDatabase.GetElement(this.elementIndex);
         internal Element StoredElement => this.elementDatabase.GetElement(this.storedElementIndex);

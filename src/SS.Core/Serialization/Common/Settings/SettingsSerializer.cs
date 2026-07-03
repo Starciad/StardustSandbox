@@ -268,7 +268,7 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
             using FileStream stream = new(componentFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
 
             TStorageModel loadedModel = this.schemaSerializer.Deserialize<TStorageModel>(stream, schema, sourceVersion, targetVersion);
-            
+
             this.storageModelCache[storageModelType] = loadedModel;
 
             return loadedModel;

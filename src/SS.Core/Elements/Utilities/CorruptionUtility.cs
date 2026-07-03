@@ -33,6 +33,16 @@ namespace StardustSandbox.Core.Elements.Utilities
         {
             internal readonly Slot Slot => slot;
             internal readonly Layer Layer => layer;
+
+            internal Element GetElement()
+            {
+                return this.Layer switch
+                {
+                    Layer.Foreground => this.Slot.GetElement(Layer.Foreground),
+                    Layer.Background => this.Slot.GetElement(Layer.Background),
+                    _ => null,
+                };
+            }
         }
 
         private static readonly List<SlotTarget> targets = [];
@@ -49,7 +59,7 @@ namespace StardustSandbox.Core.Elements.Utilities
                     continue;
                 }
 
-                Element element = neighbors.GetSlotLayer(i, layer).Element;
+                Element element = neighbors.GetSlot(i).GetElement(layer);
 
                 if (element == null)
                 {
@@ -65,6 +75,37 @@ namespace StardustSandbox.Core.Elements.Utilities
             }
 
             return corruptNeighboringElements == count;
+        }
+
+        private static void InfectSlotLayer(ElementContext context, SlotTarget slotTarget, GameEvents gameEvents)
+        {
+            Element targetElement = slotTarget.GetElement();
+
+            switch (targetElement.Category)
+            {
+                case ElementCategory.MovableSolid:
+                    context.Replace(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MovableCorruption);
+                    break;
+
+                case ElementCategory.ImmovableSolid:
+                    context.Replace(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.ImmovableCorruption);
+                    break;
+
+                case ElementCategory.Liquid:
+                    context.Replace(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.LiquidCorruption);
+                    break;
+
+                case ElementCategory.Gas:
+                    context.Replace(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.GasCorruption);
+                    break;
+
+                default:
+                    context.Replace(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MovableCorruption);
+                    break;
+            }
+
+            context.SetStoredElementIndex(slotTarget.Slot.Position, slotTarget.Layer, targetElement.Index);
+            gameEvents.Publish(new ElementCorruptedEvent());
         }
 
         internal static void InfectNeighboringElements(this ElementContext context, ElementNeighbors neighbors, GameEvents gameEvents)
@@ -86,14 +127,14 @@ namespace StardustSandbox.Core.Elements.Utilities
                     continue;
                 }
 
-                if (!neighbors.GetSlot(i).IsForegroundEmpty)
+                if (neighbors.GetSlot(i).HasElement(Layer.Foreground))
                 {
-                    ProcessLayer(neighbors.GetSlot(i), Layer.Foreground, neighbors.GetSlotLayer(i, Layer.Foreground).Element);
+                    ProcessLayer(neighbors.GetSlot(i), Layer.Foreground, neighbors.GetSlot(i).GetElement(Layer.Foreground));
                 }
 
-                if (!neighbors.GetSlot(i).IsBackgroundEmpty)
+                if (neighbors.GetSlot(i).HasElement(Layer.Background))
                 {
-                    ProcessLayer(neighbors.GetSlot(i), Layer.Background, neighbors.GetSlotLayer(i, Layer.Background).Element);
+                    ProcessLayer(neighbors.GetSlot(i), Layer.Background, neighbors.GetSlot(i).GetElement(Layer.Background));
                 }
             }
 
@@ -103,39 +144,6 @@ namespace StardustSandbox.Core.Elements.Utilities
             }
 
             InfectSlotLayer(context, targets.GetRandomItem(), gameEvents);
-        }
-
-        private static void InfectSlotLayer(ElementContext context, SlotTarget slotTarget, GameEvents gameEvents)
-        {
-            Element targetElement = slotTarget.Layer is Layer.Foreground
-                ? slotTarget.Slot.Foreground.Element
-                : slotTarget.Slot.Background.Element;
-
-            switch (targetElement.Category)
-            {
-                case ElementCategory.MovableSolid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MovableCorruption);
-                    break;
-
-                case ElementCategory.ImmovableSolid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.ImmovableCorruption);
-                    break;
-
-                case ElementCategory.Liquid:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.LiquidCorruption);
-                    break;
-
-                case ElementCategory.Gas:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.GasCorruption);
-                    break;
-
-                default:
-                    context.ReplaceElement(slotTarget.Slot.Position, slotTarget.Layer, ElementIndex.MovableCorruption);
-                    break;
-            }
-
-            context.SetStoredElementIndex(slotTarget.Slot.Position, slotTarget.Layer, targetElement.Index);
-            gameEvents.Publish(new ElementCorruptedEvent());
         }
     }
 }

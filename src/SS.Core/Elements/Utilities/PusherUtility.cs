@@ -85,8 +85,8 @@ namespace StardustSandbox.Core.Elements.Utilities
 
                 if (direction is not (ElementNeighborDirection.North or ElementNeighborDirection.West or ElementNeighborDirection.East or ElementNeighborDirection.South) ||
                     !neighbors.IsNeighborLayerOccupied(i, context.Layer) ||
-                    !neighbors.GetSlotLayer(i, context.Layer).Element.IsPushable ||
-                     neighbors.GetSlotLayer(i, context.Layer).HasState(ElementStates.WasPushed))
+                    !neighbors.GetSlot(i).GetElement(context.Layer).IsPushable ||
+                     neighbors.GetSlot(i).GetPushedState(context.Layer))
                 {
                     continue;
                 }
@@ -99,9 +99,9 @@ namespace StardustSandbox.Core.Elements.Utilities
                 Point leftPosition = leftDirection(currentNeighborPosition);
                 Point rightPosition = rightDirection(currentNeighborPosition);
 
-                bool frontEmpty = context.IsEmptySlotLayer(frontPosition);
-                bool leftEmpty = context.IsEmptySlotLayer(leftPosition);
-                bool rightEmpty = context.IsEmptySlotLayer(rightPosition);
+                bool frontEmpty = !context.HasElement(frontPosition);
+                bool leftEmpty = !context.HasElement(leftPosition);
+                bool rightEmpty = !context.HasElement(rightPosition);
                 bool wasPushed = false;
 
                 if (isBehind(currentNeighborPosition, pusherPosition))
@@ -133,10 +133,10 @@ namespace StardustSandbox.Core.Elements.Utilities
                     gameEvents.Publish(new ElementPushedEvent());
                 }
 
-                if (context.TryUpdateElementPosition(currentNeighborPosition, targetNeighborPosition))
+                if (context.TryUpdatePosition(currentNeighborPosition, targetNeighborPosition))
                 {
-                    context.RemoveElementState(currentNeighborPosition, ElementStates.IsFalling);
-                    context.SetElementState(targetNeighborPosition, ElementStates.WasPushed);
+                    context.SetFallingState(currentNeighborPosition, false);
+                    context.SetPushedState(currentNeighborPosition, true);
                 }
             }
 

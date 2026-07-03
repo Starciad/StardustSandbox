@@ -48,7 +48,7 @@ namespace StardustSandbox.Core.Elements.Liquids
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlot(i).GetElementIndex(context.Layer))
                 {
                     case ElementIndex.Acid:
                     case ElementIndex.Wall:
@@ -66,8 +66,8 @@ namespace StardustSandbox.Core.Elements.Liquids
 
                 if (Random.GetBool())
                 {
-                    context.DestroyElement(neighbors.GetNeighborPosition(i), context.Layer);
-                    context.DestroyElement();
+                    context.Destroy(neighbors.GetNeighborPosition(i), context.Layer);
+                    context.Destroy();
                     this.GameEvents.Publish(new ElementCorrodedEvent());
                 }
             }

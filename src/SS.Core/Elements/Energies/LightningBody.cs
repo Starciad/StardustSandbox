@@ -63,14 +63,14 @@ namespace StardustSandbox.Core.Elements.Energies
                     continue;
                 }
 
-                SlotLayer slotLayer = neighbors.GetSlotLayer(i, context.Layer);
+                Slot slot = neighbors.GetSlot(i);
 
-                if (slotLayer.Element.Category is ElementCategory.Gas)
+                if (slot.GetElement(context.Layer).Category is ElementCategory.Gas)
                 {
                     continue;
                 }
 
-                switch (slotLayer.ElementIndex)
+                switch (slot.GetElementIndex(context.Layer))
                 {
                     case ElementIndex.LightningBody:
                     case ElementIndex.LightningHead:
@@ -83,7 +83,7 @@ namespace StardustSandbox.Core.Elements.Energies
                     case ElementIndex.Water:
                     case ElementIndex.Snow:
                     case ElementIndex.Ice:
-                        if (slotLayer.HasState(ElementStates.IsFalling))
+                        if (slot.GetFallingState(context.Layer))
                         {
                             continue;
                         }
@@ -94,13 +94,13 @@ namespace StardustSandbox.Core.Elements.Energies
                         break;
                 }
 
-                context.InstantiateExplosion(explosionBuilder);
+                context.Instantiate(explosionBuilder);
             }
         }
 
         protected override void OnStep(ElementContext context)
         {
-            context.RemoveElement();
+            context.Remove();
         }
     }
 }

@@ -25,7 +25,6 @@ using StardustSandbox.Core.Enums.Simulation;
 using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Interfaces;
-using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
 using StardustSandbox.Core.Serialization.Common.Settings.StorageModels;
 using StardustSandbox.Core.Serialization.Common.Worlds;
 using StardustSandbox.Core.WorldSystem.Components;

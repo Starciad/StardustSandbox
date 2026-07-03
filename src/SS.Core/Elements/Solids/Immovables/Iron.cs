@@ -40,7 +40,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         {
             if (currentValue > 1200.0f)
             {
-                context.ReplaceElement(ElementIndex.Lava);
+                context.Replace(ElementIndex.Lava);
                 context.SetStoredElementIndex(ElementIndex.Iron);
             }
         }

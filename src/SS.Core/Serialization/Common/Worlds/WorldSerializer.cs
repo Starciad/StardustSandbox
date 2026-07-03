@@ -143,14 +143,14 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
                 ]
             );
 
-             this.manifestComponentSchema = new(
-                 IOConstants.WORLD_MANIFEST_COMPONENT_ID,
-                 this.manifestMapper,
-                 [],
-                 [
-                     typeof(Data.V1.ManifestData)
-                 ]
-             );
+            this.manifestComponentSchema = new(
+                IOConstants.WORLD_MANIFEST_COMPONENT_ID,
+                this.manifestMapper,
+                [],
+                [
+                    typeof(Data.V1.ManifestData)
+                ]
+            );
 
             this.propertyComponentSchema = new(
                 IOConstants.WORLD_PROPERTIES_COMPONENT_ID,

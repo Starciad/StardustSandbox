@@ -57,7 +57,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 
         protected override void OnDestroyed(ElementContext context)
         {
-            context.InstantiateExplosion(this.explosionBuilder);
+            context.Instantiate(this.explosionBuilder);
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
@@ -69,7 +69,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlot(i).GetElementIndex(context.Layer))
                 {
                     case ElementIndex.Bomb:
                     case ElementIndex.Wall:
@@ -82,7 +82,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
                         break;
 
                     default:
-                        context.DestroyElement();
+                        context.Destroy();
                         break;
                 }
             }
@@ -92,7 +92,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             if (currentValue > 100.0f)
             {
-                context.DestroyElement();
+                context.Destroy();
             }
         }
     }

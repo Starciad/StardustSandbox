@@ -45,7 +45,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                 switch (index)
                 {
                     case ElementIndex.DrySponge:
-                        context.SwappingElements(context.Position, belowPosition);
+                        context.Swap(context.Position, belowPosition);
                         break;
 
                     default:
@@ -58,7 +58,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         {
             if (currentValue >= 60.0f)
             {
-                context.ReplaceElement(ElementIndex.DrySponge);
+                context.Replace(ElementIndex.DrySponge);
             }
         }
     }

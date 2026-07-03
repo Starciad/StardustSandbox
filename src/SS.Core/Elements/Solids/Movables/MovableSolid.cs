@@ -32,51 +32,20 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 
         }
 
-        protected override void OnStep(ElementContext context)
-        {
-            if (context.CurrentSlotLayer.HasState(ElementStates.IsFalling))
-            {
-                foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(context.Slot.Position, Direction.Down))
-                {
-                    if (TrySetPosition(context, belowPosition))
-                    {
-                        ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(context, belowPosition);
-                        context.SetElementState(belowPosition, ElementStates.IsFalling);
-                        return;
-                    }
-                }
-
-                context.RemoveElementState(ElementStates.IsFalling);
-            }
-            else
-            {
-                Point belowPosition = new(context.Slot.Position.X, context.Slot.Position.Y + 1);
-
-                if (TrySetPosition(context, belowPosition))
-                {
-                    ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(context, belowPosition);
-                    context.SetElementState(belowPosition, ElementStates.IsFalling);
-                    return;
-                }
-
-                context.RemoveElementState(ElementStates.IsFalling);
-            }
-        }
-
-        private bool TrySetPosition(ElementContext context, Point position)
+        private static bool TrySetPosition(ElementContext context, Point position)
         {
             if (context.TrySetPosition(position))
             {
                 return true;
             }
 
-            if (context.TryGetSlotLayer(position, out SlotLayer slotLayer))
+            if (context.TryGetSlot(position, out Slot slot))
             {
-                switch (slotLayer.Element.Category)
+                switch (slot.GetElement(context.Layer).Category)
                 {
                     case ElementCategory.Gas:
                     case ElementCategory.Liquid:
-                        if (context.TrySwappingElements(position))
+                        if (context.TrySwap(position))
                         {
                             return true;
                         }
@@ -89,6 +58,40 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             }
 
             return false;
+        }
+
+        protected override void OnStep(ElementContext context)
+        {
+            if (context.GetFallingState())
+            {
+                // If the element is falling, try to move it downwards. If it can't move downwards, set the falling state to false.
+                foreach (Point belowPosition in ElementUtility.GetRandomSidePositions(context.Slot.Position, Direction.Down))
+                {
+                    if (TrySetPosition(context, belowPosition))
+                    {
+                        ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(context, belowPosition);
+                        context.SetFallingState(belowPosition, true);
+                        return;
+                    }
+                }
+
+                context.SetFallingState(false);
+                return;
+            }
+            else
+            {
+                // If the element is not falling, try to move it downwards. If it can't move downwards, set the falling state to false.
+                Point belowPosition = new(context.Slot.Position.X, context.Slot.Position.Y + 1);
+
+                if (TrySetPosition(context, belowPosition))
+                {
+                    ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(context, belowPosition);
+                    context.SetFallingState(belowPosition, true);
+                    return;
+                }
+
+                context.SetFallingState(false);
+            }
         }
     }
 }

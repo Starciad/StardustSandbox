@@ -43,15 +43,13 @@ namespace StardustSandbox.Core.Elements.Energies
         {
             if (context.HasStoredElement())
             {
-                if (context.HasElementState(ElementStates.IsDissipating))
+                if (context.GetDissipatingState())
                 {
-                    context.ReplaceElement(context.GetStoredElementIndex());
+                    context.Replace(context.GetStoredElementIndex());
                     return;
                 }
-                else
-                {
-                    context.SetElementState(ElementStates.IsDissipating);
-                }
+
+                context.SetDissipatingState(true);
             }
             else
             {
@@ -60,9 +58,9 @@ namespace StardustSandbox.Core.Elements.Energies
 
                 Point belowPosition = new(context.Position.X + Random.Range(-1, 1), context.Position.Y + 1);
 
-                if (!context.TryUpdateElementPosition(belowPosition))
+                if (!context.TryUpdatePosition(belowPosition))
                 {
-                    context.DestroyElement();
+                    context.Destroy();
                 }
             }
 

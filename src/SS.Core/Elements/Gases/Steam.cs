@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.Elements.Gases
         {
             if (Random.Chance(40))
             {
-                context.UpdateElementPosition(new(context.Slot.Position.X, context.Slot.Position.Y - 1));
+                context.UpdatePosition(new(context.Slot.Position.X, context.Slot.Position.Y - 1));
             }
             else
             {
@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.Elements.Gases
         {
             if (context.Position.Y <= PercentageMath.PercentageOfValue(context.GetWorldSize().Y, 15.0f) && Random.Chance(5))
             {
-                context.ReplaceElement(ElementIndex.Cloud);
+                context.Replace(ElementIndex.Cloud);
             }
         }
 
@@ -61,7 +61,7 @@ namespace StardustSandbox.Core.Elements.Gases
         {
             if (currentValue < 35.0f)
             {
-                context.ReplaceElement(ElementIndex.Water);
+                context.Replace(ElementIndex.Water);
             }
         }
     }

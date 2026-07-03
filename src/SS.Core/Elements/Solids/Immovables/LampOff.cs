@@ -43,7 +43,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
         {
             if (currentValue >= 600.0f)
             {
-                context.DestroyElement();
+                context.Destroy();
             }
         }
 
@@ -58,9 +58,9 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                     continue;
                 }
 
-                SlotLayer layer = neighbors.GetSlotLayer(i, context.Layer);
+                Slot slot = neighbors.GetSlot(i);
 
-                if (!layer.HasElement && layer.Element.IsElectrified)
+                if (slot.HasElement(context.Layer) && slot.GetElement(context.Layer).IsElectrified)
                 {
                     electrifiedNeighborFound = true;
                     break;
@@ -69,7 +69,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             if (electrifiedNeighborFound)
             {
-                context.ReplaceElement(ElementIndex.LampOn);
+                context.Replace(ElementIndex.LampOn);
             }
         }
     }

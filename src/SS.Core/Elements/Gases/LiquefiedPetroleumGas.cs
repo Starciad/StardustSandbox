@@ -42,7 +42,7 @@ namespace StardustSandbox.Core.Elements.Gases
         {
             if (currentValue >= 400.0f)
             {
-                context.ReplaceElement(ElementIndex.Fire);
+                context.Replace(ElementIndex.Fire);
             }
         }
     }

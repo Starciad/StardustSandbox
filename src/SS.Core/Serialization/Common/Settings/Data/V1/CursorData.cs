@@ -15,9 +15,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
-using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Interfaces.Serialization.Morph;
 
 using System;

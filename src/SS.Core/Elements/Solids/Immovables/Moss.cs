@@ -69,7 +69,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlot(i).GetElementIndex(context.Layer))
                 {
                     case ElementIndex.Dirt:
                     case ElementIndex.Mud:
@@ -121,7 +121,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
             foreach (Point eligiblePosition in this.eligiblePositions)
             {
-                if (context.IsEmptySlotLayer(eligiblePosition))
+                if (!context.HasElement(eligiblePosition))
                 {
                     this.availablePositions.Add(eligiblePosition);
                 }
@@ -132,14 +132,14 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                 return;
             }
 
-            context.InstantiateElementIndex(this.availablePositions.GetRandomItem(), context.Layer, ElementIndex.Moss);
+            context.Instantiate(this.availablePositions.GetRandomItem(), context.Layer, ElementIndex.Moss);
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)
         {
             if (currentValue >= 100.0f)
             {
-                context.ReplaceElement(ElementIndex.Fire);
+                context.Replace(ElementIndex.Fire);
             }
         }
     }

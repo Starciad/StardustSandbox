@@ -41,13 +41,15 @@ namespace StardustSandbox.Core.Elements.Energies
             this.IsPushable = true;
         }
 
-        private static bool TryIgniteElement(ElementContext context, Slot slot, SlotLayer slotLayer, Layer layer)
+        private static bool TryIgniteElement(ElementContext context, Slot slot, Layer layer)
         {
             // Increase neighboring temperature by fire's heat value
-            context.SetElementTemperature(slotLayer.Temperature + ElementConstants.FIRE_HEAT_VALUE);
+            context.SetTemperature(slot.GetTemperature(layer) + ElementConstants.FIRE_HEAT_VALUE);
 
             // Check if the element is flammable
-            if (slotLayer.Element.IsFlammable)
+            Element element = slot.GetElement(layer);
+
+            if (element.IsFlammable)
             {
                 // Adjust combustion chance based on the element's flammability resistance
                 int combustionChance = ElementConstants.CHANCE_OF_COMBUSTION;
@@ -60,9 +62,9 @@ namespace StardustSandbox.Core.Elements.Energies
                 }
 
                 // Attempt combustion based on flammabilityResistance
-                if (Random.Chance(combustionChance, 100.0f + slotLayer.Element.BaseFlammabilityResistance))
+                if (Random.Chance(combustionChance, 100.0f + element.BaseFlammabilityResistance))
                 {
-                    context.ReplaceElement(slot.Position, layer, ElementIndex.Fire);
+                    context.Replace(slot.Position, layer, ElementIndex.Fire);
                     return true;
                 }
             }
@@ -81,9 +83,9 @@ namespace StardustSandbox.Core.Elements.Energies
                     continue;
                 }
 
-                if (!neighbors.GetSlotLayer(i, Layer.Foreground).HasElement)
+                if (!neighbors.GetSlot(i).HasElement(Layer.Foreground))
                 {
-                    if (TryIgniteElement(context, neighbors.GetSlot(i), neighbors.GetSlotLayer(i, Layer.Foreground), Layer.Foreground))
+                    if (TryIgniteElement(context, neighbors.GetSlot(i), Layer.Foreground))
                     {
                         burnedElements++;
                     }
@@ -91,9 +93,9 @@ namespace StardustSandbox.Core.Elements.Energies
                     aroundElements++;
                 }
 
-                if (!neighbors.GetSlotLayer(i, Layer.Background).HasElement)
+                if (!neighbors.GetSlot(i).HasElement(Layer.Background))
                 {
-                    if (TryIgniteElement(context, neighbors.GetSlot(i), neighbors.GetSlotLayer(i, Layer.Background), Layer.Background))
+                    if (TryIgniteElement(context, neighbors.GetSlot(i), Layer.Background))
                     {
                         burnedElements++;
                     }
@@ -109,11 +111,11 @@ namespace StardustSandbox.Core.Elements.Energies
         {
             if (Random.Chance(ElementConstants.CHANCE_OF_FIRE_TO_DISAPPEAR))
             {
-                context.DestroyElement();
+                context.Destroy();
 
                 if (Random.Chance(ElementConstants.CHANCE_FOR_FIRE_TO_LEAVE_SMOKE))
                 {
-                    context.InstantiateElementIndex(ElementIndex.Smoke);
+                    context.Instantiate(ElementIndex.Smoke);
                 }
 
                 return;
@@ -121,24 +123,18 @@ namespace StardustSandbox.Core.Elements.Energies
 
             Point targetPosition = new(context.Slot.Position.X + Random.Range(-1, 1), context.Slot.Position.Y - 1);
 
-            if (context.IsEmptySlot(targetPosition))
+            // If the target position is empty or can be moved into, do nothing.
+            if (!context.HasElement(targetPosition) ||
+                context.TrySetPosition(targetPosition, context.Layer) ||
+                !context.TryGetElement(targetPosition, context.Layer, out Element element))
             {
-                if (context.TrySetPosition(targetPosition, context.Layer))
-                {
-                    return;
-                }
+                return;
             }
-            else
-            {
-                if (!context.TryGetElement(targetPosition, context.Layer, out Element element))
-                {
-                    return;
-                }
 
-                if (element is not null && (element.Category is ElementCategory.MovableSolid or ElementCategory.Liquid or ElementCategory.Gas))
-                {
-                    context.SwappingElements(targetPosition);
-                }
+            // If the element is not null and is movable, liquid, or gas, swap positions with it.
+            if (element is not null && (element.Category is ElementCategory.MovableSolid or ElementCategory.Liquid or ElementCategory.Gas))
+            {
+                context.Swap(targetPosition);
             }
         }
     }

@@ -63,7 +63,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
         protected override void OnDestroyed(ElementContext context)
         {
-            context.InstantiateExplosion(this.explosionBuilder);
+            context.Instantiate(this.explosionBuilder);
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
@@ -77,7 +77,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlot(i).GetElementIndex(context.Layer))
                 {
                     case ElementIndex.Devourer:
                     case ElementIndex.Void:
@@ -99,14 +99,14 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                 Point oldPosition = context.Slot.Position;
                 Point newPosition = neighborSlot.Position;
 
-                context.SwappingElements(oldPosition, newPosition, context.Layer);
-                context.RemoveElement(oldPosition);
+                context.Swap(oldPosition, newPosition, context.Layer);
+                context.Remove(oldPosition);
 
                 this.GameEvents.Publish(new ElementConsumedByDevourerEvent());
             }
             else if (Random.Chance(5))
             {
-                context.DestroyElement();
+                context.Destroy();
             }
             else
             {

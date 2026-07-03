@@ -19,7 +19,6 @@ using MessagePack;
 using MessagePack.Resolvers;
 
 using StardustSandbox.Core.Constants;
-using StardustSandbox.Core.Elements.Gases;
 using StardustSandbox.Core.Interfaces.Serialization.Morph;
 using StardustSandbox.Core.Serialization.Common.Progress.Mappers;
 using StardustSandbox.Core.Serialization.Common.Progress.StorageModels;

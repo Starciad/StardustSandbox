@@ -40,7 +40,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             if (currentValue > 600.0f)
             {
-                context.ReplaceElement(ElementIndex.Lava);
+                context.Replace(ElementIndex.Lava);
                 this.GameEvents.Publish(new StoneMeltedEvent());
             }
         }

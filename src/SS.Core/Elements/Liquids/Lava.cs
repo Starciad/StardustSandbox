@@ -47,7 +47,7 @@ namespace StardustSandbox.Core.Elements.Liquids
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlot(i).GetElementIndex(context.Layer))
                 {
                     case ElementIndex.Oil:
                     case ElementIndex.Wood:
@@ -78,7 +78,7 @@ namespace StardustSandbox.Core.Elements.Liquids
                     case ElementIndex.Moss:
                     case ElementIndex.Seed:
                     case ElementIndex.Sapling:
-                        context.ReplaceElement(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Fire);
+                        context.Replace(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Fire);
                         break;
 
                     default:
@@ -93,14 +93,14 @@ namespace StardustSandbox.Core.Elements.Liquids
             {
                 if (context.GetStoredElementIndex() is ElementIndex.None)
                 {
-                    context.ReplaceElement(ElementIndex.Stone);
+                    context.Replace(ElementIndex.Stone);
                 }
                 else
                 {
-                    context.ReplaceElement(context.GetStoredElementIndex());
+                    context.Replace(context.GetStoredElementIndex());
                 }
 
-                context.SetElementTemperature(500.0f);
+                context.SetTemperature(500.0f);
             }
         }
     }

@@ -46,12 +46,12 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlot(i).GetElementIndex(context.Layer))
                 {
                     case ElementIndex.Water:
                     case ElementIndex.Saltwater:
                     case ElementIndex.Lava:
-                        context.DestroyElement();
+                        context.Destroy();
                         break;
 
                     default:

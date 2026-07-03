@@ -43,7 +43,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlot(i).GetElementIndex(context.Layer))
                 {
                     case ElementIndex.Wall:
                     case ElementIndex.Void:
@@ -54,7 +54,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                         break;
                 }
 
-                context.DestroyElement(neighbors.GetNeighborPosition(i), context.Layer);
+                context.Destroy(neighbors.GetNeighborPosition(i), context.Layer);
 
                 this.GameEvents.Publish(new ElementConsumedByVoidEvent());
             }

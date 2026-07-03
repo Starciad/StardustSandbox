@@ -42,7 +42,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 
         protected override void OnInstantiated(ElementContext context)
         {
-            context.SetElementColorModifier(ElementConstants.COLORS_OF_MOUNTING_BLOCKS.GetRandomItem());
+            context.SetColorModifier(ElementConstants.COLORS_OF_MOUNTING_BLOCKS.GetRandomItem());
         }
 
         protected override void OnTemperatureChanged(ElementContext context, float currentValue)
@@ -51,11 +51,11 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             {
                 if (Random.Chance(75))
                 {
-                    context.ReplaceElement(ElementIndex.Fire);
+                    context.Replace(ElementIndex.Fire);
                 }
                 else
                 {
-                    context.ReplaceElement(ElementIndex.Ash);
+                    context.Replace(ElementIndex.Ash);
                 }
             }
         }

@@ -23,7 +23,6 @@ using StardustSandbox.Core.Databases;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.States;
 using StardustSandbox.Core.Extensions;
-using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
 using StardustSandbox.Core.Serialization.Common.Settings.StorageModels;
 
 using System;

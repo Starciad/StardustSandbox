@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Indexers;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Extensions;
 using StardustSandbox.Core.WorldSystem.Slots;
@@ -30,8 +31,13 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
 {
     internal sealed class Clone : ImmovableSolid
     {
+        private readonly struct LayerData(Slot slot, Layer layer)
+        {
+            internal readonly ElementIndex ElementIndex => slot.GetElementIndex(layer);
+        }
+
         private readonly List<Point> positionScratch = [];
-        private readonly List<SlotLayer> layerScratch = [];
+        private readonly List<LayerData> layerScratch = [];
 
         internal Clone(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
@@ -51,13 +57,13 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                 return;
             }
 
-            context.InstantiateElementIndex(validPosition, context.Layer, stored);
+            context.Instantiate(validPosition, context.Layer, stored);
             this.GameEvents.Publish(new ElementClonedEvent());
         }
 
         private void TryAddEmptyPosition(ElementContext context, Point position)
         {
-            if (context.IsEmptySlotLayer(position, context.Layer))
+            if (!context.HasElement(position))
             {
                 this.positionScratch.Add(position);
             }
@@ -107,11 +113,10 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                     continue;
                 }
 
-                SlotLayer neighborLayer = neighbors.GetSlotLayer(i, context.Layer);
-                ElementIndex index = neighborLayer.ElementIndex;
-
                 // Skip cloning from these element types
-                switch (index)
+                Slot slot = neighbors.GetSlot(i);
+
+                switch (slot.GetElementIndex(context.Layer))
                 {
                     case ElementIndex.Clone:
                     case ElementIndex.Wall:
@@ -121,11 +126,11 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
                         continue;
 
                     default:
-                        this.layerScratch.Add(neighborLayer);
+                        this.layerScratch.Add(new(slot, context.Layer));
                         break;
                 }
 
-                this.layerScratch.Add(neighborLayer);
+                this.layerScratch.Add(new(slot, context.Layer));
             }
 
             if (this.layerScratch.Count == 0)

@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.Elements.Gases
             {
                 if (context.GetDissipatingState())
                 {
-                    context.ReplaceElement(context.GetStoredElementIndex());
+                    context.Replace(context.GetStoredElementIndex());
                     return;
                 }
 
@@ -64,7 +64,7 @@ namespace StardustSandbox.Core.Elements.Gases
                 {
                     ElementIndex originalElementIndex = slot.GetStoredElementIndex(layer);
 
-                    context.ReplaceElement(slot.Position, ElementIndex.AntiCorruption);
+                    context.Replace(slot.Position, ElementIndex.AntiCorruption);
                     context.SetStoredElementIndex(slot.Position, context.Layer, originalElementIndex);
                 }
             }

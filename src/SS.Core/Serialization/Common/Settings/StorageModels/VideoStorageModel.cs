@@ -21,9 +21,6 @@ using Microsoft.Xna.Framework.Graphics;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Interfaces.Serialization.Morph;
 
-using System;
-using System.Xml.Serialization;
-
 namespace StardustSandbox.Core.Serialization.Common.Settings.StorageModels
 {
     public sealed class VideoStorageModel : IStorageModel

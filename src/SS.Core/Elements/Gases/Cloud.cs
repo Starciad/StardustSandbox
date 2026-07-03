@@ -45,7 +45,7 @@ namespace StardustSandbox.Core.Elements.Gases
                 neighbors.CountNeighborsByElementIndex(ElementIndex.Cloud, context.Layer) >= 2 &&
                 Random.Chance(5))
             {
-                context.ReplaceElement(ElementIndex.ChargedCloud);
+                context.Replace(ElementIndex.ChargedCloud);
             }
         }
 
@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.Elements.Gases
         {
             if (Random.Chance(35))
             {
-                context.UpdateElementPosition(new(context.Slot.Position.X, context.Slot.Position.Y - 1));
+                context.UpdatePosition(new(context.Slot.Position.X, context.Slot.Position.Y - 1));
                 return;
             }
 

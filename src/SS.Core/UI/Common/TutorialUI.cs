@@ -23,7 +23,7 @@ using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
+using StardustSandbox.Core.Serialization.Common.Settings.StorageModels;
 using StardustSandbox.Core.UI.Elements;
 
 using System;
@@ -50,7 +50,7 @@ namespace StardustSandbox.Core.UI.Common
 
         internal TutorialUI(
             AssetDatabase assetDatabase,
-            ControlData controlSettings,
+            ControlStorageModel controlSettings,
             GameScreen gameScreen,
             UIManager uiManager
         ) : base(assetDatabase, gameScreen)

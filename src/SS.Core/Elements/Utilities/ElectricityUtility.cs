@@ -27,19 +27,18 @@ namespace StardustSandbox.Core.Elements.Utilities
     {
         internal static void Electrify(ElementContext context, Point position, Layer layer)
         {
-            SlotLayer slotLayer = context.GetSlotLayer(position, layer);
+            Slot slot = context.GetSlot(position);
 
-            if (slotLayer is null ||
-                slotLayer.HasElement ||
-                slotLayer.ElementIndex is ElementIndex.Electricity ||
-                !slotLayer.Element.IsConductive)
+            if (!slot.HasElement(layer) ||
+                slot.GetElementIndex(layer) is ElementIndex.Electricity ||
+                !slot.GetElement(layer).IsConductive)
             {
                 return;
             }
 
-            ElementIndex originalElementIndex = slotLayer.ElementIndex;
+            ElementIndex originalElementIndex = slot.GetElementIndex(layer);
 
-            context.ReplaceElement(position, layer, ElementIndex.Electricity);
+            context.Replace(position, layer, ElementIndex.Electricity);
             context.SetStoredElementIndex(position, layer, originalElementIndex);
         }
     }

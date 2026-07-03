@@ -47,11 +47,11 @@ namespace StardustSandbox.Core.Elements.Liquids
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlot(i).GetElementIndex(context.Layer))
                 {
                     case ElementIndex.Lava:
                     case ElementIndex.Fire:
-                        context.ReplaceElement(ElementIndex.Fire);
+                        context.Replace(ElementIndex.Fire);
                         break;
 
                     default:
@@ -64,7 +64,7 @@ namespace StardustSandbox.Core.Elements.Liquids
         {
             if (currentValue >= 280.0f)
             {
-                context.ReplaceElement(ElementIndex.Fire);
+                context.Replace(ElementIndex.Fire);
             }
         }
     }

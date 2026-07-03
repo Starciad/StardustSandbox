@@ -48,7 +48,7 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
             this.tileMap = tileMap;
         }
 
-        internal bool TryInstantiateExplosion(Point position, Layer layer, ExplosionBuilder explosionBuilder)
+        internal bool TryInstantiate(Point position, Layer layer, ExplosionBuilder explosionBuilder)
         {
             if (!this.tileMap.IsWithinBounds(position) && this.instantiatedExplosions.Count >= ExplosionConstants.MAX_SIMULTANEOUS_EXPLOSIONS)
             {
@@ -65,9 +65,9 @@ namespace StardustSandbox.Core.WorldSystem.Handlers
             return true;
         }
 
-        internal void InstantiateExplosion(Point position, Layer layer, ExplosionBuilder explosionBuilder)
+        internal void Instantiate(Point position, Layer layer, ExplosionBuilder explosionBuilder)
         {
-            _ = TryInstantiateExplosion(position, layer, explosionBuilder);
+            _ = TryInstantiate(position, layer, explosionBuilder);
         }
 
         private void HandleExplosion(Explosion explosion)

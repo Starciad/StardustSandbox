@@ -17,7 +17,6 @@
 
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Indexers;
-using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Tools.Environment

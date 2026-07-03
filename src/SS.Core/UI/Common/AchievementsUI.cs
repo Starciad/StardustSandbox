@@ -26,7 +26,7 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.UI;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
-using StardustSandbox.Core.Serialization.Common.Progress.Data.V1;
+using StardustSandbox.Core.Serialization.Common.Progress.StorageModels;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 
@@ -55,12 +55,12 @@ namespace StardustSandbox.Core.UI.Common
         private readonly AchievementDatabase achievementDatabase;
         private readonly AssetDatabase assetDatabase;
         private readonly AmbientManager ambientManager;
-        private readonly AchievementData achievementProgress;
+        private readonly AchievementStorageModel achievementProgress;
         private readonly SoundEffectManager soundEffectManager;
 
         internal AchievementsUI(
             AchievementDatabase achievementDatabase,
-            AchievementData achievementProgress,
+            AchievementStorageModel achievementProgress,
             AssetDatabase assetDatabase,
             AmbientManager ambientManager,
             GameScreen gameScreen,

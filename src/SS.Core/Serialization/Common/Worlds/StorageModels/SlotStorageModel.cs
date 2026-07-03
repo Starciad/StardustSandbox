@@ -17,6 +17,7 @@
 
 using Microsoft.Xna.Framework;
 
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Serialization.Morph;
 using StardustSandbox.Core.WorldSystem.Slots;
 
@@ -50,14 +51,14 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
             this.PositionX = slot.Position.X;
             this.PositionY = slot.Position.Y;
 
-            if (!slot.Foreground.HasElement)
+            if (!slot.HasElement(Layer.Foreground))
             {
-                this.ForegroundLayer = new(slot.Foreground);
+                this.ForegroundLayer = new(slot, Layer.Foreground);
             }
 
-            if (!slot.Background.HasElement)
+            if (!slot.HasElement(Layer.Background))
             {
-                this.BackgroundLayer = new(slot.Background);
+                this.BackgroundLayer = new(slot, Layer.Background);
             }
         }
     }

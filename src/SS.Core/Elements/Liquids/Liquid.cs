@@ -44,57 +44,56 @@ namespace StardustSandbox.Core.Elements.Liquids
 
                 if (context.TryGetSlot(belowPosition, out Slot belowSlot))
                 {
-                    SlotLayer belowLayer = belowSlot.GetLayer(context.Layer);
-
-                    if (TrySwappingElements(context, belowPosition, belowLayer))
+                    if (TrySwappingElements(context, belowSlot))
                     {
                         ElementUtility.NotifyFreeFallingFromAdjacentNeighbors(context, belowPosition);
-                        context.SetElementState(belowPosition, context.Layer, ElementStates.IsFalling);
+                        context.SetFallingState(belowPosition, context.Layer, true);
                         return;
                     }
 
-                    TryPerformConvection(context, belowPosition, belowLayer);
+                    TryPerformConvection(context, belowSlot);
                 }
             }
 
             UpdateHorizontalPosition(context);
-
-            context.RemoveElementState(ElementStates.IsFalling);
+            context.SetFallingState(false);
         }
 
-        private bool TrySwappingElements(ElementContext context, Point position, SlotLayer belowLayer)
+        private bool TrySwappingElements(ElementContext context, Slot belowSlot)
         {
-            if (belowLayer.HasElement)
+            if (!belowSlot.HasElement(context.Layer))
             {
                 return false;
             }
 
-            bool canSwap = belowLayer.Element.Category switch
+            Element element = belowSlot.GetElement(context.Layer);
+
+            bool canSwap = element.Category switch
             {
                 ElementCategory.Gas => true,
-                ElementCategory.Liquid when belowLayer.Element.BaseDensity < this.BaseDensity => true,
+                ElementCategory.Liquid when element.BaseDensity < this.BaseDensity => true,
                 _ => false
             };
 
             if (canSwap)
             {
-                context.SwappingElements(position);
+                context.Swap(belowSlot.Position);
                 return true;
             }
 
             return false;
         }
 
-        private void TryPerformConvection(ElementContext context, Point position, SlotLayer belowLayer)
+        private void TryPerformConvection(ElementContext context, Slot belowSlot)
         {
-            if (belowLayer.HasElement ||
-                belowLayer.ElementIndex != this.Index ||
-                belowLayer.Temperature <= context.CurrentSlotLayer.Temperature)
+            if (!belowSlot.HasElement(context.Layer) ||
+                belowSlot.GetElementIndex(context.Layer) != this.Index ||
+                belowSlot.GetTemperature(context.Layer) <= context.GetTemperature())
             {
                 return;
             }
 
-            context.SwappingElements(position);
+            context.Swap(belowSlot.Position);
         }
 
         private void UpdateHorizontalPosition(ElementContext context)
@@ -126,14 +125,13 @@ namespace StardustSandbox.Core.Elements.Liquids
                 return;
             }
 
-            if (context.IsEmptySlotLayer(targetPosition, context.Layer))
+            if (!context.HasElement(targetPosition))
             {
-                context.SetPosition(targetPosition, context.Layer);
+                context.SetPosition(targetPosition);
+                return;
             }
-            else
-            {
-                context.SwappingElements(context.Position, targetPosition, context.Layer);
-            }
+
+            context.Swap(context.Position, targetPosition);
         }
 
         private int GetMaxDispersionSteps(ElementContext context, int direction)
@@ -145,7 +143,7 @@ namespace StardustSandbox.Core.Elements.Liquids
             {
                 Point nextPosition = new(checkPos.X + direction, checkPos.Y);
 
-                if (!context.TryGetElement(nextPosition, context.Layer, out Element element))
+                if (!context.TryGetElement(nextPosition, out Element element))
                 {
                     // No element entry found -> treat as traversable
                     steps++;
@@ -154,7 +152,7 @@ namespace StardustSandbox.Core.Elements.Liquids
                 }
 
                 // If the next position is an empty slot layer or contains a liquid/gas element, it is traversable
-                if (context.IsEmptySlotLayer(nextPosition, context.Layer) ||
+                if (!context.HasElement(nextPosition) ||
                     (element is not null && element.Category is ElementCategory.Liquid or ElementCategory.Gas))
                 {
                     steps++;
@@ -186,7 +184,7 @@ namespace StardustSandbox.Core.Elements.Liquids
                 }
 
                 // Can disperse to the next position
-                if (context.IsEmptySlotLayer(nextPosition, context.Layer) || (element is not null && element.Category is ElementCategory.Liquid or ElementCategory.Gas))
+                if (!context.HasElement(nextPosition) || (element is not null && element.Category is ElementCategory.Liquid or ElementCategory.Gas))
                 {
                     dispersionPosition = nextPosition;
                     steps++;

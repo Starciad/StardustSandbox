@@ -16,7 +16,6 @@
 */
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;

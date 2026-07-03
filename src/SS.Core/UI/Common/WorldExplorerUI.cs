@@ -133,8 +133,8 @@ namespace StardustSandbox.Core.UI.Common
         {
             this.worldEntries.Clear();
 
-            this.worldSerializer.LoadAll<ManifestStorageModel>();
-            this.worldSerializer.LoadAll<ThumbnailStorageModel>();
+            _ = this.worldSerializer.LoadAll<ManifestStorageModel>();
+            _ = this.worldSerializer.LoadAll<ThumbnailStorageModel>();
 
             this.currentPageIndex = Math.Clamp(this.currentPageIndex, 0, this.totalPages - 1);
             this.totalPages = (int)MathF.Max(1.0f, MathF.Ceiling(this.worldEntries.Count / (float)UIConstants.WORLD_EXPLORER_ITEMS_PER_PAGE));
@@ -403,7 +403,7 @@ namespace StardustSandbox.Core.UI.Common
             for (int i = 0; i < this.worldButtonSlotInfos.Length; i++)
             {
                 SlotInfo slotInfoElement = this.worldButtonSlotInfos[i];
-                
+
                 if (slotInfoElement.Icon.HasTexture)
                 {
                     slotInfoElement.Icon.DisposeTexture();

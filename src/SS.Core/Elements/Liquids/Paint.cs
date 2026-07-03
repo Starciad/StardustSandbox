@@ -46,12 +46,12 @@ namespace StardustSandbox.Core.Elements.Liquids
             for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
             {
                 if (!neighbors.IsNeighborLayerOccupied(i, context.Layer) ||
-                    neighbors.GetSlotLayer(i, context.Layer).ElementIndex == this.Index)
+                    neighbors.GetSlot(i).GetElementIndex(context.Layer) == this.Index)
                 {
                     continue;
                 }
 
-                context.SetElementColorModifier(neighbors.GetNeighborPosition(i), this.dyeingColor);
+                context.SetColorModifier(neighbors.GetNeighborPosition(i), this.dyeingColor);
             }
         }
 
@@ -59,7 +59,7 @@ namespace StardustSandbox.Core.Elements.Liquids
         {
             if (currentValue >= 200.0f)
             {
-                context.ReplaceElement(ElementIndex.Fire);
+                context.Replace(ElementIndex.Fire);
             }
         }
     }

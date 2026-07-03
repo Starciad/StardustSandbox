@@ -22,7 +22,7 @@ using StardustSandbox.Core.Events.Actors;
 using StardustSandbox.Core.Events.Elements;
 using StardustSandbox.Core.Mathematics;
 using StardustSandbox.Core.Serialization.Common.Progress;
-using StardustSandbox.Core.Serialization.Common.Progress.Data.V1;
+using StardustSandbox.Core.Serialization.Common.Progress.StorageModels;
 using StardustSandbox.Core.WorldSystem.Components;
 
 namespace StardustSandbox.Core.Managers
@@ -55,7 +55,7 @@ namespace StardustSandbox.Core.Managers
         private void Unlock(AchievementIndex targetIndex)
         {
             Achievement targetAchievement = this.achievementDatabase.GetAchievement(targetIndex);
-            AchievementData achievementProgress = this.progressSerializer.Load<AchievementData>();
+            AchievementStorageModel achievementProgress = this.progressSerializer.Load<AchievementStorageModel>();
 
             // If the achievement is already unlocked or if the prerequisite achievement is not unlocked, do nothing.
             if (achievementProgress.IsUnlocked(targetIndex) || (targetAchievement.PreviousAchievementIndex is not AchievementIndex.None && !achievementProgress.IsUnlocked(targetAchievement.PreviousAchievementIndex)))

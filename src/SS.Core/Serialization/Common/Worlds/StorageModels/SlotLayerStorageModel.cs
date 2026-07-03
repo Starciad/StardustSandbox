@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework;
 
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Indexers;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Interfaces.Serialization.Morph;
 using StardustSandbox.Core.WorldSystem.Slots;
 
@@ -40,16 +41,16 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
 
         }
 
-        internal SlotLayerStorageModel(SlotLayer slotLayer)
+        internal SlotLayerStorageModel(Slot slot, Layer layer)
         {
-            this.ColorModifier = slotLayer.ColorModifier;
-            this.ElementIndex = slotLayer.ElementIndex;
-            this.StepCycleFlag = slotLayer.StepCycleFlag;
-            this.StoredElementIndex = slotLayer.StoredElementIndex;
-            this.Temperature = slotLayer.Temperature;
-            this.IsFalling = slotLayer.IsFalling;
-            this.WasPushed = slotLayer.WasPushed;
-            this.IsDissipating = slotLayer.IsDissipating;
+            this.ColorModifier = slot.GetColorModifier(layer);
+            this.ElementIndex = slot.GetElementIndex(layer);
+            this.StepCycleFlag = slot.GetStepCycleFlag(layer);
+            this.StoredElementIndex = slot.GetStoredElementIndex(layer);
+            this.Temperature = slot.GetTemperature(layer);
+            this.IsFalling = slot.GetFallingState(layer);
+            this.WasPushed = slot.GetPushedState(layer);
+            this.IsDissipating = slot.GetDissipatingState(layer);
         }
     }
 }

@@ -48,13 +48,13 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlot(i).GetElementIndex(context.Layer))
                 {
                     case ElementIndex.Water:
                     case ElementIndex.Ice:
                     case ElementIndex.Snow:
-                        context.DestroyElement();
-                        context.ReplaceElement(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Saltwater);
+                        context.Destroy();
+                        context.Replace(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Saltwater);
 
                         this.GameEvents.Publish(new SaltDissolvedEvent());
                         break;
@@ -69,7 +69,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             if (currentValue > 900.0f)
             {
-                context.ReplaceElement(ElementIndex.Lava);
+                context.Replace(ElementIndex.Lava);
                 context.SetStoredElementIndex(ElementIndex.Salt);
             }
         }

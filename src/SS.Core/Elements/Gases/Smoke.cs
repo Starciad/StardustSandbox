@@ -41,7 +41,7 @@ namespace StardustSandbox.Core.Elements.Gases
             {
                 Point topPosition = new(context.Slot.Position.X, context.Slot.Position.Y - 1);
 
-                if (context.IsEmptySlotLayer(topPosition, context.Layer))
+                if (!context.HasElement(topPosition))
                 {
                     context.SetPosition(topPosition);
                 }
@@ -53,7 +53,7 @@ namespace StardustSandbox.Core.Elements.Gases
 
             if (Random.Chance(2))
             {
-                context.DestroyElement();
+                context.Destroy();
             }
         }
     }

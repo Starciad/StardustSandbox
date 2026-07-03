@@ -18,7 +18,6 @@
 using MessagePack;
 
 using StardustSandbox.Core.Interfaces.Serialization.Morph;
-using StardustSandbox.Core.WorldSystem.Slots;
 
 using System;
 

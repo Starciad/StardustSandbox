@@ -22,7 +22,6 @@ using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.WorldSystem.Components;
-using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Extensions
 {
@@ -55,24 +54,25 @@ namespace StardustSandbox.Core.Extensions
                     int index = (y * thumbnailWidth) + x;
 
                     // Determines color based on world element
-                    if (tileMap.IsEmptySlot(worldPosition))
+                    if (!tileMap.HasElement(worldPosition, Layer.Foreground) &&
+                        !tileMap.HasElement(worldPosition, Layer.Background))
                     {
                         // This color represents the thumbnail's background
                         data[index] = AAP64ColorPalette.Cerulean.Vary(5);
+                        continue;
                     }
-                    else
-                    {
-                        // This color represents the currently selected element
-                        Slot slot = tileMap.GetSlot(worldPosition);
 
-                        if (!slot.Foreground.HasElement)
-                        {
-                            data[index] = tileMap.GetElement(worldPosition, Layer.Foreground).ReferenceColor.Vary(5);
-                        }
-                        else if (!slot.Background.HasElement)
-                        {
-                            data[index] = tileMap.GetElement(worldPosition, Layer.Background).ReferenceColor.Vary(5).Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
-                        }
+                    // This color represents the currently selected element
+                    if (!tileMap.HasElement(worldPosition, Layer.Foreground))
+                    {
+                        data[index] = tileMap.GetElement(worldPosition, Layer.Foreground).ReferenceColor.Vary(5);
+                        continue;
+                    }
+
+                    if (!tileMap.HasElement(worldPosition, Layer.Background))
+                    {
+                        data[index] = tileMap.GetElement(worldPosition, Layer.Background).ReferenceColor.Vary(5).Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
+                        continue;
                     }
                 }
             }

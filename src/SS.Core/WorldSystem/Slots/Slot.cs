@@ -141,16 +141,6 @@ namespace StardustSandbox.Core.WorldSystem.Slots
             return GetLayer(layer).HasStoredElement;
         }
 
-        internal bool IsEmpty(Layer layer)
-        {
-            return GetLayer(layer).IsEmpty;
-        }
-
-        internal bool IsEmpty()
-        {
-            return this.foreground.IsEmpty && this.background.IsEmpty;
-        }
-
         #endregion
 
         #region Setters

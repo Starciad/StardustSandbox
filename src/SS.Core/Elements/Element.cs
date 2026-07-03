@@ -95,9 +95,9 @@ namespace StardustSandbox.Core.Elements
 
         internal void Steps(GameTime gameTime)
         {
-            if (this.IsPushable && this.context.HasElementState(ElementStates.WasPushed))
+            if (this.IsPushable && this.context.GetPushedState())
             {
-                this.context.RemoveElementState(ElementStates.WasPushed);
+                this.context.SetPushedState(false);
             }
 
             bool anyCharacteristic = this.HasTemperature || this.HasNeighborInteractions || this.IsPushable;
@@ -126,15 +126,15 @@ namespace StardustSandbox.Core.Elements
         {
             float deltaTime = Convert.ToSingle(gameTime.ElapsedGameTime.TotalSeconds);
 
-            float currentTemperature = this.context.CurrentSlotLayer.Temperature;
+            float currentTemperature = this.context.GetTemperature();
             float totalHeatTransfer = 0.0f;
             int validNeighborCount = 0;
 
-            float CalculateHeatTransfer(SlotLayer slotLayer)
+            float CalculateHeatTransfer(Slot slot, Layer layer)
             {
-                if (!slotLayer.HasElement && slotLayer.Element.HasTemperature)
+                if (slot.HasElement(layer) && slot.GetElement(layer).HasTemperature)
                 {
-                    float neighborTemp = slotLayer.Temperature;
+                    float neighborTemp = slot.GetTemperature(layer);
                     return TemperatureConstants.THERMAL_CONDUCTIVITY * TemperatureConstants.AREA * (neighborTemp - currentTemperature) / TemperatureConstants.DISTANCE * deltaTime;
                 }
 
@@ -145,7 +145,7 @@ namespace StardustSandbox.Core.Elements
             {
                 if (neighbors.HasNeighbor(i))
                 {
-                    float fgHeat = CalculateHeatTransfer(neighbors.GetSlotLayer(i, Layer.Foreground));
+                    float fgHeat = CalculateHeatTransfer(neighbors.GetSlot(i), Layer.Foreground);
 
                     if (fgHeat != 0.0f)
                     {
@@ -153,7 +153,7 @@ namespace StardustSandbox.Core.Elements
                         validNeighborCount++;
                     }
 
-                    float bgHeat = CalculateHeatTransfer(neighbors.GetSlotLayer(i, Layer.Background));
+                    float bgHeat = CalculateHeatTransfer(neighbors.GetSlot(i), Layer.Background);
 
                     if (bgHeat != 0.0f)
                     {
@@ -172,25 +172,28 @@ namespace StardustSandbox.Core.Elements
             }
 
             float newTemperature = currentTemperature + totalHeatTransfer;
-            this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(newTemperature));
+            this.context.SetTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(newTemperature));
 
             if (Math.Abs(totalHeatTransfer) < TemperatureConstants.EQUILIBRIUM_THRESHOLD)
             {
-                this.context.SetElementTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(currentTemperature));
+                this.context.SetTemperature(this.context.Position, this.context.Layer, TemperatureMath.Clamp(currentTemperature));
             }
 
-            if (this.context.CurrentSlotLayer.Temperature == TemperatureConstants.MAX_CELSIUS_VALUE)
+            switch (this.context.GetTemperature())
             {
-                // this.AchievementManager.Unlock(AchievementIndex.ACH_009);
-                this.GameEvents.Publish(new ElementReachedMaxTemperatureEvent());
-            }
-            else if (this.context.CurrentSlotLayer.Temperature == TemperatureConstants.MIN_CELSIUS_VALUE)
-            {
-                // this.AchievementManager.Unlock(AchievementIndex.ACH_010);
-                this.GameEvents.Publish(new ElementReachedMinTemperatureEvent());
+                case TemperatureConstants.MAX_CELSIUS_VALUE:
+                    this.GameEvents.Publish(new ElementReachedMaxTemperatureEvent());
+                    break;
+
+                case TemperatureConstants.MIN_CELSIUS_VALUE:
+                    this.GameEvents.Publish(new ElementReachedMinTemperatureEvent());
+                    break;
+
+                default:
+                    break;
             }
 
-            OnTemperatureChanged(this.context, this.context.CurrentSlotLayer.Temperature);
+            OnTemperatureChanged(this.context, this.context.GetTemperature());
         }
     }
 }

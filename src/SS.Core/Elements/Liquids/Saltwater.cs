@@ -50,25 +50,25 @@ namespace StardustSandbox.Core.Elements.Liquids
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlot(i).GetElementIndex(context.Layer))
                 {
                     case ElementIndex.FertileSoil:
                     case ElementIndex.Dirt:
-                        context.ReplaceElement(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Mud);
-                        context.DestroyElement();
+                        context.Replace(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Mud);
+                        context.Destroy();
                         return;
 
                     case ElementIndex.Stone:
                         if (Random.Range(0, 150) == 0)
                         {
-                            context.ReplaceElement(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Sand);
-                            context.DestroyElement();
+                            context.Replace(neighbors.GetNeighborPosition(i), context.Layer, ElementIndex.Sand);
+                            context.Destroy();
                         }
 
                         return;
 
                     case ElementIndex.Fire:
-                        context.DestroyElement(neighbors.GetNeighborPosition(i), context.Layer);
+                        context.Destroy(neighbors.GetNeighborPosition(i), context.Layer);
                         break;
 
                     default:
@@ -81,7 +81,7 @@ namespace StardustSandbox.Core.Elements.Liquids
         {
             if (currentValue <= 21.0f)
             {
-                context.ReplaceElement(ElementIndex.Ice);
+                context.Replace(ElementIndex.Ice);
                 context.SetStoredElementIndex(ElementIndex.Saltwater);
                 this.GameEvents.Publish(new WaterFrozenEvent());
             }
@@ -89,12 +89,12 @@ namespace StardustSandbox.Core.Elements.Liquids
             {
                 if (Random.GetBool())
                 {
-                    context.ReplaceElement(ElementIndex.Steam);
+                    context.Replace(ElementIndex.Steam);
                     this.GameEvents.Publish(new WaterVaporizedEvent());
                 }
                 else
                 {
-                    context.ReplaceElement(ElementIndex.Saltwater);
+                    context.Replace(ElementIndex.Saltwater);
                 }
             }
         }

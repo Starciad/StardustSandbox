@@ -41,14 +41,14 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
             {
                 if (context.GetStoredElementIndex() is ElementIndex.None)
                 {
-                    context.ReplaceElement(ElementIndex.Water);
+                    context.Replace(ElementIndex.Water);
                 }
                 else
                 {
-                    context.ReplaceElement(context.GetStoredElementIndex());
+                    context.Replace(context.GetStoredElementIndex());
                 }
 
-                context.SetElementTemperature(12.0f);
+                context.SetTemperature(12.0f);
             }
         }
     }

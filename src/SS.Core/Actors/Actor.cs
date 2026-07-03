@@ -247,9 +247,9 @@ namespace StardustSandbox.Core.Actors
                 }
 
                 // Only query the layer if it is within the limits.
-                if (this.World.TileMap.TryGetSlotLayer(belowPosition, Layer.Foreground, out SlotLayer slotLayer))
+                if (this.World.TileMap.TryGetSlot(belowPosition, out Slot slot))
                 {
-                    ElementCategory category = slotLayer.Element.Category;
+                    ElementCategory category = slot.GetElement(Layer.Foreground).Category;
 
                     if (category == ElementCategory.MovableSolid || category == ElementCategory.ImmovableSolid)
                     {

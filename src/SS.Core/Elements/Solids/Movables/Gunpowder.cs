@@ -59,7 +59,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 
         protected override void OnDestroyed(ElementContext context)
         {
-            context.InstantiateExplosion(this.explosionBuilder);
+            context.Instantiate(this.explosionBuilder);
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
@@ -71,16 +71,16 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
                     continue;
                 }
 
-                switch (neighbors.GetSlotLayer(i, context.Layer).ElementIndex)
+                switch (neighbors.GetSlot(i).GetElementIndex(context.Layer))
                 {
                     case ElementIndex.Fire:
                     case ElementIndex.Lava:
-                        context.DestroyElement();
+                        context.Destroy();
                         return;
 
                     case ElementIndex.Water:
                     case ElementIndex.Saltwater:
-                        context.RemoveElement();
+                        context.Remove();
                         return;
 
                     default:
@@ -93,7 +93,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             if (currentValue >= 300.0f)
             {
-                context.DestroyElement();
+                context.Destroy();
             }
         }
     }

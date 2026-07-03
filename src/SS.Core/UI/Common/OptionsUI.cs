@@ -30,7 +30,7 @@ using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.Localization;
 using StardustSandbox.Core.Managers;
 using StardustSandbox.Core.Serialization.Common.Settings;
-using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
+using StardustSandbox.Core.Serialization.Common.Settings.StorageModels;
 using StardustSandbox.Core.UI.Elements;
 using StardustSandbox.Core.UI.Information;
 
@@ -90,13 +90,13 @@ namespace StardustSandbox.Core.UI.Common
             this.soundEffectManager = soundEffectManager;
             this.tooltipBox = tooltipBox;
 
-            ControlData controlSettings = settingsSerializer.Load<ControlData>();
-            CursorData cursorSettings = settingsSerializer.Load<CursorData>();
-            GameplayData gameplaySettings = settingsSerializer.Load<GameplayData>();
-            GeneralData generalSettings = settingsSerializer.Load<GeneralData>();
-            InterfaceData interfaceSettings = settingsSerializer.Load<InterfaceData>();
-            VideoData videoSettings = settingsSerializer.Load<VideoData>();
-            VolumeData volumeSettings = settingsSerializer.Load<VolumeData>();
+            ControlStorageModel controlSettings = settingsSerializer.Load<ControlStorageModel>();
+            CursorStorageModel cursorSettings = settingsSerializer.Load<CursorStorageModel>();
+            GameplayStorageModel gameplaySettings = settingsSerializer.Load<GameplayStorageModel>();
+            GeneralStorageModel generalSettings = settingsSerializer.Load<GeneralStorageModel>();
+            InterfaceStorageModel interfaceSettings = settingsSerializer.Load<InterfaceStorageModel>();
+            VideoStorageModel videoSettings = settingsSerializer.Load<VideoStorageModel>();
+            VolumeStorageModel volumeSettings = settingsSerializer.Load<VolumeStorageModel>();
 
             this.availableGameCulturesChoices = new SelectorUI.IChoice[LocalizationConstants.AVAILABLE_GAME_CULTURES.Length];
             this.resolutionChoices = new SelectorUI.IChoice[ScreenConstants.RESOLUTIONS.Length];
@@ -232,7 +232,7 @@ namespace StardustSandbox.Core.UI.Common
                         Localization_GUIs.Options_Gameplay_PreviewAreaOpacity_Description,
                         () =>
                         {
-                            return gameplaySettings.PreviewAreaColorA * 100.0f;
+                            return gameplaySettings.PreviewAreaColor.A / 255 * 100.0f;
                         },
                         (value) =>
                         {
@@ -245,7 +245,9 @@ namespace StardustSandbox.Core.UI.Common
                                 new(0, 100),
                                 Convert.ToInt32(option.GetValue()),
                                 (newValue) => {
-                                    gameplaySettings.PreviewAreaColorA = newValue / 100.0f;
+                                    byte alpha = (byte)(newValue / 100.0f * 255);
+
+                                    gameplaySettings.PreviewAreaColor = new(gameplaySettings.PreviewAreaColor, alpha);
                                     settingsSerializer.Save(gameplaySettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
@@ -279,7 +281,7 @@ namespace StardustSandbox.Core.UI.Common
                         Localization_GUIs.Options_Gameplay_GridOpacity_Description,
                         () =>
                         {
-                            return gameplaySettings.GridOpacity * 100.0f;
+                            return gameplaySettings.GridOpacity / 255.0f * 100.0f;
                         },
                         (value) =>
                         {
@@ -292,7 +294,7 @@ namespace StardustSandbox.Core.UI.Common
                                 new(0, 100),
                                 Convert.ToInt32(option.GetValue()),
                                 (newValue) => {
-                                    gameplaySettings.GridOpacity = newValue / 100.0f;
+                                    gameplaySettings.GridOpacity = (byte)(newValue / 100.0f * 255);
                                     settingsSerializer.Save(gameplaySettings);
 
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
@@ -864,7 +866,7 @@ namespace StardustSandbox.Core.UI.Common
                         Localization_GUIs.Options_Cursor_Color_Description,
                         () =>
                         {
-                            return cursorSettings.Color;
+                            return cursorSettings.ForegroundColor;
                         },
                         (value) =>
                         {
@@ -874,7 +876,7 @@ namespace StardustSandbox.Core.UI.Common
                         {
                             colorPickerUI.Setup((newColor) =>
                             {
-                                cursorSettings.Color = newColor;
+                                cursorSettings.ForegroundColor = newColor;
                                 settingsSerializer.Save(cursorSettings);
 
                                 optionSlotInfo.Value.TextContent = option.GetValueString();
@@ -935,36 +937,6 @@ namespace StardustSandbox.Core.UI.Common
                                     optionSlotInfo.Value.TextContent = option.GetValueString();
 
                                     cursorManager.Scale = cursorSettings.Scale;
-                                }
-                            );
-
-                            uiManager.OpenUI(UIIndex.Slider);
-                        }
-                    ),
-                    new Option<float>(
-                        Localization_GUIs.Options_Cursor_Opacity_Name,
-                        Localization_GUIs.Options_Cursor_Opacity_Description,
-                        () =>
-                        {
-                            return cursorSettings.Opacity * 100.0f;
-                        },
-                        (value) =>
-                        {
-                            return string.Concat((int)value, '%');
-                        },
-                        (option, optionSlotInfo) =>
-                        {
-                            sliderUI.Setup(
-                                Localization_GUIs.Options_Cursor_Opacity_Description,
-                                new(0, 100),
-                                Convert.ToInt32(option.GetValue()),
-                                (newValue) => {
-                                    cursorSettings.Opacity = newValue / 100.0f;
-                                    settingsSerializer.Save(cursorSettings);
-
-                                    optionSlotInfo.Value.TextContent = option.GetValueString();
-
-                                    cursorManager.Opacity = cursorSettings.Opacity;
                                 }
                             );
 

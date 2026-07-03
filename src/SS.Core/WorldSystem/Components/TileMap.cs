@@ -93,11 +93,6 @@ namespace StardustSandbox.Core.WorldSystem.Components
             {
                 for (int x = 0; x < this.width; x++)
                 {
-                    if (IsEmpty(new(x, y)))
-                    {
-                        continue;
-                    }
-
                     Remove(new(x, y), Layer.Foreground);
                     Remove(new(x, y), Layer.Background);
                 }
@@ -272,7 +267,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
         internal bool TryDestroy(Point position, Layer layer)
         {
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -285,11 +280,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             return true;
         }
+
         internal bool TryGetColorModifier(Point position, Layer layer, out Color value)
         {
             value = Color.White;
 
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -297,11 +293,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
             value = this[position].GetColorModifier(layer);
             return true;
         }
+
         internal bool TryGetDissipatingState(Point position, Layer layer, out bool value)
         {
             value = false;
 
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -309,11 +306,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
             value = this[position].GetDissipatingState(layer);
             return true;
         }
+
         internal bool TryGetElement(Point position, Layer layer, out Element value)
         {
             value = null;
 
-            if (!IsWithinBounds(position) || IsEmpty(position, layer) || !this[position].HasElement(layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer) || !this[position].HasElement(layer))
             {
                 return false;
             }
@@ -321,11 +319,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
             value = this[position].GetElement(layer);
             return true;
         }
+
         internal bool TryGetElementIndex(Point position, Layer layer, out ElementIndex index)
         {
             index = ElementIndex.None;
 
-            if (!IsWithinBounds(position) || IsEmpty(position, layer) || !this[position].HasElement(layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer) || !this[position].HasElement(layer))
             {
                 return false;
             }
@@ -333,11 +332,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
             index = this[position].GetElementIndex(layer);
             return true;
         }
+
         internal bool TryGetFallingState(Point position, Layer layer, out bool value)
         {
             value = false;
 
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -345,11 +345,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
             value = this[position].GetFallingState(layer);
             return true;
         }
+
         internal bool TryGetPushedState(Point position, Layer layer, out bool value)
         {
             value = false;
 
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -357,11 +358,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
             value = this[position].GetPushedState(layer);
             return true;
         }
+
         internal bool TryGetSlot(Point position, out Slot value)
         {
             value = null;
 
-            if (!IsWithinBounds(position) || IsEmpty(position))
+            if (!IsWithinBounds(position))
             {
                 return false;
             }
@@ -369,11 +371,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
             value = this[position];
             return true;
         }
+
         internal bool TryGetStepCycleFlag(Point position, Layer layer, out UpdateCycleFlag value)
         {
             value = UpdateCycleFlag.None;
 
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -381,11 +384,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
             value = this[position].GetStepCycleFlag(layer);
             return true;
         }
+
         internal bool TryGetStoredElementIndex(Point position, Layer layer, out ElementIndex index)
         {
             index = ElementIndex.None;
 
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -394,11 +398,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             return index is not ElementIndex.None;
         }
+
         internal bool TryGetStoredElement(Point position, Layer layer, out Element value)
         {
             value = null;
 
-            if (!IsWithinBounds(position) || IsEmpty(position, layer) || !this[position].HasStoredElement(layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer) || !this[position].HasStoredElement(layer))
             {
                 return false;
             }
@@ -406,21 +411,24 @@ namespace StardustSandbox.Core.WorldSystem.Components
             value = this[position].GetStoredElement(layer);
             return true;
         }
+
         internal bool TryGetTemperature(Point position, Layer layer, out float value)
         {
             value = 0f;
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
+
             value = this[position].GetTemperature(layer);
             return true;
         }
+
         internal bool TryHasElement(Point position, Layer layer, out bool value)
         {
             value = false;
 
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -428,11 +436,12 @@ namespace StardustSandbox.Core.WorldSystem.Components
             value = this[position].HasElement(layer);
             return true;
         }
+
         internal bool TryHasStoredElement(Point position, Layer layer, out bool value)
         {
             value = false;
 
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -440,9 +449,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
             value = this[position].HasStoredElement(layer);
             return true;
         }
+
         internal bool TryInstantiate(Point position, Layer layer, ElementIndex index)
         {
-            if (!IsWithinBounds(position) || !IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !!HasElement(position, layer))
             {
                 return false;
             }
@@ -460,33 +470,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             return true;
         }
-        internal bool TryIsEmpty(Point position, Layer layer, out bool value)
-        {
-            value = false;
 
-            if (!IsWithinBounds(position))
-            {
-                return false;
-            }
-
-            value = this[position].IsEmpty(layer);
-            return true;
-        }
-        internal bool TryIsEmpty(Point position, out bool value)
-        {
-            value = false;
-
-            if (!IsWithinBounds(position))
-            {
-                return false;
-            }
-
-            value = this[position].IsEmpty();
-            return true;
-        }
         internal bool TryRemove(Point position, Layer layer)
         {
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -498,9 +485,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             return true;
         }
+
         internal bool TryReplace(Point position, Layer layer, ElementIndex newIndex)
         {
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -514,9 +502,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             return true;
         }
+
         internal bool TrySetDissipatingState(Point position, Layer layer, bool value)
         {
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -524,9 +513,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
             this[position].SetDissipatingState(layer, value);
             return true;
         }
-        internal bool TrySetElementColorModifier(Point position, Layer layer, Color value)
+
+        internal bool TrySetColorModifier(Point position, Layer layer, Color value)
         {
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -534,9 +524,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
             this[position].SetColorModifier(layer, value);
             return true;
         }
+
         internal bool TrySetElementIndex(Point position, Layer layer, ElementIndex value)
         {
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -544,9 +535,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
             this[position].SetElementIndex(layer, value);
             return true;
         }
+
         internal bool TrySetTemperature(Point position, Layer layer, float value)
         {
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -559,9 +551,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             return true;
         }
+
         internal bool TrySetFallingState(Point position, Layer layer, bool value)
         {
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -569,9 +562,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
             this[position].SetFallingState(layer, value);
             return true;
         }
+
         internal bool TrySetPushedState(Point position, Layer layer, bool value)
         {
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -579,9 +573,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
             this[position].SetPushedState(layer, value);
             return true;
         }
+
         internal bool TrySetStepCycleFlag(Point position, Layer layer, UpdateCycleFlag value)
         {
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -589,9 +584,10 @@ namespace StardustSandbox.Core.WorldSystem.Components
             this[position].SetStepCycleFlag(layer, value);
             return true;
         }
+
         internal bool TrySetStoredElementIndex(Point position, Layer layer, ElementIndex index)
         {
-            if (!IsWithinBounds(position) || IsEmpty(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -599,12 +595,13 @@ namespace StardustSandbox.Core.WorldSystem.Components
             this[position].SetStoredElementIndex(layer, index);
             return true;
         }
-        internal bool TrySwapping(Point element1Position, Point element2Position, Layer layer)
+
+        internal bool TrySwap(Point element1Position, Point element2Position, Layer layer)
         {
             if (!IsWithinBounds(element1Position) ||
                 !IsWithinBounds(element2Position) ||
-                IsEmpty(element1Position, layer) ||
-                IsEmpty(element2Position, layer) ||
+                !HasElement(element1Position, layer) ||
+                !HasElement(element2Position, layer) ||
                 element1Position == element2Position)
             {
                 return false;
@@ -626,12 +623,13 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             return true;
         }
+
         internal bool TryUpdatePosition(Point oldPosition, Point newPosition, Layer layer)
         {
             if (!IsWithinBounds(oldPosition) ||
                 !IsWithinBounds(newPosition) ||
-                 IsEmpty(oldPosition, layer) ||
-                !IsEmpty(newPosition, layer) ||
+                 !HasElement(oldPosition, layer) ||
+                !!HasElement(newPosition, layer) ||
                 oldPosition == newPosition)
             {
                 return false;
@@ -654,31 +652,37 @@ namespace StardustSandbox.Core.WorldSystem.Components
         {
             _ = TryDestroy(position, layer);
         }
+
         internal Color GetColorModifier(Point position, Layer layer)
         {
             _ = TryGetColorModifier(position, layer, out Color value);
             return value;
         }
+
         internal bool GetDissipatingState(Point position, Layer layer)
         {
             _ = TryGetDissipatingState(position, layer, out bool value);
             return value;
         }
+
         internal Element GetElement(Point position, Layer layer)
         {
             _ = TryGetElement(position, layer, out Element value);
             return value;
         }
+
         internal ElementIndex GetElementIndex(Point position, Layer layer)
         {
             _ = TryGetElementIndex(position, layer, out ElementIndex index);
             return index;
         }
+
         internal bool GetFallingState(Point position, Layer layer)
         {
             _ = TryGetFallingState(position, layer, out bool value);
             return value;
         }
+
         internal ElementNeighbors GetNeighboringSlots(Point position)
         {
             this.elementNeighbors.Reset();
@@ -710,104 +714,115 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
             return this.elementNeighbors;
         }
+
         internal bool GetPushedState(Point position, Layer layer)
         {
             _ = TryGetPushedState(position, layer, out bool value);
             return value;
         }
+
         internal Slot GetSlot(Point position)
         {
             _ = TryGetSlot(position, out Slot value);
             return value;
         }
+
         internal UpdateCycleFlag GetStepCycleFlag(Point position, Layer layer)
         {
             _ = TryGetStepCycleFlag(position, layer, out UpdateCycleFlag value);
             return value;
         }
+
         internal Element GetStoredElement(Point position, Layer layer)
         {
             _ = TryGetStoredElement(position, layer, out Element value);
             return value;
         }
+
         internal ElementIndex GetStoredElementIndex(Point position, Layer layer)
         {
             _ = TryGetStoredElementIndex(position, layer, out ElementIndex index);
             return index;
         }
+
         internal float GetTemperature(Point position, Layer layer)
         {
             _ = TryGetTemperature(position, layer, out float value);
             return value;
         }
+
         internal bool HasElement(Point position, Layer layer)
         {
             _ = TryHasElement(position, layer, out bool value);
             return value;
         }
+
         internal bool HasStoredElement(Point position, Layer layer)
         {
             _ = TryHasStoredElement(position, layer, out bool value);
             return value;
         }
+
         internal void Instantiate(Point position, Layer layer, ElementIndex index)
         {
             _ = TryInstantiate(position, layer, index);
         }
-        internal bool IsEmpty(Point position, Layer layer)
-        {
-            _ = TryIsEmpty(position, layer, out bool value);
-            return value;
-        }
-        internal bool IsEmpty(Point position)
-        {
-            _ = TryIsEmpty(position, out bool value);
-            return value;
-        }
+
         internal void Remove(Point position, Layer layer)
         {
             _ = TryRemove(position, layer);
         }
+
         internal void Replace(Point position, Layer layer, ElementIndex index)
         {
             _ = TryReplace(position, layer, index);
         }
+
         internal void SetDissipatingState(Point position, Layer layer, bool value)
         {
             _ = TrySetDissipatingState(position, layer, value);
         }
+
         internal void SetColorModifier(Point position, Layer layer, Color value)
         {
-            _ = TrySetElementColorModifier(position, layer, value);
+            _ = TrySetColorModifier(position, layer, value);
         }
+
         internal void SetElementIndex(Point position, Layer layer, ElementIndex value)
         {
             _ = TrySetElementIndex(position, layer, value);
         }
+
         internal void SetTemperature(Point position, Layer layer, float value)
         {
             _ = TrySetTemperature(position, layer, value);
         }
+
         internal void SetFallingState(Point position, Layer layer, bool value)
         {
             _ = TrySetFallingState(position, layer, value);
         }
+
         internal void SetPushedState(Point position, Layer layer, bool value)
         {
             _ = TrySetPushedState(position, layer, value);
         }
+
         internal void SetStepCycleFlag(Point position, Layer layer, UpdateCycleFlag value)
         {
             _ = TrySetStepCycleFlag(position, layer, value);
         }
+
         internal void SetStoredElementIndex(Point position, Layer layer, ElementIndex index)
         {
             _ = TrySetStoredElementIndex(position, layer, index);
         }
-        internal void Swapping(Point element1Position, Point element2Position, Layer layer)
+
+        internal void Swap(Point element1Position, Point element2Position, Layer layer)
         {
-            _ = TrySwapping(element1Position, element2Position, layer);
+            _ = TrySwap(element1Position, element2Position, layer);
         }
+
         internal void UpdatePosition(Point oldPosition, Point newPosition, Layer layer)
         {
             _ = TryUpdatePosition(oldPosition, newPosition, layer);

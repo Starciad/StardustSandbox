@@ -73,28 +73,31 @@ namespace StardustSandbox.Core.Generators
                     continue;
                 }
 
-                if (context.TryGetSlot(position, out Slot slot) && !slot.GetLayer(context.Layer).HasElement)
+                if (context.TryGetSlot(position, out Slot slot) && !slot.HasElement(context.Layer))
                 {
-                    if (slot.GetLayer(context.Layer).Element.Category is ElementCategory.Gas)
+                    if (slot.GetElement(context.Layer).Category is ElementCategory.Gas)
                     {
                         continue;
                     }
 
-                    switch (slot.GetLayer(context.Layer).ElementIndex)
+                    switch (slot.GetElementIndex(context.Layer))
                     {
                         case ElementIndex.Water:
                         case ElementIndex.Ice:
                         case ElementIndex.Snow:
-                            if (slot.HasState(context.Layer, ElementStates.IsFalling))
+                            if (slot.GetFallingState(context.Layer))
                             {
                                 continue;
                             }
 
                             break;
+
+                        default:
+                            break;
                     }
                 }
 
-                if (!context.TryInstantiateElementIndex(position, ElementIndex.LightningBody))
+                if (!context.TryInstantiate(position, ElementIndex.LightningBody))
                 {
                     return false;
                 }

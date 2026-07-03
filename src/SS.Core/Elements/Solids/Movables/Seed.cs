@@ -52,13 +52,13 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
                     continue;
                 }
 
-                if (neighbors.GetSlotLayer(i, context.Layer).ElementIndex is ElementIndex.Water)
+                if (neighbors.GetSlot(i).GetElementIndex(context.Layer) is ElementIndex.Water)
                 {
                     hasWater = true;
-                    context.DestroyElement(neighbors.GetNeighborPosition(i));
+                    context.Destroy(neighbors.GetNeighborPosition(i));
                 }
 
-                if (i == (int)ElementNeighborDirection.South && neighbors.GetSlotLayer(i, context.Layer).ElementIndex is ElementIndex.FertileSoil)
+                if (i == (int)ElementNeighborDirection.South && neighbors.GetSlot(i).GetElementIndex(context.Layer) is ElementIndex.FertileSoil)
                 {
                     hasFertileSoil = true;
                 }
@@ -71,7 +71,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
 
             if (hasWater && hasFertileSoil && Random.Chance(25, 500))
             {
-                context.ReplaceElement(ElementIndex.Sapling);
+                context.Replace(ElementIndex.Sapling);
             }
         }
 
@@ -79,7 +79,7 @@ namespace StardustSandbox.Core.Elements.Solids.Movables
         {
             if (currentValue >= 75.0f)
             {
-                context.ReplaceElement(ElementIndex.Fire);
+                context.Replace(ElementIndex.Fire);
             }
         }
     }

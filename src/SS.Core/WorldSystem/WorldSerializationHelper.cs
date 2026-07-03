@@ -50,7 +50,8 @@ namespace StardustSandbox.Core.WorldSystem
                 {
                     Point point = new(x, y);
 
-                    if (this.tileMap.IsEmptySlot(point))
+                    if (!this.tileMap.HasElement(point, Layer.Foreground) &&
+                        !this.tileMap.HasElement(point, Layer.Background))
                     {
                         continue;
                     }
@@ -101,9 +102,9 @@ namespace StardustSandbox.Core.WorldSystem
 
             Slot slot = this.tileMap.GetSlot(position);
 
-            slot.SetTemperatureValue(layer, slotLayer.Temperature);
+            slot.SetTemperature(layer, slotLayer.Temperature);
             slot.SetColorModifier(layer, slotLayer.ColorModifier);
-            slot.SetStoredElement(layer, slotLayer.StoredElementIndex);
+            slot.SetStoredElementIndex(layer, slotLayer.StoredElementIndex);
         }
     }
 }

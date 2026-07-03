@@ -24,7 +24,6 @@ using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.Inputs.Game;
 using StardustSandbox.Core.InputSystem;
 using StardustSandbox.Core.IO;
-using StardustSandbox.Core.Serialization.Common.Settings.Data.V1;
 
 using System;
 
@@ -143,9 +142,7 @@ namespace StardustSandbox.Core
 
         private void DrawCursorPenActionArea()
         {
-            GameplayData gameplaySettings = this.settingsSerializer.Load<GameplayData>();
-
-            if (!gameplaySettings.ShowPreviewArea || this.playerInputController.Pen.Tool is PenTool.Visualization or PenTool.Fill)
+            if (!this.gameplaySettings.ShowPreviewArea || this.playerInputController.Pen.Tool is PenTool.Visualization or PenTool.Fill)
             {
                 return;
             }
@@ -176,7 +173,7 @@ namespace StardustSandbox.Core
                     this.assetDatabase.GetTexture(TextureIndex.ShapeSquares),
                     worldPosition,
                     new Rectangle(110, 0, 32, 32),
-                    gameplaySettings.PreviewAreaColor
+                    this.gameplaySettings.PreviewAreaColor
                 );
             }
 
