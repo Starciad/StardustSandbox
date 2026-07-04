@@ -125,19 +125,22 @@ namespace StardustSandbox.Core.Serialization.Common.Progress
         private VersioningHeader LoadVersioningHeader()
         {
             using FileStream stream = new(this.versioningHeaderFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
-
             VersioningHeader versioningHeader = new();
             versioningHeader.Deserialize(stream);
-
             return versioningHeader;
         }
 
         private void SaveVersioningHeader()
         {
             using FileStream stream = new(this.versioningHeaderFilename, FileMode.Create, FileAccess.Write, FileShare.None);
-
             VersioningHeader versioningHeader = new();
             versioningHeader.SetVersion(IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_ID, IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_VERSION);
+            versioningHeader.Serialize(stream);
+        }
+
+        private void UpdateVersioningHeader(VersioningHeader versioningHeader)
+        {
+            using FileStream stream = new(this.versioningHeaderFilename, FileMode.Create, FileAccess.Write, FileShare.None);
             versioningHeader.Serialize(stream);
         }
 
@@ -202,12 +205,12 @@ namespace StardustSandbox.Core.Serialization.Common.Progress
             if (!versioningHeader.TryGetVersion(schema.Identifier, out int sourceVersion))
             {
                 sourceVersion = targetVersion;
+                versioningHeader.SetVersion(schema.Identifier, sourceVersion);
+                UpdateVersioningHeader(versioningHeader);
             }
 
             using FileStream stream = new(componentFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
-
             TStorageModel loadedModel = this.schemaSerializer.Deserialize<TStorageModel>(stream, schema, sourceVersion, targetVersion);
-
             this.storageModelCache[storageModelType] = loadedModel;
 
             return loadedModel;

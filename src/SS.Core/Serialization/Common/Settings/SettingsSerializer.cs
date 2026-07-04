@@ -222,7 +222,6 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
         private void SaveVersioningHeader()
         {
             using FileStream stream = new(this.versioningHeaderFilename, FileMode.Create, FileAccess.Write, FileShare.None);
-
             VersioningHeader versioningHeader = new();
             versioningHeader.SetVersion(IOConstants.SETTINGS_CONTROL_COMPONENT_ID, IOConstants.SETTINGS_CONTROL_COMPONENT_VERSION);
             versioningHeader.SetVersion(IOConstants.SETTINGS_CURSOR_COMPONENT_ID, IOConstants.SETTINGS_CURSOR_COMPONENT_VERSION);
@@ -231,6 +230,12 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
             versioningHeader.SetVersion(IOConstants.SETTINGS_INTERFACE_COMPONENT_ID, IOConstants.SETTINGS_INTERFACE_COMPONENT_VERSION);
             versioningHeader.SetVersion(IOConstants.SETTINGS_VIDEO_COMPONENT_ID, IOConstants.SETTINGS_VIDEO_COMPONENT_VERSION);
             versioningHeader.SetVersion(IOConstants.SETTINGS_VOLUME_COMPONENT_ID, IOConstants.SETTINGS_VOLUME_COMPONENT_VERSION);
+            versioningHeader.Serialize(stream);
+        }
+
+        private void UpdateVersioningHeader(VersioningHeader versioningHeader)
+        {
+            using FileStream stream = new(this.versioningHeaderFilename, FileMode.Create, FileAccess.Write, FileShare.None);
             versioningHeader.Serialize(stream);
         }
 
@@ -317,14 +322,14 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
             if (!versioningHeader.TryGetVersion(schema.Identifier, out int sourceVersion))
             {
                 sourceVersion = targetVersion;
+                versioningHeader.SetVersion(schema.Identifier, sourceVersion);
+                UpdateVersioningHeader(versioningHeader);
             }
 
             using FileStream stream = new(componentFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
-
             TStorageModel loadedModel = this.schemaSerializer.Deserialize<TStorageModel>(stream, schema, sourceVersion, targetVersion);
-
             this.storageModelCache[storageModelType] = loadedModel;
-
+            
             return loadedModel;
         }
 
