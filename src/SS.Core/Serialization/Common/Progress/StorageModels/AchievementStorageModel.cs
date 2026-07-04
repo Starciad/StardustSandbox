@@ -28,7 +28,7 @@ namespace StardustSandbox.Core.Serialization.Common.Progress.StorageModels
 
         public bool IsUnlocked(AchievementIndex index)
         {
-            return this.AchievementStatuses[index];
+            return this.AchievementStatuses.TryGetValue(index, out bool isUnlocked) && isUnlocked;
         }
 
         public void Unlock(AchievementIndex index)
