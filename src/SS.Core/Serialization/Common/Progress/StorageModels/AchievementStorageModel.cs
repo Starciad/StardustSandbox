@@ -24,7 +24,7 @@ namespace StardustSandbox.Core.Serialization.Common.Progress.StorageModels
 {
     internal sealed class AchievementStorageModel : IStorageModel
     {
-        internal Dictionary<AchievementIndex, bool> AchievementStatuses { get; set; }
+        internal Dictionary<AchievementIndex, bool> AchievementStatuses { get; set; } = [];
 
         public bool IsUnlocked(AchievementIndex index)
         {

@@ -90,7 +90,7 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds
 
         private void Serializer(Stream stream, IData data)
         {
-            MessagePackSerializer.Serialize(stream, data, this.options);
+            MessagePackSerializer.Serialize(data.GetType(), stream, data, this.options);
         }
 
         internal WorldSerializer(ActorManager actorManager, GraphicsDeviceManager graphicsDeviceManager, World world) : base()

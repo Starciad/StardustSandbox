@@ -60,43 +60,10 @@ namespace StardustSandbox.Core.Serialization.Common.Progress
 
         private readonly string versioningHeaderFilename = Path.Combine(IO.Directory.Progress, IOConstants.VERSIONING_HEADER_FILE);
         private readonly SchemaSerializer schemaSerializer;
-
-        private IData Deserializer(Stream stream, Type versionType)
-        {
-            return (IData)MessagePackSerializer.Deserialize(versionType, stream, this.options);
-        }
-
-        private void Serializer(Stream stream, IData data)
-        {
-            MessagePackSerializer.Serialize(stream, data, this.options);
-        }
-
-        private void WriteVersioningHeader()
-        {
-            using FileStream stream = new(this.versioningHeaderFilename, FileMode.Create, FileAccess.Write, FileShare.None);
-
-            VersioningHeader versioningHeader = new();
-            versioningHeader.SetVersion(IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_ID, IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_VERSION);
-            versioningHeader.Serialize(stream);
-        }
-
-        private VersioningHeader ReadVersioningHeader()
-        {
-            using FileStream stream = new(this.versioningHeaderFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
-
-            VersioningHeader versioningHeader = new();
-            versioningHeader.Deserialize(stream);
-
-            return versioningHeader;
-        }
-
+        
         internal ProgressSerializer()
         {
-            // Serializer
             this.schemaSerializer = new(Deserializer, Serializer);
-
-            // Write the versioning header if it doesn't exist
-            WriteVersioningHeader();
 
             #region Mappers
 
@@ -137,6 +104,84 @@ namespace StardustSandbox.Core.Serialization.Common.Progress
             this.storageModelCache = [];
 
             #endregion
+
+            // Check if the versioning header exists, if not, delete all
+            // component files and save a new versioning header.
+            if (!VersioningHeaderExists())
+            {
+                DeleteComponents();
+                InitializeComponents();
+                SaveVersioningHeader();
+            }
+        }
+
+        #region Versioning Header
+
+        private bool VersioningHeaderExists()
+        {
+            return File.Exists(this.versioningHeaderFilename);
+        }
+
+        private VersioningHeader LoadVersioningHeader()
+        {
+            using FileStream stream = new(this.versioningHeaderFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            VersioningHeader versioningHeader = new();
+            versioningHeader.Deserialize(stream);
+
+            return versioningHeader;
+        }
+
+        private void SaveVersioningHeader()
+        {
+            using FileStream stream = new(this.versioningHeaderFilename, FileMode.Create, FileAccess.Write, FileShare.None);
+
+            VersioningHeader versioningHeader = new();
+            versioningHeader.SetVersion(IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_ID, IOConstants.PROGRESS_ACHIEVEMENT_COMPONENT_VERSION);
+            versioningHeader.Serialize(stream);
+        }
+
+        private void DeleteComponents()
+        {
+            foreach (string filename in this.componentFilenamesByType.Values)
+            {
+                File.Delete(Path.Combine(IO.Directory.Progress, filename));
+            }
+        }
+
+        private void InitializeComponents()
+        {
+            Initialize<AchievementStorageModel>();
+        }
+
+        #endregion
+
+        #region Serialization
+
+        private IData Deserializer(Stream stream, Type versionType)
+        {
+            return (IData)MessagePackSerializer.Deserialize(versionType, stream, this.options);
+        }
+
+        private void Serializer(Stream stream, IData data)
+        {
+            MessagePackSerializer.Serialize(data.GetType(), stream, data, this.options);
+        }
+
+        #endregion
+
+        private void Initialize<TStorageModel>() where TStorageModel : IStorageModel, new()
+        {
+            Type storageModelType = typeof(TStorageModel);
+
+            if (this.storageModelCache.ContainsKey(storageModelType))
+            {
+                return;
+            }
+
+            TStorageModel newModel = new();
+            this.storageModelCache[storageModelType] = newModel;
+            Save(newModel);
         }
 
         internal TStorageModel Load<TStorageModel>() where TStorageModel : IStorageModel
@@ -152,7 +197,7 @@ namespace StardustSandbox.Core.Serialization.Common.Progress
             int targetVersion = this.componentVersionsByType[storageModelType];
 
             ComponentSchema schema = this.componentSchemasByType[storageModelType];
-            VersioningHeader versioningHeader = ReadVersioningHeader();
+            VersioningHeader versioningHeader = LoadVersioningHeader();
 
             if (!versioningHeader.TryGetVersion(schema.Identifier, out int sourceVersion))
             {

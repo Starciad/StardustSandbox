@@ -38,7 +38,7 @@ namespace StardustSandbox.Core.Serialization.Common.Settings.Data.V1
         [XmlElement("PreviewAreaColorG", typeof(byte))]
         public byte PreviewAreaColorG { get; set; }
 
-        [XmlElement("PreviewAreaColorA", typeof(float))]
+        [XmlElement("PreviewAreaColorA", typeof(byte))]
         public byte PreviewAreaColorA { get; set; }
 
         [XmlElement("PreviewAreaColorR", typeof(byte))]

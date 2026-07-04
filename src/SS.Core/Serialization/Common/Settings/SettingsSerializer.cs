@@ -80,51 +80,9 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
         private readonly string versioningHeaderFilename = Path.Combine(IO.Directory.Settings, IOConstants.VERSIONING_HEADER_FILE);
         private readonly SchemaSerializer schemaSerializer;
 
-        private void WriteVersioningHeader()
-        {
-            using FileStream stream = new(this.versioningHeaderFilename, FileMode.Create, FileAccess.Write, FileShare.None);
-
-            VersioningHeader versioningHeader = new();
-            versioningHeader.SetVersion(IOConstants.SETTINGS_CONTROL_COMPONENT_ID, IOConstants.SETTINGS_CONTROL_COMPONENT_VERSION);
-            versioningHeader.SetVersion(IOConstants.SETTINGS_CURSOR_COMPONENT_ID, IOConstants.SETTINGS_CURSOR_COMPONENT_VERSION);
-            versioningHeader.SetVersion(IOConstants.SETTINGS_GAMEPLAY_COMPONENT_ID, IOConstants.SETTINGS_GAMEPLAY_COMPONENT_VERSION);
-            versioningHeader.SetVersion(IOConstants.SETTINGS_GENERAL_COMPONENT_ID, IOConstants.SETTINGS_GENERAL_COMPONENT_VERSION);
-            versioningHeader.SetVersion(IOConstants.SETTINGS_INTERFACE_COMPONENT_ID, IOConstants.SETTINGS_INTERFACE_COMPONENT_VERSION);
-            versioningHeader.SetVersion(IOConstants.SETTINGS_VIDEO_COMPONENT_ID, IOConstants.SETTINGS_VIDEO_COMPONENT_VERSION);
-            versioningHeader.SetVersion(IOConstants.SETTINGS_VOLUME_COMPONENT_ID, IOConstants.SETTINGS_VOLUME_COMPONENT_VERSION);
-            versioningHeader.Serialize(stream);
-        }
-
-        private VersioningHeader ReadVersioningHeader()
-        {
-            using FileStream stream = new(this.versioningHeaderFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
-
-            VersioningHeader versioningHeader = new();
-            versioningHeader.Deserialize(stream);
-
-            return versioningHeader;
-        }
-
-        private IData Deserializer(Stream stream, Type versionType)
-        {
-            using XmlReader reader = XmlReader.Create(stream, this.readerSettings);
-
-            XmlSerializer serializer = new(versionType);
-            return (IData)serializer.Deserialize(reader);
-        }
-
-        private void Serializer(Stream stream, IData data)
-        {
-            using XmlWriter writer = XmlWriter.Create(stream, this.writerSettings);
-
-            XmlSerializer serializer = new(data.GetType());
-            serializer.Serialize(writer, data);
-        }
-
         internal SettingsSerializer()
         {
             this.schemaSerializer = new(Deserializer, Serializer);
-            WriteVersioningHeader();
 
             #region Mappers
 
@@ -243,6 +201,102 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
             this.storageModelCache = [];
 
             #endregion
+
+            // Ensure the versioning header exists, if not, delete component
+            // files and create a new versioning header.
+            if (!VersioningHeaderExists())
+            {
+                DeleteComponents();
+                InitializeComponents();
+                SaveVersioningHeader();
+            }
+        }
+
+        #region Versioning Header
+
+        private bool VersioningHeaderExists()
+        {
+            return File.Exists(this.versioningHeaderFilename);
+        }
+
+        private void SaveVersioningHeader()
+        {
+            using FileStream stream = new(this.versioningHeaderFilename, FileMode.Create, FileAccess.Write, FileShare.None);
+
+            VersioningHeader versioningHeader = new();
+            versioningHeader.SetVersion(IOConstants.SETTINGS_CONTROL_COMPONENT_ID, IOConstants.SETTINGS_CONTROL_COMPONENT_VERSION);
+            versioningHeader.SetVersion(IOConstants.SETTINGS_CURSOR_COMPONENT_ID, IOConstants.SETTINGS_CURSOR_COMPONENT_VERSION);
+            versioningHeader.SetVersion(IOConstants.SETTINGS_GAMEPLAY_COMPONENT_ID, IOConstants.SETTINGS_GAMEPLAY_COMPONENT_VERSION);
+            versioningHeader.SetVersion(IOConstants.SETTINGS_GENERAL_COMPONENT_ID, IOConstants.SETTINGS_GENERAL_COMPONENT_VERSION);
+            versioningHeader.SetVersion(IOConstants.SETTINGS_INTERFACE_COMPONENT_ID, IOConstants.SETTINGS_INTERFACE_COMPONENT_VERSION);
+            versioningHeader.SetVersion(IOConstants.SETTINGS_VIDEO_COMPONENT_ID, IOConstants.SETTINGS_VIDEO_COMPONENT_VERSION);
+            versioningHeader.SetVersion(IOConstants.SETTINGS_VOLUME_COMPONENT_ID, IOConstants.SETTINGS_VOLUME_COMPONENT_VERSION);
+            versioningHeader.Serialize(stream);
+        }
+
+        private VersioningHeader LoadVersioningHeader()
+        {
+            using FileStream stream = new(this.versioningHeaderFilename, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            VersioningHeader versioningHeader = new();
+            versioningHeader.Deserialize(stream);
+
+            return versioningHeader;
+        }
+
+        private void DeleteComponents()
+        {
+            foreach (string filename in this.componentFilenamesByType.Values)
+            {
+                File.Delete(Path.Combine(IO.Directory.Settings, filename));
+            }
+        }
+
+        private void InitializeComponents()
+        {
+            Initialize<ControlStorageModel>();
+            Initialize<CursorStorageModel>();
+            Initialize<GameplayStorageModel>();
+            Initialize<GeneralStorageModel>();
+            Initialize<InterfaceStorageModel>();
+            Initialize<VideoStorageModel>();
+            Initialize<VolumeStorageModel>();
+        }
+
+        #endregion
+
+        #region Serialization
+
+        private IData Deserializer(Stream stream, Type versionType)
+        {
+            using XmlReader reader = XmlReader.Create(stream, this.readerSettings);
+
+            XmlSerializer serializer = new(versionType);
+            return (IData)serializer.Deserialize(reader);
+        }
+
+        private void Serializer(Stream stream, IData data)
+        {
+            using XmlWriter writer = XmlWriter.Create(stream, this.writerSettings);
+
+            XmlSerializer serializer = new(data.GetType());
+            serializer.Serialize(writer, data);
+        }
+
+        #endregion
+
+        private void Initialize<TStorageModel>() where TStorageModel : IStorageModel, new()
+        {
+            Type storageModelType = typeof(TStorageModel);
+
+            if (this.storageModelCache.ContainsKey(storageModelType))
+            {
+                return;
+            }
+
+            TStorageModel newModel = new();
+            this.storageModelCache[storageModelType] = newModel;
+            Save(newModel);
         }
 
         internal TStorageModel Load<TStorageModel>() where TStorageModel : IStorageModel
@@ -258,7 +312,7 @@ namespace StardustSandbox.Core.Serialization.Common.Settings
             int targetVersion = this.componentVersionsByType[storageModelType];
 
             ComponentSchema schema = this.componentSchemasByType[storageModelType];
-            VersioningHeader versioningHeader = ReadVersioningHeader();
+            VersioningHeader versioningHeader = LoadVersioningHeader();
 
             if (!versioningHeader.TryGetVersion(schema.Identifier, out int sourceVersion))
             {

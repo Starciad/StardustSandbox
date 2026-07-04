@@ -116,8 +116,8 @@ namespace StardustSandbox.Core
 
             this.controlSettings = this.settingsSerializer.Load<ControlStorageModel>();
             this.cursorSettings = this.settingsSerializer.Load<CursorStorageModel>();
-            this.generalSettings = this.settingsSerializer.Load<GeneralStorageModel>();
             this.gameplaySettings = this.settingsSerializer.Load<GameplayStorageModel>();
+            this.generalSettings = this.settingsSerializer.Load<GeneralStorageModel>();
             this.videoSettings = this.settingsSerializer.Load<VideoStorageModel>();
             this.volumeSettings = this.settingsSerializer.Load<VolumeStorageModel>();
 
