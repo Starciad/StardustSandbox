@@ -311,7 +311,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
         {
             value = null;
 
-            if (!IsWithinBounds(position) || !HasElement(position, layer) || !this[position].HasElement(layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -324,7 +324,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
         {
             index = ElementIndex.None;
 
-            if (!IsWithinBounds(position) || !HasElement(position, layer) || !this[position].HasElement(layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
@@ -403,7 +403,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
         {
             value = null;
 
-            if (!IsWithinBounds(position) || !HasElement(position, layer) || !this[position].HasStoredElement(layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer) || !HasStoredElement(position, layer))
             {
                 return false;
             }
@@ -452,7 +452,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
         internal bool TryInstantiate(Point position, Layer layer, ElementIndex index)
         {
-            if (!IsWithinBounds(position) || !HasElement(position, layer))
+            if (!IsWithinBounds(position) || HasElement(position, layer))
             {
                 return false;
             }
@@ -600,8 +600,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
         {
             if (!IsWithinBounds(element1Position) ||
                 !IsWithinBounds(element2Position) ||
-                !HasElement(element1Position, layer) ||
-                !HasElement(element2Position, layer) ||
+                (!HasElement(element1Position, layer) && !HasElement(element2Position, layer)) ||
                 element1Position == element2Position)
             {
                 return false;
@@ -628,8 +627,8 @@ namespace StardustSandbox.Core.WorldSystem.Components
         {
             if (!IsWithinBounds(oldPosition) ||
                 !IsWithinBounds(newPosition) ||
-                 !HasElement(oldPosition, layer) ||
-                !!HasElement(newPosition, layer) ||
+                !HasElement(oldPosition, layer) ||
+                 HasElement(newPosition, layer) ||
                 oldPosition == newPosition)
             {
                 return false;
