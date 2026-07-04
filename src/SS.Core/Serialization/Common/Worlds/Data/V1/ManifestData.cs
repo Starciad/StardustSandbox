@@ -28,13 +28,13 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.Data.V1
     public sealed class ManifestData : IData
     {
         [Key(0)]
-        public string Name { get; set; }
-
-        [Key(1)]
         public string Description { get; set; }
 
-        [Key(2)]
+        [Key(1)]
         public DateTime CreationTimestamp { get; set; }
+
+        [Key(2)]
+        public string Name { get; set; }
 
         [Key(3)]
         public DateTime LastModifiedTimestamp { get; set; }

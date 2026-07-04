@@ -43,22 +43,22 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.Data.V1
         public byte ElementIndex { get; set; }
 
         [Key(5)]
-        public byte StepCycleFlag { get; set; }
+        public bool IsDissipating { get; set; }
 
         [Key(6)]
-        public byte StoredElementIndex { get; set; }
-
-        [Key(7)]
-        public float Temperature { get; set; }
-
-        [Key(8)]
         public bool IsFalling { get; set; }
 
+        [Key(7)]
+        public byte StepCycleFlag { get; set; }
+
+        [Key(8)]
+        public byte StoredElementIndex { get; set; }
+
         [Key(9)]
-        public bool WasPushed { get; set; }
+        public float Temperature { get; set; }
 
         [Key(10)]
-        public bool IsDissipating { get; set; }
+        public bool WasPushed { get; set; }
     }
 }
 

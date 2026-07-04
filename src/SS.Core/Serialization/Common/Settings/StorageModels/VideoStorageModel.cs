@@ -25,11 +25,11 @@ namespace StardustSandbox.Core.Serialization.Common.Settings.StorageModels
 {
     public sealed class VideoStorageModel : IStorageModel
     {
-        public float Framerate { get; set; }
-        public Point Resolution { get; set; }
-        public bool FullScreen { get; set; }
-        public bool VSync { get; set; }
         public bool Borderless { get; set; }
+        public float Framerate { get; set; }
+        public bool FullScreen { get; set; }
+        public Point Resolution { get; set; }
+        public bool VSync { get; set; }
 
         public VideoStorageModel()
         {

@@ -29,6 +29,6 @@ namespace StardustSandbox.Core.Serialization.Common.Progress.Data.V1
     public sealed class AchievementData : IData
     {
         [Key(0)]
-        public Dictionary<byte, bool> Datas { get; set; }
+        public Dictionary<byte, bool> AchievementStatuses { get; set; }
     }
 }

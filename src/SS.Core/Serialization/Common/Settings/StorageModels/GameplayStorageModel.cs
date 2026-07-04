@@ -24,12 +24,12 @@ namespace StardustSandbox.Core.Serialization.Common.Settings.StorageModels
 {
     public sealed class GameplayStorageModel : IStorageModel
     {
-        public bool ShowPreviewArea { get; set; }
+        public bool EnableSmoothCameraMovement { get; set; }
+        public byte GridOpacity { get; set; }
         public Color PreviewAreaColor { get; set; }
         public bool ShowGrid { get; set; }
-        public byte GridOpacity { get; set; }
+        public bool ShowPreviewArea { get; set; }
         public bool ShowTemperatureColorVariations { get; set; }
-        public bool EnableSmoothCameraMovement { get; set; }
 
         public GameplayStorageModel()
         {

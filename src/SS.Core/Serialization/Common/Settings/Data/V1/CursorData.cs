@@ -26,29 +26,29 @@ namespace StardustSandbox.Core.Serialization.Common.Settings.Data.V1
     [XmlRoot("CursorSettings")]
     public sealed class CursorData : IData
     {
-        [XmlElement("ForegroundColorR", typeof(byte))]
-        public byte ForegroundColorR { get; set; }
-
-        [XmlElement("ForegroundColorG", typeof(byte))]
-        public byte ForegroundColorG { get; set; }
-
-        [XmlElement("ForegroundColorB", typeof(byte))]
-        public byte ForegroundColorB { get; set; }
-
-        [XmlElement("ForegroundColorA", typeof(byte))]
-        public byte ForegroundColorA { get; set; }
-
-        [XmlElement("BackgroundColorR", typeof(byte))]
-        public byte BackgroundColorR { get; set; }
-
-        [XmlElement("BackgroundColorG", typeof(byte))]
-        public byte BackgroundColorG { get; set; }
+        [XmlElement("BackgroundColorA", typeof(byte))]
+        public byte BackgroundColorA { get; set; }
 
         [XmlElement("BackgroundColorB", typeof(byte))]
         public byte BackgroundColorB { get; set; }
 
-        [XmlElement("BackgroundColorA", typeof(byte))]
-        public byte BackgroundColorA { get; set; }
+        [XmlElement("BackgroundColorG", typeof(byte))]
+        public byte BackgroundColorG { get; set; }
+
+        [XmlElement("BackgroundColorR", typeof(byte))]
+        public byte BackgroundColorR { get; set; }
+
+        [XmlElement("ForegroundColorA", typeof(byte))]
+        public byte ForegroundColorA { get; set; }
+
+        [XmlElement("ForegroundColorB", typeof(byte))]
+        public byte ForegroundColorB { get; set; }
+
+        [XmlElement("ForegroundColorG", typeof(byte))]
+        public byte ForegroundColorG { get; set; }
+
+        [XmlElement("ForegroundColorR", typeof(byte))]
+        public byte ForegroundColorR { get; set; }
 
         [XmlElement("Scale", typeof(float))]
         public float Scale { get; set; }

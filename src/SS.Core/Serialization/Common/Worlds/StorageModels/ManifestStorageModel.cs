@@ -23,9 +23,9 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
 {
     internal sealed class ManifestStorageModel : IStorageModel
     {
-        internal string Name { get; set; }
         internal string Description { get; set; }
         internal DateTime CreationTimestamp { get; set; }
+        internal string Name { get; set; }
         internal DateTime LastModifiedTimestamp { get; set; }
     }
 }

@@ -24,28 +24,28 @@ namespace StardustSandbox.Core.Serialization.Common.Progress.StorageModels
 {
     internal sealed class AchievementStorageModel : IStorageModel
     {
-        internal Dictionary<AchievementIndex, bool> Datas { get; set; }
+        internal Dictionary<AchievementIndex, bool> AchievementStatuses { get; set; }
 
         public bool IsUnlocked(AchievementIndex index)
         {
-            return this.Datas[index];
+            return this.AchievementStatuses[index];
         }
 
         public void Unlock(AchievementIndex index)
         {
-            this.Datas[index] = true;
+            this.AchievementStatuses[index] = true;
         }
 
         public void Lock(AchievementIndex index)
         {
-            this.Datas[index] = false;
+            this.AchievementStatuses[index] = false;
         }
 
         public uint GetUnlockedCount()
         {
             uint count = 0;
 
-            foreach (bool value in this.Datas.Values)
+            foreach (bool value in this.AchievementStatuses.Values)
             {
                 if (value)
                 {

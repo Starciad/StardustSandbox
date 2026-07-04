@@ -29,12 +29,12 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
     {
         internal Color ColorModifier { get; set; }
         internal ElementIndex ElementIndex { get; set; }
+        internal bool IsDissipating { get; set; }
+        internal bool IsFalling { get; set; }
         internal UpdateCycleFlag StepCycleFlag { get; set; }
         internal ElementIndex StoredElementIndex { get; set; }
         internal float Temperature { get; set; }
-        internal bool IsFalling { get; set; }
         internal bool WasPushed { get; set; }
-        internal bool IsDissipating { get; set; }
 
         internal SlotLayerStorageModel()
         {

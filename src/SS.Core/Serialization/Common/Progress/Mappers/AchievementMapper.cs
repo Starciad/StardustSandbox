@@ -28,33 +28,33 @@ namespace StardustSandbox.Core.Serialization.Common.Progress.Mappers
     {
         public IData ToData(IStorageModel value)
         {
-            AchievementStorageModel achievementStorageModel = (AchievementStorageModel)value;
-            Dictionary<byte, bool> datas = [];
+            AchievementStorageModel storageModel = (AchievementStorageModel)value;
+            Dictionary<byte, bool> statuses = [];
 
-            foreach (KeyValuePair<AchievementIndex, bool> pair in achievementStorageModel.Datas)
+            foreach (KeyValuePair<AchievementIndex, bool> pair in storageModel.AchievementStatuses)
             {
-                datas.Add((byte)pair.Key, pair.Value);
+                statuses.Add((byte)pair.Key, pair.Value);
             }
 
             return new AchievementData()
             {
-                Datas = datas
+                AchievementStatuses = statuses
             };
         }
 
         public IStorageModel ToStorageModel(IData value)
         {
-            AchievementData achievementData = (AchievementData)value;
-            Dictionary<AchievementIndex, bool> datas = [];
+            AchievementData data = (AchievementData)value;
+            Dictionary<AchievementIndex, bool> statuses = [];
 
-            foreach (KeyValuePair<byte, bool> pair in achievementData.Datas)
+            foreach (KeyValuePair<byte, bool> pair in data.AchievementStatuses)
             {
-                datas.Add((AchievementIndex)pair.Key, pair.Value);
+                statuses.Add((AchievementIndex)pair.Key, pair.Value);
             }
 
             return new AchievementStorageModel()
             {
-                Datas = datas
+                AchievementStatuses = statuses
             };
         }
     }
