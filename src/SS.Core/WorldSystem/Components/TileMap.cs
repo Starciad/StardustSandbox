@@ -428,7 +428,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
         {
             value = false;
 
-            if (!IsWithinBounds(position) || !HasElement(position, layer))
+            if (!IsWithinBounds(position))
             {
                 return false;
             }
@@ -441,7 +441,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
         {
             value = false;
 
-            if (!IsWithinBounds(position) || !HasElement(position, layer))
+            if (!IsWithinBounds(position))
             {
                 return false;
             }
@@ -452,7 +452,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
         internal bool TryInstantiate(Point position, Layer layer, ElementIndex index)
         {
-            if (!IsWithinBounds(position) || !!HasElement(position, layer))
+            if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
