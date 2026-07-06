@@ -63,13 +63,20 @@ namespace StardustSandbox.Core.Elements
             }
         }
 
+        #region UTILITIES
+
+        // All utility methods defined within each of the regions below are arranged
+        // alphabetically. For sets of methods with overloads, the organization consists
+        // of grouping them in descending order based on the number of parameters.
+        // Finally, methods following the Try-Catch pattern must always appear first,
+        // followed by standard methods.
+
         #region WORLD
 
         internal Point GetWorldSize()
         {
             return this.tileMap.Size;
         }
-
         internal Temperature GetWorldTemperature()
         {
             return this.world.Temperature;
@@ -80,60 +87,6 @@ namespace StardustSandbox.Core.Elements
         #region ELEMENTS
 
         #region Try Methods
-
-        internal bool TrySetPosition(Point newPosition, Layer layer)
-        {
-            if (this.tileMap.TryUpdatePosition(this.position, newPosition, layer))
-            {
-                this.slot = GetSlot(newPosition);
-                return true;
-            }
-
-            return false;
-        }
-        internal bool TrySetPosition(Point newPosition)
-        {
-            return TrySetPosition(newPosition, this.layer);
-        }
-
-        internal bool TryInstantiate(Point position, Layer layer, ElementIndex index)
-        {
-            return this.tileMap.TryInstantiate(position, layer, index);
-        }
-        internal bool TryInstantiate(Point position, ElementIndex index)
-        {
-            return TryInstantiate(position, this.layer, index);
-        }
-        internal bool TryInstantiate(ElementIndex index)
-        {
-            return TryInstantiate(this.position, index);
-        }
-
-        internal bool TryUpdatePosition(Point oldPosition, Point newPosition, Layer layer)
-        {
-            return this.tileMap.TryUpdatePosition(oldPosition, newPosition, layer);
-        }
-        internal bool TryUpdatePosition(Point oldPosition, Point newPosition)
-        {
-            return TryUpdatePosition(oldPosition, newPosition, this.layer);
-        }
-        internal bool TryUpdatePosition(Point newPosition)
-        {
-            return TryUpdatePosition(this.position, newPosition);
-        }
-
-        internal bool TrySwap(Point element1Position, Point element2Position, Layer layer)
-        {
-            return this.tileMap.TrySwap(element1Position, element2Position, layer);
-        }
-        internal bool TrySwap(Point element1Position, Point element2Position)
-        {
-            return TrySwap(element1Position, element2Position, this.layer);
-        }
-        internal bool TrySwap(Point targetPosition)
-        {
-            return TrySwap(this.position, targetPosition);
-        }
 
         internal bool TryDestroy(Point position, Layer layer)
         {
@@ -146,158 +99,6 @@ namespace StardustSandbox.Core.Elements
         internal bool TryDestroy()
         {
             return TryDestroy(this.position);
-        }
-
-        internal bool TryRemove(Point position, Layer layer)
-        {
-            return this.tileMap.TryRemove(position, layer);
-        }
-        internal bool TryRemove(Point position)
-        {
-            return TryRemove(position, this.layer);
-        }
-        internal bool TryRemove()
-        {
-            return TryRemove(this.position);
-        }
-
-        internal bool TryReplace(Point position, Layer layer, ElementIndex index)
-        {
-            return this.tileMap.TryReplace(position, layer, index);
-        }
-        internal bool TryReplace(Point position, ElementIndex index)
-        {
-            return TryReplace(position, this.layer, index);
-        }
-        internal bool TryReplace(ElementIndex index)
-        {
-            return TryReplace(this.position, index);
-        }
-
-        internal bool TryGetElementIndex(Point position, Layer layer, out ElementIndex index)
-        {
-            return this.tileMap.TryGetElementIndex(position, layer, out index);
-        }
-        internal bool TryGetElementIndex(Point position, out ElementIndex index)
-        {
-            return TryGetElementIndex(position, this.layer, out index);
-        }
-        internal bool TryGetElementIndex(out ElementIndex index)
-        {
-            return TryGetElementIndex(this.position, out index);
-        }
-
-        internal bool TryGetElement(Point position, Layer layer, out Element element)
-        {
-            return this.tileMap.TryGetElement(position, layer, out element);
-        }
-        internal bool TryGetElement(Point position, out Element element)
-        {
-            return TryGetElement(position, this.layer, out element);
-        }
-        internal bool TryGetElement(out Element element)
-        {
-            return TryGetElement(this.position, out element);
-        }
-
-        internal bool TryGetSlot(Point position, out Slot value)
-        {
-            return this.tileMap.TryGetSlot(position, out value);
-        }
-        internal bool TryGetSlot(out Slot value)
-        {
-            return TryGetSlot(this.position, out value);
-        }
-
-        internal bool TrySetTemperature(Point position, Layer layer, float value)
-        {
-            return this.tileMap.TrySetTemperature(position, layer, value);
-        }
-        internal bool TrySetTemperature(Point position, float value)
-        {
-            return TrySetTemperature(position, this.layer, value);
-        }
-        internal bool TrySetTemperature(float value)
-        {
-            return TrySetTemperature(this.position, value);
-        }
-
-        internal bool TrySetColorModifier(Point position, Layer layer, Color value)
-        {
-            return this.tileMap.TrySetColorModifier(position, layer, value);
-        }
-        internal bool TrySetColorModifier(Point position, Color value)
-        {
-            return TrySetColorModifier(position, this.layer, value);
-        }
-        internal bool TrySetColorModifier(Color value)
-        {
-            return TrySetColorModifier(this.position, value);
-        }
-
-        internal bool TryHasElement(Point position, Layer layer, out bool value)
-        {
-            return this.tileMap.TryHasElement(position, layer, out value);
-        }
-        internal bool TryHasElement(Point position, out bool value)
-        {
-            return TryHasElement(position, this.layer, out value);
-        }
-        internal bool TryHasElement(out bool value)
-        {
-            return TryHasElement(this.position, out value);
-        }
-
-        internal bool TryHasStoredElement(Point position, Layer layer, out bool value)
-        {
-            return this.tileMap.TryHasStoredElement(position, layer, out value);
-        }
-        internal bool TryHasStoredElement(Point position, out bool value)
-        {
-            return TryHasStoredElement(position, this.layer, out value);
-        }
-        internal bool TryHasStoredElement(out bool value)
-        {
-            return TryHasStoredElement(this.position, out value);
-        }
-
-        internal bool TrySetStoredElementIndex(Point position, Layer layer, ElementIndex index)
-        {
-            return this.tileMap.TrySetStoredElementIndex(position, layer, index);
-        }
-        internal bool TrySetStoredElementIndex(Point position, ElementIndex index)
-        {
-            return TrySetStoredElementIndex(position, this.layer, index);
-        }
-        internal bool TrySetStoredElementIndex(ElementIndex index)
-        {
-            return TrySetStoredElementIndex(this.position, index);
-        }
-
-        internal bool TryGetStoredElementIndex(Point position, Layer layer, out ElementIndex index)
-        {
-            return this.tileMap.TryGetStoredElementIndex(position, layer, out index);
-        }
-        internal bool TryGetStoredElementIndex(Point position, out ElementIndex index)
-        {
-            return TryGetStoredElementIndex(position, this.layer, out index);
-        }
-        internal bool TryGetStoredElementIndex(out ElementIndex index)
-        {
-            return TryGetStoredElementIndex(this.position, out index);
-        }
-
-        internal bool TryGetStoredElement(Point position, Layer layer, out Element element)
-        {
-            return this.tileMap.TryGetStoredElement(position, layer, out element);
-        }
-        internal bool TryGetStoredElement(Point position, out Element element)
-        {
-            return TryGetStoredElement(position, this.layer, out element);
-        }
-        internal bool TryGetStoredElement(out Element element)
-        {
-            return TryGetStoredElement(this.position, out element);
         }
 
         internal bool TryGetColorModifier(Point position, Layer layer, out Color value)
@@ -326,6 +127,32 @@ namespace StardustSandbox.Core.Elements
             return TryGetDissipatingState(this.position, out value);
         }
 
+        internal bool TryGetElement(Point position, Layer layer, out Element element)
+        {
+            return this.tileMap.TryGetElement(position, layer, out element);
+        }
+        internal bool TryGetElement(Point position, out Element element)
+        {
+            return TryGetElement(position, this.layer, out element);
+        }
+        internal bool TryGetElement(out Element element)
+        {
+            return TryGetElement(this.position, out element);
+        }
+
+        internal bool TryGetElementIndex(Point position, Layer layer, out ElementIndex index)
+        {
+            return this.tileMap.TryGetElementIndex(position, layer, out index);
+        }
+        internal bool TryGetElementIndex(Point position, out ElementIndex index)
+        {
+            return TryGetElementIndex(position, this.layer, out index);
+        }
+        internal bool TryGetElementIndex(out ElementIndex index)
+        {
+            return TryGetElementIndex(this.position, out index);
+        }
+
         internal bool TryGetFallingState(Point position, Layer layer, out bool value)
         {
             return this.tileMap.TryGetFallingState(position, layer, out value);
@@ -352,6 +179,15 @@ namespace StardustSandbox.Core.Elements
             return TryGetPushedState(this.position, out value);
         }
 
+        internal bool TryGetSlot(Point position, out Slot value)
+        {
+            return this.tileMap.TryGetSlot(position, out value);
+        }
+        internal bool TryGetSlot(out Slot value)
+        {
+            return TryGetSlot(this.position, out value);
+        }
+
         internal bool TryGetStepCycleFlag(Point position, Layer layer, out UpdateCycleFlag value)
         {
             return this.tileMap.TryGetStepCycleFlag(position, layer, out value);
@@ -363,6 +199,123 @@ namespace StardustSandbox.Core.Elements
         internal bool TryGetStepCycleFlag(out UpdateCycleFlag value)
         {
             return TryGetStepCycleFlag(this.position, out value);
+        }
+
+        internal bool TryGetStoredElement(Point position, Layer layer, out Element element)
+        {
+            return this.tileMap.TryGetStoredElement(position, layer, out element);
+        }
+        internal bool TryGetStoredElement(Point position, out Element element)
+        {
+            return TryGetStoredElement(position, this.layer, out element);
+        }
+        internal bool TryGetStoredElement(out Element element)
+        {
+            return TryGetStoredElement(this.position, out element);
+        }
+
+        internal bool TryGetStoredElementIndex(Point position, Layer layer, out ElementIndex index)
+        {
+            return this.tileMap.TryGetStoredElementIndex(position, layer, out index);
+        }
+        internal bool TryGetStoredElementIndex(Point position, out ElementIndex index)
+        {
+            return TryGetStoredElementIndex(position, this.layer, out index);
+        }
+        internal bool TryGetStoredElementIndex(out ElementIndex index)
+        {
+            return TryGetStoredElementIndex(this.position, out index);
+        }
+
+        internal bool TryGetTemperature(Point position, Layer layer, out float value)
+        {
+            return this.tileMap.TryGetTemperature(position, layer, out value);
+        }
+        internal bool TryGetTemperature(Point position, out float value)
+        {
+            return TryGetTemperature(position, this.layer, out value);
+        }
+        internal bool TryGetTemperature(out float value)
+        {
+            return TryGetTemperature(this.position, out value);
+        }
+
+        internal bool TryHasElement(Point position, Layer layer, out bool value)
+        {
+            return this.tileMap.TryHasElement(position, layer, out value);
+        }
+        internal bool TryHasElement(Point position, out bool value)
+        {
+            return TryHasElement(position, this.layer, out value);
+        }
+        internal bool TryHasElement(out bool value)
+        {
+            return TryHasElement(this.position, out value);
+        }
+
+        internal bool TryHasStoredElement(Point position, Layer layer, out bool value)
+        {
+            return this.tileMap.TryHasStoredElement(position, layer, out value);
+        }
+        internal bool TryHasStoredElement(Point position, out bool value)
+        {
+            return TryHasStoredElement(position, this.layer, out value);
+        }
+        internal bool TryHasStoredElement(out bool value)
+        {
+            return TryHasStoredElement(this.position, out value);
+        }
+
+        internal bool TryInstantiate(Point position, Layer layer, ElementIndex index)
+        {
+            return this.tileMap.TryInstantiate(position, layer, index);
+        }
+        internal bool TryInstantiate(Point position, ElementIndex index)
+        {
+            return TryInstantiate(position, this.layer, index);
+        }
+        internal bool TryInstantiate(ElementIndex index)
+        {
+            return TryInstantiate(this.position, index);
+        }
+
+        internal bool TryRemove(Point position, Layer layer)
+        {
+            return this.tileMap.TryRemove(position, layer);
+        }
+        internal bool TryRemove(Point position)
+        {
+            return TryRemove(position, this.layer);
+        }
+        internal bool TryRemove()
+        {
+            return TryRemove(this.position);
+        }
+
+        internal bool TryReplace(Point position, Layer layer, ElementIndex index)
+        {
+            return this.tileMap.TryReplace(position, layer, index);
+        }
+        internal bool TryReplace(Point position, ElementIndex index)
+        {
+            return TryReplace(position, this.layer, index);
+        }
+        internal bool TryReplace(ElementIndex index)
+        {
+            return TryReplace(this.position, index);
+        }
+
+        internal bool TrySetColorModifier(Point position, Layer layer, Color value)
+        {
+            return this.tileMap.TrySetColorModifier(position, layer, value);
+        }
+        internal bool TrySetColorModifier(Point position, Color value)
+        {
+            return TrySetColorModifier(position, this.layer, value);
+        }
+        internal bool TrySetColorModifier(Color value)
+        {
+            return TrySetColorModifier(this.position, value);
         }
 
         internal bool TrySetDissipatingState(Point position, Layer layer, bool value)
@@ -404,6 +357,21 @@ namespace StardustSandbox.Core.Elements
             return TrySetFallingState(this.position, value);
         }
 
+        internal bool TrySetPosition(Point newPosition, Layer layer)
+        {
+            if (this.tileMap.TryUpdatePosition(this.position, newPosition, layer))
+            {
+                this.slot = GetSlot(newPosition);
+                return true;
+            }
+
+            return false;
+        }
+        internal bool TrySetPosition(Point newPosition)
+        {
+            return TrySetPosition(newPosition, this.layer);
+        }
+
         internal bool TrySetPushedState(Point position, Layer layer, bool value)
         {
             return this.tileMap.TrySetPushedState(position, layer, value);
@@ -430,70 +398,61 @@ namespace StardustSandbox.Core.Elements
             return TrySetStepCycleFlag(this.position, value);
         }
 
-        internal bool TryGetTemperature(Point position, Layer layer, out float value)
+        internal bool TrySetStoredElementIndex(Point position, Layer layer, ElementIndex index)
         {
-            return this.tileMap.TryGetTemperature(position, layer, out value);
+            return this.tileMap.TrySetStoredElementIndex(position, layer, index);
         }
-        internal bool TryGetTemperature(Point position, out float value)
+        internal bool TrySetStoredElementIndex(Point position, ElementIndex index)
         {
-            return TryGetTemperature(position, this.layer, out value);
+            return TrySetStoredElementIndex(position, this.layer, index);
         }
-        internal bool TryGetTemperature(out float value)
+        internal bool TrySetStoredElementIndex(ElementIndex index)
         {
-            return TryGetTemperature(this.position, out value);
+            return TrySetStoredElementIndex(this.position, index);
+        }
+
+        internal bool TrySetTemperature(Point position, Layer layer, float value)
+        {
+            return this.tileMap.TrySetTemperature(position, layer, value);
+        }
+        internal bool TrySetTemperature(Point position, float value)
+        {
+            return TrySetTemperature(position, this.layer, value);
+        }
+        internal bool TrySetTemperature(float value)
+        {
+            return TrySetTemperature(this.position, value);
+        }
+
+        internal bool TrySwap(Point element1Position, Point element2Position, Layer layer)
+        {
+            return this.tileMap.TrySwap(element1Position, element2Position, layer);
+        }
+        internal bool TrySwap(Point element1Position, Point element2Position)
+        {
+            return TrySwap(element1Position, element2Position, this.layer);
+        }
+        internal bool TrySwap(Point targetPosition)
+        {
+            return TrySwap(this.position, targetPosition);
+        }
+
+        internal bool TryUpdatePosition(Point oldPosition, Point newPosition, Layer layer)
+        {
+            return this.tileMap.TryUpdatePosition(oldPosition, newPosition, layer);
+        }
+        internal bool TryUpdatePosition(Point oldPosition, Point newPosition)
+        {
+            return TryUpdatePosition(oldPosition, newPosition, this.layer);
+        }
+        internal bool TryUpdatePosition(Point newPosition)
+        {
+            return TryUpdatePosition(this.position, newPosition);
         }
 
         #endregion
 
-        #region Internal Methods
-
-        internal void SetPosition(Point newPosition, Layer layer)
-        {
-            _ = TrySetPosition(newPosition, layer);
-        }
-        internal void SetPosition(Point newPosition)
-        {
-            SetPosition(newPosition, this.layer);
-        }
-
-        internal void Instantiate(Point position, Layer layer, ElementIndex index)
-        {
-            this.tileMap.Instantiate(position, layer, index);
-        }
-        internal void Instantiate(Point position, ElementIndex index)
-        {
-            Instantiate(position, this.layer, index);
-        }
-        internal void Instantiate(ElementIndex index)
-        {
-            Instantiate(this.position, index);
-        }
-
-        internal void UpdatePosition(Point oldPosition, Point newPosition, Layer layer)
-        {
-            this.tileMap.UpdatePosition(oldPosition, newPosition, layer);
-        }
-        internal void UpdatePosition(Point oldPosition, Point newPosition)
-        {
-            UpdatePosition(oldPosition, newPosition, this.layer);
-        }
-        internal void UpdatePosition(Point newPosition)
-        {
-            UpdatePosition(this.position, newPosition);
-        }
-
-        internal void Swap(Point element1Position, Point element2Position, Layer layer)
-        {
-            this.tileMap.Swap(element1Position, element2Position, layer);
-        }
-        internal void Swap(Point element1Position, Point element2Position)
-        {
-            Swap(element1Position, element2Position, this.layer);
-        }
-        internal void Swap(Point targetPosition)
-        {
-            Swap(this.position, targetPosition);
-        }
+        #region Action Methods
 
         internal void Destroy(Point position, Layer layer)
         {
@@ -506,167 +465,6 @@ namespace StardustSandbox.Core.Elements
         internal void Destroy()
         {
             Destroy(this.position);
-        }
-
-        internal void Remove(Point position, Layer layer)
-        {
-            this.tileMap.Remove(position, layer);
-        }
-        internal void Remove(Point position)
-        {
-            Remove(position, this.layer);
-        }
-        internal void Remove()
-        {
-            Remove(this.position, this.layer);
-        }
-
-        internal void Replace(Point position, Layer layer, ElementIndex index)
-        {
-            this.tileMap.Replace(position, layer, index);
-        }
-        internal void Replace(Point position, ElementIndex index)
-        {
-            Replace(position, this.layer, index);
-        }
-        internal void Replace(ElementIndex index)
-        {
-            Replace(this.position, index);
-        }
-
-        internal void SetTemperature(Point position, Layer layer, float value)
-        {
-            this.tileMap.SetTemperature(position, layer, value);
-        }
-        internal void SetTemperature(Point position, float value)
-        {
-            SetTemperature(position, this.layer, value);
-        }
-        internal void SetTemperature(float value)
-        {
-            SetTemperature(this.position, value);
-        }
-
-        internal void SetColorModifier(Point position, Layer layer, Color value)
-        {
-            this.tileMap.SetColorModifier(position, layer, value);
-        }
-        internal void SetColorModifier(Point position, Color value)
-        {
-            SetColorModifier(position, this.layer, value);
-        }
-        internal void SetColorModifier(Color value)
-        {
-            SetColorModifier(this.position, value);
-        }
-
-        internal void SetStoredElementIndex(Point position, Layer layer, ElementIndex index)
-        {
-            this.tileMap.SetStoredElementIndex(position, layer, index);
-        }
-        internal void SetStoredElementIndex(Point position, ElementIndex index)
-        {
-            SetStoredElementIndex(position, this.layer, index);
-        }
-        internal void SetStoredElementIndex(ElementIndex index)
-        {
-            SetStoredElementIndex(this.position, index);
-        }
-
-        internal ElementIndex GetStoredElementIndex(Point position, Layer layer)
-        {
-            return this.tileMap.GetStoredElementIndex(position, layer);
-        }
-        internal ElementIndex GetStoredElementIndex(Point position)
-        {
-            return GetStoredElementIndex(position, this.layer);
-        }
-        internal ElementIndex GetStoredElementIndex()
-        {
-            return GetStoredElementIndex(this.position);
-        }
-
-        internal Element GetStoredElement(Point position, Layer layer)
-        {
-            return this.tileMap.GetStoredElement(position, layer);
-        }
-        internal Element GetStoredElement(Point position)
-        {
-            return GetStoredElement(position, this.layer);
-        }
-        internal Element GetStoredElement()
-        {
-            return GetStoredElement(this.position);
-        }
-
-        internal bool HasElement(Point position, Layer layer)
-        {
-            return this.tileMap.HasElement(position, layer);
-        }
-        internal bool HasElement(Point position)
-        {
-            return HasElement(position, this.layer);
-        }
-        internal bool HasElement()
-        {
-            return HasElement(this.position);
-        }
-
-        internal bool HasStoredElement(Point position, Layer layer)
-        {
-            return this.tileMap.HasStoredElement(position, layer);
-        }
-        internal bool HasStoredElement(Point position)
-        {
-            return HasStoredElement(position, this.layer);
-        }
-        internal bool HasStoredElement()
-        {
-            return HasStoredElement(this.position);
-        }
-
-        internal ElementIndex GetElementIndex(Point position, Layer layer)
-        {
-            return this.tileMap.GetElementIndex(position, layer);
-        }
-        internal ElementIndex GetElementIndex(Point position)
-        {
-            return GetElementIndex(position, this.layer);
-        }
-        internal ElementIndex GetElementIndex()
-        {
-            return GetElementIndex(this.position);
-        }
-
-        internal Element GetElement(Point position, Layer layer)
-        {
-            return this.tileMap.GetElement(position, layer);
-        }
-        internal Element GetElement(Point position)
-        {
-            return GetElement(position, this.layer);
-        }
-        internal Element GetElement()
-        {
-            return GetElement(this.position);
-        }
-
-        internal Slot GetSlot(Point position)
-        {
-            return this.tileMap.GetSlot(position);
-        }
-        internal Slot GetSlot()
-        {
-            return GetSlot(this.position);
-        }
-
-        internal ElementNeighbors GetNeighboringSlots(Point position)
-        {
-            return this.tileMap.GetNeighboringSlots(position);
-        }
-        internal ElementNeighbors GetNeighboringSlots()
-        {
-            return GetNeighboringSlots(this.position);
         }
 
         internal Color GetColorModifier(Point position, Layer layer)
@@ -695,6 +493,32 @@ namespace StardustSandbox.Core.Elements
             return GetDissipatingState(this.position, this.layer);
         }
 
+        internal Element GetElement(Point position, Layer layer)
+        {
+            return this.tileMap.GetElement(position, layer);
+        }
+        internal Element GetElement(Point position)
+        {
+            return GetElement(position, this.layer);
+        }
+        internal Element GetElement()
+        {
+            return GetElement(this.position);
+        }
+
+        internal ElementIndex GetElementIndex(Point position, Layer layer)
+        {
+            return this.tileMap.GetElementIndex(position, layer);
+        }
+        internal ElementIndex GetElementIndex(Point position)
+        {
+            return GetElementIndex(position, this.layer);
+        }
+        internal ElementIndex GetElementIndex()
+        {
+            return GetElementIndex(this.position);
+        }
+
         internal bool GetFallingState(Point position, Layer layer)
         {
             return this.tileMap.GetFallingState(position, layer);
@@ -706,6 +530,15 @@ namespace StardustSandbox.Core.Elements
         internal bool GetFallingState()
         {
             return GetFallingState(this.position, this.layer);
+        }
+
+        internal ElementNeighbors GetNeighboringSlots(Point position)
+        {
+            return this.tileMap.GetNeighboringSlots(position);
+        }
+        internal ElementNeighbors GetNeighboringSlots()
+        {
+            return GetNeighboringSlots(this.position);
         }
 
         internal bool GetPushedState(Point position, Layer layer)
@@ -721,6 +554,15 @@ namespace StardustSandbox.Core.Elements
             return GetPushedState(this.position, this.layer);
         }
 
+        internal Slot GetSlot(Point position)
+        {
+            return this.tileMap.GetSlot(position);
+        }
+        internal Slot GetSlot()
+        {
+            return GetSlot(this.position);
+        }
+
         internal UpdateCycleFlag GetStepCycleFlag(Point position, Layer layer)
         {
             return this.tileMap.GetStepCycleFlag(position, layer);
@@ -732,6 +574,135 @@ namespace StardustSandbox.Core.Elements
         internal UpdateCycleFlag GetStepCycleFlag()
         {
             return GetStepCycleFlag(this.position, this.layer);
+        }
+
+        internal Element GetStoredElement(Point position, Layer layer)
+        {
+            return this.tileMap.GetStoredElement(position, layer);
+        }
+        internal Element GetStoredElement(Point position)
+        {
+            return GetStoredElement(position, this.layer);
+        }
+        internal Element GetStoredElement()
+        {
+            return GetStoredElement(this.position);
+        }
+
+        internal ElementIndex GetStoredElementIndex(Point position, Layer layer)
+        {
+            return this.tileMap.GetStoredElementIndex(position, layer);
+        }
+        internal ElementIndex GetStoredElementIndex(Point position)
+        {
+            return GetStoredElementIndex(position, this.layer);
+        }
+        internal ElementIndex GetStoredElementIndex()
+        {
+            return GetStoredElementIndex(this.position);
+        }
+
+        internal float GetTemperature(Point position, Layer layer)
+        {
+            return this.tileMap.GetTemperature(position, layer);
+        }
+        internal float GetTemperature(Point position)
+        {
+            return GetTemperature(position, this.layer);
+        }
+        internal float GetTemperature()
+        {
+            return GetTemperature(this.position);
+        }
+
+        internal void Instantiate(Point position, Layer layer, ElementIndex index)
+        {
+            this.tileMap.Instantiate(position, layer, index);
+        }
+        internal void Instantiate(Point position, ElementIndex index)
+        {
+            Instantiate(position, this.layer, index);
+        }
+        internal void Instantiate(ElementIndex index)
+        {
+            Instantiate(this.position, index);
+        }
+
+        internal void Remove(Point position, Layer layer)
+        {
+            this.tileMap.Remove(position, layer);
+        }
+        internal void Remove(Point position)
+        {
+            Remove(position, this.layer);
+        }
+        internal void Remove()
+        {
+            Remove(this.position, this.layer);
+        }
+
+        internal void Replace(Point position, Layer layer, ElementIndex index)
+        {
+            this.tileMap.Replace(position, layer, index);
+        }
+        internal void Replace(Point position, ElementIndex index)
+        {
+            Replace(position, this.layer, index);
+        }
+        internal void Replace(ElementIndex index)
+        {
+            Replace(this.position, index);
+        }
+
+        internal bool HasElement(Point position, Layer layer)
+        {
+            return this.tileMap.HasElement(position, layer);
+        }
+        internal bool HasElement(Point position)
+        {
+            return HasElement(position, this.layer);
+        }
+        internal bool HasElement()
+        {
+            return HasElement(this.position);
+        }
+
+        internal bool HasStoredElement(Point position, Layer layer)
+        {
+            return this.tileMap.HasStoredElement(position, layer);
+        }
+        internal bool HasStoredElement(Point position)
+        {
+            return HasStoredElement(position, this.layer);
+        }
+        internal bool HasStoredElement()
+        {
+            return HasStoredElement(this.position);
+        }
+
+        internal void SetPosition(Point newPosition, Layer layer)
+        {
+            if (this.tileMap.TryUpdatePosition(this.position, newPosition, layer))
+            {
+                this.slot = GetSlot(newPosition);
+            }
+        }
+        internal void SetPosition(Point newPosition)
+        {
+            SetPosition(newPosition, this.layer);
+        }
+
+        internal void SetColorModifier(Point position, Layer layer, Color value)
+        {
+            this.tileMap.SetColorModifier(position, layer, value);
+        }
+        internal void SetColorModifier(Point position, Color value)
+        {
+            SetColorModifier(position, this.layer, value);
+        }
+        internal void SetColorModifier(Color value)
+        {
+            SetColorModifier(this.position, value);
         }
 
         internal void SetDissipatingState(Point position, Layer layer, bool value)
@@ -799,17 +770,56 @@ namespace StardustSandbox.Core.Elements
             SetStepCycleFlag(this.position, value);
         }
 
-        internal float GetTemperature(Point position, Layer layer)
+        internal void SetStoredElementIndex(Point position, Layer layer, ElementIndex index)
         {
-            return this.tileMap.GetTemperature(position, layer);
+            this.tileMap.SetStoredElementIndex(position, layer, index);
         }
-        internal float GetTemperature(Point position)
+        internal void SetStoredElementIndex(Point position, ElementIndex index)
         {
-            return GetTemperature(position, this.layer);
+            SetStoredElementIndex(position, this.layer, index);
         }
-        internal float GetTemperature()
+        internal void SetStoredElementIndex(ElementIndex index)
         {
-            return GetTemperature(this.position);
+            SetStoredElementIndex(this.position, index);
+        }
+
+        internal void SetTemperature(Point position, Layer layer, float value)
+        {
+            this.tileMap.SetTemperature(position, layer, value);
+        }
+        internal void SetTemperature(Point position, float value)
+        {
+            SetTemperature(position, this.layer, value);
+        }
+        internal void SetTemperature(float value)
+        {
+            SetTemperature(this.position, value);
+        }
+
+        internal void Swap(Point element1Position, Point element2Position, Layer layer)
+        {
+            this.tileMap.Swap(element1Position, element2Position, layer);
+        }
+        internal void Swap(Point element1Position, Point element2Position)
+        {
+            Swap(element1Position, element2Position, this.layer);
+        }
+        internal void Swap(Point targetPosition)
+        {
+            Swap(this.position, targetPosition);
+        }
+
+        internal void UpdatePosition(Point oldPosition, Point newPosition, Layer layer)
+        {
+            this.tileMap.UpdatePosition(oldPosition, newPosition, layer);
+        }
+        internal void UpdatePosition(Point oldPosition, Point newPosition)
+        {
+            UpdatePosition(oldPosition, newPosition, this.layer);
+        }
+        internal void UpdatePosition(Point newPosition)
+        {
+            UpdatePosition(this.position, newPosition);
         }
 
         #endregion
@@ -818,6 +828,10 @@ namespace StardustSandbox.Core.Elements
 
         #region CHUNKING
 
+        internal bool TryGetChunkUpdateState(Point position, out bool result)
+        {
+            return this.chunkHandler.TryGetChunkUpdateState(position, out result);
+        }
         internal bool TryNotifyChunk(Point position)
         {
             return this.chunkHandler.TryNotifyChunk(position);
@@ -827,6 +841,10 @@ namespace StardustSandbox.Core.Elements
             return TryNotifyChunk(this.position);
         }
 
+        internal bool GetChunkUpdateState(Point position)
+        {
+            return this.chunkHandler.GetChunkUpdateState(position);
+        }
         internal void NotifyChunk(Point position)
         {
             this.chunkHandler.NotifyChunk(position);
@@ -834,15 +852,6 @@ namespace StardustSandbox.Core.Elements
         internal void NotifyChunk()
         {
             NotifyChunk(this.position);
-        }
-
-        internal bool TryGetChunkUpdateState(Point position, out bool result)
-        {
-            return this.chunkHandler.TryGetChunkUpdateState(position, out result);
-        }
-        internal bool GetChunkUpdateState(Point position)
-        {
-            return this.chunkHandler.GetChunkUpdateState(position);
         }
 
         #endregion
@@ -874,6 +883,8 @@ namespace StardustSandbox.Core.Elements
         {
             Instantiate(this.position, explosionBuilder);
         }
+
+        #endregion
 
         #endregion
     }
