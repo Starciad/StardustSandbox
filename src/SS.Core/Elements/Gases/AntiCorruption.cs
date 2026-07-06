@@ -35,7 +35,7 @@ namespace StardustSandbox.Core.Elements.Gases
             this.IsPushable = true;
         }
 
-        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
+        private static void ProcessDissipation(ElementContext context)
         {
             if (context.HasStoredElement())
             {
@@ -47,8 +47,11 @@ namespace StardustSandbox.Core.Elements.Gases
 
                 context.SetDissipatingState(true);
             }
+        }
 
-            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
+        private static void PurifyNeighbors(ElementContext context, ElementNeighbors neighbors)
+        {
+            for (int i = 0; i < neighbors.Length; i++)
             {
                 if (!neighbors.HasNeighbor(i))
                 {
@@ -56,18 +59,23 @@ namespace StardustSandbox.Core.Elements.Gases
                 }
 
                 Slot slot = neighbors.GetSlot(i);
-                Layer layer = context.Layer;
 
-                if (!slot.HasElement(layer) &&
-                    slot.GetElementIndex(layer) is not ElementIndex.AntiCorruption &&
-                    slot.GetElement(layer).IsCorruption)
+                if (slot.HasElement(context.Layer) &&
+                    slot.GetElementIndex(context.Layer) is not ElementIndex.AntiCorruption &&
+                    slot.GetElement(context.Layer).IsCorruption)
                 {
-                    ElementIndex originalElementIndex = slot.GetStoredElementIndex(layer);
+                    ElementIndex originalElementIndex = slot.GetStoredElementIndex(context.Layer);
 
                     context.Replace(slot.Position, ElementIndex.AntiCorruption);
                     context.SetStoredElementIndex(slot.Position, context.Layer, originalElementIndex);
                 }
             }
+        }
+
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
+        {
+            ProcessDissipation(context);
+            PurifyNeighbors(context, neighbors);
         }
 
         protected override void OnStep(ElementContext context)

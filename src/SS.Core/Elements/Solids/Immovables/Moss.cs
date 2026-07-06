@@ -62,7 +62,7 @@ namespace StardustSandbox.Core.Elements.Solids.Immovables
             this.eligiblePositions.Clear();
             this.availablePositions.Clear();
 
-            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
+            for (int i = 0; i < neighbors.Length; i++)
             {
                 if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {

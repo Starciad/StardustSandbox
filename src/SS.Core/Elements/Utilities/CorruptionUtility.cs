@@ -52,7 +52,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             int count = 0;
             int corruptNeighboringElements = 0;
 
-            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
+            for (int i = 0; i < neighbors.Length; i++)
             {
                 if (!neighbors.IsNeighborLayerOccupied(i, layer))
                 {
@@ -120,7 +120,7 @@ namespace StardustSandbox.Core.Elements.Utilities
                 }
             }
 
-            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
+            for (int i = 0; i < neighbors.Length; i++)
             {
                 if (!neighbors.HasNeighbor(i))
                 {

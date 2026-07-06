@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework;
 using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Indexers;
+using StardustSandbox.Core.Enums.World;
 using StardustSandbox.Core.Explosions;
 using StardustSandbox.Core.WorldSystem.Slots;
 
@@ -27,7 +28,7 @@ namespace StardustSandbox.Core.Elements.Energies
 {
     internal sealed class LightningBody : Energy
     {
-        private static readonly ExplosionBuilder explosionBuilder = new()
+        private readonly ExplosionBuilder explosionBuilder = new()
         {
             Radius = 2.0f,
             Power = 5.0f,
@@ -56,7 +57,7 @@ namespace StardustSandbox.Core.Elements.Energies
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
         {
-            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
+            for (int i = 0; i < neighbors.Length; i++)
             {
                 if (!neighbors.IsNeighborLayerOccupied(i, context.Layer))
                 {
@@ -94,7 +95,7 @@ namespace StardustSandbox.Core.Elements.Energies
                         break;
                 }
 
-                context.Instantiate(explosionBuilder);
+                context.Instantiate(this.explosionBuilder);
             }
         }
 

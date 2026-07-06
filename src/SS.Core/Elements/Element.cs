@@ -141,7 +141,7 @@ namespace StardustSandbox.Core.Elements
                 return 0.0f;
             }
 
-            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
+            for (int i = 0; i < neighbors.Length; i++)
             {
                 if (neighbors.HasNeighbor(i))
                 {

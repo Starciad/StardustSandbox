@@ -79,7 +79,7 @@ namespace StardustSandbox.Core.Elements.Utilities
             Func<Point, Point, bool> isBehind
         )
         {
-            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
+            for (int i = 0; i < neighbors.Length; i++)
             {
                 ElementNeighborDirection direction = (ElementNeighborDirection)i;
 

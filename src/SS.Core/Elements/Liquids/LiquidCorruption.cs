@@ -31,6 +31,7 @@ namespace StardustSandbox.Core.Elements.Liquids
         internal LiquidCorruption(ElementIndex index, ElementCategory category, ElementRenderingType renderingType, Point textureOriginOffset, Color referenceColor, GameEvents gameEvents) : base(index, category, renderingType, textureOriginOffset, referenceColor, gameEvents)
         {
             this.BaseDensity = 1.05f;
+            this.BaseDispersionRate = 1;
             this.BaseExplosionResistance = 0.1f;
 
             this.HasNeighborInteractions = true;

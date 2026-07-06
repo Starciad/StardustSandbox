@@ -60,11 +60,10 @@ namespace StardustSandbox.Core.Elements.Gases
             if (Random.Chance(15))
             {
                 base.OnStep(context);
+                return;
             }
-            else
-            {
-                context.NotifyChunk();
-            }
+
+            context.NotifyChunk();
         }
     }
 }

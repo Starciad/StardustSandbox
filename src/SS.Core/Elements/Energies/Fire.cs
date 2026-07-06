@@ -76,32 +76,30 @@ namespace StardustSandbox.Core.Elements.Energies
         {
             int aroundElements = 0, burnedElements = 0;
 
-            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
+            void ProcessLayer(Slot slot, Layer layer)
+            {
+                if (!slot.HasElement(layer))
+                {
+                    return;
+                }
+
+                if (TryIgniteElement(context, slot, layer))
+                {
+                    burnedElements++;
+                }
+
+                aroundElements++;
+            }
+
+            for (int i = 0; i < neighbors.Length; i++)
             {
                 if (!neighbors.HasNeighbor(i))
                 {
                     continue;
                 }
 
-                if (!neighbors.GetSlot(i).HasElement(Layer.Foreground))
-                {
-                    if (TryIgniteElement(context, neighbors.GetSlot(i), Layer.Foreground))
-                    {
-                        burnedElements++;
-                    }
-
-                    aroundElements++;
-                }
-
-                if (!neighbors.GetSlot(i).HasElement(Layer.Background))
-                {
-                    if (TryIgniteElement(context, neighbors.GetSlot(i), Layer.Background))
-                    {
-                        burnedElements++;
-                    }
-
-                    aroundElements++;
-                }
+                ProcessLayer(neighbors.GetSlot(i), Layer.Foreground);
+                ProcessLayer(neighbors.GetSlot(i), Layer.Background);
             }
 
             this.GameEvents.Publish(new FireSpreadEvent(aroundElements, burnedElements));

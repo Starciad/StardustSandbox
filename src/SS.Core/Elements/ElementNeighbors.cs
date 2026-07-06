@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.World;
@@ -28,23 +27,19 @@ namespace StardustSandbox.Core.Elements
 {
     internal sealed class ElementNeighbors : IResettable
     {
+        internal int Length => this.slots.Length;
         internal int CountOccupied { get; private set; }
-        /*
-         * [0] Northwest
-         * [1] North
-         * [2] Northeast
-         * [3] West
-         * [4] East
-         * [5] Southwest
-         * [6] South
-         * [7] Southeast
-        */
-        private readonly Slot[] slots;
 
-        internal ElementNeighbors()
-        {
-            this.slots = new Slot[ElementConstants.NEIGHBORS_ARRAY_LENGTH];
-        }
+        // [0] Northwest
+        // [1] North
+        // [2] Northeast
+        // [3] West
+        // [4] East
+        // [5] Southwest
+        // [6] South
+        // [7] Southeast
+
+        private readonly Slot[] slots = new Slot[8];
 
         internal void SetNeighbor(int index, Slot slot)
         {
@@ -85,7 +80,7 @@ namespace StardustSandbox.Core.Elements
         {
             int count = 0;
 
-            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
+            for (int i = 0; i < this.slots.Length; i++)
             {
                 if (IsNeighborLayerOccupied(i, layer) && GetSlot(i).GetElementIndex(layer) == elementIndex)
                 {
@@ -118,7 +113,7 @@ namespace StardustSandbox.Core.Elements
 
         public void Reset()
         {
-            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
+            for (int i = 0; i < this.slots.Length; i++)
             {
                 this.slots[i] = null;
             }

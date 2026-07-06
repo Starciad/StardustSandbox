@@ -39,35 +39,38 @@ namespace StardustSandbox.Core.Elements.Energies
             this.IsElectrified = true;
         }
 
-        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
+        private static void UpdateDissipationOrFall(ElementContext context)
         {
+            // If electricity has a stored element, it means that it is being conducted.
             if (context.HasStoredElement())
             {
+                // If electricity is already dissipating, it will replace itself with the stored element.
                 if (context.GetDissipatingState())
                 {
                     context.Replace(context.GetStoredElementIndex());
                     return;
                 }
 
+                // If electricity is not dissipating, it will start to dissipate.
                 context.SetDissipatingState(true);
+                return;
             }
-            else
+
+            // If electricity has no stored element, it means that it is not being conducted.
+            // Then, it will fall until it finds a conductor or disappears.
+            Point belowPosition = new(context.Position.X + Random.Range(-1, 1), context.Position.Y + 1);
+
+            if (!context.TryUpdatePosition(belowPosition))
             {
-                // If electricity has no stored element, it means that it is not being conducted.
-                // Then, it will fall until it finds a conductor or disappears.
-
-                Point belowPosition = new(context.Position.X + Random.Range(-1, 1), context.Position.Y + 1);
-
-                if (!context.TryUpdatePosition(belowPosition))
-                {
-                    context.Destroy();
-                }
+                context.Destroy();
             }
+        }
 
+        private static void ElectrifyNeighbors(ElementContext context, ElementNeighbors neighbors)
+        {
             // Check if any neighbors own electrical wiring.
             // If so, you must create another element of electricity on the conductive surface.
-
-            for (int i = 0; i < ElementConstants.NEIGHBORS_ARRAY_LENGTH; i++)
+            for (int i = 0; i < neighbors.Length; i++)
             {
                 if (ElementNeighbors.IsDiagonalNeighbor(i) || !neighbors.HasNeighbor(i))
                 {
@@ -76,6 +79,12 @@ namespace StardustSandbox.Core.Elements.Energies
 
                 ElectricityUtility.Electrify(context, neighbors.GetNeighborPosition(i), context.Layer);
             }
+        }
+
+        protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)
+        {
+            UpdateDissipationOrFall(context);
+            ElectrifyNeighbors(context, neighbors);
         }
     }
 }
