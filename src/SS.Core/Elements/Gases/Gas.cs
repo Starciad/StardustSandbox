@@ -84,9 +84,12 @@ namespace StardustSandbox.Core.Elements.Gases
 
             Point targetPosition = availablePositions.GetRandomItem();
 
-            if (!context.HasElement(targetPosition))
+            // If the target position is empty, move the gas element to that position.
+            // If the target position is occupied by another gas or liquid element,
+            // swap the two elements.
+
+            if (context.TrySetPosition(targetPosition))
             {
-                context.SetPosition(targetPosition);
                 return;
             }
 

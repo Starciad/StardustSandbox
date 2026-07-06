@@ -59,14 +59,7 @@ namespace StardustSandbox.Core.Elements.Utilities
                     continue;
                 }
 
-                Element element = neighbors.GetSlot(i).GetElement(layer);
-
-                if (element == null)
-                {
-                    continue;
-                }
-
-                if (element.IsCorruption)
+                if (neighbors.GetSlot(i).GetElement(layer).IsCorruption)
                 {
                     corruptNeighboringElements++;
                 }
@@ -112,9 +105,14 @@ namespace StardustSandbox.Core.Elements.Utilities
         {
             targets.Clear();
 
-            void ProcessLayer(Slot slot, Layer layer, Element element)
+            void ProcessLayer(Slot slot, Layer layer)
             {
-                if (element.IsCorruptible)
+                if (!slot.HasElement(layer))
+                {
+                    return;
+                }
+
+                if (slot.GetElement(layer).IsCorruptible)
                 {
                     targets.Add(new(slot, layer));
                 }
@@ -127,15 +125,8 @@ namespace StardustSandbox.Core.Elements.Utilities
                     continue;
                 }
 
-                if (neighbors.GetSlot(i).HasElement(Layer.Foreground))
-                {
-                    ProcessLayer(neighbors.GetSlot(i), Layer.Foreground, neighbors.GetSlot(i).GetElement(Layer.Foreground));
-                }
-
-                if (neighbors.GetSlot(i).HasElement(Layer.Background))
-                {
-                    ProcessLayer(neighbors.GetSlot(i), Layer.Background, neighbors.GetSlot(i).GetElement(Layer.Background));
-                }
+                ProcessLayer(neighbors.GetSlot(i), Layer.Foreground);
+                ProcessLayer(neighbors.GetSlot(i), Layer.Background);
             }
 
             if (targets.Count == 0)
