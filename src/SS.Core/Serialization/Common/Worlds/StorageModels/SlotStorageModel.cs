@@ -43,7 +43,10 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
 
         internal SlotStorageModel()
         {
-
+            this.BackgroundLayer = new();
+            this.ForegroundLayer = new();
+            this.PositionX = 0;
+            this.PositionY = 0;
         }
 
         internal SlotStorageModel(Slot slot)
@@ -51,15 +54,13 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
             this.PositionX = slot.Position.X;
             this.PositionY = slot.Position.Y;
 
-            if (!slot.HasElement(Layer.Foreground))
+            SlotLayerStorageModel CreateLayerModel(Layer layer)
             {
-                this.ForegroundLayer = new(slot, Layer.Foreground);
+                return slot.HasElement(layer) ? new(slot, layer) : new();
             }
 
-            if (!slot.HasElement(Layer.Background))
-            {
-                this.BackgroundLayer = new(slot, Layer.Background);
-            }
+            this.ForegroundLayer = CreateLayerModel(Layer.Foreground);
+            this.BackgroundLayer = CreateLayerModel(Layer.Background);
         }
     }
 }

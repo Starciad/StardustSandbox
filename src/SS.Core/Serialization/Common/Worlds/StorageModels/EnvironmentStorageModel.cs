@@ -25,6 +25,12 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
     {
         internal TimeSpan CurrentTime { get; set; }
         internal bool IsFrozen { get; set; }
+
+        internal EnvironmentStorageModel()
+        {
+            this.CurrentTime = TimeSpan.Zero;
+            this.IsFrozen = false;
+        }
     }
 }
 

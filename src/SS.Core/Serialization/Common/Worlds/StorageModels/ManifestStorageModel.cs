@@ -27,6 +27,14 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
         internal DateTime CreationTimestamp { get; set; }
         internal string Name { get; set; }
         internal DateTime LastModifiedTimestamp { get; set; }
+
+        internal ManifestStorageModel()
+        {
+            this.Description = string.Empty;
+            this.CreationTimestamp = DateTime.UtcNow;
+            this.Name = string.Empty;
+            this.LastModifiedTimestamp = DateTime.UtcNow;
+        }
     }
 }
 

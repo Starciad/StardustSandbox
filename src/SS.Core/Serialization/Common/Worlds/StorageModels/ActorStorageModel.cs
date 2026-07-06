@@ -24,7 +24,13 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
 {
     internal sealed class ActorStorageModel : IStorageModel
     {
-        internal IReadOnlyDictionary<string, object> Content { get; set; }
+        internal Dictionary<string, object> Content { get; set; }
         internal ActorIndex Index { get; set; }
+
+        internal ActorStorageModel()
+        {
+            this.Content = [];
+            this.Index = ActorIndex.None;
+        }
     }
 }

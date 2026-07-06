@@ -27,12 +27,14 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
         internal int Height { get; set; }
         internal int Width { get; set; }
 
-        public ThumbnailStorageModel()
+        internal ThumbnailStorageModel()
         {
-
+            this.Data = [];
+            this.Height = 0;
+            this.Width = 0;
         }
 
-        public ThumbnailStorageModel(Texture2D texture2d)
+        internal ThumbnailStorageModel(Texture2D texture2d)
         {
             this.Width = texture2d.Width;
             this.Height = texture2d.Height;

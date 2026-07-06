@@ -25,6 +25,7 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
     {
         internal int Height { get; set; }
         internal int Width { get; set; }
+
         internal Point Size
         {
             get => new(this.Width, this.Height);
@@ -33,6 +34,12 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
                 this.Width = value.X;
                 this.Height = value.Y;
             }
+        }
+
+        internal PropertyStorageModel()
+        {
+            this.Height = 0;
+            this.Width = 0;
         }
     }
 }

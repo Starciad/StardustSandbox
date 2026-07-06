@@ -29,7 +29,7 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.Data.V1
     public sealed class ActorData : IData
     {
         [Key(0)]
-        public IReadOnlyDictionary<string, object> Content { get; set; }
+        public Dictionary<string, object> Content { get; set; }
 
         [Key(1)]
         public byte Index { get; set; }

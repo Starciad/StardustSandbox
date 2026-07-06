@@ -23,6 +23,12 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
     {
         internal ActorStorageModel[] Actors { get; set; }
         internal SlotStorageModel[] Slots { get; set; }
+
+        internal ContentStorageModel()
+        {
+            this.Actors = [];
+            this.Slots = [];
+        }
     }
 }
 

@@ -38,19 +38,26 @@ namespace StardustSandbox.Core.Serialization.Common.Worlds.StorageModels
 
         internal SlotLayerStorageModel()
         {
-
+            this.ColorModifier = Color.White;
+            this.ElementIndex = ElementIndex.None;
+            this.IsDissipating = false;
+            this.IsFalling = false;
+            this.StepCycleFlag = UpdateCycleFlag.None;
+            this.StoredElementIndex = ElementIndex.None;
+            this.Temperature = 0.0f;
+            this.WasPushed = false;
         }
 
         internal SlotLayerStorageModel(Slot slot, Layer layer)
         {
             this.ColorModifier = slot.GetColorModifier(layer);
             this.ElementIndex = slot.GetElementIndex(layer);
+            this.IsDissipating = slot.GetDissipatingState(layer);
+            this.IsFalling = slot.GetFallingState(layer);
             this.StepCycleFlag = slot.GetStepCycleFlag(layer);
             this.StoredElementIndex = slot.GetStoredElementIndex(layer);
             this.Temperature = slot.GetTemperature(layer);
-            this.IsFalling = slot.GetFallingState(layer);
             this.WasPushed = slot.GetPushedState(layer);
-            this.IsDissipating = slot.GetDissipatingState(layer);
         }
     }
 }
