@@ -48,6 +48,7 @@ namespace StardustSandbox.Core.Elements.Gases
                 return;
             }
 
+            context.NotifyChunk();
             base.OnStep(context);
         }
     }
