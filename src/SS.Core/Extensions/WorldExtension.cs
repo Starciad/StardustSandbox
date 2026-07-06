@@ -27,53 +27,52 @@ namespace StardustSandbox.Core.Extensions
 {
     internal static class WorldExtension
     {
+        private static Color GetElementColor(TileMap tileMap, Point worldPosition)
+        {
+            if (tileMap.HasElement(worldPosition, Layer.Foreground))
+            {
+                return tileMap.GetElement(worldPosition, Layer.Foreground).ReferenceColor.Vary(5);
+            }
+
+            return tileMap.GetElement(worldPosition, Layer.Background).ReferenceColor.Vary(5).Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
+        }
+
+        private static void SetThumbnailPixelColor(ref Color[] data, TileMap tileMap, Point position, Point thumbnailSize, Point pixelSpacing)
+        {
+            // Calculate world position from thumbnail position.
+            Point worldPosition = new(
+                position.X * pixelSpacing.X,
+                position.Y * pixelSpacing.Y
+            );
+
+            // Calculate index in the 1D array of the thumbnail.
+            int index = (position.Y * thumbnailSize.X) + position.X;
+
+            // If there are no elements in either layer at this world position,
+            // set the pixel color to a default background color.
+            if (!tileMap.HasElement(worldPosition, Layer.Foreground) &&
+                !tileMap.HasElement(worldPosition, Layer.Background))
+            {
+                data[index] = AAP64ColorPalette.Cerulean.Vary(5);
+                return;
+            }
+
+            data[index] = GetElementColor(tileMap, worldPosition);
+        }
+
         internal static Texture2D CreateThumbnail(this TileMap tileMap, GraphicsDevice graphicsDevice)
         {
-            // Thumbnail dimensions
-            int thumbnailWidth = WorldConstants.WORLD_THUMBNAIL_SIZE.X;
-            int thumbnailHeight = WorldConstants.WORLD_THUMBNAIL_SIZE.Y;
+            Point thumbnailSize = WorldConstants.WORLD_THUMBNAIL_SIZE;
+            Point pixelSpacing = new(tileMap.Width / thumbnailSize.X, tileMap.Height / thumbnailSize.Y);
 
-            // Scale factor for spacing
-            float pixelSpacingX = tileMap.Width / (float)thumbnailWidth;
-            float pixelSpacingY = tileMap.Height / (float)thumbnailHeight;
+            Texture2D thumbnailTexture = new(graphicsDevice, thumbnailSize.X, thumbnailSize.Y, false, SurfaceFormat.Color);
+            Color[] data = new Color[thumbnailSize.X * thumbnailSize.Y];
 
-            // Create texture for the thumbnail
-            Texture2D thumbnailTexture = new(graphicsDevice, thumbnailWidth, thumbnailHeight, false, SurfaceFormat.Color);
-            Color[] data = new Color[thumbnailWidth * thumbnailHeight];
-
-            for (int y = 0; y < thumbnailHeight; y++)
+            for (int y = 0; y < thumbnailSize.Y; y++)
             {
-                for (int x = 0; x < thumbnailWidth; x++)
+                for (int x = 0; x < thumbnailSize.X; x++)
                 {
-                    // Calculate world position from thumbnail position
-                    int worldX = (int)(x * pixelSpacingX);
-                    int worldY = (int)(y * pixelSpacingY);
-                    Point worldPosition = new(worldX, worldY);
-
-                    // Calculate index in the 1D array of the thumbnail
-                    int index = (y * thumbnailWidth) + x;
-
-                    // Determines color based on world element
-                    if (!tileMap.HasElement(worldPosition, Layer.Foreground) &&
-                        !tileMap.HasElement(worldPosition, Layer.Background))
-                    {
-                        // This color represents the thumbnail's background
-                        data[index] = AAP64ColorPalette.Cerulean.Vary(5);
-                        continue;
-                    }
-
-                    // This color represents the currently selected element
-                    if (!tileMap.HasElement(worldPosition, Layer.Foreground))
-                    {
-                        data[index] = tileMap.GetElement(worldPosition, Layer.Foreground).ReferenceColor.Vary(5);
-                        continue;
-                    }
-
-                    if (!tileMap.HasElement(worldPosition, Layer.Background))
-                    {
-                        data[index] = tileMap.GetElement(worldPosition, Layer.Background).ReferenceColor.Vary(5).Darken(WorldConstants.BACKGROUND_COLOR_DARKENING_FACTOR);
-                        continue;
-                    }
+                    SetThumbnailPixelColor(ref data, tileMap, new(x, y), thumbnailSize, pixelSpacing);
                 }
             }
 
