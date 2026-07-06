@@ -21,6 +21,7 @@ using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Enums.World;
+using StardustSandbox.Core.Randomness;
 using StardustSandbox.Core.WorldSystem.Slots;
 
 namespace StardustSandbox.Core.Elements.Gases
@@ -37,6 +38,12 @@ namespace StardustSandbox.Core.Elements.Gases
 
         private static void ProcessDissipation(ElementContext context)
         {
+            // If the AntiCorruption element has a stored element, it will check if
+            // it is in a dissipating state. If it is, it will replace itself with
+            // the stored element. If not, it will set itself to a dissipating state.
+            // If there is no stored element, there is a 5% chance that the AntiCorruption
+            // element will be destroyed. Otherwise, it will notify its chunk to update.
+
             if (context.HasStoredElement())
             {
                 if (context.GetDissipatingState())
@@ -46,7 +53,16 @@ namespace StardustSandbox.Core.Elements.Gases
                 }
 
                 context.SetDissipatingState(true);
+                return;
             }
+
+            if (Random.Chance(5))
+            {
+                context.Destroy();
+                return;
+            }
+
+            context.NotifyChunk();
         }
 
         private static void PurifyNeighbors(ElementContext context, ElementNeighbors neighbors)
