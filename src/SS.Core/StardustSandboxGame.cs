@@ -265,6 +265,7 @@ namespace StardustSandbox.Core
                 this.world,
                 this.worldSerializer
             );
+            this.toolDatabase.Load(this.gameEvents);
 
             // Managers
             this.cursorManager.Load();
