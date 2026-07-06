@@ -29,7 +29,7 @@ namespace StardustSandbox.Core.Elements.Liquids
             this.BaseFlammabilityResistance = 5.0f;
             this.BaseDensity = 0.92f;
             this.BaseExplosionResistance = 0.3f;
-
+            this.BaseDispersionRate = 1;
             this.HasNeighborInteractions = true;
             this.HasTemperature = true;
             this.IsFlammable = true;
