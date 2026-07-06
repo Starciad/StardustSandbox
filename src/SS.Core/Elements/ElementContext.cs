@@ -127,30 +127,30 @@ namespace StardustSandbox.Core.Elements
             return TryGetDissipatingState(this.position, out value);
         }
 
-        internal bool TryGetElement(Point position, Layer layer, out Element element)
+        internal bool TryGetElement(Point position, Layer layer, out Element value)
         {
-            return this.tileMap.TryGetElement(position, layer, out element);
+            return this.tileMap.TryGetElement(position, layer, out value);
         }
-        internal bool TryGetElement(Point position, out Element element)
+        internal bool TryGetElement(Point position, out Element value)
         {
-            return TryGetElement(position, this.layer, out element);
+            return TryGetElement(position, this.layer, out value);
         }
-        internal bool TryGetElement(out Element element)
+        internal bool TryGetElement(out Element value)
         {
-            return TryGetElement(this.position, out element);
+            return TryGetElement(this.position, out value);
         }
 
-        internal bool TryGetElementIndex(Point position, Layer layer, out ElementIndex index)
+        internal bool TryGetElementIndex(Point position, Layer layer, out ElementIndex value)
         {
-            return this.tileMap.TryGetElementIndex(position, layer, out index);
+            return this.tileMap.TryGetElementIndex(position, layer, out value);
         }
-        internal bool TryGetElementIndex(Point position, out ElementIndex index)
+        internal bool TryGetElementIndex(Point position, out ElementIndex value)
         {
-            return TryGetElementIndex(position, this.layer, out index);
+            return TryGetElementIndex(position, this.layer, out value);
         }
-        internal bool TryGetElementIndex(out ElementIndex index)
+        internal bool TryGetElementIndex(out ElementIndex value)
         {
-            return TryGetElementIndex(this.position, out index);
+            return TryGetElementIndex(this.position, out value);
         }
 
         internal bool TryGetFallingState(Point position, Layer layer, out bool value)
@@ -201,30 +201,30 @@ namespace StardustSandbox.Core.Elements
             return TryGetStepCycleFlag(this.position, out value);
         }
 
-        internal bool TryGetStoredElement(Point position, Layer layer, out Element element)
+        internal bool TryGetStoredElement(Point position, Layer layer, out Element value)
         {
-            return this.tileMap.TryGetStoredElement(position, layer, out element);
+            return this.tileMap.TryGetStoredElement(position, layer, out value);
         }
-        internal bool TryGetStoredElement(Point position, out Element element)
+        internal bool TryGetStoredElement(Point position, out Element value)
         {
-            return TryGetStoredElement(position, this.layer, out element);
+            return TryGetStoredElement(position, this.layer, out value);
         }
-        internal bool TryGetStoredElement(out Element element)
+        internal bool TryGetStoredElement(out Element value)
         {
-            return TryGetStoredElement(this.position, out element);
+            return TryGetStoredElement(this.position, out value);
         }
 
-        internal bool TryGetStoredElementIndex(Point position, Layer layer, out ElementIndex index)
+        internal bool TryGetStoredElementIndex(Point position, Layer layer, out ElementIndex value)
         {
-            return this.tileMap.TryGetStoredElementIndex(position, layer, out index);
+            return this.tileMap.TryGetStoredElementIndex(position, layer, out value);
         }
-        internal bool TryGetStoredElementIndex(Point position, out ElementIndex index)
+        internal bool TryGetStoredElementIndex(Point position, out ElementIndex value)
         {
-            return TryGetStoredElementIndex(position, this.layer, out index);
+            return TryGetStoredElementIndex(position, this.layer, out value);
         }
-        internal bool TryGetStoredElementIndex(out ElementIndex index)
+        internal bool TryGetStoredElementIndex(out ElementIndex value)
         {
-            return TryGetStoredElementIndex(this.position, out index);
+            return TryGetStoredElementIndex(this.position, out value);
         }
 
         internal bool TryGetTemperature(Point position, Layer layer, out float value)
@@ -266,17 +266,17 @@ namespace StardustSandbox.Core.Elements
             return TryHasStoredElement(this.position, out value);
         }
 
-        internal bool TryInstantiate(Point position, Layer layer, ElementIndex index)
+        internal bool TryInstantiate(Point position, Layer layer, ElementIndex value)
         {
-            return this.tileMap.TryInstantiate(position, layer, index);
+            return this.tileMap.TryInstantiate(position, layer, value);
         }
-        internal bool TryInstantiate(Point position, ElementIndex index)
+        internal bool TryInstantiate(Point position, ElementIndex value)
         {
-            return TryInstantiate(position, this.layer, index);
+            return TryInstantiate(position, this.layer, value);
         }
-        internal bool TryInstantiate(ElementIndex index)
+        internal bool TryInstantiate(ElementIndex value)
         {
-            return TryInstantiate(this.position, index);
+            return TryInstantiate(this.position, value);
         }
 
         internal bool TryRemove(Point position, Layer layer)
@@ -292,17 +292,17 @@ namespace StardustSandbox.Core.Elements
             return TryRemove(this.position);
         }
 
-        internal bool TryReplace(Point position, Layer layer, ElementIndex index)
+        internal bool TryReplace(Point position, Layer layer, ElementIndex value)
         {
-            return this.tileMap.TryReplace(position, layer, index);
+            return this.tileMap.TryReplace(position, layer, value);
         }
-        internal bool TryReplace(Point position, ElementIndex index)
+        internal bool TryReplace(Point position, ElementIndex value)
         {
-            return TryReplace(position, this.layer, index);
+            return TryReplace(position, this.layer, value);
         }
-        internal bool TryReplace(ElementIndex index)
+        internal bool TryReplace(ElementIndex value)
         {
-            return TryReplace(this.position, index);
+            return TryReplace(this.position, value);
         }
 
         internal bool TrySetColorModifier(Point position, Layer layer, Color value)
@@ -398,17 +398,17 @@ namespace StardustSandbox.Core.Elements
             return TrySetStepCycleFlag(this.position, value);
         }
 
-        internal bool TrySetStoredElementIndex(Point position, Layer layer, ElementIndex index)
+        internal bool TrySetStoredElementIndex(Point position, Layer layer, ElementIndex value)
         {
-            return this.tileMap.TrySetStoredElementIndex(position, layer, index);
+            return this.tileMap.TrySetStoredElementIndex(position, layer, value);
         }
-        internal bool TrySetStoredElementIndex(Point position, ElementIndex index)
+        internal bool TrySetStoredElementIndex(Point position, ElementIndex value)
         {
-            return TrySetStoredElementIndex(position, this.layer, index);
+            return TrySetStoredElementIndex(position, this.layer, value);
         }
-        internal bool TrySetStoredElementIndex(ElementIndex index)
+        internal bool TrySetStoredElementIndex(ElementIndex value)
         {
-            return TrySetStoredElementIndex(this.position, index);
+            return TrySetStoredElementIndex(this.position, value);
         }
 
         internal bool TrySetTemperature(Point position, Layer layer, float value)
@@ -424,13 +424,13 @@ namespace StardustSandbox.Core.Elements
             return TrySetTemperature(this.position, value);
         }
 
-        internal bool TrySwap(Point element1Position, Point element2Position, Layer layer)
+        internal bool TrySwap(Point position1, Point position2, Layer layer)
         {
-            return this.tileMap.TrySwap(element1Position, element2Position, layer);
+            return this.tileMap.TrySwap(position1, position2, layer);
         }
-        internal bool TrySwap(Point element1Position, Point element2Position)
+        internal bool TrySwap(Point position1, Point position2)
         {
-            return TrySwap(element1Position, element2Position, this.layer);
+            return TrySwap(position1, position2, this.layer);
         }
         internal bool TrySwap(Point targetPosition)
         {
@@ -796,13 +796,13 @@ namespace StardustSandbox.Core.Elements
             SetTemperature(this.position, value);
         }
 
-        internal void Swap(Point element1Position, Point element2Position, Layer layer)
+        internal void Swap(Point position1, Point position2, Layer layer)
         {
-            this.tileMap.Swap(element1Position, element2Position, layer);
+            this.tileMap.Swap(position1, position2, layer);
         }
-        internal void Swap(Point element1Position, Point element2Position)
+        internal void Swap(Point position1, Point position2)
         {
-            Swap(element1Position, element2Position, this.layer);
+            Swap(position1, position2, this.layer);
         }
         internal void Swap(Point targetPosition)
         {
@@ -828,9 +828,9 @@ namespace StardustSandbox.Core.Elements
 
         #region CHUNKING
 
-        internal bool TryGetChunkUpdateState(Point position, out bool result)
+        internal bool TryGetChunkUpdateState(Point position, out bool value)
         {
-            return this.chunkHandler.TryGetChunkUpdateState(position, out result);
+            return this.chunkHandler.TryGetChunkUpdateState(position, out value);
         }
         internal bool TryNotifyChunk(Point position)
         {

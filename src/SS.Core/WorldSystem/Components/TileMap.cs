@@ -320,16 +320,16 @@ namespace StardustSandbox.Core.WorldSystem.Components
             return true;
         }
 
-        internal bool TryGetElementIndex(Point position, Layer layer, out ElementIndex index)
+        internal bool TryGetElementIndex(Point position, Layer layer, out ElementIndex value)
         {
-            index = ElementIndex.None;
+            value = ElementIndex.None;
 
             if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
 
-            index = this[position].GetElementIndex(layer);
+            value = this[position].GetElementIndex(layer);
             return true;
         }
 
@@ -385,18 +385,17 @@ namespace StardustSandbox.Core.WorldSystem.Components
             return true;
         }
 
-        internal bool TryGetStoredElementIndex(Point position, Layer layer, out ElementIndex index)
+        internal bool TryGetStoredElementIndex(Point position, Layer layer, out ElementIndex value)
         {
-            index = ElementIndex.None;
+            value = ElementIndex.None;
 
             if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
 
-            index = this[position].GetStoredElementIndex(layer);
-
-            return index is not ElementIndex.None;
+            value = this[position].GetStoredElementIndex(layer);
+            return value is not ElementIndex.None;
         }
 
         internal bool TryGetStoredElement(Point position, Layer layer, out Element value)
@@ -414,7 +413,8 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
         internal bool TryGetTemperature(Point position, Layer layer, out float value)
         {
-            value = 0f;
+            value = 0.0f;
+
             if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
@@ -450,7 +450,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             return true;
         }
 
-        internal bool TryInstantiate(Point position, Layer layer, ElementIndex index)
+        internal bool TryInstantiate(Point position, Layer layer, ElementIndex value)
         {
             if (!IsWithinBounds(position) || HasElement(position, layer))
             {
@@ -458,13 +458,13 @@ namespace StardustSandbox.Core.WorldSystem.Components
             }
 
             Slot slot = this[position];
-            Element element = this.elementDatabase.GetElement(index);
+            Element element = this.elementDatabase.GetElement(value);
 
             slot.Position = position;
-            slot.Instantiate(layer, index);
+            slot.Instantiate(layer, value);
 
             IncrementElementCount(element, layer);
-            this.gameEvents.Publish(new ElementInstantiatedEvent(position, layer, index));
+            this.gameEvents.Publish(new ElementInstantiatedEvent(position, layer, value));
 
             _ = this.uniqueActiveElements.Add(element);
 
@@ -486,7 +486,7 @@ namespace StardustSandbox.Core.WorldSystem.Components
             return true;
         }
 
-        internal bool TryReplace(Point position, Layer layer, ElementIndex newIndex)
+        internal bool TryReplace(Point position, Layer layer, ElementIndex value)
         {
             if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
@@ -496,9 +496,9 @@ namespace StardustSandbox.Core.WorldSystem.Components
             ElementIndex oldIndex = this[position].GetElementIndex(layer);
 
             this[position].Destroy(layer);
-            this[position].Instantiate(layer, newIndex);
+            this[position].Instantiate(layer, value);
 
-            this.gameEvents.Publish(new ElementReplacedEvent(position, layer, oldIndex, newIndex));
+            this.gameEvents.Publish(new ElementReplacedEvent(position, layer, oldIndex, value));
 
             return true;
         }
@@ -585,40 +585,40 @@ namespace StardustSandbox.Core.WorldSystem.Components
             return true;
         }
 
-        internal bool TrySetStoredElementIndex(Point position, Layer layer, ElementIndex index)
+        internal bool TrySetStoredElementIndex(Point position, Layer layer, ElementIndex value)
         {
             if (!IsWithinBounds(position) || !HasElement(position, layer))
             {
                 return false;
             }
 
-            this[position].SetStoredElementIndex(layer, index);
+            this[position].SetStoredElementIndex(layer, value);
             return true;
         }
 
-        internal bool TrySwap(Point element1Position, Point element2Position, Layer layer)
+        internal bool TrySwap(Point position1, Point position2, Layer layer)
         {
-            if (!IsWithinBounds(element1Position) ||
-                !IsWithinBounds(element2Position) ||
-                (!HasElement(element1Position, layer) && !HasElement(element2Position, layer)) ||
-                element1Position == element2Position)
+            if (!IsWithinBounds(position1) ||
+                !IsWithinBounds(position2) ||
+                (!HasElement(position1, layer) && !HasElement(position2, layer)) ||
+                position1 == position2)
             {
                 return false;
             }
 
             Slot tempSlot = this.slotObjectPool.TryDequeue(out IPoolableObject value) ? (Slot)value : new(this.elementDatabase);
 
-            tempSlot.Instantiate(layer, this[element1Position]);
+            tempSlot.Instantiate(layer, this[position1]);
 
-            this[element1Position].Instantiate(layer, this[element2Position]);
-            this[element2Position].Instantiate(layer, tempSlot);
+            this[position1].Instantiate(layer, this[position2]);
+            this[position2].Instantiate(layer, tempSlot);
 
-            this[element1Position].Position = element1Position;
-            this[element2Position].Position = element2Position;
+            this[position1].Position = position1;
+            this[position2].Position = position2;
 
             this.slotObjectPool.Enqueue(tempSlot);
 
-            this.gameEvents.Publish(new ElementSwappedEvent(element1Position, element2Position, layer));
+            this.gameEvents.Publish(new ElementSwappedEvent(position1, position2, layer));
 
             return true;
         }
@@ -672,8 +672,8 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
         internal ElementIndex GetElementIndex(Point position, Layer layer)
         {
-            _ = TryGetElementIndex(position, layer, out ElementIndex index);
-            return index;
+            _ = TryGetElementIndex(position, layer, out ElementIndex value);
+            return value;
         }
 
         internal bool GetFallingState(Point position, Layer layer)
@@ -685,7 +685,6 @@ namespace StardustSandbox.Core.WorldSystem.Components
         internal ElementNeighbors GetNeighboringSlots(Point position)
         {
             this.elementNeighbors.Reset();
-
             int index = 0;
 
             for (int dy = -1; dy <= 1; dy++)
@@ -710,7 +709,6 @@ namespace StardustSandbox.Core.WorldSystem.Components
             }
 
             this.elementNeighbors.SetNeighborCountOccupied(index);
-
             return this.elementNeighbors;
         }
 
@@ -740,8 +738,8 @@ namespace StardustSandbox.Core.WorldSystem.Components
 
         internal ElementIndex GetStoredElementIndex(Point position, Layer layer)
         {
-            _ = TryGetStoredElementIndex(position, layer, out ElementIndex index);
-            return index;
+            _ = TryGetStoredElementIndex(position, layer, out ElementIndex value);
+            return value;
         }
 
         internal float GetTemperature(Point position, Layer layer)
@@ -762,9 +760,9 @@ namespace StardustSandbox.Core.WorldSystem.Components
             return value;
         }
 
-        internal void Instantiate(Point position, Layer layer, ElementIndex index)
+        internal void Instantiate(Point position, Layer layer, ElementIndex value)
         {
-            _ = TryInstantiate(position, layer, index);
+            _ = TryInstantiate(position, layer, value);
         }
 
         internal void Remove(Point position, Layer layer)
@@ -772,9 +770,9 @@ namespace StardustSandbox.Core.WorldSystem.Components
             _ = TryRemove(position, layer);
         }
 
-        internal void Replace(Point position, Layer layer, ElementIndex index)
+        internal void Replace(Point position, Layer layer, ElementIndex value)
         {
-            _ = TryReplace(position, layer, index);
+            _ = TryReplace(position, layer, value);
         }
 
         internal void SetDissipatingState(Point position, Layer layer, bool value)
@@ -812,14 +810,14 @@ namespace StardustSandbox.Core.WorldSystem.Components
             _ = TrySetStepCycleFlag(position, layer, value);
         }
 
-        internal void SetStoredElementIndex(Point position, Layer layer, ElementIndex index)
+        internal void SetStoredElementIndex(Point position, Layer layer, ElementIndex value)
         {
-            _ = TrySetStoredElementIndex(position, layer, index);
+            _ = TrySetStoredElementIndex(position, layer, value);
         }
 
-        internal void Swap(Point element1Position, Point element2Position, Layer layer)
+        internal void Swap(Point position1, Point position2, Layer layer)
         {
-            _ = TrySwap(element1Position, element2Position, layer);
+            _ = TrySwap(position1, position2, layer);
         }
 
         internal void UpdatePosition(Point oldPosition, Point newPosition, Layer layer)
