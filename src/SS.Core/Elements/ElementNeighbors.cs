@@ -98,7 +98,7 @@ namespace StardustSandbox.Core.Elements
 
         internal bool IsNeighborLayerOccupied(int index, Layer layer)
         {
-            return HasNeighbor(index) && !GetSlot(index).HasElement(layer);
+            return HasNeighbor(index) && GetSlot(index).HasElement(layer);
         }
 
         internal bool IsNeighborLayerOccupied(in ElementNeighborDirection direction, Layer layer)
