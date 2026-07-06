@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Elements;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.Events.Elements;
@@ -32,6 +31,7 @@ namespace StardustSandbox.Core.Elements.Liquids
             this.InitialTemperature = 10.0f;
             this.BaseDensity = 1.2f;
             this.BaseExplosionResistance = 0.2f;
+            this.BaseDispersionRate = 1;
 
             this.HasNeighborInteractions = true;
             this.HasTemperature = true;

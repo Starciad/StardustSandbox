@@ -60,7 +60,7 @@ namespace StardustSandbox.Core.Serialization.Common.Progress
 
         private readonly string versioningHeaderFilename = Path.Combine(IO.Directory.Progress, IOConstants.VERSIONING_HEADER_FILE);
         private readonly SchemaSerializer schemaSerializer;
-        
+
         internal ProgressSerializer()
         {
             this.schemaSerializer = new(Deserializer, Serializer);

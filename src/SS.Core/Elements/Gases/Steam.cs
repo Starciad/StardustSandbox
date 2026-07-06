@@ -42,11 +42,10 @@ namespace StardustSandbox.Core.Elements.Gases
             if (Random.Chance(40))
             {
                 context.UpdatePosition(new(context.Slot.Position.X, context.Slot.Position.Y - 1));
+                return;
             }
-            else
-            {
-                base.OnStep(context);
-            }
+
+            base.OnStep(context);
         }
 
         protected override void OnNeighbors(ElementContext context, ElementNeighbors neighbors)

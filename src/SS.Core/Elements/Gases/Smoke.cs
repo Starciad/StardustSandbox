@@ -37,24 +37,18 @@ namespace StardustSandbox.Core.Elements.Gases
 
         protected override void OnStep(ElementContext context)
         {
-            if (Random.Chance(25))
+            if (Random.Chance(25) && context.TrySetPosition(new(context.Slot.Position.X, context.Slot.Position.Y - 1)))
             {
-                Point topPosition = new(context.Slot.Position.X, context.Slot.Position.Y - 1);
-
-                if (!context.HasElement(topPosition))
-                {
-                    context.SetPosition(topPosition);
-                }
-            }
-            else
-            {
-                base.OnStep(context);
+                return;
             }
 
-            if (Random.Chance(2))
+            if (Random.Chance(3))
             {
                 context.Destroy();
+                return;
             }
+
+            base.OnStep(context);
         }
     }
 }

@@ -17,7 +17,6 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Constants;
 using StardustSandbox.Core.Enums.Directions;
 using StardustSandbox.Core.Events.Elements;
 
