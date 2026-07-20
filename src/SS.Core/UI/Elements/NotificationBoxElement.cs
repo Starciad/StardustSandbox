@@ -28,7 +28,7 @@ using System.Collections.Generic;
 
 namespace StardustSandbox.Core.UI.Elements
 {
-    internal sealed class NotificationBox : UIElement
+    internal sealed class NotificationBoxElement : UIElement
     {
         private readonly struct NotificationEntry(TextureIndex iconTextureIndex, Rectangle? iconSourceRectangle, string message)
         {
@@ -49,9 +49,9 @@ namespace StardustSandbox.Core.UI.Elements
         private float stateTimerSeconds;
 
         // UI children
-        private readonly Image background;
-        private readonly Image icon;
-        private readonly Text text;
+        private readonly ImageElement background;
+        private readonly ImageElement icon;
+        private readonly TextElement text;
 
         // Queue
         private readonly Queue<NotificationEntry> notifications = new();
@@ -64,7 +64,7 @@ namespace StardustSandbox.Core.UI.Elements
         private static readonly Vector2 HIDDEN_MARGIN = new(0.0f, 96.0f);
         private static readonly Vector2 VISIBLE_MARGIN = new(0.0f, -48.0f);
 
-        internal NotificationBox(AssetDatabase assetDatabase, GameScreen gameScreen)
+        internal NotificationBoxElement(AssetDatabase assetDatabase, GameScreen gameScreen)
         {
             this.assetDatabase = assetDatabase;
             this.Size = gameScreen.Viewport;
@@ -174,7 +174,7 @@ namespace StardustSandbox.Core.UI.Elements
             // Apply UI values immediately on the game/main thread
             this.icon.Texture = this.assetDatabase.GetTexture(entry.IconTextureIndex);
             this.icon.SourceRectangle = entry.IconSourceRectangle;
-            this.text.TextContent = entry.Message;
+            this.text.SetTextContent(entry.Message);
 
             // Recompute background size based on label/icon sizes.
             this.background.Scale = new(this.text.Size.X + this.icon.Size.X + 48.0f, 88.0f);

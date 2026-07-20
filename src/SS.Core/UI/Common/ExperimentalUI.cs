@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Enums.Directions;
+using StardustSandbox.Core.Colors.Palettes;
 using StardustSandbox.Core.Enums.Indexers;
 using StardustSandbox.Core.UI.Builders;
 using StardustSandbox.Core.UI.Dependencies;
@@ -27,44 +27,32 @@ namespace StardustSandbox.Core.UI.Common
 {
     internal sealed class ExperimentalUI : UIBase<ExperimentalUIDependencies, ExperimentalUIModel>
     {
+        // private const string EXPERIMENTAL_STRING = "<c:emeraldgreen>Dirt</c> is a loose, granular material that piles up naturally under gravity.<br/><b>It can absorb water</b>, slowly turning into <c:brown>mud</c>, <i>and supports plant growth when</i><br/>combined with <c:forestgreen>seeds</c>.";
+        private const string EXPERIMENTAL_STRING = "A";
+
         internal ExperimentalUI(ExperimentalUIDependencies dependencies, GameScreen gameScreen, UIElementHandler elementHandler) : base(dependencies, gameScreen, elementHandler)
         {
 
-        }
-
-        private Container BuildPage1(UIBuildScope scope)
-        {
-            Container container = scope.AddContainer();
-            container.Size = this.GameScreen.Viewport;
-
-            Image panelImage = scope.AddImage();
-            panelImage.Texture = this.Dependencies.AssetDatabase.GetTexture(TextureIndex.UI);
-            panelImage.SourceRectangle = new(1024, 0, 542, 270);
-            panelImage.Scale = new(2.0f);
-            panelImage.Size = new(542.0f, 270.0f);
-            panelImage.Alignment = UIAlignment.Center;
-
-            container.AddChild(panelImage);
-
-            Text panelText = scope.AddText();
-            panelText.SpriteFont = this.Dependencies.AssetDatabase.GetSpriteFont(SpriteFontIndex.Font_01);
-            panelText.Scale = new(0.15f);
-            panelText.LineHeight = 360.0f;
-            panelText.TextContent = "Hello World! [BreakLine] Experimental [SetColor:255,32,96,255] Changes. [ResetColor] [BreakLine] Omg, what's [SetColor:50,80,53,255] this place? [BreakLine] I'm [ResetColor] not...";
-            panelText.Alignment = UIAlignment.Center;
-            panelImage.AddChild(panelText);
-
-            return container;
         }
 
         protected override void OnBuild(UIBuildContext context, ExperimentalUIModel model)
         {
             using UIBuildScope scope = context.BeginLayout();
 
-            Container[] containers =
-            [
-                BuildPage1(scope)
-            ];
+            ImageElement image = scope.AddImage();
+            image.Texture = this.Dependencies.AssetDatabase.GetTexture(TextureIndex.Pixel);
+            image.Color = AAP64ColorPalette.DarkRed;
+
+            TextElement text = scope.AddText();
+            text.SpriteFont = this.Dependencies.AssetDatabase.GetSpriteFont(SpriteFontIndex.Font_01);
+            text.Scale = new(0.08f);
+            text.Color = AAP64ColorPalette.White;
+            text.WrapContent = true;
+            text.AreaSize = new(485.0f, 328.0f);
+            text.SetTextContent(EXPERIMENTAL_STRING);
+
+            image.Position = text.Position;
+            image.Scale = text.Size;
         }
     }
 }

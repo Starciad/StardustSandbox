@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,11 +15,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Enums.UI.Tools
+using Microsoft.Xna.Framework;
+
+namespace StardustSandbox.Core.UI.Text.Processors
 {
-    internal enum ValidationStatus : byte
+    internal struct Glyph
     {
-        Success = 0,
-        Failure = 1,
+        internal char Character { get; set; }
+        internal Vector2 Position { get; set; }
+        internal RenderState RenderState { get; set; }
     }
 }

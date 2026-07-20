@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,17 +15,11 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-
-using StardustSandbox.Core.Enums.UI;
-
-namespace StardustSandbox.Core.UI.Texts
+namespace StardustSandbox.Core.Enums.UI.Messages
 {
-    internal struct TextBorderSettings
+    internal enum ValidationStatus : byte
     {
-        internal TextBorderDirections BorderDirections { get; set; }
-        internal float BorderThickness { get; set; }
-        internal float BorderOffset { get; set; }
-        internal Color BorderColor { get; set; }
+        Success = 0,
+        Failure = 1,
     }
 }

@@ -15,11 +15,20 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.UI.Elements
+namespace StardustSandbox.Core.Constants
 {
-    internal sealed class Container : UIElement
+    internal static class LexerConstants
     {
+        internal const char TAG_START = '<';
+        internal const char TAG_END = '>';
+        internal const char TAG_SLASH = '/';
+        internal const char TAG_PARAMETER_SEPARATOR = ':';
+        internal const char TAG_PARAMETER_VALUE_SEPARATOR = ',';
 
+        internal const string SELF_CLOSING_TAG_END = "/>";
+        internal const string CLOSING_TAG_START = "</";
+
+        internal static readonly char[] TAG_NAME_ENDING_CHARACTERS = [TAG_PARAMETER_SEPARATOR, TAG_END];
+        internal static readonly char[] TAG_PARAMETERS_ENDING_CHARACTERS = [TAG_END];
     }
 }
-

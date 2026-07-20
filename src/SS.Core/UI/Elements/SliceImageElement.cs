@@ -22,7 +22,7 @@ using StardustSandbox.Core.Enums.Directions;
 
 namespace StardustSandbox.Core.UI.Elements
 {
-    internal sealed class SliceImage : UIElement
+    internal sealed class SliceImageElement : UIElement
     {
         private struct SliceInfo()
         {
@@ -56,14 +56,14 @@ namespace StardustSandbox.Core.UI.Elements
 
         private readonly SliceInfo[] slices;
 
-        public SliceImage()
+        public SliceImageElement()
         {
             this.TileSize = new(32);
             this.Color = Color.White;
             this.slices = new SliceInfo[9];
         }
 
-        public SliceImage(Texture2D texture) : this()
+        public SliceImageElement(Texture2D texture) : this()
         {
             this.Texture = texture;
         }

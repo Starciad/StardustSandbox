@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,26 +15,20 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using StardustSandbox.Core.Backgrounds;
-using StardustSandbox.Core.Cameras;
-
-namespace StardustSandbox.Core.Scenario
+namespace StardustSandbox.Core.Enums.UI.Text.LexicalAnalyzer
 {
-    internal sealed class BackgroundHandler
+    internal enum TokenType : byte
     {
-        internal Background Background { get; set; }
+        None,
 
-        internal void Update(GameTime gameTime)
-        {
-            this.Background?.Update(gameTime);
-        }
+        Letters,
+        Digits,
+        Punctuation,
+        Symbol,
+        Whitespace,
 
-        internal void Draw(SpriteBatch spriteBatch, Camera2D camera, GameScreen gameScreen)
-        {
-            this.Background?.Draw(spriteBatch, camera, gameScreen);
-        }
+        OpenTag,
+        CloseTag,
+        SelfClosingTag,
     }
 }

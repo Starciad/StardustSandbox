@@ -29,20 +29,20 @@ using System;
 
 namespace StardustSandbox.Core.UI.Elements
 {
-    internal sealed class TooltipBox : UIElement
+    internal sealed class TooltipBoxElement : UIElement
     {
         internal Vector2 MinimumSize { get; set; }
         internal Vector2 MaximumSize { get; set; }
 
-        private readonly SliceImage background;
-        private readonly Text title;
-        private readonly Text description;
+        private readonly SliceImageElement background;
+        private readonly TextElement title;
+        private readonly TextElement description;
 
         private readonly CursorManager cursorManager;
         private readonly GameScreen gameScreen;
         private readonly InterfaceSettings interfaceSettings;
 
-        internal TooltipBox(AssetDatabase assetDatabase, CursorManager cursorManager, GameScreen gameScreen, InterfaceSettings interfaceSettings)
+        internal TooltipBoxElement(AssetDatabase assetDatabase, CursorManager cursorManager, GameScreen gameScreen, InterfaceSettings interfaceSettings)
         {
             this.cursorManager = cursorManager;
             this.gameScreen = gameScreen;
@@ -73,7 +73,6 @@ namespace StardustSandbox.Core.UI.Elements
                 SpriteFont = assetDatabase.GetSpriteFont(SpriteFontIndex.Font_01),
                 Scale = new(0.078f),
                 Margin = new(0f, 64f),
-                LineHeight = 1.25f,
             };
 
             this.background.AddChild(this.title);
@@ -86,12 +85,12 @@ namespace StardustSandbox.Core.UI.Elements
 
         internal void SetTitle(string value)
         {
-            this.title.TextContent = value;
+            this.title.SetTextContent(value);
         }
 
         internal void SetDescription(string value)
         {
-            this.description.TextContent = value;
+            this.description.SetTextContent(value);
         }
 
         protected override void OnUpdate(GameTime gameTime)
@@ -118,7 +117,7 @@ namespace StardustSandbox.Core.UI.Elements
             );
 
             // Apply text area constraints BEFORE measuring size
-            this.description.TextAreaSize = new(
+            this.description.AreaSize = new(
                 finalWidth,
                 this.MaximumSize.Y
             );

@@ -114,7 +114,10 @@ namespace StardustSandbox.Desktop
                 ConfigureAndExecute(options);
             });
 
-            return rootCommand.Parse(args).Invoke();
+            return rootCommand.Parse(args).Invoke(new()
+            {
+                EnableDefaultExceptionHandler = false,
+            });
         }
     }
 }

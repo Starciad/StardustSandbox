@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using StardustSandbox.Core.Enums.UI.Tools;
+using StardustSandbox.Core.Enums.UI.Messages;
 using StardustSandbox.Core.Interfaces.UI;
 
 using System;

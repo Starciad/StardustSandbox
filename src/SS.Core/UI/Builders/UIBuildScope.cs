@@ -25,7 +25,7 @@ namespace StardustSandbox.Core.UI.Builders
     internal sealed class UIBuildScope : IDisposable
     {
         private readonly UIElementHandler elementHandler;
-        private readonly Container rootContainer;
+        private readonly ContainerElement rootContainer;
 
         internal UIBuildScope(GameScreen gameScreen, UIElementHandler elementHandler)
         {
@@ -34,7 +34,7 @@ namespace StardustSandbox.Core.UI.Builders
             // Create a root container for this scope.
             // All elements created within this scope will be added to this container.
 
-            this.rootContainer = elementHandler.AddElement<Container>();
+            this.rootContainer = elementHandler.AddElement<ContainerElement>();
             this.rootContainer.Size = gameScreen.Viewport;
         }
 
@@ -53,29 +53,29 @@ namespace StardustSandbox.Core.UI.Builders
             return element;
         }
 
-        internal Button AddButton()
+        internal ButtonElement AddButton()
         {
-            return AddElement<Button>();
+            return AddElement<ButtonElement>();
         }
 
-        internal Container AddContainer()
+        internal ContainerElement AddContainer()
         {
-            return AddElement<Container>();
+            return AddElement<ContainerElement>();
         }
 
-        internal Image AddImage()
+        internal ImageElement AddImage()
         {
-            return AddElement<Image>();
+            return AddElement<ImageElement>();
         }
 
-        internal SliceImage AddSliceImage()
+        internal SliceImageElement AddSliceImage()
         {
-            return AddElement<SliceImage>();
+            return AddElement<SliceImageElement>();
         }
 
-        internal Text AddText()
+        internal TextElement AddText()
         {
-            return AddElement<Text>();
+            return AddElement<TextElement>();
         }
 
         // This method is called when the scope is disposed, which typically happens at the end of a using block.

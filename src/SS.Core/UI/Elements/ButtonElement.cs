@@ -22,17 +22,17 @@ using StardustSandbox.Core.Enums.Directions;
 
 namespace StardustSandbox.Core.UI.Elements
 {
-    internal sealed class Button : UIElement
+    internal sealed class ButtonElement : UIElement
     {
         internal bool HasBackground { get; private set; }
         internal bool HasIcon { get; private set; }
         internal bool HasText { get; private set; }
 
-        private readonly Image backgroundImage = new();
-        private readonly Image iconImage = new();
-        private readonly Text nameText = new();
+        private readonly ImageElement backgroundImage = new();
+        private readonly ImageElement iconImage = new();
+        private readonly TextElement nameText = new();
 
-        public Button()
+        public ButtonElement()
         {
             this.backgroundImage.AddChild(this.iconImage);
             this.backgroundImage.AddChild(this.nameText);
@@ -81,7 +81,7 @@ namespace StardustSandbox.Core.UI.Elements
         internal void SetText(string name, SpriteFont spriteFont)
         {
             this.HasText = true;
-            this.nameText.TextContent = name;
+            this.nameText.SetTextContent(name);
             this.nameText.SpriteFont = spriteFont;
         }
     }

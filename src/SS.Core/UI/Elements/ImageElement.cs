@@ -20,7 +20,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace StardustSandbox.Core.UI.Elements
 {
-    internal sealed class Image : UIElement
+    internal sealed class ImageElement : UIElement
     {
         internal bool HasTexture => this.Texture != null;
 
@@ -28,17 +28,17 @@ namespace StardustSandbox.Core.UI.Elements
         internal Rectangle? SourceRectangle { get; set; }
         internal Color Color { get; set; }
 
-        public Image()
+        public ImageElement()
         {
             this.Color = Color.White;
         }
 
-        public Image(Texture2D texture) : this()
+        public ImageElement(Texture2D texture) : this()
         {
             this.Texture = texture;
         }
 
-        public Image(Texture2D texture, Rectangle? sourceRectangle) : this(texture)
+        public ImageElement(Texture2D texture, Rectangle? sourceRectangle) : this(texture)
         {
             this.SourceRectangle = sourceRectangle;
         }

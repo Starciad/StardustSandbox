@@ -28,6 +28,8 @@
 
 using Microsoft.Xna.Framework;
 
+using System;
+
 namespace StardustSandbox.Core.Colors.Palettes
 {
     /// <summary>
@@ -359,18 +361,76 @@ namespace StardustSandbox.Core.Colors.Palettes
 
         #endregion
 
-        #region Utility Colors
-
-        /// <summary>
-        /// Utility color for hover state. Uses <see cref="LimeGreen"/>.
-        /// </summary>
-        internal static Color HoverColor => LimeGreen;
-
-        /// <summary>
-        /// Utility color for selected state. Uses <see cref="Orange"/>.
-        /// </summary>
-        internal static Color SelectedColor => Orange;
-
-        #endregion
+        internal static Color GetColorByName(ReadOnlySpan<char> name)
+        {
+            return name switch
+            {
+                "darkgray" => DarkGray,
+                "charcoal" => Charcoal,
+                "maroon" => Maroon,
+                "darkred" => DarkRed,
+                "crimson" => Crimson,
+                "orangered" => OrangeRed,
+                "orange" => Orange,
+                "amber" => Amber,
+                "gold" => Gold,
+                "lemonyellow" => LemonYellow,
+                "limegreen" => LimeGreen,
+                "grassgreen" => GrassGreen,
+                "forestgreen" => ForestGreen,
+                "emeraldgreen" => EmeraldGreen,
+                "darkgreen" => DarkGreen,
+                "mossgreen" => MossGreen,
+                "darkteal" => DarkTeal,
+                "navyblue" => NavyBlue,
+                "royalblue" => RoyalBlue,
+                "skyblue" => SkyBlue,
+                "cyan" => Cyan,
+                "mint" => Mint,
+                "white" => White,
+                "paleyellow" => PaleYellow,
+                "peach" => Peach,
+                "salmon" => Salmon,
+                "rose" => Rose,
+                "magenta" => Magenta,
+                "violet" => Violet,
+                "purplegray" => PurpleGray,
+                "darkpurple" => DarkPurple,
+                "cocoa" => Cocoa,
+                "umber" => Umber,
+                "brown" => Brown,
+                "rust" => Rust,
+                "sand" => Sand,
+                "tan" => Tan,
+                "lightgrayblue" => LightGrayBlue,
+                "steelblue" => SteelBlue,
+                "slate" => Slate,
+                "graphite" => Graphite,
+                "gunmetal" => Gunmetal,
+                "coal" => Coal,
+                "darkbrown" => DarkBrown,
+                "burgundy" => Burgundy,
+                "clay" => Clay,
+                "terracotta" => Terracotta,
+                "blush" => Blush,
+                "paleblue" => PaleBlue,
+                "lavenderblue" => LavenderBlue,
+                "periwinkle" => Periwinkle,
+                "cerulean" => Cerulean,
+                "tealgray" => TealGray,
+                "huntergreen" => HunterGreen,
+                "pinegreen" => PineGreen,
+                "seafoamgreen" => SeafoamGreen,
+                "mintgreen" => MintGreen,
+                "aquamarine" => Aquamarine,
+                "khaki" => Khaki,
+                "beige" => Beige,
+                "sepia" => Sepia,
+                "coffee" => Coffee,
+                "darkbeige" => DarkBeige,
+                "darktaupe" => DarkTaupe,
+                _ => throw new ArgumentException($"Color '{name}' not found in the AAP-64 color palette.")
+            };
+        }
     }
 }

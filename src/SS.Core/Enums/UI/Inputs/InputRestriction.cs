@@ -15,11 +15,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Enums.UI.Tools
+namespace StardustSandbox.Core.Enums.UI.Inputs
 {
-    internal enum ConfirmStatus : byte
+    internal enum InputRestriction : byte
     {
-        Cancelled = 0,
-        Confirmed = 1
+        None = 0,
+        LettersOnly = 1,
+        NumbersOnly = 2,
+        Alphanumeric = 3,
     }
 }

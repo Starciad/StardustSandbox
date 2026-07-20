@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,26 +15,20 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using StardustSandbox.Core.UI.Text.Processors;
 
-using StardustSandbox.Core.Backgrounds;
-using StardustSandbox.Core.Cameras;
+using System;
 
-namespace StardustSandbox.Core.Scenario
+namespace StardustSandbox.Core.UI.Text.Tags
 {
-    internal sealed class BackgroundHandler
+    internal delegate void TagProcessingAction(ReadOnlySpan<char> parameters, Span<Range> parameterRangers, ProcessingContext context);
+
+    internal sealed class Tag(string name, params string[] aliases)
     {
-        internal Background Background { get; set; }
-
-        internal void Update(GameTime gameTime)
-        {
-            this.Background?.Update(gameTime);
-        }
-
-        internal void Draw(SpriteBatch spriteBatch, Camera2D camera, GameScreen gameScreen)
-        {
-            this.Background?.Draw(spriteBatch, camera, gameScreen);
-        }
+        internal string Name => name;
+        internal string[] Aliases => aliases;
+        internal TagProcessingAction OnOpen { get; init; }
+        internal TagProcessingAction OnClose { get; init; }
+        internal TagProcessingAction OnSelfClosing { get; init; }
     }
 }

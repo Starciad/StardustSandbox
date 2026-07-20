@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,13 +15,15 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Enums.UI.Tools
+using StardustSandbox.Core.Mathematics.Primitives;
+
+using System.Collections.Generic;
+
+namespace StardustSandbox.Core.UI.Text.Processors
 {
-    internal enum InputRestriction : byte
+    internal sealed class GlyphLayout(IEnumerable<Glyph> glyphs, RectangleF bounds)
     {
-        None = 0,
-        LettersOnly = 1,
-        NumbersOnly = 2,
-        Alphanumeric = 3,
+        internal IEnumerable<Glyph> Glyphs => glyphs;
+        internal RectangleF Bounds => bounds;
     }
 }

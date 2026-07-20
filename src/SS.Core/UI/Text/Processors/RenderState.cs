@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -17,14 +17,12 @@
 
 using Microsoft.Xna.Framework;
 
-using StardustSandbox.Core.Enums.UI;
-
-namespace StardustSandbox.Core.UI.Texts
+namespace StardustSandbox.Core.UI.Text.Processors
 {
-    internal readonly struct BorderDirectionOffset(TextBorderDirections direction, Vector2 offset)
+    internal struct RenderState
     {
-        internal readonly TextBorderDirections Direction => direction;
-        internal readonly Vector2 Offset => offset;
+        internal Color Color;
+        internal bool Bold;
+        internal bool Italic;
     }
 }
-

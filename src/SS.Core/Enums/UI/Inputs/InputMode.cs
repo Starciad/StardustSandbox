@@ -15,26 +15,11 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-using StardustSandbox.Core.Backgrounds;
-using StardustSandbox.Core.Cameras;
-
-namespace StardustSandbox.Core.Scenario
+namespace StardustSandbox.Core.Enums.UI.Inputs
 {
-    internal sealed class BackgroundHandler
+    internal enum InputMode : byte
     {
-        internal Background Background { get; set; }
-
-        internal void Update(GameTime gameTime)
-        {
-            this.Background?.Update(gameTime);
-        }
-
-        internal void Draw(SpriteBatch spriteBatch, Camera2D camera, GameScreen gameScreen)
-        {
-            this.Background?.Draw(spriteBatch, camera, gameScreen);
-        }
+        Normal = 0,
+        Password = 1,
     }
 }

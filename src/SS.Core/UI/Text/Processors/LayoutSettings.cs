@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2023  Davi "Starciad" Fernandes <davilsfernandes.starciad.comu@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,11 +15,16 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-namespace StardustSandbox.Core.Enums.UI.Tools
+using Microsoft.Xna.Framework;
+
+namespace StardustSandbox.Core.UI.Text.Processors
 {
-    internal enum InputMode : byte
+    internal readonly struct LayoutSettings
     {
-        Normal = 0,
-        Password = 1,
+        internal Vector2 AreaSize { get; init; }
+        internal Color Color { get; init; }
+        internal Vector2 Origin { get; init; }
+        internal Vector2 Scale { get; init; }
+        internal bool WrapContent { get; init; }
     }
 }
